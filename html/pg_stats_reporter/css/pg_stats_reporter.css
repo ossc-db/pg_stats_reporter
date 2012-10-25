@@ -1,0 +1,154 @@
+/*
+ * pg_stats_reporter: Cascading Style Sheets
+ *
+ * Copyright (c) 2012, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
+ */
+body {
+  font-size: 70%;
+}
+
+h1 {
+  border: solid #4297d7;
+  padding-left: 0.2em;
+}
+
+h2 {
+  border-top: solid #4297d7;
+  border-left: solid #4297d7;
+  padding-top: 0.2em;
+  padding-left: 0.2em;
+}
+
+h3 {
+  border-bottom: solid #4297d7;
+  font-size: medium;
+}
+
+#header_menu {
+  position: fixed;
+  background-color: #BDD2FF;
+  left: 15%;
+  top: 0;
+  width: 85%;
+  height: 35px;
+  z-index: 3;
+  font-size: 115%
+}
+
+#left_menu {
+  position: fixed;
+  background-color: #4297d7;
+  left: 0;
+  top: 0;
+  width: 15%;
+  height: 100%;
+  padding-top: 0px;
+  z-index: 2;
+}
+
+#contents {
+  position: relative;
+  left: 15%;
+  width: 85%;
+  z-index: 1;
+}
+
+.menu a:visited {
+  color: #222222;
+}
+
+
+/* for tagjump */
+div.jump_margin {
+  height: 30px;
+  visibility: hidden;
+  margin-top: -35px;
+}
+
+/* only for most top tagjump */
+div.top_jump_margin {
+  height: 30px;
+  visibility: hidden;
+}
+
+/* dygraph labels */
+div.labels {
+  border-color:#000000;
+  border-width:1px;
+  border-style:solid;
+  margin-left: 20px;
+  padding: 10px;
+  font-size: 14px;
+}
+
+/* dygraph class */
+div.linegraph {
+  border: 1px solid #4297d7;
+}
+
+/* initial report page */
+p.initial_page {
+  font-size: x-large;
+}
+
+/* report page data */
+p.report_data {
+	margin-left: 5px;
+	color: #ffffff;
+}
+
+/* error messages */
+p.error {
+  font-weight: bold;
+  font-style: italic;
+  font-size: small;
+}
+
+/* jQuery UI button  */
+div.jquery_ui_button_max {
+  font-size: 18px;
+  margin-top: 5px;
+  margin-right: 8px;
+  float: right;
+}
+
+div.jquery_ui_button_info_h1 {
+  font-size: 18px;
+  margin-top: -38px;
+  float: right;
+}
+
+div.jquery_ui_button_info_h2 {
+  font-size: 18px;
+  margin-top: -36px;
+  float: right;
+}
+
+div.jquery_ui_button_info_h3 {
+  font-size: 18px;
+  margin-top: -38px;
+  float: right;
+}
+
+div.graph_button {
+  font-size: 10px;
+  margin-left: 10px;
+}
+
+/* tablesorter */
+.tablesorter tbody td.num {
+  text-align: right;
+  white-space: nowrap;
+}
+.tablesorter tbody td.str {
+  text-align: left;
+  white-space: normal;
+  max-width: 50%;
+}
+.tablesorter caption { text-align:left; }
+.tablesorter tbody th { text-align:left;  background-color: #e6eeee;}
+
+
+/* tablesorter pager */
+#pager_database { margin:20px 0; }
+#pager_table_access { margin:20px 0; }

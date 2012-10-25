@@ -1,0 +1,492 @@
+<document>
+<!-- Copyright (c) 2012, NIPPON TELEGRAPH AND TELEPHONE CORPORATION -->
+
+<help>
+<div id="summary_dialog"
+  title="How to see a Summary table">
+<h4>Summary の見方</h4>
+<ul>
+<li>instname : データベースクラスタ固有ID</li>
+<li>hostname : ホスト名</li>
+<li>port : PostgreSQLの稼動ポート番号</li>
+<li>pg_version : PostgreSQLのバージョン</li>
+<li>snap_begin : レポート期間の始点日時</li>
+<li>snap_end : レポート期間の終点日時</li>
+<li>duration : レポート期間の間隔</li>
+<li>total_dbsize : データベース全体のサイズ</li>
+<li>total_commits : データベース全体のコミットされたトランザクション数</li>
+<li>total_rollbacks : データベース全体のロールバックされたトランザクション数</li>
+</ul>
+</div>
+
+<div id="database_statistics_dialog"
+  title="How to see a Database Statistics table">
+<h4>Database Statistics の見方</h4>
+<ul>
+<li>database : データベース名 </li>
+<li>MiB : データベースサイズ (MiB)</li>
+<li>+MiB : データベースサイズの増分量 (MiB)</li>
+<li>commit/s : 1秒あたりにコミットされたトランザクション数</li>
+<li>rollback/s : 1秒あたりにロールバックされたトランザクション数</li>
+<li>hit% : キャッシュのヒット率</li>
+<li>gets/s : 1秒あたりにディスクとキャッシュから読み込んだブロック数</li>
+<li>reads/s : 1秒あたりにディスクから読み込んだブロック数</li>
+<li>rows/s : 1秒あたりにテーブル＋インデックスから読み込んだ行数</li>
+</ul>
+</div>
+
+<div id="transaction_statistics_dialog"
+  title="How to see a Transaction Statistics graph">
+<h4>Transaction Statistics の見方</h4>
+<ul>
+<li>横軸 : 時刻</li>
+<li>縦軸 : 1秒あたりのトランザクション数</li>
+<li>[DB名] commit_tps : [DB名]の1秒あたりにコミットされたトランザクション数</li>
+<li>[DB名] rollback_tps : [DB名]の1秒あたりにロールバックされたトランザクション数</li>
+</ul>
+</div>
+
+<div id="database_size_dialog"
+  title="How to see a Database Size">
+<h4>Database Size の見方</h4>
+<ul>
+<li>横軸 : 時刻</li>
+<li>縦軸 : データベースサイズ(MiB)</li>
+<li>[DB名] size : [DB]のデータベースサイズ</li>
+</ul>
+</div>
+
+<div id="recovery_conflicts_dialog"
+  title="How to see a Recovery Conflicts table">
+<h4>Recovery Conflicts の見方</h4>
+<ul>
+<li>database : データベース名</li>
+<li>conflict tblspc : テーブルスペース削除との競合によるクエリのキャンセル数</li>
+<li>conflict lock : ロック競合によるクエリのキャンセル数</li>
+<li>conflict snapshot : VACUUMとの競合によるクエリのキャンセル数(クエリが参照中の行をVACUUMが除去したケース)</li>
+<li>conflict bufferpin : VACUUMとの競合によるクエリのキャンセル数(クエリがアクセス中のページをVACUUMが除去したケース)</li>
+<li>conflict deadlock : デッドロックとの競合によるクエリのキャンセル数 </li>
+</ul>
+</div>
+
+<div id="wal_statistics_dialog"
+  title="How to see a WAL Statistics graph">
+<h4>WAL Statistics(トータル) の見方</h4>
+<ul>
+<li>write_total : WALの出力量のレポート期間内合計 (MiB)</li>
+<li>write_speed : WALの出力量のレポート期間内平均 (MiB/秒)</li>
+</ul>
+<h4>WAL Statistics の見方</h4>
+<ul>
+<li>横軸 : スナップショット取得日時</li>
+<li>縦軸 : スナップショット間でのWALの出力量 (MiB)</li>
+<li>縦軸 : スナップショット間での秒間のWALの出力量 (MiB/秒)</li>
+<li>write_size : スナップショット間でのWALの出力量 (MiB)</li>
+<li>write_size_per_sec : スナップショット間での1秒あたりのWALの出力量 (MiB/秒)</li>
+</ul>
+</div>
+
+<div id="instance_processes_ratio_dialog"
+  title="How to see a Instance Processes Ratio table">
+<h4>Instance Processes Ratio の見方</h4>
+<ul>
+<li>idle (%) : 待機中(コマンド待ち状態)のバックエンドプロセス数の比率</li>
+<li>idle in xact (%) : トランザクション内で待機中(コマンド待ち状態)のバックエンドプロセス数の比率</li>
+<li>waiting (%) : ロック待ち状態のバックエンドプロセス数の比率</li>
+<li>running (%) : トランザクション実行中のバックエンドプロセス数の比率</li>
+</ul>
+</div>
+
+<div id="instance_processes_dialog"
+  title="How to see a Instance Processes graph">
+<h4>Instance Processes の見方</h4>
+<ul>
+<li>横軸 : 時刻</li>
+<li>縦軸 : パーセント(%)</li>
+<li>idle (%) : 待機中(コマンド待ち状態)のバックエンドプロセス数の比率</li>
+<li>idle in xact (%) : トランザクション内で待機中(コマンド待ち状態)のバックエンドプロセス数の比率</li>
+<li>waiting (%) : ロック待ち状態のバックエンドプロセス数の比率</li>
+<li>running (%) : トランザクション実行中のバックエンドプロセス数の比率</li>
+</ul>
+</div>
+
+<div id="cpu_usage_dialog"
+  title="How to see a CPU Usage graph">
+<h4>CPU Usage の見方</h4>
+<ul>
+<li>横軸 : 時刻</li>
+<li>縦軸 : パーセント(%)</li>
+<li>user (%) : ユーザモードで CPU を消費した時間の比率</li>
+<li>system (%) : システムモードで CPU を消費した時間の比率</li>
+<li>iowait (%) : 入出力の完了待ちで CPU を消費した時間の比率</li>
+<li>idle (%) : タスク待ちで CPU を消費した時間の比率</li>
+</ul>
+</div>
+
+<div id="load_average_dialog"
+  title="How to see a Load Average graph">
+<h4>Load Average の見方</h4>
+<ul>
+<li>横軸 : スナップショット取得日時</li>
+<li>縦軸 :ロードアベレージ</li>
+<li>1min : 過去1分間のロードアベレージ</li>
+<li>5min : 過去5分間のロードアベレージ</li>
+<li>15min : 過去15分間のロードアベレージ</li>
+</ul>
+</div>
+
+<div id="io_usage_dialog"
+  title="How to see a IO Usage table/graph">
+<h4>IO Usage の見方</h4>
+<ul>
+<li>device_name : デバイス名</li>
+<li>Including TableSpaces : デバイスに含まれるテーブルスペース</li>
+<li>total read (MiB) : 読み込んだ合計サイズ (MiB)</li>
+<li>total write (MiB) : 書き込んだ合計サイズ (MiB)</li>
+<li>total read time (ms) : 読み込みにかかった合計時間 (ミリ秒)</li>
+<li>total write time (ms) : 書き込みにかかった合計時間 (ミリ秒)</li>
+<li>current I/O queue : 現在実施中のI/O(キューイングされた)数</li>
+<li>total I/O time (ms) : 入出力にかかった合計時間 (ミリ秒)</li>
+</ul>
+<h4>IO Size の見方</h4>
+<ul>
+<li>横軸 : 時刻</li>
+<li>縦軸 : データサイズ(KiB)</li>
+<li>[デバイス名] read(KiB)/s : 秒単位あたりに読み込んだサイズ (KiB)</li>
+<li>[デバイス名] write(KiB)/s : 秒単位あたりに書き込んだサイズ (KiB)</li>
+</ul>
+<h4>IO Time の見方</h4>
+<ul>
+<li>横軸 : 時刻</li>
+<li>縦軸 : 平均時間(ms)</li>
+<li>[デバイス名] avg read time (ms)/s : [デバイス名]の秒単位あたりに読み込みにかかった時間 (ミリ秒)</li>
+<li>[デバイス名] avg write time (ms)/s : [デバイス名]の秒単位あたりに書き込みにかかった時間 (ミリ秒)</li>
+</ul>
+</div>
+
+<div id="memory_usage_dialog"
+  title="How to see a Memory Usage graph">
+<h4>Memory Usage の見方</h4>
+<ul>
+<li>横軸 : スナップショット取得日時</li>
+<li>縦軸 :サイズ (MiB)</li>
+<li>memfree : 空きメモリサイズ (MiB)</li>
+<li>buffers : バッファキャッシュサイズ (MiB)</li>
+<li>cached : ページキャッシュからバッファキャッシュを除いたサイズ (MiB)</li>
+<li>swap : スワップ使用量 (MiB)</li>
+<li>dirty : ダーティページサイズ (MiB)</li>
+</ul>
+</div>
+
+<div id="disk_usage_per_tablespace_dialog"
+  title="How to see a Disk Usage per Tablespace table">
+<h4>Disk Usage per Tablespace の見方</h4>
+<ul>
+<li>tablespace : テーブルスペース名</li>
+<li>location : テーブルスペース格納ディレクトリ名</li>
+<li>device : テーブルスペース格納ディレクトリのデバイス(ディスク)のデバイス番号</li>
+<li>used (MiB) : テーブルスペース格納ディレクトリのデバイスの使用済みサイズ (MiB)</li>
+<li>avail (MiB) : テーブルスペース格納ディレクトリのデバイスの利用可能サイズ (MiB)</li>
+<li>remain (%) : テーブルスペース格納ディレクトリのデバイスで利用可能な領域の割合</li>
+</ul>
+</div>
+
+<div id="disk_usage_per_table_dialog"
+  title="How to see a Disk Usage per Table table/graph">
+<h4>Disk Usage per Table の見方</h4>
+<ul>
+<li>database : データベース名</li>
+<li>schema : スキーマ名</li>
+<li>table : テーブル名</li>
+<li>size (MiB) : テーブルサイズ (MiB)</li>
+<li>table reads : テーブルブロック抽出要求でディスクから読み込んだブロック数</li>
+<li>index reads : インデックスブロック抽出要求でディスクから読み込んだブロック数</li>
+<li>toast reads : TOASTテーブルのブロック抽出要求でディスクから読み込んだブロック数</li>
+</ul>
+<h4>Table Size の見方</h4>
+<ul>
+<li>エントリー : テーブル名([データベース名].[スキーマ名].[テーブル名])</li>
+<li>値 : テーブルサイズの比率</li>
+</ul>
+<h4>Disk Read の見方</h4>
+<ul>
+<li>エントリー : テーブル名([データベース名].[スキーマ名].[テーブル名])</li>
+<li>値 : 全てのブロック抽出要求(テーブル、インデックス、TOASTテーブル、TOASTインデックス)でディスクから読み込んだブロック数の合計の比率</li>
+</ul>
+</div>
+
+<div id="heavily_updated_tables_dialog"
+  title="How to see a Heavily Updated Tables table">
+<h4>Heavily Updated Tables の見方</h4>
+<ul>
+<li>database : データベース名</li>
+<li>schema : スキーマ名</li>
+<li>table : テーブル名</li>
+<li>INSERT : テーブルに挿入された行数</li>
+<li>UPDATE : テーブルで更新された行数 (HOT更新を含む)</li>
+<li>DELETE : テーブルで削除された行数</li>
+<li>total : テーブルで挿入／更新／削除された行数の合計</li>
+<li>HOT (%) : テーブルで更新された行の内、HOT更新された行の割合</li>
+</ul>
+</div>
+
+<div id="heavily_accessed_tables_dialog"
+  title="How to see a Heavily Accessed Tables table">
+<h4>Heavily Accessed Tables の見方</h4>
+<ul>
+<li>database : データベース名</li>
+<li>schema : スキーマ名</li>
+<li>table : テーブル名</li>
+<li>seq_scan : シーケンシャルスキャンの実行回数</li>
+<li>seq_tup_read : シーケンシャルスキャンによって読みとられた行数</li>
+<li>tup_per_seq : シーケンシャルスキャン1回当たりに読みとられた行数</li>
+<li>hit (%) : キャッシュヒット率</li>
+</ul>
+</div>
+
+<div id="low_density_tables_dialog"
+  title="How to see a Low Density Tables table">
+<h4>Low Density Tables の見方</h4>
+<ul>
+<li>database : データベース名</li>
+<li>schema : スキーマ名</li>
+<li>table : テーブル名</li>
+<li>tuples : テーブル内の有効行数</li>
+<li>logical_pages : レコード数が論理的に占めるページ数</li>
+<li>physical_pages : レコード数が実際に占めているページ数</li>
+<li>tratio : 論理的に占めるページ数の割合</li>
+</ul>
+</div>
+
+<div id="fragmented_tables_dialog"
+  title="How to see a Fragmented Tables table">
+<h4>Fragmented Tables の見方</h4>
+<ul>
+<li>database : データベース名</li>
+<li>schema : スキーマ名</li>
+<li>table : テーブル名</li>
+<li>column : カラム名</li>
+<li>correlation : 物理的な並び順と論理的な並び順の相関</li>
+</ul>
+</div>
+
+<div id="functions_dialog"
+  title="How to see a Functions table">
+<h4>Functions の見方</h4>
+<ul>
+<li>database : データベース名</li>
+<li>schema : スキーマ名</li>
+<li>function : 関数名</li>
+<li>calls : 関数が呼ばれた回数</li>
+<li>total time (ms) : 関数全体(関数内で呼ばれた別の関数を含む)の累積消費時間 (ミリ秒)</li>
+<li>self time (ms) : 関数単位の累積消費時間 (ミリ秒)</li>
+<li>time/call (ms) : 1回の関数実行当たりの消費時間 (ミリ秒)</li>
+</ul>
+</div>
+
+<div id="statements_dialog"
+  title="How to see a Statements table">
+<h4>Statements の見方</h4>
+<ul>
+<li>user : 問い合わせ文を実行したユーザ名</li>
+<li>database : 問い合わせ文が実行されたデータベース名</li>
+<li>query : 問い合わせ文</li>
+<li>calls : 問い合わせ文が実行された回数</li>
+<li>total time (sec) : 問い合わせ文の累積消費時間 (秒)</li>
+<li>time/call (sec) : 1回の問い合わせ文実行当たりの消費時間 (ミリ秒)</li>
+</ul>
+</div>
+
+<div id="long_transactions_dialog"
+  title="How to see a Long Transactions table">
+<h4>Long Transactions の見方</h4>
+<ul>
+<li>pid : ロングトランザクションのバックエンドプロセスのPID</li>
+<li>client address : ロングトランザクションのバックエンドプロセスの接続元(クライアント)のアドレス</li>
+<li>when to start : ロングトランザクションの開始日時</li>
+<li>duration (sec) : ロングトランザクションの存続期間 (秒)</li>
+<li>query : ロングトランザクションの問い合わせ文</li>
+</ul>
+</div>
+
+<div id="lock_activity_dialog"
+  title="How to see a Lock Activity table">
+<h4>Lock Activity の見方</h4>
+<ul>
+<li>database : ロック待ちが発生しているオブジェクトが所属するデータベース名</li>
+<li>schema : ロック待ちが発生しているオブジェクトが所属するスキーマ名</li>
+<li>relation : ロック待ちが発生しているオブジェクト名</li>
+<li>duration : ロック待ちが発生してからの経過時間</li>
+<li>blockee pid : ロック待ちのバックエンドのPID</li>
+<li>blocker pid : ロック元のバックエンドのPID</li>
+<li>blocker gid : ロック元のバックエンドのGID</li>
+<li>blockee query : ロック待ちのトランザクションで実行中のクエリ</li>
+<li>blocker query : ロック元のトランザクションで実行したクエリ一覧</li>
+</ul>
+</div>
+
+<div id="checkpoint_activity_dialog"
+  title="How to see a Checkpoint Activity table">
+<h4>Checkpoint Activity の見方</h4>
+<ul>
+<li>total checkpoints : チェックポイントが実行された回数</li>
+<li>checkpoints by time : checkpoint_timeout契機で実行されたチェックポイントの回数</li>
+<li>checkpoints by xlog : checkpoint_segments契機で実行されたチェックポイントの回数</li>
+<li>avg written buffers : 書き出したバッファのサイズの平均値</li>
+<li>max written buffers : 書き出したバッファのサイズの最大値</li>
+<li>avg duration (sec) : 処理時間の平均値 (秒)</li>
+<li>max duration (sec) : 処理時間の最大値 (秒)</li>
+</ul>
+</div>
+
+<div id="basic_statistics_dialog"
+  title="How to see a Basic Statistics (Average) table">
+<h4>Basic Statistics (Average) の見方</h4>
+<ul>
+<li>database : データベース名</li>
+<li>schema : スキーマ名</li>
+<li>table : テーブル名</li>
+<li>count : autovacuumが実行された回数</li>
+<li>avg index scans : インデックススキャンの実施回数</li>
+<li>avg removed rows : 削除されたタプル数の平均値</li>
+<li>avg remain rows : 残存するタプル数の平均値</li>
+<li>avg duration (sec) : 処理時間の平均値 (秒)</li>
+<li>max duration (sec) : 処理時間の最大値 (秒)</li>
+</ul>
+</div>
+
+<div id="io_statistics_dialog"
+  title="How to see a I/O Statistics (Average) table">
+<h4>I/O Statistics (Average ) の見方</h4>
+<ul>
+<li>database : データベース名</li>
+<li>schema : スキーマ名</li>
+<li>table : テーブル名</li>
+<li>avg page hit : page hit の平均値</li>
+<li>avg page miss : page miss の平均値</li>
+<li>avg page dirty : page dirty の平均値</li>
+<li>avg read rate : read rate の平均値</li>
+<li>avg write rate : write rate の平均値</li>
+</ul>
+</div>
+
+<div id="replication_activity_dialog"
+  title="How to see a Replication Activity table">
+<h4>Replication Activity の見方</h4>
+<ul>
+<li>user : ユーザ名</li>
+<li>appname : アプリケーション名</li>
+<li>client addr : スタンバイのIPアドレス</li>
+<li>client_host : スタンバイのホスト名</li>
+<li>client_port : 現在接続しているポート番号</li>
+<li>backend start : walsenderの開始時刻</li>
+<li>state : walsenderの状態</li>
+<li>current location : WALの現在の書き込み位置</li>
+<li>sent location : WALの送信完了位置</li>
+<li>write location : スタンバイでのWALの書き込み完了位置 (LSNおよびWALファイル名)</li>
+<li>flush location : スタンバイでのWALのフラッシュ完了位置 (LSNおよびWALファイル名)</li>
+<li>replay location : スタンバイでのWALのREDO完了位置 (LSNおよびWALファイル名)</li>
+<li>sync priority : 同期レプリケーションの優先度</li>
+<li>sync state : レプリケーションの同期モード</li>
+</ul>
+</div>
+
+<div id="database_dialog"
+  title="How to see a Database table">
+<h4>Database の見方</h4>
+情報をスナップショットで取得していないため表示はありません。
+</div>
+
+<div id="schema_dialog"
+  title="How to see a Schema table">
+<h4>Schema の見方</h4>
+情報をスナップショットで取得していないため表示はありません。
+</div>
+
+<div id="table_dialog"
+  title="How to see a Table table">
+<h4>Table の見方</h4>
+<ul>
+<li>database : データベース名</li>
+<li>schema : スキーマ名</li>
+<li>table : テーブル名</li>
+<li>columns : カラム数</li>
+<li>row width : 非NULL項目の平均保存幅 (バイト)</li>
+<li>MiB : テーブルサイズ (MiB)</li>
+<li>+MiB : テーブルサイズの増分量 (MiB)</li>
+<li>table scans : シーケンシャルスキャンが実行された回数</li>
+<li>index scans : インデックススキャンが実行された回数</li>
+</ul>
+</div>
+
+<div id="index_dialog"
+  title="How to see a Index table">
+<h4>Index の見方</h4>
+<ul>
+<li>database : データベース名</li>
+<li>schema : スキーマ名</li>
+<li>index : インデックス名</li>
+<li>table : インデックスが参照するテーブル名</li>
+<li>MiB : インデックスサイズ (MiB)</li>
+<li>+MiB : インデックスサイズの増分量 (MiB)</li>
+<li>scans : インデックススキャンの実行回数</li>
+<li>rows/scan : 1回のインデックススキャン当たりで返却された行数</li>
+<li>reads : ディスクから読み込んだブロック数</li>
+<li>hits : キャッシュから読み込んだブロック数</li>
+<li>keys : インデックスのキー値 (カラム名または括弧に囲まれた式)</li>
+</ul>
+</div>
+
+<div id="view_dialog"
+  title="How to see a View table">
+<h4>View の見方</h4>
+情報をスナップショットで取得していないため表示はありません。
+</div>
+
+<div id="sequence_dialog"
+  title="How to see a Sequence table">
+<h4>Sequence の見方</h4>
+情報をスナップショットで取得していないため表示はありません。
+</div>
+
+<div id="trigger_dialog"
+  title="How to see a Trigger table">
+<h4>Trigger の見方</h4>
+情報をスナップショットで取得していないため表示はありません。
+</div>
+
+<div id="role_dialog"
+  title="How to see a Role table">
+<h4>Role の見方</h4>
+情報をスナップショットで取得していないため表示はありません。
+</div>
+
+<div id="parameter_dialog"
+  title="How to see a Parameter table">
+<h4>Parameter の見方</h4>
+<ul>
+<li>name : パラメータ名</li>
+<li>setting : パラメータ値</li>
+<li>source : 現在のパラメータ値のソース(変更方法)</li>
+</ul>
+</div>
+
+<div id="profiles_dialog"
+  title="How to see a Profiles table">
+<h4>Profiles の見方</h4>
+<ul>
+<li>processing : 処理名</li>
+<li>executes : 処理を実行した回数の平均値</li>
+</ul>
+</div>
+</help>
+
+<error>
+<p id="query_error">SQL の実行に失敗しました。</p>
+<p id="no_result">表示するデータがありません。</p>
+<p id="st_version">pg_statsinfo のバージョンが異なるため表示できません。</p>
+<p id="pg_version">PostgreSQL のバージョンが異なるため表示できません。</p>
+<p id="no_info">情報をスナップショットで取得していません。</p>
+</error>
+
+</document>
