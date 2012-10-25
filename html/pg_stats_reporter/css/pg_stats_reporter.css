@@ -25,13 +25,15 @@ h3 {
 }
 
 #header_menu {
-  position: fixed;
+  position: absolute;
   background-color: #BDD2FF;
-  left: 15%;
+  left: 140px;
   top: 0;
-  width: 85%;
+  width: 100%;
+  max-width: 864px;
+  min-width: 790px;
   height: 35px;
-  z-index: 3;
+  z-index: 2;
   font-size: 115%
 }
 
@@ -40,16 +42,18 @@ h3 {
   background-color: #4297d7;
   left: 0;
   top: 0;
-  width: 15%;
+  width: 140px;;
   height: 100%;
   padding-top: 0px;
-  z-index: 2;
+  z-index: 3;
 }
 
 #contents {
-  position: relative;
-  left: 15%;
-  width: 85%;
+  position: absolute;
+  left: 150px;
+  width: 100%;
+  max-width: 854px;
+  min-width: 780;
   z-index: 1;
 }
 
@@ -57,6 +61,9 @@ h3 {
   color: #222222;
 }
 
+.table {
+  max-width: 512px;
+}
 
 /* for tagjump */
 div.jump_margin {
@@ -146,7 +153,11 @@ div.graph_button {
   max-width: 50%;
 }
 .tablesorter caption { text-align:left; }
-.tablesorter tbody th { text-align:left;  background-color: #e6eeee;}
+.tablesorter tbody th {
+  text-align:left;
+  background-color: #e6eeee;
+  width: 30%;
+}
 
 
 /* tablesorter pager */

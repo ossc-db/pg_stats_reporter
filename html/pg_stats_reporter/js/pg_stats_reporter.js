@@ -205,10 +205,10 @@ function div_flip() {
   vflg = document.getElementById(divname).style.visibility;
   if (vflg == 'hidden'){
     document.getElementById(divname).style.visibility = 'visible';
-    document.getElementById(main).style.left = '15%';
-    document.getElementById(main).style.width = '85%';
-    document.getElementById(header).style.left = '15%';
-    document.getElementById(header).style.width = '85%';
+    document.getElementById(main).style.left = '150px';
+    document.getElementById(main).style.width = '100%';
+    document.getElementById(header).style.left = '140px';
+    document.getElementById(header).style.width = '100%';
   }else{
     document.getElementById(divname).style.visibility = 'hidden';
     document.getElementById(main).style.left = '0%';
