@@ -34,7 +34,7 @@ h3 {
   min-width: 790px;
   height: 35px;
   z-index: 2;
-  font-size: 115%
+  font-size: 115%;
 }
 
 #left_menu {
@@ -42,7 +42,7 @@ h3 {
   background-color: #4297d7;
   left: 0;
   top: 0;
-  width: 140px;;
+  width: 140px;
   height: 100%;
   padding-top: 0px;
   z-index: 3;
@@ -53,8 +53,12 @@ h3 {
   left: 150px;
   width: 100%;
   max-width: 854px;
-  min-width: 780;
+  min-width: 780px;
   z-index: 1;
+}
+
+.menu a {
+  color: #222222;
 }
 
 .menu a:visited {
