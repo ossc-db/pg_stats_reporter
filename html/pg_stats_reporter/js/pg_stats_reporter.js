@@ -132,7 +132,7 @@ $(function() {
 	  document.location = "pg_stats_reporter.php?reload=1";
     } );
 
-  $('ul.sf_menu').supersubs( {
+  $('ul.sf-menu').supersubs( {
     minWidth: 12,
     maxWidth: 20,
     extraWidth: 1
@@ -140,7 +140,7 @@ $(function() {
     delay: 200,
     speed: 'fast'
   } );
-  $('ul.sf_menu').addClass('ui-widget-content ui-corner-all');
+  $('ul.sf-menu').addClass('ui-widget-content ui-corner-all');
 
 
 // get right string
