@@ -95,6 +95,7 @@ div.labels {
 /* dygraph class */
 div.linegraph {
   border: 1px solid #4297d7;
+  min-width: 600px;
 }
 
 /* jqplot class */

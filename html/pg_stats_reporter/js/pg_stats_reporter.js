@@ -211,7 +211,7 @@ function div_flip() {
     document.getElementById(header).style.width = '100%';
   }else{
     document.getElementById(divname).style.visibility = 'hidden';
-    document.getElementById(main).style.left = '0%';
+    document.getElementById(main).style.left = '10px';
     document.getElementById(main).style.width = '100%';
     document.getElementById(header).style.left = '0%';
     document.getElementById(header).style.width = '100%';
