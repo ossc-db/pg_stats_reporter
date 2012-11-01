@@ -82,16 +82,10 @@ replication_activity = true
 ;### Information ###
 
 ;## Schema Information ##
-database = false
-schema = false
 table = true
 index = true
-view = false
-sequence = false
-trigger = false
 
 ;## Setting Parameters ##
-role = false
 parameter = true
 
 ;## Profiles ##
