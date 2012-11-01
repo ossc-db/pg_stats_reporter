@@ -25,7 +25,7 @@ h3 {
 }
 
 #header_menu {
-  position: absolute;
+  position: fixed;
   background-color: #BDD2FF;
   left: 140px;
   top: 0;
@@ -127,26 +127,32 @@ p.error {
 /* jQuery UI button  */
 div.jquery_ui_button_max {
   font-size: 18px;
-  margin-top: 5px;
+  margin-top: 9px;
   margin-right: 8px;
   float: right;
 }
 
 div.jquery_ui_button_info_h1 {
   font-size: 18px;
-  margin-top: -38px;
+  margin-top: -41px;
+  position: relative;
+  left: -8px;
   float: right;
 }
 
 div.jquery_ui_button_info_h2 {
   font-size: 18px;
-  margin-top: -36px;
+  margin-top: -32px;
+  position: relative;
+  left: -8px;
   float: right;
 }
 
 div.jquery_ui_button_info_h3 {
   font-size: 18px;
-  margin-top: -38px;
+  margin-top: -41px;
+  position: relative;
+  left: -8px;
   float: right;
 }
 
