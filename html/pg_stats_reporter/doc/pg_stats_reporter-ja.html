@@ -9,7 +9,6 @@
 
 <body>
 <h1 id="pg_stats_reporter">pg_stats_reporter 1.0.0</h1>
-<font color="red">pg_reporterのマニュアルと比較するときに間違えそうなので、Hタグの色を変更しています</font>
 <div class="navigation">
   <a href="http://pgstatsinfo.projects.postgresql.org/index_ja.html">Top</a> &gt;
   <a href="http://pgstatsinfo.projects.postgresql.org/pg_stats_reporter-ja.html">pg_stats_reporter</a>
@@ -29,7 +28,6 @@
   </ol>
   <li><a href="#execute">操作方法</a></li>
   <li><a href="#uninstall">アンインストール</a></li>
-  <li><a href="#directory">ディレクトリ構成</a></li>
   <li><a href="#configuration">設定ファイル</a></li>
   <li><a href="#restrictions">使用上の注意と制約</a></li>
   <li><a href="#faq">よくあるQ&amp;A</a></li>
@@ -38,81 +36,64 @@
 </div>
 
 <h2 id="name">pg_stats_reporter とは?</h2>
-<p><a href="http://pgstatsinfo.projects.postgresql.org/pg_statsinfo-ja.html">pg_statsinfo-2.4</a>で収集した統計情報(以降、スナップショットと呼びます)を使って、グラフィカルな出力が可能になります。<br>
-レポート例は<a href="files/">こちら</a>をご覧ください。</p>
-<font color="red">外部リンクについては、修正を行っていません</font>
+<p><a href="http://pgstatsinfo.projects.postgresql.org/pg_statsinfo-ja.html">pg_statsinfo-2.4</a>で収集した統計情報(以降、スナップショットと呼びます)を使って、グラフィカルな出力が可能になります。<br/>
+レポート例は<a href="files/">こちら</a>を参照してください。</p>
 
 <h2 id="synopsis">機能概要</h2>
-<p>pg_stats_reporter はブラウザから利用し、pg_statsinfo が PostgreSQL に格納したスナップショットからグラフィカルなレポートを作成し、表示します。<br>
+<p>pg_stats_reporter はブラウザから利用し、pg_statsinfo が PostgreSQL に格納したスナップショットからグラフィカルなレポートを作成し、表示します。<br/>
 
 <h2 id="install">インストール</h2>
-<p>pg_stats_reporter のインストールについて説明します。インストールパッケージは<a href="http://pgfoundry.org/frs/?group_id=1000422">こちら</a>からダウンロードして下さい。</p>
+<p>pg_stats_reporter のインストールについて説明します。インストールパッケージは<a href="http://pgfoundry.org/frs/?group_id=1000422">こちら</a>からダウンロードしてください。</p>
 
 <h3 id="requirement">動作環境</h3>
 <dl>
-  <dt>PostgreSQL</dt>
-  <dd>バージョン 8.3, 8.4, 9.0, 9.1, 9.2 <font color="red">ここまで書きます?</font></dd>
+  <dt>pg_statsinfo が監視対象とする PostgreSQL</dt>
+  <dd>バージョン 8.3 以降
   <dt>pg_statsinfo</dt>
-  <dd>バージョン 2.4</dd>
+  <dd>バージョン 2.4 以降</dd>
   <dt>動作確認済みPHP (OS同梱のもの)</dt>
-  <dd>バージョン 5.3.3 (カッコ内は RHEL5.x, CentOS 5.x の場合の名称)<br/><font color="red">記述形式は要確認</font>
-  <ul>
-    <li>php-5.3.3(php53-5.3.3)</li>
-    <li>php-pgsql-5.3.3(php53-pgsql-5.3.3)</li>
-    <li>php-intl-5.3.3(php53-intl-5.3.3)</li>
-    <li>php-common-5.3.3(php53-common-5.3.3)</li>
-  </ul></dd>
+  <dd>バージョン 5.3.3</dd>
   <dt>動作確認済みOS</dt>
   <dd>RHEL 5.x, 6.x, CentOS 5.x, 6.x</dd>
   <dt>動作確認済みブラウザ</dt>
-  <dd>Firefox</dd>
+  <dd>Firefox : 3.6.9, 16.0.2</dd>
   <dt>動作確認済みHTTP Server (OS同梱のもの)</dt>
-  <dd>Apache HTTP Server </dd>
-  <dt>利用ライブラリ(pg_stats_reporter の RPM に同梱)<font color="red">ソースセットはどうします?</font></dt>
-  <dd><font color="red">記述形式は要確認</font><ul>
+  <dd>Apache HTTP Server : 2.2.15</dd>
+  <dt>利用ライブラリ(pg_stats_reporter の RPM に同梱)</dt>
+  <dd><ul>
     <li>jQuery : 1.8.2</li>
-    <li>jqPlot : 1.0.4 r1121</li>
-    <li>smarty : 3.1.12</li>
-    <li>tablesorter : 2.0.3</li>
-    <li>dygraphs JavaScript Visualization Library : 4d3672f</li>
-    <li>jQuery UI : 1.9.0</li>
+    <li>jQuery UI : 1.9.1</li>
     <li>jquery-ui-timepicker-addon : 0.9.9</li>
+    <li>dygraphs JavaScript Visualization Library : 4d3672f</li>
+    <li>jqPlot : 1.0.4 r1121</li>
+    <li>tablesorter : 2.0.3</li>
     <li>Superfish : 1.4.8</li>
+    <li>Smarty : 3.1.12</li>
   </ul></dd>
 </dl>
 
 <h3 id="pg_stats_reporter_install">pg_stats_reporterのインストール</h3>
-<h4>RPM</h4>
 <p>入手した rpm ファイルを、rpm コマンドでインストールします。以下はインストールの例です。</p>
 <pre>
 $ su
 # rpm -ivh pg_stats_reporter-1.0.0-1.el6.noarch.rpm
 </pre>
 
-<h4>source <font color="red">そもそも tar ボールも作ります?</font></h4>
-<p>入手したソースファイルを、HTTP Server を介してブラウザで参照できる位置にコピーします。このとき、cache ディレクトリおよび compiled ディレクトリには、HTTP Server の実行ユーザがファイルが作成できるように権限を与えておく必要があります。<br/><font color="red">tar ボール(またはインストール後)のディレクトリ構成の説明を載せないとわからないと思われますが、どこに載せましょう?</font><br/>
-以下は、OS 同梱の Apache HTTP Server のデフォルトの設定の環境にインストールした例です。</p>
-
-<pre>
-$ su
-# tar xvfz pg_stats_reporter-1.0.0.tar.gz
-# cp -R pg_stats_reporter/html/pg_stats_reporter /var/www/html
-# cp -R pg_stats_reporter/pg_stats_reporter /var/www
-# cd /var/www/pg_stats_reporter
-# chown apache.apache cache compiled
-</pre>
-
 <h3 id="initialize">初期設定</h3>
 <h4>設定ファイルの作成</h4>
 <p>サンプルから設定ファイルを作成します。設定ファイルの各項目の説明は<a href="#configuration">こちら</a>を参照してください。<br/>
-複数のリポジトリDBへ接続する場合は、リポジトリDBごとにiniファイルにセクション(pg_stats_reporter.ini.sample ファイルの情報)を追加することで、設定することができます。<br/>
-以下は作成の例です。<br>
+「database connection」の各項目を、pg_statsinfo のスナップショット格納DB(以降、リポジトリDBと呼びます)への接続情報に修正します。複数のリポジトリDBの情報を参照できるようにしたい場合は、リポジトリDBごとにiniファイルにセクション(pg_stats_reporter.ini.sample ファイルの情報全て)を追加します。<br/>
+以下は作成の例です。<br/>
 </p>
 <pre>
 # cd /var/www/pg_stats_reporter
-# cp pg_stats_reporter.ini.sample pg_stats_reporter.ini
 # vi pg_stats_reporter.ini
-  --- pg_statsinfo のリポジトリが存在するDBへの設定に編集します ---
+----- リポジトリDBへの接続情報に修正します -----
+host = <I>localhost</I>
+port = <I>5432</I>
+dbname = <I>postgres</I>
+username = <I>postgres</I>
+password =
 </pre>
 
 <h3 id="execute_test">動作確認</h3>
@@ -123,7 +104,7 @@ $ su
 
 <h2 id="execute">操作方法</h2>
 
-<p>pg_stats_reporter は pg_statsinfo のリポジトリを表示させるためのものです。<br>
+<p>pg_stats_reporter は pg_statsinfo のリポジトリを表示させるためのものです。<br/>
 前もって pg_statsinfo のリポジトリを準備してください。</p>
 
 <h3>レポート表示</h3>
@@ -137,6 +118,23 @@ http://localhost/pg_stats_reporter/pg_stats_reporter.php
 <li>開始 : 実行日前日の0時</li>
 <li>終了 : 実行日時</li>
 </ul></p>
+<pre>
+リポジトリDB
+  [sample1]
+    localhost:5432
+    host1:5432
+  [sample2]
+    localhost:5432
+    host2:5432
+起動日時
+  2012/11/01 10:00:00
+
+上記の場合に作成されるレポート
+  [sample1]
+  localhost:5432
+  begin: 2012/10/31 00:00:00
+  end: 2012/11/01 10:00:00
+</pre>
 
 <h3>操作方法詳細</h3>
 <p>画面の操作方法を以下に示します。</p>
@@ -176,194 +174,124 @@ http://localhost/pg_stats_reporter/pg_stats_reporter.php
 <br/>
 
 <h2 id="uninstall">アンインストール</h2>
-<h3>RPM</h3>
-<p>rpm からインストールした場合は rpm コマンドでアンインストールします。</p>
+<p>rpm コマンドでアンインストールします。</p>
 <pre>
 $ su
 # rpm -e pg_stats_reporter-1.0.0-1.el6.noarch
 </pre>
-
-<h3>source</h3>
-<p>コピーしたファイルを削除します。</p>
-<pre>
-$ su
-# cd /var/www
-# rm -r html/pg_stats_reporter
-# rm -r pg_stats_reporter
-</pre>
-
-<h2 id="directory">ディレクトリ構成</h2>
-<p>pg_stats_reporter インストール後のディレクトリの構成を以下に示します。 </p>
-<pre>
- <i>/var/www</i>
-   |
-   +- cgi-bin/
-   |
-   +- error/
-   |
-   +- html/
-   |    |
-   |    +- pg_stats_reporter/
-   |          |
-   |          +- package/ ... jQuery等のパッケージ
-   |          |
-   |          +- js/ ........ pg_stats_reporter用に作成したJavascript
-   |          |
-   |          +- css/ ....... pg_stats_reporter用に作成したcss
-   |          |
-   |          +- doc/ ....... pg_stats_reporterのマニュアル
-   |
-   +- icons/
-   |
-   +- pg_stats_reporter/ .... 設定ファイル格納先
-        |
-        +- lib/ ............. モジュール分割したphpファイル格納先
-        |
-        +- template/ ........ テンプレートファイル格納先
-        |
-        +- cache/ ........... Smartyと設定ファイルのキャッシュファイル格納用
-        |
-        +- compiled/ ........ テンプレートのコンパイル結果ファイル格納用
-        |
-        +- message/ ......... メッセージファイル格納用
-</pre>
-<br>
+<br/>
 
 <h2 id="configuration">設定ファイル</h2>
-<p>設定ファイル(pg_stats_reporter.ini)は、データベース接続情報およびレポート表示に関する設定を行うファイルです。記述ルールについては、PHP の ini ファイルの記述方法と同様です。<br/>設定項目を以下に示します。</p>
+<p>設定ファイル(pg_stats_reporter.ini)は、データベース接続情報およびレポート表示に関する設定を行うファイルです。<br/>設定項目を以下に示します。記述例は<a href="pg_stats_reporter.ini.sample">こちら</a>を参照してください。</p>
 
-<h3>データベース接続情報</h3>
-<p>リポジトリDBへの接続情報を設定します。設定された値をそのまま使用してリポジトリDBへの接続文字列を作成します。</p>
+<table>
+<thead>
+  <tr>
+    <th>設定項目</th>
+    <th>設定可能な値</th>
+    <th>項目省略時</th>
+    <th>設定値省略時</th>
+    <th>設定例</th>
+    <th>説明</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>[<I>リポジトリDB名</I>]</td>
+    <td>文字列</td>
+    <td>省略不可</td>
+    <td>空文字列</td>
+    <td>[sample]</td>
+    <td>左側のリポジトリ選択メニューに表示するリポジトリDBの名称を指定します。日本語を指定する場合はUTF-8で指定する必要がありますが、推奨しません。</td>
+  </tr>
 
-<h4>リポジトリDB</h4>
-<p>左側のリポジトリ選択メニューに表示するリポジトリDBの名称を指定します。</p>
-<ul>
-  <li>書式<ul>
-    <li><b>[<i>repository database</i>]</b></li>
-  </ul></li>
-  <li>記述例<pre>
-  [sample]</pre></li>
-  <li>備考<ul>
-    <li>日本語を指定する場合はUTF-8で指定する必要がありますが、推奨しません。</li>
-  </ul></li>
-</ul>
+  <tr>
+    <td>host</td>
+    <td>ホスト名または IP アドレス</td>
+    <td>-</td>
+    <td>空文字列</td>
+    <td>host = localhost</td>
+    <td>接続するリポジトリDBのホストを指定します。指定するホスト名は、PostgreSQLが受け付ける形式で指定する必要があります。</td>
+  </tr>
 
-<h4>ホスト名</h4>
-<p>接続するリポジトリDBのホストを指定します。</p>
-<ul>
-  <li>書式<ul>
-    <li><b>host = <i>ホスト名またはIPアドレス</i></b></li>
-  </ul></li>
-  <li>記述例<pre>
-  host = localhost</pre></li>
-  <li>備考<ul>
-    <li>指定するホスト名は、PostgreSQLが受け付ける形式で指定する必要があります。</li>
-  </ul></li>
-</ul>
+  <tr>
+    <td>port</td>
+    <td>ポート番号</td>
+    <td>-</td>
+    <td>空文字列</td>
+    <td>port = 5432</td>
+    <td>接続するリポジトリDBのポート番号を指定します。PostgreSQL の待ち受けポートを指定してください。</td>
+  </tr>
 
-<h4>ポート番号</h4>
-<p>接続するリポジトリDBのポート番号を指定します。</p>
-<ul>
-  <li>書式<ul>
-    <li><b>port = <i>ポート番号</i></b></li>
-  </ul></li>
-  <li>記述例<pre>
-  port = 5432</pre></li>
-  <li>備考<ul>
-    <li>PostgreSQLの待ち受けポートを指定してください。</li>
-  </ul></li>
-</ul>
+  <tr>
+    <td>dbname</td>
+    <td>文字列</td>
+    <td>-</td>
+    <td>空文字列</td>
+    <td>dbname = postgres</td>
+    <td>接続するリポジトリDBのデータベース名を指定します。pg_statsinfo でリポジトリDBとして使用しているデータベースの名称を指定してください。</td>
+  </tr>
 
-<h4>データベース名</h4>
-<p>接続するリポジトリDBのデータベース名を指定します。</p>
-<ul>
-  <li>書式<ul>
-    <li><b>dbname = <i>データベース名</i></b></li>
-  </ul></li>
-  <li>記述例<pre>
-  dbname = postgres</pre></li>
-  <li>備考<ul>
-    <li>pg_statsinfo でリポジトリDBとして使用しているデータベースの名称を指定してください。</li>
-  </ul></li>
-</ul>
+  <tr>
+    <td>username</td>
+    <td>文字列</td>
+    <td>-</td>
+    <td>空文字列</td>
+    <td>username = postgres</td>
+    <td>リポジトリDBに接続するDBユーザの名称を指定します。リポジトリDBに参照権限のあるDBユーザの名称を指定してください。</td>
+  </tr>
 
-<h4>ユーザ名</h4>
-<p>リポジトリDBに接続するDBユーザの名称を指定します。</p>
-<ul>
-  <li>書式<ul>
-    <li><b>username = <i>DBユーザ名</i></b></li>
-  </ul></li>
-  <li>記述例<pre>
-  username = postgres</pre></li>
-  <li>備考<ul>
-    <li>リポジトリDBに参照権限のあるDBユーザの名称を指定してください。</li>
-  </ul></li>
-</ul>
+  <tr>
+    <td>password</td>
+    <td>文字列</td>
+    <td>パスワード指定なし</td>
+    <td>空文字列</td>
+    <td>password =</td>
+    <td>リポジトリDBへの接続で使用するパスワードを指定します。PostgreSQL への接続パスワードを .pgpass を使用して設定する場合は、値を設定しないでください。</li></td>
+  </tr>
 
-<h4>パスワード</h4>
-<p>リポジトリDBへの接続で使用するパスワードを指定します。</p>
-<ul>
-  <li>書式<ul>
-    <li><b>password = <i>パスワード</i></b></li>
-  </ul></li>
-  <li>記述例<pre>
-  password =</pre></li>
-  <li>備考<ul>
-    <li>.pgpass を使用する場合は、値を設定しないでください。</li>
-  </ul></li>
-</ul>
+  <tr>
+    <td>language</td>
+    <td>auto/ja/en</td>
+    <td>auto</td>
+    <td>空文字列</td>
+    <td>language = ja</td>
+    <td>レポートの表示言語の言語タグを設定します。auto を設定した場合は、表示するブラウザの設定を使用します。指定した言語に対応するメッセージが存在しない場合は英語で表示します。</td>
+  </tr>
 
-
-<h3>レポート表示設定</h3>
-<p>レポート表示言語の設定、および表示項目の表示/非表示を設定します。</p>
-
-<h4>言語設定</h4>
-<p>レポートの表示言語の言語タグを設定します。auto を設定した場合は、表示するブラウザの設定を使用します。</p>
-<ul>
-  <li>書式<ul>
-    <li><b>language = <i>[ auto | 言語タグ ]</i></b></li>
-  </ul></li>
-  <li>記述例<pre>
-  language = ja</pre></li>
-  <li>備考<ul>
-    <li>RFC 4646 形式の言語タグを指定します。</li>
-    <li>指定した言語に対応するメッセージが存在しない場合は英語で表示します。</li>
-    <li>PHPで取得できない言語タグがブラウザに指定されている場合は、メッセージが用意されていても表示されない場合があります。その場合は、本項目で設定してください。</li>
-    <li>項目を省略した場合は auto が指定されたものとして扱います。</li>
-  </ul></li>
-</ul>
-
-<h4>表示項目(summary 〜 profiles)</h4>
-<p>レポートに項目の表示/非表示を bool 値で設定します。<font color="red">項目の一覧を記述したほうがよいでしょうか?</font></p>
-<ul>
-  <li>書式<ul>
-    <li><b>レポート項目名 = <i>[ true | false ]</i></b></li>
-  </ul></li>
-  <li>記述例<pre>
-  summary = true</pre></li>
-  <li>備考<ul>
-    <li>bool 値に指定できる値は、PHPに準拠します。</li>
-    <li>項目を省略した場合は、基本的に true が指定されたものとして扱います。</li>
-  </ul></li>
-</ul>
-<br>
+  <tr>
+    <td>表示項目<br/>(summary 〜 profiles)</td>
+    <td>true/false</td>
+    <td>true</td>
+    <td>false</td>
+    <td>summary = true</td>
+    <td>レポートに項目の表示/非表示を bool 値で設定します。</td>
+  </tr>
+</tbody>
+</table>
+<br/>
 
 <h2 id="restrictions">使用上の注意と制約</h2>
 <p>pg_stats_reporter を使用する際には、以下の使用上の注意と制約があります。</p>
 <ul>
-  <li>ディストリビューションによっては、HTTP Server のドキュメントルートのデフォルトが実行ユーザのホームディレクトリになっている場合があります。そのため、.pgpass を使用する場合には、外部から参照されないように注意して配置してください。</li>
-  <li>高い負荷には耐えられず、セキュリティの面でも LAN での利用に限ってください。</li>
+  <li>ディストリビューションによっては、HTTP Server のドキュメントルートのデフォルトが実行ユーザのホームディレクトリになっている場合があります。そのため、PostgreSQL の接続パスワードで .pgpass を使用する場合には、外部から参照されないように注意して配置してください。</li>
 </ul>
 
 <h2 id="faq">よくあるQ&amp;A</h2>
 <h4>Q1. pg_stats_reporter の画面が表示されません。</h4>
 <dl>A1. ファイアウォール、および SELinux の設定が正しい設定となっているか見直してください。</dl>
 
-<h4>Q2. ブラウザにIEを使用してレポートを表示したところ、正しく表示されません。</h4>
-<dl>A2. ブラウザにIEを使用してレポートを作成した場合、IEのバージョンによって正しく表示されない場合があります。ブラウザは Firefox を使用することを推奨します。</dl>
+<h4>Q2. データベース接続失敗のエラーが表示されて、pg_stats_reporter の画面が表示されません。</h4>
+<dl>A2. 以下の2点を確認してください。<ul>
+<li>pg_stats_reporter.ini に記述されている「database connection」の情報</li>
+<li>接続先の PostgreSQL の設定 (postgresql.conf, pg_hba.conf)</li>
+</ul></dl>
 
-<h4>Q3. 日時を指定してレポートを作成したところ、空のレポートが表示されました。</h4>
-<dl>A3. 指定した条件に該当するスナップショット件数が2件未満の可能性があります。スナップショット件数が2件以上該当するように条件を変更してください。</dl>
+<h4>Q3. ブラウザに Internet Explorer を使用してレポートを表示したところ、正しく表示されません。</h4>
+<dl>A3. ブラウザに Internet Explorer を使用してレポートを作成した場合、Internet Explorer のバージョンによって正しく表示されない場合があります。ブラウザは Firefox を使用することを推奨します。</dl>
+
+<h4>Q4. 日時を指定してレポートを作成したところ、空のレポートが表示されました。</h4>
+<dl>A4. 指定した条件に該当するスナップショット件数が2件未満の可能性があります。スナップショット件数が2件以上該当するように条件を変更してください。</dl>
 
 <h2 id="seealso">関連項目</h2>
 <a href="http://pgstatsinfo.projects.postgresql.org/pg_statsinfo-ja.html">pg_statsinfo</a> 

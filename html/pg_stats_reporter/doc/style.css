@@ -1,7 +1,5 @@
 @charset "Shift_JIS";
 
-# DDEEFF -> 4207D7
-
 pre, dl, ol, p, blockquote { line-height:130%; }
 
 blockquote { margin-left:32px; }
@@ -42,18 +40,18 @@ a:hover {
 h1, h2 {
 	font-family:verdana, arial, helvetica, Sans-Serif;
 	# color:inherit;
-	color:white;
-	background-color:#4297D7;
+	color:inherit;
+	background-color:#DDEEFF;
 	padding:.3em;
 	border:0px;
 	margin:0px 0px .5em 0px;
 }
 h3 {
 	font-family:verdana, arial, helvetica, Sans-Serif;
-	border-bottom:  3px solid #4297D7;
-	border-top:     1px solid #4297D7;
-	border-left:   10px solid #4297D7;
-	border-right:   5px solid #4297D7;
+	border-bottom:  3px solid #DDEEFF;
+	border-top:     1px solid #DDEEFF;
+	border-left:   10px solid #DDEEFF;
+	border-right:   5px solid #DDEEFF;
 
 	color:inherit;
 	background-color:#FFFFFF;
@@ -62,7 +60,7 @@ h3 {
 }
 h4 {
 	font-family:verdana, arial, helvetica, Sans-Serif;
-	border-left:   18px solid #4297D7;
+	border-left:   18px solid #DDEEFF;
 
 	color:inherit;
 	background-color:#FFFFFF;
@@ -72,7 +70,7 @@ h4 {
 h5, h6 {
 	font-family:verdana, arial, helvetica, Sans-Serif;
 	color:inherit;
-	background-color:#4297D7;
+	background-color:#DDEEFF
  	padding:.3em;
  	border:0px;
  	margin:0px 0px .5em 0px;
