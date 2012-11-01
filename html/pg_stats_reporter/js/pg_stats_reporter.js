@@ -133,8 +133,8 @@ $(function() {
     } );
 
   $('ul.sf-menu').supersubs( {
-    minWidth: 12,
-    maxWidth: 20,
+    minWidth: 10,
+    maxWidth: 11,
     extraWidth: 1
   } ).superfish( {
     delay: 200,
