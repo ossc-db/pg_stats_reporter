@@ -7,7 +7,7 @@
 
 // include sub module
 require_once "../../pg_stats_reporter/lib/define.php";
-require_once "../../pg_stats_reporter/lib/makeReport.php";
+require_once "../../pg_stats_reporter/lib/make_report.php";
 
 /* Initial setting of Smarty */
 require_once SMARTY_PATH."Smarty.class.php";
