@@ -1,0 +1,75 @@
+インストール/アンインストール
+
+ソースのディレクトリ構成
+
+pg_stats_reporter インストール後のディレクトリの構成を以下に示します。
+
+pg_stats_reporter
+   |
+   +- html/
+   |    |
+   |    +- pg_stats_reporter/
+   |          |
+   |          +- package/ ... jQuery等のパッケージ
+   |          |
+   |          +- js/ ........ pg_stats_reporter用に作成したJavascript
+   |          |
+   |          +- css/ ....... pg_stats_reporter用に作成したcss
+   |          |
+   |          +- doc/ ....... pg_stats_reporterのマニュアル
+   |
+   +- pg_stats_reporter/ .... 設定ファイル格納先
+        |
+        +- lib/ ............. モジュール分割したphpファイル格納先
+        |
+        +- template/ ........ テンプレートファイル格納先
+        |
+        +- cache/ ........... Smartyと設定ファイルのキャッシュファイル格納用
+        |
+        +- compiled/ ........ テンプレートのコンパイル結果ファイル格納用
+        |
+        +- message/ ......... メッセージファイル格納用
+
+
+インストール手順
+
+ソースファイルを、HTTP Server を介してブラウザで参照できる位置にコピー
+します。このとき、cache ディレクトリおよび compiled ディレクトリには、
+HTTP Server の実行ユーザがファイルが作成できるように権限を与えておく必
+要があります。
+
+以下は、OS 同梱の Apache HTTP Server のデフォルトの設定の環境にインス
+トールした例です。
+
+$ su
+# tar xvfz pg_stats_reporter-1.0.0.tar.gz
+# cp -R pg_stats_reporter/html/pg_stats_reporter /var/www/html
+# cp -R pg_stats_reporter/pg_stats_reporter /var/www
+# cd /var/www/pg_stats_reporter
+# chown apache.apache cache compiled
+
+
+設定ファイルの作成
+
+サンプルから設定ファイルを作成します。以下は作成の例です。
+
+# cd /var/www/pg_stats_reporter
+# cp pg_stats_reporter.ini.sample pg_stats_reporter.ini
+# vi pg_stats_reporter.ini
+----- リポジトリDBへの接続情報に修正します -----
+host = localhost
+port = 5432
+dbname = postgres
+username = postgres
+password =
+
+
+アンインストール
+
+コピーしたファイルを削除します。以下はアンインストールの例です。
+設定ファイルを残す場合は、pg_stats_reporter.ini を退避してください。
+
+$ su
+# cd /var/www
+# rm -r html/pg_stats_reporter
+# rm -r pg_stats_reporter
