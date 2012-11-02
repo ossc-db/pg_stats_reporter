@@ -32,43 +32,71 @@ $(function() {
   // datepicker setting in create report
   $('#begin_date').datetimepicker({
     defaultDate: -7,
-	dateFormat: "yy-mm-dd",
+    dateFormat: "yy-mm-dd",
     onClose: function(dateText, inst) {
-      var endDateTextBox = $('#end_date');
-      if (endDateTextBox.val() != '') {
-		if (compareDate(dateText, endDateTextBox.val()) >= 0)
-		  endDateTextBox.val(makeDateStr(dateText, 1));
+        // format check without blank
+        if(document.getElementById("begin_date").value != ''){
+            // format check (yyyy-mm-dd)
+            var match_result = document.getElementById("begin_date").value.match(/^\d{4}\-\d{2}\-\d{2}/);
+            if(match_result == null){
+                $('#begin_date').addClass("ui-state-error");
+                // clear text box
+                document.getElementById("begin_date").value = "";
+            }else{
+                $('#begin_date').removeClass("ui-state-error");
+                var endDateTextBox = $('#end_date');
+                if (endDateTextBox.val() != '') {
+                    if (compareDate(dateText, endDateTextBox.val()) >= 0)
+		        endDateTextBox.val(makeDateStr(dateText, 1));
+                }
+                else {
+                    endDateTextBox.val(makeDateStr(dateText, 1));
+                }
+            }
+      }else{
+          $('#begin_date').removeClass("ui-state-error");
       }
-      else {
-		endDateTextBox.val(makeDateStr(dateText, 1));
-      }
+      
     },
     onSelect: function (selectedDateTime){
-      var start = $(this).datetimepicker('getDate');
-      $('#end_date').datetimepicker('option', 'minDate', new Date(start.getTime()));
-		$('#begin_date').removeClass("ui-state-error");
-		$('#end_date').removeClass("ui-state-error");
+        var start = $(this).datetimepicker('getDate');
+        $('#end_date').datetimepicker('option', 'minDate', new Date(start.getTime()));
+        $('#begin_date').removeClass("ui-state-error");
+        $('#end_date').removeClass("ui-state-error");
     }
   });
 
   $('#end_date').datetimepicker({
     defaultDate: 0,
-	dateFormat: "yy-mm-dd",
+    dateFormat: "yy-mm-dd",
     onClose: function(dateText, inst) {
-      var startDateTextBox = $('#begin_date');
-      if (startDateTextBox.val() != '') {
-		if (compareDate(startDateTextBox.val(), dateText) >= 0)
-		  startDateTextBox.val(makeDateStr(dateText, -1));
-      }
-      else {
-		startDateTextBox.val(makeDateStr(dateText, -1));
-      }
+        // format check without blank
+        if(document.getElementById("end_date").value != ''){
+             // format check (yyyy-mm-dd)
+             var match_result = document.getElementById("end_date").value.match(/^\d{4}\-\d{2}\-\d{2}/);
+             if(match_result == null){
+                 $('#end_date').addClass("ui-state-error");
+                // clear text box
+                document.getElementById("end_date").value = "";
+             }else{
+                 $('#end_date').removeClass("ui-state-error");
+                 var startDateTextBox = $('#begin_date');
+                 if (startDateTextBox.val() != '') {
+                     if (compareDate(startDateTextBox.val(), dateText) >= 0)
+                         startDateTextBox.val(makeDateStr(dateText, -1));
+                 }else {
+                     startDateTextBox.val(makeDateStr(dateText, -1));
+                 }
+             }
+        }else{
+            $('#end_date').removeClass("ui-state-error");
+        }
     },
     onSelect: function (selectedDateTime){
-      var end = $(this).datetimepicker('getDate');
-      $('#begin_date').datetimepicker('option', 'maxDate', new Date(end.getTime()) );
-		$('#begin_date').removeClass("ui-state-error");
-		$('#end_date').removeClass("ui-state-error");
+        var end = $(this).datetimepicker('getDate');
+        $('#begin_date').datetimepicker('option', 'maxDate', new Date(end.getTime()) );
+        $('#begin_date').removeClass("ui-state-error");
+        $('#end_date').removeClass("ui-state-error");
     }
   });
 
