@@ -46,6 +46,8 @@ $(function() {
     onSelect: function (selectedDateTime){
       var start = $(this).datetimepicker('getDate');
       $('#end_date').datetimepicker('option', 'minDate', new Date(start.getTime()));
+		$('#begin_date').removeClass("ui-state-error");
+		$('#end_date').removeClass("ui-state-error");
     }
   });
 
@@ -65,6 +67,8 @@ $(function() {
     onSelect: function (selectedDateTime){
       var end = $(this).datetimepicker('getDate');
       $('#begin_date').datetimepicker('option', 'maxDate', new Date(end.getTime()) );
+		$('#begin_date').removeClass("ui-state-error");
+		$('#end_date').removeClass("ui-state-error");
     }
   });
 
@@ -76,6 +80,13 @@ $(function() {
     position: ['center',300],
     buttons: {
       "Create report": function() {
+		// datetimepicker blank check
+		var date_b = document.getElementById("begin_date").value;
+		var date_e = document.getElementById("end_date").value;
+		if(date_b == ''||date_e == ''){
+			if(date_b == '') $('#begin_date').addClass("ui-state-error"); 
+			if(date_e == '') $('#end_date').addClass("ui-state-error"); 
+		}else{
 		// URLパラメータの解析
 		var uparam = location.search.substring(1).split('&');
 		var arg = new Object;
@@ -113,6 +124,9 @@ $(function() {
 		gourl += "&begin=\"" + document.getElementById("begin_date").value
 		  + "\"&end=\"" + document.getElementById("end_date").value + "\"";
 		document.location = gourl;
+
+		}
+
 	  },
 	  Cancel: function() {
 		$(this).dialog("close");
