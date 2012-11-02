@@ -102,7 +102,7 @@ if ($smarty->isCached(TEMPLATE_FILE, $report_cache_id)) {
 }
 
 /* キャッシュファイルの削除 */
-$smarty->clearAllCache();
+eraseReportCache($smarty->cache_lifetime);
 
 /* 設定ファイルの該当箇所取得 */
 $target_info = $infoData[$target_data['repodb']];
@@ -332,6 +332,26 @@ function readMessageFile($msg_file, &$help_message, &$error_message)
 		$error_message["$key"] = $error;
 	}
 
+}
+
+/* erase report cache file */
+function eraseReportCache($lifetime)
+{
+	$now = time();
+
+	$dir = opendir(CACHE_DIR);
+
+	while( ($entry = readdir($dir)) !== false) {
+		if ($entry == CACHE_CONFIG_FILENAME	|| !is_file(CACHE_DIR."/".$entry))
+			continue;
+
+		$stats = stat(CACHE_DIR."/".$entry);
+
+		if ($stats[9] < $now - $lifetime)
+			unlink(CACHE_DIR."/".$entry);
+	}
+
+	closedir($dir);
 }
 
 ?> 
