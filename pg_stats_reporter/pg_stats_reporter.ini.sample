@@ -64,8 +64,8 @@ statements = true
 ;## Long Transactions ##
 long_transactions = true
 
-;## Lock Activity ##
-lock_activity = true
+;## Lock Conflicts ##
+lock_conflicts = true
 
 ;### Operation Activity ###
 

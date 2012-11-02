@@ -309,9 +309,9 @@
 </ul>
 </div>
 
-<div id="lock_activity_dialog"
-  title="How to see a Lock Activity table">
-<h4>Lock Activity の見方</h4>
+<div id="lock_conflicts_dialog"
+  title="How to see a Lock Conflicts table">
+<h4>Lock Conflicts の見方</h4>
 <ul>
 <li>database : ロック待ちが発生しているオブジェクトが所属するデータベース名</li>
 <li>schema : ロック待ちが発生しているオブジェクトが所属するスキーマ名</li>

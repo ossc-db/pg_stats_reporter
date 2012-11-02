@@ -411,8 +411,8 @@ function div_flip() {
 	positionFixed: false
   } );
 
-  // Lock Activity
-  $("#lock_activity_table").tablesorter( {
+  // Lock Conflicts
+  $("#lock_conflicts_table").tablesorter( {
 	widthFixed: true,
 	widgets: ['zebra'],
 	sortList: [[3,1]],
@@ -421,7 +421,7 @@ function div_flip() {
 			   8: { sorter: false } }
   } )
   .tablesorterPager( {
-	container: $('#pager_lock_activity'),
+	container: $('#pager_lock_conflicts'),
 	size: 5,
 	positionFixed: false
   } );
@@ -896,18 +896,18 @@ function div_flip() {
     width: 600
   } );
 
-  // Lock Activity help dialog button
-  $( '#lock_activity_button_info' ) . button( {
+  // Lock Conflicts help dialog button
+  $( '#lock_conflicts_button_info' ) . button( {
     icons: {
       primary: 'ui-icon-info',
       },
     text: false
   } ).click(function() {
-      $('#lock_activity_dialog').dialog("open");
+      $('#lock_conflicts_dialog').dialog("open");
     } );
 
-  // Lock Activity help dialog
-  $('#lock_activity_dialog').dialog( {
+  // Lock Conflicts help dialog
+  $('#lock_conflicts_dialog').dialog( {
     autoOpen: false,
     modal: true,
     resizable: false,
