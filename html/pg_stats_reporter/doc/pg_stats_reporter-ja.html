@@ -70,6 +70,8 @@
     <li>Superfish : 1.4.8</li>
     <li>Smarty : 3.1.12</li>
   </ul></dd>
+  <dt>解像度</dt>
+  <dd>1024x786(SXGA)以上推奨</dd>
 </dl>
 
 <h3 id="pg_stats_reporter_install">pg_stats_reporterのインストール</h3>
@@ -138,8 +140,8 @@ http://localhost/pg_stats_reporter/pg_stats_reporter.php
 
 <h3>操作方法詳細</h3>
 <p>画面の操作方法を以下に示します。</p>
-<h4>レポート画面 <font color="red">調整が面倒だったので、画面はwidth=&quot;100%&quot;になっています</font></h4>
-<img src="pg_stats_reporter.png" width="100%"/>
+<h4>レポート画面</h4>
+<img src="pg_stats_reporter.png" width="800px;"/>
 <br/>
 <dl>
 <dt>① : Create report range ボタン</dt>
@@ -287,11 +289,14 @@ $ su
 <li>接続先の PostgreSQL の設定 (postgresql.conf, pg_hba.conf)</li>
 </ul></dl>
 
-<h4>Q3. ブラウザに Internet Explorer を使用してレポートを表示したところ、正しく表示されません。</h4>
-<dl>A3. ブラウザに Internet Explorer を使用してレポートを作成した場合、Internet Explorer のバージョンによって正しく表示されない場合があります。ブラウザは Firefox を使用することを推奨します。</dl>
+<h4>Q3. メニュー画面が画面からはみ出て選択できない。</h4>
+<dl>A3. 画面の解像度を現在の設定以上に設定してください。右側のリポジトリ選択メニューが選択できない場合は、別のWebディレクトリにpg_stats_reporterをインストールして、レポジトリDB設定を分散させるなどして対応してください。</dl>
 
-<h4>Q4. 日時を指定してレポートを作成したところ、空のレポートが表示されました。</h4>
-<dl>A4. 指定した条件に該当するスナップショット件数が2件未満の可能性があります。スナップショット件数が2件以上該当するように条件を変更してください。</dl>
+<h4>Q4. ブラウザに Internet Explorer を使用してレポートを表示したところ、正しく表示されません。</h4>
+<dl>A4. ブラウザに Internet Explorer を使用してレポートを作成した場合、Internet Explorer のバージョンによって正しく表示されない場合があります。ブラウザは Firefox を使用することを推奨します。</dl>
+
+<h4>Q5. 日時を指定してレポートを作成したところ、空のレポートが表示されました。</h4>
+<dl>A5. 指定した条件に該当するスナップショット件数が2件未満の可能性があります。スナップショット件数が2件以上該当するように条件を変更してください。</dl>
 
 <h2 id="seealso">関連項目</h2>
 <a href="http://pgstatsinfo.projects.postgresql.org/pg_statsinfo-ja.html">pg_statsinfo</a> 
