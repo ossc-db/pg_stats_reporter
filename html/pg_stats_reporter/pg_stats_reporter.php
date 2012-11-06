@@ -174,7 +174,7 @@ function initInformationFile(&$info_data, &$err_msg)
 
 	/* read pg_stats_reporter.ini */
 	if (!is_file(CONFIG_PATH.CONFIG_FILENAME)) {
-		$err_msg[] = "pg_stats_reporter.ini not found.";
+		$err_msg[] = "pg_stats_reporter.ini is not found.";
 		return false;
 	}
 	$ini_data = parse_ini_file(CONFIG_PATH.CONFIG_FILENAME, true);
@@ -186,16 +186,14 @@ function initInformationFile(&$info_data, &$err_msg)
 			return false;
 		}
 
+		// check key name
 		foreach($data_array as $key => $val) {
-			// check key name
 			if (!array_key_exists($key, $report_default)
 				&& !array_key_exists($key, $conf_key_list)) {
 				$err_msg[] = "[".$repo_name."]".$key.": Item name is invalid.";
 				continue;
 			}
 		}
-
-		$cache_contents[] = "[".$repo_name."]\n";
 
 		// make database connection string
 		$connect_str = "";
@@ -211,15 +209,17 @@ function initInformationFile(&$info_data, &$err_msg)
 			&& $data_array['password'] != "")
 			$connect_str .= " password=".$data_array['password'];
 
-		$cache_contents[] = "connect_str = \"".$connect_str."\"\n";
-
 		// connect repository database and get target database information
 		// and get pg_statsinfo version
 		$conn = pg_connect($connect_str);
 		if (!$conn) {
 			$err_msg[] = "connect error.(repository database = ".$repo_name.")";
-			$cache_contents[] = "repo_version = ".V23."\n";
+			continue;
 		} else {
+
+			$cache_contents[] = "[".$repo_name."]\n";
+			$cache_contents[] = "connect_str = \"".$connect_str."\"\n";
+
 			$result = pg_query($conn, "SELECT p.proname FROM pg_catalog.pg_proc p LEFT JOIN pg_catalog.pg_namespace n ON p.pronamespace = n.oid WHERE n.nspname = 'statsrepo' AND p.proname = 'get_version'");
 			if (!$result) {
 				$err_msg[] = "execute query error. ".pg_last_error();
@@ -278,8 +278,13 @@ function initInformationFile(&$info_data, &$err_msg)
 	}
 
 	// write cache file
+	if (count($cache_contents) == 0) {
+		$err_msg[] = "No valid information.";
+		return false;
+	}
+
 	if (file_put_contents(CACHE_CONFIG_PATH.CACHE_CONFIG_FILENAME, $cache_contents) == false) {
-		$err_msg = "do not write cache file(".CACHE_CONFIG_PATH.CACHE_CONFIG_FILENAME.")";
+		$err_msg[] = "do not write cache file(".CACHE_CONFIG_PATH.CACHE_CONFIG_FILENAME.")";
 		return false;
 	}
 
