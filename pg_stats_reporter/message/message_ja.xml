@@ -487,6 +487,7 @@
 <p id="st_version">pg_statsinfo のバージョンが異なるため表示できません。</p>
 <p id="pg_version">PostgreSQL のバージョンが異なるため表示できません。</p>
 <p id="no_info">情報をスナップショットで取得していません。</p>
+<p id="short_snapshots">指定した期間にはスナップショットが0件または、1件しかないため、レポートを表示できません。</p>
 </error>
 
 </document>
