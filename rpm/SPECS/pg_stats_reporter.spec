@@ -22,6 +22,9 @@ BuildArch:		noarch
 Requires:		php >= 5.3.3, php-pgsql >= 5.3.3
 Requires:		php-common >= 5.3.3, php-intl >= 5.3.3
 Requires:		httpd >= 2.2
+AutoReqProv: 0
+
+%description
 
 %prep
 %setup -q -n %{name}
@@ -38,8 +41,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root,-)
 /var/www/html/pg_stats_reporter/
 /var/www/pg_stats_reporter/pg_stats_reporter.ini.sample
-/var/www/pg_stats_reporter/lib/define.php
-/var/www/pg_stats_reporter/lib/makeReport.php
+/var/www/pg_stats_reporter/lib/
 /var/www/pg_stats_reporter/template/pg_stats_reporter.tpl
 /var/www/pg_stats_reporter/message/
 
@@ -49,7 +51,10 @@ rm -rf $RPM_BUILD_ROOT
 
 %post
 if [ $1 = 1 ] && [ ! -e /var/www/pg_stats_reporter/pg_stats_reporter.ini ] ; then
-cp /var/www/pg_stats_reporter/.ini.sample /var/www/pg_stats_reporter/pg_stats_reporter.ini
+cp /var/www/pg_stats_reporter/pg_stats_reporter.ini.sample /var/www/pg_stats_reporter/pg_stats_reporter.ini
 fi
+
+%postun
+rm -rf /var/www/pg_stats_reporter
 
 %changelog
