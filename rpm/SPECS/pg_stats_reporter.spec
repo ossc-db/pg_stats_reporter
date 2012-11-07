@@ -30,9 +30,9 @@ AutoReqProv: 0
 %setup -q -n %{name}
 
 %install
-mkdir -p %{buildroot}/var/www
-cp -r html %{buildroot}/var/www
-cp -r pg_stats_reporter %{buildroot}/var/www
+/bin/mkdir -p %{buildroot}/var/www
+/bin/cp -r html %{buildroot}/var/www
+/bin/cp -r pg_stats_reporter %{buildroot}/var/www
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -42,7 +42,7 @@ rm -rf $RPM_BUILD_ROOT
 /var/www/html/pg_stats_reporter/
 /var/www/pg_stats_reporter/pg_stats_reporter.ini.sample
 /var/www/pg_stats_reporter/lib/
-/var/www/pg_stats_reporter/template/pg_stats_reporter.tpl
+/var/www/pg_stats_reporter/template/
 /var/www/pg_stats_reporter/message/
 
 %defattr(755,apache,apache,-)
@@ -51,10 +51,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %post
 if [ $1 = 1 ] && [ ! -e /var/www/pg_stats_reporter/pg_stats_reporter.ini ] ; then
-cp /var/www/pg_stats_reporter/pg_stats_reporter.ini.sample /var/www/pg_stats_reporter/pg_stats_reporter.ini
+/bin/cp /var/www/pg_stats_reporter/pg_stats_reporter.ini.sample /var/www/pg_stats_reporter/pg_stats_reporter.ini
 fi
 
 %postun
-rm -rf /var/www/pg_stats_reporter
+/bin/rm -rf /var/www/pg_stats_reporter/cache
+/bin/rm -rf /var/www/pg_stats_reporter/compiled
 
 %changelog
