@@ -210,7 +210,7 @@ $ su
   <tr>
     <td>host</td>
     <td>ホスト名または IP アドレス</td>
-    <td>-</td>
+    <td>*1</td>
     <td>空文字列</td>
     <td>host = localhost</td>
     <td>接続するリポジトリDBのホストを指定します。指定するホスト名は、PostgreSQLが受け付ける形式で指定する必要があります。</td>
@@ -219,7 +219,7 @@ $ su
   <tr>
     <td>port</td>
     <td>ポート番号</td>
-    <td>-</td>
+    <td>*1</td>
     <td>空文字列</td>
     <td>port = 5432</td>
     <td>接続するリポジトリDBのポート番号を指定します。PostgreSQL の待ち受けポートを指定してください。</td>
@@ -228,8 +228,8 @@ $ su
   <tr>
     <td>dbname</td>
     <td>文字列</td>
-    <td>-</td>
-    <td>空文字列</td>
+    <td>*1</td>
+    <td>*1</td>
     <td>dbname = postgres</td>
     <td>接続するリポジトリDBのデータベース名を指定します。pg_statsinfo でリポジトリDBとして使用しているデータベースの名称を指定してください。</td>
   </tr>
@@ -237,8 +237,8 @@ $ su
   <tr>
     <td>username</td>
     <td>文字列</td>
-    <td>-</td>
-    <td>空文字列</td>
+    <td>*1</td>
+    <td>*1</td>
     <td>username = postgres</td>
     <td>リポジトリDBに接続するDBユーザの名称を指定します。リポジトリDBに参照権限のあるDBユーザの名称を指定してください。</td>
   </tr>
@@ -272,7 +272,7 @@ $ su
 </tbody>
 </table>
 <br/>
-
+<p>*1: 設定項目または設定値を省略した場合の挙動については、PostgreSQL日本語ドキュメントの<a href="http://www.postgresql.jp/document/9.2/html/libpq-connect.html#LIBPQ-PARAMKEYWORDS">こちら</a>を参照してください。</p>
 <h2 id="restrictions">使用上の注意と制約</h2>
 <p>pg_stats_reporter を使用する際には、以下の使用上の注意と制約があります。</p>
 <ul>
@@ -294,9 +294,6 @@ $ su
 
 <h4>Q4. ブラウザに Internet Explorer を使用してレポートを表示したところ、正しく表示されません。</h4>
 <dl>A4. ブラウザに Internet Explorer を使用してレポートを作成した場合、Internet Explorer のバージョンによって正しく表示されない場合があります。ブラウザは Firefox を使用することを推奨します。</dl>
-
-<h4>Q5. 日時を指定してレポートを作成したところ、空のレポートが表示されました。</h4>
-<dl>A5. 指定した条件に該当するスナップショット件数が2件未満の可能性があります。スナップショット件数が2件以上該当するように条件を変更してください。</dl>
 
 <h2 id="seealso">関連項目</h2>
 <a href="http://pgstatsinfo.projects.postgresql.org/pg_statsinfo-ja.html">pg_statsinfo</a> 
