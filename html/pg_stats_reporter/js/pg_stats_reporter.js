@@ -206,11 +206,43 @@ function makeDateStr(datestr, interval) {
   var dd = tmpdate.getDate() + interval;
   var hour = tmpdate.getHours();
   var min = tmpdate.getMinutes();
-  // 8/32とか9/-1を避けるため、いったんDate型に変換する
-  var newdate = new Date( yy + "/" + rightStr("0" + mm, 2) + "/"
-						  + rightStr("0" + dd, 2) + " "
-						  + rightStr("0" + hour, 2) + ":"
-						  + rightStr("0" + min, 2));
+
+  if (dd == "0"){
+	// 月跨ぎ処理(endが1日を指定している場合)
+	dd = "1";
+	var newdate = new Date( yy + "/" + rightStr("0" + mm, 2) + "/"
+					+ rightStr("0" + dd, 2) + " "
+					+ rightStr("0" + hour, 2) + ":"
+					+ rightStr("0" + min, 2));
+	// 現在の日付から一日前を指定する
+	newdate.setDate(0);
+  }else{
+	if (mm == "12"){
+		// 12月は31日を指定する
+		var ddd = "31";
+	}else{
+		// それ以外の月は月末となる日を取得する
+		var ddd = new Date(yy, mm, 0);
+	}
+	// 月跨ぎ処理(beginが月末を指定している場合)
+	if (dd > ddd){
+		// 月跨ぎの場合
+		dd = ddd;
+		var newdate = new Date( yy + "/" + rightStr("0" + mm, 2) + "/"
+						+ rightStr("0" + dd, 2) + " "
+						+ rightStr("0" + hour, 2) + ":"
+						+ rightStr("0" + min, 2));
+		// 現在の日付から一日後を指定する
+		newdate.setDate(32);
+	}else{
+		// 月跨ぎでない場合
+	        var newdate = new Date( yy + "/" + rightStr("0" + mm, 2) + "/"
+						+ rightStr("0" + dd, 2) + " "
+						+ rightStr("0" + hour, 2) + ":"
+						+ rightStr("0" + min, 2));
+	}
+  }
+
   yy = newdate.getFullYear();
   mm = newdate.getMonth() + 1;
   dd = newdate.getDate();
