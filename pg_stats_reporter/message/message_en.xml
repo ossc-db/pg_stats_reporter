@@ -1,0 +1,483 @@
+<document>
+<!-- Copyright (c) 2012, NIPPON TELEGRAPH AND TELEPHONE CORPORATION -->
+
+<help>
+<div id="summary-dialog"
+  title="How to see a Summary table">
+<h4>How to see a Summary table.</h4>
+<ul>
+<li>instname : database cluster instance id</li>
+<li>hostname : host server name</li>
+<li>port : port of database cluster instance</li>
+<li>pg_version : version of PostgreSQL</li>
+<li>snap_begin : start point in this report</li>
+<li>snap_end : end point in this report</li>
+<li>duration : term in this report</li>
+<li>total_dbsize : total database size</li>
+<li>total_commits : total commit transactions in this database cluster</li>
+<li>total_rollbacks : total rollback transactions in this database cluster</li>
+</ul>
+</div>
+
+<div id="database-statistics-dialog"
+  title="How to see a Database Statistics table">
+<h4>How to see a Database Statistics table.</h4>
+<ul>
+<li>database : database name</li>
+<li>MiB : size of database (MiB)</li>
+<li>+MiB : increase size of database (MiB)</li>
+<li>commit/s : committed transactions per second</li>
+<li>rollback/s : rollback transactions perl second</li>
+<li>hit% : cache hit's rate (shared_buffers hit's rate)</li>
+<li>gets/s : read blocks from disk and disk cache per second</li>
+<li>reads/s : read blocks from disk perl second</li>
+<li>rows/s : number of rows from tables and indexes perl second</li>
+</ul>
+</div>
+
+<div id="transaction-statistics-dialog"
+  title="How to see a Transaction Statistics graph">
+<h4>How to see a Transaction Statistics graph.</h4>
+<ul>
+<li>x axis  : time</li>
+<li>y axis  : transactions per second</li>
+<li>[database name] commit_tps : commited transactions of [database name] per second</li>
+<li>[database name] rollback_tps : rollback transaction of [database name] per second</li>
+</ul>
+</div>
+
+<div id="database-size-dialog"
+  title="How to see a Database Size">
+<h4>How to see a Database Size table.</h4>
+<ul>
+<li>x axis : time</li>
+<li>y axis : size of database</li>
+<li>[database name] size : size of [database name]</li>
+</ul>
+</div>
+
+<div id="recovery-conflicts-dialog"
+  title="How to see a Recovery Conflicts table">
+<h4>How to see a Recovery Conflicts table.</h4>
+<ul>
+<li>database : database name</li>
+<li>conflict tblspc : number of query cancels by conflict with deleted table space</li>
+<li>conflict lock : number of query cancels by conflict with database locks</li>
+<li>conflict snapshot : number of query cancels by conflict with VACUUM in tuples</li>
+<li>conflict bufferpin : number of query cancels by conflict with VACUUM in shared_buffers</li>
+<li>conflict deadlock : number of query cancels by deadlocks</li>
+</ul>
+</div>
+
+<div id="wal-statistics-dialog"
+  title="How to see a WAL Statistics graph">
+<h4>How to see a WAL Statistics(total) graph.</h4>
+<ul>
+<li>write_total : total size of WAL(xlog) data in this report (MiB)</li>
+<li>write_speed : average size of WAL(xlog) data in this report (MiB)</li>
+</ul>
+<h4>How to seea WAL Statistics graphs.</h4>
+<ul>
+<li>x axis : time (snapshot time)</li>
+<li>y axis1 (left) : size of WAL(xlog) data per snapshot (MiB)</li>
+<li>y axis2 (right) : size of WAL(xlog) data per second (MiB/second)</li>
+<li>write_size : size of WAL output / snapshot time (MiB)</li>
+<li>write_size_per_sec : size pf WAL output / second (MiB/second)</li>
+</ul>
+</div>
+
+<div id="instance-processes-ratio-dialog"
+  title="How to see a Instance Processes Ratio table">
+<h4>How to see a Instance Processes Ratio table.</h4>
+<ul>
+<li>idle (%) : ratio of idle backend process (%)</li>
+<li>idle in xact (%) : ratio of idle backend process in transaction (%)</li>
+<li>waiting (%) : ratio of waiting backend process by locks (%)</li>
+<li>running (%) : ratio of running backend process in transaction (%)</li>
+</ul>
+</div>
+
+<div id="instance-processes-dialog"
+  title="How to see a Instance Processes graph">
+<h4>How to see a Instance Processes graph.</h4>
+<ul>
+<li>x axis : time</li>
+<li>y axis : ratio (%)</li>
+<li>idle (%) : ratio of idle backend process (%)</li>
+<li>idle in xact (%) : ratio of idle backend process in transaction (%)</li>
+<li>waiting (%) : ratio of waiting backend process by locks (%)</li>
+<li>running (%) : ratio of running backend process in transaction (%)</li>
+</ul>
+</div>
+
+<div id="cpu-usage-dialog"
+  title="How to see a CPU Usage graph">
+<h4>How to see a CPU Usage graph.</h4>
+<ul>
+<li>x axis  : time </li>
+<li>y axis  : ratio(%) </li>
+<li>user (%) : ratio of CPU usage in user mode (%)</li>
+<li>system (%) : ratio of CPU usage in system mode (%)</li>
+<li>iowait (%) : ratio of CPU usage in iowait (%)</li>
+<li>idle (%) : ratio of CPU usage in idle (%)</li>
+</ul>
+</div>
+
+<div id="load-average-dialog"
+  title="How to see a Load Average graph">
+<h4>How to see a Load Average graph.</h4>
+<ul>
+<li>x axis : time</li>
+<li>y axis : load average</li>
+<li>: load average in one minute</li>
+<li>: load average in five minutes</li>
+<li>: load average in fifteen minutes</li>
+</ul>
+</div>
+
+<div id="io-usage-dialog"
+  title="How to see a IO Usage table/graph">
+<h4>How to see a IO Usage table/graph.</h4>
+<ul>
+<li>device_name : device name</li>
+<li>Including TableSpaces : size of table space in a device</li>
+<li>total read (MiB) : total read size in a device (MiB)</li>
+<li>total write (MiB) : total write size in a device (MiB)</li>
+<li>total read time (ms) : total read time in a device (ms)</li>
+<li>total write time (ms) : total write time in a device (ms)</li>
+<li>current I/O queue : number of current I/O queue in a device</li>
+<li>total I/O time (ms) : total time of I/O in a device (ms)</li>
+</ul>
+<h4>How to see a IO Size</h4>
+<ul>
+<li>x axis : time </li>
+<li>y axis : database size (KiB) </li>
+<li>[device] read(KiB/s) : read I/O size per second in a device (KiB/s)</li>
+<li>[device] write(KiB/s) : write I/O size per second in a device (KiB/s)</li>
+</ul>
+<h4>How to see a IO Time</h4>
+<ul>
+<li>x axis : time </li>
+<li>y axis : avarage time (ms)</li>
+<li>[device] avg read time (ms/s) : time of read I/O in a device (ms/s) [デバイス名]の秒単位あたりに読み込みにかかった時間 [ミリ秒単位]</li>
+<li>[device] avg write time (ms/s) : time of write I/O in a device (ms/s) [デバイス名]の秒単位あたりに書き込みにかかった時間 [ミリ秒単位]</li>
+</ul>
+</div>
+
+<div id="memory-usage-dialog"
+  title="How to see a Memory Usage graph">
+<h4>How to see a memory Uage graph table.</h4>
+<ul>
+<li>x axis : time </li>
+<li>y axis : size (MiB)</li>
+<li>memfree : size of free memory (MiB)</li>
+<li>buffers : size of buffers cached (MiB)</li>
+<li>cached : size of file cached(not include buffer cached) (MiB)</li>
+<li>swap : size of swap (MiB)</li>
+<li>dirty : size of dirty pages (MiB)</li>
+</ul>
+</div>
+
+<div id="disk-usage-per-tablespace-dialog"
+  title="How to see a Disk Usage per Tablespace table">
+<h4>How to see a Disk Usage per Tablespace table.</h4>
+<ul>
+<li>tablespace : name of tablespace テーブルスペース名</li>
+<li>location : directory of tablespace テーブルスペース格納ディレクトリ名</li>
+<li>device : device number of directory of tablespace テーブルスペース格納ディレクトリのデバイス(ディスク)のデバイス番号</li>
+<li>used (MB) : usage data size in table space directory device テーブルスペース格納ディレクトリのデバイスの使用済みサイズ [MB単位]</li>
+<li>avail (MB) : avalable data size in table space directory device テーブルスペース格納ディレクトリのデバイスの利用可能サイズ [MB単位]</li>
+<li>remain (%) : remain data size in table space directory device テーブルスペース格納ディレクトリのデバイスで利用可能な領域の割合</li>
+</ul>
+</div>
+
+<div id="disk-usage-per-table-dialog"
+  title="How to see a Disk Usage per Table table/graph">
+<h4>How to see a Disk Usage per Table table/graph.</h4>
+<ul>
+<li>database : database name</li>
+<li>schema : schema name</li>
+<li>table : table name</li>
+<li>size (MiB) : size of table (MiB)</li>
+<li>table reads : table-blocks-reads</li>
+<li>index reads : index-blocks-reads</li>
+<li>toast reads : TOAST-blocks-reads</li>
+</ul>
+<h4>How to see a Table Size table.</h4>
+<ul>
+<li>entry : table name [database name].[schema name].[table name])</li>
+<li>value : table size ratio</li>
+</ul>
+<h4>How to see a Disk Read table.</h4>
+<ul>
+<li>entry : table name ([database name].[schema name].[table name])</li>
+<li>value : amount of read all blocks (all tables, indexes, TOAST table and TOAST index)</li>
+</ul>
+</div>
+
+<div id="heavily-updated-tables-dialog"
+  title="How to see a Heavily Updated Tables table">
+<h4>How to see a Heavily Updated Tables table.</h4>
+<ul>
+<li>database : database name</li>
+<li>schema : schema name</li>
+<li>table : table name</li>
+<li>INSERT : number of INSERT rows</li>
+<li>UPDATE : number of UPDATE rows (include HOT update)</li>
+<li>DELETE :number of DELETE rows</li>
+<li>total : number of INSERT, UPDATE and DELETE rows</li>
+<li>HOT (%) : ratio of HOT update rows per all table rows</li>
+</ul>
+</div>
+
+<div id="heavily-accessed-tables-dialog"
+  title="How to see a Heavily Accessed Tables table">
+<h4>How to see a Heavily Accessed Tables table.</h4>
+<ul>
+<li>database : database name</li>
+<li>schema : schema name</li>
+<li>table : table name</li>
+<li>seq_scan : time of executing sequential scan</li>
+<li>seq_tup_read : rows of sequential scan read</li>
+<li>tup_per_seq : rows of sequential scan read per once</li>
+<li>hit (%) : cache hit ratio</li>
+</ul>
+</div>
+
+<div id="low-density-tables-dialog"
+  title="How to see a Low Density Tables table">
+<h4>How to see a Low Density Tables table.</h4>
+<ul>
+<li>database : database name</li>
+<li>schema : schama name</li>
+<li>table : table name</li>
+<li>tuples : tuples in the table</li>
+<li>logical_pages : number of logical pages in all records</li>
+<li>physical_pages : number of physical pages in all records</li>
+<li>tratio : ratio of logical pages per physical pages</li>
+</ul>
+</div>
+
+<div id="fragmented-tables-dialog"
+  title="How to see a Fragmented Tables table">
+<h4>How to see a Fragmented Tables table.</h4>
+<ul>
+<li>database : database name</li>
+<li>schema : schema name</li>
+<li>table : table name</li>
+<li>column : colum name</li>
+<li>correlation : correlation of record sort in table</li>
+</ul>
+</div>
+
+<div id="functions-dialog"
+  title="How to see a Functions table">
+<h4>How to see a Functions table.</h4>
+<ul>
+<li>Database : database name</li>
+<li>Schema : schema name</li>
+<li>Function : function name</li>
+<li>calls : time of function calls</li>
+<li>total time (ms) : total execute time (ms)</li>
+<li>self time (ms) : self execute time (ms)</li>
+<li>time/call (ms) : total execute time per calls (ms)</li>
+</ul>
+</div>
+
+<div id="statements-dialog"
+  title="How to see a Statements table">
+<h4>How to see a Statements table.</h4>
+<ul>
+<li>User : user name which executed query</li>
+<li>Database : database name which was executed query</li>
+<li>query : SQL query</li>
+<li>calls : number of executing query</li>
+<li>total time (sec) : total executing time (sec)</li>
+<li>time/call (ms) : average executing time (ms)</li>
+</ul>
+</div>
+
+<div id="long-transactions-dialog"
+  title="How to see a Long Transactions table">
+<h4>How to see a Long Transactions table.</h4>
+<ul>
+<li>pid : pid of backend process in long transaction</li>
+<li>client address : client ip address of backend process in long transaction</li>
+<li>when to start : start time of long transaction</li>
+<li>duration (sec) : duration time of long transaction (sec)</li>
+<li>query : query of long transaction</li>
+</ul>
+</div>
+
+<div id="lock-activity-dialog"
+  title="How to see a Lock Activity table">
+<h4>How to see a Lock Activity table.</h4>
+<ul>
+<li>database : database name which has lock waiting object</li>
+<li>schema : schema name which has lock waiting object</li>
+<li>relation : relation name which has lock waiting</li>
+<li>duration : duration time which has lock waiting</li>
+<li>blockee pid : blockee pid which has lock waiting</li>
+<li>blocker pid : blocke pid which has lock</li>
+<li>blocker gid : gid of blocker backend</li>
+<li>blockee query : executing query which is lock wating in transaction</li>
+<li>blocker query : query list which has lock in transaction</li>
+</ul>
+</div>
+
+<div id="checkpoint-activity-dialog"
+  title="How to see a Checkpoint Activity table">
+<h4>How to see a Checkpoint Activity table.</h4>
+<ul>
+<li>total checkpoints : number of total checkpoint</li>
+<li>checkpoints by time : number of checkpoint executed by checkpoint_timeout</li>
+<li>checkpoints by xlog : number of checkpoint executed by checkpoint segments</li>
+<li>avg written buffers : average written buffer size</li>
+<li>max written buffers : max written buffer size</li>
+<li>avg duration (sec) : average time of checkpoint's duration (sec)</li>
+<li>max duration (sec) : max time of checkpoint's duration (sec)</li>
+</ul>
+</div>
+
+<div id="autovacuum-activity-dialog"
+  title="How to see a Autovacuum Activity table">
+<h4>How to see a Autovacuum Acitivty table.</h4>
+<ul>
+<li>database : database name</li>
+<li>schema : schema name</li>
+<li>table : table name</li>
+<li>count : number of execute autovaccum autovacuum</li>
+<li>avg index scans : number of index scan</li>
+<li>avg removed rows : avarage removed rows</li>
+<li>avg remain rows : average remain rows</li>
+<li>avg duration (sec) : average duration time (sec)</li>
+<li>max duration (sec) : max duration time (sec)</li>
+</ul>
+</div>
+
+<div id="replication-activity-dialog"
+  title="How to see a Replication Activity table">
+<h4>How to see a Replication Activity table.</h4>
+<ul>
+<li>user : user name</li>
+<li>appname : application name</li>
+<li>client addr : IP address in standby</li>
+<li>client_host : host name in standby</li>
+<li>client_port : port number in standby</li>
+<li>backend start : start time of walsender walsender</li>
+<li>state : state of walsender</li>
+<li>current location : current WAL location</li>
+<li>sent location : sent WAL location</li>
+<li>write location : write WAL location in standby (LSN or WAL file name)</li>
+<li>flush location : flush WAL location in standby (LSN or WAL file name)</li>
+<li>replay location : replay WAL location in standby (LSN or WAL file name)</li>
+<li>sync priority : priority of synchronous replication</li>
+<li>sync state : state of synchronous replication</li>
+</ul>
+</div>
+
+<div id="database-dialog"
+  title="How to see a Database table">
+<h4>How to see a Database table.</h4>
+<ul>
+<li></li>
+<li></li>
+</ul>
+</div>
+
+<div id="schema-dialog"
+  title="How to see a Schema table">
+<h4>How to see a Schema table.</h4>
+<ul>
+<li></li>
+<li></li>
+</ul>
+</div>
+
+<div id="table-dialog"
+  title="How to see a Table table">
+<h4>How to see a Table table.</h4>
+<ul>
+<li>database : database name</li>
+<li>schema : schema name</li>
+<li>table : table name</li>
+<li>columns : number of colunms</li>
+<li>row width : average real columns data size (byte)</li>
+<li>MB : table size (MiB)</li>
+<li>+MB : increase table size (MiB)</li>
+<li>table scans : number of executing sequential scan</li>
+<li>index scans : number of executing index scan</li>
+</ul>
+</div>
+
+<div id="index-dialog"
+  title="How to see a Index table">
+<h4>How to see a Index table.</h4>
+<ul>
+<li>database : database name</li>
+<li>schema : schema name</li>
+<li>index : index name</li>
+<li>table : table name is refferd to index</li>
+<li>MB : index size (MiB)</li>
+<li>+MB : increase index size (MiB)</li>
+<li>scans : number of executing index scans</li>
+<li>rows/scan : returned rows which is executing once index scan</li>
+<li>reads : read by disk blocks</li>
+<li>hits : read by cache blocks</li>
+<li>keys : value of index key</li>
+</ul>
+</div>
+
+<div id="view-dialog"
+  title="How to see a View table">
+<h4>How to seea View table.</h4>
+This information is not supported in this version. We will support in future version.
+</div>
+
+<div id="sequence-dialog"
+  title="How to see a Sequence table">
+<h4>How to see a Sequence table.</h4>
+This information is not supported in this version. We will support in future version.
+</div>
+
+<div id="trigger-dialog"
+  title="How to see a Trigger table">
+<h4>How to see a Trigger table.</h4>
+This information is not supported in this version. We will support in future version.
+</div>
+
+<div id="role-dialog"
+  title="How to see a Role table">
+<h4>How to see a Role table.</h4>
+This information is not supported in this version. We will support in future version.
+</div>
+
+<div id="parameter-dialog"
+  title="How to see a Parameter table">
+<h4>How to see a Parameter table.</h4>
+<ul>
+<li>name : parameter name</li>
+<li>setting : parameter value</li>
+<li>source : setting parameter</li>
+</ul>
+</div>
+
+<div id="profiles-dialog"
+  title="How to see a Profiles table">
+<h4>How to see a Profiles table.</h4>
+<ul>
+<li>processing : processing name</li>
+<li>executes : average number of executing</li>
+</ul>
+</div>
+</help>
+
+<error>
+<p id="query_error">SQL executing failuer.</p>
+<p id="no_result">This repository does not have result in this instance.</p>
+<p id="st_version">This pg_statsinfo version is not supported. Please use 2.4.0 higher.</p>
+<p id="pg_version">This PostgreSQL version is not supported. Please use 8.3.x higher.</p>
+<p id="no_info">This repository does not have snapshot at all.Please execute getting snapshot command or wait for few minutes(auto getting snapshot).</p>
+<p id="short_snapshots">does not present a reports. Because repository does not have snapshot at all. Please re-select report term or get snapshot.</p>
+</error>
+</document>

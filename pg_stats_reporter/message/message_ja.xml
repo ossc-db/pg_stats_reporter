@@ -152,15 +152,15 @@
 <ul>
 <li>横軸 : 時刻</li>
 <li>縦軸 : データサイズ(KiB)</li>
-<li>[デバイス名] read(KiB)/s : 秒単位あたりに読み込んだサイズ (KiB)</li>
-<li>[デバイス名] write(KiB)/s : 秒単位あたりに書き込んだサイズ (KiB)</li>
+<li>[デバイス名] read(KiB/s) : 秒単位あたりに読み込んだサイズ (KiB)</li>
+<li>[デバイス名] write(KiB/s) : 秒単位あたりに書き込んだサイズ (KiB)</li>
 </ul>
 <h4>IO Time の見方</h4>
 <ul>
 <li>横軸 : 時刻</li>
 <li>縦軸 : 平均時間(ms)</li>
-<li>[デバイス名] avg read time (ms)/s : [デバイス名]の秒単位あたりに読み込みにかかった時間 (ミリ秒)</li>
-<li>[デバイス名] avg write time (ms)/s : [デバイス名]の秒単位あたりに書き込みにかかった時間 (ミリ秒)</li>
+<li>[デバイス名] avg read time (ms/s) : [デバイス名]の秒単位あたりに読み込みにかかった時間 (ミリ秒)</li>
+<li>[デバイス名] avg write time (ms/s) : [デバイス名]の秒単位あたりに書き込みにかかった時間 (ミリ秒)</li>
 </ul>
 </div>
 
@@ -293,7 +293,7 @@
 <li>query : 問い合わせ文</li>
 <li>calls : 問い合わせ文が実行された回数</li>
 <li>total time (sec) : 問い合わせ文の累積消費時間 (秒)</li>
-<li>time/call (sec) : 1回の問い合わせ文実行当たりの消費時間 (ミリ秒)</li>
+<li>time/call (ms) : 1回の問い合わせ文実行当たりの消費時間 (ミリ秒)</li>
 </ul>
 </div>
 
