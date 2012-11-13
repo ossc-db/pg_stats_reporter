@@ -32,6 +32,7 @@
   <li><a href="#restrictions">使用上の注意と制約</a></li>
   <li><a href="#faq">よくあるQ&amp;A</a></li>
   <li><a href="#seealso">関連項目</a></li>
+  <li><a href="#acknowledgment">謝辞</a></li>
 </ol>
 </div>
 
@@ -43,7 +44,7 @@
 <p>pg_stats_reporter はブラウザから利用し、pg_statsinfo が PostgreSQL に格納したスナップショットからグラフィカルなレポートを作成し、表示します。<br/>
 
 <h2 id="install">インストール</h2>
-<p>pg_stats_reporter のインストールについて説明します。インストールパッケージは<a href="http://pgfoundry.org/frs/?group_id=1000422">こちら</a>からダウンロードしてください。</p>
+<p>pg_stats_reporter のインストールについて説明します。インストールパッケージは<a href="http://pgfoundry.org/frs/?group_id=1000422">こちら</a>からダウンロードしてください。<br/>ソースセットからインストールする場合は、ソースセットに同梱されている INSTALL.ja ファイルを参照してください。</p>
 
 <h3 id="requirement">動作環境</h3>
 <dl>
@@ -57,6 +58,7 @@
   <dd>RHEL 5.x, 6.x, CentOS 5.x, 6.x</dd>
   <dt>動作確認済みブラウザ</dt>
   <dd>Firefox : 3.6.9, 16.0.2</dd>
+  <dd>Google Chrome : 23.0.1271.64 m</dd>
   <dt>動作確認済みHTTP Server (OS同梱のもの)</dt>
   <dd>Apache HTTP Server : 2.2.15</dd>
   <dt>利用ライブラリ(pg_stats_reporter の RPM に同梱)</dt>
@@ -75,17 +77,23 @@
 </dl>
 
 <h3 id="pg_stats_reporter_install">pg_stats_reporterのインストール</h3>
-<p>入手した rpm ファイルを、rpm コマンドでインストールします。以下はインストールの例です。</p>
+<p>依存するパッケージ、および入手した rpm ファイルを、rpm コマンドでインストールします。以下はインストール例です。</p>
 <pre>
 $ su
+# rpm -ivh httpd-2.2.15-15.el6_2.1.x86_64.rpm
+# rpm -ivh php-5.3.3-3.el6_2.8.x86_64.rpm
+# rpm -ivh php-common-5.3.3-3.el6_2.8.x86_64.rpm
+# rpm -ivh php-pgsql-5.3.3-3.el6_2.8.x86_64.rpm
+# rpm -ivh php-intl-5.3.3-3.el6_2.8.x86_64.rpm
 # rpm -ivh pg_stats_reporter-1.0.0-1.el6.noarch.rpm
 </pre>
 
 <h3 id="initialize">初期設定</h3>
 <h4>設定ファイルの作成</h4>
 <p>サンプルから設定ファイルを作成します。設定ファイルの各項目の説明は<a href="#configuration">こちら</a>を参照してください。<br/>
-「database connection」の各項目を、pg_statsinfo のスナップショット格納DB(以降、リポジトリDBと呼びます)への接続情報に修正します。複数のリポジトリDBの情報を参照できるようにしたい場合は、リポジトリDBごとにiniファイルにセクション(pg_stats_reporter.ini.sample ファイルの情報全て)を追加します。<br/>
-以下は作成の例です。<br/>
+「database connection」の各項目を、pg_statsinfo のスナップショット格納DB(以降、リポジトリDBと呼びます)への接続情報に修正します。<br/>
+複数のリポジトリDBの情報を参照できるようにしたい場合は、リポジトリDBごとにiniファイルにセクション(pg_stats_reporter.ini.sample ファイルの情報全て)を追加します。<br/>
+以下は作成例です。<br/>
 </p>
 <pre>
 # cd /var/www/pg_stats_reporter
@@ -116,32 +124,16 @@ password =
 http://localhost/pg_stats_reporter/pg_stats_reporter.php
 </pre>
 <p>起動時は、以下のレポートを表示します。<ul>
-<li>対象リポジトリDB : 設定ファイルの先頭に記述されたもの</li>
-<li>開始 : 実行日前日の0時</li>
-<li>終了 : 実行日時</li>
-</ul></p>
-<pre>
-リポジトリDB
-  [sample1]
-    localhost:5432
-    host1:5432
-  [sample2]
-    localhost:5432
-    host2:5432
-起動日時
-  2012/11/01 10:00:00
-
-上記の場合に作成されるレポート
-  [sample1]
-  localhost:5432
-  begin: 2012/10/31 00:00:00
-  end: 2012/11/01 10:00:00
-</pre>
+<li>対象リポジトリDB : 設定ファイルの先頭に記述された項目</li>
+<li>レポート期間の開始日時 : pg_stats_reporter実行日前日の0時</li>
+<li>レポート期間の終了日時 : pg_stats_reporter実行日時</li>
+</ul>
+pg_stats_reporterを「2012年11月2日 18:04」に実行した場合の表示例を<a href="#report_sample">こちら</a>に示します。</p>
 
 <h3>操作方法詳細</h3>
 <p>画面の操作方法を以下に示します。</p>
 <h4>レポート画面</h4>
-<img src="pg_stats_reporter.png" width="800px;"/>
+<img id="report_sample" src="pg_stats_reporter.png" width="800px;"/>
 <br/>
 <dl>
 <dt>① : Create report range ボタン</dt>
@@ -176,7 +168,7 @@ http://localhost/pg_stats_reporter/pg_stats_reporter.php
 <br/>
 
 <h2 id="uninstall">アンインストール</h2>
-<p>rpm コマンドでアンインストールします。</p>
+<p>rpm コマンドでアンインストールします。<br/>ソースセットからインストールした場合のアンインストール手順は、ソースセットに同梱されている INSTALL.ja ファイルを参照してください。</p>
 <pre>
 $ su
 # rpm -e pg_stats_reporter-1.0.0-1.el6.noarch
@@ -189,11 +181,11 @@ $ su
 <table>
 <thead>
   <tr>
-    <th>設定項目</th>
+    <th width="100">設定項目</th>
     <th>設定可能な値</th>
     <th>項目省略時</th>
     <th>設定値省略時</th>
-    <th>設定例</th>
+    <th width="150">設定例</th>
     <th>説明</th>
   </tr>
 </thead>
@@ -289,14 +281,27 @@ $ su
 <li>接続先の PostgreSQL の設定 (postgresql.conf, pg_hba.conf)</li>
 </ul></dl>
 
-<h4>Q3. メニュー画面が画面からはみ出て選択できない。</h4>
-<dl>A3. 画面の解像度を現在の設定以上に設定してください。右側のリポジトリ選択メニューが選択できない場合は、別のWebディレクトリにpg_stats_reporterをインストールして、レポジトリDB設定を分散させるなどして対応してください。</dl>
+<h4>Q3. メニューが画面からはみ出て選択できない。</h4>
+<dl>A3. 画面の解像度を現在の設定以上に設定してください。左側のリポジトリ選択メニューが選択できない場合は、別のWebディレクトリにpg_stats_reporterをインストールして、レポジトリDB設定を分散させるなどして対応してください。</dl>
 
 <h4>Q4. ブラウザに Internet Explorer を使用してレポートを表示したところ、正しく表示されません。</h4>
 <dl>A4. ブラウザに Internet Explorer を使用してレポートを作成した場合、Internet Explorer のバージョンによって正しく表示されない場合があります。ブラウザは Firefox を使用することを推奨します。</dl>
 
 <h2 id="seealso">関連項目</h2>
 <a href="http://pgstatsinfo.projects.postgresql.org/pg_statsinfo-ja.html">pg_statsinfo</a> 
+<br/><br/>
+<h2 id="acknowledgment">謝辞</h2>
+<p>pg_stats_reporter では、以下のライブラリを活用させていただいております。感謝いたします。<br/>
+<ul>
+<li>jQuery<br/>(<a href="http://jquery.com/">http://jquery.com/</a>)</li>
+<li>jQuery UI<br/>(<a href="http://jqueryui.com/">http://jqueryui.com/</a>)</li>
+<li>jquery-ui-timepicker-addon<br/>(<a href="http://trentrichardson.com/examples/timepicker/">http://trentrichardson.com/examples/timepicker/</a>)</li>
+<li>dygraphs JavaScript Visualization Library<br/>(<a href="http://dygraphs.com/">http://dygraphs.com/</a>)</li>
+<li>jqPlot<br/>(<a href="http://www.jqplot.com/">http://www.jqplot.com/</a>)</li>
+<li>tablesorter<br/>(<a href="http://tablesorter.ru/docs/">http://tablesorter.ru/docs/</a>)</li>
+<li>Superfish<br/>(<a href="http://users.tpg.com.au/j_birch/plugins/superfish/">http://users.tpg.com.au/j_birch/plugins/superfish/</a>)</li>
+<li>Smarty<br/>(<a href="http://www.smarty.net/">http://www.smarty.net/</a>)</li>
+</ul>
 <br/><br/>
 <hr/>
 <div class="navigation">

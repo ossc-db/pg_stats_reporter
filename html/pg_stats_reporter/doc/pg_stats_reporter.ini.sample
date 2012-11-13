@@ -1,12 +1,12 @@
-;############################################################################
-;# Copyright (c) 2012, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
-;############################################################################
+;-------------------------------------
+; pg_stats_reporter configuration file
+;-------------------------------------
 
 [sample]
 
-;#######################
-;# database connection #
-;#######################
+;-------------------------------------
+; database connection
+;-------------------------------------
 
 host = localhost
 port = 5432
@@ -14,79 +14,79 @@ dbname = postgres
 username = postgres
 password =
 
-;##################
-;# report setting #
-;##################
+;-------------------------------------
+; report setting
+;-------------------------------------
 
-;### Language Setting ###
+; --- Language Setting ---
 language = auto
 
-;### Summary ###
+; --- Summary ---
 summary = true
 
-;### Database System ###
+; --- Database System ---
 
-;## Database Statistics ##
+; -- Database Statistics --
 database_statistics = true
 transaction_statistics = true
 database_size = true
 recovery_conflicts = true
 
-;## Instance Activity ##
+; -- Instance Activity --
 wal_statistics = true
 instance_processes_ratio = true
 instance_processes = true
 
-;### Operating System ###
+; --- Operating System ---
 
-;## OS Resource Usage ##
+; -- OS Resource Usage --
 cpu_usage = true
 load_average = true
 io_usage = true
 memory_usage = true
 
-;## Disk Usage ##
+; -- Disk Usage --
 disk_usage_per_tablespace = true
 disk_usage_per_table = true
 
-;### SQL ###
+; --- SQL ---
 
-;## Notable Tables ##
+; -- Notable Tables --
 heavily_updated_tables = true
 heavily_accessed_tables = true
 low_density_tables = true
 fragmented_tables = true
 
-;## Query Activity ##
+; -- Query Activity --
 functions = true
 statements = true
 
-;## Long Transactions ##
+; -- Long Transactions --
 long_transactions = true
 
-;## Lock Activity ##
-lock_activity = true
+; -- Lock Conflicts --
+lock_conflicts = true
 
-;### Operation Activity ###
+; --- Operation Activity ---
 
-;## Checkpoint Activity ##
+; -- Checkpoint Activity --
 checkpoint_activity = true
 
-;## Autovacuum Activity ##
+; -- Autovacuum Activity --
 basic_statistics = true
 io_statistics = true
 
-;## Replication Activity ##
+; -- Replication Activity --
 replication_activity = true
 
-;### Information ###
+; --- Information ---
 
-;## Schema Information ##
+; -- Schema Information --
 table = true
 index = true
 
-;## Setting Parameters ##
+; -- Setting Parameters --
 parameter = true
 
-;## Profiles ##
+; -- Profiles --
 profiles = true
