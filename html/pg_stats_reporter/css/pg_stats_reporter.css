@@ -57,6 +57,20 @@ h3 {
   z-index: 1;
 }
 
+.scrollbox{
+background-color:#80bfff;
+text-align:left;
+height:100%;
+overflow:auto;
+scrollbar-3dlight-color:#ffeaff;
+scrollbar-arrow-color:#ffeaff;
+scrollbar-darkshadow-color:#ffffff;
+scrollbar-face-color:#ffffff;
+scrollbar-highlight-color:#ffffff;
+scrollbar-shadow-color:#ffeaff;
+scrollbar-track-color:#ffffff;
+}
+
 .menu a {
   color: #222222;
 }
