@@ -357,7 +357,7 @@
 
 <div id="io_statistics_dialog"
   title="How to see a I/O Statistics (Average) table">
-<h4>I/O Statistics (Average ) の見方</h4>
+<h4>I/O Statistics (Average) の見方</h4>
 <ul>
 <li>database : データベース名</li>
 <li>schema : スキーマ名</li>

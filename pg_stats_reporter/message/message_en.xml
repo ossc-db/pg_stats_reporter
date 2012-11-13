@@ -2,7 +2,7 @@
 <!-- Copyright (c) 2012, NIPPON TELEGRAPH AND TELEPHONE CORPORATION -->
 
 <help>
-<div id="summary-dialog"
+<div id="summary_dialog"
   title="How to see a Summary table">
 <h4>How to see a Summary table.</h4>
 <ul>
@@ -19,7 +19,7 @@
 </ul>
 </div>
 
-<div id="database-statistics-dialog"
+<div id="database_statistics_dialog"
   title="How to see a Database Statistics table">
 <h4>How to see a Database Statistics table.</h4>
 <ul>
@@ -27,15 +27,15 @@
 <li>MiB : size of database (MiB)</li>
 <li>+MiB : increase size of database (MiB)</li>
 <li>commit/s : committed transactions per second</li>
-<li>rollback/s : rollback transactions perl second</li>
+<li>rollback/s : rollback transactions per second</li>
 <li>hit% : cache hit's rate (shared_buffers hit's rate)</li>
 <li>gets/s : read blocks from disk and disk cache per second</li>
-<li>reads/s : read blocks from disk perl second</li>
-<li>rows/s : number of rows from tables and indexes perl second</li>
+<li>reads/s : read blocks from disk per second</li>
+<li>rows/s : number of rows from tables and indexes per second</li>
 </ul>
 </div>
 
-<div id="transaction-statistics-dialog"
+<div id="transaction_statistics_dialog"
   title="How to see a Transaction Statistics graph">
 <h4>How to see a Transaction Statistics graph.</h4>
 <ul>
@@ -46,7 +46,7 @@
 </ul>
 </div>
 
-<div id="database-size-dialog"
+<div id="database_size_dialog"
   title="How to see a Database Size">
 <h4>How to see a Database Size table.</h4>
 <ul>
@@ -56,7 +56,7 @@
 </ul>
 </div>
 
-<div id="recovery-conflicts-dialog"
+<div id="recovery_conflicts_dialog"
   title="How to see a Recovery Conflicts table">
 <h4>How to see a Recovery Conflicts table.</h4>
 <ul>
@@ -69,7 +69,7 @@
 </ul>
 </div>
 
-<div id="wal-statistics-dialog"
+<div id="wal_statistics_dialog"
   title="How to see a WAL Statistics graph">
 <h4>How to see a WAL Statistics(total) graph.</h4>
 <ul>
@@ -86,7 +86,7 @@
 </ul>
 </div>
 
-<div id="instance-processes-ratio-dialog"
+<div id="instance_processes_ratio_dialog"
   title="How to see a Instance Processes Ratio table">
 <h4>How to see a Instance Processes Ratio table.</h4>
 <ul>
@@ -97,7 +97,7 @@
 </ul>
 </div>
 
-<div id="instance-processes-dialog"
+<div id="instance_processes_dialog"
   title="How to see a Instance Processes graph">
 <h4>How to see a Instance Processes graph.</h4>
 <ul>
@@ -110,7 +110,7 @@
 </ul>
 </div>
 
-<div id="cpu-usage-dialog"
+<div id="cpu_usage_dialog"
   title="How to see a CPU Usage graph">
 <h4>How to see a CPU Usage graph.</h4>
 <ul>
@@ -123,19 +123,19 @@
 </ul>
 </div>
 
-<div id="load-average-dialog"
+<div id="load_average_dialog"
   title="How to see a Load Average graph">
 <h4>How to see a Load Average graph.</h4>
 <ul>
 <li>x axis : time</li>
 <li>y axis : load average</li>
-<li>: load average in one minute</li>
-<li>: load average in five minutes</li>
-<li>: load average in fifteen minutes</li>
+<li>1min : load average in one minute</li>
+<li>5min : load average in five minutes</li>
+<li>15min : load average in fifteen minutes</li>
 </ul>
 </div>
 
-<div id="io-usage-dialog"
+<div id="io_usage_dialog"
   title="How to see a IO Usage table/graph">
 <h4>How to see a IO Usage table/graph.</h4>
 <ul>
@@ -159,12 +159,12 @@
 <ul>
 <li>x axis : time </li>
 <li>y axis : avarage time (ms)</li>
-<li>[device] avg read time (ms/s) : time of read I/O in a device (ms/s) [デバイス名]の秒単位あたりに読み込みにかかった時間 [ミリ秒単位]</li>
-<li>[device] avg write time (ms/s) : time of write I/O in a device (ms/s) [デバイス名]の秒単位あたりに書き込みにかかった時間 [ミリ秒単位]</li>
+<li>[device] avg read time (ms/s) : time of read I/O in a device (ms/s)</li>
+<li>[device] avg write time (ms/s) : time of write I/O in a device (ms/s)</li>
 </ul>
 </div>
 
-<div id="memory-usage-dialog"
+<div id="memory_usage_dialog"
   title="How to see a Memory Usage graph">
 <h4>How to see a memory Uage graph table.</h4>
 <ul>
@@ -178,20 +178,20 @@
 </ul>
 </div>
 
-<div id="disk-usage-per-tablespace-dialog"
+<div id="disk_usage_per_tablespace_dialog"
   title="How to see a Disk Usage per Tablespace table">
 <h4>How to see a Disk Usage per Tablespace table.</h4>
 <ul>
-<li>tablespace : name of tablespace テーブルスペース名</li>
-<li>location : directory of tablespace テーブルスペース格納ディレクトリ名</li>
-<li>device : device number of directory of tablespace テーブルスペース格納ディレクトリのデバイス(ディスク)のデバイス番号</li>
-<li>used (MB) : usage data size in table space directory device テーブルスペース格納ディレクトリのデバイスの使用済みサイズ [MB単位]</li>
-<li>avail (MB) : avalable data size in table space directory device テーブルスペース格納ディレクトリのデバイスの利用可能サイズ [MB単位]</li>
-<li>remain (%) : remain data size in table space directory device テーブルスペース格納ディレクトリのデバイスで利用可能な領域の割合</li>
+<li>tablespace : name of tablespace</li>
+<li>location : directory of tablespace</li>
+<li>device : device number of directory of tablespace</li>
+<li>used (MiB) : usage data size in table space directory device (MiB)</li>
+<li>avail (MiB) : avalable data size in table space directory device (MiB)</li>
+<li>remain (%) : remain data size in table space directory device</li>
 </ul>
 </div>
 
-<div id="disk-usage-per-table-dialog"
+<div id="disk_usage_per_table_dialog"
   title="How to see a Disk Usage per Table table/graph">
 <h4>How to see a Disk Usage per Table table/graph.</h4>
 <ul>
@@ -199,9 +199,9 @@
 <li>schema : schema name</li>
 <li>table : table name</li>
 <li>size (MiB) : size of table (MiB)</li>
-<li>table reads : table-blocks-reads</li>
-<li>index reads : index-blocks-reads</li>
-<li>toast reads : TOAST-blocks-reads</li>
+<li>table reads : table_blocks_reads</li>
+<li>index reads : index_blocks_reads</li>
+<li>toast reads : TOAST_blocks_reads</li>
 </ul>
 <h4>How to see a Table Size table.</h4>
 <ul>
@@ -215,7 +215,7 @@
 </ul>
 </div>
 
-<div id="heavily-updated-tables-dialog"
+<div id="heavily_updated_tables_dialog"
   title="How to see a Heavily Updated Tables table">
 <h4>How to see a Heavily Updated Tables table.</h4>
 <ul>
@@ -230,7 +230,7 @@
 </ul>
 </div>
 
-<div id="heavily-accessed-tables-dialog"
+<div id="heavily_accessed_tables_dialog"
   title="How to see a Heavily Accessed Tables table">
 <h4>How to see a Heavily Accessed Tables table.</h4>
 <ul>
@@ -244,7 +244,7 @@
 </ul>
 </div>
 
-<div id="low-density-tables-dialog"
+<div id="low_density_tables_dialog"
   title="How to see a Low Density Tables table">
 <h4>How to see a Low Density Tables table.</h4>
 <ul>
@@ -258,7 +258,7 @@
 </ul>
 </div>
 
-<div id="fragmented-tables-dialog"
+<div id="fragmented_tables_dialog"
   title="How to see a Fragmented Tables table">
 <h4>How to see a Fragmented Tables table.</h4>
 <ul>
@@ -270,7 +270,7 @@
 </ul>
 </div>
 
-<div id="functions-dialog"
+<div id="functions_dialog"
   title="How to see a Functions table">
 <h4>How to see a Functions table.</h4>
 <ul>
@@ -284,7 +284,7 @@
 </ul>
 </div>
 
-<div id="statements-dialog"
+<div id="statements_dialog"
   title="How to see a Statements table">
 <h4>How to see a Statements table.</h4>
 <ul>
@@ -297,7 +297,7 @@
 </ul>
 </div>
 
-<div id="long-transactions-dialog"
+<div id="long_transactions_dialog"
   title="How to see a Long Transactions table">
 <h4>How to see a Long Transactions table.</h4>
 <ul>
@@ -309,7 +309,7 @@
 </ul>
 </div>
 
-<div id="lock-activity-dialog"
+<div id="lock_conflicts_dialog"
   title="How to see a Lock Activity table">
 <h4>How to see a Lock Activity table.</h4>
 <ul>
@@ -325,7 +325,7 @@
 </ul>
 </div>
 
-<div id="checkpoint-activity-dialog"
+<div id="checkpoint_activity_dialog"
   title="How to see a Checkpoint Activity table">
 <h4>How to see a Checkpoint Activity table.</h4>
 <ul>
@@ -339,9 +339,9 @@
 </ul>
 </div>
 
-<div id="autovacuum-activity-dialog"
-  title="How to see a Autovacuum Activity table">
-<h4>How to see a Autovacuum Acitivty table.</h4>
+<div id="basic_statistics_dialog"
+  title="How to see a Basic Statistics (Average) table">
+<h4>How to see a Basic Statistics. (Average)</h4>
 <ul>
 <li>database : database name</li>
 <li>schema : schema name</li>
@@ -355,7 +355,22 @@
 </ul>
 </div>
 
-<div id="replication-activity-dialog"
+<div id="io_statistics_dialog"
+  title="How to see a I/O Statistics (Average) table">
+<h4>How to see a I/O Statistics. (Average)</h4>
+<ul>
+<li>database : database name</li>
+<li>schema : schema name</li>
+<li>table : table name</li>
+<li>avg page hit : average page hit</li>
+<li>avg page miss : average page miss</li>
+<li>avg page dirty : average page dirty</li>
+<li>avg read rate : average read rate</li>
+<li>avg write rate : average write rate</li>
+</ul>
+</div>
+
+<div id="replication_activity_dialog"
   title="How to see a Replication Activity table">
 <h4>How to see a Replication Activity table.</h4>
 <ul>
@@ -376,25 +391,19 @@
 </ul>
 </div>
 
-<div id="database-dialog"
+<div id="database_dialog"
   title="How to see a Database table">
 <h4>How to see a Database table.</h4>
-<ul>
-<li></li>
-<li></li>
-</ul>
+This information is not supported in this version. We will support in future version.
 </div>
 
-<div id="schema-dialog"
+<div id="schema_dialog"
   title="How to see a Schema table">
 <h4>How to see a Schema table.</h4>
-<ul>
-<li></li>
-<li></li>
-</ul>
+This information is not supported in this version. We will support in future version.
 </div>
 
-<div id="table-dialog"
+<div id="table_dialog"
   title="How to see a Table table">
 <h4>How to see a Table table.</h4>
 <ul>
@@ -403,14 +412,14 @@
 <li>table : table name</li>
 <li>columns : number of colunms</li>
 <li>row width : average real columns data size (byte)</li>
-<li>MB : table size (MiB)</li>
-<li>+MB : increase table size (MiB)</li>
+<li>MiB : table size (MiB)</li>
+<li>+MiB : increase table size (MiB)</li>
 <li>table scans : number of executing sequential scan</li>
 <li>index scans : number of executing index scan</li>
 </ul>
 </div>
 
-<div id="index-dialog"
+<div id="index_dialog"
   title="How to see a Index table">
 <h4>How to see a Index table.</h4>
 <ul>
@@ -418,8 +427,8 @@
 <li>schema : schema name</li>
 <li>index : index name</li>
 <li>table : table name is refferd to index</li>
-<li>MB : index size (MiB)</li>
-<li>+MB : increase index size (MiB)</li>
+<li>MiB : index size (MiB)</li>
+<li>+MiB : increase index size (MiB)</li>
 <li>scans : number of executing index scans</li>
 <li>rows/scan : returned rows which is executing once index scan</li>
 <li>reads : read by disk blocks</li>
@@ -428,31 +437,31 @@
 </ul>
 </div>
 
-<div id="view-dialog"
+<div id="view_dialog"
   title="How to see a View table">
 <h4>How to seea View table.</h4>
 This information is not supported in this version. We will support in future version.
 </div>
 
-<div id="sequence-dialog"
+<div id="sequence_dialog"
   title="How to see a Sequence table">
 <h4>How to see a Sequence table.</h4>
 This information is not supported in this version. We will support in future version.
 </div>
 
-<div id="trigger-dialog"
+<div id="trigger_dialog"
   title="How to see a Trigger table">
 <h4>How to see a Trigger table.</h4>
 This information is not supported in this version. We will support in future version.
 </div>
 
-<div id="role-dialog"
+<div id="role_dialog"
   title="How to see a Role table">
 <h4>How to see a Role table.</h4>
 This information is not supported in this version. We will support in future version.
 </div>
 
-<div id="parameter-dialog"
+<div id="parameter_dialog"
   title="How to see a Parameter table">
 <h4>How to see a Parameter table.</h4>
 <ul>
@@ -462,7 +471,7 @@ This information is not supported in this version. We will support in future ver
 </ul>
 </div>
 
-<div id="profiles-dialog"
+<div id="profiles_dialog"
   title="How to see a Profiles table">
 <h4>How to see a Profiles table.</h4>
 <ul>
