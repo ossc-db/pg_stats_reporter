@@ -169,10 +169,24 @@ $(function() {
     } );
 
   $('#reload_setting')
-    .button()
-    .click(function() {
-	  document.location = "pg_stats_reporter.php?reload=1";
-    } );
+	.button()
+	.click(function() {
+		var url_param = location.search;
+		// URLパラメータの引継ぎを行うか判定
+		if(url_param){
+			// URLパラメータを持っている場合
+			if(url_param.search("reload") > 0){
+				// 既にreloadのパラメータがついている場合
+				document.location = "pg_stats_reporter.php" + location.search;
+			}else{
+				// reloadのパラメータがついていない場合
+				document.location = "pg_stats_reporter.php" + location.search + "&reload=1";
+			}
+		}else{
+			// URLパラメータを持っていない場合
+			document.location = "pg_stats_reporter.php?reload=1";
+		}
+	} );
 
   $('ul.sf-menu').supersubs( {
     minWidth: 10,
