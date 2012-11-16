@@ -321,7 +321,16 @@ function div_flip() {
     widthFixed: true,
 	widgets: ['zebra'],
     sortList: [[1,1]],
-    headers: { 0: { sorter: false } }
+    headers: {
+	1: { sorter: "digit" },
+	2: { sorter: "digit" },
+	3: { sorter: "digit" },
+	4: { sorter: "digit" },
+	5: { sorter: "digit" },
+	6: { sorter: "digit" },
+	7: { sorter: "digit" },
+	8: { sorter: "digit" }
+    }
   } )
   .tablesorterPager( {
 	container: $('#pager_database_statistics'),
@@ -334,7 +343,13 @@ function div_flip() {
     widthFixed: true,
 	widgets: ['zebra'],
 	sortList: [[1,1]],
-    headers: { 0: { sorter: false } }
+    headers: {
+	 1: { sorter: "digit" },
+	 2: { sorter: "digit" },
+	 3: { sorter: "digit" },
+	 4: { sorter: "digit" },
+	 5: { sorter: "digit" }
+    }
   } )
   .tablesorterPager( {
 	container: $('#pager_recovery_conflicts'),
@@ -345,8 +360,12 @@ function div_flip() {
   // Instance Processes Raito
   $("#instance_processes_ratio_table").tablesorter( {
     widthFixed: true,
-	headers: { 0: { sorter: false } , 1: { sorter: false } ,
-               2: { sorter: false } , 3: { sorter: false } }
+    headers: {
+	0: { sorter: false },
+	1: { sorter: false },
+	2: { sorter: false },
+	3: { sorter: false }
+    }
   } );
 
   // IO Usage
@@ -354,7 +373,14 @@ function div_flip() {
     widthFixed: true,
 	widgets: ['zebra'],
 	sortList: [[7,1]],
-	headers: { 0: { sorter: false } , 1: { sorter: false } }
+	headers: {
+		2: { sorter: "digit" },
+		3: { sorter: "digit" },
+		4: { sorter: "digit" },
+		5: { sorter: "digit" },
+		6: { sorter: "digit" },
+		7: { sorter: "digit" }
+	}
   } )
   .tablesorterPager( {
 	container: $('#pager_io_usage'),
@@ -367,7 +393,12 @@ function div_flip() {
     widthFixed: true,
 	widgets: ['zebra'],
 	sortList: [[5,1]],
-	headers: { 0: { sorter: false } , 1: { sorter: false } }
+	headers: {
+		2: { sorter: "digit" },
+		3: { sorter: "digit" },
+		4: { sorter: "digit" },
+		5: { sorter: "digit" }
+	}
   } )
   .tablesorterPager( {
 	container: $('#pager_disk_usage_per_tablespace'),
@@ -380,8 +411,12 @@ function div_flip() {
     widthFixed: true,
 	widgets: ['zebra'],
 	sortList: [[3,1]],
-	headers: { 0: { sorter: false } , 1: { sorter: false } ,
-			   2: { sorter: false } }
+	headers: {
+		3: { sorter: "digit" },
+		4: { sorter: "digit" },
+		5: { sorter: "digit" },
+		6: { sorter: "digit" }
+	}
   } )
   .tablesorterPager( {
 	container: $('#pager_disk_usage_per_table'),
@@ -394,8 +429,13 @@ function div_flip() {
     widthFixed: true,
 	widgets: ['zebra'],
 	sortList: [[6,1]],
-	headers: { 0: { sorter: false } , 1: { sorter: false } ,
-			   2: { sorter: false } }
+	headers: {
+		3: { sorter: "digit" },
+		4: { sorter: "digit" },
+		5: { sorter: "digit" },
+		6: { sorter: "digit" },
+		7: { sorter: "digit" }
+	}
   } )
   .tablesorterPager( {
 	container: $('#pager_heavily_updated_tables'),
@@ -408,8 +448,13 @@ function div_flip() {
     widthFixed: true,
 	widgets: ['zebra'],
 	sortList: [[3,1]],
-	headers: { 0: { sorter: false } , 1: { sorter: false } ,
-			   2: { sorter: false } }
+	headers: {
+		3: { sorter: "digit" },
+		4: { sorter: "digit" },
+		5: { sorter: "digit" },
+		6: { sorter: "digit" },
+		7: { sorter: "digit" }
+	}
   } )
   .tablesorterPager( {
 	container: $('#pager_heavily_accessed_tables'),
@@ -422,8 +467,12 @@ function div_flip() {
     widthFixed: true,
 	widgets: ['zebra'],
 	sortList: [[3,1]],
-	headers: { 0: { sorter: false } , 1: { sorter: false } ,
-			   2: { sorter: false } }
+	headers: {
+		3: { sorter: "digit" },
+		4: { sorter: "digit" },
+		5: { sorter: "digit" },
+		6: { sorter: "digit" }
+	}
   } )
   .tablesorterPager( {
 	container: $('#pager_low_density_tables'),
@@ -435,8 +484,10 @@ function div_flip() {
   $("#fragmented_tables_table").tablesorter( {
     widthFixed: true,
 	widgets: ['zebra'],
-	headers: { 0: { sorter: false } , 1: { sorter: false } ,
-			   2: { sorter: false } , 3: { sorter: false } }
+	sortList: [[4,1]],
+	headers: {
+		4: { sorter: "digit" }
+	}
   } )
   .tablesorterPager( {
 	container: $('#pager_fragmented_tables'),
@@ -449,8 +500,12 @@ function div_flip() {
     widthFixed: true,
 	widgets: ['zebra'],
 	sortList: [[6,1]],
-	headers: { 0: { sorter: false } , 1: { sorter: false } ,
-			   2: { sorter: false } }
+	headers: {
+		3: { sorter: "digit" },
+		4: { sorter: "digit" },
+		5: { sorter: "digit" },
+		6: { sorter: "digit" }
+	}
   } )
   .tablesorterPager( {
 	container: $('#pager_functions'),
@@ -463,8 +518,11 @@ function div_flip() {
     widthFixed: true,
 	widgets: ['zebra'],
 	sortList: [[4,1]],
-	headers: { 0: { sorter: false } , 1: { sorter: false } ,
-			   2: { sorter: false } }
+	headers: {
+		3: { sorter: "digit" },
+		4: { sorter: "digit" },
+		5: { sorter: "digit" }
+	}
   } )
   .tablesorterPager( {
 	container: $('#pager_statements'),
@@ -477,7 +535,10 @@ function div_flip() {
     widthFixed: true,
 	widgets: ['zebra'],
 	sortList: [[3,1]],
-	headers: { 1: { sorter: false } }
+	headers: {
+		0: { sorter: "digit" },
+		3: { sorter: "digit" }
+	}
   } )
   .tablesorterPager( {
 	container: $('#pager_long_transactions'),
@@ -490,9 +551,12 @@ function div_flip() {
 	widthFixed: true,
 	widgets: ['zebra'],
 	sortList: [[3,1]],
-	headers: { 0: { sorter: false } , 1: { sorter: false } ,
-			   2: { sorter: false } , 7: { sorter: false } ,
-			   8: { sorter: false } }
+	headers: {
+		3: { sorter: "digit" },
+		4: { sorter: "digit" },
+		5: { sorter: "digit" },
+		6: { sorter: "digit" }
+	}
   } )
   .tablesorterPager( {
 	container: $('#pager_lock_conflicts'),
@@ -510,8 +574,14 @@ function div_flip() {
     widthFixed: true,
 	widgets: ['zebra'],
 	sortList: [[4,1]],
-	headers: { 0: { sorter: false }, 1: { sorter: false },
-			   2: { sorter: false } }
+	headers: {
+		3: { sorter: "digit" },
+		4: { sorter: "digit" },
+		5: { sorter: "digit" },
+		6: { sorter: "digit" },
+		7: { sorter: "digit" },
+		8: { sorter: "digit" }
+	}
   } )
   .tablesorterPager( {
 	container: $('#pager_basic_statistics'),
@@ -524,8 +594,13 @@ function div_flip() {
     widthFixed: true,
 	widgets: ['zebra'],
 	sortList: [[4,1]],
-	headers: { 0: { sorter: false }, 1: { sorter: false },
-			   2: { sorter: false } }
+	headers: {
+		3: { sorter: "digit" },
+		4: { sorter: "digit" },
+		5: { sorter: "digit" },
+		6: { sorter: "digit" },
+		7: { sorter: "digit" }
+	}
   } )
   .tablesorterPager( {
 	container: $('#pager_io_statistics'),
@@ -542,8 +617,14 @@ function div_flip() {
   $("#table_table").tablesorter( {
     widthFixed: true,
 	widgets: ['zebra'],
-	headers: { 0: { sorter: false }, 1: { sorter: false },
-			   2: { sorter: false } }
+	headers: {
+		3: { sorter: "digit" },
+		4: { sorter: "digit" },
+		5: { sorter: "digit" },
+		6: { sorter: "digit" },
+		7: { sorter: "digit" },
+		8: { sorter: "digit" }
+	}
   } )
   .tablesorterPager( {
 	container: $('#pager_table'),
@@ -555,8 +636,16 @@ function div_flip() {
   $("#index_table").tablesorter( {
     widthFixed: true,
 	widgets: ['zebra'],
-	headers: { 0: { sorter: false }, 1: { sorter: false },
-			   2: { sorter: false } }
+	headers: {
+		3: { sorter: "digit" },
+		4: { sorter: "digit" },
+		5: { sorter: "digit" },
+		6: { sorter: "digit" },
+		7: { sorter: "digit" },
+		8: { sorter: "digit" },
+		9: { sorter: "digit" },
+		10: { sorter: "digit" }
+	}
   } )
   .tablesorterPager( {
 	container: $('#pager_index'),
@@ -568,8 +657,6 @@ function div_flip() {
   $("#parameter_table").tablesorter( {
     widthFixed: true,
 	widgets: ['zebra'],
-	headers: { 0: { sorter: false }, 1: { sorter: false },
-			   2: { sorter: false } }
   } )
   .tablesorterPager( {
 	container: $('#pager_parameter'),
@@ -581,8 +668,9 @@ function div_flip() {
   $("#profiles_table").tablesorter( {
     widthFixed: true,
 	widgets: ['zebra'],
-	headers: { 0: { sorter: false }, 1: { sorter: false },
-			   2: { sorter: false } }
+	headers: {
+		1: { sorter: "digit" }
+	}
   } )
   .tablesorterPager( {
 	container: $('#pager_profiles'),
