@@ -136,8 +136,8 @@
 </div>
 
 <div id="io_usage_dialog"
-  title="How to see a IO Usage table/graph">
-<h4>How to see a IO Usage table/graph.</h4>
+  title="How to see a I/O Usage table/graph">
+<h4>How to see a I/O Usage table/graph.</h4>
 <ul>
 <li>device_name : device name</li>
 <li>Including TableSpaces : size of table space in a device</li>
@@ -148,19 +148,19 @@
 <li>current I/O queue : number of current I/O queue in a device</li>
 <li>total I/O time (ms) : total time of I/O in a device (ms)</li>
 </ul>
-<h4>How to see a IO Size</h4>
+<h4>How to see a I/O Size</h4>
 <ul>
 <li>x axis : time </li>
 <li>y axis : database size (KiB) </li>
 <li>[device] read(KiB/s) : read I/O size per second in a device (KiB/s)</li>
 <li>[device] write(KiB/s) : write I/O size per second in a device (KiB/s)</li>
 </ul>
-<h4>How to see a IO Time</h4>
+<h4>How to see a I/O Time</h4>
 <ul>
 <li>x axis : time </li>
 <li>y axis : avarage time (ms)</li>
-<li>[device] avg read time (ms/s) : time of read I/O in a device (ms/s)</li>
-<li>[device] avg write time (ms/s) : time of write I/O in a device (ms/s)</li>
+<li>[device] avg read time (ms) : time of read I/O in a device (ms)</li>
+<li>[device] avg write time (ms) : time of write I/O in a device (ms)</li>
 </ul>
 </div>
 
