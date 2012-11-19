@@ -1,3 +1,4 @@
+@charset "UTF-8";
 
 pre, dl, ol, p, blockquote { line-height:130%; }
 
@@ -38,7 +39,6 @@ a:hover {
 
 h1, h2 {
 	font-family:verdana, arial, helvetica, Sans-Serif;
-	# color:inherit;
 	color:inherit;
 	background-color:#DDEEFF;
 	padding:.3em;
@@ -69,7 +69,7 @@ h4 {
 h5, h6 {
 	font-family:verdana, arial, helvetica, Sans-Serif;
 	color:inherit;
-	background-color:#DDEEFF
+	background-color:#DDEEFF;
  	padding:.3em;
  	border:0px;
  	margin:0px 0px .5em 0px;
@@ -597,4 +597,11 @@ div.index {
 	padding-left: 1em;
 	padding-right: 1em;
 	margin-left: 0.5em;
+}
+
+div.index ol { counter-reset: item; }
+div.index li { display: block; }
+div.index li:before {
+	content: counters(item, ".") ". ";
+	counter-increment: item;
 }
