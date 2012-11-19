@@ -71,7 +71,7 @@ if (count($errormsg) != 0) {
 /* レポート作成のための情報を設定 */
 $target_data = array();
 $report_cache_id = "";
-if (count($_GET) == 4) {
+if (count($_GET) >= 4) {
 	$target_data['repodb'] = $_GET['repodb'];
 	$target_data['instid'] = $_GET['instid'];
 	$target_data['begin_date'] = trim($_GET['begin'], "\"'");
