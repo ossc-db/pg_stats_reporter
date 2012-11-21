@@ -190,7 +190,7 @@ div.graph_button {
   width: 50%;
   font-size: 120%;
 }
-.tablesorter thead th {
+table.tablesorter thead tr th {
   font-size: 120%;
 }
 .tablesorter tbody td {
