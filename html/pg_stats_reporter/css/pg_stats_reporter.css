@@ -188,6 +188,13 @@ div.graph_button {
   text-align:left;
   background-color: #e6eeee;
   width: 50%;
+  font-size: 120%;
+}
+.tablesorter thead th {
+  font-size: 120%;
+}
+.tablesorter tbody td {
+  font-size: 120%;
 }
 
 
