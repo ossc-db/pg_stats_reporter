@@ -90,9 +90,8 @@ $ su
 
 <h3 id="initialize">初期設定</h3>
 <h4>設定ファイルの作成</h4>
-<p>サンプルから設定ファイルを作成します。設定ファイルの各項目の説明は<a href="#configuration">こちら</a>を参照してください。<br/>
+<p>サンプルから設定ファイルを作成します。設定ファイルの説明は<a href="#configuration">こちら</a>を参照してください。<br/>
 「database connection」の各項目を、pg_statsinfo のスナップショット格納DB(以降、リポジトリDBと呼びます)への接続情報に修正します。<br/>
-複数のリポジトリDBの情報を参照できるようにしたい場合は、リポジトリDBごとにiniファイルにセクション(pg_stats_reporter.ini.sample ファイルの情報全て)を追加します。<br/>
 以下は作成例です。<br/>
 </p>
 <pre>
@@ -176,7 +175,10 @@ $ su
 <br/>
 
 <h2 id="configuration">設定ファイル</h2>
-<p>設定ファイル(pg_stats_reporter.ini)は、データベース接続情報およびレポート表示に関する設定を行うファイルです。<br/>設定項目を以下に示します。記述例は<a href="pg_stats_reporter.ini.sample">こちら</a>を参照してください。</p>
+<p>設定ファイル(pg_stats_reporter.ini)は、データベース接続情報およびレポート表示に関する設定を行うファイルです。設定項目を以下に示します。<br/>
+1つのリポジトリDBの設定は、<B>[<I>リポジトリDB名</I>]</B>から始まるこれらの項目全て(以降セクションと呼びます)となります。<br/>
+複数のリポジトリDBを設定したい場合は、設定ファイルにセクションを複数記述してください。<br/>
+記述例は<a href="pg_stats_reporter.ini.sample">こちら</a>を参照してください。</p>
 
 <table>
 <thead>
