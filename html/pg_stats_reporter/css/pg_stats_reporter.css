@@ -27,10 +27,10 @@ h3 {
 #header_menu {
   position: fixed;
   background-color: #BDD2FF;
-  left: 145px;
+  left: 15%;
   top: 0;
-  width: 85.5%;
-  min-width: 859px;
+  width: 85%;
+  min-width: 800px;
   height: 35px;
   z-index: 2;
   font-size: 115%;
@@ -41,8 +41,6 @@ h3 {
   background-color: #4297d7;
   left: 0;
   top: 0;
-  max-width: 140px;
-  min-width: 140px;
   height: 100%;
   width: 15%;
   padding-top: 0px;
@@ -51,9 +49,8 @@ h3 {
 
 #contents {
   position: absolute;
-  left: 145px;
-  width: 85.5%;
-  min-width: 859px;
+  left: 15.5%;
+  width: 84.5%;
   z-index: 1;
 }
 
