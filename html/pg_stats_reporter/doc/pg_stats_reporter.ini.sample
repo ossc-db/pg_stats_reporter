@@ -2,7 +2,7 @@
 ; pg_stats_reporter configuration file
 ;-------------------------------------
 
-[sample]
+[repository1]
 
 ;-------------------------------------
 ; database connection
@@ -92,7 +92,7 @@ parameter = true
 profiles = true
 
 
-[sample2]
+[repository2]
 
 ;-------------------------------------
 ; database connection

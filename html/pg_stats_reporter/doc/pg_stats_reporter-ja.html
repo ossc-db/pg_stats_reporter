@@ -183,7 +183,7 @@ $ su
 <table>
 <thead>
   <tr>
-    <th width="100">設定項目</th>
+    <th>設定項目</th>
     <th>設定可能な値</th>
     <th>項目省略時</th>
     <th>設定値省略時</th>
@@ -196,8 +196,8 @@ $ su
     <td>[<I>リポジトリDB名</I>]</td>
     <td>文字列</td>
     <td>省略不可</td>
-    <td>空文字列</td>
-    <td>[sample]</td>
+    <td>省略不可</td>
+    <td>[repository1]</td>
     <td>左側のリポジトリ選択メニューに表示するリポジトリDBの名称を指定します。日本語を指定する場合はUTF-8で指定する必要がありますが、推奨しません。</td>
   </tr>
 
@@ -241,7 +241,7 @@ $ su
     <td>password</td>
     <td>文字列</td>
     <td>パスワード指定なし</td>
-    <td>空文字列</td>
+    <td>パスワード指定なし</td>
     <td>password =</td>
     <td>リポジトリDBへの接続で使用するパスワードを指定します。PostgreSQL への接続パスワードを .pgpass を使用して設定する場合は、値を設定しないでください。</li></td>
   </tr>
@@ -250,7 +250,7 @@ $ su
     <td>language</td>
     <td>auto/ja/en</td>
     <td>auto</td>
-    <td>空文字列</td>
+    <td>en</td>
     <td>language = ja</td>
     <td>レポートの表示言語の言語タグを設定します。auto を設定した場合は、表示するブラウザの設定を使用します。指定した言語に対応するメッセージが存在しない場合は英語で表示します。</td>
   </tr>
