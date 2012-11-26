@@ -59,3 +59,5 @@ fi
 /bin/rm -rf /var/www/pg_stats_reporter/compiled
 
 %changelog
+* Fri Nov  30 2012 - NTT OSS Center 1.0.0-1
+- pg_stats_reporter 1.0.0 released
