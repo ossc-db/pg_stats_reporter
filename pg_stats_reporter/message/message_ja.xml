@@ -170,11 +170,11 @@
 <ul>
 <li>横軸 : スナップショット取得日時</li>
 <li>縦軸 :サイズ (MiB)</li>
-<li>memfree : 空きメモリサイズ (MiB)</li>
-<li>buffers : バッファキャッシュサイズ (MiB)</li>
-<li>cached : ページキャッシュからバッファキャッシュを除いたサイズ (MiB)</li>
-<li>swap : スワップ使用量 (MiB)</li>
-<li>dirty : ダーティページサイズ (MiB)</li>
+<li>memfree (MiB) : 空きメモリサイズ (MiB)</li>
+<li>buffers (MiB) : バッファキャッシュサイズ (MiB)</li>
+<li>cached (MiB) : ページキャッシュからバッファキャッシュを除いたサイズ (MiB)</li>
+<li>swap (MiB) : スワップ使用量 (MiB)</li>
+<li>dirty (MiB) : ダーティページサイズ (MiB)</li>
 </ul>
 </div>
 
@@ -370,9 +370,9 @@
 </ul>
 </div>
 
-<div id="replication_activity_dialog"
-  title="How to see a Replication Activity table">
-<h4>Replication Activity の見方</h4>
+<div id="current_replication_status_dialog"
+  title="How to see a Current Replication Status table">
+<h4>Current Replication Status の見方</h4>
 <ul>
 <li>user : ユーザ名</li>
 <li>appname : アプリケーション名</li>
@@ -389,6 +389,16 @@
 <li>sync priority : 同期レプリケーションの優先度</li>
 <li>sync state : レプリケーションの同期モード</li>
 </ul>
+</div>
+
+<div id="replication_delays_dialog"
+  title="How to see a Replication Delays table">
+<h4>Replication Delays の見方</h4>
+<ul>
+<li>横軸 : 時刻</li>
+<li>縦軸 : 遅延量 (Byte)</li>
+<li>[アドレス]:[ポート番号] flush_delay_size (Byte) : スタンバイの同期書き込み遅延量(Byte)</li>
+<li>[アドレス]:[ポート番号] replay_delay_size (Byte) : スタンバイのREDO遅延量(Byte)</li></ul>
 </div>
 
 <div id="database_dialog"

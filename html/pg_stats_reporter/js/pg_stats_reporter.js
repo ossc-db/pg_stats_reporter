@@ -1144,23 +1144,42 @@ function div_flip() {
     width: 600
   } );
 
-  // Replication Activity help dialog button
-  $( '#replication_activity_button_info' ) . button( {
+  // Current Replication Status help dialog button
+  $( '#current_replication_status_button_info' ) . button( {
     icons: {
       primary: 'ui-icon-info',
       },
     text: false
   } ).click(function() {
-      $('#replication_activity_dialog').dialog("open");
+      $('#current_replication_status_dialog').dialog("open");
     } );
 
-  // Replication Activity help dialog
-  $('#replication_activity_dialog').dialog( {
+  // Current Replication Status help dialog
+  $('#current_replication_status_dialog').dialog( {
     autoOpen: false,
     modal: true,
     resizable: false,
     width: 600
   } );
+
+  // Replication Delays help dialog button
+  $( '#replication_delays_button_info' ) . button( {
+    icons: {
+      primary: 'ui-icon-info',
+      },
+    text: false
+  } ).click(function() {
+      $('#replication_delays_dialog').dialog("open");
+    } );
+
+  // Replication Delays help dialog
+  $('#replication_delays_dialog').dialog( {
+    autoOpen: false,
+    modal: true,
+    resizable: false,
+    width: 600
+  } );
+
 
   // Database help dialog button
   $( '#database_button_info' ) . button( {

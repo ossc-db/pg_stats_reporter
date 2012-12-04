@@ -170,11 +170,11 @@
 <ul>
 <li>x axis : time </li>
 <li>y axis : size (MiB)</li>
-<li>memfree : size of free memory (MiB)</li>
-<li>buffers : size of buffers cached (MiB)</li>
-<li>cached : size of file cached(not include buffer cached) (MiB)</li>
-<li>swap : size of swap (MiB)</li>
-<li>dirty : size of dirty pages (MiB)</li>
+<li>memfree (MiB) : size of free memory (MiB)</li>
+<li>buffers (MiB) : size of buffers cached (MiB)</li>
+<li>cached (MiB) : size of file cached(not include buffer cached) (MiB)</li>
+<li>swap (MiB) : size of swap (MiB)</li>
+<li>dirty (MiB) : size of dirty pages (MiB)</li>
 </ul>
 </div>
 
@@ -370,9 +370,9 @@
 </ul>
 </div>
 
-<div id="replication_activity_dialog"
-  title="How to see a Replication Activity table">
-<h4>How to see a Replication Activity table.</h4>
+<div id="current_replication_status_dialog"
+  title="How to see a Current Replication Status table">
+<h4>How to see a Current Replication Status table.</h4>
 <ul>
 <li>user : user name</li>
 <li>appname : application name</li>
@@ -389,6 +389,16 @@
 <li>sync priority : priority of synchronous replication</li>
 <li>sync state : state of synchronous replication</li>
 </ul>
+</div>
+
+<div id="replication_delays_dialog"
+  title="How to see a Replication Delays table">
+<h4>How to see a Replication Delays</h4>
+<ul>
+<li>x axis : time</li>
+<li>y axis : delaying amount (Byte)</li>
+<li>[address]:[port-number] flush_delay_size (Byte) : synchronous write-in delaying amount in a standby server (Byte)</li>
+<li>[address]:[port-number] replay_delay_size (Byte) : REDO delaying aomount in a standby server (Byte)</li></ul>
 </div>
 
 <div id="database_dialog"

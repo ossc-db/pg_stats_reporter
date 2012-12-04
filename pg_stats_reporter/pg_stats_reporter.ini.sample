@@ -77,7 +77,8 @@ basic_statistics = true
 io_statistics = true
 
 ; -- Replication Activity --
-replication_activity = true
+current_replication_status = true
+replication_delays = true
 
 ; --- Information ---
 
