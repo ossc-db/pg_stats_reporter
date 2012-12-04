@@ -58,6 +58,7 @@ h3 {
 background-color:#80bfff;
 text-align:left;
 height:100%;
+word-wrap: break-word;
 overflow:auto;
 scrollbar-3dlight-color:#ffeaff;
 scrollbar-arrow-color:#ffeaff;
