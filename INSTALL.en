@@ -1,0 +1,73 @@
+#####  How to install/uninstall pg_stats_reporter?  #####
+
+###  Directory formation of source which was installed pg_stats_reporter   ###
+pg_stats_reporter
+   |
+   +- html/
+   |    |
+   |    +- pg_stats_reporter/
+   |          |
+   |          +- package/ ... jQuery etc
+   |          |
+   |          +- js/ ........ Javascripts for pg_stats_reporter
+   |          |
+   |          +- css/ ....... CSS for pg_stats_reporter
+   |          |
+   |          +- doc/ ....... manual of pg_stats_reporter
+   |
+   +- pg_stats_reporter/ .... configure files directory
+        |
+        +- lib/ ............. php modules of pg_stats_reporter
+        |
+        +- template/ ........ template files
+        |
+        +- cache/ ........... configure file and cache files of Smarty
+        |
+        +- compiled/ ........ compiled files and template files of Smarty
+        |
+        +- message/ ......... language files
+
+
+###  How to install pg_stats_reporter?  ###
+
+First, please copy source files to http server's directory.
+And, you should set cache and compiled directory's permission which can be created file by http server's user.
+
+This setting example is under following.
+
+$ su
+# tar xvfz pg_stats_reporter-1.0.0.tar.gz
+# cp -R pg_stats_reporter/html/pg_stats_reporter /var/www/html
+# cp -R pg_stats_reporter/pg_stats_reporter /var/www
+# cd /var/www/pg_stats_reporter
+# chown apache.apache cache compiled
+
+
+###  How to set configure file?  ###
+
+There is sample file in pg_stats_reporter package.
+So you set configure in sample file for your environment.
+Setting example is under following.
+
+# cd /var/www/pg_stats_reporter
+# cp pg_stats_reporter.ini.sample pg_stats_reporter.ini
+# vi pg_stats_reporter.ini
+
+----- Set your repository database -----
+host = localhost
+port = 5432
+dbname = postgres
+username = postgres
+password =
+
+Repository database is pg_statsinfo's database.
+
+###  How to uninstall? ###
+Please delete directory/files of pg_stats_reporter.
+How to delete method's example is under following.
+If you want to not delete configure file, you copy pg_stats_reporter.ini to other location before delete directory.
+
+$ su
+# cd /var/www
+# rm -r html/pg_stats_reporter
+# rm -r pg_stats_reporter
