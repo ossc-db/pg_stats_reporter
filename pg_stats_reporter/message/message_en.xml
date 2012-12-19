@@ -397,8 +397,8 @@
 <ul>
 <li>x axis : time</li>
 <li>y axis : delaying amount (Byte)</li>
-<li>[address]:[port-number] flush_delay_size (Byte) : synchronous write-in delaying amount in a standby server (Byte)</li>
-<li>[address]:[port-number] replay_delay_size (Byte) : REDO delaying aomount in a standby server (Byte)</li></ul>
+<li>[appname] [address]:[port-number] flush_delay_size : amount of flush-delay between Master and Standby (Byte)</li>
+<li>[appname] [address]:[port-number] replay_delay_size : amount of replay-delay between Master and Standby (Byte)</li></ul>
 </div>
 
 <div id="database_dialog"

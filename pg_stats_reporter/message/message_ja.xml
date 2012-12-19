@@ -397,8 +397,8 @@
 <ul>
 <li>横軸 : 時刻</li>
 <li>縦軸 : 遅延量 (Byte)</li>
-<li>[アドレス]:[ポート番号] flush_delay_size (Byte) : スタンバイの同期書き込み遅延量(Byte)</li>
-<li>[アドレス]:[ポート番号] replay_delay_size (Byte) : スタンバイのREDO遅延量(Byte)</li></ul>
+<li>[アプリケーション名] [アドレス]:[ポート番号] flush_delay_size : マスタ－スタンバイ間の書き込み遅延量(Byte)</li>
+<li>[アプリケーション名] [アドレス]:[ポート番号] replay_delay_size : マスタ－スタンバイ間のリカバリ遅延量(Byte)</li></ul>
 </div>
 
 <div id="database_dialog"
@@ -421,7 +421,7 @@
 <li>schema : スキーマ名</li>
 <li>table : テーブル名</li>
 <li>columns : カラム数</li>
-<li>row width : 非NULL項目の平均保存幅 (バイト)</li>
+<li>row width : 非NULL項目の平均保存幅 (Byte)</li>
 <li>MiB : テーブルサイズ (MiB)</li>
 <li>+MiB : テーブルサイズの増分量 (MiB)</li>
 <li>table scans : シーケンシャルスキャンが実行された回数</li>
