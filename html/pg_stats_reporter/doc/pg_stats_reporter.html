@@ -1,0 +1,317 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD html 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>pg_stats_reporter</title>
+<link rel="home" title="pg_stats_reporter" href="index.html">
+<link rel="stylesheet" TYPE="text/css"href="style.css">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+
+<body>
+<h1 id="pg_stats_reporter">pg_stats_reporter 1.0.0</h1>
+<div class="navigation">
+  <a href="http://pgstatsinfo.projects.postgresql.org/index_ja.html">Top</a> &gt;
+  <a href="http://pgstatsinfo.projects.postgresql.org/pg_stats_reporter-ja.html">pg_stats_reporter</a>
+</div>
+<hr/>
+
+<div class="index">
+<ol>
+  <li><a href="#name">What is pg_stats_reporter?</a></li>
+  <li><a href="#synopsis">Summary</a></li>
+  <li><a href="#install">Install</a>
+  <ol>
+    <li><a href="#requirement">Requirement</a></li>
+    <li><a href="#pg_stats_reporter_install">Install pg_stats_reporter</a></li>
+    <li><a href="#initialize">Initial settings</a></li>
+    <li><a href="#execute_test">Install cheack</a></li>
+  </ol></li>
+  <li><a href="#execute">Usage</a></li>
+  <li><a href="#uninstall">Uninstall</a></li>
+  <li><a href="#configuration">configuration</a></li>
+  <li><a href="#restrictions">restrictions and cautions</a></li>
+  <li><a href="#faq">FAQ</a></li>
+  <li><a href="#seealso">See also</a></li>
+  <li><a href="#acknowledgment">Acknowledgement</a></li>
+</ol>
+</div>
+
+<h2 id="name">What is pg_stats_reporter?</h2>
+<p>Pg_stats_reporter can make statistical and graphical reports by <a href="http://pgstatsinfo.projects.postgresql.org/pg_statsinfo-ja.html">pg_statsinfo's(2.4 or later)</a> statistical database(we call it 'snapshot'). Example of report is <a href="files/">here</a> </p>
+
+<h2 id="synopsis">Summary</h2>
+<p>Pg_stats_reporter is web-based software and can make statistical and graphical reports by pg_statsinfo's snapshot which is statistic of PostgreSQL.<br/>
+
+<h2 id="install">Install</h2>
+<p>Please get <a href="http://pgfoundry.org/frs/?group_id=1000422">install package</a> of pg_stats_reporter.<br/>
+If you want to install source package, please see the INSTALL.en file which is included in source package.</p>
+
+<h3 id="requirement">Requirement</h3>
+<dl>
+  <dt>PostgreSQL</dt>
+  <dd>version 8.3 or later
+  <dt>pg_statsinfo</dt>
+  <dd>version 2.4 or later</dd>
+  <dt>PHP</dt>
+  <dd>version 5.3.3(recommend) Later version is not tested.</dd>
+  <dt>OS</dt>
+  <dd>RHEL 5.x, 6.x, CentOS 5.x, 6.x</dd>
+  <dt>web browser</dt>
+  <dd>Firefox : 3.6.9, 16.0.2 Later and other version is not tested.</dd>
+  <dd>Google Chrome : 23.0.1271.64 m  </dd>
+  <dt>HTTP Server</dt>
+  <dd>Apache HTTP Server : 2.2.15(recommend) Later and other version is not tested.</dd>
+  <dt>libraries (They are included in package of pg_stats_reporter.)</dt>
+  <dd><ul>
+    <li>jQuery : 1.8.2</li>
+    <li>jQuery UI : 1.9.1</li>
+    <li>jquery-ui-timepicker-addon : 0.9.9</li>
+    <li>dygraphs JavaScript Visualization Library : 4d3672f</li>
+    <li>jqPlot : 1.0.4 r1121</li>
+    <li>tablesorter : 2.0.3</li>
+    <li>Superfish : 1.4.8</li>
+    <li>Smarty : 3.1.12</li>
+  </ul></dd>
+  <dt>Resolutino</dt>
+  <dd>1024x786(SXGA) or higher</dd>
+</dl>
+
+<h3 id="pg_stats_reporter_install">How to install pg_stats_reporter?</h3>
+<p>There are dependency packages in pg_stats_reporter. You should install them. Example of install method is under following.</p>
+<pre>
+$ su
+# rpm -ivh httpd-2.2.15-15.el6_2.1.x86_64.rpm
+# rpm -ivh php-5.3.3-3.el6_2.8.x86_64.rpm
+# rpm -ivh php-common-5.3.3-3.el6_2.8.x86_64.rpm
+# rpm -ivh php-pgsql-5.3.3-3.el6_2.8.x86_64.rpm
+# rpm -ivh php-intl-5.3.3-3.el6_2.8.x86_64.rpm
+# rpm -ivh pg_stats_reporter-1.0.0-1.el6.noarch.rpm
+</pre>
+
+<h3 id="initialize">Initial Setting</h3>
+<h4>How to set the configure file?</h4>
+<p>There is sample file in pg_stats_reporter package.
+Details of setting parameter is <a href="#configuration">following</a>.<br/>
+You set configuration in sample file for your environment.
+Setting example is under following.
+
+</p>
+<pre>
+# cd /var/www/pg_stats_reporter
+# vi pg_stats_reporter.ini
+----- Set your repository database -----
+host = <I>localhost</I>
+port = <I>5432</I>
+dbname = <I>postgres</I>
+username = <I>postgres</I>
+password =
+</pre>
+In here, repository database is pg_statsinfo's database.
+
+
+<h3 id="execute_test">Install check</h3>
+<p>Start HTTP server and browse pg_stats_reporter's web page from web browser(See <a href="#execute">Usage</a> in this document.)</p>
+<pre>
+# service httpd start
+</pre>
+
+<h2 id="execute">Usage</h2>
+
+<p>Pg_stats_reporter is visual and graphical report software for pg_statsinfo's statistical snapshot database.<br/>
+You prepare installing pg_statsinfo before you use pg_stats_reporter.</p>
+
+<h3>create reports</h3>
+<p>You access pg_stats_reporter.php by web browser.<br/>
+When you access your report which is created by pg_stats_reporter by web browser,It is an example of URL as follows. 
+</p>
+<pre>
+http://localhost/pg_stats_reporter/pg_stats_reporter.php
+</pre>
+<p>When first your access, pg_stats_reporter.php display report in default settings as follows.<ul>
+<li>selected repository database: This item is head of configuration file.</li>
+<li>start of report term : 0 o'clock two days ago</li>
+<li>end of report term :time now</li>
+</ul>
+<a href="#report_sample">This example</a> is pg_stats_reporter to "November 2nd 18:04 of 2012" when executing it.
+
+<h3>Detail usage</h3>
+<p>Detail usage on display is under following.</p>
+<h4>report display</h4>
+<img id="report_sample" src="pg_stats_reporter.png" width="800px;"/>
+<br/>
+<dl>
+<dt>① : Button of create report</dt>
+<dd>This button can create report and select term. More details is <a href="#dialog">"dialog of creating report and selecting term"</a> </dd>
+<dt>② : Menu of repository databases</dt>
+<dd>If you select a repository database in this menu, pg_stats_reporter displays management instances in this repository database.</dd>
+<dt>③ : Menu of report instances</dt>
+<dd>If you select a instance in this menu, pg_stats_reporter displays graphical reports in the instance.</dd>
+<dt>④ : Botton of reload pg_stats_reporter.ini</dt>
+<dd>If you push this button, pg_stats_reporter reload configuration file(pg_stats_reporter.ini) and create new report in latest setting.</dd>
+<dt>⑤ : Menu of report items</dt>
+<dd>If you select a item, pg_stats_reporter displays selective item in the report.</dd>
+<dt>⑥ : Button of display or not left-side menu</dt>
+<dd>If you push this button, left-side menu is displayed or not</dd>
+<dt>⑦ : Help button</dt>
+<dd>Display explanation which is how to see this table or graph.</dd>
+</dl>
+<br/>
+<h4 id="dialog">Dialog of creating report and selecting term</h4>
+<img src="dialog.png"/>
+<br/>
+<dl>
+<dt>⑧ : Text box of begginnig date of report</dt>
+<dd>Input beginning date of report in this box. If you select this box, pop up a calender dialog. </dd>
+<dt>⑨ : Text box of end date of report</dt>
+<dd>Input end date of report in this box. If you select this box, pop up a calender dialog. </dd>
+<dt>⑩ : Button of create report</dt>
+<dd>Create report in your inputting report term</dd>
+<dt>⑪ : Cancel button</dt>
+<dd>Cancel for creating report</dd>
+</dl>
+<br/>
+
+<h2 id="uninstall">Uninstall</h2>
+<p>If you use rpm package, please command under following.<br/>If you use source package, please see INSTALL.en for details.</p>
+<pre>
+$ su
+# rpm -e pg_stats_reporter-1.0.0-1.el6.noarch
+</pre>
+<br/>
+
+<h2 id="configuration">Configuration</h2>
+<p>pg_stats_reporter.ini is setting file which is in database connections and report display settings. Configuration item is under following.<br/>
+If you want to use multiple repository database, you set multi [repository database].<br/>
+Please see <a href="pg_stats_reporter.ini.sample">here</a> for setting details.</p>
+
+<table>
+<thead>
+  <tr>
+    <th>parameter</th>
+    <th>kind of parameter</th>
+    <th>default setting</th>
+    <th width="150">example</th>
+    <th>description</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>[<I>repository database</I>]</td>
+    <td>chararacter</td>
+    <td>not omission</td>
+    <td>[repository1]</td>
+    <td>Repository name at left-side menu in pg_stats_reporter.</td>
+  </tr>
+
+  <tr>
+    <td>host</td>
+    <td>host name or IP address</td>
+    <td>*1</td>
+    <td>host = localhost</td>
+    <td>Host name or IP address of repostory database.</td>
+  </tr>
+
+  <tr>
+    <td>port</td>
+    <td>port number</td>
+    <td>*1</td>
+    <td>port = 5432</td>
+    <td>Port number of repository datanase cluster.</td>
+  </tr>
+
+  <tr>
+    <td>dbname</td>
+    <td>character</td>
+    <td>*1</td>
+    <td>dbname = postgres</td>
+    <td>repository database name.Please set repository database in pg_statsinfo(Defalut repository database is 'postgres'.).</td>
+  </tr>
+
+  <tr>
+    <td>username</td>
+    <td>char</td>
+    <td>*1</td>
+    <td>username = postgres</td>
+    <td>connect user for repository database. Plsese set user which has read permission in repository database.</td>
+  </tr>
+
+  <tr>
+    <td>password</td>
+    <td>char</td>
+    <td>no password</td>
+    <td>password = hogehoge</td>
+    <td>connect password for repository database. If you use .pgpass, do not set this parameter.</li></td>
+  </tr>
+
+  <tr>
+    <td>language</td>
+    <td>auto/ja/en</td>
+    <td>auto</td>
+    <td>language = ja</td>
+    <td>language in report.If you set auto, we use browser information for language setting.</td>
+  </tr>
+
+  <tr>
+    <td>report item settings<br/>(summary ? profiles)</td>
+    <td>true/false</td>
+    <td>true</td>
+    <td>summary = true</td>
+    <td>If you set true, this report item is created.</td>
+  </tr>
+</tbody>
+</table>
+<br/>
+<p>*1: If you do not set this parameter, please see <a href="http://www.postgresql.jp/document/9.2/html/libpq-connect.html#LIBPQ-PARAMKEYWORDS">PostgreSQL document</a>.</p>
+<h2 id="restrictions">Caution and Restriction</h2>
+<ul>
+  <li>In some distribution, HTTP Server's document root home directory is /home/user. You should confirm that .pgpass is not visible from web browser and check file's parmission.</li>
+</ul>
+
+<h2 id="faq">FAQ</h2>
+<h4>Q1. Pg_stats_reporter does not display in my web browser.</h4>
+<dl>A1. You had better review setting which are firewall(iptables etc) and SE Linux.</dl>
+
+<h4>Q2. error massage which is database conecction error is displayed in my browser. What should I do?</h4>
+<dl>A2. You had better review under following.<ul>
+<li>Setting of "database connection" in pg_stats_reporter.ini</li>
+<li>Connection setting in PostgreSQL (postgresql.conf, pg_hba.conf)</li>
+</ul></dl>
+
+<h4>Q3. I use Internet Explorer browser. But I think that createing report and display may not correctly.</h4>
+<dl>A3. Internext Explore is not recommended browser. We recommend Firefox.</dl>
+
+<h2 id="seealso">See also</h2>
+<a href="http://pgstatsinfo.projects.postgresql.org/pg_statsinfo-ja.html">pg_statsinfo</a> 
+<br/><br/>
+<h2 id="acknowledgment">Acknowledgements</h2>
+<p>Pg_stats_reporter use under following libraries. Thank you for developper of libraries<br/>
+<ul>
+<li>jQuery : <a href="http://jquery.com/">http://jquery.com/</a></li>
+<li>jQuery UI : <a href="http://jqueryui.com/">http://jqueryui.com/</a></li>
+<li>jquery-ui-timepicker-addon : <a href="http://trentrichardson.com/examples/timepicker/">http://trentrichardson.com/examples/timepicker/</a></li>
+<li>dygraphs JavaScript Visualization Library : <a href="http://dygraphs.com/">http://dygraphs.com/</a></li>
+<li>jqPlot : <a href="http://www.jqplot.com/">http://www.jqplot.com/</a></li>
+<li>tablesorter : <a href="http://tablesorter.ru/docs/">http://tablesorter.ru/docs/</a></li>
+<li>Superfish : <a href="http://users.tpg.com.au/j_birch/plugins/superfish/">http://users.tpg.com.au/j_birch/plugins/superfish/</a></li>
+<li>Smarty : <a href="http://www.smarty.net/">http://www.smarty.net/</a></li>
+</ul>
+<br/><br/>
+<hr/>
+<div class="navigation">
+  <a href="http://pgstatsinfo.projects.postgresql.org/index_ja.html">Top</a> &gt;
+  <a href="http://pgstatsinfo.projects.postgresql.org/pg_stats_reporter-ja.html">pg_stats_reporter</a>
+</div>
+<p class="footer">Copyright (c) 2012, NIPPON TELEGRAPH AND TELEPHONE CORPORATION</p>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try{
+var pageTracker = _gat._getTracker("UA-10244036-6");
+pageTracker._trackPageview();
+} catch(err) {}
+</script>
+</body>
+</html>
