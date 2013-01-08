@@ -25,7 +25,7 @@
 <script type="text/javascript" src="{$superfish_path}js/supersubs.js"></script>
 <script type="text/javascript" src="{$tablesorter_path}jquery.tablesorter.js"></script>
 <script type="text/javascript" src="{$tablesorter_path}addons/pager/jquery.tablesorter.pager.js"></script>
-<script type="text/javascript" src="{$jqplot_path}dist/jquery.jqplot.js"></script>
+<script type="text/javascript" src="{$jqplot_path}dist/jquery.jqplot.min.js"></script>
 <script type="text/javascript" src="{$jqplot_path}dist/plugins/jqplot.pieRenderer.js"></script>
 <script type="text/javascript" src="{$jqplot_path}dist/plugins/jqplot.barRenderer.js"></script>
 <script type="text/javascript" src="{$jqplot_path}dist/plugins/jqplot.categoryAxisRenderer.js"></script>
@@ -39,7 +39,7 @@
 <!-- stylesheets -->
 <link rel="stylesheet" type="text/css" href="{$superfish_path}css/superfish.css"/>
 <link rel="stylesheet" type="text/css" href="{$jquery_ui_path}development-bundle/themes/start/jquery.ui.all.css"/>
-<link rel="stylesheet" type="text/css" href="{$jqplot_path}dist/jquery.jqplot.css"/>
+<link rel="stylesheet" type="text/css" href="{$jqplot_path}dist/jquery.jqplot.min.css"/>
 <link rel="stylesheet" type="text/css" href="{$tablesorter_path}themes/blue/style.css"/>
 <!-- pg_stats_reporter's stylesheets -->
 <link rel="stylesheet" type="text/css" href="css/pg_stats_reporter.css"/>
