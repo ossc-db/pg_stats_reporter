@@ -122,6 +122,7 @@ $conn = pg_connect($target_info['connect_str']);
 if (!$conn) {
 	die("connect error. repository database : ".$traget_data['repodb']);
 }
+pg_set_client_encoding($conn, "UTF-8");
 
 // トランザクション開始とロックの取得
 $result = pg_query("BEGIN");
@@ -216,7 +217,7 @@ function initInformationFile(&$info_data, &$err_msg)
 			$err_msg[] = "connect error.(repository database = ".$repo_name.")";
 			continue;
 		} else {
-
+			pg_set_client_encoding($conn, "UTF-8");
 			$cache_contents[] = "[".$repo_name."]\n";
 			$cache_contents[] = "connect_str = \"".$connect_str."\"\n";
 
