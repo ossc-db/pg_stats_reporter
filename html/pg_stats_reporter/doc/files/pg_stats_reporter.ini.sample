@@ -179,4 +179,4 @@ index = true
 parameter = true
 
 ; -- Profiles --
-profiles = true
+profiles = false

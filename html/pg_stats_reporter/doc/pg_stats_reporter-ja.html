@@ -8,7 +8,7 @@
 </head>
 
 <body>
-<h1 id="pg_stats_reporter">pg_stats_reporter 1.0.0</h1>
+<h1 id="pg_stats_reporter">pg_stats_reporter 1.0</h1>
 <div class="navigation">
   <a href="http://pgstatsinfo.projects.postgresql.org/index_ja.html">Top</a> &gt;
   <a href="http://pgstatsinfo.projects.postgresql.org/pg_stats_reporter-ja.html">pg_stats_reporter</a>
@@ -38,7 +38,7 @@
 
 <h2 id="name">pg_stats_reporter とは?</h2>
 <p><a href="http://pgstatsinfo.projects.postgresql.org/pg_statsinfo-ja.html">pg_statsinfo-2.4</a>で収集した統計情報(以降、スナップショットと呼びます)を使って、グラフィカルな出力が可能になります。<br/>
-レポート例は<a href="files/">こちら</a>を参照してください。</p>
+レポート例は<a href="files/report_sample.html">こちら</a>を参照してください。</p>
 
 <h2 id="synopsis">機能概要</h2>
 <p>pg_stats_reporter はブラウザから利用し、pg_statsinfo が PostgreSQL に格納したスナップショットからグラフィカルなレポートを作成し、表示します。<br/>
@@ -127,12 +127,12 @@ http://localhost/pg_stats_reporter/pg_stats_reporter.php
 <li>レポート期間の開始日時 : pg_stats_reporter実行日前日の0時</li>
 <li>レポート期間の終了日時 : pg_stats_reporter実行日時</li>
 </ul>
-pg_stats_reporterを「2012年11月2日 18:04」に実行した場合の表示例を<a href="#report_sample">こちら</a>に示します。</p>
+pg_stats_reporterを「2013年1月9日 10:52:21」に実行した場合の表示例を<a href="#report_sample">こちら</a>に示します。</p>
 
 <h3>操作方法詳細</h3>
 <p>画面の操作方法を以下に示します。</p>
 <h4>レポート画面</h4>
-<img id="report_sample" src="pg_stats_reporter.png" width="800px;"/>
+<img id="report_sample" src="image/pg_stats_reporter.png" width="800px;"/>
 <br/>
 <dl>
 <dt>① : Create report range ボタン</dt>
@@ -152,7 +152,7 @@ pg_stats_reporterを「2012年11月2日 18:04」に実行した場合の表示�
 </dl>
 <br/>
 <h4 id="dialog">レポート作成期間指定ダイアログ</h4>
-<img src="dialog.png"/>
+<img src="image/dialog.png"/>
 <br/>
 <dl>
 <dt>⑧ : レポート期間開始日時指定ボックス</dt>
@@ -178,7 +178,7 @@ $ su
 <p>設定ファイル(pg_stats_reporter.ini)は、データベース接続情報およびレポート表示に関する設定を行うファイルです。設定項目を以下に示します。<br/>
 1つのリポジトリDBの設定は、<B>[<I>リポジトリDB名</I>]</B>から始まるこれらの項目全て(以降セクションと呼びます)となります。<br/>
 複数のリポジトリDBを設定したい場合は、設定ファイルにセクションを複数記述してください。<br/>
-記述例は<a href="pg_stats_reporter.ini.sample">こちら</a>を参照してください。</p>
+記述例は<a href="files/pg_stats_reporter.ini.sample">こちら</a>を参照してください。</p>
 
 <table>
 <thead>

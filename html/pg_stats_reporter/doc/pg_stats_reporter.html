@@ -8,7 +8,7 @@
 </head>
 
 <body>
-<h1 id="pg_stats_reporter">pg_stats_reporter 1.0.0</h1>
+<h1 id="pg_stats_reporter">pg_stats_reporter 1.0</h1>
 <div class="navigation">
   <a href="http://pgstatsinfo.projects.postgresql.org/index_ja.html">Top</a> &gt;
   <a href="http://pgstatsinfo.projects.postgresql.org/pg_stats_reporter-ja.html">pg_stats_reporter</a>
@@ -37,7 +37,7 @@
 </div>
 
 <h2 id="name">What is pg_stats_reporter?</h2>
-<p>Pg_stats_reporter can make statistical and graphical reports by <a href="http://pgstatsinfo.projects.postgresql.org/pg_statsinfo-ja.html">pg_statsinfo's(2.4 or later)</a> statistical database(we call it 'snapshot'). Example of report is <a href="files/">here</a> </p>
+<p>Pg_stats_reporter can make statistical and graphical reports by <a href="http://pgstatsinfo.projects.postgresql.org/pg_statsinfo-ja.html">pg_statsinfo's(2.4 or later)</a> statistical database(we call it 'snapshot'). Example of report is <a href="files/report_sample.html">here</a> </p>
 
 <h2 id="synopsis">Summary</h2>
 <p>Pg_stats_reporter is web-based software and can make statistical and graphical reports by pg_statsinfo's snapshot which is statistic of PostgreSQL.<br/>
@@ -132,12 +132,12 @@ http://localhost/pg_stats_reporter/pg_stats_reporter.php
 <li>start of report term : 0 o'clock two days ago</li>
 <li>end of report term :time now</li>
 </ul>
-<a href="#report_sample">This example</a> is pg_stats_reporter to "November 2nd 18:04 of 2012" when executing it.
+<a href="#report_sample">This example</a> is pg_stats_reporter to "January 9th 10:52:21 of 2013" when executing it.
 
 <h3>Detail usage</h3>
 <p>Detail usage on display is under following.</p>
 <h4>report display</h4>
-<img id="report_sample" src="pg_stats_reporter.png" width="800px;"/>
+<img id="report_sample" src="image/pg_stats_reporter.png" width="800px;"/>
 <br/>
 <dl>
 <dt>① : Button of create report</dt>
@@ -157,7 +157,7 @@ http://localhost/pg_stats_reporter/pg_stats_reporter.php
 </dl>
 <br/>
 <h4 id="dialog">Dialog of creating report and selecting term</h4>
-<img src="dialog.png"/>
+<img src="image/dialog.png"/>
 <br/>
 <dl>
 <dt>⑧ : Text box of begginnig date of report</dt>
@@ -182,7 +182,7 @@ $ su
 <h2 id="configuration">Configuration</h2>
 <p>pg_stats_reporter.ini is setting file which is in database connections and report display settings. Configuration item is under following.<br/>
 If you want to use multiple repository database, you set multi [repository database].<br/>
-Please see <a href="pg_stats_reporter.ini.sample">here</a> for setting details.</p>
+Please see <a href="files/pg_stats_reporter.ini.sample">here</a> for setting details.</p>
 
 <table>
 <thead>
