@@ -51,7 +51,7 @@
 <h4>Database Size の見方</h4>
 <ul>
 <li>横軸 : 時刻</li>
-<li>縦軸 : データベースサイズ(MiB)</li>
+<li>縦軸 : データベースサイズ(Bytes)</li>
 <li>[DB名] size : [DB]のデータベースサイズ</li>
 </ul>
 </div>
@@ -79,10 +79,10 @@
 <h4>WAL Statistics の見方</h4>
 <ul>
 <li>横軸 : スナップショット取得日時</li>
-<li>縦軸 : スナップショット間でのWALの出力量 (MiB)</li>
-<li>縦軸 : スナップショット間での秒間のWALの出力量 (MiB/秒)</li>
-<li>write_size : スナップショット間でのWALの出力量 (MiB)</li>
-<li>write_size_per_sec : スナップショット間での1秒あたりのWALの出力量 (MiB/秒)</li>
+<li>縦軸 : スナップショット間でのWALの出力量 (Bytes)</li>
+<li>縦軸 : スナップショット間での秒間のWALの出力量 (Bytes/秒)</li>
+<li>write_size : スナップショット間でのWALの出力量 (Bytes)</li>
+<li>write_size_per_sec : スナップショット間での1秒あたりのWALの出力量 (Bytes/秒)</li>
 </ul>
 </div>
 
@@ -151,16 +151,16 @@
 <h4>I/O Size の見方</h4>
 <ul>
 <li>横軸 : 時刻</li>
-<li>縦軸 : データサイズ(KiB)</li>
-<li>[デバイス名] read(KiB/s) : 秒単位あたりに読み込んだサイズ (KiB)</li>
-<li>[デバイス名] write(KiB/s) : 秒単位あたりに書き込んだサイズ (KiB)</li>
+<li>縦軸 : データサイズ(Bytes)</li>
+<li>[デバイス名] read(Bytes/s) : 秒単位あたりに読み込んだサイズ (Bytes/s)</li>
+<li>[デバイス名] write(Bytes/s) : 秒単位あたりに書き込んだサイズ (Bytes/s)</li>
 </ul>
 <h4>I/O Time の見方</h4>
 <ul>
 <li>横軸 : 時刻</li>
-<li>縦軸 : 平均時間(ms)</li>
-<li>[デバイス名] avg read time (ms) : [デバイス名]の秒単位あたりに読み込みにかかった時間 (ミリ秒)</li>
-<li>[デバイス名] avg write time (ms) : [デバイス名]の秒単位あたりに書き込みにかかった時間 (ミリ秒)</li>
+<li>縦軸 : 平均時間(sec)</li>
+<li>[デバイス名] avg read time (sec) : [デバイス名]の秒単位あたりに読み込みにかかった時間 (秒)</li>
+<li>[デバイス名] avg write time (sec) : [デバイス名]の秒単位あたりに書き込みにかかった時間 (秒)</li>
 </ul>
 </div>
 
@@ -169,12 +169,12 @@
 <h4>Memory Usage の見方</h4>
 <ul>
 <li>横軸 : スナップショット取得日時</li>
-<li>縦軸 :サイズ (MiB)</li>
-<li>memfree (MiB) : 空きメモリサイズ (MiB)</li>
-<li>buffers (MiB) : バッファキャッシュサイズ (MiB)</li>
-<li>cached (MiB) : ページキャッシュからバッファキャッシュを除いたサイズ (MiB)</li>
-<li>swap (MiB) : スワップ使用量 (MiB)</li>
-<li>dirty (MiB) : ダーティページサイズ (MiB)</li>
+<li>縦軸 :サイズ (Bytes)</li>
+<li>memfree (Bytes) : 空きメモリサイズ (Bytes)</li>
+<li>buffers (Bytes) : バッファキャッシュサイズ (Bytes)</li>
+<li>cached (Bytes) : ページキャッシュからバッファキャッシュを除いたサイズ (Bytes)</li>
+<li>swap (Bytes) : スワップ使用量 (Bytes)</li>
+<li>dirty (Bytes) : ダーティページサイズ (Bytes)</li>
 </ul>
 </div>
 
@@ -396,9 +396,9 @@
 <h4>Replication Delays の見方</h4>
 <ul>
 <li>横軸 : 時刻</li>
-<li>縦軸 : 遅延量 (Byte)</li>
-<li>[アプリケーション名] [アドレス]:[ポート番号] flush_delay_size : マスタ－スタンバイ間の書き込み遅延量(Byte)</li>
-<li>[アプリケーション名] [アドレス]:[ポート番号] replay_delay_size : マスタ－スタンバイ間のリカバリ遅延量(Byte)</li></ul>
+<li>縦軸 : 遅延量 (Bytes)</li>
+<li>[アプリケーション名] [アドレス]:[ポート番号] flush_delay_size : マスタ－スタンバイ間の書き込み遅延量(Bytes)</li>
+<li>[アプリケーション名] [アドレス]:[ポート番号] replay_delay_size : マスタ－スタンバイ間のリカバリ遅延量(Bytes)</li></ul>
 </div>
 
 <div id="database_dialog"

@@ -79,10 +79,10 @@
 <h4>How to seea WAL Statistics graphs.</h4>
 <ul>
 <li>x axis : time (snapshot time)</li>
-<li>y axis1 (left) : size of WAL(xlog) data per snapshot (MiB)</li>
-<li>y axis2 (right) : size of WAL(xlog) data per second (MiB/second)</li>
-<li>write_size : size of WAL output / snapshot time (MiB)</li>
-<li>write_size_per_sec : size pf WAL output / second (MiB/second)</li>
+<li>y axis1 (left) : size of WAL(xlog) data per snapshot (Bytes)</li>
+<li>y axis2 (right) : size of WAL(xlog) data per second (Bytes/second)</li>
+<li>write_size : size of WAL output / snapshot time (Bytes)</li>
+<li>write_size_per_sec : size pf WAL output / second (Bytes/second)</li>
 </ul>
 </div>
 
@@ -152,15 +152,15 @@
 <ul>
 <li>x axis : time </li>
 <li>y axis : database size (KiB) </li>
-<li>[device] read(KiB/s) : read I/O size per second in a device (KiB/s)</li>
-<li>[device] write(KiB/s) : write I/O size per second in a device (KiB/s)</li>
+<li>[device] read(Bytes/s) : read I/O size per second in a device (Bytes/s)</li>
+<li>[device] write(Bytes/s) : write I/O size per second in a device (Bytes/s)</li>
 </ul>
 <h4>How to see a I/O Time</h4>
 <ul>
 <li>x axis : time </li>
-<li>y axis : avarage time (ms)</li>
-<li>[device] avg read time (ms) : time of read I/O in a device (ms)</li>
-<li>[device] avg write time (ms) : time of write I/O in a device (ms)</li>
+<li>y axis : avarage time (sec)</li>
+<li>[device] avg read time (sec) : time of read I/O in a device (sec)</li>
+<li>[device] avg write time (sec) : time of write I/O in a device (sec)</li>
 </ul>
 </div>
 
@@ -169,12 +169,12 @@
 <h4>How to see a memory Uage graph table.</h4>
 <ul>
 <li>x axis : time </li>
-<li>y axis : size (MiB)</li>
-<li>memfree (MiB) : size of free memory (MiB)</li>
-<li>buffers (MiB) : size of buffers cached (MiB)</li>
-<li>cached (MiB) : size of file cached(not include buffer cached) (MiB)</li>
-<li>swap (MiB) : size of swap (MiB)</li>
-<li>dirty (MiB) : size of dirty pages (MiB)</li>
+<li>y axis : size (Bytes)</li>
+<li>memfree (Bytes) : size of free memory (Bytes)</li>
+<li>buffers (Bytes) : size of buffers cached (Bytes)</li>
+<li>cached (Bytes) : size of file cached(not include buffer cached) (Bytes)</li>
+<li>swap (Bytes) : size of swap (Bytes)</li>
+<li>dirty (Bytes) : size of dirty pages (Bytes)</li>
 </ul>
 </div>
 
@@ -396,9 +396,9 @@
 <h4>How to see a Replication Delays</h4>
 <ul>
 <li>x axis : time</li>
-<li>y axis : delaying amount (Byte)</li>
-<li>[appname] [address]:[port-number] flush_delay_size : amount of flush-delay between Master and Standby (Byte)</li>
-<li>[appname] [address]:[port-number] replay_delay_size : amount of replay-delay between Master and Standby (Byte)</li></ul>
+<li>y axis : delaying amount (Bytes)</li>
+<li>[appname] [address]:[port-number] flush_delay_size : amount of flush-delay between Master and Standby (Bytes)</li>
+<li>[appname] [address]:[port-number] replay_delay_size : amount of replay-delay between Master and Standby (Bytes)</li></ul>
 </div>
 
 <div id="database_dialog"
