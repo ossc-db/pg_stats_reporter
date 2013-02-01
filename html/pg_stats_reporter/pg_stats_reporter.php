@@ -99,6 +99,7 @@ foreach($target_data as $val) {
 /* キャッシュ確認 */
 if ($smarty->isCached(TEMPLATE_FILE, $report_cache_id)) {
 	$smarty->display(TEMPLATE_FILE, $report_cache_id);
+	exit;
 }
 
 /* キャッシュファイルの削除 */
@@ -148,12 +149,13 @@ pg_close($conn);
 $smarty->display("pg_stats_reporter.tpl", $report_cache_id);
 
 
-/* delete information file */
+/* delete information and report cache file */
 function deleteCacheFile()
 {
 	if (is_file(CACHE_CONFIG_PATH.CACHE_CONFIG_FILENAME)) {
 		unlink(CACHE_CONFIG_PATH.CACHE_CONFIG_FILENAME);
 	}
+	eraseReportCache(0);
 }
 
 /* read information file and make cache file */
