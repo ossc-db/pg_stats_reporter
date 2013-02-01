@@ -1,14 +1,5 @@
-# rpm作成手順
-# Subversionからexportしたファイル群をtarで固める
-# % svn export https://.../pg_statsinfo/trunk/pg_stats_reporter
-# % tar cvfz pg_stats_reporter_1.0.0.tar.gz pg_stats_reporter
-# ファイルをSOURCESにコピーする
-# % cp pg_stats_reporter_1.0.0.tar.gz pg_stats_reporter/rpm/SOURCES
-# rpmを作成する
-# % rpmbuild -ba pg_stats_reporter/rpm/SPECS/pg_stats_reporter.spec
-
 Name:			pg_stats_reporter
-Version:		1.0.0
+Version:		1.0.1
 Release:		1%{?dist}
 Summary:		Graphical viewer for pg_statsinfo
 Summary(ja):	pg_statsinfo 用グラフィカルビューア
@@ -16,7 +7,7 @@ Group:			Applications/Databases
 License:		BSD
 URL:			http://pgstatsinfo.projects.pgfoundry.org/index_ja.html
 Packager:		NIPPON TELEGRAPH AND TELEPHONE CORPORATION
-Source0:		pg_stats_reporter_1.0.0.tar.gz
+Source0:		pg_stats_reporter-1.0.1.tar.gz
 BuildRoot:		%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:		noarch
 Requires:		php53 >= 5.3.3, php53-pgsql >= 5.3.3
@@ -27,12 +18,14 @@ AutoReqProv: 0
 %description
 
 %prep
-%setup -q -n %{name}
+%setup -q %{name}
 
 %install
 /bin/mkdir -p %{buildroot}/var/www
 /bin/cp -r html %{buildroot}/var/www
 /bin/cp -r pg_stats_reporter %{buildroot}/var/www
+/bin/cp LICENSE %{buildroot}/var/www/pg_stats_reporter/
+/bin/cp history.ja %{buildroot}/var/www/pg_stats_reporter/
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -44,6 +37,8 @@ rm -rf $RPM_BUILD_ROOT
 /var/www/pg_stats_reporter/lib/
 /var/www/pg_stats_reporter/template/
 /var/www/pg_stats_reporter/message/
+/var/www/pg_stats_reporter/LICENSE
+/var/www/pg_stats_reporter/history.ja
 
 %defattr(755,apache,apache,-)
 %dir /var/www/pg_stats_reporter/cache
@@ -59,5 +54,7 @@ fi
 /bin/rm -rf /var/www/pg_stats_reporter/compiled
 
 %changelog
+* Fri Feb   1 2013 - NTT OSS Center 1.0.1-1
+- Fix some bugs
 * Fri Nov  30 2012 - NTT OSS Center 1.0.0-1
 - pg_stats_reporter 1.0.0 released

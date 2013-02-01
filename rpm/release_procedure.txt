@@ -1,0 +1,92 @@
+pg_stats_reporter リリース手順書
+
+■ 更新履歴(更新日、更新箇所、更新概要)
+   - 2013/1/30、全体、新規作成
+
+■ リリース手順
+1. pg_stats_reporter.tpl(*1) の title タグのバージョンをマイナーバージョン
+   までにする
+   (*1)branches/pg_stats_reporter_<メジャーバージョン>/pg_stats_reporter/template/pg_stats_reporter.tpl
+   例)
+      <title>pg_stats_reporter 1.0.1</title>
+
+2. pg_stats_reporter_rhel6.spec, pg_stats_reporter_rhel5.spec(*2) の修正
+   (*2)branches/pg_stats_reporter_<メジャーバージョン>/rpm/pg_stats_reporter_rhel6.spec
+       branches/pg_stats_reporter_<メジャーバージョン>/rpm/pg_stats_reporter_rhel5.spec
+   [修正点]
+      - Version をリリースするバージョンに修正する
+        例)
+           Version: 1.0.0 -> Version: 1.0.1
+      - Source0 で指定している tar ファイルのバージョンをリリースする
+        バージョンに修正する
+        例)
+           Source0: pg_stats_reporter-1.0.0.tar.gz
+           -> Source0: pg_stats_reporter-1.0.1.tar.gz
+      - %chagelog の先頭にリリースするバージョンの変更点を追記する
+        例)
+           * Wed Jan  30 2013 - NTT OSS Center 1.0.1-1
+           - Fix some bugs
+
+3. history.ja(*3) にリリースするバージョンにおける変更点(*4)を追記
+   (*3)branches/pg_stats_reporter_<メジャーバージョン>/history.ja
+   (*4)Subversionの変更履歴をリリース用に修正したもの
+   例)
+      [1.0.1 (2013/01/30)]
+     ・ レフトメニューのアコーディオン内の文字列が折りかえるように修正
+     ・ スタンバイが複数ある場合にReplication Activityの表が崩れるのを修正
+     ・ 英語版インストール方法ファイル(INSTALL.en)を追加
+      (以下、省略)
+      
+4. 1.2.3.で修正した以下の4つのファイル(*5)をコミットし、release_revision.txt へ
+   リリースとリビジョンの対応を追記する(*6)
+   (*5)コミットするファイル
+     - branches/pg_stats_reporter_<メジャーバージョン>/pg_stats_reporter/template/pg_stats_reporter.tpl
+     - branches/pg_stats_reporter_<メジャーバージョン>/rpm/pg_stats_reporter_rhel6.spec
+     - branches/pg_stats_reporter_<メジャーバージョン>/rpm/pg_stats_reporter_rhel5.spec
+     - branches/pg_stats_reporter_<メジャーバージョン>/history.ja
+   (*6)release_revision.txt の追記例
+       pg_stats_reporter
+       1.0.1 421
+
+5. Subversion からリリースするバージョンのソースツリー(最新リビジョン)を export する
+   ※以下、任意のユーザのホームディレクトリ直下で操作を行う
+   例)export 先のディレクトリ名を pg_stats_reporter に指定して export する
+      % svn export https://.../pg_statsinfo/branches/pg_stats_reporter_1_0 ~/pg_stats_reporter-1.0.1
+
+6. ソースパッケージ作成に不要なディレクトリ・ファイルを削除・退避する
+   - remove_library
+   - rpm
+   ※remove_library は削除して良いが、rpm は RPM 作成(手順8.～10.)で使用するため退避
+   例)
+      % rm -rf pg_stats_reporter-1.0.1/remove_library
+      % mv pg_stats_reporter-1.0.1/rpm ~/
+
+7. 6.で不要なディレクトリ・ファイルを取り除いた pg_stats_reporter を
+   tar で固める
+   例)
+      % tar cvfz pg_stats_reporter-1.0.1.tar.gz pg_stats_reporter-1.0.1
+
+8. 7.で作成した tar ファイルを6.で待避したRPM作成用ディレクトリ(rpm)直下の
+   SOURCES にコピーする
+   % cp pg_stats_reporter-1.0.1.tar.gz ~/rpm/SOURCES
+
+9. RPM 作成のための設定ファイル(.rpmmacros)をユーザのホームディレクトリ直下に
+   用意する
+   ※既に設定ファイルが存在する場合は設定内容が以下であるか確認する
+    [設定内容例(postgres ユーザで作業している場合)]
+    %_topdir <項番6で退避したディレクトリ>/rpm
+    %_sysconfdir /etc
+
+10. RPM を作成する
+   例)
+      % rpmbuild -ba ~/rpm/SPECS/pg_stats_reporter_rhel6.spec
+
+11. 動作確認(レポートの作成)
+
+12. 6.で作成したソースパッケージと 11.で作成した RPM を以下の場所に格納
+    \\10.7.235.49\ossc\02_project\04_pg_statsinfo\50_Release/<リリース日付>
+
+13. 以下の場所にファイルを格納して、通知する(oss-pg-statsinfo@lab.ntt.co.jp)
+    https://ssh190.nttsoft.org/ssb-ossc-db/dav/pg_statsinfo/50_Release
+
+- 以上 -
