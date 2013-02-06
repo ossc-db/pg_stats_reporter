@@ -671,6 +671,9 @@ function div_flip() {
   $("#parameter_table").tablesorter( {
     widthFixed: true,
 	widgets: ['zebra'],
+	headers: {
+		2: { sorter: false }
+	}
   } )
   .tablesorterPager( {
 	container: $('#pager_parameter'),

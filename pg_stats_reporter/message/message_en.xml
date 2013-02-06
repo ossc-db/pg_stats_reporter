@@ -477,6 +477,7 @@ This information is not supported in this version. We will support in future ver
 <ul>
 <li>name : parameter name</li>
 <li>setting : parameter value</li>
+<li>unit : unit</li>
 <li>source : setting parameter</li>
 </ul>
 </div>
