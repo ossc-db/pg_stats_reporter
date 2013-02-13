@@ -40,9 +40,9 @@
 <h4>Transaction Statistics の見方</h4>
 <ul>
 <li>横軸 : 時刻</li>
-<li>縦軸 : 1秒あたりのトランザクション数</li>
-<li>[DB名] commit_tps : [DB名]の1秒あたりにコミットされたトランザクション数</li>
-<li>[DB名] rollback_tps : [DB名]の1秒あたりにロールバックされたトランザクション数</li>
+<li>縦軸 : 1秒あたりのトランザクション数 (xact/秒)</li>
+<li>[DB名] commit_tps : [DB名]の1秒あたりにコミットされたトランザクション数 (xact/秒)</li>
+<li>[DB名] rollback_tps : [DB名]の1秒あたりにロールバックされたトランザクション数 (xact/秒)</li>
 </ul>
 </div>
 
@@ -51,8 +51,8 @@
 <h4>Database Size の見方</h4>
 <ul>
 <li>横軸 : 時刻</li>
-<li>縦軸 : データベースサイズ(Bytes)</li>
-<li>[DB名] size : [DB]のデータベースサイズ</li>
+<li>縦軸 : データベースサイズ (Bytes)</li>
+<li>[DB名] size : [DB]のデータベースサイズ (Bytes)</li>
 </ul>
 </div>
 
@@ -103,10 +103,10 @@
 <ul>
 <li>横軸 : 時刻</li>
 <li>縦軸 : パーセント(%)</li>
-<li>idle (%) : 待機中(コマンド待ち状態)のバックエンドプロセス数の比率</li>
-<li>idle in xact (%) : トランザクション内で待機中(コマンド待ち状態)のバックエンドプロセス数の比率</li>
-<li>waiting (%) : ロック待ち状態のバックエンドプロセス数の比率</li>
-<li>running (%) : トランザクション実行中のバックエンドプロセス数の比率</li>
+<li>idle : 待機中(コマンド待ち状態)のバックエンドプロセス数の比率 (%)</li>
+<li>idle in xact : トランザクション内で待機中(コマンド待ち状態)のバックエンドプロセス数の比率 (%)</li>
+<li>waiting : ロック待ち状態のバックエンドプロセス数の比率 (%)</li>
+<li>running : トランザクション実行中のバックエンドプロセス数の比率 (%)</li>
 </ul>
 </div>
 
@@ -116,10 +116,10 @@
 <ul>
 <li>横軸 : 時刻</li>
 <li>縦軸 : パーセント(%)</li>
-<li>idle (%) : タスク待ちで CPU を消費した時間の比率</li>
-<li>iowait (%) : 入出力の完了待ちで CPU を消費した時間の比率</li>
-<li>system (%) : システムモードで CPU を消費した時間の比率</li>
-<li>user (%) : ユーザモードで CPU を消費した時間の比率</li>
+<li>idle : タスク待ちで CPU を消費した時間の比率 (%)</li>
+<li>iowait : 入出力の完了待ちで CPU を消費した時間の比率 (%)</li>
+<li>system : システムモードで CPU を消費した時間の比率 (%)</li>
+<li>user : ユーザモードで CPU を消費した時間の比率 (%)</li>
 </ul>
 </div>
 
@@ -151,16 +151,16 @@
 <h4>I/O Size の見方</h4>
 <ul>
 <li>横軸 : 時刻</li>
-<li>縦軸 : データサイズ(Bytes)</li>
-<li>[デバイス名] read(Bytes/s) : 秒単位あたりに読み込んだサイズ (Bytes/s)</li>
-<li>[デバイス名] write(Bytes/s) : 秒単位あたりに書き込んだサイズ (Bytes/s)</li>
+<li>縦軸 : データサイズ (Bytes/秒)</li>
+<li>[デバイス名] read : 秒単位あたりに読み込んだサイズ (Bytes/秒)</li>
+<li>[デバイス名] write : 秒単位あたりに書き込んだサイズ (Bytes/秒)</li>
 </ul>
 <h4>I/O Time の見方</h4>
 <ul>
 <li>横軸 : 時刻</li>
-<li>縦軸 : 平均時間(sec)</li>
-<li>[デバイス名] avg read time (sec) : [デバイス名]の秒単位あたりに読み込みにかかった時間 (秒)</li>
-<li>[デバイス名] avg write time (sec) : [デバイス名]の秒単位あたりに書き込みにかかった時間 (秒)</li>
+<li>縦軸 : 平均時間 (sec)</li>
+<li>[デバイス名] avg read time : [デバイス名]の秒単位あたりに読み込みにかかった時間 (秒)</li>
+<li>[デバイス名] avg write time : [デバイス名]の秒単位あたりに書き込みにかかった時間 (秒)</li>
 </ul>
 </div>
 
@@ -170,11 +170,11 @@
 <ul>
 <li>横軸 : スナップショット取得日時</li>
 <li>縦軸 :サイズ (Bytes)</li>
-<li>memfree (Bytes) : 空きメモリサイズ (Bytes)</li>
-<li>buffers (Bytes) : バッファキャッシュサイズ (Bytes)</li>
-<li>cached (Bytes) : ページキャッシュからバッファキャッシュを除いたサイズ (Bytes)</li>
-<li>swap (Bytes) : スワップ使用量 (Bytes)</li>
-<li>dirty (Bytes) : ダーティページサイズ (Bytes)</li>
+<li>memfree : 空きメモリサイズ (Bytes)</li>
+<li>buffers : バッファキャッシュサイズ (Bytes)</li>
+<li>cached : ページキャッシュからバッファキャッシュを除いたサイズ (Bytes)</li>
+<li>swap : スワップ使用量 (Bytes)</li>
+<li>dirty : ダーティページサイズ (Bytes)</li>
 </ul>
 </div>
 
@@ -396,9 +396,9 @@
 <h4>Replication Delays の見方</h4>
 <ul>
 <li>横軸 : 時刻</li>
-<li>縦軸 : 遅延量 (Bytes)</li>
-<li>[アプリケーション名] [アドレス]:[ポート番号] flush_delay_size : マスタ－スタンバイ間の書き込み遅延量(Bytes)</li>
-<li>[アプリケーション名] [アドレス]:[ポート番号] replay_delay_size : マスタ－スタンバイ間のリカバリ遅延量(Bytes)</li></ul>
+<li>縦軸 : WALの遅延量 (Bytes)</li>
+<li>[アドレス]:[ポート番号] flush_delay_size : マスタとスタンバイ間のWAL書き込み遅延量 (Bytes)<br/>※同期モードのスタンバイには先頭に[sync]が表示されます</li>
+<li>[アドレス]:[ポート番号] replay_delay_size : スタンバイのリカバリ遅延量 (Bytes)<br/>※同期モードのスタンバイには先頭に[sync]が表示されます</li></ul>
 </div>
 
 <div id="database_dialog"
@@ -421,7 +421,7 @@
 <li>schema : スキーマ名</li>
 <li>table : テーブル名</li>
 <li>columns : カラム数</li>
-<li>row width : 非NULL項目の平均保存幅 (Byte)</li>
+<li>row width : 非NULL項目の平均保存幅 (Bytes)</li>
 <li>MiB : テーブルサイズ (MiB)</li>
 <li>+MiB : テーブルサイズの増分量 (MiB)</li>
 <li>table scans : シーケンシャルスキャンが実行された回数</li>
