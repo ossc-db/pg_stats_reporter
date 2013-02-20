@@ -293,7 +293,7 @@
 <li>query : SQL query</li>
 <li>calls : number of executing query</li>
 <li>total time (sec) : total executing time (sec)</li>
-<li>time/call (ms) : average executing time (ms)</li>
+<li>time/call (sec) : average executing time (sec)</li>
 </ul>
 </div>
 

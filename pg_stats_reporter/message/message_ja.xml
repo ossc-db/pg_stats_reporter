@@ -293,7 +293,7 @@
 <li>query : 問い合わせ文</li>
 <li>calls : 問い合わせ文が実行された回数</li>
 <li>total time (sec) : 問い合わせ文の累積消費時間 (秒)</li>
-<li>time/call (ms) : 1回の問い合わせ文実行当たりの消費時間 (ミリ秒)</li>
+<li>time/call (sec) : 1回の問い合わせ文実行当たりの消費時間 (秒)</li>
 </ul>
 </div>
 
