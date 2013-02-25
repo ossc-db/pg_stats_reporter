@@ -247,7 +247,7 @@ function initInformationFile(&$info_data, &$err_msg)
 				for ($i = 0 ; $i < pg_num_rows($result) ; $i++ ) {
 					$row_array = pg_fetch_array($result, NULL, PGSQL_NUM);
 					$cache_contents[] = "monitor[".$row_array[0]."] = \"".$row_array[1].":".$row_array[2]."\"\n";
-					$ver_array = split("\.", $row_array[3]);
+					$ver_array = explode(".", $row_array[3]);
 					$ver = $ver_array[0]*10000 + $ver_array[1]*100 + $ver_array[2];
 					$cache_contents[] = "pg_version[".$row_array[0]."] = ".$ver."\n";
 				}
