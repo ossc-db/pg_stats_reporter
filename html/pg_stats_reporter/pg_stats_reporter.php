@@ -2,7 +2,7 @@
 /*
  * pg_stats_reporter
  *
- * Copyright (c) 2012, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
+ * Copyright (c) 2012,2013, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
  */
 
 // include sub module
