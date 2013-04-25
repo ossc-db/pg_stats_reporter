@@ -24,8 +24,9 @@ $(function() {
   // accordion in left menu
   $( "#accordion" ).accordion( {
     icons: icons,
-    autoHeight: false,
-    navigation: true,
+	// you should delete these option, because these option is non-recommended option
+    // autoHeight: false,
+    // navigation: true,
     collapsible: true
   } );
 
@@ -105,7 +106,8 @@ $(function() {
     modal: true,
     resizable: false,
     width: 450,
-    position: ['center',300],
+	// you should delete these option, because these option is non-recommended option
+    //position: ['center',300],
     buttons: {
       "Create report": function() {
 		// datetimepicker blank check

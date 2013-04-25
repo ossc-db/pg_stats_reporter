@@ -5,9 +5,16 @@
  * Copyright (c) 2012,2013, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
  */
 
+define("GLOBAL_SECTION", "global_setting");
+define("INSTALL_DIR", "install_directory");
+$global_setting_list = array(
+	INSTALL_DIR,
+);
+
 // include sub module
-require_once "../../pg_stats_reporter/lib/define.php";
-require_once "../../pg_stats_reporter/lib/make_report.php";
+require_once "../../pg_stats_reporter_lib/module/define.php";
+require_once "../../pg_stats_reporter_lib/module/common.php";
+require_once "../../pg_stats_reporter_lib/module/make_report.php";
 
 /* Initial setting of Smarty */
 require_once SMARTY_PATH."Smarty.class.php";
@@ -33,17 +40,7 @@ $smarty->assign("dygraphs_path", DYGRAPHS_PATH);
 
 /* メッセージファイルの一覧作成 */
 // TODO: Check out message_message_ja.xml
-$locale_list = array();
-$msg_len = strlen(MESSAGE_PREFIX);
-$dir = opendir(MESSAGE_PATH);
-while ($fn = readdir($dir)) {
-	$pos = strpos($fn, ".");
-	if (strncmp(MESSAGE_PREFIX, $fn, $msg_len) == 0
-  	    && substr_compare($fn, MESSAGE_SUFFIX, $pos) == 0) {
-		$locale_list[] = substr($fn, $msg_len, $pos - $msg_len);
-	}
-}
-closedir($dir);
+createMessageFileList(MESSAGE_PATH, $locale_list, $msg_file_list);
 
 /* URLパラメータのreloadを確認し、キャッシュファイル削除 */
 if (array_key_exists("reload", $_GET)) {
@@ -52,6 +49,14 @@ if (array_key_exists("reload", $_GET)) {
 
 /* 設定ファイルの読込み */
 // エラーの時はエラーのみのページを表示
+if (readGlobalSetting($global_setting, $infoData, $errormsg) == false) {
+	print "An error has occurred in pg_stats_reporter.ini<br/>\n";
+	foreach($errormsg as $val) {
+		print " - ".$val."<br/>\n";
+	}
+	exit;
+}
+
 if (initInformationFile($infoData, $errormsg) == false) {
 	print "An error has occurred in pg_stats_reporter.ini<br/>\n";
 	foreach($errormsg as $val) {
@@ -114,8 +119,8 @@ if ($target_info['language'] == 'auto')
 	$target_locale = locale_accept_from_http($_SERVER['HTTP_ACCEPT_LANGUAGE']);
 else
 	$target_locale = $target_info['language'];
-$msg_file = MESSAGE_PATH.MESSAGE_PREFIX.locale_lookup($locale_list, $target_locale, false, "en").MESSAGE_SUFFIX;
-readMessageFile($msg_file, $help_message, $error_message);
+readMessageFile($target_locale, $locale_list, $msg_file_list,
+				$help_message, $error_message);
 
 /* レポートページ作成 */
 // DB接続
@@ -136,7 +141,7 @@ pg_free_result($result);
 
 // ヘッダからコンテンツまで作成
 $html_string = makeReport($conn, $infoData, $target_data,
-						   $help_message, $error_message);
+				$help_message, $error_message);
 $smarty->assign("header_menu", $html_string['header_menu']);
 $smarty->assign("left_menu", $html_string['left_menu']);
 $smarty->assign("contents", $html_string['contents']);
@@ -158,14 +163,51 @@ function deleteCacheFile()
 	eraseReportCache(0);
 }
 
+/* read global_setting from information file */
+function readGlobalSetting(&$global_setting, &$infoData, &$err_msg)
+{
+	global $global_setting_list;
+
+	$ini_data = array();
+	$err_msg = array();
+
+	/* read pg_stats_reporter.ini */
+	if (!is_file(CONFIG_PATH.CONFIG_FILENAME)) {
+		$err_msg[] = "pg_stats_reporter.ini is not found.";
+		return false;
+	}
+
+	/* read pg_stats_reporter.ini */
+	$ini_data = parse_ini_file(CONFIG_PATH.CONFIG_FILENAME, true);
+
+	// pick up "global" section
+	if (!array_key_exists(GLOBAL_SECTION, $ini_data)) {
+		$err_msg[] = "Does not contain a global setting section(".CONFIG_PATH.CONFIG_FILENAME.")";
+		return false;
+	}
+
+	// validate check
+	foreach ($global_setting_list as $item) {
+		if (!array_key_exists($item, $ini_data[GLOBAL_SECTION]))
+			$err_msg[] = "[".GLOBAL_SECTION."]".$item.": Required item not exists.";
+	}
+	foreach (array_keys($ini_data[GLOBAL_SECTION]) as $item) {
+		if (!in_array($item, $global_setting_list)) {
+			$err_msg[] = "[".GLOBAL_SECTION."]".$item.": Item is invalid.";
+		}
+	}
+
+	$global_setting = $ini_data[GLOBAL_SECTION];
+	$infoData = $ini_data;
+	return $infoData;
+}
+
 /* read information file and make cache file */
 function initInformationFile(&$info_data, &$err_msg)
 {
 	global $conf_key_list;
 	global $report_default;
 
-	$info_data = array();
-	$err_msg = array();
 	$cache_contents = array();
 	$setting = $report_default;
 
@@ -175,15 +217,12 @@ function initInformationFile(&$info_data, &$err_msg)
 		return $info_data;
 	}
 
-	/* read pg_stats_reporter.ini */
-	if (!is_file(CONFIG_PATH.CONFIG_FILENAME)) {
-		$err_msg[] = "pg_stats_reporter.ini is not found.";
-		return false;
-	}
-	$ini_data = parse_ini_file(CONFIG_PATH.CONFIG_FILENAME, true);
+	// exclude "global" section
+	assert(array_key_exists(GLOBAL_SECTION, $info_data));
+	unset($info_data[GLOBAL_SECTION]);
 
 	/* check format and get data */
-	foreach($ini_data as $repo_name => $data_array) {
+	foreach($info_data as $repo_name => $data_array) {
 		if (!is_array($data_array)) {
 			$err_msg[] = "Does not contain a section(repositoryDB name:".$repo_name.").";
 			return false;
@@ -294,51 +333,6 @@ function initInformationFile(&$info_data, &$err_msg)
 	// read cache file
 	$info_data = parse_ini_file(CACHE_CONFIG_PATH.CACHE_CONFIG_FILENAME, true);
 	return $info_data;
-
-}
-
-/* read message file */
-function readMessageFile($msg_file, &$help_message, &$error_message)
-{
-	global $help_list;
-
-	$help_message = array();
-	$error_message = array();
-
-	if (!file_exists($msg_file)) {
-		// メッセージファイルなしで英語ファイルにする場合、
-		// メッセージはどこに出す?
-		print "message file(".msg_file.") is not found.";
-		$msg_file = MESSAGE_PATH.MESSAGE_PREFIX."en".MESSAGE_SUFFIX;
-		if (!file_exists($msg_file)) {
-			die("message file(".msg_file.") is not found.");
-		}
-	}
-
-	$xml = simplexml_load_file($msg_file);
-	if ($xml == false) {
-		die("Access denied or invalid XML format.(".msg_file.")");
-	}
-
-	// make help message
-	$err_val = $xml->xpath("/document/help/div[@id=\"error\"]");
-	if (count($err_val) == 0) {
-		$err_val[0] = "help item is not found.";
-	}
-	foreach($help_list as $id_key => $id_val) {
-		$val = $xml->xpath("/document/help/div[@id=\"".$id_val."\"]");
-		if (count($val) == 0) {
-			$help_message[$id_key] = "<div id=\"".$id_val."\">".$err_val[0]."</div>";
-		} else {
-			$help_message[$id_key] = $val[0]->asXML();
-		}
-	}
-
-	// get error message
-	foreach($xml->error->p as $error) {
-		$key = $error['id'];
-		$error_message["$key"] = $error;
-	}
 
 }
 

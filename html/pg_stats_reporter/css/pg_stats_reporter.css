@@ -36,6 +36,18 @@ h3 {
   font-size: 115%;
 }
 
+#header_menu_commandline {
+  position: fixed;
+  background-color: #BDD2FF;
+  left: 0.5%;
+  top: 0;
+  width: 99.9%;
+  min-width: 800px;
+  height: 35px;
+  z-index: 2;
+  font-size: 115%;
+}
+
 #left_menu {
   position: fixed;
   background-color: #4297d7;
@@ -51,6 +63,13 @@ h3 {
   position: absolute;
   left: 15.5%;
   width: 84.5%;
+  z-index: 1;
+}
+
+#contents_commandline {
+  position: absolute;
+  left: 0.5;
+  width: 99.0%;
   z-index: 1;
 }
 

@@ -35,18 +35,46 @@ function makeReport($conn, $infoData, $target_info, $help_msg, $error_msg)
 	/* make left menu html */
 	$html_string["left_menu"] = makeLeftMenu($infoData, $target_info);
 
+	/* get snapshot id */
+	if (!getSnapshotID($conn, $target_info, &$snapids, &$snapdates)) {
+		$html_string["contents"] = "<div id=\"contents\">\n<div class=\"top_jump_margin\"></div>\n<p class=\"error\">".$error_msg['query_error'].pg_last_error($conn)."</p>\n";
+	} else if ($snapids[0] == $snapids[1] || is_null($snapids[0]) || is_null($snapids[1])) {
+		/* check whether there are two more than a snapshot */
+		$html_string["contents"] = "<div id=\"contents\">\n<div class=\"top_jump_margin\"></div>\n<p class=\"error\">".$error_msg['short_snapshots']."</p>\n";
+	} else {
+		/* make contents html */
+		$html_string["contents"]
+			= makeContents($conn, $infoData, $target_info, $snapids,
+							$help_msg, $error_msg);
+	}
+	return $html_string;
+}
+
+/* make report for commandline mode*/
+function makeReportForCommandline($conn, $infoData, $target_info, $snapids,
+									$helpmsg, $errmsg)
+{
+	$html_string = array();
+
+	/* make header menu html */
+	$html_string["header_menu"] = makeHeaderMenu($infoData, $target_info);
+
 	/* make contents html */
-	$html_string["contents"]
-		= makeContents($conn, $infoData, $target_info, $help_msg, $error_msg);
+	$html_string["contents"] = makeContents($conn, $infoData, $target_info,
+											$snapids, $helpmsg, $errmsg);
 
 	return $html_string;
 }
 
 function makeHeaderMenu($infoData, $targetInfo)
 {
-	$html_string =
+	if (empty($_SERVER['DOCUMENT_ROOT']))
+		 $html_string = "<div id=\"header_menu_commandline\">\n";
+	else
+		$html_string = "<div id=\"header_menu\">\n";
+
+	$html_string .=
 <<< EOD
-<div id="header_menu">
 <ul id="dropdown" class="sf-menu menu">
 
 EOD;
@@ -320,13 +348,19 @@ EOD;
 <<< EOD
 </ul>
 
+EOD;
+	if (!empty($_SERVER['DOCUMENT_ROOT'])) {
+		$html_string .=
+<<< EOD
 <!-- hide left menu button  -->
-<div align="right" class="jquery_ui_button_max"> 
-  <div><button id="jquery_ui_button_arrowthick"></button></div>
+<div align="right" class="jquery_ui_button_max">
+ <div><button id="jquery_ui_button_arrowthick"></button></div>
 </div>
 
-</div> <!-- header menu end -->
 EOD;
+	}
+
+	$html_string .= "</div> <!-- header menu end -->\n";
 
 	return $html_string;
 }
@@ -334,9 +368,13 @@ EOD;
 function makePlainHeaderMenu()
 {
 	/* 大項目レベルだけの方がいいかも */
-	return
+	if (empty($_SERVER['DOCUMENT_ROOT'])) 
+		$html_string = "<div id=\"header_menu\">";
+	else
+		$html_string = "<div id=\"header_menu_commandline\">";
+
+	$html_string .=
 <<< EOD
-<div id="header_menu">
 <ul id="dropdown" class="sf-menu">
 <li><a>Summary</a></li>
 <li><a>Database System</a><ul>
@@ -406,13 +444,21 @@ function makePlainHeaderMenu()
 </ul></li>
 </ul>
 
+EOD;
+	if (!empty($_SERVER['DOCUMENT_ROOT'])) {
+		$html_string .=
+<<< EOD
 <!-- hide left menu button  -->
 <div align="right" class="jquery_ui_button_max"> 
   <div><button id="jquery_ui_button_arrowthick"></button></div>
 </div>
 
-</div> <!-- header menu end -->
 EOD;
+	}
+
+	$html_string .= "</div> <!-- header menu end -->\n";
+
+	return $html_string;
 }
 
 function makeLeftMenu($infoData, $targetInfo)
@@ -479,58 +525,46 @@ EOD;
 	return $html_string;
 }
 
-function makeContents($conn, $infoData, $targetInfo, $helpMsg, $errorMsg)
+function makeContents($conn, $infoData, $targetInfo, $snapids, $helpMsg, $errorMsg)
 {
 
 	$targetData = $infoData[$targetInfo['repodb']];
 
 	/* Contents Header */
-	$html_string =
+	if (empty($_SERVER['DOCUMENT_ROOT']))
+		/* When it is run in command-line mode */
+		$html_string = "<div id=\"contents_commandline\">\n";
+	else
+		$html_string = "<div id=\"contents\">\n";
+
+	$html_string .=
 <<< EOD
-<div id="contents">
 <div class="top_jump_margin"></div>
 
 EOD;
 
-	/* get snapshot id */
-	$result = pg_query_params($conn, "SELECT statsrepo.get_min_snapid2($1, $2, $3), statsrepo.get_max_snapid2($4, $5, $6)",
-							  array($targetInfo['instid'], $targetInfo['begin_date'], $targetInfo['end_date'],
-									$targetInfo['instid'], $targetInfo['begin_date'], $targetInfo['end_date']));
-	if (!$result) {
-		return $htmlString."<p class=\"error\">".$errorMsg['query_error'].pg_last_error($conn)."</p>\n";
-	}
-	$snapids = pg_fetch_array($result, NULL, PGSQL_NUM);
+	/* Summary */
+	$html_string .= makeSummaryReport($conn, $targetData, $snapids, $errorMsg);
 
-	// check the number of snapids
-	if($snapids[0] == $snapids[1]|| is_null($snapids[0])||is_null($snapids[1])){
+	/* Database System */
+	$html_string .= makeDatabaseSystemReport($conn, $targetData, $snapids, $errorMsg);
 
-		$html_string .= "<p class=\"error\">".$errorMsg['short_snapshots']."</p>\n";
-		pg_free_result($result);
+	/* Operating System */
+	$html_string .= makeOperatingSystemReport($conn, $targetData, $snapids, $errorMsg);
 
-	}else{
+	/* SQL */
+	$html_string .= makeSQLReport($conn, $targetData, $snapids, $errorMsg);
 
-		/* Summary */
-		$html_string .= makeSummaryReport($conn, $targetData, $snapids, $errorMsg);
+	/* Activities */
+	$html_string .= makeActivitiesReport($conn, $targetData, $snapids, $errorMsg);
 
-		/* Database System */
-		$html_string .= makeDatabaseSystemReport($conn, $targetData, $snapids, $errorMsg);
+	/* Information */
+	$html_string .= makeInformationReport($conn, $targetData, $snapids, $errorMsg);
 
-		/* Operating System */
-		$html_string .= makeOperatingSystemReport($conn, $targetData, $snapids, $errorMsg);
+	/* help dialog */
+	foreach($helpMsg as $msg)
+		$html_string .= $msg;
 
-		/* SQL */
-		$html_string .= makeSQLReport($conn, $targetData, $snapids, $errorMsg);
-
-		/* Activities */
-		$html_string .= makeActivitiesReport($conn, $targetData, $snapids, $errorMsg);
-
-		/* Information */
-		$html_string .= makeInformationReport($conn, $targetData, $snapids, $errorMsg);
-
-		/* help dialog */
-		foreach($helpMsg as $msg)
-			$html_string .= $msg;
-	}
 	/* Contents Footer */
 	$html_string .=
 <<< EOD

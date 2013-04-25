@@ -2,6 +2,18 @@
 ; pg_stats_reporter configuration file
 ;-------------------------------------
 
+;-------------------------------------
+; global setting section
+;-------------------------------------
+
+[global_setting]
+install_directory = /var/www
+
+
+;-------------------------------------
+; repository DB setting section
+;-------------------------------------
+
 [sample]
 
 ;-------------------------------------

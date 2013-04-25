@@ -19,13 +19,13 @@ define("JQPLOT_PATH", "package/jqPlot-1.0.4r1121/");
 define("DYGRAPHS_PATH", "package/danvk-dygraphs-4d3672f/");
 
 // setting file
-define("CONFIG_PATH", "../../pg_stats_reporter/");
-define("CONFIG_FILENAME", "pg_stats_reporter.ini");
-define("CACHE_CONFIG_PATH", "../../pg_stats_reporter/cache/");
+define("CACHE_CONFIG_PATH", "../../pg_stats_reporter_lib/cache/");
 define("CACHE_CONFIG_FILENAME", "pg_stats_reporter_cache.ini");
+define("CONFIG_PATH", "/etc/");
+define("CONFIG_FILENAME", "pg_stats_reporter.ini");
 
 // message file
-define("MESSAGE_PATH", "../../pg_stats_reporter/message/");
+define("MESSAGE_PATH", "../../pg_stats_reporter_lib/message/");
 define("MESSAGE_PREFIX", "message_");
 define("MESSAGE_SUFFIX", ".xml");
 
@@ -34,9 +34,9 @@ define("V23", "20300");
 define("V24", "20400");
 
 // Smarty cache, compile, template directory
-define("CACHE_DIR", "../../pg_stats_reporter/cache");
-define("COMPILE_DIR", "../../pg_stats_reporter/compiled");
-define("TEMPLATE_DIR", "../../pg_stats_reporter/template");
+define("CACHE_DIR", "../../pg_stats_reporter_lib/cache");
+define("COMPILE_DIR", "../../pg_stats_reporter_lib/compiled");
+define("TEMPLATE_DIR", "../../pg_stats_reporter_lib/template");
 define("TEMPLATE_FILE", "pg_stats_reporter.tpl");
 
 // DB connect and language key list
@@ -263,7 +263,15 @@ $query_string = array(
 
   // Profiles
   "profiles" =>
-  "SELECT processing, executes FROM statsrepo.get_profiles($1, $2)"
+  "SELECT processing, executes FROM statsrepo.get_profiles($1, $2)",
+
+  // Snapshot List
+  "snapshotlist" =>
+  "SELECT s.snapid AS SnapID, i.instid AS instID, i.hostname AS Host, i.port AS Port, s.time::timestamp(0) AS Timestamp , s.comment AS Comment FROM statsrepo.snapshot s LEFT JOIN statsrepo.instance i ON s.instid = i.instid",
+
+  // Snapshot Size
+  "snapshotsize" =>
+  "SELECT i.instid, i.name, i.hostname, i.port, count(*), sum(s.snapshot_increase_size)::numeric(1000), max(s.snapid), max(s.time)::timestamp(0) FROM statsrepo.snapshot s LEFT JOIN statsrepo.instance i ON s.instid = i.instid GROUP BY i.instid, i.name, i.hostname, i.port ORDER BY i.instid"
 );
 
 ?>
