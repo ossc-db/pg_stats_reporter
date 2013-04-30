@@ -1000,19 +1000,21 @@ function displaySnapshotSize($infoData, $repository_name)
 
 		for ($i = 0 ; $i < pg_num_rows($result) ; $i++ ) {
 			$size = pg_fetch_result($result, $i, 5);
+			if (!$size)
+				$size = 0;
 
 			printf("Instance ID                : %s\n", pg_fetch_result($result, $i, 0));
 			printf("Database System ID         : %s\n", pg_fetch_result($result, $i, 1));
 			printf("Host                       : %s\n", pg_fetch_result($result, $i, 2));
 			printf("Port                       : %s\n", pg_fetch_result($result, $i, 3));
 			printf("Number Of Snapshots        : %s\n", pg_fetch_result($result, $i, 4));
-			printf("Snapshot Size              : %s\n", prettySize($size));
-			printf("Latest Snapshot ID         : %s\n", pg_fetch_result($result, $i, 6));
-			printf("Latest Snapshot Timestamp  : %s\n\n", pg_fetch_result($result, $i, 7));
+			printf("Snapshot Size              : %s\n", ($size != 0)? prettySize($size) : 0);
+			printf("Latest Snapshot ID         : %s\n", ($var = pg_fetch_result($result, $i, 6))? $var : "NA");
+			printf("Latest Snapshot Timestamp  : %s\n\n", ($var = pg_fetch_result($result, $i, 7))? $var : "NA");
 
 			$totalSize += $size;
 		}
-		printf("Total Snapshot Size  : %s\n\n", prettySize($totalSize));
+		printf("Total Snapshot Size  : %s\n\n", ($totalSize != 0)? prettySize($totalSize) : 0);
 		pg_free_result($result);
 		pg_close($conn);
 	}
