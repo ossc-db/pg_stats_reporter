@@ -259,6 +259,10 @@ $query_string = array(
 
   // Setting Parameters
   "parameter" =>
+  "SELECT name, setting, source FROM statsrepo.get_setting_parameters($1, $2)",
+
+  // Setting Parameters
+  "parameter2" =>
   "SELECT name, setting, unit, source FROM statsrepo.get_setting_parameters($1, $2)",
 
   // Profiles

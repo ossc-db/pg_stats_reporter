@@ -774,32 +774,35 @@ EOD;
 </div>
 
 EOD;
+			if ($target['repo_version'] >= 20400) {
+				$result = pg_query_params($conn, $query_string['wal_statistics_stats'], $snapids);
+				if (!$result) {
+					return $htmlString."<p class=\"error\">"
+						.$errorMsg['query_error'].pg_last_error($conn)."</p>\n";
+				}
+				// データがない場合、カラムにはNULLが入っている
+				if (is_null(pg_fetch_result($result,0,0)) == 1) {
+					$htmlString .= "<p class=\"error\">".$errorMsg['no_result']."</p>\n";
+				} else {
+					$htmlString .= makeTablePagerHTML($result, "wal_statistics_stats", 5, false);
+				}
+				pg_free_result($result);
 
-			$result = pg_query_params($conn, $query_string['wal_statistics_stats'], $snapids);
-			if (!$result) {
-				return $htmlString."<p class=\"error\">"
-					.$errorMsg['query_error'].pg_last_error($conn)."</p>\n";
-			}
-			// データがない場合、カラムにはNULLが入っている
-			if (is_null(pg_fetch_result($result,0,0)) == 1) {
-				$htmlString .= "<p class=\"error\">".$errorMsg['no_result']."</p>\n";
+				$result = pg_query_params($conn, $query_string['wal_statistics'], $snapids);
+				if (!$result) {
+					return $htmlString."<p class=\"error\">"
+						.$errorMsg['query_error'].pg_last_error($conn)."</p>\n";
+				}
+
+				if (pg_num_rows($result) == 0) {
+					$htmlString .= "<p class=\"error\">".$errorMsg['no_result']."</p>\n";
+				} else {
+					$htmlString .= makeWALStatisticsGraphHTML($result);
+				}
+				pg_free_result($result);
 			} else {
-				$htmlString .= makeTablePagerHTML($result, "wal_statistics_stats", 5, false);
+				$htmlString .= "<p class=\"error\">".$errorMsg['st_version']."</p>\n";
 			}
-			pg_free_result($result);
-
-			$result = pg_query_params($conn, $query_string['wal_statistics'], $snapids);
-			if (!$result) {
-				return $htmlString."<p class=\"error\">"
-					.$errorMsg['query_error'].pg_last_error($conn)."</p>\n";
-			}
-
-			if (pg_num_rows($result) == 0) {
-				$htmlString .= "<p class=\"error\">".$errorMsg['no_result']."</p>\n";
-			} else {
-				$htmlString .= makeWALStatisticsGraphHTML($result);
-			}
-			pg_free_result($result);
 		}
 
 		if ($target['instance_processes_ratio']) {
@@ -929,7 +932,7 @@ EOD;
 </div>
 
 EOD;
-			if ($target['repo_version'] >= V24) {
+			if ($target['repo_version'] >= 20400) {
 				$result = pg_query_params($conn, $query_string['load_average'], $snapids);
 				if (!$result) {
 					return $htmlString."<p class=\"error\">"
@@ -1024,7 +1027,7 @@ EOD;
 </div>
 
 EOD;
-			if ($target['repo_version'] >= V24) {
+			if ($target['repo_version'] >= 20400) {
 				$result = pg_query_params($conn, $query_string['memory_usage'], $snapids);
 				if (!$result) {
 					return $htmlString."<p class=\"error\">"
@@ -1494,7 +1497,7 @@ EOD;
 
 
 EOD;
-			if ($target['pg_version'] >= V24) {
+			if ($target['repo_version'] >= 20400) {
 				$result = pg_query_params($conn, $query_string['io_statistics'], $snapids);
 				if (!$result) {
 					return $htmlString."<p class=\"error\">"
@@ -1508,7 +1511,7 @@ EOD;
 				}
 				pg_free_result($result);
 			} else {
-				$htmlString .= "<p class=\"error\">".$errorMsg['pg_version']."</p>\n";
+				$htmlString .= "<p class=\"error\">".$errorMsg['st_version']."</p>\n";
 			}
 		}
 	}
@@ -1548,9 +1551,9 @@ EOD;
 		pg_free_result($result);
 	}
 
-        /* Replication Delays */
-        if ($target['replication_delays']) {
-                $htmlString .=
+	/* Replication Delays */
+	if ($target['replication_delays']) {
+		$htmlString .=
 <<< EOD
 <div id="replication_delays" class="jump_margin"></div>
 <h3>Replication Delays</h3>
@@ -1559,15 +1562,16 @@ EOD;
 </div>
 
 EOD;
-
-                $result = pg_query_params($conn, $query_string['replication_delays'], $snapids);
-                if (!$result) {
-					if ($result) pg_free_result($result);
-                    return $htmlString."<p class=\"error\">"
-                            .$errorMsg['query_error'].pg_last_error($conn)."</p>\n";
-                }
-                if (pg_num_rows($result) == 0) {                        $htmlString .= "<p class=\"error\">".$errorMsg['no_result']."</p>\n";
-                } else {
+		if ($target['repo_version'] >= 20500) {
+			$result = pg_query_params($conn, $query_string['replication_delays'], $snapids);
+				if (!$result) {
+					if ($result)
+						pg_free_result($result);
+				return $htmlString."<p class=\"error\">".$errorMsg['query_error'].pg_last_error($conn)."</p>\n";
+				}
+				if (pg_num_rows($result) == 0) {
+					$htmlString .= "<p class=\"error\">".$errorMsg['no_result']."</p>\n";
+				} else {
 					makeTupleListForDygraphs($result, $name, $value);
 					$opt = array();
 					array_push($opt, "title: 'Replication Delays'");
@@ -1595,9 +1599,12 @@ EOD;
 					pg_free_result($result2);
 
 					$htmlString .= makeLineGraphHTML($name, $value, "replication_delays", $opt);
-                }
-                pg_free_result($result);
-      }
+				}
+				pg_free_result($result);
+			} else {
+				$htmlString .= "<p class=\"error\">".$errorMsg['st_version']."</p>\n";
+			}
+		}
 
 	return $htmlString;
 }
@@ -1796,8 +1803,11 @@ EOD;
 </div>
 
 EOD;
-
-			$result = pg_query_params($conn, $query_string['parameter'], $ids);
+			if ($target['repo_version'] >= 20500) {
+				$result = pg_query_params($conn, $query_string['parameter2'], $ids);
+			} else { 
+				$result = pg_query_params($conn, $query_string['parameter'], $ids);
+			}
 			if (!$result) {
 				return $htmlString."<p class=\"error\">"
 					.$errorMsg['query_error'].pg_last_error($conn)."</p>\n";
