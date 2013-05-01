@@ -14,7 +14,7 @@ function createMessageFileList($file_dir, &$locale_list, &$msg_file_list)
 		return false;
 
 	while($fn = readdir($dir)) {
-		$path_parts = pathinfo(joinPathComponents($file_dir, $fn));
+		$path_parts = pathinfo($file_dir."/".$fn);
 		if (strncmp(MESSAGE_PREFIX, $path_parts["filename"], $msg_len) == 0
 			&& strcmp(".".$path_parts["extension"], MESSAGE_SUFFIX) == 0) {
 			$lang = str_replace(MESSAGE_PREFIX, "", $path_parts["filename"]);
