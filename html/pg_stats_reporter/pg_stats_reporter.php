@@ -151,7 +151,7 @@ pg_query("COMMIT");
 pg_close($conn);
 
 // 表示
-$smarty->display("pg_stats_reporter.tpl", $report_cache_id);
+$smarty->display("TEMPLATE_FILE", $report_cache_id);
 
 
 /* delete information and report cache file */

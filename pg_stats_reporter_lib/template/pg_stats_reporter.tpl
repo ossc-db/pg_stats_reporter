@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>pg_stats_reporter 1.0</title>
+<title>pg_stats_reporter 2.0.0</title>
 
 <!-- javascripts -->
 <script type="text/javascript" src="{$jquery_path}jquery-1.8.2.min.js"></script>

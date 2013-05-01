@@ -14,15 +14,14 @@ function createMessageFileList($file_dir, &$locale_list, &$msg_file_list)
 		return false;
 
 	while($fn = readdir($dir)) {
-		$pos = strpos($fn, ".");
-		if (strncmp(MESSAGE_PREFIX, $fn, $msg_len) == 0
-			&& substr_compare($fn, MESSAGE_SUFFIX, $pos) == 0) {
-			$lang = substr($fn, $msg_len, $pos - $msg_len);
+		$path_parts = pathinfo(joinPathComponents($file_dir, $fn));
+		if (strncmp(MESSAGE_PREFIX, $path_parts["filename"], $msg_len) == 0
+			&& strcmp(".".$path_parts["extension"], MESSAGE_SUFFIX) == 0) {
+			$lang = str_replace(MESSAGE_PREFIX, "", $path_parts["filename"]);
 			$locale_list[] = $lang;
 			$msg_file_list[$lang] = $file_dir."/".$fn;
 		}
 	}
-
 	closedir($dir);
 	return true;
 }

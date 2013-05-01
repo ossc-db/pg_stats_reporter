@@ -369,9 +369,9 @@ function makePlainHeaderMenu()
 {
 	/* 大項目レベルだけの方がいいかも */
 	if (empty($_SERVER['DOCUMENT_ROOT'])) 
-		$html_string = "<div id=\"header_menu\">";
-	else
 		$html_string = "<div id=\"header_menu_commandline\">";
+	else
+		$html_string = "<div id=\"header_menu\">";
 
 	$html_string .=
 <<< EOD
