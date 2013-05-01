@@ -282,6 +282,8 @@ function initInformationFile(&$info_data, &$err_msg)
 			$result = pg_query($conn, "SELECT instid, hostname, port, pg_version FROM statsrepo.instance");
 			if (!$result) {
 				$err_msg[] = "execute query error. ".pg_last_error();
+			} else if (pg_num_rows($result) == 0) {
+				$err_msg[] = "Monitored database is not registered at all.(repository database = ".$repo_name.")";
 			} else {
 				for ($i = 0 ; $i < pg_num_rows($result) ; $i++ ) {
 					$row_array = pg_fetch_array($result, NULL, PGSQL_NUM);

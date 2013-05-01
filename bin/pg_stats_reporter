@@ -650,6 +650,8 @@ function initInformationFileForCommandline($infoData, &$err_msg, $config_cache_f
 			$result = pg_query($conn, "SELECT instid, hostname, port, pg_version FROM statsrepo.instance");
 			if (!$result) {
 				$err_msg[] = "execute query error. ".pg_last_error();
+			} else if (pg_num_rows($result) == 0) {
+				die2("Monitored database is not registered at all.(repository database = ".$repo_name.")", NULL, WARNING);
 			} else {
 				for ($i = 0 ; $i < pg_num_rows($result) ; $i++ ) {
 					$row_array = pg_fetch_array($result, NULL, PGSQL_NUM);
@@ -888,10 +890,12 @@ function displayMonitoredDatabaseList($infoData, $repository_name)
 
 	/* Prepare list of repository DB and monitored DB */
 	if (isset($repository_name)) {
-		$target_db_list[$repository_name] = $infoData[$repository_name]['monitor'];
+		if (array_key_exists("monitor", $infoData[$repository_name]))
+			$target_db_list[$repository_name] = $infoData[$repository_name]['monitor'];
 	} else {
 		foreach ($infoData as $key => $val) {
-			$target_db_list[$key] = $val['monitor'];
+			if (array_key_exists("monitor", $val))
+				$target_db_list[$key] = $val['monitor'];
 		}
 	}
 
@@ -904,6 +908,8 @@ function displayMonitoredDatabaseList($infoData, $repository_name)
 
 	/* Display repository DB and monitored DB */
 	foreach ($target_db_list as $section => $item) {
+		if (count($item) == 0)
+			continue;
 		foreach ($item as $instid => $monitor_info) {
 			printf("%-20s  %6s  %-35s\n", $section, $instid, $monitor_info);
 		}
