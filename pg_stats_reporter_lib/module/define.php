@@ -32,6 +32,7 @@ define("MESSAGE_SUFFIX", ".xml");
 // pg_statsinfo's version
 define("V23", "20300");
 define("V24", "20400");
+define("V25", "20500");
 
 // Smarty cache, compile, template directory
 define("CACHE_DIR", "../../pg_stats_reporter_lib/cache");

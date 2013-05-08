@@ -217,6 +217,26 @@ if (($infoData = initInformationFileForCommandline(
 	}
 	die2($str, 1, ERROR);
 }
+if (count($errmsg) != 0) {
+	$str = "An error has occurred in pg_stats_reporter.ini";
+	foreach ($errmsg as $val) {
+		$str .= "\n - ".$val;
+	}
+	die2($str, 1, ERROR);
+}
+
+/*
+ * Check connection to repository database. 
+ * If connection to all repository database could not be established,
+ * exit this script.
+ */
+$cnt = 0;
+foreach ($infoData as $repo_name => $val) {
+	if (count($val) == 0)
+		$cnt++;
+}
+if ($cnt == count($infoData))
+	die2(NULL, 1, ERROR);
 
 // if repository database specified, it is confirm that 
 // the repository database name is set in pg_stats_reporter.ini
@@ -272,12 +292,15 @@ if ($optionInfo["list"]) {
 	}
 
 	foreach ($repoInfo as $key => $val) {
+		/* if connection could not be established already, continue with no message. */
+		if (count($val) == 0)
+			continue;
+
 		if (isset($optionInfo["instid"])) {
 			if (!array_key_exists("monitor", $val)) {
 				continue;
 			} else if (!array_key_exists($optionInfo["instid"], $val["monitor"])) {
 				die2("Not exist monitored database: repositorydb = ".$key.", instid = ".$optionInfo["instid"], NULL, WARNING);
-				//fprintf(STDERR, "[WARNING] Not exist monitored database: repositorydb = ".$key.", instid = ".$optionInfo["instid"]."\n");
 			 	continue;
 			} else {
 				$target = array($optionInfo["instid"] => $val["monitor"][$optionInfo["instid"]]);
@@ -290,9 +313,10 @@ if ($optionInfo["list"]) {
 		}
 
 		// connect database
-		$conn = pg_connect($val["connect_str"]);
+		$conn = @pg_connect($val["connect_str"]);
 		if (!$conn) {
-			die2("Connect error. repository database : ".$target_data['repodb'], 1, ERROR);
+			die2("connect error. repository database : ".$target_data['repodb'], NULL, WARNING);
+			continue;
 		}
 		pg_set_client_encoding($conn, "UTF-8");
 
@@ -623,7 +647,8 @@ function initInformationFileForCommandline($infoData, &$err_msg, $config_cache_f
 		// and get pg_statsinfo version
 		$conn = @pg_connect($connect_str);
 		if (!$conn) {
-			$err_msg[] = "connect error.(repository database = ".$repo_name.")";
+			die2("connect error.(repository database = ".$repo_name.")", NULL, WARNING);
+			$cache_contents[] = "[".$repo_name."]\n";
 			continue;
 		} else {
 			pg_set_client_encoding($conn, "UTF-8");
@@ -651,7 +676,7 @@ function initInformationFileForCommandline($infoData, &$err_msg, $config_cache_f
 			if (!$result) {
 				$err_msg[] = "execute query error. ".pg_last_error();
 			} else if (pg_num_rows($result) == 0) {
-				die2("Monitored database is not registered at all.(repository database = ".$repo_name.")", NULL, WARNING);
+				die2("monitored database is not registered at all.(repository database = ".$repo_name.")", NULL, WARNING);
 			} else {
 				for ($i = 0 ; $i < pg_num_rows($result) ; $i++ ) {
 					$row_array = pg_fetch_array($result, NULL, PGSQL_NUM);
@@ -889,11 +914,19 @@ function displayMonitoredDatabaseList($infoData, $repository_name)
 	$target_db_list = array();
 
 	/* Prepare list of repository DB and monitored DB */
+	//if (isset($repository_name)) {
+		//if (array_key_exists("monitor", $infoData[$repository_name]))
 	if (isset($repository_name)) {
+		/* if connection could not be established already, do not input target connection list */
+		if (count($infoData[$repository_name]) == 0)
+			die2(NULL, 1, ERROR);
 		if (array_key_exists("monitor", $infoData[$repository_name]))
 			$target_db_list[$repository_name] = $infoData[$repository_name]['monitor'];
 	} else {
 		foreach ($infoData as $key => $val) {
+			/* if connection could not be established already, do not input target connection list */
+			if (count($val) == 0)
+				continue;
 			if (array_key_exists("monitor", $val))
 				$target_db_list[$key] = $val['monitor'];
 		}
@@ -925,9 +958,15 @@ function displaySnapshotList($infoData, $instid, $repository_name)
 
 	/* Prepare list of connection info to repositorydb */
 	if (isset($repository_name)) {
+		/* if connection could not be established already, do not input target connection list */
+		if (count($infoData[$repository_name]) == 0)
+			die2(NULL, 1, ERROR);
 		$target_connection_string[$repository_name] = $infoData[$repository_name]['connect_str'];
 	} else {
 		foreach ($infoData as $key => $val) {
+			/* if connection could not be established already, do not input target connection list */
+			if (count($val) == 0)
+				continue;
 			$target_connection_string[$key] = $val['connect_str'];
 		}
 	}
@@ -946,11 +985,13 @@ function displaySnapshotList($infoData, $instid, $repository_name)
 	/* Get and display the snapshot for each repositorydb */
 	foreach ($target_connection_string as $key => $val) {
 
+		if (!($conn = @pg_connect($val))) {
+			die2("connect error.(repository database = ".$key.")", NULL, WARNING);
+			continue;
+		}
+
 		/* Display repositorydb name */
 		echo "\n[".$key."]\n\n";
-
-		if (!($conn = pg_connect($val)))
-			continue;
 
 		$result = pg_query($conn, $query_string['snapshotlist']);
 
@@ -979,9 +1020,15 @@ function displaySnapshotSize($infoData, $repository_name)
 
 	/* Prepare list of connection info to repositorydb */
 	if (isset($repository_name)) {
+		/* if connection could not be established already, exit this script */
+		if (count($infoData[$repository_name]) == 0)
+			die2(NULL, 1, ERROR);
 		$target_connection_string[$repository_name] = $infoData[$repository_name]['connect_str'];
 	} else {
 		foreach ($infoData as $key => $val) {
+			/* if connection could not be established already, do not input target connection list */
+			if (count($val) == 0)
+				continue;
 			$target_connection_string[$key] = $val['connect_str'];
 		}
 	}
@@ -999,8 +1046,10 @@ function displaySnapshotSize($infoData, $repository_name)
 		/* Display ripositorydb name */
 		echo "\n[".$key."]\n\n";
 
-		if (!($conn = pg_connect($val)))
+		if (!($conn = @pg_connect($val))) {
+			die2("connect error.(repository database = ".$key.")", NULL, WARNING);
 			continue;
+		}
 
 		$result = pg_query($conn, $query_string['snapshotsize']);
 

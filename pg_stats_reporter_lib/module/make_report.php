@@ -774,7 +774,7 @@ EOD;
 </div>
 
 EOD;
-			if ($target['repo_version'] >= 20400) {
+			if ($target['repo_version'] >= V24) {
 				$result = pg_query_params($conn, $query_string['wal_statistics_stats'], $snapids);
 				if (!$result) {
 					return $htmlString."<p class=\"error\">"
@@ -932,7 +932,7 @@ EOD;
 </div>
 
 EOD;
-			if ($target['repo_version'] >= 20400) {
+			if ($target['repo_version'] >= V24) {
 				$result = pg_query_params($conn, $query_string['load_average'], $snapids);
 				if (!$result) {
 					return $htmlString."<p class=\"error\">"
@@ -1027,7 +1027,7 @@ EOD;
 </div>
 
 EOD;
-			if ($target['repo_version'] >= 20400) {
+			if ($target['repo_version'] >= V24) {
 				$result = pg_query_params($conn, $query_string['memory_usage'], $snapids);
 				if (!$result) {
 					return $htmlString."<p class=\"error\">"
@@ -1497,7 +1497,7 @@ EOD;
 
 
 EOD;
-			if ($target['repo_version'] >= 20400) {
+			if ($target['repo_version'] >= V24) {
 				$result = pg_query_params($conn, $query_string['io_statistics'], $snapids);
 				if (!$result) {
 					return $htmlString."<p class=\"error\">"
@@ -1562,7 +1562,7 @@ EOD;
 </div>
 
 EOD;
-		if ($target['repo_version'] >= 20500) {
+		if ($target['repo_version'] >= V25) {
 			$result = pg_query_params($conn, $query_string['replication_delays'], $snapids);
 				if (!$result) {
 					if ($result)
@@ -1803,7 +1803,7 @@ EOD;
 </div>
 
 EOD;
-			if ($target['repo_version'] >= 20500) {
+			if ($target['repo_version'] >= V25) {
 				$result = pg_query_params($conn, $query_string['parameter2'], $ids);
 			} else { 
 				$result = pg_query_params($conn, $query_string['parameter'], $ids);
