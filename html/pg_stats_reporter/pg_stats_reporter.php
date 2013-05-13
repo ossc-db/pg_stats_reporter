@@ -49,20 +49,23 @@ if (array_key_exists("reload", $_GET)) {
 
 /* 設定ファイルの読込み */
 // エラーの時はエラーのみのページを表示
-if (readGlobalSetting($global_setting, $infoData, $errormsg) == false) {
-	print "An error has occurred in pg_stats_reporter.ini<br/>\n";
-	foreach($errormsg as $val) {
-		print " - ".$val."<br/>\n";
+if (is_file(CACHE_CONFIG_PATH.CACHE_CONFIG_FILENAME)) {
+	$infoData = parse_ini_file(CACHE_CONFIG_PATH.CACHE_CONFIG_FILENAME, true);
+} else {
+	if (readGlobalSetting($global_setting, $infoData, $errormsg) == false) {
+		print "An error has occurred in pg_stats_reporter.ini<br/>\n";
+		foreach($errormsg as $val) {
+			print " - ".$val."<br/>\n";
+		}
+		exit;
 	}
-	exit;
-}
-
-if (initInformationFile($infoData, $errormsg) == false) {
-	print "An error has occurred in pg_stats_reporter.ini<br/>\n";
-	foreach($errormsg as $val) {
-		print " - ".$val."<br/>\n";
+	if (initInformationFile($infoData, $errormsg) == false) {
+		print "An error has occurred in pg_stats_reporter.ini<br/>\n";
+		foreach($errormsg as $val) {
+			print " - ".$val."<br/>\n";
+		}
+		exit;
 	}
-	exit;
 }
 if (count($errormsg) != 0) {
 	$html_string = makeErrorReport($infoData, $errormsg);
@@ -210,12 +213,6 @@ function initInformationFile(&$info_data, &$err_msg)
 
 	$cache_contents = array();
 	$setting = $report_default;
-
-	/* read cache file */
-	if (is_file(CACHE_CONFIG_PATH.CACHE_CONFIG_FILENAME)) {
-		$info_data = parse_ini_file(CACHE_CONFIG_PATH.CACHE_CONFIG_FILENAME, true);
-		return $info_data;
-	}
 
 	// exclude "global" section
 	assert(array_key_exists(GLOBAL_SECTION, $info_data));
