@@ -1986,6 +1986,7 @@ function makeLineGraphHTML($labelNames, $values, $id, $options)
     legend: 'always',
     xlabel: 'Timestamp',
     yAxisLabelWidth: 70,
+	animatedZooms: true,
 
 EOD;
 	foreach($options as $opt)
@@ -2043,6 +2044,7 @@ function makeSimpleLineGraphHTML($results, $id, $options, $stack, $changeScale)
     legend: 'always',
     xlabel: 'Timestamp',
     yAxisLabelWidth: 70,
+	animatedZooms: true,
 
 EOD;
 	foreach($options as $opt)
@@ -2126,6 +2128,7 @@ EOD;
 	ylabel: 'Size (Bytes)',
 	y2label: 'Speed (Bytes/s)',
 	labelsKMG2: true,
+	animatedZooms: true,
 
 EOD;
 
