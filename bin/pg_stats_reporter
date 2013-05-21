@@ -238,6 +238,19 @@ foreach ($infoData as $repo_name => $val) {
 if ($cnt == count($infoData))
 	die2(NULL, 1, ERROR);
 
+/*
+ * Check monitored database is registered to repository database.
+ */
+$cnt = 0;
+foreach ($infoData as $repo_name => $val) {
+	if (!array_key_exists("monitor", $val)) {
+		unset($infoData[$repo_name]);
+		$cnt++;
+	}
+}
+if (count($infoData) == 0)
+	die2(NULL, 1, ERROR);
+
 // if repository database specified, it is confirm that 
 // the repository database name is set in pg_stats_reporter.ini
 if (isset($optionInfo["repositorydb"])) {
@@ -342,12 +355,10 @@ if ($optionInfo["list"]) {
 			// get snapshot id and date
 			if (!getSnapshotID($conn, $target_data, $snapids, $snapdates)) {
 				die2($errorMsg['query_error'].pg_last_error($conn), NULL, WARNING);
-				//fprintf(STDERR, "[WARNING] ".$errorMsg['query_error'].pg_last_error($conn), 1)."\n";
 				continue;
 			}
 			if ($snapids[0] == $snapids[1] || is_null($snapids[0]) || is_null($snapids[1])) {
 				die2("Could not create report: repositorydb = ".$key.", instid = ".$monitorid, NULL, WARNING);
-				//fprintf(STDERR, "[WARNING] Could not create report: repositorydb = ".$key.", instid = ".$monitorid."\n");
 				continue;
 			}
 
@@ -373,7 +384,6 @@ if ($optionInfo["list"]) {
 
 			// display message
 			die2("Report file created: ".$filename, NULL, LOG);
-			//fprintf(STDOUT, "[LOG] Report file created: ".$filename."\n");
 		}
 		// disconnect database
 		pg_close($conn);
@@ -677,6 +687,7 @@ function initInformationFileForCommandline($infoData, &$err_msg, $config_cache_f
 				$err_msg[] = "execute query error. ".pg_last_error();
 			} else if (pg_num_rows($result) == 0) {
 				die2("monitored database is not registered at all.(repository database = ".$repo_name.")", NULL, WARNING);
+				continue;
 			} else {
 				for ($i = 0 ; $i < pg_num_rows($result) ; $i++ ) {
 					$row_array = pg_fetch_array($result, NULL, PGSQL_NUM);
@@ -761,7 +772,7 @@ function copyLibraryFile($installDir, $outputDir)
 		}
 		if (!is_dir($dst)) {
 			if (!mkdir($dst, 0755, true)) {
-				die2("Could not make directory '".$dst."'\n", 1, ERROR);
+				die2("Could not make directory '".$dst."'", 1, ERROR);
 			}
 		}
 	}
@@ -785,9 +796,9 @@ function copyLibraryFile($installDir, $outputDir)
 		/* copy direcotry */
 		if (!is_dir($dst)) {
 			if (!mkdir($dst, 0755, true))
-				die2("Could not make directory '".$dst."\n", 1, ERROR);
+				die2("Could not make directory '".$dst."'", 1, ERROR);
 			if (!copyDirectory($src, $dst))
-				die2("Could not copy '".$dst."'\n", 1, ERROR);
+				die2("Could not copy '".$dst."'", 1, ERROR);
 		}
 	}
 
@@ -812,7 +823,7 @@ function copyLibraryFile($installDir, $outputDir)
 
 		/* copy file */
 		if (!copy($src, $dst))
-			die2("Could not copy '".$dst."'\n", 1, ERROR);
+			die2("Could not copy '".$dst."'", 1, ERROR);
 	}
 }
 
@@ -1063,13 +1074,13 @@ function displaySnapshotSize($infoData, $repository_name)
 			printf("Host                       : %s\n", pg_fetch_result($result, $i, 2));
 			printf("Port                       : %s\n", pg_fetch_result($result, $i, 3));
 			printf("Number Of Snapshots        : %s\n", pg_fetch_result($result, $i, 4));
-			printf("Snapshot Size              : %s\n", ($size != 0)? prettySize($size) : 0);
-			printf("Latest Snapshot ID         : %s\n", ($var = pg_fetch_result($result, $i, 6))? $var : "NA");
-			printf("Latest Snapshot Timestamp  : %s\n\n", ($var = pg_fetch_result($result, $i, 7))? $var : "NA");
+			printf("Snapshot Size              : %s\n", prettySize($size));
+			printf("Latest Snapshot ID         : %s\n", ($var = pg_fetch_result($result, $i, 6))? $var : "N/A");
+			printf("Latest Snapshot Timestamp  : %s\n\n", ($var = pg_fetch_result($result, $i, 7))? $var : "N/A");
 
 			$totalSize += $size;
 		}
-		printf("Total Snapshot Size  : %s\n\n", ($totalSize != 0)? prettySize($totalSize) : 0);
+		printf("Total Snapshot Size  : %s\n\n", prettySize($totalSize));
 		pg_free_result($result);
 		pg_close($conn);
 	}
