@@ -66,14 +66,14 @@ if (is_file(CACHE_CONFIG_PATH.CACHE_CONFIG_FILENAME)) {
 		}
 		exit;
 	}
-}
-if (count($errormsg) != 0) {
-	$html_string = makeErrorReport($infoData, $errormsg);
-	$smarty->assign("header_menu", $html_string['header_menu']);
-	$smarty->assign("left_menu", $html_string['left_menu']);
-	$smarty->assign("contents", $html_string['contents']);
-	$smarty->display(TEMPLATE_FILE, 0);
-	exit;
+	if (count($errormsg) != 0) {
+		$html_string = makeErrorReport($infoData, $errormsg);
+		$smarty->assign("header_menu", $html_string['header_menu']);
+		$smarty->assign("left_menu", $html_string['left_menu']);
+		$smarty->assign("contents", $html_string['contents']);
+		$smarty->display(TEMPLATE_FILE, 0);
+		exit;
+	}
 }
 
 /* レポート作成のための情報を設定 */
