@@ -11,6 +11,9 @@ $global_setting_list = array(
 	INSTALL_DIR,
 );
 
+// this is flag to judge whether delete cache file of pg_stats_reporter.ini
+$deleteConfigCache = false;
+
 // include sub module
 require_once "../../pg_stats_reporter_lib/module/define.php";
 require_once "../../pg_stats_reporter_lib/module/common.php";
@@ -72,6 +75,10 @@ if (is_file(CACHE_CONFIG_PATH.CACHE_CONFIG_FILENAME)) {
 		$smarty->assign("left_menu", $html_string['left_menu']);
 		$smarty->assign("contents", $html_string['contents']);
 		$smarty->display(TEMPLATE_FILE, 0);
+
+		if ($deleteConfigCache == true)
+			deleteCacheFile();
+
 		exit;
 	}
 }
@@ -210,6 +217,7 @@ function initInformationFile(&$info_data, &$err_msg)
 {
 	global $conf_key_list;
 	global $report_default;
+	global $deleteConfigCache;
 
 	$cache_contents = array();
 	$setting = $report_default;
@@ -219,6 +227,8 @@ function initInformationFile(&$info_data, &$err_msg)
 	unset($info_data[GLOBAL_SECTION]);
 
 	/* check format and get data */
+	$repositoryNum = count($info_data);
+	$invalidInfoNum = 0;
 	foreach($info_data as $repo_name => $data_array) {
 		if (!is_array($data_array)) {
 			$err_msg[] = "Does not contain a section(repositoryDB name:".$repo_name.").";
@@ -253,6 +263,8 @@ function initInformationFile(&$info_data, &$err_msg)
 		$conn = pg_connect($connect_str);
 		if (!$conn) {
 			$err_msg[] = "connect error.(repository database = ".$repo_name.")";
+			$cache_contents[] = "[".$repo_name."]\n";
+			$invalidInfoNum++;
 			continue;
 		} else {
 			pg_set_client_encoding($conn, "UTF-8");
@@ -281,6 +293,7 @@ function initInformationFile(&$info_data, &$err_msg)
 				$err_msg[] = "execute query error. ".pg_last_error();
 			} else if (pg_num_rows($result) == 0){
 				$err_msg[] = "monitored database is not registered at all.(repository database = ".$repo_name.")";
+				$invalidInfoNum++;
 			} else {
 				for ($i = 0 ; $i < pg_num_rows($result) ; $i++ ) {
 					$row_array = pg_fetch_array($result, NULL, PGSQL_NUM);
@@ -317,6 +330,10 @@ function initInformationFile(&$info_data, &$err_msg)
 			$cache_contents[] = $key." = ".$setting[$key]."\n";
 		}
 	}
+
+	// determinded whether to delete the cache file
+	if ($invalidInfoNum == $repositoryNum)
+		$deleteConfigCache = true;
 
 	// write cache file
 	if (count($cache_contents) == 0) {
