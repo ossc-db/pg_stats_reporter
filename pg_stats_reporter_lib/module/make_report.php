@@ -504,9 +504,11 @@ EOD;
 
 	foreach($infoData as $repo => $val_array) {
 		$html_string .= "<h3><a href=\"#\">".$repo."</a></h3>\n<div>\n";
+		
+		if (array_key_exists("monitor", $val_array))
+			foreach($val_array['monitor'] as $id => $str)
+				$html_string .= "<a href=\"pg_stats_reporter.php?repodb=".$repo."&amp;instid=".$id.$url_param_date."\">".$str."</a><br/>\n";
 
-		foreach($val_array['monitor'] as $id => $str)
-			$html_string .= "<a href=\"pg_stats_reporter.php?repodb=".$repo."&amp;instid=".$id.$url_param_date."\">".$str."</a><br/>\n";
 		$html_string .= "</div>\n";
 	}
 	$html_string .= "</div> <!-- accordion end -->\n";
