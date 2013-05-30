@@ -33,7 +33,7 @@ function makeReportList($dirString)
 		}
 
 		$parts = explode("_", $path_parts["filename"]);
-		if (count($parts) != 6) {
+		if (count($parts) != 6 && count($parts) != 7) {
 			continue;
 		}
 
