@@ -527,6 +527,7 @@ EOD;
 
 function makeContents($conn, $infoData, $targetInfo, $snapids, $helpMsg, $errorMsg)
 {
+	global $query_string;
 
 	$targetData = $infoData[$targetInfo['repodb']];
 
@@ -542,6 +543,20 @@ function makeContents($conn, $infoData, $targetInfo, $snapids, $helpMsg, $errorM
 <div class="top_jump_margin"></div>
 
 EOD;
+
+	/* get checkpoint data */
+	$result = pg_query_params($conn, $query_string['checkpoint_time'], array($targetInfo["instid"], $snapids[0], $snapids[1]));
+	if (!$result) {
+		return $htmlString."<br/><br/><br/><p class=\"error\">"
+			.$errorMsg['query_error'].pg_last_error($conn)."</p>\n";
+	}
+
+	$html_string .= "<!--\ncheckpoint date list -->\n<script type=\"text/javascript\">\nvar checkpoint_date_list = [\n";
+	for ($i = 0 ; $i < pg_num_rows($result) ; $i++) {
+		$html_string .= "[\"".pg_fetch_result($result, $i, 0)."\", \"".pg_fetch_result($result, $i, 1)."\"],\n";
+	}
+	$html_string .= "];\n</script>\n\n";
+	pg_free_result($result);
 
 	/* Summary */
 	$html_string .= makeSummaryReport($conn, $targetData, $snapids, $errorMsg);
@@ -1959,11 +1974,15 @@ function makeTablePagerHTML($result, $id, $default, $pagerOn)
 // legend with search results
 function makeLineGraphHTML($labelNames, $values, $id, $options)
 {
-	$htmlString = "<table><tr><td>\n<div id=\""
+	$htmlString = "<table><tr><td rowspan=\"2\">\n<div id=\""
 		.$id."_graph\" class=\"linegraph\"></div>\n</td><td>\n<div id=\""
-		.$id."_status\" class=\"labels\"></div>\n</td></tr>\n</table>\n";
+		.$id."_status\" class=\"labels\"></div>\n</td></tr>\n"
+		."<tr><td><div class=\"graph_button\">\n<button id=\""
+		.$id."_line\">checkpoint highlight switch</button>\n"
+		."</div></td></tr>\n</table>\n";
 
 	$htmlString .= "<script type=\"text/javascript\">\n";
+	$htmlString .= "var ".$id."_highlight = false;\n\n";
 	$htmlString .= "var ".$id." = new Dygraph(document.getElementById('"
 		.$id."_graph'),[\n";
 
@@ -1994,7 +2013,7 @@ EOD;
 	$htmlString .= "    labels: [ ";
 	foreach($labelNames as $col)
 		$htmlString .="\"". $col."\", ";
-	$htmlString .= " ],\n  } );\n";
+	$htmlString .= " ],\n".makeCheckpointSetting($id);
 
 	return $htmlString."</script>\n";
 }
@@ -2005,22 +2024,23 @@ function makeSimpleLineGraphHTML($results, $id, $options, $stack, $changeScale)
 
 	$htmlString = "<table>";
 
-	if ($changeScale)
-		$htmlString .= "<tr><td rowspan=\"2\">";
-	else
-		$htmlString .= "<tr><td>";
+	$htmlString .= "<tr><td rowspan=\"2\">\n";
 
-	$htmlString .= "\n<div id=\""
+	$htmlString .= "<div id=\""
 		.$id."_graph\" class=\"linegraph\"></div>\n</td><td>\n<div id=\""
 		.$id."_status\" class=\"labels\"></div>\n</td></tr>\n";
 
-	if ($changeScale)
-		$htmlString .= "<tr><td><div class=\"graph_button\">\n<button id=\""
-			.$id."_scale\">change scale</button>\n</div></td></tr>\n";
+	$htmlString .= "<tr><td><div class=\"graph_button\">\n<button id=\""
+		.$id."_line\">checkpoint highlight switch</button>\n</div>";
 
-	$htmlString .= "</table>\n";
+	if ($changeScale)
+		$htmlString .= "<div class=\"graph_button\">\n<button id=\""
+			.$id."_scale\">change scale</button>\n</div>\n";
+
+	$htmlString .= "</td></tr>\n</table>\n";
 
 	$htmlString .= "<script type=\"text/javascript\">\n";
+	$htmlString .= "var ".$id."_highlight = false;\n\n";
 	$htmlString .= "var ".$id." = new Dygraph(document.getElementById('"
 		.$id."_graph'),[\n";
 
@@ -2074,11 +2094,11 @@ EOD;
       strokeWidth: 3,
       strokeBorderWidth: 1,
       highlightCircleSize: 5,
-    }
+	},
 
 EOD;
 
-	return $htmlString."  } );\n</script>\n";
+	return $htmlString.makeCheckpointSetting($id)."</script>\n";
 }
 
 // WAL Statistics 2-Axes Line Graph
@@ -2086,13 +2106,17 @@ function makeWALStatisticsGraphHTML($results)
 {
 	$htmlString = 
 <<< EOD
-<table><tr><td>
+<table><tr><td rowspan="2">
 <div id="wal_statistics_graph" class="linegraph"></div>
 </td><td>
 <div id="wal_statistics_status" class="labels"></div>
 </td></tr>
+<tr><td>
+<button id="wal_statistics_line">checkpoint highlight switch</button>
+</td></tr>
 </table>
 <script type="text/javascript">
+var wal_statistics_highlight = false;
 var wal_statistics = new Dygraph(document.getElementById('wal_statistics_graph'),[
 
 EOD;
@@ -2138,7 +2162,7 @@ EOD;
 	$htmlString .= "    labels: [ ";
 	for($i = 0 ; $i < pg_num_fields($results) ; $i++)
 		$htmlString .= "\"".pg_field_name($results, $i)."\", ";
-	$htmlString .= " ],\n  } );";
+	$htmlString .= " ],\n".makeCheckpointSetting("wal_statistics");
 
 	return $htmlString."</script>\n";
 
@@ -2251,4 +2275,43 @@ function makeTupleListForPieGraph($result)
 	array_push($value, array("other", $etc));
 
 	return $value;
+}
+
+function makeCheckpointSetting($id)
+{
+	$style = $id."_highlight";
+	$html_string =
+<<< EOD
+	underlayCallback: function(canvas, area, g) {
+
+EOD;
+	$html_string .= "		if (".$style.") {\n";
+	$html_string .=
+<<< EOD
+			for (i=0 ; i<checkpoint_date_list.length ; i++) {
+				var bdate = new Date(checkpoint_date_list[i][0]);
+				var edate = new Date(checkpoint_date_list[i][1]);
+
+				var left = g.toDomXCoord(bdate.getTime());
+				var right = g.toDomXCoord(edate.getTime());
+
+EOD;
+
+	$html_string .= "				canvas.fillStyle = \"rgba(255, 102, 102, 1.0)\";\n";
+
+	$html_string .=
+<<< EOD
+				canvas.fillRect(left, area.y, right - left, area.h);
+			}
+		}
+	}
+  } );
+
+EOD;
+
+	$html_string .= "$(\"#".$id."_line\").button().click( function() {\n";
+	$html_string .= "	".$style." = !".$style.";\n";
+	$html_string .= "	".$id.".updateOptions({\n		animatedZooms: true\n	});\n} );\n";
+
+	return $html_string;
 }
