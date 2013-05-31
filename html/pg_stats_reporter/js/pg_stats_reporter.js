@@ -27,6 +27,7 @@ $(function() {
 	// you should delete these option, because these option is non-recommended option
     // autoHeight: false,
     // navigation: true,
+	heightStyle: "content",
     collapsible: true
   } );
 

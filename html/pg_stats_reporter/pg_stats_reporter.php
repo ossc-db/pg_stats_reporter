@@ -341,13 +341,15 @@ function initInformationFile(&$info_data, &$err_msg)
 		return false;
 	}
 
-	if (file_put_contents(CACHE_CONFIG_PATH.CACHE_CONFIG_FILENAME, $cache_contents) == false) {
-		$err_msg[] = "do not write cache file(".CACHE_CONFIG_PATH.CACHE_CONFIG_FILENAME.")";
+	$tmpCacheFilename = tempnam(CACHE_CONFIG_PATH, CACHE_CONFIG_FILENAME.".");
+	if (file_put_contents($tmpCacheFilename, $cache_contents) == false) {
+		$err_msg[] = "do not write cache file(".$tmpCacheFilename.")";
 		return false;
 	}
 
 	// read cache file
-	$info_data = parse_ini_file(CACHE_CONFIG_PATH.CACHE_CONFIG_FILENAME, true);
+	$info_data = parse_ini_file($tmpCacheFilename, true);
+	rename($tmpCacheFilename, CACHE_CONFIG_PATH.CACHE_CONFIG_FILENAME);
 	return $info_data;
 
 }
