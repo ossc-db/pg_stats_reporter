@@ -34,7 +34,7 @@ function readMessageFile($language, $locale_list, $msg_file_list,
 
 	$help_message = array();
 	$error_message = array();
-	$locale = locale_lookup($locale_list, $language, "en");
+	$locale = locale_lookup($locale_list, $language, false, "en");
 	$msgfile = $msg_file_list[$locale];
 	if (!file_exists($msgfile)) {
 		$msg = "message file(".msg_file.") is not found.";
