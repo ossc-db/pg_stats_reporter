@@ -100,6 +100,11 @@ scrollbar-track-color:#ffffff;
   max-width: 512px;
 }
 
+/* for navigation bar */
+.sf-menu {
+	line-height:    1.0;
+}
+
 /* for tagjump */
 div.jump_margin {
   height: 30px;

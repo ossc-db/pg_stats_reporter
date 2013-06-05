@@ -6,7 +6,8 @@
 <title>pg_stats_reporter 2.0.0</title>
 
 <!-- javascripts -->
-<script type="text/javascript" src="{$jquery_path}jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="{$jquery_path}jquery-2.0.1.min.js"></script>
+<script type="text/javascript" src="{$jquery_path}jquery-migrate-1.2.1.js"></script>
 <script type="text/javascript" src="{$jquery_ui_path}development-bundle/ui/jquery.ui.core.js"></script>
 <script type="text/javascript" src="{$jquery_ui_path}development-bundle/ui/jquery.ui.widget.js"></script>
 <script type="text/javascript" src="{$jquery_ui_path}development-bundle/ui/jquery.ui.accordion.js"></script>

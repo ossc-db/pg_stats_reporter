@@ -131,9 +131,10 @@ function makeReportListHTML(&$html_string, $html_head, $html_body)
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>pg_stats_reporter report list</title>
 <!-- javascripts -->
-<script type="text/javascript" src="package/jquery-1.8.2/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="package/jquery-2.0.1/jquery-2.0.1.min.js"></script>
+<script type="text/javascript" src="package/jquery-2.0.1/jquery-migrate-1.2.1.js"></script>
 <script type="text/javascript" src="package/tablesorter/jquery.tablesorter.js"></script>
-<script type="text/javascript" src="package/jquery-ui-1.9.1.custom/js/jquery-ui-1.9.1.custom.min.js"></script>
+<script type="text/javascript" src="package/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.min.js"></script>
 
 <script type="text/javascript">
 $(document).ready(function() {
@@ -165,7 +166,7 @@ EOD;
 <<< EOD
 </script>
 
-<link rel="stylesheet" type="text/css" href="package/jquery-ui-1.9.1.custom/development-bundle/themes/start/jquery.ui.all.css"/>
+<link rel="stylesheet" type="text/css" href="package/jquery-ui-1.10.3.custom/development-bundle/themes/start/jquery.ui.all.css"/>
 <link rel="stylesheet" type="text/css" href="package/tablesorter/themes/blue/style.css"/>
 <style type="text/css">
 
