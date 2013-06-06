@@ -16,8 +16,10 @@ function makeReportList($dirString)
 		die("directory(".$dirString.") open error");
 
 	while(($entry = readdir($dir)) != false) {
-		if (is_dir($entry))
+		$entry = joinPathComponents($dirString, $entry);
+		if (is_dir($entry)){
 			continue;
+		}
 
 		$fileList[] = $entry;
 	}
@@ -27,10 +29,10 @@ function makeReportList($dirString)
 	/* make file table list */
 	$fileTableList = array();
 	foreach($fileList as $fname) {
-		$path_parts = pathinfo(joinPathComponents($dirString, $fname));
-		if (strcmp($path_parts["extension"], "html") != 0) {
+		$path_parts = pathinfo($fname);
+		if (!array_key_exists("extension", $path_parts) ||
+		    strcmp($path_parts["extension"], "html") != 0)
 			continue;
-		}
 
 		$parts = explode("_", $path_parts["filename"]);
 		if (count($parts) != 6 && count($parts) != 7) {
