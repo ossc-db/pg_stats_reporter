@@ -801,9 +801,10 @@ function copyLibraryFile($installDir, $outputDir)
 		if (!is_dir($dst)) {
 			if (!mkdir($dst, 0755, true))
 				die2("Could not make directory '".$dst."'", 1, ERROR);
-			if (!copyDirectory($src, $dst))
-				die2("Could not copy '".$dst."'", 1, ERROR);
 		}
+		if (!copyDirectory($src, $dst))
+			die2("Could not copy '".$dst."'", 1, ERROR);
+		
 	}
 
 	/* copy files in package list */
@@ -851,8 +852,10 @@ function copyDirectory($srcDir, $dstDir)
 			if (!copyDirectory($src, $dst))
 				return false;
 		} else {
-			if (!copy($src, $dst))
-				return false;
+			if (!is_file($dst)) {
+				if (!copy($src, $dst))
+					return false;
+			}
 		}
 	}
 	return true;
