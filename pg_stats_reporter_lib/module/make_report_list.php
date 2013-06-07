@@ -16,8 +16,8 @@ function makeReportList($dirString)
 		die("directory(".$dirString.") open error");
 
 	while(($entry = readdir($dir)) != false) {
-		$entry = joinPathComponents($dirString, $entry);
-		if (is_dir($entry)){
+		$tempname = joinPathComponents($dirString, $entry);
+		if (is_dir($tempname)){
 			continue;
 		}
 
@@ -60,7 +60,7 @@ function makeReportList($dirString)
 	makeReportListHTML($html_string, $html_head, $html_body);
 
 	// output file
-	if (!($fp = fopen("index.html", "w")))
+	if (!($fp = fopen(joinPathComponents($dirString, "index.html"), "w")))
 		die("file open error");
 
 	if (fwrite($fp, $html_string) == false)
