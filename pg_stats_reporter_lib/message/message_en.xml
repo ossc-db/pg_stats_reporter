@@ -495,7 +495,7 @@ This information is not supported in this version. We will support in future ver
 <error>
 <p id="query_error">SQL executing failuer.</p>
 <p id="no_result">This repository does not have result in this instance.</p>
-<p id="st_version">This pg_statsinfo version is not supported. Please use 2.4.0 higher.</p>
+<p id="st_version">This pg_statsinfo version is not supported. Please use 2.5.0 higher.</p>
 <p id="pg_version">This PostgreSQL version is not supported. Please use 8.3.x higher.</p>
 <p id="no_info">This repository does not have snapshot at all.Please execute getting snapshot command or wait for few minutes(auto getting snapshot).</p>
 <p id="short_snapshots">does not present a reports. Because repository does not have snapshot at all. Please re-select report term or get snapshot.</p>
