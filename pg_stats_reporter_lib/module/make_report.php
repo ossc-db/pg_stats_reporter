@@ -818,7 +818,7 @@ EOD;
 				}
 				pg_free_result($result);
 			} else {
-				$htmlString .= "<p class=\"error\">".$errorMsg['st_version']."</p>\n";
+				$htmlString .= "<p class=\"error\">".$errorMsg['st_version_v24']."</p>\n";
 			}
 		}
 
@@ -966,7 +966,7 @@ EOD;
 				}
 				pg_free_result($result);
 			} else {
-				$htmlString .= "<p class=\"error\">".$errorMsg['st_version']."</p>\n";
+				$htmlString .= "<p class=\"error\">".$errorMsg['st_version_v24']."</p>\n";
 			}
 		}
 
@@ -1062,7 +1062,7 @@ EOD;
 				}
 				pg_free_result($result);
 			} else {
-				$htmlString .= "<p class=\"error\">".$errorMsg['st_version']."</p>\n";
+				$htmlString .= "<p class=\"error\">".$errorMsg['st_version_v24']."</p>\n";
 			}
 		}
 	}
@@ -1528,7 +1528,7 @@ EOD;
 				}
 				pg_free_result($result);
 			} else {
-				$htmlString .= "<p class=\"error\">".$errorMsg['st_version']."</p>\n";
+				$htmlString .= "<p class=\"error\">".$errorMsg['st_version_v24']."</p>\n";
 			}
 		}
 	}
@@ -1619,7 +1619,7 @@ EOD;
 				}
 				pg_free_result($result);
 			} else {
-				$htmlString .= "<p class=\"error\">".$errorMsg['st_version']."</p>\n";
+				$htmlString .= "<p class=\"error\">".$errorMsg['st_version_v25']."</p>\n";
 			}
 		}
 
