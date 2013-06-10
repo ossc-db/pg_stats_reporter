@@ -355,7 +355,7 @@ if ($optionInfo["list"]) {
 
 			// get snapshot id and date
 			if (!getSnapshotID($conn, $target_data, $snapids, $snapdates)) {
-				die2($errorMsg['query_error'].pg_last_error($conn), NULL, WARNING);
+				die2($errmsg['query_error'].pg_last_error($conn), NULL, WARNING);
 				continue;
 			}
 			if ($snapids[0] == $snapids[1] || is_null($snapids[0]) || is_null($snapids[1])) {
