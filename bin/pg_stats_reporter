@@ -1119,7 +1119,7 @@ function prettySize($size)
 				} else {
 					$mult *= 1024;
 					$size = round($size / $mult);
-					$prettySize = $size." TiB";
+					$retSize = $size." TiB";
 				}
 			}
 		}
