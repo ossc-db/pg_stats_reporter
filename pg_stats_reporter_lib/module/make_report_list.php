@@ -8,52 +8,43 @@
 
 function makeReportList($dirString)
 {
-	/* make file list */
-	$fileList = array();
+	/* make file table list */
+	$fileTableList = array();
 
 	$dir = opendir($dirString);
 	if (!$dir)
 		die("directory(".$dirString.") open error");
 
 	while(($entry = readdir($dir)) != false) {
-		$tempname = joinPathComponents($dirString, $entry);
-		if (is_dir($tempname)){
-			continue;
+		if (preg_match("/(.*)_([a-zA-Z0-9\?\-\.]{1,63})_([0-9]{1,5})_([0-9]{1,3})_([0-9]{8})-([0-9]{4})_([0-9]{8})-([0-9]{4})(|_all)\.html$/", $entry, $reportInfo)) {
+
+			/* index and factor of reportInfo
+			 * 0: report file name
+			 * 1: repository DB name
+			 * 2: host name
+			 * 3: port number
+			 * 4: instance ID
+			 * 5: begin date of report
+			 * 6: begin time of report
+			 * 7: end date of report
+			 * 8: end time of report
+			 */
+
+			if (!array_key_exists($reportInfo[1], $fileTableList))
+				$fileTableList[$reportInfo[1]] = array();
+			$bdatetime = new Datetime($reportInfo[5]."T".$reportInfo[6]);
+			$edatetime = new Datetime($reportInfo[7]."T".$reportInfo[8]);
+			array_push($fileTableList[$reportInfo[1]],
+				array("fname" => $reportInfo[0],
+					 "host" => $reportInfo[2],
+					 "port" => $reportInfo[3],
+					 "instid" => $reportInfo[4],
+					 "begin" => $bdatetime->format("Y-m-d H:i"),
+					 "end" => $edatetime->format("Y-m-d H:i"),
+					 "term" => $bdatetime->diff($edatetime)));
 		}
-
-		$fileList[] = $entry;
 	}
-
 	closedir($dir);
-
-	/* make file table list */
-	$fileTableList = array();
-	foreach($fileList as $fname) {
-		$path_parts = pathinfo($fname);
-		if (!array_key_exists("extension", $path_parts) ||
-		    strcmp($path_parts["extension"], "html") != 0)
-			continue;
-
-		$parts = explode("_", $path_parts["filename"]);
-		if (count($parts) != 6 && count($parts) != 7) {
-			continue;
-		}
-
-		list($repo, $host, $port, $inst, $bdate, $edate) = $parts;
-		if (!array_key_exists($repo, $fileTableList))
-			$fileTableList[$repo] = array();
-		$bdatetime = new Datetime(str_replace("-", "T", $bdate));
-		$edatetime = new Datetime(str_replace("-", "T", $edate));
-		array_push($fileTableList[$repo],
-				   array("fname" => $fname,
-						 "host" => $host,
-						 "port" => $port,
-						 "instid" => $inst,
-						 "begin" => $bdatetime->format("Y-m-d H:i"),
-						 "end" => $edatetime->format("Y-m-d H:i"),
-						 "term" => $bdatetime->diff($edatetime)));
-
-	}
 
 	makeReportListParts($fileTableList, $html_head, $html_body);
 
