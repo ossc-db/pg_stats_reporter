@@ -15,8 +15,6 @@ define("CONFIG_FILE", "/etc/pg_stats_reporter.ini");
 define("LOCAL_CONFIG_FILE", getenv('HOME')."/.pg_stats_reporter.ini");
 define("GLOBAL_SECTION", "global_setting");
 define("INSTALL_DIR", "install_directory");
-define("SHORT_OPT", 1);
-define("LONG_OPT", 2);
 
 define("LOG", 1);
 define("WARNING", 2);
@@ -40,9 +38,7 @@ $global_setting_list = array(
 /* global variable end */
 
 // option parameter
-$optionInfo = array("help" => false,
-					"version" => false,
-					"list" => false,
+$optionInfo = array("list" => false,
 					"dblist" => false,
 					"size" => false,
 					"index" => false,
@@ -66,80 +62,80 @@ $optionList = array("l" => "list",
 					"E" => "enddate",
 					"O" => "outputdir");
 
-$combinationCheckList = array("list" => array("dblist" => NULL,
-											  "size" => NULL,
-											  "index" => NULL,
-											  "all" => NULL,
-											  "beginid" => NULL,
-											  "endid" => NULL,
-											  "begindate" => NULL,
-											  "enddate" => NULL,
-											  "outputdir" => NULL),
-							  "dblist" => array("list" => NULL,
-												"size" => NULL,
-												"index" => NULL,
-												"all" => NULL,
-												"instid" => NULL,
-												"beginid" => NULL,
-												"endid" => NULL,
-												"begindate" => NULL,
-												"enddate" => NULL,
-												"outputdir" => NULL),
-							  "size" => array("list" => NULL,
-											  "dblist" => NULL,
-											  "index" => NULL,
-											  "all" => NULL,
-											  "instid" => NULL,
-											  "beginid" => NULL,
-											  "endid" => NULL,
-											  "begindate" => NULL,
-											  "enddate" => NULL,
-											  "outputdir" => NULL),
-							  "index" => array("list" => NULL,
-											  	 "dblist" => NULL,
-												 "size" => NULL,
-											  	 "all" => NULL,
-												 "repositorydb" => NULL,
-											  	 "instid" => NULL,
-											  	 "beginid" => NULL,
-											  	 "endid" => NULL,
-											  	 "begindate" => NULL,
-											  	 "enddate" => NULL),
-							  "all" => array("list" => NULL,
-											 "dblist" => NULL,
-											 "size" => NULL,
-											 "index" => NULL),
-							  "repositorydb" => array("index" => NULL),
-							  "instid" => array("dblist" => NULL,
-												"size" => NULL,
-												"index" => NULL),
-							  "beginid" => array("list" => NULL,
-												 "dblist" => NULL,
-												 "size" => NULL,
-												 "index" => NULL,
-												 "begindate" => NULL,
-												 "enddate" => NULL),
-							  "endid" => array("list" => NULL,
-											   "dblist" => NULL,
-											   "size" => NULL,
-											   "index" => NULL,
-											   "begindate" => NULL,
-											   "enddate" => NULL),
-							  "begindate" => array("list" => NULL,
-												   "dblist" => NULL,
-												   "size" => NULL,
-												   "index" => NULL,
-												   "beginid" => NULL,
-												   "endid" => NULL),
-							  "enddate" => array("list" => NULL,
-												 "dblist" => NULL,
-												 "size" => NULL,
-												 "index" => NULL,
-												 "beginid" => NULL,
-												 "endid" => NULL),
-							  "outputdir" => array("list" => NULL,
-												   "dblist" => NULL,
-												   "size" => NULL));
+$combinationCheckList = array("list" => array("dblist",
+											  "size",
+											  "index",
+											  "all",
+											  "beginid",
+											  "endid",
+											  "begindate",
+											  "enddate",
+											  "outputdir"),
+							  "dblist" => array("list",
+												"size",
+												"index",
+												"all",
+												"instid",
+												"beginid",
+												"endid",
+												"begindate",
+												"enddate",
+												"outputdir"),
+							  "size" => array("list",
+											  "dblist",
+											  "index",
+											  "all",
+											  "instid",
+											  "beginid",
+											  "endid",
+											  "begindate",
+											  "enddate",
+											  "outputdir"),
+							  "index" => array("list",
+											  	 "dblist",
+												 "size",
+											  	 "all",
+												 "repositorydb",
+											  	 "instid",
+											  	 "beginid",
+											  	 "endid",
+											  	 "begindate",
+											  	 "enddate"),
+							  "all" => array("list",
+											 "dblist",
+											 "size",
+											 "index"),
+							  "repositorydb" => array("index"),
+							  "instid" => array("dblist",
+												"size",
+												"index"),
+							  "beginid" => array("list",
+												 "dblist",
+												 "size",
+												 "index",
+												 "begindate",
+												 "enddate"),
+							  "endid" => array("list",
+											   "dblist",
+											   "size",
+											   "index",
+											   "begindate",
+											   "enddate"),
+							  "begindate" => array("list",
+												   "dblist",
+												   "size",
+												   "index",
+												   "beginid",
+												   "endid"),
+							  "enddate" => array("list",
+												 "dblist",
+												 "size",
+												 "index",
+												 "beginid",
+												 "endid"),
+							  "outputdir" => array("list",
+												   "dblist",
+												   "size"));
 
 /* setup signal handlers */
 if (PHP_OS == "Linux") {
@@ -437,48 +433,29 @@ function joinPathComponents($pathStr, $addPath)
 }
 
 /* check option combination */
-function checkOptionCombination($optionString, $optType, $addMsg)
+function checkOptionCombination($optionInfo, $addMsg)
 {
-	global $optionList;
 	global $combinationCheckList;
-	$forwardOpt = NULL;
-	$backwardOpt = NULL;
+	global $optionList;
 
-	if($optType == SHORT_OPT) {
-	    /* hold string of short option for displaying message */
-		$backwardOpt = "-".$optionString;
-		/* convert to string of long option type */
-		$optionString = $optionList[$optionString];
-	}
-	if($optType == LONG_OPT)
-		$backwardOpt = "--".$optionString;
+	/* If the option is specified, check combination with the combinationCheckList */
+	foreach ($optionInfo as $currentOption => $status) {
 
-	/* check combination */
-	if (array_key_exists($optionString, $combinationCheckList)) {
-		foreach($combinationCheckList[$optionString] as $checkOpt => $specifiedInfo) {
-			if(isset($specifiedInfo)) {
-				if ($specifiedInfo == SHORT_OPT) {
-					$key = array_keys($optionList, $checkOpt);
-					$forwardOpt = "-".$key[0];
+		/* check whether option is specified */
+		if (isset($status) && !($status === false)) {
+
+			/* check whether option that can not be specified at the same time is specified */
+			foreach ($combinationCheckList[$currentOption] as $val) {
+				if (isset($optionInfo[$val]) && !($optionInfo[$val] === false)) {
+
+					/* get string of short option */
+					/* if short option do not exist, exclude from error message */
+					$tmpOpt = array_search($currentOption, $optionList);
+					$forwardOpt = ($tmpOpt? "-".$tmpOpt.", " : "")."--".$currentOption;
+					$tmpOpt = array_search($val, $optionList);
+					$backwardOpt = ($tmpOpt? "-".$tmpOpt.", " : "")."--".$val;
+					die2("Invalid combination: '".$forwardOpt."' and '".$backwardOpt."'".$addMsg, 1, ERROR);
 				}
-				if ($specifiedInfo == LONG_OPT) {
-					$forwardOpt = "--".$checkOpt;
-				}
-				die2("Invalid combination: '".$forwardOpt."' and '".$backwardOpt."'".$addMsg, 1, ERROR);
-			}
-		}
-	
-		/* set current option info to combinationCheckList */
-		if($optType == SHORT_OPT) {
-			foreach ($combinationCheckList as &$checkOpt) {
-				if (array_key_exists($optionString, $checkOpt))
-					$checkOpt[$optionString] = SHORT_OPT;
-			}
-		}
-		if($optType == LONG_OPT) {
-			foreach ($combinationCheckList as &$checkOpt) {
-				if (array_key_exists($optionString, $checkOpt))
-					$checkOpt[$optionString] = LONG_OPT;
 			}
 		}
 	}
@@ -531,7 +508,6 @@ function parseCommandOptions(&$optionInfo)
 				default:
 					die2("Invalid option -- '".$opt_array[0]."'".$addMsg, 1, ERROR);
 			}
-			checkOptionCombination($opt_array[0], LONG_OPT, $addMsg);
 		} else if ($argv[$i][0] == '-') {
 			$opt = ltrim($argv[$i], "-");
 			switch($opt) {
@@ -556,11 +532,11 @@ function parseCommandOptions(&$optionInfo)
 				default:
 					die2("Invalid option -- '".$opt."'".$addMsg, 1, ERROR);
 			}
-			checkOptionCombination($opt, SHORT_OPT, $addMsg);
 		} else {
 			die2("Option string has not been specified correctly".$addMsg, 1, ERROR);
 		}
 	}
+	checkOptionCombination($optionInfo, $addMsg);
 }
 
 /* read global_setting from information file */
