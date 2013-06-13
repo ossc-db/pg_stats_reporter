@@ -136,7 +136,7 @@ readMessageFile($target_locale, $locale_list, $msg_file_list,
 // DB接続
 $conn = pg_connect($target_info['connect_str']);
 if (!$conn) {
-	die("connect error. repository database : ".$traget_data['repodb']);
+	die("connect error. repository database : ".$target_data['repodb']);
 }
 pg_set_client_encoding($conn, "UTF-8");
 
