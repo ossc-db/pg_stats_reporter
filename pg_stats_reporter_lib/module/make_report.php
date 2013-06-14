@@ -2113,9 +2113,9 @@ function makeWALStatisticsGraphHTML($results)
 </td><td>
 <div id="wal_statistics_status" class="labels"></div>
 </td></tr>
-<tr><td>
+<tr><td><div class="graph_button">
 <button id="wal_statistics_line">checkpoint highlight switch</button>
-</td></tr>
+</div></td></tr>
 </table>
 <script type="text/javascript">
 var wal_statistics_highlight = false;
