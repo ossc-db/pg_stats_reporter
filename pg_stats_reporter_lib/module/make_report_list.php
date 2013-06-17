@@ -16,7 +16,7 @@ function makeReportList($dirString)
 		elog(ERROR,"directory(%s) open error", $dirString);
 
 	while(($entry = readdir($dir)) != false) {
-		if (preg_match("/(.*)_([a-zA-Z0-9\?\-\.]{1,63})_([0-9]{1,5})_([0-9]{1,3})_([0-9]{8})-([0-9]{4})_([0-9]{8})-([0-9]{4})(|_all)\.html$/", $entry, $reportInfo)) {
+		if (preg_match("/(.*)_([a-zA-Z0-9\-\.]{1,63})_([0-9]+)_([0-9]+)_([0-9]{8})-([0-9]{4})_([0-9]{8})-([0-9]{4})(|_all)\.html$/", $entry, $reportInfo)) {
 
 			/* index and factor of reportInfo
 			 * 0: report file name
