@@ -13,7 +13,7 @@ function makeReportList($dirString)
 
 	$dir = opendir($dirString);
 	if (!$dir)
-		die("directory(".$dirString.") open error");
+		elog(ERROR,"directory(%s) open error", $dirString);
 
 	while(($entry = readdir($dir)) != false) {
 		if (preg_match("/(.*)_([a-zA-Z0-9\?\-\.]{1,63})_([0-9]{1,5})_([0-9]{1,3})_([0-9]{8})-([0-9]{4})_([0-9]{8})-([0-9]{4})(|_all)\.html$/", $entry, $reportInfo)) {
@@ -52,10 +52,10 @@ function makeReportList($dirString)
 
 	// output file
 	if (!($fp = fopen(joinPathComponents($dirString, "index.html"), "w")))
-		die("file open error");
+		elog(ERROR, "file open error");
 
 	if (fwrite($fp, $html_string) == false)
-		die("file write error");
+		elog(ERROR, "file write error");
 	fclose($fp);
 
 }

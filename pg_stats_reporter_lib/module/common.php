@@ -38,11 +38,11 @@ function readMessageFile($language, $locale_list, $msg_file_list,
 
 	$msgfile = $msg_file_list[$locale];
 	if (!file_exists($msgfile)) {
-		$msg = "message file(".msg_file.") is not found.";
+		$msg = "message file(".$msgfile.") is not found.";
 		if (!empty($_SERVER['DOCUMENT_ROOT']))
 			die($msg);
 		else
-			die2($msg, 1, ERROR);
+			elog(ERROR, $msg);
 	}
 
 	$xml = simplexml_load_file($msgfile);
@@ -51,7 +51,7 @@ function readMessageFile($language, $locale_list, $msg_file_list,
 		if (!empty($_SERVER['DOCUMENT_ROOT']))
 			die($msg);
 		else
-			die2($msg, 1, ERROR);
+			elog(ERROR, $msg);
 	}
 
 	// make help message

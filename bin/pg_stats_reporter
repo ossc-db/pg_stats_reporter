@@ -156,7 +156,7 @@ if (!isset($optionInfo["outputdir"]))
 // create output directory
 if (!is_dir($optionInfo["outputdir"])) {
 	if (!mkdir($optionInfo["outputdir"], 0755, true))
-		die2("Could not create an output directory for report: '".$optionInfo["outputdir"]."'", 1, ERROR);
+		elog(ERROR, "Could not create an output directory for report: '%s'", $optionInfo["outputdir"]);
 }
 
 // create temporary directory
@@ -164,25 +164,25 @@ $tmpTopdir = joinPathComponents($optionInfo["outputdir"], "tmp");
 $tmpCreated = !is_dir($tmpTopdir);
 if (!is_dir($tmpTopdir)) {
 	if (!mkdir($tmpTopdir, 0755, false))
-		die2("Could not create a temporary directory: '".$tmpTopdir."'", 1, ERROR);
+		elog(ERROR, "Could not create a temporary directory: '%s'", $tmpTopdir);
 }
 
 $tmpfile = tempnam($tmpTopdir, "");
 //unlink($tmpfile);
 $tmpdir = $tmpfile."tmp";
 if (!mkdir($tmpdir, 0755, false))
-	die2("Could not create a temporary directory: '".$tmpdir."'", 1, ERROR);
+	elog(ERROR, "Could not create a temporary directory: '%s'", $tmpdir);
 
 // register a function to be executed at the end of this script
 register_shutdown_function("cleanTemporaryDirectory", $tmpTopdir, $tmpdir, $tmpfile);
 
 // create cache directory
 if (!mkdir(joinPathComponents($tmpdir, "cache"), 0755, false))
-	die2("Could not create a cache directory: '".joinPathComponents($tmpdir, "cache")."'", 1, ERROR);
+	elog(ERROR, "Could not create a cache directory: '%s'", joinPathComponents($tmpdir, "cache"));
 	
 // create compiled directory
 if (!mkdir(joinPathComponents($tmpdir, "compiled"), 0755, false))
-	die2("Could not create a compiled directory: '".joinPathComponents($tmpdir, "compiled")."'", 1, ERROR);
+	elog(ERROR, "Could not create a compiled directory: '%s'", joinPathComponents($tmpdir, "compiled"));
 
 $config_cache_file = joinPathComponents($tmpdir, "cache/pg_stats_reporter_cache.ini");
 // read global setting from pg_stats_reporter.ini
@@ -191,19 +191,19 @@ $installDir = $globalSetting[INSTALL_DIR];
 
 // require submodule
 if (!@include_once(($includePath = joinPathComponents($installDir, "pg_stats_reporter_lib/module/define.php"))))
-	die2("Could not include file: ".$includePath, 1, ERROR);
+	elog(ERROR, "Could not include file: %s", $includePath);
 
 if (!@include_once(($includePath = joinPathComponents($installDir, "pg_stats_reporter_lib/module/common.php"))))
-	die2("Could not include file: ".$includePath, 1, ERROR);
+	elog(ERROR, "Could not include file: %s", $includePath);
 
 if (!@include_once(($includePath = joinPathComponents($installDir, "pg_stats_reporter_lib/module/make_report.php"))))
-	die2("Could not include file: ".$includePath, 1, ERROR);
+	elog(ERROR, "Could not include file: %s", $includePath);
 
 if (!@include_once(($includePath = joinPathComponents($installDir, "pg_stats_reporter_lib/module/make_report_list.php"))))
-	die2("Could not include file: ".$includePath, 1, ERROR);
+	elog(ERROR, "Could not include file: %s", $includePath);
 
 if (!@include_once(($includePath = joinPathComponents($installDir, "html/pg_stats_reporter/".SMARTY_PATH."/Smarty.class.php"))))
-	die2("Could not include file: ".$includePath, 1, ERROR);
+	elog(ERROR, "Could not include file: %s", $includePath);
 
 // read pg_stats_reporter.ini
 if (($infoData = initInformationFileForCommandline(
@@ -212,14 +212,14 @@ if (($infoData = initInformationFileForCommandline(
 	foreach ($errmsg as $val) {
 		$str .= "\n - ".$val;
 	}
-	die2($str, 1, ERROR);
+	elog(ERROR, $str);
 }
 if (count($errmsg) != 0) {
 	$str = "An error has occurred in pg_stats_reporter.ini";
 	foreach ($errmsg as $val) {
 		$str .= "\n - ".$val;
 	}
-	die2($str, 1, ERROR);
+	elog(ERROR, $str);
 }
 
 /*
@@ -233,7 +233,7 @@ foreach ($infoData as $repo_name => $val) {
 		$cnt++;
 }
 if ($cnt == count($infoData))
-	die2(NULL, 1, ERROR);
+	exit(1);
 
 /*
  * Check monitored database is registered to repository database.
@@ -246,13 +246,13 @@ foreach ($infoData as $repo_name => $val) {
 	}
 }
 if (count($infoData) == 0)
-	die2(NULL, 1, ERROR);
+	exit(1);
 
 // if repository database specified, it is confirm that 
 // the repository database name is set in pg_stats_reporter.ini
 if (isset($optionInfo["repositorydb"])) {
 	if (!array_key_exists($optionInfo["repositorydb"], $infoData))
-		die2("Invalid repository database name (--repositorydb) : '".$optionInfo["repositorydb"]."'", 1, ERROR);
+		elog(ERROR, "Invalid repository database name (--repositorydb) : '%s'", $optionInfo["repositorydb"]);
 }
 
 // create message file list
@@ -310,7 +310,7 @@ if ($optionInfo["list"]) {
 			if (!array_key_exists("monitor", $val)) {
 				continue;
 			} else if (!array_key_exists($optionInfo["instid"], $val["monitor"])) {
-				die2("Not exist monitored database: repositorydb = ".$key.", instid = ".$optionInfo["instid"], NULL, WARNING);
+				elog(WARNING, "Not exist monitored database: repositorydb = %s, instid = %d", $key, $optionInfo["instid"]);
 			 	continue;
 			} else {
 				$target = array($optionInfo["instid"] => $val["monitor"][$optionInfo["instid"]]);
@@ -325,7 +325,7 @@ if ($optionInfo["list"]) {
 		// connect database
 		$conn = @pg_connect($val["connect_str"]);
 		if (!$conn) {
-			die2("connect error. repository database : ".$target_data['repodb'], NULL, WARNING);
+			elog(WARNING, "connect error. repository database : %s", $target_data['repodb']);
 			continue;
 		}
 		pg_set_client_encoding($conn, "UTF-8");
@@ -345,17 +345,17 @@ if ($optionInfo["list"]) {
 			pg_free_result($result);
 			$result = pg_query("LOCK TABLE statsrepo.instance IN SHARE MODE");
 			if (!$result) {
-				die2(pg_last_error(), 1, ERROR);
+				elog(ERROR, pg_last_error());
 			}
 			pg_free_result($result);
 
 			// get snapshot id and date
 			if (!getSnapshotID($conn, $target_data, $snapids, $snapdates)) {
-				die2($errmsg['query_error'].pg_last_error($conn), NULL, WARNING);
+				elog(WARNING, $errmsg['query_error'], pg_last_error($conn));
 				continue;
 			}
 			if ($snapids[0] == $snapids[1] || is_null($snapids[0]) || is_null($snapids[1])) {
-				die2("Could not create report: repositorydb = ".$key.", instid = ".$monitorid, NULL, WARNING);
+				elog(WARNING, "Could not create report: repositorydb = %s, instid = %d", $key, $monitorid);
 				continue;
 			}
 
@@ -377,13 +377,13 @@ if ($optionInfo["list"]) {
 
 			// output file
 			if (!($fp = fopen($filepath, "w")))
-				die2("Could not create report file", 1, ERROR);
+				elog(ERROR, "Could not create report file");
 			if (fwrite($fp, $smarty->fetch("pg_stats_reporter.tpl")) == false)
-				die2("Could not create report file", 1, ERROR);
+				elog(ERROR, "Could not create report file");
 			fclose($fp);
 
 			// display message
-			die2("Report file created: ".$filename, NULL, LOG);
+			elog(LOG, "Report file created: %s", $filename);
 		}
 		// disconnect database
 		pg_close($conn);
@@ -454,7 +454,7 @@ function checkOptionCombination($optionInfo, $addMsg)
 					$forwardOpt = ($tmpOpt? "-".$tmpOpt.", " : "")."--".$currentOption;
 					$tmpOpt = array_search($val, $optionList);
 					$backwardOpt = ($tmpOpt? "-".$tmpOpt.", " : "")."--".$val;
-					die2("Invalid combination: '".$forwardOpt."' and '".$backwardOpt."'".$addMsg, 1, ERROR);
+					elog(ERROR, "Invalid combination: '%s' and '%s'".$addMsg, $forwardOpt, $backwardOpt);
 				}
 			}
 		}
@@ -500,13 +500,13 @@ function parseCommandOptions(&$optionInfo)
 						$optionInfo[$opt_array[0]] = $opt_array[1];
 					else {
 						if (++$i == $argc) {
-							die2("Option requires an argument -- '".$opt_array[0]."'".$addMsg, 1, ERROR);
+							elog(ERROR, "Option requires an argument -- '%s'".$addMsg, $opt_array[0]);
 						}
 						$optionInfo[$opt_array[0]] = $argv[$i];
 					}
 					break;
 				default:
-					die2("Invalid option -- '".$opt_array[0]."'".$addMsg, 1, ERROR);
+					elog(ERROR,"Invalid option -- '%s'".$addMsg, $opt_array[0]);
 			}
 		} else if ($argv[$i][0] == '-') {
 			$opt = ltrim($argv[$i], "-");
@@ -525,15 +525,15 @@ function parseCommandOptions(&$optionInfo)
 				case "E":
 				case "O":
 					if (++$i == $argc) {
-						die2("Option requires an argument -- '".$opt."'".$addMsg, 1, ERROR);
+						elog(ERROR, "Option requires an argument -- '%s'".$addMsg, $opt);
 					}
 					$optionInfo[$optionList[$opt]] = $argv[$i];
 					break;
 				default:
-					die2("Invalid option -- '".$opt."'".$addMsg, 1, ERROR);
+					elog(ERROR, "Invalid option -- '%s'".$addMsg, $opt);
 			}
 		} else {
-			die2("Option string has not been specified correctly".$addMsg, 1, ERROR);
+			elog(ERROR, "Option string has not been specified correctly".$addMsg);
 		}
 	}
 	checkOptionCombination($optionInfo, $addMsg);
@@ -554,16 +554,16 @@ function readGlobalSettingForCommandline(&$global_setting)
 	} else if (is_file(CONFIG_FILE)) {
 		$config_file = CONFIG_FILE;
 	} else {
-		die2("pg_stats_reporter.ini is not found.", 1, ERROR);
+		elog(ERROR, "pg_stats_reporter.ini is not found.");
 	}
 
 	/* read pg_stats_reporter.ini */
 	if (($ini_data = parse_ini_file($config_file, true)) == false)
-		die2("Does not contain a section(".$config_file.").", 1, ERROR);
+		elog(ERROR, "Does not contain a section(%s).", $config_file);
 
 	// pick up "global" section
 	if (!array_key_exists(GLOBAL_SECTION, $ini_data))
-		die2("Does not contain a global setting section(".$config_file.").", 1, ERROR);
+		elog(ERROR, "Does not contain a global setting section(%s).", $config_file);
 
 	// validate check
 	foreach ($global_setting_list as $item) {
@@ -580,7 +580,7 @@ function readGlobalSettingForCommandline(&$global_setting)
 		foreach ($err_msg as $msg) {
 			$message .= "\n - ".$msg;
 		}
-		die2($message, 1, ERROR);
+		elog(ERROR, $message);
 	}
 
 	$global_setting = $ini_data[GLOBAL_SECTION];
@@ -637,7 +637,7 @@ function initInformationFileForCommandline($infoData, &$err_msg, $config_cache_f
 		// and get pg_statsinfo version
 		$conn = @pg_connect($connect_str);
 		if (!$conn) {
-			die2("connect error.(repository database = ".$repo_name.")", NULL, WARNING);
+			elog(WARNING, "connect error.(repository database = %s)", $repo_name);
 			$cache_contents[] = "[".$repo_name."]\n";
 			continue;
 		} else {
@@ -666,7 +666,7 @@ function initInformationFileForCommandline($infoData, &$err_msg, $config_cache_f
 			if (!$result) {
 				$err_msg[] = "execute query error. ".pg_last_error();
 			} else if (pg_num_rows($result) == 0) {
-				die2("monitored database is not registered at all.(repository database = ".$repo_name.")", NULL, WARNING);
+				elog(WARNING, "monitored database is not registered at all.(repository database = %s)", $repo_name);
 				continue;
 			} else {
 				for ($i = 0 ; $i < pg_num_rows($result) ; $i++ ) {
@@ -748,11 +748,11 @@ function copyLibraryFile($installDir, $outputDir)
 
 		if (file_exists($dst)) {
 			if (!(filetype($dst) === "dir"))
-				die2("Could not make directory '".$dst."' : Regular file exists", 1, ERROR);
+				elog(ERROR, "Could not make directory '%s' : Regular file exists", $dst);
 		}
 		if (!is_dir($dst)) {
 			if (!mkdir($dst, 0755, true)) {
-				die2("Could not make directory '".$dst."'", 1, ERROR);
+				elog(ERROR, "Could not make directory '%s'", $dst);
 			}
 		}
 	}
@@ -765,21 +765,21 @@ function copyLibraryFile($installDir, $outputDir)
 
 		/* check whether or not the target directory exists */ 
 		if (!file_exists(substr($src, 0, -1)))
-			die2("Could not copy '".$src."' : No such file or direcotry", 1, ERROR);
+			elog(ERROR, "Could not copy '%s' : No such file or direcotry", $src);
 
 		/* check whether or not the same name file exists */
 		if (file_exists(substr($dst, 0 , -1))) {
 			if (!(filetype(substr($dst, 0, -1)) === "dir"))
-				die2("Could not copy '".$dst."' : Regular file exists", 1, ERROR);
+				elog(ERROR, "Could not copy '%s' : Regular file exists", $dst);
 		}
 
 		/* copy direcotry */
 		if (!is_dir($dst)) {
 			if (!mkdir($dst, 0755, true))
-				die2("Could not make directory '".$dst."'", 1, ERROR);
+				elog(ERROR, "Could not make directory '%s'", $dst);
 		}
 		if (!copyDirectory($src, $dst))
-			die2("Could not copy '".$dst."'", 1, ERROR);
+			elog(ERROR, "Could not copy '%s'", $dst);
 		
 	}
 
@@ -791,12 +791,12 @@ function copyLibraryFile($installDir, $outputDir)
 
 		/* check whether or not the target directory exists */
 		if (!file_exists($src))
-			die2("Could not copy '".$src."' : No such file or directory", 1, ERROR);
+			elog(ERROR, "Could not copy '%s' : No such file or directory", $src);
 
 		/* check whether or not the same name directory exists */
 		if (file_exists($dst)) {
 			if (!(filetype($dst) === "file"))
-				die2("Could not copy '".$dst."' : Directory exists", 1, ERROR);
+				elog(ERROR, "Could not copy '%s' : Directory exists", $dst);
 
 			/* if target file exists already, then continue */
 			continue;
@@ -804,7 +804,7 @@ function copyLibraryFile($installDir, $outputDir)
 
 		/* copy file */
 		if (!copy($src, $dst))
-			die2("Could not copy '".$dst."'", 1, ERROR);
+			elog(ERROR, "Could not copy '%s'", $dst);
 	}
 }
 
@@ -913,7 +913,7 @@ function displayMonitoredDatabaseList($infoData, $repository_name)
 	if (isset($repository_name)) {
 		/* if connection could not be established already, do not input target connection list */
 		if (count($infoData[$repository_name]) == 0)
-			die2(NULL, 1, ERROR);
+			exit(1);
 		if (array_key_exists("monitor", $infoData[$repository_name]))
 			$target_db_list[$repository_name] = $infoData[$repository_name]['monitor'];
 	} else {
@@ -954,7 +954,7 @@ function displaySnapshotList($infoData, $instid, $repository_name)
 	if (isset($repository_name)) {
 		/* if connection could not be established already, do not input target connection list */
 		if (count($infoData[$repository_name]) == 0)
-			die2(NULL, 1, ERROR);
+			exit(1);
 		$target_connection_string[$repository_name] = $infoData[$repository_name]['connect_str'];
 	} else {
 		foreach ($infoData as $key => $val) {
@@ -980,7 +980,7 @@ function displaySnapshotList($infoData, $instid, $repository_name)
 	foreach ($target_connection_string as $key => $val) {
 
 		if (!($conn = @pg_connect($val))) {
-			die2("connect error.(repository database = ".$key.")", NULL, WARNING);
+			elog(WARNING, "connect error.(repository database = %s)", $key);
 			continue;
 		}
 
@@ -1016,7 +1016,7 @@ function displaySnapshotSize($infoData, $repository_name)
 	if (isset($repository_name)) {
 		/* if connection could not be established already, exit this script */
 		if (count($infoData[$repository_name]) == 0)
-			die2(NULL, 1, ERROR);
+			exit(1);
 		$target_connection_string[$repository_name] = $infoData[$repository_name]['connect_str'];
 	} else {
 		foreach ($infoData as $key => $val) {
@@ -1041,7 +1041,7 @@ function displaySnapshotSize($infoData, $repository_name)
 		echo "\n[".$key."]\n\n";
 
 		if (!($conn = @pg_connect($val))) {
-			die2("connect error.(repository database = ".$key.")", NULL, WARNING);
+			elog(WARNING, "connect error.(repository database = %s)", $key);
 			continue;
 		}
 
@@ -1170,23 +1170,26 @@ E-Mail: ".PROGRAM_EMAIL."
     - WARNING
     - ERROR
 */
-function die2($errorMsg, $status, $logLevel){
+function elog()
+{
+	$params = func_get_args();
 
-	/* Do not output a message if the first argument is null */
-	if (is_null($errorMsg)){
-		exit($status);
-	}
+	$elevel = array_shift($params);	/* 1st argument */
+	$format = array_shift($params);	/* 2nd argument */
+
+	$message = vsprintf($format, $params);
+
 	/* Output a message */
-	switch ($logLevel) {
+	switch ($elevel) {
 		case LOG:
-			fprintf(STDOUT, "[LOG] ".$errorMsg."\n");
+			fprintf(STDOUT, "[LOG] ".$message."\n");
 			break;
 		case WARNING:
-	 		fprintf(STDERR, "[WARNING] ".$errorMsg."\n");
+	 		fprintf(STDERR, "[WARNING] ".$message."\n");
 			break;
 		case ERROR:
-			fprintf(STDERR, "[ERROR] ".$errorMsg."\n");
-			exit($status);
+			fprintf(STDERR, "[ERROR] ".$message."\n");
+			exit(1);
 	}
-}	
+}
 ?>

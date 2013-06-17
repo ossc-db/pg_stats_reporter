@@ -5,7 +5,15 @@
  * Copyright (c) 2012,2013, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
  */
 
-/* make pg_stats_reporter.ini's error erport html */
+/* make error tag */
+function makeErrorTag() {
+
+	$message = call_user_func_array ("sprintf", func_get_args());
+	
+	return "<p class=\"error\">".$message."</p>\n";
+}
+
+/* make pg_stats_reporter.ini's error report html */
 function makeErrorReport($infoData, $errormsg)
 {
 	$html_string = array();
@@ -37,10 +45,10 @@ function makeReport($conn, $infoData, $target_info, $help_msg, $error_msg)
 
 	/* get snapshot id */
 	if (!getSnapshotID($conn, $target_info, &$snapids, &$snapdates)) {
-		$html_string["contents"] = "<div id=\"contents\">\n<div class=\"top_jump_margin\"></div>\n<p class=\"error\">".$error_msg['query_error'].pg_last_error($conn)."</p>\n";
+		$html_string["contents"] = "<div id=\"contents\">\n<div class=\"top_jump_margin\"></div>\n".makeErrorTag($error_msg['query_error'], pg_last_error($conn));
 	} else if ($snapids[0] == $snapids[1] || is_null($snapids[0]) || is_null($snapids[1])) {
 		/* check whether there are two more than a snapshot */
-		$html_string["contents"] = "<div id=\"contents\">\n<div class=\"top_jump_margin\"></div>\n<p class=\"error\">".$error_msg['short_snapshots']."</p>\n";
+		$html_string["contents"] = "<div id=\"contents\">\n<div class=\"top_jump_margin\"></div>\n".makeErrorTag($error_msg['short_snapshots']);
 	} else {
 		/* make contents html */
 		$html_string["contents"]
@@ -549,8 +557,7 @@ EOD;
 	/* get checkpoint data */
 	$result = pg_query_params($conn, $query_string['checkpoint_time'], array($targetInfo["instid"], $snapids[0], $snapids[1]));
 	if (!$result) {
-		return $htmlString."<br/><br/><br/><p class=\"error\">"
-			.$errorMsg['query_error'].pg_last_error($conn)."</p>\n";
+		return $htmlString."<br/><br/><br/>".makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 	}
 
 	$html_string .= "<!--\ncheckpoint date list -->\n<script type=\"text/javascript\">\nvar checkpoint_date_list = [\n";
@@ -612,11 +619,11 @@ EOD;
 
 	$result = pg_query_params($conn, $query_string['summary'], $snapids);
 	if (!$result) {
-		return $htmlString."<p class=\"error\">".$errorMsg['query_error'].pg_last_error($conn)."</p>\n";
+		return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 	}
 
 	if (pg_num_rows($result) == 0) {
-		$htmlString .= "<p class=\"error\">".$errorMsg['no_result']."</p>\n";
+		$htmlString .= makeErrorTag($errorMsg['no_result']);
 	} else {
 		$htmlString .= makeTableHTML($result, "summary");
 	}
@@ -670,12 +677,11 @@ EOD;
 
 			$result = pg_query_params($conn, $query_string['database_statistics'], $snapids);
 			if (!$result) {
-				return $htmlString."<p class=\"error\">"
-					.$errorMsg['query_error'].pg_last_error($conn)."</p>\n";
+				return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 			}
 
 			if (pg_num_rows($result) == 0) {
-				$htmlString .= "<p class=\"error\">".$errorMsg['no_result']."</p>\n";
+				$htmlString .= makeErrorTag($errorMsg['no_result']);
 			} else {
 				$htmlString .= makeTablePagerHTML($result, "database_statistics", 5, true);
 			}
@@ -696,12 +702,11 @@ EOD;
 
 			$result = pg_query_params($conn, $query_string['transaction_statistics'], $snapids);
 			if (!$result) {
-				return $htmlString."<p class=\"error\">"
-					.$errorMsg['query_error'].pg_last_error($conn)."</p>\n";
+				return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 			}
 
 			if (pg_num_rows($result) == 0) {
-				$htmlString .= "<p class=\"error\">".$errorMsg['no_result']."</p>\n";
+				$htmlString .= makeErrorTag($errorMsg['no_result']);
 			} else {
 				makeTupleListForDygraphs($result, $name, $value);
 				$opt = array();
@@ -726,12 +731,11 @@ EOD;
 
 			$result = pg_query_params($conn, $query_string['database_size'], $snapids);
 			if (!$result) {
-				return $htmlString."<p class=\"error\">"
-					.$errorMsg['query_error'].pg_last_error($conn)."</p>\n";
+				return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 			}
 
 			if (pg_num_rows($result) == 0) {
-				$htmlString .= "<p class=\"error\">".$errorMsg['no_result']."</p>\n";
+				$htmlString .= makeErrorTag($errorMsg['no_result']);
 			} else {
 				makeTupleListForDygraphs($result, $name, $value);
 				$opt = array();
@@ -756,12 +760,11 @@ EOD;
 EOD;
 			$result = pg_query_params($conn, $query_string['recovery_conflicts'], $snapids);
 			if (!$result) {
-				return $htmlString."<p class=\"error\">"
-					.$errorMsg['query_error'].pg_last_error($conn)."</p>\n";
+				return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 			}
 
 			if (pg_num_rows($result) == 0) {
-				$htmlString .= "<p class=\"error\">".$errorMsg['no_result']."</p>\n";
+				$htmlString .= makeErrorTag($errorMsg['no_result']);
 			} else {
 				$htmlString .= makeTablePagerHTML($result, "recovery_conflicts", 5, true);
 			}
@@ -794,12 +797,11 @@ EOD;
 			if ($target['repo_version'] >= V24) {
 				$result = pg_query_params($conn, $query_string['wal_statistics_stats'], $snapids);
 				if (!$result) {
-					return $htmlString."<p class=\"error\">"
-						.$errorMsg['query_error'].pg_last_error($conn)."</p>\n";
+					return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 				}
 				// データがない場合、カラムにはNULLが入っている
 				if (is_null(pg_fetch_result($result,0,0)) == 1) {
-					$htmlString .= "<p class=\"error\">".$errorMsg['no_result']."</p>\n";
+					$htmlString .= makeErrorTag($errorMsg['no_result']);
 				} else {
 					$htmlString .= makeTablePagerHTML($result, "wal_statistics_stats", 5, false);
 				}
@@ -807,18 +809,17 @@ EOD;
 
 				$result = pg_query_params($conn, $query_string['wal_statistics'], $snapids);
 				if (!$result) {
-					return $htmlString."<p class=\"error\">"
-						.$errorMsg['query_error'].pg_last_error($conn)."</p>\n";
+					return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 				}
 
 				if (pg_num_rows($result) == 0) {
-					$htmlString .= "<p class=\"error\">".$errorMsg['no_result']."</p>\n";
+					$htmlString .= makeErrorTag($errorMsg['no_result']);
 				} else {
 					$htmlString .= makeWALStatisticsGraphHTML($result);
 				}
 				pg_free_result($result);
 			} else {
-				$htmlString .= "<p class=\"error\">".$errorMsg['st_version_v24']."</p>\n";
+				$htmlString .= makeErrorTag($errorMsg['st_version'], "2.4.0");
 			}
 		}
 
@@ -835,12 +836,11 @@ EOD;
 
 			$result = pg_query_params($conn, $query_string['instance_processes_ratio'], $snapids);
 			if (!$result) {
-				return $htmlString."<p class=\"error\">"
-					.$errorMsg['query_error'].pg_last_error($conn)."</p>\n";
+				return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 			}
 
 			if (is_null(pg_fetch_result($result,0,0)) == 1) {
-				$htmlString .= "<p class=\"error\">".$errorMsg['no_result']."</p>\n";
+				$htmlString .= makeErrorTag($errorMsg['no_result']);
 			} else {
 				$htmlString .= makeTablePagerHTML($result, "instance_processes_ratio", 5, false);
 			}
@@ -860,12 +860,11 @@ EOD;
 
 			$result = pg_query_params($conn, $query_string['instance_processes'], $snapids);
 			if (!$result) {
-				return $htmlString."<p class=\"error\">"
-					.$errorMsg['query_error'].pg_last_error($conn)."</p>\n";
+				return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 			}
 
 			if (pg_num_rows($result) == 0) {
-				$htmlString .= "<p class=\"error\">".$errorMsg['no_result']."</p>\n";
+				$htmlString .= makeErrorTag($errorMsg['no_result']);
 			} else {
 				$opt = array();
 				array_push($opt, "title: 'Instance Processes'");
@@ -923,12 +922,11 @@ EOD;
 EOD;
 			$result = pg_query_params($conn, $query_string['cpu_usage'], $snapids);
 			if (!$result) {
-				return $htmlString."<p class=\"error\">"
-					.$errorMsg['query_error'].pg_last_error($conn)."</p>\n";
+				return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 			}
 
 			if (pg_num_rows($result) == 0) {
-				$htmlString .= "<p class=\"error\">".$errorMsg['no_result']."</p>\n";
+				$htmlString .= makeErrorTag($errorMsg['no_result']);
 			} else {
 				$opt = array();
 				array_push($opt, "title: 'CPU Usage'");
@@ -952,12 +950,11 @@ EOD;
 			if ($target['repo_version'] >= V24) {
 				$result = pg_query_params($conn, $query_string['load_average'], $snapids);
 				if (!$result) {
-					return $htmlString."<p class=\"error\">"
-						.$errorMsg['query_error'].pg_last_error($conn)."</p>\n";
+					return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 				}
 
 				if (pg_num_rows($result) == 0) {
-					$htmlString .= "<p class=\"error\">".$errorMsg['no_result']."</p>\n";
+					$htmlString .= makeErrorTag($errorMsg['no_result']);
 				} else {
 					$opt = array();
 					array_push($opt, "title: 'Load Average'");
@@ -966,7 +963,7 @@ EOD;
 				}
 				pg_free_result($result);
 			} else {
-				$htmlString .= "<p class=\"error\">".$errorMsg['st_version_v24']."</p>\n";
+				$htmlString .= makeErrorTag($errorMsg['st_version'], "2.4.0");
 			}
 		}
 
@@ -984,12 +981,11 @@ EOD;
 			// I/O Usage
 			$result = pg_query_params($conn, $query_string['io_usage'], $snapids);
 			if (!$result) {
-				return $htmlString."<p class=\"error\">"
-					.$errorMsg['query_error'].pg_last_error($conn)."</p>\n";
+				return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 			}
 
 			if (pg_num_rows($result) == 0) {
-				$htmlString .= "<p class=\"error\">".$errorMsg['no_result']."</p>\n";
+				$htmlString .= makeErrorTag($errorMsg['no_result']);
 			} else {
 				$htmlString .= makeTablePagerHTML($result, "io_usage", 5, true);
 			}
@@ -998,12 +994,11 @@ EOD;
 			// I/O Size
 			$result = pg_query_params($conn, $query_string['io_size'], $snapids);
 			if (!$result) {
-				return $htmlString."<p class=\"error\">"
-					.$errorMsg['query_error'].pg_last_error($conn)."</p>\n";
+				return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 			}
 
 			if (pg_num_rows($result) == 0) {
-				$htmlString .= "<p class=\"error\">".$errorMsg['no_result']."</p>\n";
+				$htmlString .= makeErrorTag($errorMsg['no_result']);
 			} else {
 				makeTupleListForDygraphs($result, $name, $value);
 				$opt = array();
@@ -1017,12 +1012,11 @@ EOD;
 			// I/O Time
 			$result = pg_query_params($conn, $query_string['io_time'], $snapids);
 			if (!$result) {
-				return $htmlString."<p class=\"error\">"
-					.$errorMsg['query_error'].pg_last_error($conn)."</p>\n";
+				return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 			}
 
 			if (pg_num_rows($result) == 0) {
-				$htmlString .= "<p class=\"error\">".$errorMsg['no_result']."</p>\n";
+				$htmlString .= makeErrorTag($errorMsg['no_result']);
 			} else {
 				makeTupleListForDygraphs($result, $name, $value);
 				$opt = array();
@@ -1047,12 +1041,11 @@ EOD;
 			if ($target['repo_version'] >= V24) {
 				$result = pg_query_params($conn, $query_string['memory_usage'], $snapids);
 				if (!$result) {
-					return $htmlString."<p class=\"error\">"
-						.$errorMsg['query_error'].pg_last_error($conn)."</p>\n";
+					return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 				}
 
 				if (pg_num_rows($result) == 0) {
-					$htmlString .= "<p class=\"error\">".$errorMsg['no_result']."</p>\n";
+					$htmlString .= makeErrorTag($errorMsg['no_result']);
 				} else {
 					$opt = array();
 					array_push($opt, "title: 'Memory Usage (Linear Scale)'");
@@ -1062,7 +1055,7 @@ EOD;
 				}
 				pg_free_result($result);
 			} else {
-				$htmlString .= "<p class=\"error\">".$errorMsg['st_version_v24']."</p>\n";
+				$htmlString .= makeErrorTag($errorMsg['st_version'], "2.4.0");
 			}
 		}
 	}
@@ -1091,12 +1084,11 @@ EOD;
 
 			$result = pg_query_params($conn, $query_string['disk_usage_per_tablespace'], $snapids);
 			if (!$result) {
-				return $htmlString."<p class=\"error\">"
-					.$errorMsg['query_error'].pg_last_error($conn)."</p>\n";
+				return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 			}
 
 			if (pg_num_rows($result) == 0) {
-				$htmlString .= "<p class=\"error\">".$errorMsg['no_result']."</p>\n";
+				$htmlString .= makeErrorTag($errorMsg['no_result']);
 			} else {
 				$htmlString .= makeTablePagerHTML($result, "disk_usage_per_tablespace", 5, true);
 			}
@@ -1117,12 +1109,11 @@ EOD;
 			// Disk Usage per Table
 			$result = pg_query_params($conn, $query_string['disk_usage_per_table'], $snapids);
 			if (!$result) {
-				return $htmlString."<p class=\"error\">"
-					.$errorMsg['query_error'].pg_last_error($conn)."</p>\n";
+				return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 			}
 
 			if (pg_num_rows($result) == 0) {
-				$htmlString .= "<p class=\"error\">".$errorMsg['no_result']."</p>\n";
+				$htmlString .= makeErrorTag($errorMsg['no_result']);
 			} else {
 				$htmlString .= makeTablePagerHTML($result, "disk_usage_per_table", 10, true);
 			}
@@ -1131,16 +1122,15 @@ EOD;
 			// Table Size
 			$result = pg_query_params($conn, $query_string['table_size'], array($snapids[1]));
 			if (!$result) {
-				return $htmlString."<p class=\"error\">"
-					.$errorMsg['query_error'].pg_last_error($conn)."</p>\n";
+				return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 			}
 
 			if (pg_num_rows($result) == 0) {
-				$htmlString .= "<p class=\"error\">".$errorMsg['no_result']."</p>\n";
+				$htmlString .= makeErrorTag($errorMsg['no_result']);
 			} else {
 				$value = makeTupleListForPieGraph($result);
 				if (count($value) == 0)
-					$htmlString .= "<p class=\"error\">".$errorMsg['no_result']."</p>\n";
+					$htmlString .= makeErrorTag($errorMsg['no_result']);
 				else
 					$htmlString .= makePieGraphHTML($value, "table_size", "Table Size");
 			}
@@ -1149,16 +1139,15 @@ EOD;
 			// Disk Read
 			$result = pg_query_params($conn, $query_string['disk_read'], $snapids);
 			if (!$result) {
-				return $htmlString."<p class=\"error\">"
-					.$errorMsg['query_error'].pg_last_error($conn)."</p>\n";
+				return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 			}
 
 			if (pg_num_rows($result) == 0) {
-				$htmlString .= "<p class=\"error\">".$errorMsg['no_result']."</p>\n";
+				$htmlString .= makeErrorTag($errorMsg['no_result']);
 			} else {
 				$value = makeTupleListForPieGraph($result);
 				if (count($value) ==0)
-					$htmlString .= "<p class=\"error\">".$errorMsg['no_result']."</p>\n";
+					$htmlString .= makeErrorTag($errorMsg['no_result']);
 				else
 					$htmlString .= makePieGraphHTML($value, "disk_read", "Disk Read");
 			}
@@ -1216,12 +1205,11 @@ EOD;
 
 			$result = pg_query_params($conn, $query_string['heavily_updated_tables'], $snapids);
 			if (!$result) {
-				return $htmlString."<p class=\"error\">"
-					.$errorMsg['query_error'].pg_last_error($conn)."</p>\n";
+				return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 			}
 
 			if (pg_num_rows($result) == 0) {
-				$htmlString .= "<p class=\"error\">".$errorMsg['no_result']."</p>\n";
+				$htmlString .= makeErrorTag($errorMsg['no_result']);
 			} else {
 				$htmlString .= makeTablePagerHTML($result, "heavily_updated_tables", 10, true);
 			}
@@ -1242,12 +1230,11 @@ EOD;
 
 			$result = pg_query_params($conn, $query_string['heavily_accessed_tables'], $snapids);
 			if (!$result) {
-				return $htmlString."<p class=\"error\">"
-					.$errorMsg['query_error'].pg_last_error($conn)."</p>\n";
+				return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 			}
 
 			if (pg_num_rows($result) == 0) {
-				$htmlString .= "<p class=\"error\">".$errorMsg['no_result']."</p>\n";
+				$htmlString .= makeErrorTag($errorMsg['no_result']);
 			} else {
 				$htmlString .= makeTablePagerHTML($result, "heavily_accessed_tables", 10, true);
 			}
@@ -1267,12 +1254,11 @@ EOD;
 
 			$result = pg_query_params($conn, $query_string['low_density_tables'], $snapids);
 			if (!$result) {
-				return $htmlString."<p class=\"error\">"
-					.$errorMsg['query_error'].pg_last_error($conn)."</p>\n";
+				return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 			}
 
 			if (pg_num_rows($result) == 0) {
-				$htmlString .= "<p class=\"error\">".$errorMsg['no_result']."</p>\n";
+				$htmlString .= makeErrorTag($errorMsg['no_result']);
 			} else {
 				$htmlString .= makeTablePagerHTML($result, "low_density_tables", 10, true);
 			}
@@ -1292,12 +1278,11 @@ EOD;
 
 			$result = pg_query_params($conn, $query_string['fragmented_tables'], $snapids);
 			if (!$result) {
-				return $htmlString."<p class=\"error\">"
-					.$errorMsg['query_error'].pg_last_error($conn)."</p>\n";
+				return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 			}
 
 			if (pg_num_rows($result) == 0) {
-				$htmlString .= "<p class=\"error\">".$errorMsg['no_result']."</p>\n";
+				$htmlString .= makeErrorTag($errorMsg['no_result']);
 			} else {
 				$htmlString .= makeTablePagerHTML($result, "fragmented_tables", 10, true);
 			}
@@ -1329,12 +1314,11 @@ EOD;
 
 			$result = pg_query_params($conn, $query_string['functions'], $snapids);
 			if (!$result) {
-				return $htmlString."<p class=\"error\">"
-					.$errorMsg['query_error'].pg_last_error($conn)."</p>\n";
+				return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 			}
 
 			if (pg_num_rows($result) == 0) {
-				$htmlString .= "<p class=\"error\">".$errorMsg['no_result']."</p>\n";
+				$htmlString .= makeErrorTag($errorMsg['no_result']);
 			} else {
 				$htmlString .= makeTablePagerHTML($result, "functions", 10, true);
 			}
@@ -1355,12 +1339,11 @@ EOD;
 
 			$result = pg_query_params($conn, $query_string['statements'], $snapids);
 			if (!$result) {
-				return $htmlString."<p class=\"error\">"
-					.$errorMsg['query_error'].pg_last_error($conn)."</p>\n";
+				return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 			}
 
 			if (pg_num_rows($result) == 0) {
-				$htmlString .= "<p class=\"error\">".$errorMsg['no_result']."</p>\n";
+				$htmlString .= makeErrorTag($errorMsg['no_result']);
 			} else {
 				$htmlString .= makeTablePagerHTML($result, "statements", 10, true);
 			}
@@ -1382,12 +1365,11 @@ EOD;
 
 		$result = pg_query_params($conn, $query_string['long_transactions'], $snapids);
 		if (!$result) {
-			return $htmlString."<p class=\"error\">"
-				.$errorMsg['query_error'].pg_last_error($conn)."</p>\n";
+			return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 		}
 
 		if (pg_num_rows($result) == 0) {
-			$htmlString .= "<p class=\"error\">".$errorMsg['no_result']."</p>\n";
+			$htmlString .= makeErrorTag($errorMsg['no_result']);
 		} else {
 			$htmlString .= makeTablePagerHTML($result, "long_transactions", 10, true);
 		}
@@ -1408,12 +1390,11 @@ EOD;
 
 		$result = pg_query_params($conn, $query_string['lock_conflicts'], $snapids);
 		if (!$result) {
-			return $htmlString."<p class=\"error\">"
-				.$errorMsg['query_error'].pg_last_error($conn)."</p>\n";
+			return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 		}
 
 		if (pg_num_rows($result) == 0) {
-			$htmlString .= "<p class=\"error\">".$errorMsg['no_result']."</p>\n";
+			$htmlString .= makeErrorTag($errorMsg['no_result']);
 		} else {
 			$htmlString .= makeTablePagerHTML($result, "lock_conflicts", 10, true);
 		}
@@ -1455,12 +1436,11 @@ EOD;
 
 		$result = pg_query_params($conn, $query_string['checkpoint_activity'], $snapids);
 		if (!$result) {
-			return $htmlString."<p class=\"error\">"
-				.$errorMsg['query_error'].pg_last_error($conn)."</p>\n";
+			return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 		}
 		// データがない場合は4番目のカラムがNULLになるため
 		if (is_null(pg_fetch_result($result,0,3)) == 1) {
-			$htmlString .= "<p class=\"error\">".$errorMsg['no_result']."</p>\n";
+			$htmlString .= makeErrorTag($errorMsg['no_result']);
 		} else {
 			$htmlString .= makeTableHTML($result, "checkpoint_activity");
 		}
@@ -1491,12 +1471,11 @@ EOD;
 
 			$result = pg_query_params($conn, $query_string['basic_statistics'], $snapids);
 			if (!$result) {
-				return $htmlString."<p class=\"error\">"
-					.$errorMsg['query_error'].pg_last_error($conn)."</p>\n";
+				return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 			}
 
 			if (pg_num_rows($result) == 0) {
-				$htmlString .= "<p class=\"error\">".$errorMsg['no_result']."</p>\n";
+				$htmlString .= makeErrorTag($errorMsg['no_result']);
 			} else {
 				$htmlString .= makeTablePagerHTML($result, "basic_statistics", 10, true);
 			}
@@ -1517,18 +1496,17 @@ EOD;
 			if ($target['repo_version'] >= V24) {
 				$result = pg_query_params($conn, $query_string['io_statistics'], $snapids);
 				if (!$result) {
-					return $htmlString."<p class=\"error\">"
-						.$errorMsg['query_error'].pg_last_error($conn)."</p>\n";
+					return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 				}
 
 				if (pg_num_rows($result) == 0) {
-					$htmlString .= "<p class=\"error\">".$errorMsg['no_result']."</p>\n";
+					$htmlString .= makeErrorTag($errorMsg['no_result']);
 				} else {
 					$htmlString .= makeTablePagerHTML($result, "io_statistics", 10, true);
 				}
 				pg_free_result($result);
 			} else {
-				$htmlString .= "<p class=\"error\">".$errorMsg['st_version_v24']."</p>\n";
+				$htmlString .= makeErrorTag($errorMsg['st_version'], "2.4.0");
 			}
 		}
 	}
@@ -1556,12 +1534,11 @@ EOD;
 
 		$result = pg_query_params($conn, $query_string['current_replication_status'], $snapids);
 		if (!$result) {
-			return $htmlString."<p class=\"error\">"
-				.$errorMsg['query_error'].pg_last_error($conn)."</p>\n";
+			return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 		}
 
 		if (pg_num_rows($result) == 0) {
-			$htmlString .= "<p class=\"error\">".$errorMsg['no_result']."</p>\n";
+			$htmlString .= makeErrorTag($errorMsg['no_result']);
 		} else {
 			$htmlString .= makeTableHTML($result, "current_replication_status");
 		}
@@ -1584,10 +1561,10 @@ EOD;
 				if (!$result) {
 					if ($result)
 						pg_free_result($result);
-				return $htmlString."<p class=\"error\">".$errorMsg['query_error'].pg_last_error($conn)."</p>\n";
+				return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 				}
 				if (pg_num_rows($result) == 0) {
-					$htmlString .= "<p class=\"error\">".$errorMsg['no_result']."</p>\n";
+					$htmlString .= makeErrorTag($errorMsg['no_result']);
 				} else {
 					makeTupleListForDygraphs($result, $name, $value);
 					$opt = array();
@@ -1619,7 +1596,7 @@ EOD;
 				}
 				pg_free_result($result);
 			} else {
-				$htmlString .= "<p class=\"error\">".$errorMsg['st_version_v25']."</p>\n";
+				$htmlString .= makeErrorTag($errorMsg['st_version'], "2.5.0");
 			}
 		}
 
@@ -1675,7 +1652,7 @@ EOD;
 
 EOD;
 
-			$htmlString .= "<p class=\"error\">".$errorMsg['no_info']."</p>\n";
+			$htmlString .= makeErrorTag($errorMsg['no_info']);
 		}
 
 		if ($target['schema']) {
@@ -1689,7 +1666,7 @@ EOD;
 
 EOD;
 
-			$htmlString .= "<p class=\"error\">".$errorMsg['no_info']."</p>\n";
+			$htmlString .= makeErrorTag($errorMsg['no_info']);
 		}
 
 		if ($target['table']) {
@@ -1705,12 +1682,11 @@ EOD;
 
 			$result = pg_query_params($conn, $query_string['table'], $ids);
 			if (!$result) {
-				return $htmlString."<p class=\"error\">"
-					.$errorMsg['query_error'].pg_last_error($conn)."</p>\n";
+				return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 			}
 
 			if (pg_num_rows($result) == 0) {
-				$htmlString .= "<p class=\"error\">".$errorMsg['no_result']."</p>\n";
+				$htmlString .= makeErrorTag($errorMsg['no_result']);
 			} else {
 				$htmlString .= makeTablePagerHTML($result, "table", 10, true);
 			}
@@ -1730,12 +1706,11 @@ EOD;
 
 			$result = pg_query_params($conn, $query_string['index'], $ids);
 			if (!$result) {
-				return $htmlString."<p class=\"error\">"
-					.$errorMsg['query_error'].pg_last_error($conn)."</p>\n";
+				return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 			}
 
 			if (pg_num_rows($result) == 0) {
-				$htmlString .= "<p class=\"error\">".$errorMsg['no_result']."</p>\n";
+				$htmlString .= makeErrorTag($errorMsg['no_result']);
 			} else {
 				$htmlString .= makeTablePagerHTML($result, "index", 10, true);
 			}
@@ -1753,7 +1728,7 @@ EOD;
 
 EOD;
 
-			$htmlString .= "<p class=\"error\">".$errorMsg['no_info']."</p>\n";
+			$htmlString .= makeErrorTag($errorMsg['no_info']);
 		}
 
 		if ($target['sequence']) {
@@ -1767,7 +1742,7 @@ EOD;
 
 EOD;
 
-			$htmlString .= "<p class=\"error\">".$errorMsg['no_info']."</p>\n";
+			$htmlString .= makeErrorTag($errorMsg['no_info']);
 		}
 
 		if ($target['trigger']) {
@@ -1781,7 +1756,7 @@ EOD;
 
 EOD;
 
-			$htmlString .= "<p class=\"error\">".$errorMsg['no_info']."</p>\n";
+			$htmlString .= makeErrorTag($errorMsg['no_info']);
 		}
 	}
 
@@ -1807,7 +1782,7 @@ EOD;
 
 EOD;
 
-			$htmlString .= "<p class=\"error\">".$errorMsg['no_info']."</p>\n";
+			$htmlString .= makeErrorTag($errorMsg['no_info']);
 		}
 
 		if ($target['parameter']) {
@@ -1826,12 +1801,11 @@ EOD;
 				$result = pg_query_params($conn, $query_string['parameter'], $ids);
 			}
 			if (!$result) {
-				return $htmlString."<p class=\"error\">"
-					.$errorMsg['query_error'].pg_last_error($conn)."</p>\n";
+				return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 			}
 
 			if (pg_num_rows($result) == 0) {
-				$htmlString .= "<p class=\"error\">".$errorMsg['no_result']."</p>\n";
+				$htmlString .= makeErrorTag($errorMsg['no_result']);
 			} else {
 				$htmlString .= makeTablePagerHTML($result, "parameter", 10, true);
 			}
@@ -1853,12 +1827,11 @@ EOD;
 
 		$result = pg_query_params($conn, $query_string['profiles'], $ids);
 		if (!$result) {
-			return $htmlString."<p class=\"error\">"
-				.$errorMsg['query_error'].pg_last_error($conn)."</p>\n";
+			return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 		}
 
 		if (pg_num_rows($result) == 0) {
-			$htmlString .= "<p class=\"error\">".$errorMsg['no_result']."</p>\n";
+			$htmlString .= makeErrorTag($errorMsg['no_result']);
 		} else {
 			$htmlString .= makeTablePagerHTML($result, "profiles", 10, true);
 		}
