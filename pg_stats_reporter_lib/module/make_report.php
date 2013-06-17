@@ -2269,6 +2269,9 @@ EOD;
 
 				var left = g.toDomXCoord(bdate.getTime());
 				var right = g.toDomXCoord(edate.getTime());
+				var width = right - left;
+				if (right - left < 1)
+					width = 1;
 
 EOD;
 
@@ -2276,7 +2279,7 @@ EOD;
 
 	$html_string .=
 <<< EOD
-				canvas.fillRect(left, area.y, right - left, area.h);
+				canvas.fillRect(left, area.y, width, area.h);
 			}
 		}
 	}
