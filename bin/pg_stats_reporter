@@ -1124,7 +1124,7 @@ General options:
   -l, --list                show the snapshot list
   -L, --dblist              show repository DB and monitored DB list
   -s, --size                show the snapshot size
-  --index                   create a html report list
+  --index                   create a HTML report list
   -a, --all                 create a complete report that has all items
   -R, --repositorydb=DBNAME repository DB name
                             (section name in pg_stats_reporter.ini;
@@ -1133,7 +1133,7 @@ General options:
                             (default: all instances) 
   -b, --beginid=SNAPID      begin snapshot ID
                             (default: the smallest ID)
-  -B, --begindate=DATE      end timestamp
+  -B, --begindate=DATE      begin timestamp
                             (use \"YYYY-MM-DD HH:MI:SS\";
                              default: the oldest timestamp)
   -e, --endid=SNAPID        end snapshot ID
