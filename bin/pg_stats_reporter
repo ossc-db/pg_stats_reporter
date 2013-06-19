@@ -146,6 +146,16 @@ if (PHP_OS == "Linux") {
 	pcntl_signal(SIGQUIT, "signalHandler");
 }
 
+/* set default timezone */
+$timezone = ini_get('date.timezone');
+if (!$timezone) {
+	$timezone_abbr = exec('date +%Z');
+	$timezone = timezone_name_from_abbr($timezone_abbr);
+	if (!$timezone)
+		$timezone = "UTC";
+}
+date_default_timezone_set($timezone);
+
 // parse command options
 parseCommandOptions($optionInfo);
 
@@ -155,8 +165,10 @@ if (!isset($optionInfo["outputdir"]))
 
 // create output directory
 if (!is_dir($optionInfo["outputdir"])) {
+	if ($optionInfo["index"])
+		elog(ERROR, "Not exist an output directory: '%s'", $optionInfo["outputdir"]);
 	if (!mkdir($optionInfo["outputdir"], 0755, true))
-		elog(ERROR, "Could not create an output directory for report: '%s'", $optionInfo["outputdir"]);
+		elog(ERROR, "Could not create an output directory: '%s'", $optionInfo["outputdir"]);
 }
 
 // create temporary directory
@@ -294,6 +306,7 @@ if ($optionInfo["list"]) {
 	$target_data["end_id"] = $optionInfo["endid"];
 
 	/* make report */
+	$reportNum = 0;
 	$repoInfo = array();
 	if (isset($optionInfo["repositorydb"])) {
 		$repoInfo[$optionInfo["repositorydb"]] = $infoData[$optionInfo["repositorydb"]];
@@ -384,12 +397,14 @@ if ($optionInfo["list"]) {
 
 			// display message
 			elog(LOG, "Report file created: %s", $filename);
+			$reportNum++;
 		}
 		// disconnect database
 		pg_close($conn);
 
 		// creat a HTML report list
-		makeReportList($optionInfo["outputdir"]);
+		if ($reportNum > 0)
+			makeReportList($optionInfo["outputdir"]);
 	}
 }
 
@@ -454,7 +469,7 @@ function checkOptionCombination($optionInfo, $addMsg)
 					$forwardOpt = ($tmpOpt? "-".$tmpOpt.", " : "")."--".$currentOption;
 					$tmpOpt = array_search($val, $optionList);
 					$backwardOpt = ($tmpOpt? "-".$tmpOpt.", " : "")."--".$val;
-					elog(ERROR, "Invalid combination: '%s' and '%s'".$addMsg, $forwardOpt, $backwardOpt);
+					elog(ERROR, "Invalid combination of options: '%s' and '%s'".$addMsg, $forwardOpt, $backwardOpt);
 				}
 			}
 		}

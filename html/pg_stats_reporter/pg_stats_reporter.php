@@ -11,6 +11,16 @@ $global_setting_list = array(
 	INSTALL_DIR,
 );
 
+/* set default timezone */
+$timezone = ini_get('date.timezone');
+if (!$timezone) {
+	$timezone_abbr = exec('date +%Z');
+	$timezone = timezone_name_from_abbr($timezone_abbr);
+	if (!$timezone)
+		$timezone = "UTC";
+}       
+date_default_timezone_set($timezone);
+
 // this is flag to judge whether delete cache file of pg_stats_reporter.ini
 $deleteConfigCache = false;
 

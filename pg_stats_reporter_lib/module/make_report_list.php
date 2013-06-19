@@ -46,6 +46,11 @@ function makeReportList($dirString)
 	}
 	closedir($dir);
 
+	if (count($fileTableList) == 0) {
+		elog(WARNING, "Could not create report list: Not exist report file in '%s'", $dirString);
+		exit(0);
+	}
+
 	makeReportListParts($fileTableList, $html_head, $html_body);
 
 	makeReportListHTML($html_string, $html_head, $html_body);
