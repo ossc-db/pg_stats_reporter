@@ -132,7 +132,7 @@ function makeReportListHTML(&$html_string, $html_head, $html_body)
 <script type="text/javascript" src="package/jquery-2.0.1/jquery-2.0.1.min.js"></script>
 <script type="text/javascript" src="package/jquery-2.0.1/jquery-migrate-1.2.1.js"></script>
 <script type="text/javascript" src="package/tablesorter/jquery.tablesorter.js"></script>
-<script type="text/javascript" src="package/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.min.js"></script>
+<script type="text/javascript" src="package/jquery-ui-1.10.2/ui/minified/jquery-ui.min.js"></script>
 
 <script type="text/javascript">
 $(document).ready(function() {
@@ -164,7 +164,7 @@ EOD;
 <<< EOD
 </script>
 
-<link rel="stylesheet" type="text/css" href="package/jquery-ui-1.10.3.custom/development-bundle/themes/start/jquery.ui.all.css"/>
+<link rel="stylesheet" type="text/css" href="package/jquery-ui-1.10.2/themes/start/jquery.ui.all.css"/>
 <link rel="stylesheet" type="text/css" href="package/tablesorter/themes/blue/style.css"/>
 <style type="text/css">
 
