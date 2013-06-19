@@ -8,18 +8,18 @@
 <!-- javascripts -->
 <script type="text/javascript" src="{$jquery_path}jquery-2.0.1.min.js"></script>
 <script type="text/javascript" src="{$jquery_path}jquery-migrate-1.2.1.js"></script>
-<script type="text/javascript" src="{$jquery_ui_path}development-bundle/ui/jquery.ui.core.js"></script>
-<script type="text/javascript" src="{$jquery_ui_path}development-bundle/ui/jquery.ui.widget.js"></script>
-<script type="text/javascript" src="{$jquery_ui_path}development-bundle/ui/jquery.ui.accordion.js"></script>
-<script type="text/javascript" src="{$jquery_ui_path}development-bundle/ui/jquery.ui.mouse.js"></script>
-<script type="text/javascript" src="{$jquery_ui_path}development-bundle/ui/jquery.ui.datepicker.js"></script>
-<script type="text/javascript" src="{$jquery_ui_path}development-bundle/ui/jquery.ui.slider.js"></script>
-<script type="text/javascript" src="{$jquery_ui_path}development-bundle/ui/jquery.ui.button.js"></script>
-<script type="text/javascript" src="{$jquery_ui_path}development-bundle/ui/jquery.ui.draggable.js"></script>
-<script type="text/javascript" src="{$jquery_ui_path}development-bundle/ui/jquery.ui.position.js"></script>
-<script type="text/javascript" src="{$jquery_ui_path}development-bundle/ui/jquery.ui.resizable.js"></script>
-<script type="text/javascript" src="{$jquery_ui_path}development-bundle/ui/jquery.ui.dialog.js"></script>
-<script type="text/javascript" src="{$jquery_ui_path}development-bundle/ui/i18n/jquery.ui.datepicker-ja.js"></script>
+<script type="text/javascript" src="{$jquery_ui_path}ui/jquery.ui.core.js"></script>
+<script type="text/javascript" src="{$jquery_ui_path}ui/jquery.ui.widget.js"></script>
+<script type="text/javascript" src="{$jquery_ui_path}ui/jquery.ui.accordion.js"></script>
+<script type="text/javascript" src="{$jquery_ui_path}ui/jquery.ui.mouse.js"></script>
+<script type="text/javascript" src="{$jquery_ui_path}ui/jquery.ui.datepicker.js"></script>
+<script type="text/javascript" src="{$jquery_ui_path}ui/jquery.ui.slider.js"></script>
+<script type="text/javascript" src="{$jquery_ui_path}ui/jquery.ui.button.js"></script>
+<script type="text/javascript" src="{$jquery_ui_path}ui/jquery.ui.draggable.js"></script>
+<script type="text/javascript" src="{$jquery_ui_path}ui/jquery.ui.position.js"></script>
+<script type="text/javascript" src="{$jquery_ui_path}ui/jquery.ui.resizable.js"></script>
+<script type="text/javascript" src="{$jquery_ui_path}ui/jquery.ui.dialog.js"></script>
+<script type="text/javascript" src="{$jquery_ui_path}ui/i18n/jquery.ui.datepicker-ja.js"></script>
 <script type="text/javascript" src="{$timepicker_path}jquery-ui-timepicker-addon.js"></script>
 <script type="text/javascript" src="{$superfish_path}js/hoverIntent.js"></script>
 <script type="text/javascript" src="{$superfish_path}js/superfish.js"></script>
@@ -39,7 +39,7 @@
 
 <!-- stylesheets -->
 <link rel="stylesheet" type="text/css" href="{$superfish_path}css/superfish.css"/>
-<link rel="stylesheet" type="text/css" href="{$jquery_ui_path}development-bundle/themes/start/jquery.ui.all.css"/>
+<link rel="stylesheet" type="text/css" href="{$jquery_ui_path}themes/start/jquery.ui.all.css"/>
 <link rel="stylesheet" type="text/css" href="{$jqplot_path}dist/jquery.jqplot.min.css"/>
 <link rel="stylesheet" type="text/css" href="{$tablesorter_path}themes/blue/style.css"/>
 <!-- pg_stats_reporter's stylesheets -->

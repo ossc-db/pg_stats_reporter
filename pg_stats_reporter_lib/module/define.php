@@ -11,7 +11,7 @@ define("IMAGE_FILE", "pgsql_banner01.png");
 // Library path
 define("SMARTY_PATH", "package/Smarty-3.1.13/libs/");
 define("JQUERY_PATH", "package/jquery-2.0.1/");
-define("JQUERYUI_PATH", "package/jquery-ui-1.10.3.custom/");
+define("JQUERYUI_PATH", "package/jquery-ui-1.10.2/");
 define("TIMEPICKER_PATH", "package/");
 define("TABLESORTER_PATH", "package/tablesorter/");
 define("SUPERFISH_PATH", "package/superfish/superfish-1.7.2/");
