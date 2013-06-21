@@ -6,35 +6,38 @@ pg_stats_reporter インストール後のディレクトリの構成を以下�
 
 pg_stats_reporter
    |
+   +- bin/ ...................... コマンドラインで実行するスクリプト格納先
+   |
    +- html/
    |    |
-   |    +- pg_stats_reporter/
+   |    +- pg_stats_reporter/ ... HTTP Serverを介して実行するスクリプト格納先
    |          |
-   |          +- package/ ... jQuery等のパッケージ
+   |          +- package/ ....... jQuery等のパッケージ
    |          |
-   |          +- js/ ........ pg_stats_reporter用に作成したJavascript
+   |          +- js/ ............ pg_stats_reporter用に作成したJavascript
    |          |
-   |          +- css/ ....... pg_stats_reporter用に作成したcss
+   |          +- css/ ........... pg_stats_reporter用に作成したcss
    |          |
-   |          +- doc/ ....... pg_stats_reporterのマニュアル
+   |          +- doc/ ........... pg_stats_reporterのマニュアル
    |
-   +- pg_stats_reporter/ .... 設定ファイル格納先
+   +- pg_stats_reporter_lib/ .... 設定ファイル格納先
         |
-        +- lib/ ............. モジュール分割したphpファイル格納先
+        +- module/ .............. モジュール分割したphpファイル格納先
         |
-        +- template/ ........ テンプレートファイル格納先
+        +- template/ ............ テンプレートファイル格納先
         |
-        +- cache/ ........... Smartyと設定ファイルのキャッシュファイル格納用
+        +- cache/ ............... Smartyと設定ファイルのキャッシュファイル格納用
         |
-        +- compiled/ ........ テンプレートのコンパイル結果ファイル格納用
+        +- compiled/ ............ テンプレートのコンパイル結果ファイル格納用
         |
-        +- message/ ......... メッセージファイル格納用
+        +- message/ ............. メッセージファイル格納用
 
 
 インストール手順
 
 ソースファイルを、HTTP Server を介してブラウザで参照できる位置にコピー
-します。このとき、cache ディレクトリおよび compiled ディレクトリには、
+します。また、コマンドライン用のスクリプトを/usr/local/binにコピーします。
+このとき、cache ディレクトリおよび compiled ディレクトリには、
 HTTP Server の実行ユーザがファイルが作成できるように権限を与えておく必
 要があります。
 
@@ -42,10 +45,11 @@ HTTP Server の実行ユーザがファイルが作成できるように権限�
 トールした例です。
 
 $ su
-# tar xvfz pg_stats_reporter-1.0.0.tar.gz
+# tar xvfz pg_stats_reporter-2.0.0.tar.gz
 # cp -R pg_stats_reporter/html/pg_stats_reporter /var/www/html
-# cp -R pg_stats_reporter/pg_stats_reporter /var/www
-# cd /var/www/pg_stats_reporter
+# cp -R pg_stats_reporter/pg_stats_reporter_lib /var/www
+# cp pg_stats_reporter/bin/pg_stats_reporter /usr/local/bin
+# cd /var/www/pg_stats_reporter_lib
 # chown apache.apache cache compiled
 
 
@@ -53,9 +57,11 @@ $ su
 
 サンプルから設定ファイルを作成します。以下は作成の例です。
 
-# cd /var/www/pg_stats_reporter
-# cp pg_stats_reporter.ini.sample pg_stats_reporter.ini
+# cd /var/www/pg_stats_reporter_lib
+# cp pg_stats_reporter.ini.sample /etc/pg_stats_reporter.ini
+# cd /etc
 # vi pg_stats_reporter.ini
+
 ----- リポジトリDBへの接続情報に修正します -----
 host = localhost
 port = 5432
@@ -67,9 +73,13 @@ password =
 アンインストール
 
 コピーしたファイルを削除します。以下はアンインストールの例です。
-設定ファイルを残す場合は、pg_stats_reporter.ini を退避してください。
+設定ファイルを残す場合は、/etc/pg_stats_reporter.ini を削除しないでください。
 
 $ su
 # cd /var/www
 # rm -r html/pg_stats_reporter
-# rm -r pg_stats_reporter
+# rm -r pg_stats_reporter_lib
+# cd /usr/local/bin
+# rm pg_stats_reporter
+# cd /etc
+# rm pg_stats_reporter.ini
