@@ -493,7 +493,7 @@ function makeLeftMenu($infoData, $targetInfo)
 	$html_string .=
 <<< EOD
 <div id="report_range_dialog" title="Create new report">
-  <p align="center" tabindex="1">
+  <p align="center">
     <label for="begin_date">begin:</label>
     <input type="text" id="begin_date" name="begin_date" cheked/>
 	<label for="end_date">end:</label>

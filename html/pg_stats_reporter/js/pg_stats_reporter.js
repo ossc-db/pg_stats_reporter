@@ -102,6 +102,10 @@ $(function() {
     }
   });
 
+  $.ui.dialog.prototype._focusTabbable = function() {
+    this.uiDialogTitlebar.focus();
+  };
+
   $('#report_range_dialog').dialog( {
     autoOpen: false,
     modal: true,
