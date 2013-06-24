@@ -2,6 +2,18 @@
 ; pg_stats_reporter configuration file
 ;-------------------------------------
 
+;-------------------------------------
+; global setting section
+;-------------------------------------
+
+[global_setting]
+install_directory = /var/www
+
+
+;-------------------------------------
+; repository DB setting section
+;-------------------------------------
+
 [repository1]
 
 ;-------------------------------------
@@ -77,7 +89,8 @@ basic_statistics = true
 io_statistics = true
 
 ; -- Replication Activity --
-replication_activity = true
+current_replication_status = true
+replication_delays = true
 
 ; --- Information ---
 
@@ -89,7 +102,7 @@ index = true
 parameter = true
 
 ; -- Profiles --
-profiles = true
+profiles = false
 
 
 [repository2]
@@ -99,7 +112,7 @@ profiles = true
 ;-------------------------------------
 
 host = localhost
-port = 5432
+port = 5433
 dbname = postgres
 username = postgres
 password =
@@ -167,7 +180,8 @@ basic_statistics = true
 io_statistics = true
 
 ; -- Replication Activity --
-replication_activity = true
+current_replication_status = true
+replication_delays = true
 
 ; --- Information ---
 

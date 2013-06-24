@@ -1,7 +1,7 @@
 /*
  * pg_stats_reporter: Javascript
  *
- * Copyright (c) 2012,2013, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
+ * Copyright (c) 2012,2013 NIPPON TELEGRAPH AND TELEPHONE CORPORATION
  */
 
 $(function() {
@@ -24,8 +24,10 @@ $(function() {
   // accordion in left menu
   $( "#accordion" ).accordion( {
     icons: icons,
-    autoHeight: false,
-    navigation: true,
+	// you should delete these option, because these option is non-recommended option
+    // autoHeight: false,
+    // navigation: true,
+	heightStyle: "content",
     collapsible: true
   } );
 
@@ -105,7 +107,8 @@ $(function() {
     modal: true,
     resizable: false,
     width: 450,
-    position: ['center',300],
+	// you should delete these option, because these option is non-recommended option
+    //position: ['center',300],
     buttons: {
       "Create report": function() {
 		$(this).dialog("close");
@@ -610,6 +613,9 @@ function div_flip() {
   $("#parameter_table").tablesorter( {
     widthFixed: true,
 	widgets: ['zebra'],
+	headers: {
+		2: { sorter: false }
+	}
   } )
   .tablesorterPager( {
 	container: $('#pager_parameter'),
@@ -1083,23 +1089,42 @@ function div_flip() {
     width: 600
   } );
 
-  // Replication Activity help dialog button
-  $( '#replication_activity_button_info' ) . button( {
+  // Current Replication Status help dialog button
+  $( '#current_replication_status_button_info' ) . button( {
     icons: {
       primary: 'ui-icon-info',
       },
     text: false
   } ).click(function() {
-      $('#replication_activity_dialog').dialog("open");
+      $('#current_replication_status_dialog').dialog("open");
     } );
 
-  // Replication Activity help dialog
-  $('#replication_activity_dialog').dialog( {
+  // Current Replication Status help dialog
+  $('#current_replication_status_dialog').dialog( {
     autoOpen: false,
     modal: true,
     resizable: false,
     width: 600
   } );
+
+  // Replication Delays help dialog button
+  $( '#replication_delays_button_info' ) . button( {
+    icons: {
+      primary: 'ui-icon-info',
+      },
+    text: false
+  } ).click(function() {
+      $('#replication_delays_dialog').dialog("open");
+    } );
+
+  // Replication Delays help dialog
+  $('#replication_delays_dialog').dialog( {
+    autoOpen: false,
+    modal: true,
+    resizable: false,
+    width: 600
+  } );
+
 
   // Database help dialog button
   $( '#database_button_info' ) . button( {
