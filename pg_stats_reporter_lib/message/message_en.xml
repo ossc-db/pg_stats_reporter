@@ -33,6 +33,7 @@
 <li>reads/s : read blocks from disk per second</li>
 <li>rows/s : number of rows from tables and indexes per second</li>
 </ul>
+<ul>*The small value is displayed as zero by the truncation of the number in unit conversion</ul>
 </div>
 
 <div id="transaction_statistics_dialog"
@@ -148,6 +149,7 @@
 <li>current I/O queue : number of current I/O queue in a device</li>
 <li>total I/O time (ms) : total time of I/O in a device (ms)</li>
 </ul>
+<ul>*The small value is displayed as zero by the truncation of the number in unit conversion</ul>
 <h4>How to see a I/O Size</h4>
 <ul>
 <li>x axis : time </li>
@@ -189,6 +191,7 @@
 <li>avail (MiB) : avalable data size in table space directory device (MiB)</li>
 <li>remain (%) : remain data size in table space directory device</li>
 </ul>
+<ul>*The small value is displayed as zero by the truncation of the number in unit conversion</ul>
 </div>
 
 <div id="disk_usage_per_table_dialog"
@@ -203,6 +206,7 @@
 <li>index reads : index_blocks_reads</li>
 <li>toast reads : TOAST_blocks_reads</li>
 </ul>
+<ul>*The small value is displayed as zero by the truncation of the number in unit conversion</ul>
 <h4>How to see a Table Size table.</h4>
 <ul>
 <li>entry : table name [database name].[schema name].[table name])</li>
@@ -427,6 +431,7 @@ This information is not supported in this version. We will support in future ver
 <li>table scans : number of executing sequential scan</li>
 <li>index scans : number of executing index scan</li>
 </ul>
+<ul>*The small value is displayed as zero by the truncation of the number in unit conversion</ul>
 </div>
 
 <div id="index_dialog"
@@ -445,6 +450,7 @@ This information is not supported in this version. We will support in future ver
 <li>hits : read by cache blocks</li>
 <li>keys : value of index key</li>
 </ul>
+<ul>*The small value is displayed as zero by the truncation of the number in unit conversion</ul>
 </div>
 
 <div id="view_dialog"
