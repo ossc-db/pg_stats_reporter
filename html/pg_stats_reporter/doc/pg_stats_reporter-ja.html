@@ -8,13 +8,6 @@
 </head>
 
 <body>
-<h1 id="pg_stats_reporter">pg_stats_reporter 2.0</h1>
-<div class="navigation">
-  <a href="http://pgstatsinfo.projects.postgresql.org/index_ja.html">Top</a> &gt;
-  <a href="http://pgstatsinfo.projects.postgresql.org/pg_stats_reporter-ja.html">pg_stats_reporter</a>
-</div>
-<hr/>
-
 <div class="index">
 <ol>
   <li><a href="#name">pg_stats_reporter とは？</a></li>
@@ -44,7 +37,7 @@
   <li><a href="#acknowledgment">謝辞</a></li>
 </ol>
 </div>
-
+<h1 id="pg_stats_reporter">pg_stats_reporter 2.0</h1>
 <h2 id="name">pg_stats_reporter とは?</h2>
 <p><a href="http://pgstatsinfo.projects.postgresql.org/pg_statsinfo-ja.html">pg_statsinfo-2.5 </a>が収集した統計情報を元に、PostgreSQL サーバの利用統計情報をHTML形式のグラフィカルなレポートで出力します。</p>
 <p>当ツールで作成したレポートの例は<a href="files/report_sample.html">こちら</a>をご覧ください。</p>
@@ -113,6 +106,9 @@ $ su
            php-pgsql-5.3.3-3.el6_2.8.x86_64.rpm \
            php-intl-5.3.3-3.el6_2.8.x86_64.rpm \
            php-cli-5.3.3-22.el6.x86_64.rpm
+
+※php-intl のRPMファイルは、インストールディスク2枚目の以下のパスに格納されています。
+  Packages/php-intl-5.3.3-22.el6.x86_64.rpm
 </pre>
 <p>rpm コマンドで pg_stats_reporter をインストールします。以下はインストール例です。</p>
 <pre>
@@ -130,6 +126,9 @@ $ su
            php-pgsql-5.3.3-3.el6_2.8.x86_64.rpm \
            php-intl-5.3.3-3.el6_2.8.x86_64.rpm \
            php-cli-5.3.3-22.el6.x86_64.rpm
+
+※php-intl のRPMファイルは、インストールディスク2枚目の以下のパスに格納されています。
+  Packages/php-intl-5.3.3-22.el6.x86_64.rpm
 </pre>
 <p>rpm コマンドで pg_stats_reporter をインストールします。以下はインストール例です。</p>
 <pre>
@@ -470,9 +469,10 @@ $ su
 <h2 id="change">pg_stats_reporter 1.0 からの変更点</h2>
 <p>pg_stats_reporter 1.0 からの変更点は以下の通りです。</p>
 <ul>
-  <li>コマンドライン機能(CUIインタフェース)を追加</li>
+  <li>コマンドライン(CUIでの操作)機能を追加</li>
   <ul>
     <li>cron を使用することで定期的なレポートの作成が可能</li>
+    <li>コマンドライン機能でレポートを作成するとレポート一覧が同時に作成されます</li>
   </ul>
   <li>レプリケーション遅延のレポート項目を追加</li>
   <li>各グラフにチェックポイント実行期間をハイライト表示するボタンを追加</li>
