@@ -64,7 +64,7 @@ if [ $1 = 1 ] ; then
 fi
 
 %changelog
-* Mon Jun   3 2013 - NTT OSS Center 2.0.0-1
+* Fri Aug   9 2013 - NTT OSS Center 2.0.0-1
 - pg_stats_reporter 2.0.0 released
 * Fri Feb   1 2013 - NTT OSS Center 1.0.1-1
 - Fix some bugs
