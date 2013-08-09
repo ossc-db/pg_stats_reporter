@@ -11,7 +11,7 @@ Source0:		pg_stats_reporter-2.0.0.tar.gz
 BuildRoot:		%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:		noarch
 Requires:		php53 >= 5.3.3, php53-pgsql >= 5.3.3
-Requires:		php53-common >= 5.3.3, php53-intl >= 5.3.3
+Requires:		php53-common >= 5.3.3
 Requires:		httpd >= 2.2
 AutoReqProv: 0
 

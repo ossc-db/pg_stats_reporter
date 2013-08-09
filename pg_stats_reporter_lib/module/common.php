@@ -5,7 +5,7 @@
  * Copyright (c) 2013, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
  */
 
-// create message file list
+/* create message file list */
 function createMessageFileList($file_dir, &$locale_list, &$msg_file_list)
 {
 	$msg_len = strlen(MESSAGE_PREFIX);
@@ -13,6 +13,7 @@ function createMessageFileList($file_dir, &$locale_list, &$msg_file_list)
 	if (!($dir = opendir($file_dir)))
 		return false;
 
+	/* TODO: Check out message_message_ja.xml */
 	while($fn = readdir($dir)) {
 		$path_parts = pathinfo($file_dir."/".$fn);
 		if (strncmp(MESSAGE_PREFIX, $path_parts["filename"], $msg_len) == 0
@@ -34,9 +35,21 @@ function readMessageFile($language, $locale_list, $msg_file_list,
 
 	$help_message = array();
 	$error_message = array();
-	$locale = locale_lookup($locale_list, $language, false, "en");
 
-	$msgfile = $msg_file_list[$locale];
+	/*
+	 * if php-intl extension is available,
+	 * searches the locale list for the best match to the language.
+	 */
+	if (extension_loaded('intl')) {
+		$locale = locale_lookup($locale_list, $language, false, "en");
+		$msgfile = $msg_file_list[$locale];
+	} else {
+		if (array_key_exists($language, $msg_file_list))
+			$msgfile = $msg_file_list[$language];
+		else
+			$msgfile = $msg_file_list["en"];
+	}
+
 	if (!file_exists($msgfile)) {
 		$msg = "message file(".$msgfile.") is not found.";
 		if (!empty($_SERVER['DOCUMENT_ROOT']))

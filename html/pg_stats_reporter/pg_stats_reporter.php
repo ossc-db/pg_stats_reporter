@@ -52,7 +52,6 @@ $smarty->assign("jqplot_path", JQPLOT_PATH);
 $smarty->assign("dygraphs_path", DYGRAPHS_PATH);
 
 /* メッセージファイルの一覧作成 */
-// TODO: Check out message_message_ja.xml
 createMessageFileList(MESSAGE_PATH, $locale_list, $msg_file_list);
 
 /* URLパラメータのreloadを確認し、キャッシュファイル削除 */
@@ -135,11 +134,16 @@ $target_info = $infoData[$target_data['repodb']];
 $smarty->assign("target_info", $target_info);
 
 /* メッセージファイル読込み */
-if ($target_info['language'] == 'auto')
-	$target_locale = locale_accept_from_http($_SERVER['HTTP_ACCEPT_LANGUAGE']);
-else
-	$target_locale = $target_info['language'];
-readMessageFile($target_locale, $locale_list, $msg_file_list,
+if ($target_info['language'] == 'auto') {
+	if (extension_loaded('intl')) {
+		$language = locale_accept_from_http($_SERVER['HTTP_ACCEPT_LANGUAGE']);
+	} else {
+		$language = "en";
+	}
+} else {
+	$language = $target_info['language'];
+}
+readMessageFile($language, $locale_list, $msg_file_list,
 				$help_message, $error_message);
 
 /* レポートページ作成 */
