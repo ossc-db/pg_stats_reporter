@@ -20,16 +20,6 @@ define("LOG", 1);
 define("WARNING", 2);
 define("ERROR", 3);
 
-/* set default timezone */
-$timezone = ini_get('date.timezone');
-if (!$timezone) {
-	$timezone_abbr = exec('date +%Z');
-	$timezone = timezone_name_from_abbr($timezone_abbr);
-	if (!$timezone)
-		$timezone = "UTC";
-}
-date_default_timezone_set($timezone);
-
 /* global variable begin */
 $infoData = array();
 $globalSetting = array();
@@ -57,8 +47,8 @@ $optionInfo = array("list" => false,
 					"instid" => NULL,
 					"beginid" => NULL,
 					"endid" => NULL,
-					"begindate" => date('Y-m-d', time() - 24*60*60)." 00:00:00",
-					"enddate" => date('Y-m-d H:i:s'),
+					"begindate" => NULL,
+					"enddate" => NULL,
 					"outputdir" => NULL);
 $optionList = array("l" => "list",
 					"L" => "dblist",
@@ -155,6 +145,16 @@ if (PHP_OS == "Linux") {
 	pcntl_signal(SIGTERM, "signalHandler");
 	pcntl_signal(SIGQUIT, "signalHandler");
 }
+
+/* set default timezone */
+$timezone = ini_get('date.timezone');
+if (!$timezone) {
+	$timezone_abbr = exec('date +%Z');
+	$timezone = timezone_name_from_abbr($timezone_abbr);
+	if (!$timezone)
+		$timezone = "UTC";
+}
+date_default_timezone_set($timezone);
 
 // parse command options
 parseCommandOptions($optionInfo);
@@ -304,6 +304,13 @@ if ($optionInfo["list"]) {
 	$target_data["end_date"] = $optionInfo["enddate"];
 	$target_data["begin_id"] = $optionInfo["beginid"];
 	$target_data["end_id"] = $optionInfo["endid"];
+
+	// if report period is not specify, sets default period 
+	if (!isset($target_data["begin_id"]) && !isset($target_data["begin_date"]) &&
+		!isset($target_data["end_id"]) && !isset($target_data["end_date"])) {
+		$target_data["begin_date"] = date('Y-m-d', time() - 24*60*60)." 00:00:00";
+		$target_data["end_date"] = date('Y-m-d H:i:s');
+	}
 
 	/* make report */
 	$reportNum = 0;
