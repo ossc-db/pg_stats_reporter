@@ -20,6 +20,16 @@ define("LOG", 1);
 define("WARNING", 2);
 define("ERROR", 3);
 
+/* set default timezone */
+$timezone = ini_get('date.timezone');
+if (!$timezone) {
+	$timezone_abbr = exec('date +%Z');
+	$timezone = timezone_name_from_abbr($timezone_abbr);
+	if (!$timezone)
+		$timezone = "UTC";
+}
+date_default_timezone_set($timezone);
+
 /* global variable begin */
 $infoData = array();
 $globalSetting = array();
@@ -47,8 +57,8 @@ $optionInfo = array("list" => false,
 					"instid" => NULL,
 					"beginid" => NULL,
 					"endid" => NULL,
-					"begindate" => NULL,
-					"enddate" => NULL,
+					"begindate" => date('Y-m-d', time() - 24*60*60)." 00:00:00",
+					"enddate" => date('Y-m-d H:i:s'),
 					"outputdir" => NULL);
 $optionList = array("l" => "list",
 					"L" => "dblist",
@@ -145,16 +155,6 @@ if (PHP_OS == "Linux") {
 	pcntl_signal(SIGTERM, "signalHandler");
 	pcntl_signal(SIGQUIT, "signalHandler");
 }
-
-/* set default timezone */
-$timezone = ini_get('date.timezone');
-if (!$timezone) {
-	$timezone_abbr = exec('date +%Z');
-	$timezone = timezone_name_from_abbr($timezone_abbr);
-	if (!$timezone)
-		$timezone = "UTC";
-}
-date_default_timezone_set($timezone);
 
 // parse command options
 parseCommandOptions($optionInfo);
