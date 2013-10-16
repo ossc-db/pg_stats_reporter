@@ -53,6 +53,8 @@ rm -rf $RPM_BUILD_ROOT
 if [ $1 = 1 ] && [ ! -e /etc/pg_stats_reporter.ini ] ; then
 /bin/cp /var/www/pg_stats_reporter_lib/pg_stats_reporter.ini.sample /etc/pg_stats_reporter.ini
 fi
+/bin/rm -rf /var/www/pg_stats_reporter_lib/cache/*
+/bin/rm -rf /var/www/pg_stats_reporter_lib/compiled/*
 
 %postun
 if [ $1 = 0 ] ; then
