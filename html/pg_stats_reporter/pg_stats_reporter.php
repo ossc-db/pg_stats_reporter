@@ -35,7 +35,7 @@ $smarty = new Smarty();
 
 /* キャッシュの設定と各ディレクトリの設定 */
 $smarty->caching        = Smarty::CACHING_LIFETIME_CURRENT;
-$smarty->compile_check  = false;
+$smarty->compile_check  = true;
 // $smarty->cache_lifetime = 300;
 $smarty->cache_lifetime = 5;
 $smarty->cache_dir      = CACHE_DIR;
