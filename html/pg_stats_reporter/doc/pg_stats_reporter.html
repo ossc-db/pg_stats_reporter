@@ -8,17 +8,14 @@
 </head>
 
 <body>
-<h1 id="pg_stats_reporter">pg_stats_reporter 1.0</h1>
-<div class="navigation">
-  <a href="http://pgstatsinfo.projects.postgresql.org/index_ja.html">Top</a> &gt;
-  <a href="http://pgstatsinfo.projects.postgresql.org/pg_stats_reporter-ja.html">pg_stats_reporter</a>
-</div>
-<hr/>
-
 <div class="index">
 <ol>
   <li><a href="#name">What is pg_stats_reporter?</a></li>
-  <li><a href="#synopsis">Summary</a></li>
+  <li><a href="#synopsis">Summary</a>
+  <ol>
+    <li><a href="#synopsis_server">@Webレポート機能</a></li>
+    <li><a href="#synopsis_command">@コマンドライン機能</a></li>
+  </ol></li>
   <li><a href="#install">Install</a>
   <ol>
     <li><a href="#requirement">Requirement</a></li>
@@ -26,117 +23,156 @@
     <li><a href="#initialize">Initial settings</a></li>
     <li><a href="#execute_test">Install cheack</a></li>
   </ol></li>
-  <li><a href="#execute">Usage</a></li>
+  <li><a href="#execute">Usage</a>
+  <ol>
+    <li><a href="#execute_server">@Webレポート機能の操作方法</a></li>
+    <li><a href="#execute_command">@コマンドライン機能の操作方法</a></li>
+  </ol></li>
   <li><a href="#uninstall">Uninstall</a></li>
   <li><a href="#configuration">configuration</a></li>
   <li><a href="#restrictions">restrictions and cautions</a></li>
   <li><a href="#faq">FAQ</a></li>
+  <li><a href="#change">@pg_stats_reporter 1.0 からの変更点</a></li>
   <li><a href="#seealso">See also</a></li>
   <li><a href="#acknowledgment">Acknowledgement</a></li>
 </ol>
 </div>
-
+<h1 id="pg_stats_reporter">pg_stats_reporter 2.0</h1>
 <h2 id="name">What is pg_stats_reporter?</h2>
 <p>Pg_stats_reporter can make statistical and graphical reports by <a href="http://pgstatsinfo.projects.postgresql.org/pg_statsinfo-ja.html">pg_statsinfo's(2.4 or later)</a> statistical database(we call it 'snapshot'). Example of report is <a href="files/report_sample.html">here</a> </p>
 
 <h2 id="synopsis">Summary</h2>
 <p>Pg_stats_reporter is web-based software and can make statistical and graphical reports by pg_statsinfo's snapshot which is statistic of PostgreSQL.<br/>
+<p>@pg_stats_reporter を利用する際には、以下の機能モードがあります。</p>
+<ul>
+  <li>@Webレポート機能</li>
+  <li>@コマンドライン機能</li>
+</ul>
+
+<h3 id="synopsis_server">@Webレポート機能</h3>
+<p>@Webレポート機能では、Apache HTTP Server と連携して pg_stats_reporter が動作します。<br/>
+WEBサーバにブラウザを利用してアクセスすることで、ブラウザ上での操作によりレポートを作成することが可能です。</p>
+
+<h3 id="synopsis_command">@コマンドライン機能</h3>
+<p>@コマンドライン機能では、端末上でのコマンド実行によりレポートを作成することができます。<br/>
+コマンドライン機能の利用には Apache HTTP Server を必要としません。</p>
 
 <h2 id="install">Install</h2>
 <p>Please get <a href="http://pgfoundry.org/frs/?group_id=1000422">install package</a> of pg_stats_reporter.<br/>
 If you want to install source package, please see the INSTALL.en file which is included in source package.</p>
 
-<h3 id="requirement">Requirement</h3>
+<h3 id="requirement">@動作確認環境</h3>
 <dl>
-  <dt>PostgreSQL</dt>
-  <dd>version 8.3 or later
   <dt>pg_statsinfo</dt>
   <dd>version 2.4 or later</dd>
   <dt>PHP</dt>
-  <dd>version 5.3.3(recommend) Later version is not tested.</dd>
+  <dd>@バージョン 5.3.3 (OS同梱のもの)</dd>
   <dt>OS</dt>
-  <dd>RHEL 5.x, 6.x, CentOS 5.x, 6.x</dd>
+  <dd>RHEL 5.9, RHEL 6.4</dd>
   <dt>web browser</dt>
-  <dd>Firefox : 3.6.9, 16.0.2 Later and other version is not tested.</dd>
-  <dd>Google Chrome : 23.0.1271.64 m  </dd>
+  <dd>Internet Explorer : 9, 10</dd>
+  <dd>Firefox : 10.0.12, 21.0</dd>
+  <dd>Google Chrome : 27.0.1453.110 m</dd>
+  <dd>Safari (Windows) : 5.1.7</dd>
   <dt>HTTP Server</dt>
-  <dd>Apache HTTP Server : 2.2.15(recommend) Later and other version is not tested.</dd>
+  <dd>@Apache HTTP Server : 2.2.3 (RHEL 5.9 同梱のもの), 2.2.15 (RHEL 6.4 同梱のもの)</dd>
   <dt>libraries (They are included in package of pg_stats_reporter.)</dt>
   <dd><ul>
-    <li>jQuery : 1.8.2</li>
-    <li>jQuery UI : 1.9.1</li>
-    <li>jquery-ui-timepicker-addon : 0.9.9</li>
-    <li>dygraphs JavaScript Visualization Library : 4d3672f</li>
-    <li>jqPlot : 1.0.4 r1121</li>
+    <li>jQuery : 2.0.1</li>
+    <li>jQuery UI : 1.10.2</li>
+    <li>jquery-ui-timepicker-addon : 1.3</li>
+    <li>dygraphs JavaScript Visualization Library : b839102723 (commit ID)</li>
+    <li>jqPlot : 1.0.8 r1250</li>
     <li>tablesorter : 2.0.3</li>
-    <li>Superfish : 1.4.8</li>
-    <li>Smarty : 3.1.12</li>
+    <li>Superfish : 1.7.2</li>
+    <li>Smarty : 3.1.13</li>
   </ul></dd>
   <dt>Resolutino</dt>
   <dd>1024x786(SXGA) or higher</dd>
 </dl>
 
 <h3 id="pg_stats_reporter_install">How to install pg_stats_reporter?</h3>
-<p>There are dependency packages in pg_stats_reporter. You should install them. Example of install method is under following.</p>
+<p>@依存するパッケージを yum コマンド、または rpm コマンドでインストールします。以下はインストール例です。</p>
 <pre>
 $ su
-# rpm -ivh httpd-2.2.15-15.el6_2.1.x86_64.rpm
-# rpm -ivh php-5.3.3-3.el6_2.8.x86_64.rpm
-# rpm -ivh php-common-5.3.3-3.el6_2.8.x86_64.rpm
-# rpm -ivh php-pgsql-5.3.3-3.el6_2.8.x86_64.rpm
-# rpm -ivh php-intl-5.3.3-3.el6_2.8.x86_64.rpm
-# rpm -ivh pg_stats_reporter-1.0.0-1.el6.noarch.rpm
+/* @yum コマンドを使用したインストール例 */
+# yum install httpd php php-pgsql php-intl php-cli
+
+/* @rpm コマンドを使用したインストール例 */
+# rpm -ivh httpd-2.2.15-15.el6_2.1.x86_64.rpm \
+           php-common-5.3.3-3.el6_2.8.x86_64.rpm \
+           php-5.3.3-3.el6_2.8.x86_64.rpm \
+           php-pdo-5.3.3-22.el6.x86_64.rpm \
+           php-pgsql-5.3.3-3.el6_2.8.x86_64.rpm \
+           php-intl-5.3.3-3.el6_2.8.x86_64.rpm \
+           php-cli-5.3.3-22.el6.x86_64.rpm
+
+※@php-intl のRPMファイルは、インストールディスク2枚目の以下のパスに格納されています。
+  @Packages/php-intl-5.3.3-22.el6.x86_64.rpm
+※@php-intl が未インストールの状態でも動作しますが、表示言語の自動設定が機能しなくなります。
+</pre>
+<p>@rpm コマンドで pg_stats_reporter をインストールします。以下はインストール例です。</p>
+<pre>
+# rpm -ivh pg_stats_reporter-2.0.0-1.el6.noarch.rpm
+</pre>
+<p>@以下はコマンドライン機能のみを使用する場合のインストール例です。
+<pre>
+$ su
+/* @yum コマンドを使用したインストール例 */
+# yum install php-pgsql php-intl php-cli
+
+/* @rpm コマンドを使用したインストール例 */
+# rpm -ivh php-common-5.3.3-3.el6_2.8.x86_64.rpm \
+           php-pdo-5.3.3-22.el6.x86_64.rpm \
+           php-pgsql-5.3.3-3.el6_2.8.x86_64.rpm \
+           php-intl-5.3.3-3.el6_2.8.x86_64.rpm \
+           php-cli-5.3.3-22.el6.x86_64.rpm
+
+※@php-intl のRPMファイルは、インストールディスク2枚目の以下のパスに格納されています。
+  @Packages/php-intl-5.3.3-22.el6.x86_64.rpm
+※@php-intl が未インストールの状態でも動作しますが、表示言語の自動設定が機能しなくなります。
+</pre>
+<p>@rpm コマンドで pg_stats_reporter をインストールします。以下はインストール例です。</p>
+<pre>
+# rpm -ivh --nodeps pg_stats_reporter-2.0.0-1.el6.noarch.rpm
 </pre>
 
 <h3 id="initialize">Initial Setting</h3>
-<h4>How to set the configure file?</h4>
-<p>There is sample file in pg_stats_reporter package.
-Details of setting parameter is <a href="#configuration">following</a>.<br/>
-You set configuration in sample file for your environment.
-Setting example is under following.
+<h4>@リポジトリDBの設定</h4>
+<p>@設定ファイルを編集し、リポジトリDBへの接続情報を設定します。設定ファイルの説明は<a href="#configuration">こちら</a>を参照してください。<br/>
+設定例は<a href="files/pg_stats_reporter.ini.sample">こちら</a>を参照してください。</p>
 
-</p>
-<pre>
-# cd /var/www/pg_stats_reporter
-# vi pg_stats_reporter.ini
------ Set your repository database -----
-host = <I>localhost</I>
-port = <I>5432</I>
-dbname = <I>postgres</I>
-username = <I>postgres</I>
-password =
-</pre>
-In here, repository database is pg_statsinfo's database.
-
-
-<h3 id="execute_test">Install check</h3>
-<p>Start HTTP server and browse pg_stats_reporter's web page from web browser(See <a href="#execute">Usage</a> in this document.)</p>
+<h4>@HTTP Serverの起動</h4>
+<p>@Webレポート機能を使用する場合は、HTTP Server を起動します。</p>
 <pre>
 # service httpd start
 </pre>
+
+<h3 id="execute_test">Install check</h3>
+<h4>@Webレポート機能の動作確認</h4>
+<p>@<a href="#execute_server">Webレポート機能の操作方法</a>の手順に従い HTTP Server にアクセスし、レポート画面が表示されることを確認してください。</p>
+
+<h4>@コマンドライン機能の動作確認</h4>
+<p>@<a href="#execute_command">コマンドライン機能の操作方法</a>の手順に従いスナップショット一覧表示を実行し、スナップショット一覧が表示されることを確認してください。</p>
 
 <h2 id="execute">Usage</h2>
 
 <p>Pg_stats_reporter is visual and graphical report software for pg_statsinfo's statistical snapshot database.<br/>
 You prepare installing pg_statsinfo before you use pg_stats_reporter.</p>
 
-<h3>create reports</h3>
+<h3 id="execute_server">@Webレポート機能の操作方法</h3>
 <p>You access pg_stats_reporter.php by web browser.<br/>
 When you access your report which is created by pg_stats_reporter by web browser,It is an example of URL as follows. 
 </p>
 <pre>
-http://localhost/pg_stats_reporter/pg_stats_reporter.php
+http://&lt;<I>hostname</I>&gt;/pg_stats_reporter/pg_stats_reporter.php
 </pre>
-<p>When first your access, pg_stats_reporter.php display report in default settings as follows.<ul>
-<li>selected repository database: This item is head of configuration file.</li>
-<li>start of report term : 0 o'clock two days ago</li>
-<li>end of report term :time now</li>
-</ul>
-<a href="#report_sample">This example</a> is pg_stats_reporter to "January 9th 10:52:21 of 2013" when executing it.
+<p>@上記のURLにアクセスすると、初期状態のレポートを表示します。</p>
+<br/>
 
-<h3>Detail usage</h3>
+<h4>Detail usage</h4>
 <p>Detail usage on display is under following.</p>
-<h4>report display</h4>
+<h5>report display</h5>
 <img id="report_sample" src="image/pg_stats_reporter.png" width="800px;"/>
 <br/>
 <dl>
@@ -169,27 +205,162 @@ http://localhost/pg_stats_reporter/pg_stats_reporter.php
 <dt>⑪ : Cancel button</dt>
 <dd>Cancel for creating report</dd>
 </dl>
-<br/>
+
+<h3 id="execute_command">@コマンドライン機能の操作方法</h3>
+
+<h4>@レポート作成</h4>
+<pre>$ pg_stats_reporter [-R DBNAME] [-i INSTANCEID] [-a] [-O DIRECTORY] [-b SNAPID] [-e SNAPID] [-B DATE] [-E DATE]</pre>
+
+<p>@以下にコマンド例を示します。<br/>
+コマンド例では、リポジトリDB名 "sample" のリポジトリDBのスナップショットを元に、以下の条件のレポートを出力します。</p>
+<ul>
+  <li>@レポート範囲は最初のスナップショットから最後のスナップショット</li>
+  <li>@レポート対象は全ての監視対象インスタンス</li>
+  <li>@レポートの出力先はカレントディレクトリ</li>
+</ul>
+
+<p>@なお、レポートの出力先ディレクトリにはHTML形式のレポートファイルの他に、CSSおよびJavaScriptが作成されます。</p>
+
+<pre>$ pg_stats_reporter -R sample</pre>
+
+<dl>
+  <dt>-R, --repositorydb=DBNAME</dt>
+  <dd>@レポート対象の監視対象インスタンスのスナップショットを保持するリポジトリDBの名前を指定します。</dd>
+  <dd>@本オプションは省略可能です。省略時は設定ファイルの先頭のリポジトリDBを使用します。</dd>
+
+  <dt>-i, --instid=INSTANCEID=DBNAME</dt>
+  <dd>@レポート対象とする監視対象インスタンスの識別子を指定します。</dd>
+  <dd>@本オプションは省略可能です。省略時は全ての監視対象インスタンスがレポート対象です。</dd>
+
+  <dt>-a, --all</dt>
+  <dd>@本オプションが指定された場合は、強制的に全てのレポート項目を表示します。</dd>
+
+  <dt>-O, --outputdir=DIRECTORY</dt>
+  <dd>@レポートの出力先ディレクトリを指定します。</dd>
+  <dd>@本オプションは省略可能です。省略時はカレントディレクトリに出力します。</dd>
+  <dd>@指定されたディレクトリが存在しない場合は作成します。</dd>
+
+  <dt>-b, --beginid=SNAPID</dt>
+  <dd>@レポート範囲の開始点とするスナップショットをスナップショットIDで指定します。</dd>
+  <dd>@本オプションは省略可能です。省略時は最初のスナップショットを開始点とします。(*1) (*2)</dd>
+
+  <dt>-e, --endid=SNAPID</dt>
+  <dd>@レポート範囲の終了点とするスナップショットをスナップショットIDで指定します。</dd>
+  <dd>@本オプションは省略可能です。省略時は最後のスナップショットを終了点とします。(*1) (*2)</dd>
+
+  <dt>-B, --begindate=DATE</dt>
+  <dd>@レポート範囲の開始点とするスナップショットを日時 (YYYY-MM-DD HH:MI:SS形式) で指定します。</dd>
+  <dd>@本オプションは省略可能です。省略時は最初のスナップショットを開始点とします。(*1) (*2)</dd>
+
+  <dt>-E, --enddate=DATE</dt>
+  <dd>@レポート範囲の終了点とするスナップショットを日時 (YYYY-MM-DD HH:MI:SS形式) で指定します。</dd>
+  <dd>@本オプションは省略可能です。省略時は最後のスナップショットを終了点とします。(*1) (*2)</dd>
+</dl>
+
+<p>
+*1: @スナップショットID指定と日時指定を混在して指定することはできません。<br/>
+*2: @レポート範囲の開始点と終了点の両方が省略された場合は、前日の午前0時から現在日時の範囲とします。
+</p>
+
+<h4>@スナップショット一覧表示</h4>
+<pre>$ pg_stats_reporter -l [-R DBNAME] [-i INSTANCEID]</pre>
+
+<p>@以下にコマンド例を示します。<br/>
+コマンド例では、リポジトリDB名 "sample" のリポジトリDBに蓄積されているスナップショットの一覧を表示します。</p>
+<pre>$ pg_stats_reporter -l -R sample</pre>
+
+<dl>
+  <dt>-l, --list</dt>
+  <dd>@本オプションが指定された場合はスナップショット一覧を表示します。</dd>
+  
+  <dt>-R, --repositorydb=DBNAME</dt>
+  <dd>@スナップショット一覧を表示するリポジトリDBの名前を指定します。</dd>
+  <dd>@本オプションは省略可能です。省略時は設定ファイルの先頭のリポジトリDBを使用します。</dd>
+
+  <dt>-i, --instid=INSTANCEID</dt>
+  <dd>@スナップショット一覧を表示する監視対象インスタンスの識別子を指定します。</dd>
+  <dd>@本オプションは省略可能です。省略時は全ての監視対象インスタンスのスナップショット一覧を表示します。</dd>
+</dl>
+
+<h4>@監視対象インスタンス一覧表示</h4>
+<pre>$ pg_stats_reporter -L [-R DBNAME]</pre>
+
+<p>@以下にコマンド例を示します。<br/>
+コマンド例では、リポジトリDB名 "sample" のリポジトリDBに登録されている監視対象インスタンスの一覧を表示します。</p>
+<pre>$ pg_stats_reporter -L -R sample</pre>
+
+<dl>
+  <dt>-L, --dblist</dt>
+  <dd>@本オプションが指定された場合は監視対象インスタンス一覧を表示します。</dd>
+
+  <dt>-R, --repositorydb=DBNAME</dt>
+  <dd>@監視対象インスタンス一覧を表示するリポジトリDBの名前を指定します。</dd>
+  <dd>@本オプションは省略可能です。省略時は設定ファイルの先頭のリポジトリDBを使用します。</dd>
+</dl>
+
+<h4>@スナップショットサイズ表示</h4>
+<pre>$ pg_stats_reporter -s [-R DBNAME]</pre>
+
+<p>@以下にコマンド例を示します。<br/>
+コマンド例では、リポジトリDB名 "sample" のリポジトリDBに蓄積されているスナップショットのサイズを表示します。</p>
+<pre>$ pg_stats_reporter -s -R sample</pre>
+
+<dl>
+  <dt>-s, --size</dt>
+  <dd>@本オプションが指定された場合はスナップショットサイズを表示します。</dd>
+
+  <dt>-R, --repositorydb=DBNAME</dt>
+  <dd>@スナップショットサイズを表示するリポジトリDBの名前を指定します。</dd>
+  <dd>@本オプションは省略可能です。省略時は設定ファイルの先頭のリポジトリDBを使用します。</dd>
+</dl>
+
+<h4>@インデックス作成</h4>
+<pre>$ pg_stats_reporter --index [-O DIRECTORY]</pre>
+
+<p>@以下にコマンド例を示します。<br/>
+コマンド例では、ディレクトリ名 "/var/report" 直下に存在するレポートのインデックスを作成します。</p>
+<pre>$ pg_stats_reporter --index -O /var/report</pre>
+
+<dl>
+  <dt>--index</dt>
+  <dd>@本オプションが指定された場合はレポートのインデックスを作成します。</dd>
+
+  <dt>-O, --outputdir=DIRECTORY</dt>
+  <dd>@レポートの出力先ディレクトリを指定します。</dd>
+  <dd>@本オプションは省略可能です。省略時はカレントディレクトリが適用されます。</dd>
+</dl>
 
 <h2 id="uninstall">Uninstall</h2>
 <p>If you use rpm package, please command under following.<br/>If you use source package, please see INSTALL.en for details.</p>
 <pre>
 $ su
-# rpm -e pg_stats_reporter-1.0.0-1.el6.noarch
+# rpm -e pg_stats_reporter-2.0.0-1.el6.noarch
 </pre>
 <br/>
 
 <h2 id="configuration">Configuration</h2>
-<p>pg_stats_reporter.ini is setting file which is in database connections and report display settings. Configuration item is under following.<br/>
-If you want to use multiple repository database, you set multi [repository database].<br/>
-Please see <a href="files/pg_stats_reporter.ini.sample">here</a> for setting details.</p>
+<p>@設定ファイルは、"/etc" に "pg_stats_reporter.ini" という名称で配置されています。<br/>
+設定ファイルの内容は、グローバル設定とリポジトリDB設定の2種類のセクションで構成されています。</p>
+
+<h3>@グローバル設定</h3>
+<p>@グローバル設定は、セクション名 "[global_setting]" のセクションの設定項目です。<br/>
+グローバル設定の設定項目は、RPMパッケージからインストールした場合は変更する必要はありません。<br/>
+ソースセットからインストールした場合のみ変更してください。詳細はソースセットに同梱されている INSTALL.ja ファイルを参照してください。</p>
+
+<h3>@リポジトリDB設定</h3>
+<p>@グローバル設定以外のセクションがリポジトリDB設定のセクションとなり、1個のリポジトリDBにつき1個のセクションで設定項目を記述します。<br/>
+この時、リポジトリDB設定のセクション名がリポジトリDB名となります。</p>
+
+<p>@リポジトリDB設定のセクションの設定項目を以下に示します。<br/>
+記述例は<a href="files/pg_stats_reporter.ini.sample">こちら</a>を参照してください。</p>
 
 <table>
 <thead>
   <tr>
     <th>parameter</th>
     <th>kind of parameter</th>
-    <th>default setting</th>
+    <th>@項目省略時</th>
+    <th>@設定値省略時</th>
     <th width="150">example</th>
     <th>description</th>
   </tr>
@@ -199,6 +370,7 @@ Please see <a href="files/pg_stats_reporter.ini.sample">here</a> for setting det
     <td>[<I>repository database</I>]</td>
     <td>chararacter</td>
     <td>not omission</td>
+    <td>not omission</td>
     <td>[repository1]</td>
     <td>Repository name at left-side menu in pg_stats_reporter.</td>
   </tr>
@@ -206,7 +378,8 @@ Please see <a href="files/pg_stats_reporter.ini.sample">here</a> for setting det
   <tr>
     <td>host</td>
     <td>host name or IP address</td>
-    <td>*1</td>
+    <td>(*1)</td>
+    <td>@空文字列</td>
     <td>host = localhost</td>
     <td>Host name or IP address of repostory database.</td>
   </tr>
@@ -214,7 +387,8 @@ Please see <a href="files/pg_stats_reporter.ini.sample">here</a> for setting det
   <tr>
     <td>port</td>
     <td>port number</td>
-    <td>*1</td>
+    <td>(*1)</td>
+    <td>@空文字列</td>
     <td>port = 5432</td>
     <td>Port number of repository datanase cluster.</td>
   </tr>
@@ -222,7 +396,8 @@ Please see <a href="files/pg_stats_reporter.ini.sample">here</a> for setting det
   <tr>
     <td>dbname</td>
     <td>character</td>
-    <td>*1</td>
+    <td>(*1)</td>
+    <td>(*1)</td>
     <td>dbname = postgres</td>
     <td>repository database name.Please set repository database in pg_statsinfo(Defalut repository database is 'postgres'.).</td>
   </tr>
@@ -230,7 +405,8 @@ Please see <a href="files/pg_stats_reporter.ini.sample">here</a> for setting det
   <tr>
     <td>username</td>
     <td>char</td>
-    <td>*1</td>
+    <td>(*1)</td>
+    <td>(*1)</td>
     <td>username = postgres</td>
     <td>connect user for repository database. Plsese set user which has read permission in repository database.</td>
   </tr>
@@ -238,6 +414,7 @@ Please see <a href="files/pg_stats_reporter.ini.sample">here</a> for setting det
   <tr>
     <td>password</td>
     <td>char</td>
+    <td>no password</td>
     <td>no password</td>
     <td>password = hogehoge</td>
     <td>connect password for repository database. If you use .pgpass, do not set this parameter.</li></td>
@@ -247,24 +424,35 @@ Please see <a href="files/pg_stats_reporter.ini.sample">here</a> for setting det
     <td>language</td>
     <td>auto/ja/en</td>
     <td>auto</td>
+    <td>en</td>
     <td>language = ja</td>
-    <td>language in report.If you set auto, we use browser information for language setting.</td>
+    <td>language in report.If you set auto, we use browser information for language setting. (*2)</td>
   </tr>
 
   <tr>
-    <td>report item settings<br/>(summary ? profiles)</td>
+    <td>report item settings<br/>(summary ~ profiles)</td>
     <td>true/false</td>
     <td>true</td>
+    <td>false</td>
     <td>summary = true</td>
     <td>If you set true, this report item is created.</td>
   </tr>
 </tbody>
 </table>
 <br/>
-<p>*1: If you do not set this parameter, please see <a href="http://www.postgresql.jp/document/9.2/html/libpq-connect.html#LIBPQ-PARAMKEYWORDS">PostgreSQL document</a>.</p>
+<p>
+(*1): If you do not set this parameter, please see <a href="http://www.postgresql.jp/document/9.2/html/libpq-connect.html#LIBPQ-PARAMKEYWORDS">PostgreSQL document</a>.<br/>
+(*2): @php-intl が未インストールの状態で auto が設定されている場合は強制的に英語で表示されます。
+</p>
+
 <h2 id="restrictions">Caution and Restriction</h2>
+<p>@pg_stats_reporter を使用する際には、以下の使用上の注意と制約があります。</p>
 <ul>
   <li>In some distribution, HTTP Server's document root home directory is /home/user. You should confirm that .pgpass is not visible from web browser and check file's parmission.</li>
+  <li>@PHP の設定ファイル (php.ini) にデフォルトのタイムゾーンが設定されていない場合、実行環境のロケールによっては正しく動作しない可能性があります。php.ini にデフォルトのタイムゾーン (date.timezone) を設定することを推奨します。</li>
+  <li>@データサイズなどを示す一部の項目の値は、単位換算での数値の切り捨てにより微小な値が存在するにもかかわらずゼロと表示される可能性があります。</li>
+  <li>@Linux環境では "/" が、Windowsのエクスプローラでは "\ / : * ? < > |" の8種類の文字がファイル名の制約となるため、セクション名で使用できません。そのため、Linux と Windows の両方の環境にてpg_stats_reporter を使用する場合は正常に動作しない可能性があります。</li>
+  <li>@グローバルな設定項目用のセクション名として利用しているため、リポジトリDB設定のセクション名として "global_setting" を設定しないでください。</li>
 </ul>
 
 <h2 id="faq">FAQ</h2>
@@ -279,6 +467,25 @@ Please see <a href="files/pg_stats_reporter.ini.sample">here</a> for setting det
 
 <h4>Q3. I use Internet Explorer browser. But I think that createing report and display may not correctly.</h4>
 <dl>A3. Internext Explore is not recommended browser. We recommend Firefox.</dl>
+
+<h4>@Q4. Apache HTTP Server の worker モードには対応していますか？</h4>
+<dl>@A4. PHP の仕様のため、worker モードでの使用は推奨されません。prefork モードで使用するか、コマンドライン機能を使用してください。</dl>
+
+<h2 id="change">@pg_stats_reporter 1.0 からの変更点</h2>
+<p>@pg_stats_reporter 1.0 からの変更点は以下の通りです。</p>
+<ul>
+  <li>@コマンドライン(CUIでの操作)機能を追加</li>
+  <ul>
+    <li>@cron を使用することで定期的なレポートの作成が可能</li>
+    <li>@コマンドライン機能でレポートを作成するとレポート一覧が同時に作成されます</li>
+  </ul>
+  <li>@レプリケーション遅延のレポート項目を追加</li>
+  <li>@各グラフにチェックポイント実行期間をハイライト表示するボタンを追加</li>
+  <li>@レポート項目 "Setting Parameters" に、パラメータの単位の情報を追加</li>
+  <li>@グラフを拡大／縮小する時の動作がアニメーションになるように変更</li>
+  <li>@php-intl が未インストールの状態でも動作するように変更<br/>(php-intl が未インストールの場合は表示言語の自動設定が機能しなくなります)</li>
+</ul>
+<br/>
 
 <h2 id="seealso">See also</h2>
 <a href="http://pgstatsinfo.projects.postgresql.org/pg_statsinfo-ja.html">pg_statsinfo</a> 
