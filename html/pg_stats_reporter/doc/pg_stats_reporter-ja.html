@@ -44,11 +44,7 @@
 
 <h2 id="synopsis">機能概要</h2>
 <p>pg_stats_reporter は pg_statsinfo が統計情報(以降、スナップショットと呼びます)を蓄積しているデータベース(以降、リポジトリDBと呼びます)からレポート作成に必要な情報を取得し、HTML形式のグラフィカルなレポートを作成します。</p>
-<p>pg_stats_reporter を利用する際には、以下の機能モードがあります。</p>
-<ul>
-  <li>Webレポート機能</li>
-  <li>コマンドライン機能</li>
-</ul>
+<p>pg_stats_reporter を利用する際には、以下の２つのレポート作成機能があります。</p>
 
 <h3 id="synopsis_server">Webレポート機能</h3>
 <p>Webレポート機能では、Apache HTTP Server と連携して pg_stats_reporter が動作します。<br/>
@@ -56,7 +52,7 @@ WEBサーバにブラウザを利用してアクセスすることで、ブラ�
 
 <h3 id="synopsis_command">コマンドライン機能</h3>
 <p>コマンドライン機能では、端末上でのコマンド実行によりレポートを作成することができます。<br/>
-コマンドライン機能の利用には Apache HTTP Server を必要としません。</p>
+コマンドライン機能の利用には Apache HTTP Server を必要としません。何らかの理由でApache HTTP Serverを実行出来ない場合や、crond等で一定期間のレポートを日々作成したい場合に特にお勧めします。</p>
 
 <h2 id="install">インストール</h2>
 <p>pg_stats_reporter のインストールについて説明します。インストールパッケージは<a href="http://pgfoundry.org/frs/?group_id=1000422">こちら</a>からダウンロードしてください。<br/>ソースセットからインストールする場合は、ソースセットに同梱されている INSTALL.ja ファイルを参照してください。</p>
@@ -431,7 +427,7 @@ $ su
   </tr>
 
   <tr>
-    <td>表示項目<br/>(summary 〜 profiles)</td>
+    <td>表示項目<br/>(summary ? profiles)</td>
     <td>true/false</td>
     <td>true</td>
     <td>false</td>
