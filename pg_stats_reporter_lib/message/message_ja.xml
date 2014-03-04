@@ -1,8 +1,8 @@
 <document>
-<!-- Copyright (c) 2012,2013, NIPPON TELEGRAPH AND TELEPHONE CORPORATION -->
+<!-- Copyright (c) 2012,2014, NIPPON TELEGRAPH AND TELEPHONE CORPORATION -->
 
 <help>
-<div id="summary_dialog"
+<div id="summary_dialog" class="help_dialog"
   title="How to see a Summary table">
 <h4>Summary の見方</h4>
 <ul>
@@ -19,7 +19,7 @@
 </ul>
 </div>
 
-<div id="database_statistics_dialog"
+<div id="database_statistics_dialog" class="help_dialog"
   title="How to see a Database Statistics table">
 <h4>Database Statistics の見方</h4>
 <ul>
@@ -36,7 +36,7 @@
 <ul>※単位換算での数値の切り捨てにより微小な値は0と表示される場合があります</ul>
 </div>
 
-<div id="transaction_statistics_dialog"
+<div id="transaction_statistics_dialog" class="help_dialog"
   title="How to see a Transaction Statistics graph">
 <h4>Transaction Statistics の見方</h4>
 <ul>
@@ -47,7 +47,7 @@
 </ul>
 </div>
 
-<div id="database_size_dialog"
+<div id="database_size_dialog" class="help_dialog"
   title="How to see a Database Size">
 <h4>Database Size の見方</h4>
 <ul>
@@ -57,7 +57,7 @@
 </ul>
 </div>
 
-<div id="recovery_conflicts_dialog"
+<div id="recovery_conflicts_dialog" class="help_dialog"
   title="How to see a Recovery Conflicts table">
 <h4>Recovery Conflicts の見方</h4>
 <ul>
@@ -70,7 +70,7 @@
 </ul>
 </div>
 
-<div id="wal_statistics_dialog"
+<div id="wal_statistics_dialog" class="help_dialog"
   title="How to see a WAL Statistics graph">
 <h4>WAL Statistics(トータル) の見方</h4>
 <ul>
@@ -87,7 +87,7 @@
 </ul>
 </div>
 
-<div id="instance_processes_ratio_dialog"
+<div id="instance_processes_ratio_dialog" class="help_dialog"
   title="How to see a Instance Processes Ratio table">
 <h4>Instance Processes Ratio の見方</h4>
 <ul>
@@ -98,7 +98,7 @@
 </ul>
 </div>
 
-<div id="instance_processes_dialog"
+<div id="instance_processes_dialog" class="help_dialog"
   title="How to see a Instance Processes graph">
 <h4>Instance Processes の見方</h4>
 <ul>
@@ -111,7 +111,7 @@
 </ul>
 </div>
 
-<div id="cpu_usage_dialog"
+<div id="cpu_usage_dialog" class="help_dialog"
   title="How to see a CPU Usage graph">
 <h4>CPU Usage の見方</h4>
 <ul>
@@ -124,7 +124,7 @@
 </ul>
 </div>
 
-<div id="load_average_dialog"
+<div id="load_average_dialog" class="help_dialog"
   title="How to see a Load Average graph">
 <h4>Load Average の見方</h4>
 <ul>
@@ -136,7 +136,7 @@
 </ul>
 </div>
 
-<div id="io_usage_dialog"
+<div id="io_usage_dialog" class="help_dialog"
   title="How to see a I/O Usage table/graph">
 <h4>I/O Usage の見方</h4>
 <ul>
@@ -166,7 +166,7 @@
 </ul>
 </div>
 
-<div id="memory_usage_dialog"
+<div id="memory_usage_dialog" class="help_dialog"
   title="How to see a Memory Usage graph">
 <h4>Memory Usage の見方</h4>
 <ul>
@@ -180,7 +180,7 @@
 </ul>
 </div>
 
-<div id="disk_usage_per_tablespace_dialog"
+<div id="disk_usage_per_tablespace_dialog" class="help_dialog"
   title="How to see a Disk Usage per Tablespace table">
 <h4>Disk Usage per Tablespace の見方</h4>
 <ul>
@@ -194,7 +194,7 @@
 <ul>※単位換算での数値の切り捨てにより微小な値は0と表示される場合があります</ul>
 </div>
 
-<div id="disk_usage_per_table_dialog"
+<div id="disk_usage_per_table_dialog" class="help_dialog"
   title="How to see a Disk Usage per Table table/graph">
 <h4>Disk Usage per Table の見方</h4>
 <ul>
@@ -219,7 +219,7 @@
 </ul>
 </div>
 
-<div id="heavily_updated_tables_dialog"
+<div id="heavily_updated_tables_dialog" class="help_dialog"
   title="How to see a Heavily Updated Tables table">
 <h4>Heavily Updated Tables の見方</h4>
 <ul>
@@ -234,7 +234,7 @@
 </ul>
 </div>
 
-<div id="heavily_accessed_tables_dialog"
+<div id="heavily_accessed_tables_dialog" class="help_dialog"
   title="How to see a Heavily Accessed Tables table">
 <h4>Heavily Accessed Tables の見方</h4>
 <ul>
@@ -248,7 +248,7 @@
 </ul>
 </div>
 
-<div id="low_density_tables_dialog"
+<div id="low_density_tables_dialog" class="help_dialog"
   title="How to see a Low Density Tables table">
 <h4>Low Density Tables の見方</h4>
 <ul>
@@ -262,7 +262,7 @@
 </ul>
 </div>
 
-<div id="fragmented_tables_dialog"
+<div id="fragmented_tables_dialog" class="help_dialog"
   title="How to see a Fragmented Tables table">
 <h4>Fragmented Tables の見方</h4>
 <ul>
@@ -274,7 +274,7 @@
 </ul>
 </div>
 
-<div id="functions_dialog"
+<div id="functions_dialog" class="help_dialog"
   title="How to see a Functions table">
 <h4>Functions の見方</h4>
 <ul>
@@ -288,7 +288,7 @@
 </ul>
 </div>
 
-<div id="statements_dialog"
+<div id="statements_dialog" class="help_dialog"
   title="How to see a Statements table">
 <h4>Statements の見方</h4>
 <ul>
@@ -301,7 +301,7 @@
 </ul>
 </div>
 
-<div id="long_transactions_dialog"
+<div id="long_transactions_dialog" class="help_dialog"
   title="How to see a Long Transactions table">
 <h4>Long Transactions の見方</h4>
 <ul>
@@ -313,7 +313,7 @@
 </ul>
 </div>
 
-<div id="lock_conflicts_dialog"
+<div id="lock_conflicts_dialog" class="help_dialog"
   title="How to see a Lock Conflicts table">
 <h4>Lock Conflicts の見方</h4>
 <ul>
@@ -329,7 +329,7 @@
 </ul>
 </div>
 
-<div id="checkpoint_activity_dialog"
+<div id="checkpoint_activity_dialog" class="help_dialog"
   title="How to see a Checkpoint Activity table">
 <h4>Checkpoint Activity の見方</h4>
 <ul>
@@ -343,7 +343,7 @@
 </ul>
 </div>
 
-<div id="basic_statistics_dialog"
+<div id="basic_statistics_dialog" class="help_dialog"
   title="How to see a Basic Statistics (Average) table">
 <h4>Basic Statistics (Average) の見方</h4>
 <ul>
@@ -359,7 +359,7 @@
 </ul>
 </div>
 
-<div id="io_statistics_dialog"
+<div id="io_statistics_dialog" class="help_dialog"
   title="How to see a I/O Statistics (Average) table">
 <h4>I/O Statistics (Average) の見方</h4>
 <ul>
@@ -374,7 +374,7 @@
 </ul>
 </div>
 
-<div id="current_replication_status_dialog"
+<div id="current_replication_status_dialog" class="help_dialog"
   title="How to see a Current Replication Status table">
 <h4>Current Replication Status の見方</h4>
 <ul>
@@ -395,7 +395,7 @@
 </ul>
 </div>
 
-<div id="replication_delays_dialog"
+<div id="replication_delays_dialog" class="help_dialog"
   title="How to see a Replication Delays table">
 <h4>Replication Delays の見方</h4>
 <ul>
@@ -405,19 +405,19 @@
 <li>[アドレス]:[ポート番号] replay_delay_size : スタンバイのリカバリ遅延量 (Bytes)<br/>※同期モードのスタンバイには先頭に[sync]が表示されます</li></ul>
 </div>
 
-<div id="database_dialog"
+<div id="database_dialog" class="help_dialog"
   title="How to see a Database table">
 <h4>Database の見方</h4>
 情報をスナップショットで取得していないため表示はありません。
 </div>
 
-<div id="schema_dialog"
+<div id="schema_dialog" class="help_dialog"
   title="How to see a Schema table">
 <h4>Schema の見方</h4>
 情報をスナップショットで取得していないため表示はありません。
 </div>
 
-<div id="table_dialog"
+<div id="table_dialog" class="help_dialog"
   title="How to see a Table table">
 <h4>Table の見方</h4>
 <ul>
@@ -434,7 +434,7 @@
 <ul>※単位換算での数値の切り捨てにより微小な値は0と表示される場合があります</ul>
 </div>
 
-<div id="index_dialog"
+<div id="index_dialog" class="help_dialog"
   title="How to see a Index table">
 <h4>Index の見方</h4>
 <ul>
@@ -453,31 +453,31 @@
 <ul>※単位換算での数値の切り捨てにより微小な値は0と表示される場合があります</ul>
 </div>
 
-<div id="view_dialog"
+<div id="view_dialog" class="help_dialog"
   title="How to see a View table">
 <h4>View の見方</h4>
 情報をスナップショットで取得していないため表示はありません。
 </div>
 
-<div id="sequence_dialog"
+<div id="sequence_dialog" class="help_dialog"
   title="How to see a Sequence table">
 <h4>Sequence の見方</h4>
 情報をスナップショットで取得していないため表示はありません。
 </div>
 
-<div id="trigger_dialog"
+<div id="trigger_dialog" class="help_dialog"
   title="How to see a Trigger table">
 <h4>Trigger の見方</h4>
 情報をスナップショットで取得していないため表示はありません。
 </div>
 
-<div id="role_dialog"
+<div id="role_dialog" class="help_dialog"
   title="How to see a Role table">
 <h4>Role の見方</h4>
 情報をスナップショットで取得していないため表示はありません。
 </div>
 
-<div id="parameter_dialog"
+<div id="parameter_dialog" class="help_dialog"
   title="How to see a Parameter table">
 <h4>Parameter の見方</h4>
 <ul>
@@ -488,12 +488,42 @@
 </ul>
 </div>
 
-<div id="profiles_dialog"
+<div id="profiles_dialog" class="help_dialog"
   title="How to see a Profiles table">
 <h4>Profiles の見方</h4>
 <ul>
 <li>processing : 処理名</li>
 <li>executes : 処理を実行した回数の平均値</li>
+</ul>
+</div>
+
+<div id="log_report_dialog" class="help_dialog"
+  title="How to see a Log Report table">
+<h4>Log Report の見方</h4>
+<ul>
+<li>timestamp : ログ出力日時</li>
+<li>username : ユーザ名</li>
+<li>database : データベース名</li>
+<li>pid : プロセス識別子</li>
+<li>client_addr : クライアントホスト：ポート番号</li>
+<li>session_id : セッション識別子</li>
+<li>session_line_num : セッション前行番号</li>
+<li>ps_display : コマンドタグ</li>
+<li>session_start : セッション開始日時</li>
+<li>vxid : 仮想トランザクション識別子</li>
+<li>xid : 通常トランザクション識別子</li>
+<li>elevel : エラーレベル</li>
+<li>sqlstate : SQLSTATEコード</li>
+<li>message : エラーメッセージ</li>
+<li>detail : エラーメッセージ(詳細)</li>
+<li>hint : ヒント</li>
+<li>query : エラーとなった内部的なクエリ</li>
+<li>query_pos : 内部的なクエリにおけるエラー位置の文字数</li>
+<li>context : エラーの文脈</li>
+<li>user_query : エラーとなったユーザのクエリ</li>
+<li>user_query_pos : ユーザのクエリにおけるエラー位置の文字数</li>
+<li>location : PostgreSQLソースコード上のエラー発生場所</li>
+<li>application_name : アプリケーション名</li>
 </ul>
 </div>
 </help>

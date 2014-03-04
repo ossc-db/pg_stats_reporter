@@ -1,6 +1,6 @@
 <?php
 /*
- * pg_stats_reporter
+ * log_report
  *
  * Copyright (c) 2012,2014, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
  */
@@ -9,8 +9,9 @@
 require_once "../../pg_stats_reporter_lib/module/define.php";
 require_once "../../pg_stats_reporter_lib/module/common.php";
 require_once "../../pg_stats_reporter_lib/module/make_report.php";
-require_once SMARTY_PATH."Smarty.class.php";
+require_once SMARTY_PATH . "Smarty.class.php";
 
+/* global variable */
 $help_message = array();
 $error_message = array();
 
@@ -33,11 +34,9 @@ $smarty->assign("jquery_ui_path", JQUERYUI_PATH);
 $smarty->assign("timepicker_path", TIMEPICKER_PATH);
 $smarty->assign("tablesorter_path", TABLESORTER_PATH);
 $smarty->assign("superfish_path", SUPERFISH_PATH);
-$smarty->assign("jqplot_path", JQPLOT_PATH);
-$smarty->assign("dygraphs_path", DYGRAPHS_PATH);
 
 /* 生存期間を経過したキャッシュファイルを削除 */
-$smarty->clearCache(TEMPLATE_FILE, null, null, $smarty->cache_lifetime);
+$smarty->clearCache(LOG_REPORT_TEMPLATE_FILE, null, null, $smarty->cache_lifetime);
 
 /* パラメータの取得 */
 $url_param = array();
@@ -45,6 +44,10 @@ $url_param['repodb'] = get_url_param('repodb');
 $url_param['instid'] = get_url_param('instid');
 $url_param['begin_date'] = get_url_param('begin');
 $url_param['end_date'] = get_url_param('end');
+$url_param['s_elevel'] = get_url_param('elevel');
+$url_param['s_username'] = get_url_param('username');
+$url_param['s_database'] = get_url_param('database');
+$url_param['s_message'] = get_url_param('message');
 $url_param['reload'] = get_url_param('reload');
 
 /* リロードが指定されている場合はキャッシュを削除 */
@@ -59,33 +62,12 @@ if (!load_config($config, $err_msg)) {
 	exit;
 }
 
-/* パラメータ未指定の場合、デフォルトを設定 */
-if (!$url_param['repodb']) {
-	foreach ($config as $repodb => $val_array) {
-		if (!array_key_exists('monitor', $val_array)) {
-			continue;
-		}
-		$url_param['repodb'] = $repodb;
-		break;
-	}
-}
-if (!$url_param['instid']) {
-	$monitor = $config[$url_param['repodb']]['monitor'];
-	$url_param['instid'] = key($monitor);
-}
-if (!$url_param['begin_date']) {
-	$url_param['begin_date'] = date('Y-m-d', time() - 24 * 60 * 60) . " 00:00:00";
-}
-if (!$url_param['end_date']) {
-	$url_param['end_date'] = date('Y-m-d H:i:s');
-}
-
 /* キャッシュIDの生成 */
 $cache_id = md5(serialize($url_param));
 
 /* キャッシュが存在する場合はキャッシュを表示 */
-if ($smarty->isCached(TEMPLATE_FILE, $cache_id)) {
-	$smarty->display(TEMPLATE_FILE, $cache_id);
+if ($smarty->isCached(LOG_REPORT_TEMPLATE_FILE, $cache_id)) {
+	$smarty->display(LOG_REPORT_TEMPLATE_FILE, $cache_id);
 	exit;
 }
 
@@ -104,33 +86,22 @@ if (!$conn) {
 }
 pg_set_client_encoding($conn, "UTF-8");
 
-/* トランザクション開始とロックの取得 */
-$result = pg_query("BEGIN");
-pg_free_result($result);
-$result = pg_query("LOCK TABLE statsrepo.instance IN SHARE MODE");
-if (!$result) {
-	showErrorReport($smarty, $config, $url_param, pg_last_error());
-	exit;
-}
-pg_free_result($result);
-
-/* ヘッダからコンテンツまで作成 */
-if (($html_string = makeReport($conn, $config, $url_param, $err_msg)) == null) {
-	pg_close($conn);
+/* ログレポートのHTMLデータを生成 */
+if (($html_string = makeLogReport($conn, $config, $url_param, $err_msg)) == null) {
 	showErrorReport($smarty, $config, $url_param, $err_msg);
 	exit;
 }
 
-pg_query("COMMIT");
-
 /* リポジトリDBへのコネクションを切断 */
 pg_close($conn);
 
-/* レポートをブラウザに表示 */
+/* ログレポートをブラウザに表示 */
 $smarty->assign("header_menu", $html_string['header_menu']);
 $smarty->assign("left_menu", $html_string['left_menu']);
-$smarty->assign("contents", $html_string['contents']);
-$smarty->display(TEMPLATE_FILE, $cache_id);
+$smarty->assign("page_total", $html_string['page_total']);
+$smarty->assign("help_dialog", $html_string['help_dialog']);
+$smarty->assign("message_dialog", "");
+$smarty->display(LOG_REPORT_TEMPLATE_FILE, $cache_id);
 
 exit;
 
@@ -138,12 +109,16 @@ exit;
 /* エラー画面の表示 */
 function showErrorReport($smarty, $config, $url_param, $message)
 {
+	global $help_message;
+
 	$smarty->assign("header_menu", makeHeaderMenu($config, $url_param));
 	$smarty->assign("left_menu", makeLeftMenu($config, $url_param));
-	$smarty->assign("contents", "<div id=\"message_dialog\">" . $message . "</div>\n");
+	$smarty->assign("page_total", 0);
+	$smarty->assign("help_dialog", $help_message['log_report']);
+	$smarty->assign("message_dialog", "<div id=\"message_dialog\">" . $message . "</div>\n");
 
 	$smarty->caching = 0;
-	$smarty->display(TEMPLATE_FILE);
+	$smarty->display(LOG_REPORT_TEMPLATE_FILE);
 }
 
 /* 設定ファイルのエラー画面の表示 */
@@ -151,11 +126,12 @@ function showConfigError($smarty, $config, $message)
 {
 	$smarty->assign("header_menu", makePlainHeaderMenu());
 	$smarty->assign("left_menu", makeLeftMenu($config, null));
-	$smarty->assign("contents",
-		"<div id=\"contents\">\n<div id=\"message_dialog\">" . $message . "</div></div>\n");
+	$smarty->assign("page_total", 0);
+	$smarty->assign("help_dialog", "");
+	$smarty->assign("message_dialog", "<div id=\"message_dialog\">" . $message . "</div>\n");
 
 	$smarty->caching = 0;
-	$smarty->display(TEMPLATE_FILE);
+	$smarty->display(LOG_REPORT_TEMPLATE_FILE);
 }
 
-?> 
+?>

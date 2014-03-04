@@ -2,7 +2,7 @@
 /*
  * define
  *
- * Copyright (c) 2012,2013, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
+ * Copyright (c) 2012,2014, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
  */
 
 // Image File
@@ -18,27 +18,38 @@ define("SUPERFISH_PATH", "package/superfish/superfish-1.7.2/");
 define("JQPLOT_PATH", "package/jqPlot-1.0.8r1250/");
 define("DYGRAPHS_PATH", "package/danvk-dygraphs-b839102/");
 
-// setting file
-define("CACHE_CONFIG_PATH", "../../pg_stats_reporter_lib/cache/");
-define("CACHE_CONFIG_FILENAME", "pg_stats_reporter_cache.ini");
-define("CONFIG_PATH", "/etc/");
+// pg_statsinfo's version
+define("V23", "20300");
+define("V24", "20400");
+define("V25", "20500");
+define("V30", "30000");
+
+// Smarty cache, compile, template directory
+define("CACHE_DIR", "../../pg_stats_reporter_lib/cache");
+define("COMPILE_DIR", "../../pg_stats_reporter_lib/compiled");
+define("TEMPLATE_DIR", "../../pg_stats_reporter_lib/template");
+define("CACHE_LIFETIME", 300);
+define("TEMPLATE_FILE", "pg_stats_reporter.tpl");
+define("LOG_REPORT_TEMPLATE_FILE", "log_report.tpl");
+
+// configuration file
+define("CONFIG_DIR", "/etc");
+define("CONFIG_CACHE_DIR", "../../pg_stats_reporter_lib/cache");
 define("CONFIG_FILENAME", "pg_stats_reporter.ini");
+define("CONFIG_FILE", CONFIG_DIR . "/" . CONFIG_FILENAME);
+define("CONFIG_CACHE_FILE", CONFIG_CACHE_DIR . "/" . CONFIG_FILENAME);
+define("GLOBAL_SECTION", "global_setting");
 
 // message file
 define("MESSAGE_PATH", "../../pg_stats_reporter_lib/message/");
 define("MESSAGE_PREFIX", "message_");
 define("MESSAGE_SUFFIX", ".xml");
 
-// pg_statsinfo's version
-define("V23", "20300");
-define("V24", "20400");
-define("V25", "20500");
-
-// Smarty cache, compile, template directory
-define("CACHE_DIR", "../../pg_stats_reporter_lib/cache");
-define("COMPILE_DIR", "../../pg_stats_reporter_lib/compiled");
-define("TEMPLATE_DIR", "../../pg_stats_reporter_lib/template");
-define("TEMPLATE_FILE", "pg_stats_reporter.tpl");
+// global setting list
+$global_setting_list = array(
+  'install_directory',
+  'log_page_size',
+);
 
 // DB connect and language key list
 $conf_key_list = array(
@@ -129,7 +140,8 @@ $help_list = array(
   'trigger'                   => 'trigger_dialog',
   'role'                      => 'role_dialog',
   'parameter'                 => 'parameter_dialog',
-  'profiles'                  => 'profiles_dialog'
+  'profiles'                  => 'profiles_dialog',
+  'log_report'                => 'log_report_dialog'
 );
 
 // query list
@@ -280,7 +292,14 @@ $query_string = array(
 
   // Snapshot Size
   "snapshotsize" =>
-  "SELECT i.instid, i.name, i.hostname, i.port, count(s.snapid), sum(s.snapshot_increase_size)::numeric(1000), max(s.snapid), max(s.time)::timestamp(0) FROM statsrepo.instance i LEFT JOIN statsrepo.snapshot s ON i.instid = s.instid GROUP BY i.instid, i.name, i.hostname, i.port ORDER BY i.instid"
+  "SELECT i.instid, i.name, i.hostname, i.port, count(s.snapid), sum(s.snapshot_increase_size)::numeric(1000), max(s.snapid), max(s.time)::timestamp(0) FROM statsrepo.instance i LEFT JOIN statsrepo.snapshot s ON i.instid = s.instid GROUP BY i.instid, i.name, i.hostname, i.port ORDER BY i.instid",
+
+  /* Log Report */
+  "log_size" =>
+  "SELECT count(*) FROM statsrepo.log WHERE instid = $1 AND timestamp BETWEEN $2 AND $3",
+
+  "log" =>
+  "SELECT to_char(timestamp, 'YYYY-MM-DD HH24:MI:SS.MS') AS timestamp, username, database, pid, client_addr, session_id, session_line_num, ps_display, to_char(session_start, 'YYYY-MM-DD HH24:MI:SS.MS') AS session_start, vxid, xid, elevel, sqlstate, message, detail, hint, query, query_pos, context, user_query, user_query_pos, location, application_name FROM statsrepo.log WHERE instid = $1 AND timestamp BETWEEN $2 AND $3"
 );
 
 ?>

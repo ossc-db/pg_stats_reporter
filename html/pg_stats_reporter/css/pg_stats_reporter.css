@@ -1,7 +1,7 @@
 /*
  * pg_stats_reporter: Cascading Style Sheets
  *
- * Copyright (c) 2012,2013, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
+ * Copyright (c) 2012,2014, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
  */
 body {
   font-size: 70%;
@@ -169,6 +169,13 @@ div.jquery_ui_button_max {
   float: right;
 }
 
+div.jquery_ui_button_top {
+  font-size: 18px;
+  margin-top: 9px;
+  margin-right: 8px;
+  float: right;
+}
+
 div.jquery_ui_button_info_h1 {
   font-size: 18px;
   margin-top: -41px;
@@ -222,7 +229,113 @@ table.tablesorter thead tr th {
   font-size: 120%;
 }
 
+/* log report */
+#dropdown2 li {
+  background: #CCFFCC;
+}
 
-/* tablesorter pager */
-#pager_database { margin:20px 0; }
-#pager_table_access { margin:20px 0; }
+#t-navi {
+  margin-top: 10px;
+  margin-bottom: 5px;
+  overflow: hidden;
+}
+
+#f-navi {
+  margin-top: 5px;
+  overflow: hidden;
+}
+
+#search {
+  border-bottom: 2px groove #EFEFEF;
+  margin-bottom: 3px;
+  padding-bottom: 5px;
+  clear: both;
+  overflow: hidden;
+}
+
+#search_option {
+  margin-right: 3px;
+  float: left;
+}
+
+#search_menu {
+  border: 1px solid #B6B6B6;
+  box-shadow: 0px 1px #EFEFEF;
+  padding: 4px 0px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  overflow: hidden;
+}
+
+#search_menu fieldset {
+  border: none;
+  float: left;
+}
+
+.columnSelectorWrapper {
+  margin-right: 3px;
+  float: left;
+}
+
+.columnSelector, .hidden {
+  display: none;
+}
+
+.columnSelector {
+  position: absolute;
+  top: 115px;
+  padding: 10px;
+  background: #fff;
+  border: #99bfe6 1px solid;
+  border-radius: 5px;
+  z-index : 1;
+}
+
+.columnSelector label {
+  display: block;
+}
+
+.columnSelector .disabled {
+  color: #ddd;
+}
+
+#colSelect:checked + label {
+  background: #5797d7;
+  border-color: #555;
+}
+
+#colSelect:checked ~ #columnSelector {
+  display: block;
+}
+
+#filter_reset {
+  margin-right: 3px;
+  float: left;
+}
+
+.pagerWrapper {
+  overflow: hidden;
+  float: right;
+}
+
+.pager {
+  float: right;
+}
+
+.page_info {
+  font-size: 100%;
+  margin-top: 6px;
+  margin-right: 5px;
+  padding: 3px 8px;
+  border: 1px solid #B6B6B6;
+  box-shadow: 0px 1px #EFEFEF;
+  float: left;
+}
+
+/* message dialog */
+#message_dialog {
+  font-weight: bold;
+  font-style: italic;
+  font-size: small;
+  margin: 5px 0px;
+}

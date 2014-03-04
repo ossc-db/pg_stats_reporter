@@ -1,8 +1,8 @@
 <document>
-<!-- Copyright (c) 2012,2013, NIPPON TELEGRAPH AND TELEPHONE CORPORATION -->
+<!-- Copyright (c) 2012,2014, NIPPON TELEGRAPH AND TELEPHONE CORPORATION -->
 
 <help>
-<div id="summary_dialog"
+<div id="summary_dialog" class="help_dialog"
   title="How to see a Summary table">
 <h4>How to see a Summary table.</h4>
 <ul>
@@ -19,7 +19,7 @@
 </ul>
 </div>
 
-<div id="database_statistics_dialog"
+<div id="database_statistics_dialog" class="help_dialog"
   title="How to see a Database Statistics table">
 <h4>How to see a Database Statistics table.</h4>
 <ul>
@@ -36,7 +36,7 @@
 <ul>*The small value is displayed as zero by the truncation of the number in unit conversion</ul>
 </div>
 
-<div id="transaction_statistics_dialog"
+<div id="transaction_statistics_dialog" class="help_dialog"
   title="How to see a Transaction Statistics graph">
 <h4>How to see a Transaction Statistics graph.</h4>
 <ul>
@@ -47,7 +47,7 @@
 </ul>
 </div>
 
-<div id="database_size_dialog"
+<div id="database_size_dialog" class="help_dialog"
   title="How to see a Database Size">
 <h4>How to see a Database Size table.</h4>
 <ul>
@@ -57,7 +57,7 @@
 </ul>
 </div>
 
-<div id="recovery_conflicts_dialog"
+<div id="recovery_conflicts_dialog" class="help_dialog"
   title="How to see a Recovery Conflicts table">
 <h4>How to see a Recovery Conflicts table.</h4>
 <ul>
@@ -70,7 +70,7 @@
 </ul>
 </div>
 
-<div id="wal_statistics_dialog"
+<div id="wal_statistics_dialog" class="help_dialog"
   title="How to see a WAL Statistics graph">
 <h4>How to see a WAL Statistics(total) graph.</h4>
 <ul>
@@ -87,7 +87,7 @@
 </ul>
 </div>
 
-<div id="instance_processes_ratio_dialog"
+<div id="instance_processes_ratio_dialog" class="help_dialog"
   title="How to see a Instance Processes Ratio table">
 <h4>How to see a Instance Processes Ratio table.</h4>
 <ul>
@@ -98,7 +98,7 @@
 </ul>
 </div>
 
-<div id="instance_processes_dialog"
+<div id="instance_processes_dialog" class="help_dialog"
   title="How to see a Instance Processes graph">
 <h4>How to see a Instance Processes graph.</h4>
 <ul>
@@ -111,7 +111,7 @@
 </ul>
 </div>
 
-<div id="cpu_usage_dialog"
+<div id="cpu_usage_dialog" class="help_dialog"
   title="How to see a CPU Usage graph">
 <h4>How to see a CPU Usage graph.</h4>
 <ul>
@@ -124,7 +124,7 @@
 </ul>
 </div>
 
-<div id="load_average_dialog"
+<div id="load_average_dialog" class="help_dialog"
   title="How to see a Load Average graph">
 <h4>How to see a Load Average graph.</h4>
 <ul>
@@ -136,7 +136,7 @@
 </ul>
 </div>
 
-<div id="io_usage_dialog"
+<div id="io_usage_dialog" class="help_dialog"
   title="How to see a I/O Usage table/graph">
 <h4>How to see a I/O Usage table/graph.</h4>
 <ul>
@@ -166,7 +166,7 @@
 </ul>
 </div>
 
-<div id="memory_usage_dialog"
+<div id="memory_usage_dialog" class="help_dialog"
   title="How to see a Memory Usage graph">
 <h4>How to see a memory Usage graph table.</h4>
 <ul>
@@ -180,7 +180,7 @@
 </ul>
 </div>
 
-<div id="disk_usage_per_tablespace_dialog"
+<div id="disk_usage_per_tablespace_dialog" class="help_dialog"
   title="How to see a Disk Usage per Tablespace table">
 <h4>How to see a Disk Usage per Tablespace table.</h4>
 <ul>
@@ -194,7 +194,7 @@
 <ul>*The small value is displayed as zero by the truncation of the number in unit conversion</ul>
 </div>
 
-<div id="disk_usage_per_table_dialog"
+<div id="disk_usage_per_table_dialog" class="help_dialog"
   title="How to see a Disk Usage per Table table/graph">
 <h4>How to see a Disk Usage per Table table/graph.</h4>
 <ul>
@@ -219,7 +219,7 @@
 </ul>
 </div>
 
-<div id="heavily_updated_tables_dialog"
+<div id="heavily_updated_tables_dialog" class="help_dialog"
   title="How to see a Heavily Updated Tables table">
 <h4>How to see a Heavily Updated Tables table.</h4>
 <ul>
@@ -234,7 +234,7 @@
 </ul>
 </div>
 
-<div id="heavily_accessed_tables_dialog"
+<div id="heavily_accessed_tables_dialog" class="help_dialog"
   title="How to see a Heavily Accessed Tables table">
 <h4>How to see a Heavily Accessed Tables table.</h4>
 <ul>
@@ -248,7 +248,7 @@
 </ul>
 </div>
 
-<div id="low_density_tables_dialog"
+<div id="low_density_tables_dialog" class="help_dialog"
   title="How to see a Low Density Tables table">
 <h4>How to see a Low Density Tables table.</h4>
 <ul>
@@ -262,7 +262,7 @@
 </ul>
 </div>
 
-<div id="fragmented_tables_dialog"
+<div id="fragmented_tables_dialog" class="help_dialog"
   title="How to see a Fragmented Tables table">
 <h4>How to see a Fragmented Tables table.</h4>
 <ul>
@@ -274,7 +274,7 @@
 </ul>
 </div>
 
-<div id="functions_dialog"
+<div id="functions_dialog" class="help_dialog"
   title="How to see a Functions table">
 <h4>How to see a Functions table.</h4>
 <ul>
@@ -288,7 +288,7 @@
 </ul>
 </div>
 
-<div id="statements_dialog"
+<div id="statements_dialog" class="help_dialog"
   title="How to see a Statements table">
 <h4>How to see a Statements table.</h4>
 <ul>
@@ -301,7 +301,7 @@
 </ul>
 </div>
 
-<div id="long_transactions_dialog"
+<div id="long_transactions_dialog" class="help_dialog"
   title="How to see a Long Transactions table">
 <h4>How to see a Long Transactions table.</h4>
 <ul>
@@ -313,7 +313,7 @@
 </ul>
 </div>
 
-<div id="lock_conflicts_dialog"
+<div id="lock_conflicts_dialog" class="help_dialog"
   title="How to see a Lock Activity table">
 <h4>How to see a Lock Activity table.</h4>
 <ul>
@@ -329,7 +329,7 @@
 </ul>
 </div>
 
-<div id="checkpoint_activity_dialog"
+<div id="checkpoint_activity_dialog" class="help_dialog"
   title="How to see a Checkpoint Activity table">
 <h4>How to see a Checkpoint Activity table.</h4>
 <ul>
@@ -343,7 +343,7 @@
 </ul>
 </div>
 
-<div id="basic_statistics_dialog"
+<div id="basic_statistics_dialog" class="help_dialog"
   title="How to see a Basic Statistics (Average) table">
 <h4>How to see a Basic Statistics. (Average)</h4>
 <ul>
@@ -359,7 +359,7 @@
 </ul>
 </div>
 
-<div id="io_statistics_dialog"
+<div id="io_statistics_dialog" class="help_dialog"
   title="How to see a I/O Statistics (Average) table">
 <h4>How to see a I/O Statistics. (Average)</h4>
 <ul>
@@ -374,7 +374,7 @@
 </ul>
 </div>
 
-<div id="current_replication_status_dialog"
+<div id="current_replication_status_dialog" class="help_dialog"
   title="How to see a Current Replication Status table">
 <h4>How to see a Current Replication Status table.</h4>
 <ul>
@@ -395,7 +395,7 @@
 </ul>
 </div>
 
-<div id="replication_delays_dialog"
+<div id="replication_delays_dialog" class="help_dialog"
   title="How to see a Replication Delays table">
 <h4>How to see a Replication Delays</h4>
 <ul>
@@ -405,19 +405,19 @@
 <li>[address]:[port-number] replay_delay_size : replay-delay between Master and Standby (Bytes)<br/>* Synchronous standby is indicated by [sync]</li></ul>
 </div>
 
-<div id="database_dialog"
+<div id="database_dialog" class="help_dialog"
   title="How to see a Database table">
 <h4>How to see a Database table.</h4>
 This information is not supported in this version. We will support in future version.
 </div>
 
-<div id="schema_dialog"
+<div id="schema_dialog" class="help_dialog"
   title="How to see a Schema table">
 <h4>How to see a Schema table.</h4>
 This information is not supported in this version. We will support in future version.
 </div>
 
-<div id="table_dialog"
+<div id="table_dialog" class="help_dialog"
   title="How to see a Table table">
 <h4>How to see a Table table.</h4>
 <ul>
@@ -434,7 +434,7 @@ This information is not supported in this version. We will support in future ver
 <ul>*The small value is displayed as zero by the truncation of the number in unit conversion</ul>
 </div>
 
-<div id="index_dialog"
+<div id="index_dialog" class="help_dialog"
   title="How to see a Index table">
 <h4>How to see a Index table.</h4>
 <ul>
@@ -453,31 +453,31 @@ This information is not supported in this version. We will support in future ver
 <ul>*The small value is displayed as zero by the truncation of the number in unit conversion</ul>
 </div>
 
-<div id="view_dialog"
+<div id="view_dialog" class="help_dialog"
   title="How to see a View table">
 <h4>How to seea View table.</h4>
 This information is not supported in this version. We will support in future version.
 </div>
 
-<div id="sequence_dialog"
+<div id="sequence_dialog" class="help_dialog"
   title="How to see a Sequence table">
 <h4>How to see a Sequence table.</h4>
 This information is not supported in this version. We will support in future version.
 </div>
 
-<div id="trigger_dialog"
+<div id="trigger_dialog" class="help_dialog"
   title="How to see a Trigger table">
 <h4>How to see a Trigger table.</h4>
 This information is not supported in this version. We will support in future version.
 </div>
 
-<div id="role_dialog"
+<div id="role_dialog" class="help_dialog"
   title="How to see a Role table">
 <h4>How to see a Role table.</h4>
 This information is not supported in this version. We will support in future version.
 </div>
 
-<div id="parameter_dialog"
+<div id="parameter_dialog" class="help_dialog"
   title="How to see a Parameter table">
 <h4>How to see a Parameter table.</h4>
 <ul>
@@ -488,12 +488,42 @@ This information is not supported in this version. We will support in future ver
 </ul>
 </div>
 
-<div id="profiles_dialog"
+<div id="profiles_dialog" class="help_dialog"
   title="How to see a Profiles table">
 <h4>How to see a Profiles table.</h4>
 <ul>
 <li>processing : processing name</li>
 <li>executes : average number of executing</li>
+</ul>
+</div>
+
+<div id="log_report_dialog" class="help_dialog"
+  title="How to see a Log Report table">
+<h4>How to see a Log Report table.</h4>
+<ul>
+<li>timestamp : timestamp with milliseconds</li>
+<li>username : user name</li>
+<li>database : database name</li>
+<li>pid : process ID</li>
+<li>client_addr : client host:port number</li>
+<li>session_id : session ID</li>
+<li>session_line_num : per-session line number</li>
+<li>ps_display : command tag</li>
+<li>session_start : session start time</li>
+<li>vxid : virtual transaction ID</li>
+<li>xid : regular transaction ID</li>
+<li>elevel : error severity</li>
+<li>sqlstate : SQLSTATE code</li>
+<li>message : error message</li>
+<li>detail : error message detail</li>
+<li>hint : hint</li>
+<li>query : internal query that led to the error</li>
+<li>query_pos : character count of the error position therein</li>
+<li>context : error context</li>
+<li>user_query : user query that led to the error</li>
+<li>user_query_pos : character count of the error position therein</li>
+<li>location : location of the error in the PostgreSQL source code</li>
+<li>application_name : application name</li>
 </ul>
 </div>
 </help>

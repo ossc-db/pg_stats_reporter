@@ -2,11 +2,235 @@
 /*
  * common
  *
- * Copyright (c) 2013, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
+ * Copyright (c) 2012,2014, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
  */
 
+/* load setting from configuration file */
+function load_config(&$config, &$err_msg)
+{
+	$err_msg = null;
+
+	/* read config from cache file */
+	if (is_file(CONFIG_CACHE_FILE)) {
+		$config = parse_ini_file(CONFIG_CACHE_FILE, true);
+		return true;
+	}
+
+	/* read config from configuration file */
+	$config = readConfigFile($error);
+	if (count($error) > 0) {
+		$err_msg .= "An error has occurred in pg_stats_reporter.ini<br/>\n";
+		foreach ($error as $val) {
+			$err_msg .= " - " . $val . "<br/>\n";
+		}
+		return false;
+	}
+
+	return true;
+}
+
+/* read configuration file and make cache file */
+function readConfigFile(&$err_msg)
+{
+	global $global_setting_list;
+	global $conf_key_list;
+	global $report_default;
+	global $deleteConfigCache;
+
+	$cache_contents = array();
+	$err_msg = array();
+	$setting = $report_default;
+
+	/* read pg_stats_reporter.ini */
+	if (!is_file(CONFIG_FILE)) {
+		$err_msg[] = "pg_stats_reporter.ini is not found.";
+		return null;
+	}
+
+	/* read pg_stats_reporter.ini */
+	$config = parse_ini_file(CONFIG_FILE, true);
+
+	/* check format and data for "global" section */
+	if (!array_key_exists(GLOBAL_SECTION, $config)) {
+		$err_msg[] = "Does not contain a global setting section(".CONFIG_FILE.")";
+		return null;
+	}
+
+	foreach ($global_setting_list as $item) {
+		if (!array_key_exists($item, $config[GLOBAL_SECTION]))
+			$err_msg[] = "[".GLOBAL_SECTION."]".$item.": Required item not exists.";
+	}
+	foreach (array_keys($config[GLOBAL_SECTION]) as $item) {
+		if (!in_array($item, $global_setting_list)) {
+			$err_msg[] = "[".GLOBAL_SECTION."]".$item.": Item is invalid.";
+		}
+	}
+	$log_page_size = $config[GLOBAL_SECTION]['log_page_size'];
+	if (!is_numeric($log_page_size)) {
+		$err_msg[] = "[".GLOBAL_SECTION."]log_page_size = ".$log_page_size.": Set value is invalid.";
+	} else if ($log_page_size < 1 || $log_page_size > 1000) {
+		$err_msg[] = "[".GLOBAL_SECTION."]log_page_size = ".$log_page_size.": Set value is outside the valid range (1 .. 1000).";
+	}
+
+	/* create cache contents for "global" section */
+	$cache_contents[] = "[".GLOBAL_SECTION."]\n";
+	foreach ($config[GLOBAL_SECTION] as $key => $value) {
+		$cache_contents[] = $key . " = " . $value . "\n";
+	}
+
+	// exclude "global" section
+	unset($config[GLOBAL_SECTION]);
+
+	/* check format and get data */
+	foreach ($config as $repo_name => $data_array) {
+		if (!is_array($data_array)) {
+			$err_msg[] = "Does not contain a section(repositoryDB name:".$repo_name.").";
+			return null;
+		}
+
+		// check key name
+		foreach($data_array as $key => $val) {
+			if (!array_key_exists($key, $report_default)
+					&& !array_key_exists($key, $conf_key_list)) {
+				$err_msg[] = "[".$repo_name."]".$key.": Item name is invalid.";
+				continue;
+			}
+		}
+
+		// make database connection string
+		$connect_str = "";
+		if (array_key_exists('host', $data_array))
+			$connect_str = "host=".$data_array['host'];
+		if (array_key_exists('port', $data_array))
+			$connect_str .= " port=".$data_array['port'];
+		if (array_key_exists('dbname', $data_array))
+			$connect_str .= " dbname=".$data_array['dbname'];
+		if (array_key_exists('username', $data_array))
+			$connect_str .= " user=".$data_array['username'];
+		if (array_key_exists('password', $data_array)
+				&& $data_array['password'] != "")
+			$connect_str .= " password=".$data_array['password'];
+
+		// connect repository database and get target database information
+		// and get pg_statsinfo version
+		$conn = pg_connect($connect_str);
+		if (!$conn) {
+			$err_msg[] = "connect error.(repository database = ".$repo_name.")";
+			$cache_contents[] = "[".$repo_name."]\n";
+			continue;
+		} else {
+			pg_set_client_encoding($conn, "UTF-8");
+			$cache_contents[] = "[".$repo_name."]\n";
+			$cache_contents[] = "connect_str = \"".$connect_str."\"\n";
+
+			$result = pg_query($conn, "SELECT p.proname FROM pg_catalog.pg_proc p LEFT JOIN pg_catalog.pg_namespace n ON p.pronamespace = n.oid WHERE n.nspname = 'statsrepo' AND p.proname = 'get_version'");
+			if (!$result) {
+				$err_msg[] = "execute query error. ".pg_last_error();
+			}
+			if (pg_num_rows($result) == 0) {
+				$cache_contents[] = "repo_version = ".V23."\n";
+			} else {
+				pg_free_result($result);
+				$result = pg_query($conn, "SELECT statsrepo.get_version()");
+				if (!$result) {
+					$err_msg[] = "execute query error. ".pg_last_error();
+				}
+				$row_array = pg_fetch_array($result, NULL, PGSQL_NUM);
+				$cache_contents[] = "repo_version = ".$row_array[0]."\n";
+			}
+			pg_free_result($result);
+
+			$result = pg_query($conn, "SELECT instid, hostname, port, pg_version FROM statsrepo.instance");
+			if (!$result) {
+				$err_msg[] = "execute query error. ".pg_last_error();
+			} else if (pg_num_rows($result) == 0){
+				$err_msg[] = "monitored database is not registered at all.(repository database = ".$repo_name.")";
+			} else {
+				for ($i = 0 ; $i < pg_num_rows($result) ; $i++ ) {
+					$row_array = pg_fetch_array($result, NULL, PGSQL_NUM);
+					$cache_contents[] = "monitor[".$row_array[0]."] = \"".$row_array[1].":".$row_array[2]."\"\n";
+					$ver_array = explode(".", $row_array[3]);
+					$ver = $ver_array[0]*10000 + $ver_array[1]*100 + $ver_array[2];
+					$cache_contents[] = "pg_version[".$row_array[0]."] = ".$ver."\n";
+				}
+				pg_free_result($result);
+			}
+			pg_close($conn);
+		}
+
+		// set language
+		if (array_key_exists('language', $data_array))
+			$cache_contents[] = "language = ".$data_array['language']."\n";
+		else
+			$cache_contents[] = "language = auto\n";
+
+		// set report item
+		$setting = $report_default;
+		foreach ($setting as $key => $val) {
+			if (array_key_exists($key, $data_array)) {
+				switch($data_array[$key]) {
+					case 1:
+					case "":
+						$setting[$key] = $data_array[$key];
+						break;
+					default:
+						$err_msg[] = "[".$repo_name."]".$key." = ".$data_array[$key].": Set value is invalid.";
+				}
+			}
+
+			$cache_contents[] = $key." = ".$setting[$key]."\n";
+		}
+	}
+
+	if (count($cache_contents) == 0) {
+		$err_msg[] = "No valid information.";
+		return null;
+	}
+
+	// write cache file
+	$tmpCacheFilename = tempnam(CONFIG_CACHE_DIR, CONFIG_FILENAME . ".");
+	if (file_put_contents($tmpCacheFilename, $cache_contents) == false) {
+		$err_msg[] = "do not write cache file(".$tmpCacheFilename.")";
+		return null;
+	}
+
+	// read cache file
+	$config = parse_ini_file($tmpCacheFilename, true);
+
+	if (count($err_msg) == 0) {
+		rename($tmpCacheFilename, CONFIG_CACHE_FILE);
+	} else {
+		unlink($tmpCacheFilename);
+	}
+
+	return $config;
+}
+
+/* load message from message file */
+function load_message($language, &$help_message, &$error_message)
+{
+	$msg_file_list = array();
+
+	/* メッセージファイルの一覧作成 */
+	createMessageFileList(MESSAGE_PATH, $msg_file_list);
+
+	/* 言語の選定 */
+	if ($language == 'auto') {
+		if (extension_loaded('intl')) {
+			$lang = locale_accept_from_http($_SERVER['HTTP_ACCEPT_LANGUAGE']);
+		} else {
+			$lang = "en";
+		}
+	} else {
+		$lang = $language;
+	}
+
+	/* メッセージファイルの読み込み */
+	readMessageFile($lang, $msg_file_list, $help_message, $error_message);
+}
+
 /* create message file list */
-function createMessageFileList($file_dir, &$locale_list, &$msg_file_list)
+function createMessageFileList($file_dir, &$msg_file_list)
 {
 	$msg_len = strlen(MESSAGE_PREFIX);
 
@@ -19,7 +243,6 @@ function createMessageFileList($file_dir, &$locale_list, &$msg_file_list)
 		if (strncmp(MESSAGE_PREFIX, $path_parts["filename"], $msg_len) == 0
 			&& strcmp(".".$path_parts["extension"], MESSAGE_SUFFIX) == 0) {
 			$lang = str_replace(MESSAGE_PREFIX, "", $path_parts["filename"]);
-			$locale_list[] = $lang;
 			$msg_file_list[$lang] = $file_dir."/".$fn;
 		}
 	}
@@ -28,13 +251,12 @@ function createMessageFileList($file_dir, &$locale_list, &$msg_file_list)
 }
 
 /* read message file */
-function readMessageFile($language, $locale_list, $msg_file_list,
+function readMessageFile($language, $msg_file_list,
 							&$help_message, &$error_message)
 {
 	global $help_list;
 
-	$help_message = array();
-	$error_message = array();
+	$locale_list = array_keys($msg_file_list);
 
 	/*
 	 * if php-intl extension is available,
@@ -72,7 +294,7 @@ function readMessageFile($language, $locale_list, $msg_file_list,
 	if (count($err_val) == 0) {
 		$err_val[0] = "help item is not found.";
 	}
-	
+
 	foreach($help_list as $id_key => $id_val) {
 		$val = $xml->xpath("/document/help/div[@id=\"".$id_val."\"]");
 		if (count($val) == 0) {
@@ -130,4 +352,33 @@ function getSnapshotID($conn, $targetData, &$snapids, &$snapdates)
 
 	return true;
 }
+
+function get_url_param($name)
+{
+	if (array_key_exists($name, $_GET)) {
+		return $_GET[$name];
+	}
+	return null;
+}
+
+/* set default timezone */
+function set_default_timezone()
+{
+	$timezone = ini_get('date.timezone');
+	if (!$timezone) {
+		$timezone_abbr = exec('date +%Z');
+		$timezone = timezone_name_from_abbr($timezone_abbr);
+		if (!$timezone)
+			$timezone = "UTC";
+	}
+	date_default_timezone_set($timezone);
+}
+
+/* delete configuration file cache and report cache */
+function deleteCacheFile(&$smarty)
+{
+	@unlink(CONFIG_CACHE_FILE);
+	$smarty->clearAllCache();
+}
+
 ?>

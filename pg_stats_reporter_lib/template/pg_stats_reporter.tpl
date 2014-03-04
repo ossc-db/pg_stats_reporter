@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>pg_stats_reporter 2.0.0</title>
+<title>pg_stats_reporter 3.0.0</title>
 
 <!-- javascripts -->
 <script type="text/javascript" src="{$jquery_path}jquery-2.0.1.min.js"></script>
@@ -24,8 +24,9 @@
 <script type="text/javascript" src="{$superfish_path}js/hoverIntent.js"></script>
 <script type="text/javascript" src="{$superfish_path}js/superfish.js"></script>
 <script type="text/javascript" src="{$superfish_path}js/supersubs.js"></script>
-<script type="text/javascript" src="{$tablesorter_path}jquery.tablesorter.js"></script>
-<script type="text/javascript" src="{$tablesorter_path}addons/pager/jquery.tablesorter.pager.js"></script>
+<script type="text/javascript" src="{$tablesorter_path}js/jquery.tablesorter.min.js"></script>
+<script type="text/javascript" src="{$tablesorter_path}js/jquery.tablesorter.widgets.min.js"></script>
+<script type="text/javascript" src="{$tablesorter_path}addons/pager/jquery.tablesorter.pager.min.js"></script>
 <script type="text/javascript" src="{$jqplot_path}dist/jquery.jqplot.min.js"></script>
 <script type="text/javascript" src="{$jqplot_path}dist/plugins/jqplot.pieRenderer.js"></script>
 <script type="text/javascript" src="{$jqplot_path}dist/plugins/jqplot.barRenderer.js"></script>
@@ -35,13 +36,14 @@
 <script type="text/javascript" src="{$jqplot_path}dist/plugins/jqplot.pointLabels.js"></script>
 <script type="text/javascript" src="{$dygraphs_path}dygraph-dev.js"></script>
 <!-- pg_stats_reporter's javascript -->
+<script type="text/javascript" src="js/common.js"></script>
 <script type="text/javascript" src="js/pg_stats_reporter.js"></script>
 
 <!-- stylesheets -->
 <link rel="stylesheet" type="text/css" href="{$superfish_path}css/superfish.css"/>
 <link rel="stylesheet" type="text/css" href="{$jquery_ui_path}themes/start/jquery.ui.all.css"/>
 <link rel="stylesheet" type="text/css" href="{$jqplot_path}dist/jquery.jqplot.min.css"/>
-<link rel="stylesheet" type="text/css" href="{$tablesorter_path}themes/blue/style.css"/>
+<link rel="stylesheet" type="text/css" href="{$tablesorter_path}css/theme.blue.css"/>
 <!-- pg_stats_reporter's stylesheets -->
 <link rel="stylesheet" type="text/css" href="css/pg_stats_reporter.css"/>
 

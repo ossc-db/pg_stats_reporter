@@ -2,74 +2,122 @@
 /*
  * make_report
  *
- * Copyright (c) 2012,2013, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
+ * Copyright (c) 2012,2014, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
  */
 
 /* make error tag */
 function makeErrorTag() {
 
 	$message = call_user_func_array ("sprintf", func_get_args());
-	
+
 	return "<p class=\"error\">".$message."</p>\n";
 }
 
-/* make pg_stats_reporter.ini's error report html */
-function makeErrorReport($infoData, $errormsg)
+function makeReport($conn, $config, $url_param, &$err_msg)
 {
+	global $help_message;
+	global $error_message;
+
 	$html_string = array();
-
-	/* make plane header menu html */
-	$html_string["header_menu"] = makePlainHeaderMenu();
-
-	/* make left menu html */
-	$html_string["left_menu"] = makeLeftMenu($infoData, array());
-
-	/* make error message html */
-	$html_string["contents"] = "<div id=\"contents\">\n<div class=\"top_jump_margin\"></div>\n<p class=\"initial_page\">Detected error pg_stats_reporter.ini or repository database connection<br/>\n";
-	foreach($errormsg as $msg)
-		$html_string["contents"] .= "- ".$msg."<br/>\n";
-	$html_string["contents"] .= "</p>\n</div>\n";
-
-	return $html_string;
-}
-
-function makeReport($conn, $infoData, $target_info, $help_msg, $error_msg)
-{
-	$html_string = array();
+	$err_msg = null;
 
 	/* make header menu html */
-	$html_string["header_menu"] = makeHeaderMenu($infoData, $target_info);
-
+	$html_string["header_menu"] = makeHeaderMenu($config, $url_param);
+	
 	/* make left menu html */
-	$html_string["left_menu"] = makeLeftMenu($infoData, $target_info);
+	$html_string["left_menu"] = makeLeftMenu($config, $url_param);
 
 	/* get snapshot id */
-	if (!getSnapshotID($conn, $target_info, &$snapids, &$snapdates)) {
-		$html_string["contents"] = "<div id=\"contents\">\n<div class=\"top_jump_margin\"></div>\n".makeErrorTag($error_msg['query_error'], pg_last_error($conn));
+	if (!getSnapshotID($conn, $url_param, &$snapids, &$snapdates)) {
+		$err_msg = sprintf($error_message['query_error'], pg_last_error($conn));
+		return null;
 	} else if ($snapids[0] == $snapids[1] || is_null($snapids[0]) || is_null($snapids[1])) {
 		/* check whether there are two more than a snapshot */
-		$html_string["contents"] = "<div id=\"contents\">\n<div class=\"top_jump_margin\"></div>\n".makeErrorTag($error_msg['short_snapshots']);
+		$err_msg = $error_message['short_snapshots'];
+		return null;
 	} else {
 		/* make contents html */
-		$html_string["contents"]
-			= makeContents($conn, $infoData, $target_info, $snapids,
-							$help_msg, $error_msg);
+		$html_string["contents"] = makeContents($conn, $config, $url_param, $snapids);
 	}
 	return $html_string;
 }
 
+function makeLogReport($conn, $config, $url_param, &$err_msg)
+{
+	global $help_message;
+	global $error_message;
+	global $query_string;
+
+	$query = $query_string['log_size'];
+	$values = array($url_param['instid'], $url_param['begin_date'], $url_param['end_date']);
+	$i = count($values);
+	$html_string = array();
+	$err_msg = null;
+
+	$t_conf = $config[$url_param['repodb']];
+
+	/* check repository version */
+	if ($t_conf['repo_version'] < V30) {
+		$err_msg = sprintf($error_message['st_version'], "3.0.0");
+		return null;
+	}
+
+	/* get page total */
+	if ($url_param['s_elevel']) {
+		array_push($values, $url_param['s_elevel']);
+		$query .= " AND elevel = $" . ++$i;
+	}
+	if ($url_param['s_username']) {
+		array_push($values, $url_param['s_username']);
+		$query .= " AND username = $" . ++$i;
+	}
+	if ($url_param['s_database']) {
+		array_push($values, $url_param['s_database']);
+		$query .= " AND database = $" . ++$i;
+	}
+	if ($url_param['s_message']) {
+		array_push($values, $url_param['s_message']);
+		$query .= " AND message ~* $" . ++$i;
+	}
+
+	if (!($result = pg_query_params($conn, $query, $values))) {
+		$err_msg = sprintf($error_message['query_error'], pg_last_error($conn));
+		return null;
+	}
+	$log_size = pg_fetch_result($result, 0, 0);
+	pg_free_result($result);
+	if ($log_size == 0) {
+		$err_msg = $error_message['no_result'];
+		return null;
+	}
+	$page_total = ceil($log_size / $config[GLOBAL_SECTION]['log_page_size']);
+
+	/* make header menu html */
+	$html_string["header_menu"] = makeHeaderMenu($config, $url_param);
+
+	/* make left menu html */
+	$html_string["left_menu"] = makeLeftMenu($config, $url_param);
+
+	/* make contents html */
+	$html_string['page_total'] = $page_total;
+	$html_string["help_dialog"] = $help_message['log_report'];
+
+	return $html_string;
+}
+
 /* make report for commandline mode*/
-function makeReportForCommandline($conn, $infoData, $target_info, $snapids,
-									$helpmsg, $errmsg)
+function makeReportForCommandline($conn, $infoData, $target_info, $snapids)
 {
 	$html_string = array();
 
 	/* make header menu html */
 	$html_string["header_menu"] = makeHeaderMenu($infoData, $target_info);
 
+	/* make left menu html */
+	$html_string["left_menu"] = "";
+
 	/* make contents html */
-	$html_string["contents"] = makeContents($conn, $infoData, $target_info,
-											$snapids, $helpmsg, $errmsg);
+	$html_string["contents"] = makeContents($conn, $infoData, $target_info, $snapids);
 
 	return $html_string;
 }
@@ -77,17 +125,17 @@ function makeReportForCommandline($conn, $infoData, $target_info, $snapids,
 function makeHeaderMenu($infoData, $targetInfo)
 {
 	if (empty($_SERVER['DOCUMENT_ROOT']))
-		 $html_string = "<div id=\"header_menu_commandline\">\n";
+		$html_string = "<div id=\"header_menu_commandline\">\n";
 	else
 		$html_string = "<div id=\"header_menu\">\n";
+
+	$targetList = $infoData[$targetInfo['repodb']];
 
 	$html_string .=
 <<< EOD
 <ul id="dropdown" class="sf-menu menu">
 
 EOD;
-
-	$targetList = $infoData[$targetInfo['repodb']];
 
 	/* Summary */
 	if ($targetList['summary'])
@@ -360,13 +408,26 @@ EOD;
 	if (!empty($_SERVER['DOCUMENT_ROOT'])) {
 		$html_string .=
 <<< EOD
+<!-- Log Report -->
+<ul id="dropdown2" class="sf-menu menu">
+<li><a href="#log_report">Log Report</a></li>
+</ul>
 <!-- hide left menu button  -->
 <div align="right" class="jquery_ui_button_max">
- <div><button id="jquery_ui_button_arrowthick"></button></div>
+  <div><button id="jquery_ui_button_arrowthick"></button></div>
 </div>
 
 EOD;
 	}
+
+	$html_string .=
+<<< EOD
+<!-- top button -->
+<div align="right" class="jquery_ui_button_top">
+  <div><button id="jquery_ui_button_top"></button></div>
+</div>
+
+EOD;
 
 	$html_string .= "</div> <!-- header menu end -->\n";
 
@@ -456,6 +517,10 @@ EOD;
 	if (!empty($_SERVER['DOCUMENT_ROOT'])) {
 		$html_string .=
 <<< EOD
+<!-- Log Report -->
+<ul id="dropdown2" class="sf-menu menu">
+  <li><a>Log Report</a></li>
+</ul>
 <!-- hide left menu button  -->
 <div align="right" class="jquery_ui_button_max"> 
   <div><button id="jquery_ui_button_arrowthick"></button></div>
@@ -463,6 +528,15 @@ EOD;
 
 EOD;
 	}
+
+	$html_string .=
+<<< EOD
+<!-- top button -->
+<div align="right" class="jquery_ui_button_top">
+  <div><button id="jquery_ui_button_top"></button></div>
+</div>
+	
+EOD;
 
 	$html_string .= "</div> <!-- header menu end -->\n";
 
@@ -478,13 +552,18 @@ function makeLeftMenu($infoData, $targetInfo)
 	$html_string .= "<img width=\"100%\" src=\"".IMAGE_FILE."\"/>\n";
 
 	/* report data information */
-	if (count($targetInfo) != 0) {
+	if ($targetInfo && $targetInfo['repodb']) {
 		$repoInfo = $infoData[$targetInfo['repodb']];
 		$targetName = $repoInfo['monitor'][$targetInfo['instid']];
 		$begin_date = $targetInfo['begin_date'];
 		$end_date = $targetInfo['end_date'];
 
-		$html_string .= "<p class=\"report_data\">\n[".$targetInfo['repodb']."]<br/>".$targetName."<br/>begin:<br/>".$begin_date."<br/>end:<br/>".$end_date."<br/>\n</p>\n";
+		$html_string .= "<p class=\"report_data\">\n";
+		$html_string .= "[<span id=\"target_repodb\">" . $targetInfo['repodb'] . "</span>]<br/>";
+		$html_string .= "<span id=\"target_name\">" . $targetName . "</span><br/>";
+		$html_string .= "begin:<br/><span id=\"target_begin\">" . $begin_date . "</span><br/>";
+		$html_string .= "end:<br/><span id=\"target_end\">" . $end_date . "</span><br/>";
+		$html_string .= "<span id=\"target_instid\" style=\"display: none\">" . $targetInfo['instid'] . "</span></p>\n";
 	} else {
 		$html_string .= "<p class=\"report_data\">\n[ --- ]<br/>---<br/>begin: ---<br/>end: ---<br/>\n</p>\n";
 	}
@@ -506,16 +585,21 @@ function makeLeftMenu($infoData, $targetInfo)
 EOD;
 
 	/* accordion menu */
-	$url_param_date = "&amp;begin='".$begin_date."'&amp;end='".$end_date."'";
-
 	$html_string .= "<br/>\n<div id=\"accordion\">\n";
 
 	foreach($infoData as $repo => $val_array) {
-		$html_string .= "<h3><a href=\"#\">".$repo."</a></h3>\n<div>\n";
-		
-		if (array_key_exists("monitor", $val_array))
-			foreach($val_array['monitor'] as $id => $str)
-				$html_string .= "<a href=\"pg_stats_reporter.php?repodb=".$repo."&amp;instid=".$id.$url_param_date."\">".$str."</a><br/>\n";
+		if ($repo == GLOBAL_SECTION) {
+			continue;
+		}
+		$html_string .= "<h3>" . $repo . "</h3>\n<div>\n";
+
+		if (array_key_exists("monitor", $val_array)) {
+			foreach ($val_array['monitor'] as $id => $name) {
+				$html_string .= "<a href=\"repodb=" . rawurlencode($repo) . "&instid=" . $id .
+					"&begin=" . rawurlencode($begin_date) . "&end=" . rawurlencode($end_date) .
+					"\">" . $name . "</a><br/>\n";
+			}
+		}
 
 		$html_string .= "</div>\n";
 	}
@@ -535,8 +619,10 @@ EOD;
 	return $html_string;
 }
 
-function makeContents($conn, $infoData, $targetInfo, $snapids, $helpMsg, $errorMsg)
+function makeContents($conn, $infoData, $targetInfo, $snapids)
 {
+	global $help_message;
+	global $error_message;
 	global $query_string;
 
 	$targetData = $infoData[$targetInfo['repodb']];
@@ -557,7 +643,7 @@ EOD;
 	/* get checkpoint data */
 	$result = pg_query_params($conn, $query_string['checkpoint_time'], array($targetInfo["instid"], $snapids[0], $snapids[1]));
 	if (!$result) {
-		return $htmlString."<br/><br/><br/>".makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
+		return $htmlString."<br/><br/><br/>".makeErrorTag($error_message['query_error'], pg_last_error($conn));
 	}
 
 	$html_string .= "<!--\ncheckpoint date list -->\n<script type=\"text/javascript\">\nvar checkpoint_date_list = [\n";
@@ -568,25 +654,25 @@ EOD;
 	pg_free_result($result);
 
 	/* Summary */
-	$html_string .= makeSummaryReport($conn, $targetData, $snapids, $errorMsg);
+	$html_string .= makeSummaryReport($conn, $targetData, $snapids, $error_message);
 
 	/* Database System */
-	$html_string .= makeDatabaseSystemReport($conn, $targetData, $snapids, $errorMsg);
+	$html_string .= makeDatabaseSystemReport($conn, $targetData, $snapids, $error_message);
 
 	/* Operating System */
-	$html_string .= makeOperatingSystemReport($conn, $targetData, $snapids, $errorMsg);
+	$html_string .= makeOperatingSystemReport($conn, $targetData, $snapids, $error_message);
 
 	/* SQL */
-	$html_string .= makeSQLReport($conn, $targetData, $snapids, $errorMsg);
+	$html_string .= makeSQLReport($conn, $targetData, $snapids, $error_message);
 
 	/* Activities */
-	$html_string .= makeActivitiesReport($conn, $targetData, $snapids, $errorMsg);
+	$html_string .= makeActivitiesReport($conn, $targetData, $snapids, $error_message);
 
 	/* Information */
-	$html_string .= makeInformationReport($conn, $targetData, $snapids, $errorMsg);
+	$html_string .= makeInformationReport($conn, $targetData, $snapids, $error_message);
 
 	/* help dialog */
-	foreach($helpMsg as $msg)
+	foreach($help_message as $msg)
 		$html_string .= $msg;
 
 	/* Contents Footer */
@@ -612,7 +698,7 @@ function makeSummaryReport($conn, $target, $snapids, $errorMsg)
 <div id="summary" class="jump_margin"></div>
 <h1>Summary</h1>
 <div align="right" class="jquery_ui_button_info_h1">
-  <div><button id="summary_button_info"></button></div>
+  <div><button class="help_button" dialog="#summary_dialog"></button></div>
 </div>
 
 EOD;
@@ -670,7 +756,7 @@ EOD;
 			$htmlString .=
 <<< EOD
 <div align="right" class="jquery_ui_button_info_h2">
-  <div><button id="database_statistics_button_info"></button></div>
+  <div><button class="help_button" dialog="#database_statistics_dialog"></button></div>
 </div>
 
 EOD;
@@ -695,7 +781,7 @@ EOD;
 <div id="transaction_statistics" class="jump_margin"></div>
 <h3>Transaction Statistics</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button id="transaction_statistics_button_info"></button></div>
+  <div><button class="help_button" dialog="#transaction_statistics_dialog"></button></div>
 </div>
 
 EOD;
@@ -725,7 +811,7 @@ EOD;
 <div id="database_size" class="jump_margin"></div>
 <h3>Database Size</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button id="database_size_button_info"></button></div>
+  <div><button class="help_button" dialog="#database_size_dialog"></button></div>
 </div>
 EOD;
 
@@ -754,7 +840,7 @@ EOD;
 <div id="recovery_conflicts" class="jump_margin"></div>
 <h3>Recovery Conflicts</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button id="recovery_conflicts_button_info"></button></div>
+  <div><button class="help_button" dialog="#recovery_conflicts_dialog"></button></div>
 </div>
 
 EOD;
@@ -790,7 +876,7 @@ EOD;
 <div id="wal_statistics" class="jump_margin"></div>
 <h3>WAL Statistics</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button id="wal_statistics_button_info"></button></div>
+  <div><button class="help_button" dialog="#wal_statistics_dialog"></button></div>
 </div>
 
 EOD;
@@ -829,7 +915,7 @@ EOD;
 <div id="instance_processes_ratio" class="jump_margin"></div>
 <h3>Instance Processes Ratio</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button id="instance_processes_ratio_button_info"></button></div>
+  <div><button class="help_button" dialog="#instance_processes_ratio_dialog"></button></div>
 </div>
 
 EOD;
@@ -853,7 +939,7 @@ EOD;
 <div id="instance_processes" class="jump_margin"></div>
 <h3>Instance Processes</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button id="instance_processes_button_info"></button></div>
+  <div><button class="help_button" dialog="#instance_processes_dialog"></button></div>
 </div>
 
 EOD;
@@ -916,7 +1002,7 @@ EOD;
 <div id="cpu_usage" class="jump_margin"></div>
 <h3>CPU Usage</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button id="cpu_usage_button_info"></button></div>
+  <div><button class="help_button" dialog="#cpu_usage_dialog"></button></div>
 </div>
 
 EOD;
@@ -943,7 +1029,7 @@ EOD;
 <div id="load_average" class="jump_margin"></div>
 <h3>Load Average</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button id="load_average_button_info"></button></div>
+  <div><button class="help_button" dialog="#load_average_dialog"></button></div>
 </div>
 
 EOD;
@@ -973,7 +1059,7 @@ EOD;
 <div id="io_usage" class="jump_margin"></div>
 <h3>I/O Usage</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button id="io_usage_button_info"></button></div>
+  <div><button class="help_button" dialog="#io_usage_dialog"></button></div>
 </div>
 
 EOD;
@@ -1034,7 +1120,7 @@ EOD;
 <div id="memory_usage" class="jump_margin"></div>
 <h3>Memory Usage</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button id="memory_usage_button_info"></button></div>
+  <div><button class="help_button" dialog="#memory_usage_dialog"></button></div>
 </div>
 
 EOD;
@@ -1077,7 +1163,7 @@ EOD;
 <div id="disk_usage_per_tablespace" class="jump_margin"></div>
 <h3>Disk Usage per Tablespace</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button id="disk_usage_per_tablespace_button_info"></button></div>
+  <div><button class="help_button" dialog="#disk_usage_per_tablespace_dialog"></button></div>
 </div>
 
 EOD;
@@ -1101,7 +1187,7 @@ EOD;
 <div id="disk_usage_per_table" class="jump_margin"></div>
 <h3>Disk Usage per Table</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button id="disk_usage_per_table_button_info"></button></div>
+  <div><button class="help_button" dialog="#disk_usage_per_table_dialog"></button></div>
 </div>
 
 EOD;
@@ -1198,7 +1284,7 @@ EOD;
 <div id="heavily_updated_tables" class="jump_margin"></div>
 <h3>Heavily Updated Tables</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button id="heavily_updated_tables_button_info"></button></div>
+  <div><button class="help_button" dialog="#heavily_updated_tables_dialog"></button></div>
 </div>
 
 EOD;
@@ -1223,7 +1309,7 @@ EOD;
 <div id="heavily_accessed_tables" class="jump_margin"></div>
 <h3>Heavily Accessed Tables</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button id="heavily_accessed_tables_button_info"></button></div>
+  <div><button class="help_button" dialog="#heavily_accessed_tables_dialog"></button></div>
 </div>
 
 EOD;
@@ -1247,7 +1333,7 @@ EOD;
 <div id="low_density_tables" class="jump_margin"></div>
 <h3>Low Density Tables</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button id="low_density_tables_button_info"></button></div>
+  <div><button class="help_button" dialog="#low_density_tables_dialog"></button></div>
 </div>
 
 EOD;
@@ -1271,7 +1357,7 @@ EOD;
 <div id="fragmented_tables" class="jump_margin"></div>
 <h3>Fragmented Tables</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button id="fragmented_tables_button_info"></button></div>
+  <div><button class="help_button" dialog="#fragmented_tables_dialog"></button></div>
 </div>
 
 EOD;
@@ -1307,7 +1393,7 @@ EOD;
 <div id="qa_functions" class="jump_margin"></div>
 <h3>Functions</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button id="functions_button_info"></button></div>
+  <div><button class="help_button" dialog="#functions_dialog"></button></div>
 </div>
 
 EOD;
@@ -1332,7 +1418,7 @@ EOD;
 <div id="qa_statements" class="jump_margin"></div>
 <h3>Statements</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button id="statements_button_info"></button></div>
+  <div><button class="help_button" dialog="#statements_dialog"></button></div>
 </div>
 
 EOD;
@@ -1358,7 +1444,7 @@ EOD;
 <div id="long_transactions" class="jump_margin"></div>
 <h2>Long Transactions</h2>
 <div align="right" class="jquery_ui_button_info_h2">
-  <div><button id="long_transactions_button_info"></button></div>
+  <div><button class="help_button" dialog="#long_transactions_dialog"></button></div>
 </div>
 
 EOD;
@@ -1383,7 +1469,7 @@ EOD;
 <div id="lock_conflicts" class="jump_margin"></div>
 <h2>Lock Conflicts</h2>
 <div align="right" class="jquery_ui_button_info_h2">
-  <div><button id="lock_conflicts_button_info"></button></div>
+  <div><button class="help_button" dialog="#lock_conflicts_dialog"></button></div>
 </div>
 
 EOD;
@@ -1429,7 +1515,7 @@ EOD;
 <div id="checkpoint_activity" class="jump_margin"></div>
 <h2>Checkpoint Activity</h2>
 <div align="right" class="jquery_ui_button_info_h2">
-  <div><button id="checkpoint_activity_button_info"></button></div>
+  <div><button class="help_button" dialog="#checkpoint_activity_dialog"></button></div>
 </div>
 
 EOD;
@@ -1464,7 +1550,7 @@ EOD;
 <div id="basic_statistics" class="jump_margin"></div>
 <h3>Basic Statistics (Average)</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button id="basic_statistics_button_info"></button></div>
+  <div><button class="help_button" dialog="#basic_statistics_dialog"></button></div>
 </div>
 
 EOD;
@@ -1488,7 +1574,7 @@ EOD;
 <div id="io_statistics" class="jump_margin"></div>
 <h3>I/O Statistics (Average)</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button id="io_statistics_button_info"></button></div>
+  <div><button class="help_button" dialog="#io_statistics_dialog"></button></div>
 </div>
 
 
@@ -1527,7 +1613,7 @@ EOD;
 <div id="current_replication_status" class="jump_margin"></div>
 <h3>Current Replication Status</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button id="current_replication_status_button_info"></button></div>
+  <div><button class="help_button" dialog="#current_replication_status_dialog"></button></div>
 </div>
 
 EOD;
@@ -1552,7 +1638,7 @@ EOD;
 <div id="replication_delays" class="jump_margin"></div>
 <h3>Replication Delays</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button id="replication_delays_button_info"></button></div>
+  <div><button class="help_button" dialog="#replication_delays_dialog"></button></div>
 </div>
 
 EOD;
@@ -1647,7 +1733,7 @@ EOD;
 <div id="database" class="jump_margin"></div>
 <h3>Database</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button id="database_button_info"></button></div>
+  <div><button class="help_button" dialog="#database_dialog"></button></div>
 </div>
 
 EOD;
@@ -1661,7 +1747,7 @@ EOD;
 <div id="schema" class="jump_margin"></div>
 <h3>Schema</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button id="schema_button_info"></button></div>
+  <div><button class="help_button" dialog="#schema_dialog"></button></div>
 </div>
 
 EOD;
@@ -1675,7 +1761,7 @@ EOD;
 <div id="table" class="jump_margin"></div>
 <h3>Table</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button id="table_button_info"></button></div>
+  <div><button class="help_button" dialog="#table_dialog"></button></div>
 </div>
 
 EOD;
@@ -1699,7 +1785,7 @@ EOD;
 <div id="index" class="jump_margin"></div>
 <h3>Index</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button id="index_button_info"></button></div>
+  <div><button class="help_button" dialog="#index_dialog"></button></div>
 </div>
 
 EOD;
@@ -1723,7 +1809,7 @@ EOD;
 <div id="view" class="jump_margin"></div>
 <h3>View</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button id="view_button_info"></button></div>
+  <div><button class="help_button" dialog="#view_dialog"></button></div>
 </div>
 
 EOD;
@@ -1737,7 +1823,7 @@ EOD;
 <div id="sequence" class="jump_margin"></div>
 <h3>Sequence</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button id="sequence_button_info"></button></div>
+  <div><button class="help_button" dialog="#sequence_dialog"></button></div>
 </div>
 
 EOD;
@@ -1751,7 +1837,7 @@ EOD;
 <div id="trigger" class="jump_margin"></div>
 <h3>Trigger</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button id="trigger_button_info"></button></div>
+  <div><button class="help_button" dialog="#trigger_dialog"></button></div>
 </div>
 
 EOD;
@@ -1777,7 +1863,7 @@ EOD;
 <div id="role" class="jump_margin"></div>
 <h3>Role</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button id="role_button_info"></button></div>
+  <div><button class="help_button" dialog="#role_dialog"></button></div>
 </div>
 
 EOD;
@@ -1791,7 +1877,7 @@ EOD;
 <div id="parameter" class="jump_margin"></div>
 <h3>Parameter</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button id="parameter_button_info"></button></div>
+  <div><button class="help_button" dialog="#parameter_dialog"></button></div>
 </div>
 
 EOD;
@@ -1820,7 +1906,7 @@ EOD;
 <div id="profiles" class="jump_margin"></div>
 <h2>Profiles</h2>
 <div align="right" class="jquery_ui_button_info_h2">
-  <div><button id="profiles_button_info"></button></div>
+  <div><button class="help_button" dialog="#profiles_dialog"></button></div>
 </div>
 
 EOD;
@@ -1903,7 +1989,7 @@ EOD;
 
 function makeTableHTML($result, $id)
 {
-	$htmlString = "<div><table id=\"".$id."\" class=\"tablesorter table\">\n<thead></thead>\n<tbody>\n";
+	$htmlString = "<div><table id=\"".$id."_table\" class=\"tablesorter table\">\n<thead></thead>\n<tbody>\n";
 	for ($i = 0 ; $i < pg_num_fields($result) ; $i++) {
 		$htmlString .= "<tr><th>".htmlspecialchars(pg_field_name($result, $i), ENT_QUOTES)."</th>";
 		for ($j = 0 ; $j < pg_num_rows($result) ; $j++ )

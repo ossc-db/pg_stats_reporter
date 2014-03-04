@@ -3,11 +3,11 @@
 /*
  * pg_stats_reporter commandline mode
  *
- * Copyright (c) 2013, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
+ * Copyright (c) 2012,2014, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
  */
 
 define("PROGRAM_NAME", "pg_stats_reporter");
-define("PROGRAM_VERSION", "2.0.0");
+define("PROGRAM_VERSION", "3.0.0");
 define("PROGRAM_URL", "http://pgstatsinfo.projects.postgresql.org/");
 define("PROGRAM_EMAIL", "pgstatsinfo-general@pgfoundry.org");
 
@@ -15,6 +15,7 @@ define("CONFIG_FILE", "/etc/pg_stats_reporter.ini");
 define("LOCAL_CONFIG_FILE", getenv('HOME')."/.pg_stats_reporter.ini");
 define("GLOBAL_SECTION", "global_setting");
 define("INSTALL_DIR", "install_directory");
+define("LOG_PAGE_SIZE", "log_page_size");
 
 define("LOG", 1);
 define("WARNING", 2);
@@ -23,10 +24,9 @@ define("ERROR", 3);
 /* global variable begin */
 $infoData = array();
 $globalSetting = array();
-$localeList = array();
 $msgFileList = array();
-$helpmsg = array();
-$errmsg = array();
+$help_message = array();
+$error_message = array();
 
 $installDir = "";
 $config_cache_file = "";
@@ -34,6 +34,7 @@ $tmpCreated = false;
 
 $global_setting_list = array(
 	INSTALL_DIR,
+	LOG_PAGE_SIZE,
 );
 /* global variable end */
 
@@ -196,7 +197,7 @@ if (!mkdir(joinPathComponents($tmpdir, "cache"), 0755, false))
 if (!mkdir(joinPathComponents($tmpdir, "compiled"), 0755, false))
 	elog(ERROR, "Could not create a compiled directory: '%s'", joinPathComponents($tmpdir, "compiled"));
 
-$config_cache_file = joinPathComponents($tmpdir, "cache/pg_stats_reporter_cache.ini");
+$config_cache_file = joinPathComponents($tmpdir, "cache/pg_stats_reporter.ini");
 // read global setting from pg_stats_reporter.ini
 $infoData = readGlobalSettingForCommandline($globalSetting);
 $installDir = $globalSetting[INSTALL_DIR];
@@ -268,7 +269,7 @@ if (isset($optionInfo["repositorydb"])) {
 }
 
 // create message file list
-createMessageFileList(joinPathComponents($installDir, "pg_stats_reporter_lib/message"), $localeList, $msgFileList);
+createMessageFileList(joinPathComponents($installDir, "pg_stats_reporter_lib/message"), $msgFileList);
 
 // execute command line function
 if ($optionInfo["list"]) {
@@ -357,8 +358,7 @@ if ($optionInfo["list"]) {
 
 			// read message file
 			$language = getLanguage($infoData, $key);
-			readMessageFile($language, $localeList, $msgFileList,
-							$helpmsg, $errmsg);
+			readMessageFile($language, $msgFileList, $help_message, $error_message);
 
 			// start transaction
 			$result = pg_query("BEGIN");
@@ -371,7 +371,7 @@ if ($optionInfo["list"]) {
 
 			// get snapshot id and date
 			if (!getSnapshotID($conn, $target_data, $snapids, $snapdates)) {
-				elog(WARNING, $errmsg['query_error'], pg_last_error($conn));
+				elog(WARNING, $error_message['query_error'], pg_last_error($conn));
 				continue;
 			}
 			if ($snapids[0] == $snapids[1] || is_null($snapids[0]) || is_null($snapids[1])) {
@@ -380,9 +380,9 @@ if ($optionInfo["list"]) {
 			}
 
 			// make report
-			$html_string = makeReportForCommandline($conn, $infoData, $target_data, $snapids, $helpmsg, $errmsg);
+			$html_string = makeReportForCommandline($conn, $infoData, $target_data, $snapids);
 			$smarty->assign("header_menu", $html_string["header_menu"]);
-			$smarty->assign("left_menu", "");
+			$smarty->assign("left_menu", $html_string["left_menu"]);
 			$smarty->assign("contents", $html_string["contents"]);
 
 			pg_query("COMMIT");
@@ -761,6 +761,7 @@ function copyLibraryFile($installDir, $outputDir)
 						TABLESORTER_PATH),
 		'file' => array( 
 						"package/jquery-ui-timepicker-addon.js",
+						"js/common.js",
 						"js/pg_stats_reporter.js",
 						"css/pg_stats_reporter.css"));
 	/* topdir check */
