@@ -78,16 +78,21 @@ function makeReportListParts($fileTableList, &$html_head, &$html_body)
 		$html_head .=
 <<< EOD
 .tablesorter({
-    widthFixed: true,
-    widgets: ['zebra'],
-			sortList: [[2,1],[3,1],[0,0]],
-    headers: {
-	0: { sorter: "digit" },
-	1: { sorter: "text" },
-	2: { sorter: "text" },
-	3: { sorter: "text" },
-	4: { sorter: "interval" },
-	5: { sorter: "text" },
+	theme: 'blue',
+	headerTemplate : '{content} {icon}',
+	widthFixed: true,
+	widgets: ['zebra'],
+	widgetOptions: {
+		zebra: ['odd', 'even']
+	},
+	sortList: [[2,1],[3,1],[0,0]],
+	headers: {
+		0: { sorter: "digit" },
+		1: { sorter: "text" },
+		2: { sorter: "text" },
+		3: { sorter: "text" },
+		4: { sorter: "interval" },
+		5: { sorter: "text" },
 	}
 });
 
@@ -131,7 +136,7 @@ function makeReportListHTML(&$html_string, $html_head, $html_body)
 <!-- javascripts -->
 <script type="text/javascript" src="package/jquery-2.0.1/jquery-2.0.1.min.js"></script>
 <script type="text/javascript" src="package/jquery-2.0.1/jquery-migrate-1.2.1.js"></script>
-<script type="text/javascript" src="package/tablesorter/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="package/tablesorter/js/jquery.tablesorter.min.js"></script>
 <script type="text/javascript" src="package/jquery-ui-1.10.2/ui/minified/jquery-ui.min.js"></script>
 
 <script type="text/javascript">
@@ -165,9 +170,12 @@ EOD;
 </script>
 
 <link rel="stylesheet" type="text/css" href="package/jquery-ui-1.10.2/themes/start/jquery.ui.all.css"/>
-<link rel="stylesheet" type="text/css" href="package/tablesorter/themes/blue/style.css"/>
+<link rel="stylesheet" type="text/css" href="package/tablesorter/css/theme.blue.css"/>
 <style type="text/css">
 
+.tablesorter tbody tr {
+	font-size: 8pt;
+}
 .tablesorter tbody td.num {
 	text-align: right;
 	white-space: nowrap;
@@ -177,13 +185,6 @@ EOD;
 	white-space: normal;
 	max-width: 50%;
 }
-.tablesorter caption { text-align:left; }
-.tablesorter tbody th {
-	text-align:left;
-	background-color: #e6eeee;
-	width: 50%;
-}
-
 
 </style>
 </head>
