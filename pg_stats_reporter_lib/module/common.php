@@ -65,11 +65,14 @@ function readConfigFile(&$err_msg)
 			$err_msg[] = "[".GLOBAL_SECTION."]".$item.": Item is invalid.";
 		}
 	}
-	$log_page_size = $config[GLOBAL_SECTION]['log_page_size'];
-	if (!is_numeric($log_page_size)) {
-		$err_msg[] = "[".GLOBAL_SECTION."]log_page_size = ".$log_page_size.": Set value is invalid.";
-	} else if ($log_page_size < 1 || $log_page_size > 1000) {
-		$err_msg[] = "[".GLOBAL_SECTION."]log_page_size = ".$log_page_size.": Set value is outside the valid range (1 .. 1000).";
+
+	if (array_key_exists("log_page_size", $config[GLOBAL_SECTION])) {
+		$log_page_size = $config[GLOBAL_SECTION]['log_page_size'];
+		if (!is_numeric($log_page_size)) {
+			$err_msg[] = "[".GLOBAL_SECTION."]log_page_size = ".$log_page_size.": Set value is invalid.";
+		} else if ($log_page_size < 1 || $log_page_size > 1000) {
+			$err_msg[] = "[".GLOBAL_SECTION."]log_page_size = ".$log_page_size.": Set value is outside the valid range (1 .. 1000).";
+		}
 	}
 
 	/* create cache contents for "global" section */
