@@ -140,7 +140,8 @@ function showErrorReport($smarty, $config, $url_param, $message)
 {
 	$smarty->assign("header_menu", makeHeaderMenu($config, $url_param));
 	$smarty->assign("left_menu", makeLeftMenu($config, $url_param));
-	$smarty->assign("contents", "<div id=\"message_dialog\">" . $message . "</div>\n");
+	$smarty->assign("contents",
+		"<div id=\"contents\">\n<div id=\"message_dialog\">" . $message . "</div></div>\n");
 
 	$smarty->caching = 0;
 	$smarty->display(TEMPLATE_FILE);
