@@ -71,7 +71,7 @@ $(function(){
 
 	function getAjaxData(page){
 		var req = $.ajax({
-			url: "../../pg_stats_reporter_lib/module/ajax_log_data.php",
+			url: "log_report_ajax.php",
 			data: $.extend({}, url_param, {page: page}),
 			dataType: 'html',
 			async: false,
