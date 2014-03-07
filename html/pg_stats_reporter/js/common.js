@@ -231,11 +231,11 @@ $(function(){
 
 	/*** message dialog ***/
 	$("#message_dialog").dialog({
-		title: "Message",
+		title: "Error Message",
 		autoOpen: true,
 		modal: true,
 		resizable: false,
-		width: 400,
+		width: 600,
 		minHeight: 100
 	});
 

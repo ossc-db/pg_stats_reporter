@@ -529,7 +529,7 @@
 </help>
 
 <error>
-<p id="query_error">SQL の実行に失敗しました。 %s</p>
+<p id="query_error">SQL の実行に失敗しました。&lt;br/&gt;%s</p>
 <p id="no_result">表示するデータがありません。</p>
 <p id="st_version">pg_statsinfo のバージョンが異なるため表示できません。&lt;br/&gt;レポート結果を表示させたい場合は、pg_statsinfo %s 以降を使用してください。</p>
 <p id="pg_version">PostgreSQL のバージョンが異なるため表示できません。</p>

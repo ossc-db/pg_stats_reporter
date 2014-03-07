@@ -30,7 +30,7 @@ $(function(){
 		emptyTo: 'bottom',
 		showProcessing: true,
 		headers: {
-			0: { sorter: 'text', filter: false }, // timestamp
+			0: { sorter: 'text' },   // timestamp
 			1: { sorter: 'text' },   // username
 			2: { sorter: 'text' },   // database
 			3: { sorter: 'digit' },  // pid

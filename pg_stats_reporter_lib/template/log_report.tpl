@@ -58,50 +58,51 @@
 
   <input id="page_total" type="hidden" value="{$page_total}">
 
-  <div id="t-navi">
-    <div id="func_menu">
-      <button id="search_option">Search Option</button>
-      <div class="columnSelectorWrapper">
-        <input id="colSelect" type="checkbox" class="hidden">
-        <label id="column_select" for="colSelect">Column</label>
-        <div id="columnSelector" class="columnSelector"></div>
+  <div id="func_menu">
+    <button id="search_option">Search Option</button>
+    <div id="search">
+      <div id="search_menu">
+        <form id="search_form">
+          <fieldset>
+            <label for="elevel">ELEVEL:</label>
+            <select name="elevel">
+              <option value=""></option>
+              <option value="DEBUG">DEBUG</option>
+              <option value="INFO">INFO</option>
+              <option value="NOTICE">NOTICE</option>
+              <option value="WARNING">WARNING</option>
+              <option value="ERROR">ERROR</option>
+              <option value="LOG">LOG</option>
+              <option value="FATAL">FATAL</option>
+              <option value="PANIC">PANIC</option>
+            </select>
+          </fieldset>
+          <fieldset>
+            <label for="username">USERNAME:</label>
+            <input type="text" name="username" size="20" maxlength="64" autocomplete="off">
+          </fieldset>
+          <fieldset>
+            <label for="database">DATABASE:</label>
+            <input type="text" name="database" size="20" maxlength="64" autocomplete="off">
+          </fieldset>
+          <fieldset>
+            <label for="message">MESSAGE:</label>
+            <input type="text" name="message" size="30" maxlength="100" autocomplete="off">
+          </fieldset>
+        </form>
       </div>
-      <button id="filter_reset" class="filter_reset">Filter Reset</button>
-      <div id="search">
-        <div id="search_menu">
-          <form id="search_form">
-            <fieldset>
-              <label for="elevel">ELEVEL:</label>
-              <select name="elevel">
-                <option value=""></option>
-                <option value="DEBUG">DEBUG</option>
-                <option value="INFO">INFO</option>
-                <option value="NOTICE">NOTICE</option>
-                <option value="WARNING">WARNING</option>
-                <option value="ERROR">ERROR</option>
-                <option value="LOG">LOG</option>
-                <option value="FATAL">FATAL</option>
-                <option value="PANIC">PANIC</option>
-              </select>
-            </fieldset>
-            <fieldset>
-              <label for="username">USERNAME:</label>
-              <input type="text" name="username" size="20" maxlength="64" autocomplete="off">
-            </fieldset>
-            <fieldset>
-              <label for="database">DATABASE:</label>
-              <input type="text" name="database" size="20" maxlength="64" autocomplete="off">
-            </fieldset>
-            <fieldset>
-              <label for="message">MESSAGE:</label>
-              <input type="text" name="message" size="30" maxlength="100" autocomplete="off">
-            </fieldset>
-          </form>
-        </div>
-        <button id="search_submit">Search</button>
-        <button id="search_clear">Clear</button>
-      </div>
+      <button id="search_submit">Search</button>
+      <button id="search_clear">Clear</button>
     </div>
+  </div>
+  <div id="t-navi">
+    <div class="columnSelectorWrapper">
+      <input id="colSelect" type="checkbox" class="hidden">
+      <label id="column_select" for="colSelect">Column</label>
+      <div id="columnSelector" class="columnSelector"></div>
+    </div>
+    <button id="filter_reset" class="filter_reset">Filter Reset</button>
+      
     <div class="pagerWrapper">
       <span class="page_info"></span>
       <div class="pager">

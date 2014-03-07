@@ -234,6 +234,11 @@ table.tablesorter thead tr th {
   background: #CCFFCC;
 }
 
+#func_menu {
+  border-bottom: 2px groove #EFEFEF;
+  padding-bottom: 5px;
+}
+
 #t-navi {
   margin-top: 10px;
   margin-bottom: 5px;
@@ -243,19 +248,6 @@ table.tablesorter thead tr th {
 #f-navi {
   margin-top: 5px;
   overflow: hidden;
-}
-
-#search {
-  border-bottom: 2px groove #EFEFEF;
-  margin-bottom: 3px;
-  padding-bottom: 5px;
-  clear: both;
-  overflow: hidden;
-}
-
-#search_option {
-  margin-right: 3px;
-  float: left;
 }
 
 #search_menu {
@@ -282,9 +274,8 @@ table.tablesorter thead tr th {
 }
 
 .columnSelector {
-  position: absolute;
-  top: 115px;
-  padding: 10px;
+  position: fixed;
+  margin-top: 2px;
   background: #fff;
   border: #99bfe6 1px solid;
   border-radius: 5px;
