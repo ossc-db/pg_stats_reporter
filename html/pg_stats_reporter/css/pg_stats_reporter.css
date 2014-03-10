@@ -274,7 +274,7 @@ table.tablesorter thead tr th {
 }
 
 .columnSelector {
-  position: fixed;
+  position: absolute;
   margin-top: 2px;
   background: #fff;
   border: #99bfe6 1px solid;
