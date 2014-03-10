@@ -499,6 +499,14 @@
 
 <div id="log_report_dialog" class="help_dialog"
   title="How to see a Log Report table">
+<h4>Search Option の使い方</h4>
+検索条件を入力し、"Search"ボタンを押下することでログを絞り込みます。
+<ul>
+<li>ELEVEL : メッセージレベルを選択します</li>
+<li>USERNAME : ユーザ名を指定します</li>
+<li>DATABASE : データベース名を指定します</li>
+<li>MESSAGE : エラーメッセージを指定します (POSIX正規表現)</li>
+</ul>
 <h4>Log Report の見方</h4>
 <ul>
 <li>timestamp : ログ出力日時</li>
