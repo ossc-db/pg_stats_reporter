@@ -90,9 +90,9 @@
             <input type="text" name="message" size="30" maxlength="100" autocomplete="off">
           </fieldset>
         </form>
+        <button id="search_submit">Search</button>
+        <button id="search_clear">Clear</button>
       </div>
-      <button id="search_submit">Search</button>
-      <button id="search_clear">Clear</button>
     </div>
   </div>
   <div id="t-navi">

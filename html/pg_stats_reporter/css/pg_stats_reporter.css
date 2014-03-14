@@ -264,6 +264,17 @@ table.tablesorter thead tr th {
   float: left;
 }
 
+#search_submit {
+  margin-left: 2px;
+  float: left;
+  clear:both;
+}
+
+#search_clear {
+  margin-left: 2px;
+  float: left;
+}
+
 .columnSelectorWrapper {
   margin-right: 3px;
   float: left;
