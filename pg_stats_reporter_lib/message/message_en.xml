@@ -488,6 +488,15 @@ This information is not supported in this version. We will support in future ver
 </ul>
 </div>
 
+<div id="alert_dialog" class="help_dialog"
+  title="How to see a Alert table">
+<h4>How to see a Alert table.</h4>
+<ul>
+<li>timestamp : timestamp</li>
+<li>message : alert message</li>
+</ul>
+</div>
+
 <div id="profiles_dialog" class="help_dialog"
   title="How to see a Profiles table">
 <h4>How to see a Profiles table.</h4>

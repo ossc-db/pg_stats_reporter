@@ -102,5 +102,8 @@ index = true
 ; -- Setting Parameters --
 parameter = true
 
+; -- Alert --
+alert = true
+
 ; -- Profiles --
 profiles = false

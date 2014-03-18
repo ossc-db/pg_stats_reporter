@@ -437,6 +437,19 @@ $(function(){
     })
   );
 
+  // Alert
+  $("#alert_table").tablesorter(
+    $.extend({}, tablesorterDefaultOptions, {
+      sortList: [[0,0]]
+    })
+  )
+  .tablesorterPager(
+    $.extend({}, pagerDefaultOptions, {
+      container: $('#pager_alert'),
+      size: 10
+    })
+  );
+
   // Profiles
   $("#profiles_table").tablesorter(
     $.extend({}, tablesorterDefaultOptions, {

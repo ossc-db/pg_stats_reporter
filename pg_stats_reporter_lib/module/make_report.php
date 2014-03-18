@@ -346,6 +346,7 @@ EOD;
 		|| $targetList['trigger']
 		|| $targetList['role']
 		|| $targetList['parameter']
+		|| $targetList['alert']
 		|| $targetList['profiles']) {
 
 		$html_string .= "<li><a href=\"#information\">Information</a><ul>\n";
@@ -391,6 +392,11 @@ EOD;
 				$html_string .= "<li><a href=\"#parameter\">Paramter</a></li>\n";
 
 			$html_string .= "</ul></li>\n";
+		}
+
+		/* Alert */
+		if ($targetList['alert']) {
+			$html_string .= "<li><a href=\"#alert\">Alert</a></li>\n";
 		}
 
 		/* Profiles */
@@ -509,6 +515,7 @@ function makePlainHeaderMenu()
     <li><a>Role</a></li>
     <li><a>Parameter</a></li>
   </ul></li>
+  <li><a>Alert</a></li>
   <li><a>Profiles</a></li>
 </ul></li>
 </ul>
@@ -1702,7 +1709,8 @@ function makeInformationReport($conn, $target, $ids, $errorMsg)
 		&& !$target['trigger']
 		&& !$target['role']
 		&& !$target['parameter']
-		&& !$target['profiles'])
+		&& !$target['profiles']
+		&& !$target['alert'])
 		return "";
 
 	$htmlString =
@@ -1896,6 +1904,33 @@ EOD;
 				$htmlString .= makeTablePagerHTML($result, "parameter", 10, true);
 			}
 			pg_free_result($result);
+		}
+	}
+
+	if ($target['alert']) {
+		$htmlString .=
+<<< EOD
+<div id="alert" class="jump_margin"></div>
+<h2>Alert</h2>
+<div align="right" class="jquery_ui_button_info_h2">
+  <div><button class="help_button" dialog="#alert_dialog"></button></div>
+</div>
+
+EOD;
+		if ($target['repo_version'] >= V30) {
+			$result = pg_query_params($conn, $query_string['alert'], $ids);
+			if (!$result) {
+				return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
+			}
+
+			if (pg_num_rows($result) == 0) {
+				$htmlString .= makeErrorTag($errorMsg['no_result']);
+			} else {
+				$htmlString .= makeTablePagerHTML($result, "alert", 10, true);
+			}
+			pg_free_result($result);
+		} else {
+			$htmlString .= makeErrorTag($errorMsg['st_version'], "3.0.0");
 		}
 	}
 

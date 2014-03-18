@@ -99,6 +99,7 @@ $report_default = array(
   'trigger'                   => false,
   'role'                      => false,
   'parameter'                 => true,
+  'alert'                     => true,
   'profiles'                  => false
 );
 
@@ -140,6 +141,7 @@ $help_list = array(
   'trigger'                   => 'trigger_dialog',
   'role'                      => 'role_dialog',
   'parameter'                 => 'parameter_dialog',
+  'alert'                     => 'alert_dialog',
   'profiles'                  => 'profiles_dialog',
   'log_report'                => 'log_report_dialog'
 );
@@ -281,6 +283,10 @@ $query_string = array(
   // Setting Parameters
   "parameter2" =>
   "SELECT name, setting, unit, source FROM statsrepo.get_setting_parameters($1, $2)",
+
+  // Alert
+  "alert" =>
+  "SELECT \"timestamp\", message FROM statsrepo.get_alert($1, $2)",
 
   // Profiles
   "profiles" =>

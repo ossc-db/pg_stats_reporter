@@ -488,6 +488,15 @@
 </ul>
 </div>
 
+<div id="alert_dialog" class="help_dialog"
+  title="How to see a Alert table">
+<h4>Alert の見方</h4>
+<ul>
+<li>timestamp : アラート発生日時</li>
+<li>message : アラートメッセージ</li>
+</ul>
+</div>
+
 <div id="profiles_dialog" class="help_dialog"
   title="How to see a Profiles table">
 <h4>Profiles の見方</h4>
