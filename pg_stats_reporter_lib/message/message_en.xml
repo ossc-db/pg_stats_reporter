@@ -552,5 +552,6 @@ To narrow down the log, enter the search criteria and click "Search" button.
 <p id="pg_version">This PostgreSQL version is not supported. Please use 8.3.x higher.</p>
 <p id="no_info">This repository does not have snapshot at all.Please execute getting snapshot command or wait for few minutes(auto getting snapshot).</p>
 <p id="short_snapshots">does not present a reports. Because repository does not have snapshot at all. Please re-select report term or get snapshot.</p>
+<p id="invalid_regex">Invalid regular expression. (%s)&lt;br/&gt;%s</p>
 </error>
 </document>

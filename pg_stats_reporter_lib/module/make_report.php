@@ -80,8 +80,15 @@ function makeLogReport($conn, $config, $url_param, &$err_msg)
 		$query .= " AND message ~* $" . ++$i;
 	}
 
-	if (!($result = pg_query_params($conn, $query, $values))) {
-		$err_msg = sprintf($error_message['query_error'], pg_last_error($conn));
+	pg_send_query_params($conn, $query, $values);
+	$result = pg_get_result($conn);
+	if (pg_result_status($result) != PGSQL_TUPLES_OK) {
+		if (pg_result_error_field($result, PGSQL_DIAG_SQLSTATE) == '2201B') {
+			$err_msg = sprintf($error_message['invalid_regex'],
+				"MESSAGE='" . $url_param['s_message'] . "'" , pg_result_error($result));
+		} else {
+			$err_msg = sprintf($error_message['query_error'], pg_result_error($result));
+		}
 		return null;
 	}
 	$log_size = pg_fetch_result($result, 0, 0);
