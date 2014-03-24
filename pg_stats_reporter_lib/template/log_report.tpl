@@ -64,30 +64,34 @@
       <div id="search_menu">
         <form id="search_form">
           <fieldset>
-            <label for="elevel">ELEVEL:</label>
-            <select name="elevel">
-              <option value=""></option>
-              <option value="DEBUG">DEBUG</option>
-              <option value="INFO">INFO</option>
-              <option value="NOTICE">NOTICE</option>
-              <option value="WARNING">WARNING</option>
-              <option value="ERROR">ERROR</option>
-              <option value="LOG">LOG</option>
-              <option value="FATAL">FATAL</option>
-              <option value="PANIC">PANIC</option>
-            </select>
+            <span>
+              <label for="elevel">ELEVEL:</label>
+              <select name="elevel">
+                <option value=""></option>
+                <option value="DEBUG">DEBUG</option>
+                <option value="INFO">INFO</option>
+                <option value="NOTICE">NOTICE</option>
+                <option value="WARNING">WARNING</option>
+                <option value="ERROR">ERROR</option>
+                <option value="LOG">LOG</option>
+                <option value="FATAL">FATAL</option>
+                <option value="PANIC">PANIC</option>
+              </select>
+            </span>
+            <span>
+              <label for="username">USERNAME:</label>
+              <input type="text" name="username" size="20" maxlength="64" autocomplete="off">
+            </span>
+            <span>
+              <label for="database">DATABASE:</label>
+              <input type="text" name="database" size="20" maxlength="64" autocomplete="off">
+            </span>
           </fieldset>
           <fieldset>
-            <label for="username">USERNAME:</label>
-            <input type="text" name="username" size="20" maxlength="64" autocomplete="off">
-          </fieldset>
-          <fieldset>
-            <label for="database">DATABASE:</label>
-            <input type="text" name="database" size="20" maxlength="64" autocomplete="off">
-          </fieldset>
-          <fieldset>
-            <label for="message">MESSAGE:</label>
-            <input type="text" name="message" size="30" maxlength="100" autocomplete="off">
+            <span>
+              <label for="message">MESSAGE:</label>
+              <input type="text" name="message" size="80" maxlength="100" autocomplete="off">
+            </span>
           </fieldset>
         </form>
         <button id="search_submit">Search</button>

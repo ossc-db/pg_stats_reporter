@@ -261,7 +261,10 @@ table.tablesorter thead tr th {
 
 #search_menu fieldset {
   border: none;
-  float: left;
+}
+
+#search_menu fieldset span {
+  margin-right: 15px;
 }
 
 #search_submit {
