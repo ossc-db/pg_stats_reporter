@@ -144,9 +144,20 @@ function makeHeaderMenu($infoData, $targetInfo)
 
 EOD;
 
-	/* Summary */
-	if ($targetList['summary'])
-		$html_string .= "<li><a href=\"#summary\">Summary</a></li>\n";
+	if ($targetList['summary']
+		|| $targetList['alert']) {
+
+		$html_string .= "<li><a href=\"#summary\">Summary</a>";
+
+		/* Alert */
+		if ($targetList['alert']) {
+			$html_string .= "<ul>\n";
+			$html_string .= "<li><a href=\"#alert\">Alert</a></li>\n";
+			$html_string .= "</ul>";
+		}
+
+		$html_string .= "</li>\n";
+	}
 
 	/* Database System */
 	if ($targetList['database_statistics']
@@ -401,11 +412,6 @@ EOD;
 			$html_string .= "</ul></li>\n";
 		}
 
-		/* Alert */
-		if ($targetList['alert']) {
-			$html_string .= "<li><a href=\"#alert\">Alert</a></li>\n";
-		}
-
 		/* Profiles */
 		if ($targetList['profiles'])
 			$html_string .= "<li><a href=\"#profiles\">Profiles</a></li>\n";
@@ -458,7 +464,9 @@ function makePlainHeaderMenu()
 	$html_string .=
 <<< EOD
 <ul id="dropdown" class="sf-menu">
-<li><a>Summary</a></li>
+<li><a>Summary</a><ul>
+  <li><a>Alert</a><li>
+</ul></li>
 <li><a>Database System</a><ul>
   <li><a>Database Statistics</a><ul>
     <li><a>Transaction Statistics</a></li>
@@ -703,7 +711,8 @@ function makeSummaryReport($conn, $target, $snapids, $errorMsg)
 {
 	global $query_string;
 
-	if (!$target['summary'])
+	if (!$target['summary']
+		&& !$target['alert'])
 		return "";
 
 	$htmlString =
@@ -711,24 +720,59 @@ function makeSummaryReport($conn, $target, $snapids, $errorMsg)
 
 <div id="summary" class="jump_margin"></div>
 <h1>Summary</h1>
+
+EOD;
+
+	if ($target['summary']) {
+		$htmlString .=
+<<< EOD
 <div align="right" class="jquery_ui_button_info_h1">
   <div><button class="help_button" dialog="#summary_dialog"></button></div>
 </div>
 
 EOD;
 
-	$result = pg_query_params($conn, $query_string['summary'], $snapids);
-	if (!$result) {
-		return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
+		$result = pg_query_params($conn, $query_string['summary'], $snapids);
+		if (!$result) {
+			return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
+		}
+	
+		if (pg_num_rows($result) == 0) {
+			$htmlString .= makeErrorTag($errorMsg['no_result']);
+		} else {
+			$htmlString .= makeTableHTML($result, "summary");
+		}
+		pg_free_result($result);
 	}
 
-	if (pg_num_rows($result) == 0) {
-		$htmlString .= makeErrorTag($errorMsg['no_result']);
-	} else {
-		$htmlString .= makeTableHTML($result, "summary");
-	}
-	pg_free_result($result);
+	if ($target['alert']) {
+		$htmlString .=
+<<< EOD
+
+<div id="alert" class="jump_margin"></div>
+<h2>Alert</h2>
+<div align="right" class="jquery_ui_button_info_h2">
+  <div><button class="help_button" dialog="#alert_dialog"></button></div>
+</div>
+
+EOD;
+		if ($target['repo_version'] >= V30) {
+			$result = pg_query_params($conn, $query_string['alert'], $snapids);
+			if (!$result) {
+				return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
+			}
 	
+			if (pg_num_rows($result) == 0) {
+				$htmlString .= makeErrorTag($errorMsg['no_result']);
+			} else {
+				$htmlString .= makeTablePagerHTML($result, "alert", 10, true);
+			}
+			pg_free_result($result);
+		} else {
+			$htmlString .= makeErrorTag($errorMsg['st_version'], "3.0.0");
+		}
+	}
+
 	return $htmlString;
 }
 
@@ -1716,8 +1760,7 @@ function makeInformationReport($conn, $target, $ids, $errorMsg)
 		&& !$target['trigger']
 		&& !$target['role']
 		&& !$target['parameter']
-		&& !$target['profiles']
-		&& !$target['alert'])
+		&& !$target['profiles'])
 		return "";
 
 	$htmlString =
@@ -1911,33 +1954,6 @@ EOD;
 				$htmlString .= makeTablePagerHTML($result, "parameter", 10, true);
 			}
 			pg_free_result($result);
-		}
-	}
-
-	if ($target['alert']) {
-		$htmlString .=
-<<< EOD
-<div id="alert" class="jump_margin"></div>
-<h2>Alert</h2>
-<div align="right" class="jquery_ui_button_info_h2">
-  <div><button class="help_button" dialog="#alert_dialog"></button></div>
-</div>
-
-EOD;
-		if ($target['repo_version'] >= V30) {
-			$result = pg_query_params($conn, $query_string['alert'], $ids);
-			if (!$result) {
-				return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
-			}
-
-			if (pg_num_rows($result) == 0) {
-				$htmlString .= makeErrorTag($errorMsg['no_result']);
-			} else {
-				$htmlString .= makeTablePagerHTML($result, "alert", 10, true);
-			}
-			pg_free_result($result);
-		} else {
-			$htmlString .= makeErrorTag($errorMsg['st_version'], "3.0.0");
 		}
 	}
 

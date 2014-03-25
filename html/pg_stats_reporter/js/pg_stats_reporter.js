@@ -43,7 +43,7 @@ $(function(){
     page: 0,
     size: 10,
     output: '{page}/{totalPages}',
-    fixedHeight: true
+    fixedHeight: false
   };
 
   // Summary

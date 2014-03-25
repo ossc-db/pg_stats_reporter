@@ -37,6 +37,9 @@ language = auto
 ; --- Summary ---
 summary = true
 
+; -- Alert --
+alert = true
+
 ; --- Database System ---
 
 ; -- Database Statistics --
@@ -101,9 +104,6 @@ index = true
 
 ; -- Setting Parameters --
 parameter = true
-
-; -- Alert --
-alert = true
 
 ; -- Profiles --
 profiles = false
