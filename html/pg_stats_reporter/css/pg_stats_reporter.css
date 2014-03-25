@@ -259,12 +259,13 @@ table.tablesorter thead tr th {
   overflow: hidden;
 }
 
-#search_menu fieldset {
-  border: none;
+#search_menu table {
+  margin: 5px;
 }
 
-#search_menu fieldset span {
-  margin-right: 15px;
+#search_menu table td {
+  padding-right: 15px;
+  padding-bottom: 5px;
 }
 
 #search_submit {

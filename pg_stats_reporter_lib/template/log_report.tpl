@@ -63,36 +63,40 @@
     <div id="search">
       <div id="search_menu">
         <form id="search_form">
-          <fieldset>
-            <span>
-              <label for="elevel">ELEVEL:</label>
-              <select name="elevel">
-                <option value=""></option>
-                <option value="DEBUG">DEBUG</option>
-                <option value="INFO">INFO</option>
-                <option value="NOTICE">NOTICE</option>
-                <option value="WARNING">WARNING</option>
-                <option value="ERROR">ERROR</option>
-                <option value="LOG">LOG</option>
-                <option value="FATAL">FATAL</option>
-                <option value="PANIC">PANIC</option>
-              </select>
-            </span>
-            <span>
-              <label for="username">USERNAME:</label>
-              <input type="text" name="username" size="20" maxlength="64" autocomplete="off">
-            </span>
-            <span>
-              <label for="database">DATABASE:</label>
-              <input type="text" name="database" size="20" maxlength="64" autocomplete="off">
-            </span>
-          </fieldset>
-          <fieldset>
-            <span>
-              <label for="message">MESSAGE:</label>
-              <input type="text" name="message" size="80" maxlength="100" autocomplete="off">
-            </span>
-          </fieldset>
+          <table>
+            <tbody>
+              <tr>
+                <td>
+                  <label for="elevel">ELEVEL:</label>
+                  <select name="elevel">
+                    <option value=""></option>
+                    <option value="DEBUG">DEBUG</option>
+                    <option value="INFO">INFO</option>
+                    <option value="NOTICE">NOTICE</option>
+                    <option value="WARNING">WARNING</option>
+                    <option value="ERROR">ERROR</option>
+                    <option value="LOG">LOG</option>
+                    <option value="FATAL">FATAL</option>
+                    <option value="PANIC">PANIC</option>
+                  </select>
+                </td>
+                <td>
+                  <label for="username">USERNAME:</label>
+                  <input type="text" name="username" size="20" maxlength="64" autocomplete="off">
+                </td>
+                <td>
+                  <label for="database">DATABASE:</label>
+                  <input type="text" name="database" size="20" maxlength="64" autocomplete="off">
+                </td>
+              </tr>
+              <tr>
+                <td colspan="3">
+                  <label for="message">MESSAGE:</label>
+                  <input type="text" name="message" size="80" maxlength="100" autocomplete="off">
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </form>
         <button id="search_submit">Search</button>
         <button id="search_clear">Clear</button>
