@@ -66,8 +66,10 @@
           <table>
             <tbody>
               <tr>
-                <td>
+                <td class="form_label">
                   <label for="elevel">ELEVEL:</label>
+                </td>
+                <td class="form_input">
                   <select name="elevel">
                     <option value=""></option>
                     <option value="DEBUG">DEBUG</option>
@@ -80,18 +82,24 @@
                     <option value="PANIC">PANIC</option>
                   </select>
                 </td>
-                <td>
+                <td class="form_label">
                   <label for="username">USERNAME:</label>
+                </td>
+                <td class="form_input">
                   <input type="text" name="username" size="20" maxlength="64" autocomplete="off">
                 </td>
-                <td>
+                <td class="form_label">
                   <label for="database">DATABASE:</label>
+                </td>
+                <td class="form_input">
                   <input type="text" name="database" size="20" maxlength="64" autocomplete="off">
                 </td>
               </tr>
               <tr>
-                <td colspan="3">
+                <td class="form_label">
                   <label for="message">MESSAGE:</label>
+                </td>
+                <td class="form_input" colspan="5">
                   <input type="text" name="message" size="80" maxlength="100" autocomplete="off">
                 </td>
               </tr>

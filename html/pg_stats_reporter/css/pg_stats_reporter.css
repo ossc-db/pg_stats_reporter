@@ -264,8 +264,16 @@ table.tablesorter thead tr th {
 }
 
 #search_menu table td {
-  padding-right: 15px;
   padding-bottom: 5px;
+}
+
+#search_menu table .form_label {
+  text-align: right;
+}
+
+#search_menu table .form_input {
+  text-align: left;
+  padding-right: 8px;
 }
 
 #search_submit {
