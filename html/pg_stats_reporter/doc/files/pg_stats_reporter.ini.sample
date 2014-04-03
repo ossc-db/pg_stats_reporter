@@ -8,7 +8,7 @@
 
 [global_setting]
 install_directory = /var/www
-
+log_page_size = 1000
 
 ;-------------------------------------
 ; repository DB setting section
@@ -35,6 +35,9 @@ language = auto
 
 ; --- Summary ---
 summary = true
+
+; -- Alert --
+alert = true
 
 ; --- Database System ---
 

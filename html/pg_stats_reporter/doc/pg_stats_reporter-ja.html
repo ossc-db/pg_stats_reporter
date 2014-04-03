@@ -32,14 +32,14 @@
   <li><a href="#configuration">設定ファイル</a></li>
   <li><a href="#restrictions">使用上の注意と制約</a></li>
   <li><a href="#faq">よくあるQ&amp;A</a></li>
-  <li><a href="#change">pg_stats_reporter 1.0 からの変更点</a></li>
+  <li><a href="#change">pg_stats_reporter 2.0 からの変更点</a></li>
   <li><a href="#seealso">関連項目</a></li>
   <li><a href="#acknowledgment">謝辞</a></li>
 </ol>
 </div>
-<h1 id="pg_stats_reporter">pg_stats_reporter 2.0</h1>
+<h1 id="pg_stats_reporter">pg_stats_reporter 3.0</h1>
 <h2 id="name">pg_stats_reporter とは?</h2>
-<p><a href="http://pgstatsinfo.projects.postgresql.org/pg_statsinfo-ja.html">pg_statsinfo-2.5 </a>が収集した統計情報を元に、PostgreSQL サーバの利用統計情報をHTML形式のグラフィカルなレポートで出力します。</p>
+<p><a href="http://pgstatsinfo.projects.postgresql.org/pg_statsinfo-ja.html">pg_statsinfo-3.0 </a>が収集した統計情報を元に、PostgreSQL サーバの利用統計情報をHTML形式のグラフィカルなレポートで出力します。</p>
 <p>当ツールで作成したレポートの例は<a href="files/report_sample.html">こちら</a>をご覧ください。</p>
 
 <h2 id="synopsis">機能概要</h2>
@@ -49,9 +49,16 @@
 <h3 id="synopsis_server">Webレポート機能</h3>
 <p>Webレポート機能では、Apache HTTP Server と連携して pg_stats_reporter が動作します。<br/>
 WEBサーバにブラウザを利用してアクセスすることで、ブラウザ上での操作によりレポートを作成することが可能です。</p>
+<p>Webレポート機能が作成するレポートの種類を以下に示します。</p>
+<dl>
+  <dt>性能レポート</dt>
+  <dd>データベースの性能に関する統計情報やOSリソースの使用状況などが表示されます。</dd>
+  <dt>ログレポート</dt>
+  <dd>データベースのログおよび pg_statsinfo で検出したアラートが表示されます。また、特定のログを検索することができます。</dd>
+</dl>
 
 <h3 id="synopsis_command">コマンドライン機能</h3>
-<p>コマンドライン機能では、端末上でのコマンド実行によりレポートを作成することができます。<br/>
+<p>コマンドライン機能では、端末上でのコマンド実行により性能レポートを作成することができます。<br/>
 コマンドライン機能の利用には Apache HTTP Server を必要としません。何らかの理由でApache HTTP Serverを実行出来ない場合や、crond等で一定期間のレポートを日々作成したい場合に特にお勧めします。</p>
 
 <h2 id="install">インストール</h2>
@@ -64,14 +71,13 @@ WEBサーバにブラウザを利用してアクセスすることで、ブラ�
   <dt>動作確認済みPHP</dt>
   <dd>バージョン 5.3.3 (OS同梱のもの)</dd>
   <dt>動作確認済みOS</dt>
-  <dd>RHEL 5.9, RHEL 6.4</dd>
+  <dd>RHEL 6.5</dd>
   <dt>動作確認済みブラウザ</dt>
-  <dd>Internet Explorer : 9, 10</dd>
-  <dd>Firefox : 10.0.12, 21.0</dd>
-  <dd>Google Chrome : 27.0.1453.110 m</dd>
-  <dd>Safari (Windows版) : 5.1.7</dd>
+  <dd>Internet Explorer : 11</dd>
+  <dd>Firefox : 28.0</dd>
+  <dd>Google Chrome : 33.0</dd>
   <dt>動作確認済みHTTP Server</dt>
-  <dd>Apache HTTP Server : 2.2.3 (RHEL 5.9 同梱のもの), 2.2.15 (RHEL 6.4 同梱のもの)</dd>
+  <dd>Apache HTTP Server : 2.2.15 (RHEL 6.5 同梱のもの)</dd>
   <dt>利用ライブラリ (pg_stats_reporter のインストールパッケージに同梱)</dt>
   <dd><ul>
     <li>jQuery : 2.0.1</li>
@@ -79,7 +85,7 @@ WEBサーバにブラウザを利用してアクセスすることで、ブラ�
     <li>jquery-ui-timepicker-addon : 1.3</li>
     <li>dygraphs JavaScript Visualization Library : b839102723 (commit ID)</li>
     <li>jqPlot : 1.0.8 r1250</li>
-    <li>tablesorter : 2.0.3</li>
+    <li>tablesorter : 2.15.5</li>
     <li>Superfish : 1.7.2</li>
     <li>Smarty : 3.1.13</li>
   </ul></dd>
@@ -88,52 +94,53 @@ WEBサーバにブラウザを利用してアクセスすることで、ブラ�
 </dl>
 
 <h3 id="pg_stats_reporter_install">パッケージのインストール</h3>
-<p>依存するパッケージを yum コマンド、または rpm コマンドでインストールします。以下はインストール例です。</p>
-<pre>
-$ su
-/* yum コマンドを使用したインストール例 */
-# yum install httpd php php-pgsql php-intl php-cli
+<h4>フルインストール</h4>
+<p>全ての機能を使用する場合は、ルートユーザで以下のいずれかの手順を実行してください。</p>
 
-/* rpm コマンドを使用したインストール例 */
+<h5>yumを使用する場合のインストール手順</h5>
+<pre>
+# yum install httpd php php-pgsql php-intl php-cli
+# rpm -ivh pg_stats_reporter-3.0.0-1.el6.noarch.rpm
+</pre>
+<h5>yumを使用する場合のインストール手順</h5>
+<pre>
 # rpm -ivh httpd-2.2.15-15.el6_2.1.x86_64.rpm \
            php-common-5.3.3-3.el6_2.8.x86_64.rpm \
            php-5.3.3-3.el6_2.8.x86_64.rpm \
            php-pdo-5.3.3-22.el6.x86_64.rpm \
            php-pgsql-5.3.3-3.el6_2.8.x86_64.rpm \
            php-intl-5.3.3-3.el6_2.8.x86_64.rpm \
-           php-cli-5.3.3-22.el6.x86_64.rpm
+           php-cli-5.3.3-22.el6.x86_64.rpm \
+           pg_stats_reporter-3.0.0-1.el6.noarch.rpm
+</pre>
 
-※php-intl のRPMファイルは、インストールディスク2枚目の以下のパスに格納されています。
-  Packages/php-intl-5.3.3-22.el6.x86_64.rpm
-※php-intl が未インストールの状態でも動作しますが、表示言語の自動設定が機能しなくなります。
-</pre>
-<p>rpm コマンドで pg_stats_reporter をインストールします。以下はインストール例です。</p>
+<h4>コマンドライン機能のみ</h4>
+<p>コマンドライン機能のみを使用する場合は、ルートユーザで以下のいずれかの手順を実行してください。</p>
+
+<h5>yumを使用する場合のインストール手順</h5>
 <pre>
-# rpm -ivh pg_stats_reporter-2.0.0-1.el6.noarch.rpm
-</pre>
-<p>以下はコマンドライン機能のみを使用する場合のインストール例です。
-<pre>
-$ su
-/* yum コマンドを使用したインストール例 */
 # yum install php-pgsql php-intl php-cli
-
-/* rpm コマンドを使用したインストール例 */
+# rpm -ivh --nodeps pg_stats_reporter-3.0.0-1.el6.noarch.rpm
+</pre>
+<h5>yumを使用しない場合のインストール手順</h5>
+<pre>
 # rpm -ivh php-common-5.3.3-3.el6_2.8.x86_64.rpm \
            php-pdo-5.3.3-22.el6.x86_64.rpm \
            php-pgsql-5.3.3-3.el6_2.8.x86_64.rpm \
            php-intl-5.3.3-3.el6_2.8.x86_64.rpm \
            php-cli-5.3.3-22.el6.x86_64.rpm
+# rpm -ivh --nodeps pg_stats_reporter-3.0.0-1.el6.noarch.rpm
+</pre>
 
-※php-intl のRPMファイルは、インストールディスク2枚目の以下のパスに格納されています。
-  Packages/php-intl-5.3.3-22.el6.x86_64.rpm
+<p>
+※php-intl のRPMファイルは、インストールディスク2枚目の「Packages/php-intl-5.3.3-22.el6.x86_64.rpm」に格納されています。<br/>
 ※php-intl が未インストールの状態でも動作しますが、表示言語の自動設定が機能しなくなります。
-</pre>
-<p>rpm コマンドで pg_stats_reporter をインストールします。以下はインストール例です。</p>
-<pre>
-# rpm -ivh --nodeps pg_stats_reporter-2.0.0-1.el6.noarch.rpm
-</pre>
+</p>
 
 <h3 id="initialize">初期設定</h3>
+<h4>リポジトリDBの起動</h4>
+<p>リポジトリDBが停止している場合は、リポジトリDBを起動します。</p>
+
 <h4>リポジトリDBの設定</h4>
 <p>設定ファイルを編集し、リポジトリDBへの接続情報を設定します。設定ファイルの説明は<a href="#configuration">こちら</a>を参照してください。<br/>
 設定例は<a href="files/pg_stats_reporter.ini.sample">こちら</a>を参照してください。</p>
@@ -142,6 +149,10 @@ $ su
 <p>Webレポート機能を使用する場合は、HTTP Server を起動します。</p>
 <pre>
 # service httpd start
+</pre>
+<p>OS 起動時に HTTP Server を自動的に起動させる場合は以下のコマンドを実行します。</p>
+<pre>
+# chkconfig httpd on
 </pre>
 
 <h3 id="execute_test">動作確認</h3>
@@ -163,13 +174,13 @@ URLのホスト名は pg_stats_reporter の実行環境にあわせて変更し�
 <pre>
 http://&lt;<I>ホスト名</I>&gt;/pg_stats_reporter/pg_stats_reporter.php
 </pre>
-<p>上記のURLにアクセスすると、初期状態のレポートを表示します。</p>
+<p>上記のURLにアクセスすると、初期状態の性能レポートが表示されます。</p>
 <br/>
 
 <h4>操作方法詳細</h4>
 <p>画面の操作方法を以下に示します。</p>
-<h5>レポート画面</h5>
-<img id="report_sample" src="image/pg_stats_reporter.png" width="800px;"/>
+<h5>性能レポート画面</h5>
+<img id="report_sample" src="image/report_sample.png" width="800px;"/>
 <br/>
 <dl>
 <dt>① : Create report range ボタン</dt>
@@ -181,10 +192,13 @@ http://&lt;<I>ホスト名</I>&gt;/pg_stats_reporter/pg_stats_reporter.php
 <dt>④ : Reload pg_stats_reporter.ini ボタン</dt>
 <dd>設定ファイルの再読み込みを行います。読み込み後は起動時と同様の条件でレポートを表示します。</dd>
 <dt>⑤ : ヘッダメニュー</dt>
-<dd>選択すると、レポートの該当項目へ移動します。</dd>
-<dt>⑥ : メニュー表示/非表示ボタン</dt>
+<dd>"Summary" ～ "Information" の項目を選択すると、性能レポートの該当項目へ移動します。</dd>
+<dd>"Log Report" を選択すると、ログレポート画面に移動します。</dd>
+<dt>⑥ : トップに移動ボタン</dt>
+<dd>レポートのトップに移動します。</dd>
+<dt>⑦ : メニュー表示/非表示ボタン</dt>
 <dd>ボタンを押すごとに、左側のメニューの表示/非表示が切り替わります。</dd>
-<dt>⑦ : ヘルプボタン</dt>
+<dt>⑧ : ヘルプボタン</dt>
 <dd>表やグラフの簡単な説明が表示されます。</dd>
 </dl>
 <br/>
@@ -192,14 +206,48 @@ http://&lt;<I>ホスト名</I>&gt;/pg_stats_reporter/pg_stats_reporter.php
 <img src="image/dialog.png"/>
 <br/>
 <dl>
-<dt>⑧ : レポート期間開始日時指定ボックス</dt>
+<dt>⑨ : レポート期間開始日時指定ボックス</dt>
 <dd>レポート期間の開始年月日を入力します。選択すると、日時指定のダイアログボックスが表示されます。</dd>
-<dt>⑨ : レポート期間終了日時指定ボックス</dt>
+<dt>⑩ : レポート期間終了日時指定ボックス</dt>
 <dd>レポート期間の終了年月日を入力します。選択すると、日時指定のダイアログボックスが表示されます。</dd>
-<dt>⑩ : Create report ボタン</dt>
+<dt>⑪ : Create report ボタン</dt>
 <dd>入力した期間でレポートを作成します。</dd>
-<dt>⑪ : Cancel ボタン</dt>
+<dt>⑫ : Cancel ボタン</dt>
 <dd>レポート期間の指定をキャンセルします。</dd>
+</dl>
+
+<h5>ログレポート画面</h5>
+<img id="log_report_sample" src="image/log_report_sample.png" width="800px;"/>
+<br/>
+<dl>
+<dt>① : 検索オプション表示／非表示ボタン</dt>
+<dd>ボタンを押すごとに、検索オプションの表示/非表示が切り替わります。</dd>
+<dt>② : 検索条件の入力フィールド</dt>
+<dd>ログの検索条件を選択／指定するフィールドです。各フィールドの説明を以下に示します。
+<ul>
+<li>ELEVEL: メッセージレベル</li>
+<li>USERNAME: DBユーザ名</li>
+<li>DATABASE: データベース名</li>
+<li>MESSAGE: メッセージ本文 (POSIX正規表現で指定してください)</li>
+</ul></dd>
+</dd>
+<dt>③ : 検索ボタン</dt>
+<dd>②に入力されている条件で検索を実行します。</dd>
+<dt>④ : 検索条件のリセットボタン</dt>
+<dd>②の全フィールドをリセットします。</dd>
+<dt>⑤ :カラム表示／非表示ボタン</dt>
+<dd>ボタンを押すと、表の各カラムの表示／非表示を選択するチェックボックスが表示されます。<br/>
+チェックボックスのON/OFFを切り替えることで該当カラムの表示／非表示が切り替わります。<br/>
+チェックボックスの表示を閉じるには再度ボタンを押してください。</dd>
+<dt>⑥ : テーブルフィルタのリセットボタン</dt>
+<dd>⑧の全フィールドをクリアします。</dd>
+<dt>⑦ : ページ移動ボタン</dt>
+<dd>表のページを前後に移動します。</dd>
+<dt>⑧ : テーブルフィルタ</dt>
+<dd>各フィールドに条件を入力することで、現在のページ内の条件に該当するレコードのみが表示されます。<br/>
+条件には、固有のパターンマッチ記述が使用できます。パターンマッチ記述の詳細は <a href="http://mottie.github.io/tablesorter/docs/example-widget-filter.html"> こちら </a> をご覧ください。</dd>
+<dt>⑨ : ヘルプボタン</dt>
+<dd>ログの検索方法および表の説明が表示されます。</dd>
 </dl>
 
 <h3 id="execute_command">コマンドライン機能の操作方法</h3>
@@ -331,7 +379,7 @@ http://&lt;<I>ホスト名</I>&gt;/pg_stats_reporter/pg_stats_reporter.php
 なお、アンインストールにより設定ファイル(/etc/pg_stats_reporter.ini)は削除されません。設定ファイルを削除したい場合は手動で削除してください。</p>
 <pre>
 $ su
-# rpm -e pg_stats_reporter-2.0.0-1.el6.noarch
+# rpm -e pg_stats_reporter-3.0.0-1.el6.noarch
 </pre>
 <p>ソースセットからインストールした場合のアンインストール手順は、ソースセットに同梱されている INSTALL.ja ファイルを参照してください。</p>
 
@@ -340,9 +388,44 @@ $ su
 設定ファイルの内容は、グローバル設定とリポジトリDB設定の2種類のセクションで構成されています。</p>
 
 <h3>グローバル設定</h3>
-<p>グローバル設定は、セクション名 "[global_setting]" のセクションの設定項目です。<br/>
-グローバル設定の設定項目は、RPMパッケージからインストールした場合は変更する必要はありません。<br/>
-ソースセットからインストールした場合のみ変更してください。詳細はソースセットに同梱されている INSTALL.ja ファイルを参照してください。</p>
+<p>グローバル設定は、セクション名 "[global_setting]" のセクションの設定項目です。</p>
+<p>グローバル設定のセクションの設定項目を以下に示します。</p>
+
+<table>
+<thead>
+  <tr>
+    <th>設定項目</th>
+    <th>設定可能な値</th>
+    <th>項目省略時</th>
+    <th>設定値省略時</th>
+    <th width="150">設定例</th>
+    <th>説明</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>install_directory</td>
+    <td>文字列</td>
+    <td>省略不可</td>
+    <td>省略不可</td>
+    <td>/var/www</td>
+    <td>当ツールのインストールディレクトリを指定します。(*1)</td>
+  </tr>
+
+  <tr>
+    <td>log_page_size</td>
+    <td>数値</td>
+    <td>省略不可</td>
+    <td>省略不可</td>
+    <td>1000</td>
+    <td>ログレポート画面の表のページ毎の最大表示件数を指定します。</td>
+  </tr>
+</tbody>
+</table>
+
+<p>
+*1: RPMパッケージからインストールした場合は変更する必要はありません。ソースセットからインストールした場合のみ変更してください。
+</p>
 
 <h3>リポジトリDB設定</h3>
 <p>グローバル設定以外のセクションがリポジトリDB設定のセクションとなり、1個のリポジトリDBにつき1個のセクションで設定項目を記述します。<br/>
@@ -427,7 +510,7 @@ $ su
   </tr>
 
   <tr>
-    <td>表示項目<br/>(summary ? profiles)</td>
+    <td>表示項目<br/>(summary - profiles)</td>
     <td>true/false</td>
     <td>true</td>
     <td>false</td>
@@ -468,19 +551,11 @@ $ su
 <h4>Q4. Apache HTTP Server の worker モードには対応していますか？</h4>
 <dl>A4. PHP の仕様のため、worker モードでの使用は推奨されません。prefork モードで使用するか、コマンドライン機能を使用してください。</dl>
 
-<h2 id="change">pg_stats_reporter 1.0 からの変更点</h2>
-<p>pg_stats_reporter 1.0 からの変更点は以下の通りです。</p>
+<h2 id="change">pg_stats_reporter 2.0 からの変更点</h2>
+<p>pg_stats_reporter 2.0 からの変更点は以下の通りです。</p>
 <ul>
-  <li>コマンドライン(CUIでの操作)機能を追加</li>
-  <ul>
-    <li>cron を使用することで定期的なレポートの作成が可能</li>
-    <li>コマンドライン機能でレポートを作成するとレポート一覧が同時に作成されます</li>
-  </ul>
-  <li>レプリケーション遅延のレポート項目を追加</li>
-  <li>各グラフにチェックポイント実行期間をハイライト表示するボタンを追加</li>
-  <li>レポート項目 "Setting Parameters" に、パラメータの単位の情報を追加</li>
-  <li>グラフを拡大／縮小する時の動作がアニメーションになるように変更</li>
-  <li>php-intl が未インストールの状態でも動作するように変更<br/>(php-intl が未インストールの場合は表示言語の自動設定が機能しなくなります)</li>
+  <li>データベースのログのレポートを作成する機能を追加</li>
+  <li>レポート項目にアラート情報を追加</li>
 </ul>
 <br/>
 
@@ -495,7 +570,7 @@ $ su
 <li>jquery-ui-timepicker-addon : <a href="http://trentrichardson.com/examples/timepicker/">http://trentrichardson.com/examples/timepicker/</a></li>
 <li>dygraphs JavaScript Visualization Library : <a href="http://dygraphs.com/">http://dygraphs.com/</a></li>
 <li>jqPlot : <a href="http://www.jqplot.com/">http://www.jqplot.com/</a></li>
-<li>tablesorter : <a href="http://tablesorter.ru/docs/">http://tablesorter.ru/docs/</a></li>
+<li>tablesorter : <a href="http://mottie.github.io/tablesorter">http://mottie.github.io/tablesorter/</a></li>
 <li>Superfish : <a href="http://users.tpg.com.au/j_birch/plugins/superfish/">http://users.tpg.com.au/j_birch/plugins/superfish/</a></li>
 <li>Smarty : <a href="http://www.smarty.net/">http://www.smarty.net/</a></li>
 </ul>
@@ -505,7 +580,7 @@ $ su
   <a href="http://pgstatsinfo.projects.postgresql.org/index_ja.html">Top</a> &gt;
   <a href="http://pgstatsinfo.projects.postgresql.org/pg_stats_reporter-ja.html">pg_stats_reporter</a>
 </div>
-<p class="footer">Copyright (c) 2012,2013, NIPPON TELEGRAPH AND TELEPHONE CORPORATION</p>
+<p class="footer">Copyright (c) 2012,2014, NIPPON TELEGRAPH AND TELEPHONE CORPORATION</p>
 
 <script type="text/javascript">
 var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");

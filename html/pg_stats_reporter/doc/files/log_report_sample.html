@@ -1,0 +1,319 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>pg_stats_reporter 3.0.0</title>
+
+<!-- javascripts -->
+<script type="text/javascript" src="../../package/jquery-2.0.1/jquery-2.0.1.min.js"></script>
+<script type="text/javascript" src="../../package/jquery-ui-1.10.2/ui/jquery.ui.core.js"></script>
+<script type="text/javascript" src="../../package/jquery-ui-1.10.2/ui/jquery.ui.widget.js"></script>
+<script type="text/javascript" src="../../package/jquery-ui-1.10.2/ui/jquery.ui.accordion.js"></script>
+<script type="text/javascript" src="../../package/jquery-ui-1.10.2/ui/jquery.ui.mouse.js"></script>
+<script type="text/javascript" src="../../package/jquery-ui-1.10.2/ui/jquery.ui.datepicker.js"></script>
+<script type="text/javascript" src="../../package/jquery-ui-1.10.2/ui/jquery.ui.slider.js"></script>
+<script type="text/javascript" src="../../package/jquery-ui-1.10.2/ui/jquery.ui.button.js"></script>
+<script type="text/javascript" src="../../package/jquery-ui-1.10.2/ui/jquery.ui.draggable.js"></script>
+<script type="text/javascript" src="../../package/jquery-ui-1.10.2/ui/jquery.ui.position.js"></script>
+<script type="text/javascript" src="../../package/jquery-ui-1.10.2/ui/jquery.ui.resizable.js"></script>
+<script type="text/javascript" src="../../package/jquery-ui-1.10.2/ui/jquery.ui.dialog.js"></script>
+<script type="text/javascript" src="../../package/jquery-ui-1.10.2/ui/i18n/jquery.ui.datepicker-ja.js"></script>
+<script type="text/javascript" src="../../package/jquery-ui-timepicker-addon.js"></script>
+<script type="text/javascript" src="../../package/superfish/superfish-1.7.2/js/hoverIntent.js"></script>
+<script type="text/javascript" src="../../package/superfish/superfish-1.7.2/js/superfish.js"></script>
+<script type="text/javascript" src="../../package/superfish/superfish-1.7.2/js/supersubs.js"></script>
+<script type="text/javascript" src="../../package/tablesorter/js/jquery.tablesorter.min.js"></script>
+<script type="text/javascript" src="../../package/tablesorter/js/jquery.tablesorter.widgets.min.js"></script>
+<script type="text/javascript" src="../../package/tablesorter/js/widgets/widget-columnSelector.js"></script>
+<!-- pg_stats_reporter's javascript -->
+<script type="text/javascript" src="../js/common.js"></script>
+<script type="text/javascript" src="../js/log_report.js"></script>
+<script type="text/javascript" src="../js/log_report_ajax.js"></script>
+
+<!-- stylesheets -->
+<link rel="stylesheet" type="text/css" href="../../package/superfish/superfish-1.7.2/css/superfish.css"/>
+<link rel="stylesheet" type="text/css" href="../../package/jquery-ui-1.10.2/themes/start/jquery.ui.all.css"/>
+<link rel="stylesheet" type="text/css" href="../../package/tablesorter/css/theme.blue.css"/>
+<!-- pg_stats_reporter's stylesheets -->
+<link rel="stylesheet" type="text/css" href="../../css/pg_stats_reporter.css"/>
+</head>
+
+<body>
+<!-- header menu -->
+<div id="header_menu">
+<ul id="dropdown" class="sf-menu menu">
+<li><a href="report_sample.html#summary">Summary</a><ul>
+<li><a href="report_sample.html#alert">Alert</a></li>
+</ul></li>
+<li><a href="report_sample.html#database_system">Database System</a><ul>
+<li><a href="report_sample.html#database_statistics">Database Statistics</a><ul>
+<li><a href="report_sample.html#transaction_statistics">Transaction Statistics</a></li>
+<li><a href="report_sample.html#database_size">Database Size</a></li>
+<li><a href="report_sample.html#recovery_conflicts">Recovery Conflicts</a></li>
+</ul></li>
+<li><a href="report_sample.html#instance_activity">Instance Activity</a><ul>
+<li><a href="report_sample.html#wal_statistics">WAL Statistics</a></li>
+<li><a href="report_sample.html#instance_processes_ratio">Instance Processes Ratio</a></li>
+<li><a href="report_sample.html#instance_processes">Instance Processes</a></li>
+</ul></li>
+</ul></li>
+<li><a href="report_sample.html#operating_system">Operating System</a><ul>
+<li><a href="report_sample.html#os_resource_usage">OS Resource Usage</a><ul>
+<li><a href="report_sample.html#cpu_usage">CPU Usage</a></li>
+<li><a href="report_sample.html#load_average">Load Average</a></li>
+<li><a href="report_sample.html#io_usage">I/O Usage</a></li>
+<li><a href="report_sample.html#memory_usage">Memory Usage</a></li>
+</ul></li>
+<li><a href="report_sample.html#disk_usage">Disk Usage</a><ul>
+<li><a href="report_sample.html#disk_usage_per_tablespace">Disk Usage per Tablespace</a></li>
+<li><a href="report_sample.html#disk_usage_per_table">Disk Usage per Table</a></li>
+</ul></li>
+</ul></li>
+<li><a href="report_sample.html#sql">SQL</a><ul>
+<li><a href="report_sample.html#notable_tables">Notable Tables</a><ul>
+<li><a href="report_sample.html#heavily_updated_tables">Heavily Updated Tables</a></li>
+<li><a href="report_sample.html#heavily_accessed_tables">Heavily Accessed Tables</a></li>
+<li><a href="report_sample.html#low_density_tables">Low Density Tables</a></li>
+<li><a href="report_sample.html#fragmented_tables">Fragmented Tables</a></li>
+</ul></li>
+<li><a href="report_sample.html#query_activity">Query Activity</a><ul>
+<li><a href="report_sample.html#qa_functions">Functions</a></li>
+<li><a href="report_sample.html#qa_statements">Statements</a></li>
+</ul></li>
+<li><a href="report_sample.html#long_transactions">Long Transactions</a></li>
+<li><a href="report_sample.html#lock_conflicts">Lock Conflicts</a></li>
+</ul></li>
+<li><a href="report_sample.html#operation_activity">Operation Activity</a><ul>
+<li><a href="report_sample.html#checkpoint_activity">Checkpoint Activity</a></li>
+<li><a href="report_sample.html#autovacuum_activity">Autovacuum Activity</a><ul>
+<li><a href="report_sample.html#basic_statistics">Basic Statistics (Average)</a></li>
+<li><a href="report_sample.html#io_statistics">I/O Statistics (Average)</a></li>
+</ul></li>
+<li><a href="report_sample.html#replication_activity">Replication Activity</a><ul>
+<li><a href="report_sample.html#current_replication_status">Current Replication Status</a></li>
+<li><a href="report_sample.html#replication_delays">Replication Delays</a></li>
+</ul></li>
+</ul></li>
+<li><a href="report_sample.html#information">Information</a><ul>
+<li><a href="report_sample.html#schema_information">Schema Information</a><ul>
+<li><a href="report_sample.html#table">Table</a></li>
+<li><a href="report_sample.html#index">Index</a></li>
+</ul></li>
+<li><a href="report_sample.html#setting_parameters">Setting Parameters</a><ul>
+<li><a href="report_sample.html#parameter">Paramter</a></li>
+</ul></li>
+</ul></li>
+</ul>
+<!-- Log Report -->
+<ul id="dropdown2" class="sf-menu menu">
+<li><a href="#log_report">Log Report</a></li>
+</ul>
+<!-- hide left menu button  -->
+<div align="right" class="jquery_ui_button_max">
+  <div><button id="jquery_ui_button_arrowthick"></button></div>
+</div>
+<!-- top button -->
+<div align="right" class="jquery_ui_button_top">
+  <div><button id="jquery_ui_button_top"></button></div>
+</div>
+</div> <!-- header menu end -->
+
+
+<!-- left menu -->
+<div id="left_menu" class="scrollbox">
+<img width="100%" src="pgsql_banner01.png"/>
+<p class="report_data">
+[repository1]<br/>pg-rex03:5432<br/>begin:<br/>2013-06-07 00:00<br/>end:<br/>2013-06-08 00:00<br/>
+</p>
+<div id="report_range_dialog" title="Create new report">
+  <p align="center" tabindex="1">
+    <label for="begin_date">begin:</label>
+    <input type="text" id="begin_date" name="begin_date" cheked/>
+	<label for="end_date">end:</label>
+    <input type="text" id="end_date" name="end_date"/>
+  </p>
+</div><br/>
+<div align="center">
+  <button id="report_range">Create new report</button>
+</div><br/>
+<div id="accordion">
+<h3><a href="#">repository1</a></h3>
+<div>
+<a href="#">pg-rex03:5432</a><br/>
+</div>
+<h3><a href="#">repository2</a></h3>
+<div>
+<a href="#">pg-rex01:5432</a><br/>
+</div>
+</div> <!-- accordion end -->
+<br/><br/>
+<div align="center">
+  <button id="reload_setting">Reload config</button>
+</div>
+</div> <!-- left menu end -->
+
+
+<!-- contents -->
+<div id="contents">
+  <div class="top_jump_margin"></div>
+
+  <div id="log_report" class="jump_margin"></div>
+  <h1>Log Report</h1>
+  <div align="right" class="jquery_ui_button_info_h1">
+    <button class="help_button" dialog="#log_report_dialog"></button>
+  </div>
+
+  <input id="page_total" type="hidden" value="3">
+
+  <div id="func_menu">
+    <button id="search_option">Search Option</button>
+    <div id="search">
+      <div id="search_menu">
+        <form id="search_form">
+          <table>
+            <tbody>
+              <tr>
+                <td class="form_label">
+                  <label for="elevel">ELEVEL:</label>
+                </td>
+                <td class="form_input">
+                  <select name="elevel">
+                    <option value=""></option>
+                    <option value="DEBUG">DEBUG</option>
+                    <option value="INFO">INFO</option>
+                    <option value="NOTICE">NOTICE</option>
+                    <option value="WARNING">WARNING</option>
+                    <option value="ERROR">ERROR</option>
+                    <option value="LOG">LOG</option>
+                    <option value="FATAL">FATAL</option>
+                    <option value="PANIC">PANIC</option>
+                  </select>
+                </td>
+                <td class="form_label">
+                  <label for="username">USERNAME:</label>
+                </td>
+                <td class="form_input">
+                  <input type="text" name="username" size="20" maxlength="64" autocomplete="off">
+                </td>
+                <td class="form_label">
+                  <label for="database">DATABASE:</label>
+                </td>
+                <td class="form_input">
+                  <input type="text" name="database" size="20" maxlength="64" autocomplete="off">
+                </td>
+              </tr>
+              <tr>
+                <td class="form_label">
+                  <label for="message">MESSAGE:</label>
+                </td>
+                <td class="form_input" colspan="5">
+                  <input type="text" name="message" size="80" maxlength="100" autocomplete="off">
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </form>
+        <button id="search_submit">Search</button>
+        <button id="search_clear">Clear</button>
+      </div>
+    </div>
+  </div>
+  <div id="t-navi">
+    <div class="columnSelectorWrapper">
+      <input id="colSelect" type="checkbox" class="hidden">
+      <label id="column_select" for="colSelect">Column</label>
+      <div id="columnSelector" class="columnSelector"></div>
+    </div>
+    <button id="filter_reset" class="filter_reset">Filter Reset</button>
+      
+    <div class="pagerWrapper">
+      <span class="page_info"></span>
+      <div class="pager">
+        <button class="page_prev">Prev</button>
+        <button class="page_next">Next</button>
+      </div>
+    </div>
+  </div>
+  <table id="log_report_table" class="tablesorter">
+    <thead>
+      <tr>
+        <th>timestamp</th>
+        <th class="filter-onlyAvail">username</th>
+        <th class="filter-onlyAvail">database</th>
+        <th>pid</th>
+        <th class="filter-onlyAvail">client_addr</th>
+        <th>session_id</th>
+        <th>session_line_num</th>
+        <th>ps_display</th>
+        <th>session_start</th>
+        <th>vxid</th>
+        <th>xid</th>
+        <th class="filter-onlyAvail">elevel</th>
+        <th class="filter-onlyAvail">sqlstate</th>
+        <th>message</th>
+        <th>detail</th>
+        <th>hint</th>
+        <th>query</th>
+        <th>query_pos</th>
+        <th>context</th>
+        <th>user_query</th>
+        <th>user_query_pos</th>
+        <th>location</th>
+        <th>application_name</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+  <div id="f-navi">
+    <div class="pagerWrapper">
+      <span class="page_info"></span>
+      <div class="pager">
+        <button class="page_prev">Prev</button>
+        <button class="page_next">Next</button>
+      </div>
+    </div>
+  </div>
+<div id="log_report_dialog" class="help_dialog" title="How to see a Log Report table">
+<h4>How to use Search Option.</h4>
+To narrow down the log, enter the search criteria and click "Search" button.
+<ul>
+<li>ELEVEL : error severity</li>
+<li>USERNAME : user name</li>
+<li>DATABASE : database name</li>
+<li>MESSAGE : error message (POSIX Regular Expressions)</li>
+</ul>
+<h4>How to see a Log Report table.</h4>
+<ul>
+<li>timestamp : timestamp with milliseconds</li>
+<li>username : user name</li>
+<li>database : database name</li>
+<li>pid : process ID</li>
+<li>client_addr : client host:port number</li>
+<li>session_id : session ID</li>
+<li>session_line_num : per-session line number</li>
+<li>ps_display : command tag</li>
+<li>session_start : session start time</li>
+<li>vxid : virtual transaction ID</li>
+<li>xid : regular transaction ID</li>
+<li>elevel : error severity</li>
+<li>sqlstate : SQLSTATE code</li>
+<li>message : error message</li>
+<li>detail : error message detail</li>
+<li>hint : hint</li>
+<li>query : internal query that led to the error</li>
+<li>query_pos : character count of the error position therein</li>
+<li>context : error context</li>
+<li>user_query : user query that led to the error</li>
+<li>user_query_pos : character count of the error position therein</li>
+<li>location : location of the error in the PostgreSQL source code</li>
+<li>application_name : application name</li>
+</ul>
+</div>
+</div>
+<!-- contents end -->
+
+
+</body>
+</html>
+ 

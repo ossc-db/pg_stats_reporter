@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>pg_stats_reporter 2.0.0</title>
+<title>pg_stats_reporter 3.0.0</title>
 
 <!-- javascripts -->
 <script type="text/javascript" src="../../package/jquery-2.0.1/jquery-2.0.1.min.js"></script>
@@ -24,8 +24,9 @@
 <script type="text/javascript" src="../../package/superfish/superfish-1.7.2/js/hoverIntent.js"></script>
 <script type="text/javascript" src="../../package/superfish/superfish-1.7.2/js/superfish.js"></script>
 <script type="text/javascript" src="../../package/superfish/superfish-1.7.2/js/supersubs.js"></script>
-<script type="text/javascript" src="../../package/tablesorter/jquery.tablesorter.js"></script>
-<script type="text/javascript" src="../../package/tablesorter/addons/pager/jquery.tablesorter.pager.js"></script>
+<script type="text/javascript" src="../../package/tablesorter/js/jquery.tablesorter.min.js"></script>
+<script type="text/javascript" src="../../package/tablesorter/js/jquery.tablesorter.widgets.min.js"></script>
+<script type="text/javascript" src="../../package/tablesorter/addons/pager/jquery.tablesorter.pager.min.js"></script>
 <script type="text/javascript" src="../../package/jqPlot-1.0.8r1250/dist/jquery.jqplot.min.js"></script>
 <script type="text/javascript" src="../../package/jqPlot-1.0.8r1250/dist/plugins/jqplot.pieRenderer.js"></script>
 <script type="text/javascript" src="../../package/jqPlot-1.0.8r1250/dist/plugins/jqplot.barRenderer.js"></script>
@@ -35,13 +36,14 @@
 <script type="text/javascript" src="../../package/jqPlot-1.0.8r1250/dist/plugins/jqplot.pointLabels.js"></script>
 <script type="text/javascript" src="../../package/danvk-dygraphs-b839102/dygraph-dev.js"></script>
 <!-- pg_stats_reporter's javascript -->
+<script type="text/javascript" src="../js/common.js"></script>
 <script type="text/javascript" src="../js/pg_stats_reporter.js"></script>
 
 <!-- stylesheets -->
 <link rel="stylesheet" type="text/css" href="../../package/superfish/superfish-1.7.2/css/superfish.css"/>
 <link rel="stylesheet" type="text/css" href="../../package/jquery-ui-1.10.2/themes/start/jquery.ui.all.css"/>
 <link rel="stylesheet" type="text/css" href="../../package/jqPlot-1.0.8r1250/dist/jquery.jqplot.min.css"/>
-<link rel="stylesheet" type="text/css" href="../../package/tablesorter/themes/blue/style.css"/>
+<link rel="stylesheet" type="text/css" href="../../package/tablesorter/css/theme.blue.css"/>
 <!-- pg_stats_reporter's stylesheets -->
 <link rel="stylesheet" type="text/css" href="../../css/pg_stats_reporter.css"/>
 
@@ -51,7 +53,9 @@
 <!-- header menu -->
 <div id="header_menu">
 <ul id="dropdown" class="sf-menu menu">
-<li><a href="#summary">Summary</a></li>
+<li><a href="#summary">Summary</a><ul>
+<li><a href="#alert">Alert</a></li>
+</ul></li>
 <li><a href="#database_system">Database System</a><ul>
 <li><a href="#database_statistics">Database Statistics</a><ul>
 <li><a href="#transaction_statistics">Transaction Statistics</a></li>
@@ -111,9 +115,17 @@
 </ul></li>
 </ul></li>
 </ul>
+<!-- Log Report -->
+<ul id="dropdown2" class="sf-menu menu">
+<li><a href="log_report_sample.html">Log Report</a></li>
+</ul>
 <!-- hide left menu button  -->
 <div align="right" class="jquery_ui_button_max">
- <div><button id="jquery_ui_button_arrowthick"></button></div>
+  <div><button id="jquery_ui_button_arrowthick"></button></div>
+</div>
+<!-- top button -->
+<div align="right" class="jquery_ui_button_top">
+  <div><button id="jquery_ui_button_top"></button></div>
 </div>
 </div> <!-- header menu end -->
 
@@ -176,9 +188,9 @@ var checkpoint_date_list = [
 <div id="summary" class="jump_margin"></div>
 <h1>Summary</h1>
 <div align="right" class="jquery_ui_button_info_h1">
-  <div><button id="summary_button_info"></button></div>
+  <div><button class="help_button" dialog="#summary_dialog"></button></div>
 </div>
-<div><table id="summary" class="tablesorter table">
+<div><table id="summary_table" class="tablesorter table">
 <thead></thead>
 <tbody>
 <tr><th>instname</th><td class="str">5886592150459083519</td></tr>
@@ -194,12 +206,41 @@ var checkpoint_date_list = [
 </tbody>
 </table></div>
 
+<div id="alert" class="jump_margin"></div>
+<h2>Alert</h2>
+<div align="right" class="jquery_ui_button_info_h2">
+  <div><button class="help_button" dialog="#alert_dialog"></button></div>
+</div>
+<div><table id="alert_table" class="tablesorter">
+<thead><tr>
+<th>timestamp</th><th>message</th>
+</tr></thead>
+<tbody>
+<tr><td class="str">2013-06-07 14:56:00</td><td class="str">load average 1min exceeds threshold in snapshot &#039;2013-06-07 14:56:00&#039; --- 44.83 (threshold = 40)</td></tr>
+<tr><td class="str">2013-06-07 15:29:00</td><td class="str">load average 1min exceeds threshold in snapshot &#039;2013-06-07 15:29:00&#039; --- 46.71 (threshold = 40)</td></tr>
+</tbody>
+</table>
+<div id="pager_alert"><form>
+<img src="../../package/tablesorter/addons/pager/icons/first.png" class="first"/>
+<img src="../../package/tablesorter/addons/pager/icons/prev.png" class="prev"/>
+<input type="text" class="pagedisplay"/>
+<img src="../../package/tablesorter/addons/pager/icons/next.png" class="next"/>
+<img src="../../package/tablesorter/addons/pager/icons/last.png" class="last"/>
+<select class="pagesize">
+<option value="5">5</option>
+<option selected="selected" value="10">10</option>
+<option value="20">20</option>
+<option value="30">30</option>
+</select>
+</form></div>
+</div>
+
 <div id="database_system" class="jump_margin"></div>
 <h1>Database System</h1>
 <div id="database_statistics" class="jump_margin"></div>
 <h2>Database Statistics</h2>
 <div align="right" class="jquery_ui_button_info_h2">
-  <div><button id="database_statistics_button_info"></button></div>
+  <div><button class="help_button" dialog="#database_statistics_dialog"></button></div>
 </div>
 <div><table id="database_statistics_table" class="tablesorter">
 <thead><tr>
@@ -226,7 +267,7 @@ var checkpoint_date_list = [
 <div id="transaction_statistics" class="jump_margin"></div>
 <h3>Transaction Statistics</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button id="transaction_statistics_button_info"></button></div>
+  <div><button class="help_button" dialog="#transaction_statistics_dialog"></button></div>
 </div>
 <table><tr><td rowspan="2">
 <div id="transaction_statistics_graph" class="linegraph"></div>
@@ -370,7 +411,7 @@ $("#transaction_statistics_line").button().click( function() {
 <div id="database_size" class="jump_margin"></div>
 <h3>Database Size</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button id="database_size_button_info"></button></div>
+  <div><button class="help_button" dialog="#database_size_dialog"></button></div>
 </div><table><tr><td rowspan="2">
 <div id="database_size_graph" class="linegraph"></div>
 </td><td>
@@ -514,7 +555,7 @@ $("#database_size_line").button().click( function() {
 <div id="recovery_conflicts" class="jump_margin"></div>
 <h3>Recovery Conflicts</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button id="recovery_conflicts_button_info"></button></div>
+  <div><button class="help_button" dialog="#recovery_conflicts_dialog"></button></div>
 </div>
 <div><table id="recovery_conflicts_table" class="tablesorter">
 <thead><tr>
@@ -543,7 +584,7 @@ $("#database_size_line").button().click( function() {
 <div id="wal_statistics" class="jump_margin"></div>
 <h3>WAL Statistics</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button id="wal_statistics_button_info"></button></div>
+  <div><button class="help_button" dialog="#wal_statistics_dialog"></button></div>
 </div>
 <div><table id="wal_statistics_stats_table" class="tablesorter">
 <thead><tr>
@@ -698,7 +739,7 @@ $("#wal_statistics_line").button().click( function() {
 <div id="instance_processes_ratio" class="jump_margin"></div>
 <h3>Instance Processes Ratio</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button id="instance_processes_ratio_button_info"></button></div>
+  <div><button class="help_button" dialog="#instance_processes_ratio_dialog"></button></div>
 </div>
 <div><table id="instance_processes_ratio_table" class="tablesorter">
 <thead><tr>
@@ -712,7 +753,7 @@ $("#wal_statistics_line").button().click( function() {
 <div id="instance_processes" class="jump_margin"></div>
 <h3>Instance Processes</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button id="instance_processes_button_info"></button></div>
+  <div><button class="help_button" dialog="#instance_processes_dialog"></button></div>
 </div>
 <table><tr><td rowspan="2">
 <div id="instance_processes_graph" class="linegraph"></div>
@@ -869,7 +910,7 @@ $("#instance_processes_line").button().click( function() {
 <div id="cpu_usage" class="jump_margin"></div>
 <h3>CPU Usage</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button id="cpu_usage_button_info"></button></div>
+  <div><button class="help_button" dialog="#cpu_usage_dialog"></button></div>
 </div>
 <table><tr><td rowspan="2">
 <div id="cpu_usage_graph" class="linegraph"></div>
@@ -1021,7 +1062,7 @@ $("#cpu_usage_line").button().click( function() {
 <div id="load_average" class="jump_margin"></div>
 <h3>Load Average</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button id="load_average_button_info"></button></div>
+  <div><button class="help_button" dialog="#load_average_dialog"></button></div>
 </div>
 <table><tr><td rowspan="2">
 <div id="load_average_graph" class="linegraph"></div>
@@ -1165,7 +1206,7 @@ $("#load_average_line").button().click( function() {
 <div id="io_usage" class="jump_margin"></div>
 <h3>I/O Usage</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button id="io_usage_button_info"></button></div>
+  <div><button class="help_button" dialog="#io_usage_dialog"></button></div>
 </div>
 <div><table id="io_usage_table" class="tablesorter">
 <thead><tr>
@@ -1469,7 +1510,7 @@ $("#io_time_line").button().click( function() {
 <div id="memory_usage" class="jump_margin"></div>
 <h3>Memory Usage</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button id="memory_usage_button_info"></button></div>
+  <div><button class="help_button" dialog="#memory_usage_dialog"></button></div>
 </div>
 <table><tr><td rowspan="2">
 <div id="memory_usage_graph" class="linegraph"></div>
@@ -1621,7 +1662,7 @@ $("#memory_usage_line").button().click( function() {
 <div id="disk_usage_per_tablespace" class="jump_margin"></div>
 <h3>Disk Usage per Tablespace</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button id="disk_usage_per_tablespace_button_info"></button></div>
+  <div><button class="help_button" dialog="#disk_usage_per_tablespace_dialog"></button></div>
 </div>
 <div><table id="disk_usage_per_tablespace_table" class="tablesorter">
 <thead><tr>
@@ -1650,7 +1691,7 @@ $("#memory_usage_line").button().click( function() {
 <div id="disk_usage_per_table" class="jump_margin"></div>
 <h3>Disk Usage per Table</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button id="disk_usage_per_table_button_info"></button></div>
+  <div><button class="help_button" dialog="#disk_usage_per_table_dialog"></button></div>
 </div>
 <div><table id="disk_usage_per_table_table" class="tablesorter">
 <thead><tr>
@@ -1745,7 +1786,7 @@ $.jqplot( "disk_read_pie",
 <div id="heavily_updated_tables" class="jump_margin"></div>
 <h3>Heavily Updated Tables</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button id="heavily_updated_tables_button_info"></button></div>
+  <div><button class="help_button" dialog="#heavily_updated_tables_dialog"></button></div>
 </div>
 <div><table id="heavily_updated_tables_table" class="tablesorter">
 <thead><tr>
@@ -1780,7 +1821,7 @@ $.jqplot( "disk_read_pie",
 <div id="heavily_accessed_tables" class="jump_margin"></div>
 <h3>Heavily Accessed Tables</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button id="heavily_accessed_tables_button_info"></button></div>
+  <div><button class="help_button" dialog="#heavily_accessed_tables_dialog"></button></div>
 </div>
 <div><table id="heavily_accessed_tables_table" class="tablesorter">
 <thead><tr>
@@ -1813,7 +1854,7 @@ $.jqplot( "disk_read_pie",
 <div id="low_density_tables" class="jump_margin"></div>
 <h3>Low Density Tables</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button id="low_density_tables_button_info"></button></div>
+  <div><button class="help_button" dialog="#low_density_tables_dialog"></button></div>
 </div>
 <div><table id="low_density_tables_table" class="tablesorter">
 <thead><tr>
@@ -1846,7 +1887,7 @@ $.jqplot( "disk_read_pie",
 <div id="fragmented_tables" class="jump_margin"></div>
 <h3>Fragmented Tables</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button id="fragmented_tables_button_info"></button></div>
+  <div><button class="help_button" dialog="#fragmented_tables_dialog"></button></div>
 </div>
 <div><table id="fragmented_tables_table" class="tablesorter">
 <thead><tr>
@@ -1894,7 +1935,7 @@ $.jqplot( "disk_read_pie",
 <div id="qa_functions" class="jump_margin"></div>
 <h3>Functions</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button id="functions_button_info"></button></div>
+  <div><button class="help_button" dialog="#functions_dialog"></button></div>
 </div>
 <div><table id="functions_table" class="tablesorter">
 <thead><tr>
@@ -1929,7 +1970,7 @@ $.jqplot( "disk_read_pie",
 <div id="qa_statements" class="jump_margin"></div>
 <h3>Statements</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button id="statements_button_info"></button></div>
+  <div><button class="help_button" dialog="#statements_dialog"></button></div>
 </div>
 <div><table id="statements_table" class="tablesorter">
 <thead><tr>
@@ -2010,6 +2051,11 @@ ORDER BY relname;
 <option value="30">30</option>
 </select>
 </form></div>
+</div>
+<div id="long_transactions" class="jump_margin"></div>
+<h2>Long Transactions</h2>
+<div align="right" class="jquery_ui_button_info_h2">
+  <div><button class="help_button" dialog="#long_transactions_dialog"></button></div>
 </div>
 <div><table id="long_transactions_table" class="tablesorter">
 <thead><tr>
@@ -2298,7 +2344,7 @@ ORDER BY relname;
 <div id="lock_conflicts" class="jump_margin"></div>
 <h2>Lock Conflicts</h2>
 <div align="right" class="jquery_ui_button_info_h2">
-  <div><button id="lock_conflicts_button_info"></button></div>
+  <div><button class="help_button" dialog="#lock_conflicts_dialog"></button></div>
 </div>
 <div><table id="lock_conflicts_table" class="tablesorter">
 <thead><tr>
@@ -2410,9 +2456,9 @@ FROM sto...;</td></tr>
 <div id="checkpoint_activity" class="jump_margin"></div>
 <h2>Checkpoint Activity</h2>
 <div align="right" class="jquery_ui_button_info_h2">
-  <div><button id="checkpoint_activity_button_info"></button></div>
+  <div><button class="help_button" dialog="#checkpoint_activity_dialog"></button></div>
 </div>
-<div><table id="checkpoint_activity" class="tablesorter table">
+<div><table id="checkpoint_activity_table" class="tablesorter table">
 <thead></thead>
 <tbody>
 <tr><th>total checkpoints</th><td class="num">10</td></tr>
@@ -2429,7 +2475,7 @@ FROM sto...;</td></tr>
 <div id="basic_statistics" class="jump_margin"></div>
 <h3>Basic Statistics (Average)</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button id="basic_statistics_button_info"></button></div>
+  <div><button class="help_button" dialog="#basic_statistics_dialog"></button></div>
 </div>
 <div><table id="basic_statistics_table" class="tablesorter">
 <thead><tr>
@@ -2459,7 +2505,7 @@ FROM sto...;</td></tr>
 <div id="io_statistics" class="jump_margin"></div>
 <h3>I/O Statistics (Average)</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button id="io_statistics_button_info"></button></div>
+  <div><button class="help_button" dialog="#io_statistics_dialog"></button></div>
 </div>
 
 <div><table id="io_statistics_table" class="tablesorter">
@@ -2492,9 +2538,9 @@ FROM sto...;</td></tr>
 <div id="current_replication_status" class="jump_margin"></div>
 <h3>Current Replication Status</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button id="current_replication_status_button_info"></button></div>
+  <div><button class="help_button" dialog="#current_replication_status_dialog"></button></div>
 </div>
-<div><table id="current_replication_status" class="tablesorter table">
+<div><table id="current_replication_status_table" class="tablesorter table">
 <thead></thead>
 <tbody>
 <tr><th>user</th><td class="str">postgres</td><td class="str">postgres</td></tr>
@@ -2516,7 +2562,7 @@ FROM sto...;</td></tr>
 <div id="replication_delays" class="jump_margin"></div>
 <h3>Replication Delays</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button id="replication_delays_button_info"></button></div>
+  <div><button class="help_button" dialog="#replication_delays_dialog"></button></div>
 </div>
 <table><tr><td rowspan="2">
 <div id="replication_delays_graph" class="linegraph"></div>
@@ -2666,7 +2712,7 @@ $("#replication_delays_line").button().click( function() {
 <div id="table" class="jump_margin"></div>
 <h3>Table</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button id="table_button_info"></button></div>
+  <div><button class="help_button" dialog="#table_dialog"></button></div>
 </div>
 <div><table id="table_table" class="tablesorter">
 <thead><tr>
@@ -2701,7 +2747,7 @@ $("#replication_delays_line").button().click( function() {
 <div id="index" class="jump_margin"></div>
 <h3>Index</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button id="index_button_info"></button></div>
+  <div><button class="help_button" dialog="#index_dialog"></button></div>
 </div>
 <div><table id="index_table" class="tablesorter">
 <thead><tr>
@@ -2739,7 +2785,7 @@ $("#replication_delays_line").button().click( function() {
 <div id="parameter" class="jump_margin"></div>
 <h3>Parameter</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button id="parameter_button_info"></button></div>
+  <div><button class="help_button" dialog="#parameter_dialog"></button></div>
 </div>
 <div><table id="parameter_table" class="tablesorter">
 <thead><tr>
@@ -2814,7 +2860,7 @@ $("#replication_delays_line").button().click( function() {
 </select>
 </form></div>
 </div>
-<div id="summary_dialog" title="How to see a Summary table">
+<div id="summary_dialog" class="help_dialog" title="How to see a Summary table">
 <h4>How to see a Summary table.</h4>
 <ul>
 <li>instname : database cluster instance id</li>
@@ -2828,7 +2874,7 @@ $("#replication_delays_line").button().click( function() {
 <li>total_commits : total commit transactions in this database cluster</li>
 <li>total_rollbacks : total rollback transactions in this database cluster</li>
 </ul>
-</div><div id="database_statistics_dialog" title="How to see a Database Statistics table">
+</div><div id="database_statistics_dialog" class="help_dialog" title="How to see a Database Statistics table">
 <h4>How to see a Database Statistics table.</h4>
 <ul>
 <li>database : database name</li>
@@ -2842,7 +2888,7 @@ $("#replication_delays_line").button().click( function() {
 <li>rows/s : number of rows from tables and indexes per second</li>
 </ul>
 <ul>*The small value is displayed as zero by the truncation of the number in unit conversion</ul>
-</div><div id="transaction_statistics_dialog" title="How to see a Transaction Statistics graph">
+</div><div id="transaction_statistics_dialog" class="help_dialog" title="How to see a Transaction Statistics graph">
 <h4>How to see a Transaction Statistics graph.</h4>
 <ul>
 <li>x axis  : time</li>
@@ -2850,14 +2896,14 @@ $("#replication_delays_line").button().click( function() {
 <li>[database name] commit_tps : commited transactions of [database name] per second (xact/s)</li>
 <li>[database name] rollback_tps : rollback transaction of [database name] per second (xact/s)</li>
 </ul>
-</div><div id="database_size_dialog" title="How to see a Database Size">
+</div><div id="database_size_dialog" class="help_dialog" title="How to see a Database Size">
 <h4>How to see a Database Size table.</h4>
 <ul>
 <li>x axis : time</li>
 <li>y axis : size of database (Bytes)</li>
 <li>[database name] size : size of [database name] (Bytes)</li>
 </ul>
-</div><div id="recovery_conflicts_dialog" title="How to see a Recovery Conflicts table">
+</div><div id="recovery_conflicts_dialog" class="help_dialog" title="How to see a Recovery Conflicts table">
 <h4>How to see a Recovery Conflicts table.</h4>
 <ul>
 <li>database : database name</li>
@@ -2867,7 +2913,7 @@ $("#replication_delays_line").button().click( function() {
 <li>conflict bufferpin : number of query cancels by conflict with VACUUM in shared_buffers</li>
 <li>conflict deadlock : number of query cancels by deadlocks</li>
 </ul>
-</div><div id="wal_statistics_dialog" title="How to see a WAL Statistics graph">
+</div><div id="wal_statistics_dialog" class="help_dialog" title="How to see a WAL Statistics graph">
 <h4>How to see a WAL Statistics(total) graph.</h4>
 <ul>
 <li>write_total : total size of WAL(xlog) data in this report (MiB)</li>
@@ -2881,7 +2927,7 @@ $("#replication_delays_line").button().click( function() {
 <li>write_size : size of WAL output / snapshot time (Bytes)</li>
 <li>write_size_per_sec : size pf WAL output / second (Bytes/s)</li>
 </ul>
-</div><div id="instance_processes_ratio_dialog" title="How to see a Instance Processes Ratio table">
+</div><div id="instance_processes_ratio_dialog" class="help_dialog" title="How to see a Instance Processes Ratio table">
 <h4>How to see a Instance Processes Ratio table.</h4>
 <ul>
 <li>idle (%) : ratio of idle backend process (%)</li>
@@ -2889,7 +2935,7 @@ $("#replication_delays_line").button().click( function() {
 <li>waiting (%) : ratio of waiting backend process by locks (%)</li>
 <li>running (%) : ratio of running backend process in transaction (%)</li>
 </ul>
-</div><div id="instance_processes_dialog" title="How to see a Instance Processes graph">
+</div><div id="instance_processes_dialog" class="help_dialog" title="How to see a Instance Processes graph">
 <h4>How to see a Instance Processes graph.</h4>
 <ul>
 <li>x axis : time</li>
@@ -2899,7 +2945,7 @@ $("#replication_delays_line").button().click( function() {
 <li>waiting : ratio of waiting backend process by locks (%)</li>
 <li>running : ratio of running backend process in transaction (%)</li>
 </ul>
-</div><div id="cpu_usage_dialog" title="How to see a CPU Usage graph">
+</div><div id="cpu_usage_dialog" class="help_dialog" title="How to see a CPU Usage graph">
 <h4>How to see a CPU Usage graph.</h4>
 <ul>
 <li>x axis  : time </li>
@@ -2909,7 +2955,7 @@ $("#replication_delays_line").button().click( function() {
 <li>iowait : ratio of CPU usage in iowait (%)</li>
 <li>idle : ratio of CPU usage in idle (%)</li>
 </ul>
-</div><div id="load_average_dialog" title="How to see a Load Average graph">
+</div><div id="load_average_dialog" class="help_dialog" title="How to see a Load Average graph">
 <h4>How to see a Load Average graph.</h4>
 <ul>
 <li>x axis : time</li>
@@ -2918,7 +2964,7 @@ $("#replication_delays_line").button().click( function() {
 <li>5min : load average in five minutes</li>
 <li>15min : load average in fifteen minutes</li>
 </ul>
-</div><div id="io_usage_dialog" title="How to see a I/O Usage table/graph">
+</div><div id="io_usage_dialog" class="help_dialog" title="How to see a I/O Usage table/graph">
 <h4>How to see a I/O Usage table/graph.</h4>
 <ul>
 <li>device_name : device name</li>
@@ -2945,7 +2991,7 @@ $("#replication_delays_line").button().click( function() {
 <li>[device] avg read time : time of read I/O in a device (sec)</li>
 <li>[device] avg write time : time of write I/O in a device (sec)</li>
 </ul>
-</div><div id="memory_usage_dialog" title="How to see a Memory Usage graph">
+</div><div id="memory_usage_dialog" class="help_dialog" title="How to see a Memory Usage graph">
 <h4>How to see a memory Usage graph table.</h4>
 <ul>
 <li>x axis : time </li>
@@ -2956,7 +3002,7 @@ $("#replication_delays_line").button().click( function() {
 <li>swap : size of swap (Bytes)</li>
 <li>dirty : size of dirty pages (Bytes)</li>
 </ul>
-</div><div id="disk_usage_per_tablespace_dialog" title="How to see a Disk Usage per Tablespace table">
+</div><div id="disk_usage_per_tablespace_dialog" class="help_dialog" title="How to see a Disk Usage per Tablespace table">
 <h4>How to see a Disk Usage per Tablespace table.</h4>
 <ul>
 <li>tablespace : name of tablespace</li>
@@ -2967,7 +3013,7 @@ $("#replication_delays_line").button().click( function() {
 <li>remain (%) : remain data size in table space directory device</li>
 </ul>
 <ul>*The small value is displayed as zero by the truncation of the number in unit conversion</ul>
-</div><div id="disk_usage_per_table_dialog" title="How to see a Disk Usage per Table table/graph">
+</div><div id="disk_usage_per_table_dialog" class="help_dialog" title="How to see a Disk Usage per Table table/graph">
 <h4>How to see a Disk Usage per Table table/graph.</h4>
 <ul>
 <li>database : database name</li>
@@ -2989,7 +3035,7 @@ $("#replication_delays_line").button().click( function() {
 <li>entry : table name ([database name].[schema name].[table name])</li>
 <li>value : amount of read all blocks (all tables, indexes, TOAST table and TOAST index)</li>
 </ul>
-</div><div id="heavily_updated_tables_dialog" title="How to see a Heavily Updated Tables table">
+</div><div id="heavily_updated_tables_dialog" class="help_dialog" title="How to see a Heavily Updated Tables table">
 <h4>How to see a Heavily Updated Tables table.</h4>
 <ul>
 <li>database : database name</li>
@@ -3001,7 +3047,7 @@ $("#replication_delays_line").button().click( function() {
 <li>total : number of INSERT, UPDATE and DELETE rows</li>
 <li>HOT (%) : ratio of HOT update rows per all table rows</li>
 </ul>
-</div><div id="heavily_accessed_tables_dialog" title="How to see a Heavily Accessed Tables table">
+</div><div id="heavily_accessed_tables_dialog" class="help_dialog" title="How to see a Heavily Accessed Tables table">
 <h4>How to see a Heavily Accessed Tables table.</h4>
 <ul>
 <li>database : database name</li>
@@ -3012,7 +3058,7 @@ $("#replication_delays_line").button().click( function() {
 <li>tup_per_seq : rows of sequential scan read per once</li>
 <li>hit (%) : cache hit ratio</li>
 </ul>
-</div><div id="low_density_tables_dialog" title="How to see a Low Density Tables table">
+</div><div id="low_density_tables_dialog" class="help_dialog" title="How to see a Low Density Tables table">
 <h4>How to see a Low Density Tables table.</h4>
 <ul>
 <li>database : database name</li>
@@ -3023,7 +3069,7 @@ $("#replication_delays_line").button().click( function() {
 <li>physical_pages : number of physical pages in all records</li>
 <li>tratio : ratio of logical pages per physical pages</li>
 </ul>
-</div><div id="fragmented_tables_dialog" title="How to see a Fragmented Tables table">
+</div><div id="fragmented_tables_dialog" class="help_dialog" title="How to see a Fragmented Tables table">
 <h4>How to see a Fragmented Tables table.</h4>
 <ul>
 <li>database : database name</li>
@@ -3032,7 +3078,7 @@ $("#replication_delays_line").button().click( function() {
 <li>column : colum name</li>
 <li>correlation : correlation of record sort in table</li>
 </ul>
-</div><div id="functions_dialog" title="How to see a Functions table">
+</div><div id="functions_dialog" class="help_dialog" title="How to see a Functions table">
 <h4>How to see a Functions table.</h4>
 <ul>
 <li>Database : database name</li>
@@ -3043,7 +3089,7 @@ $("#replication_delays_line").button().click( function() {
 <li>self time (ms) : self execute time (ms)</li>
 <li>time/call (ms) : total execute time per calls (ms)</li>
 </ul>
-</div><div id="statements_dialog" title="How to see a Statements table">
+</div><div id="statements_dialog" class="help_dialog" title="How to see a Statements table">
 <h4>How to see a Statements table.</h4>
 <ul>
 <li>User : user name which executed query</li>
@@ -3053,7 +3099,7 @@ $("#replication_delays_line").button().click( function() {
 <li>total time (sec) : total executing time (sec)</li>
 <li>time/call (sec) : average executing time (sec)</li>
 </ul>
-</div><div id="long_transactions_dialog" title="How to see a Long Transactions table">
+</div><div id="long_transactions_dialog" class="help_dialog" title="How to see a Long Transactions table">
 <h4>How to see a Long Transactions table.</h4>
 <ul>
 <li>pid : pid of backend process in long transaction</li>
@@ -3062,7 +3108,7 @@ $("#replication_delays_line").button().click( function() {
 <li>duration (sec) : duration time of long transaction (sec)</li>
 <li>query : query of long transaction</li>
 </ul>
-</div><div id="lock_conflicts_dialog" title="How to see a Lock Activity table">
+</div><div id="lock_conflicts_dialog" class="help_dialog" title="How to see a Lock Activity table">
 <h4>How to see a Lock Activity table.</h4>
 <ul>
 <li>database : database name which has lock waiting object</li>
@@ -3075,7 +3121,7 @@ $("#replication_delays_line").button().click( function() {
 <li>blockee query : executing query which is lock wating in transaction</li>
 <li>blocker query : query list which has lock in transaction</li>
 </ul>
-</div><div id="checkpoint_activity_dialog" title="How to see a Checkpoint Activity table">
+</div><div id="checkpoint_activity_dialog" class="help_dialog" title="How to see a Checkpoint Activity table">
 <h4>How to see a Checkpoint Activity table.</h4>
 <ul>
 <li>total checkpoints : number of total checkpoint</li>
@@ -3086,7 +3132,7 @@ $("#replication_delays_line").button().click( function() {
 <li>avg duration (sec) : average time of checkpoint's duration (sec)</li>
 <li>max duration (sec) : max time of checkpoint's duration (sec)</li>
 </ul>
-</div><div id="basic_statistics_dialog" title="How to see a Basic Statistics (Average) table">
+</div><div id="basic_statistics_dialog" class="help_dialog" title="How to see a Basic Statistics (Average) table">
 <h4>How to see a Basic Statistics. (Average)</h4>
 <ul>
 <li>database : database name</li>
@@ -3099,7 +3145,7 @@ $("#replication_delays_line").button().click( function() {
 <li>avg duration (sec) : average duration time (sec)</li>
 <li>max duration (sec) : max duration time (sec)</li>
 </ul>
-</div><div id="io_statistics_dialog" title="How to see a I/O Statistics (Average) table">
+</div><div id="io_statistics_dialog" class="help_dialog" title="How to see a I/O Statistics (Average) table">
 <h4>How to see a I/O Statistics. (Average)</h4>
 <ul>
 <li>database : database name</li>
@@ -3111,7 +3157,7 @@ $("#replication_delays_line").button().click( function() {
 <li>avg read rate : average read rate</li>
 <li>avg write rate : average write rate</li>
 </ul>
-</div><div id="current_replication_status_dialog" title="How to see a Current Replication Status table">
+</div><div id="current_replication_status_dialog" class="help_dialog" title="How to see a Current Replication Status table">
 <h4>How to see a Current Replication Status table.</h4>
 <ul>
 <li>user : user name</li>
@@ -3129,20 +3175,20 @@ $("#replication_delays_line").button().click( function() {
 <li>sync priority : priority of synchronous replication</li>
 <li>sync state : state of synchronous replication</li>
 </ul>
-</div><div id="replication_delays_dialog" title="How to see a Replication Delays table">
+</div><div id="replication_delays_dialog" class="help_dialog" title="How to see a Replication Delays table">
 <h4>How to see a Replication Delays</h4>
 <ul>
 <li>x axis : time</li>
 <li>y axis : WAL delay (Bytes)</li>
 <li>[address]:[port-number] flush_delay_size : WAL flush-delay between Master and Standby (Bytes)<br/>* Synchronous standby is indicated by [sync]</li>
 <li>[address]:[port-number] replay_delay_size : replay-delay between Master and Standby (Bytes)<br/>* Synchronous standby is indicated by [sync]</li></ul>
-</div><div id="database_dialog" title="How to see a Database table">
+</div><div id="database_dialog" class="help_dialog" title="How to see a Database table">
 <h4>How to see a Database table.</h4>
 This information is not supported in this version. We will support in future version.
-</div><div id="schema_dialog" title="How to see a Schema table">
+</div><div id="schema_dialog" class="help_dialog" title="How to see a Schema table">
 <h4>How to see a Schema table.</h4>
 This information is not supported in this version. We will support in future version.
-</div><div id="table_dialog" title="How to see a Table table">
+</div><div id="table_dialog" class="help_dialog" title="How to see a Table table">
 <h4>How to see a Table table.</h4>
 <ul>
 <li>database : database name</li>
@@ -3156,7 +3202,7 @@ This information is not supported in this version. We will support in future ver
 <li>index scans : number of executing index scan</li>
 </ul>
 <ul>*The small value is displayed as zero by the truncation of the number in unit conversion</ul>
-</div><div id="index_dialog" title="How to see a Index table">
+</div><div id="index_dialog" class="help_dialog" title="How to see a Index table">
 <h4>How to see a Index table.</h4>
 <ul>
 <li>database : database name</li>
@@ -3172,19 +3218,19 @@ This information is not supported in this version. We will support in future ver
 <li>keys : value of index key</li>
 </ul>
 <ul>*The small value is displayed as zero by the truncation of the number in unit conversion</ul>
-</div><div id="view_dialog" title="How to see a View table">
+</div><div id="view_dialog" class="help_dialog" title="How to see a View table">
 <h4>How to seea View table.</h4>
 This information is not supported in this version. We will support in future version.
-</div><div id="sequence_dialog" title="How to see a Sequence table">
+</div><div id="sequence_dialog" class="help_dialog" title="How to see a Sequence table">
 <h4>How to see a Sequence table.</h4>
 This information is not supported in this version. We will support in future version.
-</div><div id="trigger_dialog" title="How to see a Trigger table">
+</div><div id="trigger_dialog" class="help_dialog" title="How to see a Trigger table">
 <h4>How to see a Trigger table.</h4>
 This information is not supported in this version. We will support in future version.
-</div><div id="role_dialog" title="How to see a Role table">
+</div><div id="role_dialog" class="help_dialog" title="How to see a Role table">
 <h4>How to see a Role table.</h4>
 This information is not supported in this version. We will support in future version.
-</div><div id="parameter_dialog" title="How to see a Parameter table">
+</div><div id="parameter_dialog" class="help_dialog" title="How to see a Parameter table">
 <h4>How to see a Parameter table.</h4>
 <ul>
 <li>name : parameter name</li>
@@ -3192,7 +3238,13 @@ This information is not supported in this version. We will support in future ver
 <li>unit : unit</li>
 <li>source : setting parameter</li>
 </ul>
-</div><div id="profiles_dialog" title="How to see a Profiles table">
+</div><div id="alert_dialog" class="help_dialog" title="How to see a Alert table">
+<h4>How to see a Alert table.</h4>
+<ul>
+<li>timestamp : timestamp</li>
+<li>message : alert message</li>
+</ul>
+</div><div id="profiles_dialog" class="help_dialog" title="How to see a Profiles table">
 <h4>How to see a Profiles table.</h4>
 <ul>
 <li>processing : processing name</li>
