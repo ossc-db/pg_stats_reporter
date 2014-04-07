@@ -35,17 +35,16 @@ pg_stats_reporter
 
 インストール手順
 
-ソースファイルを、HTTP Server を介してブラウザで参照できる位置にコピー
-します。また、コマンドライン用のスクリプトを/usr/local/binにコピーします。
-このとき、cache ディレクトリおよび compiled ディレクトリには、
-HTTP Server の実行ユーザがファイルが作成できるように権限を与えておく必
-要があります。
+ソースファイルを、HTTP Server を介してブラウザで参照できる位置にコピーします。
+また、コマンドライン用のスクリプトを/usr/local/binにコピーします。
+このとき、cache ディレクトリおよび compiled ディレクトリには、HTTP Server の
+実行ユーザがファイルが作成できるように権限を与えておく必要があります。
 
-以下は、OS 同梱の Apache HTTP Server のデフォルトの設定の環境にインス
-トールした例です。
+以下は、OS 同梱の Apache HTTP Server のデフォルトの設定の環境にインストールした
+場合の例です。
 
 $ su
-# tar xvfz pg_stats_reporter-2.0.0.tar.gz
+# tar xvfz pg_stats_reporter-3.0.0.tar.gz
 # cp -R pg_stats_reporter/html/pg_stats_reporter /var/www/html
 # cp -R pg_stats_reporter/pg_stats_reporter_lib /var/www
 # cp pg_stats_reporter/bin/pg_stats_reporter /usr/local/bin

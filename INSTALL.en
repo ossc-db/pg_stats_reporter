@@ -1,6 +1,6 @@
 #####  How to install/uninstall pg_stats_reporter?  #####
 
-###  Directory formation of source which was installed pg_stats_reporter   ###
+###  Directory formation of source which was installed pg_stats_reporter  ###
 pg_stats_reporter
    |
    +- bin/ ...................... script which run on command line
@@ -40,7 +40,7 @@ user.
 This setting example is under following.
 
 $ su
-# tar xvfz pg_stats_reporter-2.0.0.tar.gz
+# tar xvfz pg_stats_reporter-3.0.0.tar.gz
 # cp -R pg_stats_reporter/html/pg_stats_reporter /var/www/html
 # cp -R pg_stats_reporter/pg_stats_reporter_lib /var/www
 # cp pg_stats_reporter/bin/pg_stats_reporter /usr/local/bin
@@ -68,7 +68,7 @@ password =
 
 Repository database is pg_statsinfo's database.
 
-###  How to uninstall? ###
+###  How to uninstall?  ###
 Please delete directory/files of pg_stats_reporter.
 How to delete method's example is under following.
 If you want to keep configure file, do not delete /etc/pg_stats_reporter.ini.
