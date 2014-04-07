@@ -20,6 +20,7 @@ jquery-ui-*.custom/development-bundle/jquery-*.js
 [Smarty]
 Smarty-*/demo
 [tablesorter]
-tablesorter/build
+tablesorter/beta-testing
 tablesorter/docs
-tablesorter/tests
+tablesorter/testing
+tablesorter/*.*
