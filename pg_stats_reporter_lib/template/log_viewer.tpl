@@ -28,8 +28,8 @@
 <script type="text/javascript" src="{$tablesorter_path}js/widgets/widget-columnSelector.js"></script>
 <!-- pg_stats_reporter's javascript -->
 <script type="text/javascript" src="js/common.js"></script>
-<script type="text/javascript" src="js/log_report.js"></script>
-<script type="text/javascript" src="js/log_report_ajax.js"></script>
+<script type="text/javascript" src="js/log_viewer.js"></script>
+<script type="text/javascript" src="js/log_viewer_ajax.js"></script>
 
 <!-- stylesheets -->
 <link rel="stylesheet" type="text/css" href="{$superfish_path}css/superfish.css"/>
@@ -50,10 +50,10 @@
 <div id="contents">
   <div class="top_jump_margin"></div>
 
-  <div id="log_report" class="jump_margin"></div>
-  <h1>Log Report</h1>
+  <div id="log_viewer" class="jump_margin"></div>
+  <h1>Log Viewer</h1>
   <div align="right" class="jquery_ui_button_info_h1">
-    <button class="help_button" dialog="#log_report_dialog"></button>
+    <button class="help_button" dialog="#log_viewer_dialog"></button>
   </div>
 
   <input id="page_total" type="hidden" value="{$page_total}">
@@ -127,7 +127,7 @@
       </div>
     </div>
   </div>
-  <table id="log_report_table" class="tablesorter">
+  <table id="log_viewer_table" class="tablesorter">
     <thead>
       <tr>
         <th>timestamp</th>

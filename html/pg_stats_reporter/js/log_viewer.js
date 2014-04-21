@@ -1,5 +1,5 @@
 /*
- * log_report: Javascript
+ * log_viewer: Javascript
  *
  * Copyright (c) 2012,2014, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
  */
@@ -21,7 +21,7 @@ $(function(){
 
 
 	/*** tablesorter setting ***/
-	$("#log_report_table").tablesorter({
+	$("#log_viewer_table").tablesorter({
 		theme: 'blue',
 		headerTemplate : '{content} {icon}',
 		widthFixed: false,
@@ -129,7 +129,7 @@ $(function(){
 			}
 		});
 
-		document.location = "log_report.php?" + $.fn.createUrlString(param);
+		document.location = "log_viewer.php?" + $.fn.createUrlString(param);
 	});
 	$("#search_clear").button()
 	.click(function(){

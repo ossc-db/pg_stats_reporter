@@ -514,8 +514,8 @@ UPDATE statsrepo.alert SET rollback_tps = 3000 WHERE instid = 1;
 </ul>
 </div>
 
-<div id="log_report_dialog" class="help_dialog"
-  title="How to see a Log Report table">
+<div id="log_viewer_dialog" class="help_dialog"
+  title="How to use Log Viewer">
 <h4>Search Option の使い方</h4>
 検索条件を入力し、"Search"ボタンを押下することでログを絞り込みます。
 <ul>
@@ -524,7 +524,7 @@ UPDATE statsrepo.alert SET rollback_tps = 3000 WHERE instid = 1;
 <li>DATABASE : データベース名を指定します</li>
 <li>MESSAGE : エラーメッセージを指定します (POSIX正規表現)</li>
 </ul>
-<h4>Log Report の見方</h4>
+<h4>Log の見方</h4>
 <ul>
 <li>timestamp : ログ出力日時</li>
 <li>username : ユーザ名</li>

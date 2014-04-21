@@ -1,6 +1,6 @@
 <?php
 /*
- * log_report
+ * log_viewer
  *
  * Copyright (c) 2012,2014, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
  */
@@ -36,7 +36,7 @@ $smarty->assign("tablesorter_path", TABLESORTER_PATH);
 $smarty->assign("superfish_path", SUPERFISH_PATH);
 
 /* 生存期間を経過したキャッシュファイルを削除 */
-$smarty->clearCache(LOG_REPORT_TEMPLATE_FILE, null, null, $smarty->cache_lifetime);
+$smarty->clearCache(LOG_VIEWER_TEMPLATE_FILE, null, null, $smarty->cache_lifetime);
 
 /* パラメータの取得 */
 $url_param = array();
@@ -66,8 +66,8 @@ if (!load_config($config, $err_msg)) {
 $cache_id = md5(serialize($url_param));
 
 /* キャッシュが存在する場合はキャッシュを表示 */
-if ($smarty->isCached(LOG_REPORT_TEMPLATE_FILE, $cache_id)) {
-	$smarty->display(LOG_REPORT_TEMPLATE_FILE, $cache_id);
+if ($smarty->isCached(LOG_VIEWER_TEMPLATE_FILE, $cache_id)) {
+	$smarty->display(LOG_VIEWER_TEMPLATE_FILE, $cache_id);
 	exit;
 }
 
@@ -101,7 +101,7 @@ $smarty->assign("left_menu", $html_string['left_menu']);
 $smarty->assign("page_total", $html_string['page_total']);
 $smarty->assign("help_dialog", $html_string['help_dialog']);
 $smarty->assign("message_dialog", "");
-$smarty->display(LOG_REPORT_TEMPLATE_FILE, $cache_id);
+$smarty->display(LOG_VIEWER_TEMPLATE_FILE, $cache_id);
 
 exit;
 
@@ -114,11 +114,11 @@ function showErrorReport($smarty, $config, $url_param, $message)
 	$smarty->assign("header_menu", makeHeaderMenu($config, $url_param));
 	$smarty->assign("left_menu", makeLeftMenu($config, $url_param));
 	$smarty->assign("page_total", 0);
-	$smarty->assign("help_dialog", $help_message['log_report']);
+	$smarty->assign("help_dialog", $help_message['log_viewer']);
 	$smarty->assign("message_dialog", "<div id=\"message_dialog\">" . $message . "</div>\n");
 
 	$smarty->caching = 0;
-	$smarty->display(LOG_REPORT_TEMPLATE_FILE);
+	$smarty->display(LOG_VIEWER_TEMPLATE_FILE);
 }
 
 /* 設定ファイルのエラー画面の表示 */
@@ -131,7 +131,7 @@ function showConfigError($smarty, $config, $message)
 	$smarty->assign("message_dialog", "<div id=\"message_dialog\">" . $message . "</div>\n");
 
 	$smarty->caching = 0;
-	$smarty->display(LOG_REPORT_TEMPLATE_FILE);
+	$smarty->display(LOG_VIEWER_TEMPLATE_FILE);
 }
 
 ?>

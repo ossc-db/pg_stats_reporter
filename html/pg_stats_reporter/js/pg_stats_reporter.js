@@ -13,7 +13,7 @@ $(function(){
     url_param["begin"] = $("#target_begin").text();
     url_param["end"] = $("#target_end").text();
     if ($(this).attr('href'))
-      $(this).attr('href', "log_report.php?" + $.fn.createUrlString(url_param));
+      $(this).attr('href', "log_viewer.php?" + $.fn.createUrlString(url_param));
   });
 
 

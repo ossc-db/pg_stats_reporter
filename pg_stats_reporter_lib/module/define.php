@@ -30,7 +30,7 @@ define("COMPILE_DIR", "../../pg_stats_reporter_lib/compiled");
 define("TEMPLATE_DIR", "../../pg_stats_reporter_lib/template");
 define("CACHE_LIFETIME", 300);
 define("TEMPLATE_FILE", "pg_stats_reporter.tpl");
-define("LOG_REPORT_TEMPLATE_FILE", "log_report.tpl");
+define("LOG_VIEWER_TEMPLATE_FILE", "log_viewer.tpl");
 
 // configuration file
 define("CONFIG_DIR", "/etc");
@@ -143,7 +143,7 @@ $help_list = array(
   'parameter'                 => 'parameter_dialog',
   'alert'                     => 'alert_dialog',
   'profiles'                  => 'profiles_dialog',
-  'log_report'                => 'log_report_dialog'
+  'log_viewer'                => 'log_viewer_dialog'
 );
 
 // query list
@@ -156,7 +156,7 @@ $query_string = array(
   "summary" =>
   "SELECT * FROM statsrepo.get_summary($1, $2)",
 
-  /* Database System */
+  /* Statistics */
   // Database Statistics
   "database_statistics" =>
   "SELECT datname AS \"database\", size AS \"MiB\", size_incr AS \"+MiB\", xact_commit_tps AS \"commit/s\", xact_rollback_tps AS \"rollback/s\", blks_hit_rate AS \"hit%\", blks_hit_tps AS \"gets/s\", blks_read_tps AS \"reads/s\", tup_fetch_tps AS \"rows/s\" FROM statsrepo.get_dbstats($1, $2)",
@@ -183,7 +183,7 @@ $query_string = array(
   "instance_processes" =>
   "SELECT replace(\"timestamp\", '-', '/'), avg(idle) AS idle, avg(idle_in_xact) AS \"idle in xact\", avg(waiting) AS waiting, avg(running) AS running FROM statsrepo.get_proc_tendency_report($1, $2) GROUP BY 1 ORDER BY 1",
 
-  /* Operating System */
+  /* OS */
   // OS Resource Usage
   "cpu_usage" =>
   "SELECT replace(\"timestamp\", '-', '/'), avg(idle) AS idle, avg(iowait) AS iowait, avg(system) AS system, avg(\"user\") AS user FROM statsrepo.get_cpu_usage_tendency_report($1, $2) GROUP BY 1 ORDER BY 1",
@@ -245,7 +245,7 @@ $query_string = array(
   "lock_conflicts" =>
   "SELECT datname AS \"database\", nspname AS \"schema\", relname AS \"relation\", duration, blockee_pid AS \"blockee pid\", blocker_pid AS \"blocker pid\", blocker_gid AS \"blocker gid\", blockee_query AS \"blockee query\", blocker_query AS \"blocker query\" FROM statsrepo.get_lock_activity($1, $2)",
 
-  /* Operation Activity */
+  /* Activities */
   // Checkpoint Activity
   "checkpoint_activity" =>
   "SELECT ckpt_total AS \"total checkpoints\", ckpt_time AS \"checkpoints by time\", ckpt_xlog AS \"checkpoints by xlog\", avg_write_buff AS \"avg written buffers\", max_write_buff AS \"max written buffers\", avg_duration AS \"avg duration (sec)\", max_duration AS \"max duration (sec)\" FROM statsrepo.get_checkpoint_activity($1, $2)",
@@ -300,7 +300,7 @@ $query_string = array(
   "snapshotsize" =>
   "SELECT i.instid, i.name, i.hostname, i.port, count(s.snapid), sum(s.snapshot_increase_size)::numeric(1000), max(s.snapid), max(s.time)::timestamp(0) FROM statsrepo.instance i LEFT JOIN statsrepo.snapshot s ON i.instid = s.instid GROUP BY i.instid, i.name, i.hostname, i.port ORDER BY i.instid",
 
-  /* Log Report */
+  /* Log Viewer */
   "log_size" =>
   "SELECT count(*) FROM statsrepo.log WHERE instid = $1 AND timestamp BETWEEN $2 AND $3",
 

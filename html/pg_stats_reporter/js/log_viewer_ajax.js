@@ -1,5 +1,5 @@
 /*
- * log_report_ajax: Javascript
+ * log_viewer_ajax: Javascript
  *
  * Copyright (c) 2012,2014, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
  */
@@ -25,13 +25,13 @@ $(function(){
 	/*** main ***/
 	/* show first page */
 	if (page_total > 0) {
-		$("#log_report_table").hide();
+		$("#log_viewer_table").hide();
 		$("#f-navi").hide();
 		pageChange(1);
-		$("#log_report_table").show();
+		$("#log_viewer_table").show();
 		$("#f-navi").show();
 	} else {
-		$("#log_report_table").hide();
+		$("#log_viewer_table").hide();
 		$(".page_info").hide();
 		$("#column_select").hide();
 		$("#filter_reset").hide();
@@ -71,7 +71,7 @@ $(function(){
 
 	function getAjaxData(page){
 		var req = $.ajax({
-			url: "log_report_ajax.php",
+			url: "log_viewer_ajax.php",
 			data: $.extend({}, url_param, {page: page}),
 			dataType: 'html',
 			async: false,
@@ -84,9 +84,9 @@ $(function(){
 	};
 
 	function outputSuccess(data, dataType){
-		$("#log_report_table tbody").html(data);
-		$("#log_report_table").trigger("update");
-		$("#log_report_table").trigger("filterReset");
+		$("#log_viewer_table tbody").html(data);
+		$("#log_viewer_table").trigger("update");
+		$("#log_viewer_table").trigger("filterReset");
 	};
 
 	function outputError(XMLHttpRequest, textStatus, errorThrown){

@@ -514,8 +514,8 @@ UPDATE statsrepo.alert SET rollback_tps = 3000 WHERE instid = 1;
 </ul>
 </div>
 
-<div id="log_report_dialog" class="help_dialog"
-  title="How to see a Log Report table">
+<div id="log_viewer_dialog" class="help_dialog"
+  title="How to use Log Viewer">
 <h4>How to use Search Option.</h4>
 To narrow down the log, enter the search criteria and click "Search" button.
 <ul>
@@ -524,7 +524,7 @@ To narrow down the log, enter the search criteria and click "Search" button.
 <li>DATABASE : database name</li>
 <li>MESSAGE : error message (POSIX Regular Expressions)</li>
 </ul>
-<h4>How to see a Log Report table.</h4>
+<h4>How to see a Log table.</h4>
 <ul>
 <li>timestamp : timestamp with milliseconds</li>
 <li>username : user name</li>

@@ -107,7 +107,7 @@ function makeLogReport($conn, $config, $url_param, &$err_msg)
 
 	/* make contents html */
 	$html_string['page_total'] = $page_total;
-	$html_string["help_dialog"] = $help_message['log_report'];
+	$html_string["help_dialog"] = $help_message['log_viewer'];
 
 	return $html_string;
 }
@@ -159,7 +159,7 @@ EOD;
 		$html_string .= "</li>\n";
 	}
 
-	/* Database System */
+	/* Statistics */
 	if ($targetList['database_statistics']
 		|| $targetList['transaction_statistics']
 		|| $targetList['database_size']
@@ -168,7 +168,7 @@ EOD;
 		|| $targetList['instance_processes_ratio']
 		|| $targetList['instance_processes']) {
 
-		$html_string .= "<li><a href=\"#database_system\">Database System</a><ul>\n";
+		$html_string .= "<li><a href=\"#statistics\">Statistics</a><ul>\n";
 
 		/* Database Statistics */
 		if ($targetList['database_statistics']
@@ -208,7 +208,7 @@ EOD;
 		$html_string .= "</ul></li>\n";
 	}
 
-	/* Operating System */
+	/* OS */
 	if ($targetList['cpu_usage']
 		|| $targetList['load_average']
 		|| $targetList['io_usage']
@@ -216,7 +216,7 @@ EOD;
 		|| $targetList['disk_usage_per_tablespace']
 		|| $targetList['disk_usage_per_table']) {
 
-		$html_string .= "<li><a href=\"#operating_system\">Operating System</a><ul>\n";
+		$html_string .= "<li><a href=\"#os\">OS</a><ul>\n";
 
 		/* OS Resource Usage */
 		if ($targetList['cpu_usage']
@@ -318,7 +318,7 @@ EOD;
 		|| $targetList['current_replication_status']
 		|| $targetList['replication_delays']) {
 
-		$html_string .= "<li><a href=\"#operation_activity\">Operation Activity</a><ul>\n";
+		$html_string .= "<li><a href=\"#activities\">Activities</a><ul>\n";
 
 		/* Checkpoint Activity */
 		if ($targetList['checkpoint_activity'])
@@ -427,9 +427,9 @@ EOD;
 	if (!empty($_SERVER['DOCUMENT_ROOT'])) {
 		$html_string .=
 <<< EOD
-<!-- Log Report -->
+<!-- Log Viewer -->
 <ul id="dropdown2" class="sf-menu menu">
-<li><a href="#log_report">Log Report</a></li>
+<li><a href="#log_viewer">Log Viewer</a></li>
 </ul>
 <!-- hide left menu button  -->
 <div align="right" class="jquery_ui_button_max">
@@ -467,7 +467,7 @@ function makePlainHeaderMenu()
 <li><a>Summary</a><ul>
   <li><a>Alert</a><li>
 </ul></li>
-<li><a>Database System</a><ul>
+<li><a>Statistics</a><ul>
   <li><a>Database Statistics</a><ul>
     <li><a>Transaction Statistics</a></li>
     <li><a>Database Size</a></li>
@@ -479,7 +479,7 @@ function makePlainHeaderMenu()
     <li><a>Instance Processes</a></li>
   </ul></li>
 </ul></li>
-<li><a>Operating System</a><ul>
+<li><a>OS</a><ul>
   <li><a>OS Resource Usage</a><ul>
     <li><a>CPU Usage</a></li>
     <li><a>Load Average</a></li>
@@ -539,9 +539,9 @@ EOD;
 	if (!empty($_SERVER['DOCUMENT_ROOT'])) {
 		$html_string .=
 <<< EOD
-<!-- Log Report -->
+<!-- Log Viewer -->
 <ul id="dropdown2" class="sf-menu menu">
-  <li><a>Log Report</a></li>
+  <li><a>Log Viewer</a></li>
 </ul>
 <!-- hide left menu button  -->
 <div align="right" class="jquery_ui_button_max"> 
@@ -678,10 +678,10 @@ EOD;
 	/* Summary */
 	$html_string .= makeSummaryReport($conn, $targetData, $snapids, $error_message);
 
-	/* Database System */
+	/* Statistics */
 	$html_string .= makeDatabaseSystemReport($conn, $targetData, $snapids, $error_message);
 
-	/* Operating System */
+	/* OS */
 	$html_string .= makeOperatingSystemReport($conn, $targetData, $snapids, $error_message);
 
 	/* SQL */
@@ -792,8 +792,8 @@ function makeDatabaseSystemReport($conn, $target, $snapids, $errorMsg)
 	$htmlString =
 <<< EOD
 
-<div id="database_system" class="jump_margin"></div>
-<h1>Database System</h1>
+<div id="statistics" class="jump_margin"></div>
+<h1>Statistics</h1>
 
 EOD;
 
@@ -1036,8 +1036,8 @@ function makeOperatingSystemReport($conn, $target, $snapids, $errorMsg)
 
 	$htmlString =
 <<< EOD
-<div id="operating_system" class="jump_margin"></div>
-<h1>Operating System</h1>
+<div id="os" class="jump_margin"></div>
+<h1>OS</h1>
 
 EOD;
 
@@ -1561,8 +1561,8 @@ function makeActivitiesReport($conn, $target, $snapids, $errorMsg)
 
 	$htmlString =
 <<< EOD
-<div id="operation_activity" class="jump_margin"></div>
-<h1>Operation Activity</h1>
+<div id="activities" class="jump_margin"></div>
+<h1>Activities</h1>
 
 EOD;
 
