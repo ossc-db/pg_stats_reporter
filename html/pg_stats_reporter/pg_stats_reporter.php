@@ -150,6 +150,8 @@ function showErrorReport($smarty, $config, $url_param, $message)
 /* 設定ファイルのエラー画面の表示 */
 function showConfigError($smarty, $config, $message)
 {
+	$message .= "<br/>Note: Need to manually update the pg_stats_reporter.ini if have upgraded.";
+
 	$smarty->assign("header_menu", makePlainHeaderMenu());
 	$smarty->assign("left_menu", makeLeftMenu($config, null));
 	$smarty->assign("contents",
