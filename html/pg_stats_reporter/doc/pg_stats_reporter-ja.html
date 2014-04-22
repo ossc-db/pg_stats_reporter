@@ -102,7 +102,7 @@ WEBサーバにブラウザを利用してアクセスすることで、ブラ�
 # yum install httpd php php-pgsql php-intl php-cli
 # rpm -ivh pg_stats_reporter-3.0.0-1.el6.noarch.rpm
 </pre>
-<h5>yumを使用する場合のインストール手順</h5>
+<h5>yumを使用しない場合のインストール手順</h5>
 <pre>
 # rpm -ivh httpd-2.2.15-15.el6_2.1.x86_64.rpm \
            php-common-5.3.3-3.el6_2.8.x86_64.rpm \
@@ -183,7 +183,7 @@ http://&lt;<I>ホスト名</I>&gt;/pg_stats_reporter/pg_stats_reporter.php
 <img id="report_sample" src="image/report_sample.png" width="800px;"/>
 <br/>
 <dl>
-<dt>① : Create report range ボタン</dt>
+<dt>① : Create new report ボタン</dt>
 <dd>レポート作成期間を変更します。詳細は<a href="#dialog">レポート作成期間指定ダイアログ</a>を参照してください。</dd>
 <dt>② : リポジトリDB選択メニューのリポジトリ選択</dt>
 <dd>選択すると、アコーディオン形式でリポジトリDBで管理している監視対象DBの情報を表示/非表示します。</dd>
@@ -193,7 +193,7 @@ http://&lt;<I>ホスト名</I>&gt;/pg_stats_reporter/pg_stats_reporter.php
 <dd>設定ファイルの再読み込みを行います。読み込み後は起動時と同様の条件でレポートを表示します。</dd>
 <dt>⑤ : ヘッダメニュー</dt>
 <dd>"Summary" ～ "Information" の項目を選択すると、性能レポートの該当項目へ移動します。</dd>
-<dd>"Log Report" を選択すると、ログレポート画面に移動します。</dd>
+<dd>"Log Viewer" を選択すると、ログレポート画面に移動します。</dd>
 <dt>⑥ : トップに移動ボタン</dt>
 <dd>レポートのトップに移動します。</dd>
 <dt>⑦ : メニュー表示/非表示ボタン</dt>
@@ -217,7 +217,7 @@ http://&lt;<I>ホスト名</I>&gt;/pg_stats_reporter/pg_stats_reporter.php
 </dl>
 
 <h5>ログレポート画面</h5>
-<img id="log_report_sample" src="image/log_report_sample.png" width="800px;"/>
+<img id="log_viewer_sample" src="image/log_viewer_sample.png" width="800px;"/>
 <br/>
 <dl>
 <dt>① : 検索オプション表示／非表示ボタン</dt>
@@ -228,7 +228,7 @@ http://&lt;<I>ホスト名</I>&gt;/pg_stats_reporter/pg_stats_reporter.php
 <li>ELEVEL: メッセージレベル</li>
 <li>USERNAME: DBユーザ名</li>
 <li>DATABASE: データベース名</li>
-<li>MESSAGE: メッセージ本文 (POSIX正規表現で指定してください)</li>
+<li>MESSAGE: メッセージ本文 (<a href="http://www.postgresql.jp/document/current/html/functions-matching.html#FUNCTIONS-POSIX-REGEXP">PostgreSQLの正規表現</a>で指定してください)</li>
 </ul></dd>
 </dd>
 <dt>③ : 検索ボタン</dt>
@@ -245,7 +245,7 @@ http://&lt;<I>ホスト名</I>&gt;/pg_stats_reporter/pg_stats_reporter.php
 <dd>表のページを前後に移動します。</dd>
 <dt>⑧ : テーブルフィルタ</dt>
 <dd>各フィールドに条件を入力することで、現在のページ内の条件に該当するレコードのみが表示されます。<br/>
-条件には、固有のパターンマッチ記述が使用できます。パターンマッチ記述の詳細は <a href="http://mottie.github.io/tablesorter/docs/example-widget-filter.html"> こちら </a> をご覧ください。</dd>
+条件には、tablesorter のパターンマッチ記述が使用できます。パターンマッチ記述の詳細は <a href="http://mottie.github.io/tablesorter/docs/example-widget-filter.html"> こちら </a> をご覧ください。</dd>
 <dt>⑨ : ヘルプボタン</dt>
 <dd>ログの検索方法および表の説明が表示されます。</dd>
 </dl>
@@ -496,8 +496,8 @@ $ su
     <td>文字列</td>
     <td>パスワード指定なし</td>
     <td>パスワード指定なし</td>
-    <td>password =</td>
-    <td>リポジトリDBへの接続で使用するパスワードを指定します。PostgreSQL への接続パスワードを .pgpass を使用して設定する場合は、値を設定しないでください。</li></td>
+    <td>password = abc</td>
+    <td>リポジトリDBへの接続で使用するパスワードを指定します。PostgreSQL への接続パスワードを .pgpass を使用して設定する場合は、値を設定しないでください。(*2)</li></td>
   </tr>
 
   <tr>
@@ -506,7 +506,7 @@ $ su
     <td>auto</td>
     <td>en</td>
     <td>language = ja</td>
-    <td>レポートの表示言語の言語タグを設定します。auto を設定した場合は、表示するブラウザの設定を使用します。指定した言語に対応するメッセージが存在しない場合は英語で表示します。(*2)</td>
+    <td>レポートの表示言語の言語タグを設定します。auto を設定した場合は、表示するブラウザの設定を使用します。指定した言語に対応するメッセージが存在しない場合は英語で表示します。(*3)</td>
   </tr>
 
   <tr>
@@ -521,16 +521,16 @@ $ su
 </table>
 
 <p>
-*1: 設定項目または設定値を省略した場合の挙動については、PostgreSQL日本語ドキュメントの<a href="http://www.postgresql.jp/document/9.2/html/libpq-connect.html#LIBPQ-PARAMKEYWORDS">こちら</a>を参照してください。<br/>
-*2: php-intl が未インストールの状態で auto が設定されている場合は強制的に英語で表示されます。
+*1: 項目または設定値を省略した場合の挙動は、libpqの接続文字列のパラメータと同じです。詳しくは <a href="http://www.postgresql.jp/document/current/html/libpq-connect.html#LIBPQ-PARAMKEYWORDS">こちら</a> を参照してください。<br/>
+*2: ディストリビューションによっては、HTTP Server のドキュメントルートのデフォルトが実行ユーザのホームディレクトリになっている場合があります。そのため、PostgreSQL の接続パスワードで .pgpass を使用する場合には、外部から参照されないように注意して配置してください。<br/>
+*3: php-intl が未インストールの状態で auto が設定されている場合は強制的に英語で表示されます。
 </p>
 
 <h2 id="restrictions">使用上の注意と制約</h2>
 <p>pg_stats_reporter を使用する際には、以下の使用上の注意と制約があります。</p>
 <ul>
-  <li>ディストリビューションによっては、HTTP Server のドキュメントルートのデフォルトが実行ユーザのホームディレクトリになっている場合があります。そのため、PostgreSQL の接続パスワードで .pgpass を使用する場合には、外部から参照されないように注意して配置してください。</li>
   <li>PHP の設定ファイル (php.ini) にデフォルトのタイムゾーンが設定されていない場合、実行環境のロケールによっては正しく動作しない可能性があります。php.ini にデフォルトのタイムゾーン (date.timezone) を設定することを推奨します。</li>
-  <li>データサイズなどを示す一部の項目の値は、単位換算での数値の切り捨てにより微小な値が存在するにもかかわらずゼロと表示される可能性があります。</li>
+  <li>データサイズなどを示す一部の項目の値は、単位換算での数値の切り捨てによりゼロと表示される可能性があります。</li>
   <li>Linux環境では "/" が、Windowsのエクスプローラでは "\ / : * ? < > |" の8種類の文字がファイル名の制約となるため、セクション名で使用できません。そのため、Linux と Windows の両方の環境にてpg_stats_reporter を使用する場合は正常に動作しない可能性があります。</li>
   <li>グローバルな設定項目用のセクション名として利用しているため、リポジトリDB設定のセクション名として "global_setting" を設定しないでください。</li>
 </ul>

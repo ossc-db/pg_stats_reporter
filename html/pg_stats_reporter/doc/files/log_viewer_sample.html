@@ -28,8 +28,8 @@
 <script type="text/javascript" src="../../package/tablesorter/js/widgets/widget-columnSelector.js"></script>
 <!-- pg_stats_reporter's javascript -->
 <script type="text/javascript" src="../js/common.js"></script>
-<script type="text/javascript" src="../js/log_report.js"></script>
-<script type="text/javascript" src="../js/log_report_ajax.js"></script>
+<script type="text/javascript" src="../js/log_viewer.js"></script>
+<script type="text/javascript" src="../js/log_viewer_ajax.js"></script>
 
 <!-- stylesheets -->
 <link rel="stylesheet" type="text/css" href="../../package/superfish/superfish-1.7.2/css/superfish.css"/>
@@ -46,7 +46,7 @@
 <li><a href="report_sample.html#summary">Summary</a><ul>
 <li><a href="report_sample.html#alert">Alert</a></li>
 </ul></li>
-<li><a href="report_sample.html#database_system">Database System</a><ul>
+<li><a href="report_sample.html#statistics">Statistics</a><ul>
 <li><a href="report_sample.html#database_statistics">Database Statistics</a><ul>
 <li><a href="report_sample.html#transaction_statistics">Transaction Statistics</a></li>
 <li><a href="report_sample.html#database_size">Database Size</a></li>
@@ -58,7 +58,7 @@
 <li><a href="report_sample.html#instance_processes">Instance Processes</a></li>
 </ul></li>
 </ul></li>
-<li><a href="report_sample.html#operating_system">Operating System</a><ul>
+<li><a href="report_sample.html#os">OS</a><ul>
 <li><a href="report_sample.html#os_resource_usage">OS Resource Usage</a><ul>
 <li><a href="report_sample.html#cpu_usage">CPU Usage</a></li>
 <li><a href="report_sample.html#load_average">Load Average</a></li>
@@ -84,7 +84,7 @@
 <li><a href="report_sample.html#long_transactions">Long Transactions</a></li>
 <li><a href="report_sample.html#lock_conflicts">Lock Conflicts</a></li>
 </ul></li>
-<li><a href="report_sample.html#operation_activity">Operation Activity</a><ul>
+<li><a href="report_sample.html#activities">Activities</a><ul>
 <li><a href="report_sample.html#checkpoint_activity">Checkpoint Activity</a></li>
 <li><a href="report_sample.html#autovacuum_activity">Autovacuum Activity</a><ul>
 <li><a href="report_sample.html#basic_statistics">Basic Statistics (Average)</a></li>
@@ -105,9 +105,9 @@
 </ul></li>
 </ul></li>
 </ul>
-<!-- Log Report -->
+<!-- Log Viewer -->
 <ul id="dropdown2" class="sf-menu menu">
-<li><a href="#log_report">Log Report</a></li>
+<li><a href="#log_viewer">Log Viewer</a></li>
 </ul>
 <!-- hide left menu button  -->
 <div align="right" class="jquery_ui_button_max">
@@ -158,10 +158,10 @@
 <div id="contents">
   <div class="top_jump_margin"></div>
 
-  <div id="log_report" class="jump_margin"></div>
-  <h1>Log Report</h1>
+  <div id="log_viewer" class="jump_margin"></div>
+  <h1>Log Viewer</h1>
   <div align="right" class="jquery_ui_button_info_h1">
-    <button class="help_button" dialog="#log_report_dialog"></button>
+    <button class="help_button" dialog="#log_viewer_dialog"></button>
   </div>
 
   <input id="page_total" type="hidden" value="3">
@@ -235,7 +235,7 @@
       </div>
     </div>
   </div>
-  <table id="log_report_table" class="tablesorter">
+  <table id="log_viewer_table" class="tablesorter">
     <thead>
       <tr>
         <th>timestamp</th>
@@ -274,7 +274,7 @@
       </div>
     </div>
   </div>
-<div id="log_report_dialog" class="help_dialog" title="How to see a Log Report table">
+<div id="log_viewer_dialog" class="help_dialog" title="How to use Log Viewer">
 <h4>How to use Search Option.</h4>
 To narrow down the log, enter the search criteria and click "Search" button.
 <ul>
@@ -283,7 +283,7 @@ To narrow down the log, enter the search criteria and click "Search" button.
 <li>DATABASE : database name</li>
 <li>MESSAGE : error message (POSIX Regular Expressions)</li>
 </ul>
-<h4>How to see a Log Report table.</h4>
+<h4>How to see a Log table.</h4>
 <ul>
 <li>timestamp : timestamp with milliseconds</li>
 <li>username : user name</li>

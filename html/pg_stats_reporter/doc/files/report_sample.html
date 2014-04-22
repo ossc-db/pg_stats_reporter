@@ -56,7 +56,7 @@
 <li><a href="#summary">Summary</a><ul>
 <li><a href="#alert">Alert</a></li>
 </ul></li>
-<li><a href="#database_system">Database System</a><ul>
+<li><a href="#statistics">Statistics</a><ul>
 <li><a href="#database_statistics">Database Statistics</a><ul>
 <li><a href="#transaction_statistics">Transaction Statistics</a></li>
 <li><a href="#database_size">Database Size</a></li>
@@ -68,7 +68,7 @@
 <li><a href="#instance_processes">Instance Processes</a></li>
 </ul></li>
 </ul></li>
-<li><a href="#operating_system">Operating System</a><ul>
+<li><a href="#os">OS</a><ul>
 <li><a href="#os_resource_usage">OS Resource Usage</a><ul>
 <li><a href="#cpu_usage">CPU Usage</a></li>
 <li><a href="#load_average">Load Average</a></li>
@@ -94,7 +94,7 @@
 <li><a href="#long_transactions">Long Transactions</a></li>
 <li><a href="#lock_conflicts">Lock Conflicts</a></li>
 </ul></li>
-<li><a href="#operation_activity">Operation Activity</a><ul>
+<li><a href="#activities">Activities</a><ul>
 <li><a href="#checkpoint_activity">Checkpoint Activity</a></li>
 <li><a href="#autovacuum_activity">Autovacuum Activity</a><ul>
 <li><a href="#basic_statistics">Basic Statistics (Average)</a></li>
@@ -115,9 +115,9 @@
 </ul></li>
 </ul></li>
 </ul>
-<!-- Log Report -->
+<!-- Log Viewer -->
 <ul id="dropdown2" class="sf-menu menu">
-<li><a href="log_report_sample.html">Log Report</a></li>
+<li><a href="log_viewer_sample.html">Log Viewer</a></li>
 </ul>
 <!-- hide left menu button  -->
 <div align="right" class="jquery_ui_button_max">
@@ -235,8 +235,8 @@ var checkpoint_date_list = [
 </form></div>
 </div>
 
-<div id="database_system" class="jump_margin"></div>
-<h1>Database System</h1>
+<div id="statistics" class="jump_margin"></div>
+<h1>Statistics</h1>
 <div id="database_statistics" class="jump_margin"></div>
 <h2>Database Statistics</h2>
 <div align="right" class="jquery_ui_button_info_h2">
@@ -903,8 +903,8 @@ $("#instance_processes_line").button().click( function() {
 	});
 } );
 </script>
-<div id="operating_system" class="jump_margin"></div>
-<h1>Operating System</h1>
+<div id="os" class="jump_margin"></div>
+<h1>OS</h1>
 <div id="os_resource_usage" class="jump_margin"></div>
 <h2>OS Resource Usage</h2>
 <div id="cpu_usage" class="jump_margin"></div>
@@ -2451,8 +2451,8 @@ FROM sto...;</td></tr>
 </select>
 </form></div>
 </div>
-<div id="operation_activity" class="jump_margin"></div>
-<h1>Operation Activity</h1>
+<div id="activities" class="jump_margin"></div>
+<h1>Activities</h1>
 <div id="checkpoint_activity" class="jump_margin"></div>
 <h2>Checkpoint Activity</h2>
 <div align="right" class="jquery_ui_button_info_h2">
