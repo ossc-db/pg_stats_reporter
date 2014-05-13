@@ -10,13 +10,11 @@ $(function(){
 	var page_curr = 1;
 
 	/*** pager setting ***/
-	$(".page_prev").button()
-	.hide()
+	$(".page_prev").button({disabled:true})
 	.click(function(){
 		pageChange(parseInt($(this).val()) - 1);
 	});
-	$(".page_next").button()
-	.hide()
+	$(".page_next").button({disabled:true})
 	.click(function(){
 		pageChange(parseInt($(this).val()) + 1);
 	});
@@ -54,15 +52,15 @@ $(function(){
 		/* create botton for pager */
 		if (page > 1) {
 			$(".page_prev").val(page);
-			$(".page_prev").show();
+			$(".page_prev").button({disabled:false});
 		} else {
-			$(".page_prev").hide();
+			$(".page_prev").button({disabled:true});
 		}
 		if (page < page_total) {
 			$(".page_next").val(page);
-			$(".page_next").show();
+			$(".page_next").button({disabled:false});
 		} else {
-			$(".page_next").hide();
+			$(".page_next").button({disabled:true});
 		}
 
 		page_curr = page;
