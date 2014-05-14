@@ -28,7 +28,7 @@ function makeReport($conn, $config, $url_param, &$err_msg)
 	$html_string["left_menu"] = makeLeftMenu($config, $url_param);
 
 	/* get snapshot id */
-	if (!getSnapshotID($conn, $url_param, &$snapids, &$snapdates)) {
+	if (!getSnapshotID($conn, $url_param, $snapids, $snapdates)) {
 		$err_msg = sprintf($error_message['query_error'], pg_last_error($conn));
 		return null;
 	} else if ($snapids[0] == $snapids[1] || is_null($snapids[0]) || is_null($snapids[1])) {
