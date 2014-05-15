@@ -10,12 +10,6 @@ function load_config(&$config, &$err_msg)
 {
 	$err_msg = null;
 
-	/* read config from cache file */
-	if (is_file(CONFIG_CACHE_FILE)) {
-		$config = parse_ini_file(CONFIG_CACHE_FILE, true);
-		return true;
-	}
-
 	/* read config from configuration file */
 	$config = readConfigFile($error);
 	if (count($error) > 0) {
@@ -44,7 +38,7 @@ function readConfigFile(&$err_msg)
 	/* read pg_stats_reporter.ini */
 	if (!is_file(CONFIG_FILE)) {
 		$err_msg[] = "pg_stats_reporter.ini is not found.";
-		return null;
+		return array();
 	}
 
 	/* read pg_stats_reporter.ini */
@@ -53,7 +47,7 @@ function readConfigFile(&$err_msg)
 	/* check format and data for "global" section */
 	if (!array_key_exists(GLOBAL_SECTION, $config)) {
 		$err_msg[] = "Does not contain a global setting section(".CONFIG_FILE.")";
-		return null;
+		return array();
 	}
 
 	foreach ($global_setting_list as $item) {
@@ -88,7 +82,7 @@ function readConfigFile(&$err_msg)
 	foreach ($config as $repo_name => $data_array) {
 		if (!is_array($data_array)) {
 			$err_msg[] = "Does not contain a section(repositoryDB name:".$repo_name.").";
-			return null;
+			return array();
 		}
 
 		// check key name
@@ -119,10 +113,19 @@ function readConfigFile(&$err_msg)
 		$conn = pg_connect($connect_str);
 		if (!$conn) {
 			$err_msg[] = "connect error.(repository database = ".$repo_name.")";
-			$cache_contents[] = "[".$repo_name."]\n";
 			continue;
 		} else {
 			pg_set_client_encoding($conn, "UTF-8");
+
+			// statsrepo schema is not found
+			$result = pg_query($conn, "SELECT nspname FROM pg_catalog.pg_namespace WHERE nspname = 'statsrepo'");
+			if (!$result || !pg_num_rows($result)) {
+				$err_msg[] = "statsrepo schema is not found.(repository database = ".$repo_name.")";
+				pg_free_result($result);
+				pg_close($conn);
+				continue;
+			}
+
 			$cache_contents[] = "[".$repo_name."]\n";
 			$cache_contents[] = "connect_str = \"".$connect_str."\"\n";
 
@@ -187,24 +190,21 @@ function readConfigFile(&$err_msg)
 
 	if (count($cache_contents) == 0) {
 		$err_msg[] = "No valid information.";
-		return null;
+		return array();
 	}
 
 	// write cache file
+	// For multiple executions, use an unique temporary file
 	$tmpCacheFilename = tempnam(CONFIG_CACHE_DIR, CONFIG_FILENAME . ".");
 	if (file_put_contents($tmpCacheFilename, $cache_contents) == false) {
 		$err_msg[] = "do not write cache file(".$tmpCacheFilename.")";
-		return null;
+		return array();
 	}
 
 	// read cache file
 	$config = parse_ini_file($tmpCacheFilename, true);
 
-	if (count($err_msg) == 0) {
-		rename($tmpCacheFilename, CONFIG_CACHE_FILE);
-	} else {
-		unlink($tmpCacheFilename);
-	}
+	rename($tmpCacheFilename, CONFIG_CACHE_FILE);
 
 	return $config;
 }
