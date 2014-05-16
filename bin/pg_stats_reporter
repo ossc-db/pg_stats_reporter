@@ -181,7 +181,6 @@ if (!is_dir($tmpTopdir)) {
 }
 
 $tmpfile = tempnam($tmpTopdir, "");
-//unlink($tmpfile);
 $tmpdir = $tmpfile."tmp";
 if (!mkdir($tmpdir, 0755, false))
 	elog(ERROR, "Could not create a temporary directory: '%s'", $tmpdir);
@@ -659,11 +658,20 @@ function initInformationFileForCommandline($infoData, &$err_msg, $config_cache_f
 		// and get pg_statsinfo version
 		$conn = @pg_connect($connect_str);
 		if (!$conn) {
-			elog(WARNING, "connect error.(repository database = %s)", $repo_name);
-			$cache_contents[] = "[".$repo_name."]\n";
+			$err_msg[] = "connect error.(repository database = ".$repo_name.")";
 			continue;
 		} else {
 			pg_set_client_encoding($conn, "UTF-8");
+
+			// statsrepo schema is not found
+			$result = pg_query($conn, "SELECT nspname FROM pg_catalog.pg_namespace WHERE nspname = 'statsrepo'");
+			if (!$result || !pg_num_rows($result)) {
+				$err_msg[] = "statsrepo schema is not found.(repository database = ".$repo_name.")";
+				pg_free_result($result);
+				pg_close($conn);
+				continue;
+			}
+
 			$cache_contents[] = "[".$repo_name."]\n";
 			$cache_contents[] = "connect_str = \"".$connect_str."\"\n";
 
@@ -732,7 +740,6 @@ function initInformationFileForCommandline($infoData, &$err_msg, $config_cache_f
 
 	// write cache file
 	if (count($cache_contents) == 0) {
-		$err_msg[] = "No valid information.";
 		return false;
 	}
 
