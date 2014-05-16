@@ -59,6 +59,25 @@ if (!load_config($config, $err_msg)) {
 	exit;
 }
 
+/* 表示中のリポジトリが設定に存在しなければエラー */
+if ($url_param['repodb'] && $url_param['instid']) {
+	$repo_exists = false;
+	foreach ($config as $repodb => $val_array) {
+		if ($repodb == $url_param['repodb'] &&
+			array_key_exists($url_param['instid'], $val_array['monitor'])) {
+			$repo_exists = true;
+			break;
+		}
+	}
+
+	if (!$repo_exists) {
+		$err_msg = "Can not create a report being displayed<br/>";
+		$err_msg .= "- Repository database is not found : ".$url_param['repodb']."<br/>";
+		showConfigError($smarty, $config, $err_msg);
+		exit;
+	}
+}
+
 /* パラメータ未指定の場合、デフォルトを設定 */
 if (!$url_param['repodb']) {
 	foreach ($config as $repodb => $val_array) {
