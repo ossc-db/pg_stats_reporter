@@ -236,7 +236,12 @@ $(function(){
 		modal: true,
 		resizable: false,
 		width: 600,
-		minHeight: 100
+		minHeight: 100,
+		buttons: {
+			OK: function() {
+				$(this).dialog("close");
+			}
+		}
 	});
 
 
