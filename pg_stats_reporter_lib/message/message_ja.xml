@@ -374,6 +374,20 @@
 </ul>
 </div>
 
+<div id="analyze_statistics_dialog" class="help_dialog"
+  title="How to see a Analayze Statistics table">
+<h4>Analyze Statisticsの見方</h4>
+<ul>
+<li>database : データベース名</li>
+<li>schema : スキーマ名</li>
+<li>table : テーブル名</li>
+<li>Duration(Total) : 処理時間の合計値 (秒)</li>
+<li>Duration(Avg) : 処理時間の平均値 (秒)</li>
+<li>Duration(Max) : 処理時間の最大値 (秒)</li>
+<li>count : autoanalyzeが実行された回数</li>
+</ul>
+</div>
+
 <div id="current_replication_status_dialog" class="help_dialog"
   title="How to see a Current Replication Status table">
 <h4>Current Replication Status の見方</h4>

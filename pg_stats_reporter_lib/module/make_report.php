@@ -315,6 +315,7 @@ EOD;
 	if ($targetList['checkpoint_activity']
 		|| $targetList['basic_statistics']
 		|| $targetList['io_statistics']
+		|| $targetList['analyze_statistics']
 		|| $targetList['current_replication_status']
 		|| $targetList['replication_delays']) {
 
@@ -326,7 +327,8 @@ EOD;
 
 		/* Autovacuum Activity */
 		if ($targetList['basic_statistics']
-			|| $targetList['io_statistics']) {
+			|| $targetList['io_statistics']
+			|| $targetList['analyze_statistics']) {
 
 			$html_string .= "<li><a href=\"#autovacuum_activity\">Autovacuum Activity</a><ul>\n";
 
@@ -334,6 +336,8 @@ EOD;
 				$html_string .= "<li><a href=\"#basic_statistics\">Basic Statistics (Average)</a></li>\n";
 			if ($targetList['io_statistics'])
 				$html_string .= "<li><a href=\"#io_statistics\">I/O Statistics (Average)</a></li>\n";
+			if ($targetList['analyze_statistics'])
+				$html_string .= "<li><a href=\"#analyze_statistics\">Analyze Statistics</a></li>\n";
 
 			$html_string .= "</ul></li>\n";
 		}
@@ -510,6 +514,7 @@ function makePlainHeaderMenu()
   <li><a>Autovacuum Activity</a><ul>
     <li><a>Basic Statistics (Average)</a></li>
     <li><a>I/O Statistics (Average)</a></li>
+    <li><a>Analyze Statistics</a></li>
   </ul></li>
   <li><a>Replication Activity</a><ul>
     <li><a>Current Replication Status</a></li>
@@ -1555,6 +1560,7 @@ function makeActivitiesReport($conn, $target, $snapids, $errorMsg)
 	if (!$target['checkpoint_activity']
 		&& !$target['basic_statistics']
 		&& !$target['io_statistics']
+		&& !$target['analyze_statistics']
 		&& !$target['current_replication_status']
 		&& !$target['replication_delays'])
 		return "";
@@ -1593,7 +1599,8 @@ EOD;
 
 	/* Autovacuum Activity */
 	if ($target['basic_statistics']
-		|| $target['io_statistics']) {
+		|| $target['io_statistics']
+		|| $target['analyze_statistics']) {
 
 		$htmlString .=
 <<< EOD
@@ -1653,6 +1660,35 @@ EOD;
 				$htmlString .= makeErrorTag($errorMsg['st_version'], "2.4.0");
 			}
 		}
+
+		if ($target['analyze_statistics']) {
+			$htmlString .=
+<<< EOD
+<div id="analyze_statistics" class="jump_margin"></div>
+<h3>Analyze Statistics</h3>
+<div align="right" class="jquery_ui_button_info_h3">
+  <div><button class="help_button" dialog="#analyze_statistics_dialog"></button></div>
+</div>
+
+
+EOD;
+			if ($target['repo_version'] >= V24) {
+				$result = pg_query_params($conn, $query_string['analyze_statistics'], $snapids);
+				if (!$result) {
+					return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
+				}
+
+				if (pg_num_rows($result) == 0) {
+					$htmlString .= makeErrorTag($errorMsg['no_result']);
+				} else {
+					$htmlString .= makeTablePagerHTML($result, "analyze_statistics", 10, true);
+				}
+				pg_free_result($result);
+			} else {
+				$htmlString .= makeErrorTag($errorMsg['st_version'], "2.4.0");
+			}
+		}
+
 	}
 
 	/* Replication Acivity */

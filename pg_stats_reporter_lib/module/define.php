@@ -88,6 +88,7 @@ $report_default = array(
   'checkpoint_activity'       => true,
   'basic_statistics'          => true,
   'io_statistics'             => true,
+  'analyze_statistics'        => true,
   'current_replication_status' => true,
   'replication_delays'        => true,
   'database'                  => false,
@@ -130,6 +131,7 @@ $help_list = array(
   'checkpoint_activity'       => 'checkpoint_activity_dialog',
   'basic_statistics'          => 'basic_statistics_dialog',
   'io_statistics'             => 'io_statistics_dialog',
+  'analyze_statistics'        => 'analyze_statistics_dialog',
   'current_replication_status' => 'current_replication_status_dialog',
   'replication_delays'        => 'replication_delays_dialog',
   'database'                  => 'database_dialog',
@@ -256,6 +258,9 @@ $query_string = array(
 
   "io_statistics" =>
   "SELECT datname AS \"database\", nspname AS \"schema\", relname AS \"table\", avg_page_hit AS \"avg page hit\", avg_page_miss AS \"avg page miss\", avg_page_dirty AS \"avg page dirty\", avg_read_rate AS \"avg read rate\", avg_write_rate AS \"avg write rate\" FROM statsrepo.get_autovacuum_activity2($1, $2)", 
+
+  "analyze_statistics" =>
+  "SELECT datname AS \"database\", nspname AS \"schema\", relname AS \"table\", total_duration AS \"Duration(Total)\", avg_duration AS \"Duration(Avg)\", max_duration AS \"Duration(Max)\", \"count\" FROM statsrepo.get_autoanalyze_stats($1, $2)", 
 
   // Replication Activity
   "current_replication_status" =>

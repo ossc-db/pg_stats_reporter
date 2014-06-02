@@ -373,6 +373,25 @@ $(function(){
     })
   );
 
+  // Autovacuum Activity(Analyze Statistics)
+  $("#analyze_statistics_table").tablesorter(
+    $.extend({}, tablesorterDefaultOptions, {
+      sortList: [[3,1]],
+      headers: {
+        3: { sorter: "digit" },
+        4: { sorter: "digit" },
+        5: { sorter: "digit" },
+        6: { sorter: "digit" }
+      }
+    })
+  )
+  .tablesorterPager(
+    $.extend({}, pagerDefaultOptions, {
+      container: $('#pager_analyze_statistics'),
+      size: 10
+    })
+  );
+
   // Replication Activity
   $("#current_replication_status_table").tablesorter(
     $.extend({}, tablesorterDefaultOptions, {

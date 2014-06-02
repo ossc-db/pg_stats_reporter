@@ -374,6 +374,20 @@
 </ul>
 </div>
 
+<div id="analyze_statistics_dialog" class="help_dialog"
+  title="How to see a Analyze Statistics table">
+<h4>How to see a Analyze Statistics.</h4>
+<ul>
+<li>database : database name</li>
+<li>schema : schema name</li>
+<li>table : table name</li>
+<li>Duration(Total) : total duration time (sec)</li>
+<li>Duration(Avg) : average duration time (sec)</li>
+<li>Duration(Max) : max duration time (sec)</li>
+<li>count : number of execute autoanalyze</li>
+</ul>
+</div>
+
 <div id="current_replication_status_dialog" class="help_dialog"
   title="How to see a Current Replication Status table">
 <h4>How to see a Current Replication Status table.</h4>
