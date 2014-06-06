@@ -61,7 +61,7 @@ $(function(){
 
 	// datepicker setting in create report
 	$("#begin_date").datetimepicker({
-		defaultDate: -7,
+		defaultDate: -1,
 		dateFormat: "yy-mm-dd",
 		onClose: function(dateText, inst){
 			// format check without blank
@@ -88,6 +88,9 @@ $(function(){
 		},
 		onSelect: function (selectedDateTime){
 			var start = $(this).datetimepicker('getDate');
+			// Note: The implementation here the processing to be done
+			//       in the datetimepicker originally
+			$("#end_date").datetimepicker('setDate', new Date($("#end_date").val().replace(/-/g, "/")));
 			$("#end_date").datetimepicker('option', 'minDate', new Date(start.getTime()));
 			$("#begin_date").removeClass("ui-state-error");
 			$("#end_date").removeClass("ui-state-error");
@@ -121,10 +124,13 @@ $(function(){
 			}
 		},
 		onSelect: function (selectedDateTime){
-				var end = $(this).datetimepicker('getDate');
-				$("#begin_date").datetimepicker('option', 'maxDate', new Date(end.getTime()) );
-				$("#begin_date").removeClass("ui-state-error");
-				$("#end_date").removeClass("ui-state-error");
+			var end = $(this).datetimepicker('getDate');
+			// Note: The implementation here the processing to be done
+			//       in the datetimepicker originally
+			$("#begin_date").datetimepicker('setDate', new Date($("#begin_date").val().replace(/-/g, "/")));
+			$("#begin_date").datetimepicker('option', 'maxDate', new Date(end.getTime()) );
+			$("#begin_date").removeClass("ui-state-error");
+			$("#end_date").removeClass("ui-state-error");
 		}
 	});
 

@@ -595,15 +595,19 @@ function makeLeftMenu($infoData, $targetInfo)
 		$html_string .= "<p class=\"report_data\">\n[ --- ]<br/>---<br/>begin: ---<br/>end: ---<br/>\n</p>\n";
 	}
 
+	/* make date value for input tag */
+	$begin_date_val = date('Y-m-d', time() - 24*60*60)." 00:00";
+	$end_date_val = date('Y-m-d H:i');
+
 	/* change report range button */
 	$html_string .=
 <<< EOD
 <div id="report_range_dialog" title="Create new report">
   <p align="center">
     <label for="begin_date">begin:</label>
-    <input type="text" id="begin_date" name="begin_date" cheked/>
+    <input type="text" id="begin_date" name="begin_date" value="$begin_date_val"/>
 	<label for="end_date">end:</label>
-    <input type="text" id="end_date" name="end_date"/>
+    <input type="text" id="end_date" name="end_date" value="$end_date_val"/>
   </p>
 </div><br/>
 <div align="center">
