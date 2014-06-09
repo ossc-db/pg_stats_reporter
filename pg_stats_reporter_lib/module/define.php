@@ -152,7 +152,7 @@ $help_list = array(
 $query_string = array(
   /* checkpoint time */
   "checkpoint_time" =>
-  "SELECT to_char(c.start, 'YYYY/MM/DD HH24:MI:SS') as begin, to_char(c.start + cast(to_char(c.total_duration, '999D999') as interval), 'YYYY/MM/DD HH24:MI:SS') as end FROM statsrepo.checkpoint c, (SELECT time FROM statsrepo.snapshot WHERE snapid=$2) s, (SELECT time FROM statsrepo.snapshot WHERE snapid=$3) e WHERE c.instid=$1 and c.start >= s.time and c.start < e.time",
+  "SELECT to_char(c.start, 'YYYY/MM/DD HH24:MI:SS') as begin, to_char(c.start + cast(c.total_duration::text as interval), 'YYYY/MM/DD HH24:MI:SS') as end FROM statsrepo.checkpoint c, (SELECT time FROM statsrepo.snapshot WHERE snapid=$2) s, (SELECT time FROM statsrepo.snapshot WHERE snapid=$3) e WHERE c.instid=$1 and c.start >= s.time and c.start < e.time",
 
   /* Summary */
   "summary" =>
