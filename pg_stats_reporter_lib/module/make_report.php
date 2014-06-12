@@ -1676,8 +1676,15 @@ EOD;
 
 
 EOD;
-			if ($target['repo_version'] >= V24) {
-				$result = pg_query_params($conn, $query_string['analyze_statistics'], $snapids);
+			if ($target['repo_version'] >= V25) {
+				// if repository database version >= 3.0, add last analyze time
+				$qstr = "";
+				if ($target['repo_version'] >= V30)
+					$qstr = $query_string['analyze_statistics30'];
+				else
+					$qstr = $query_string['analyze_statistics25'];
+
+				$result = pg_query_params($conn, $qstr, $snapids);
 				if (!$result) {
 					return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 				}
@@ -1689,7 +1696,7 @@ EOD;
 				}
 				pg_free_result($result);
 			} else {
-				$htmlString .= makeErrorTag($errorMsg['st_version'], "2.4.0");
+				$htmlString .= makeErrorTag($errorMsg['st_version'], "2.5.0");
 			}
 		}
 

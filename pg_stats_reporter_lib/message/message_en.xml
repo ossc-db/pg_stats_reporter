@@ -381,10 +381,11 @@
 <li>database : database name</li>
 <li>schema : schema name</li>
 <li>table : table name</li>
-<li>Duration(Total) : total duration time (sec)</li>
-<li>Duration(Avg) : average duration time (sec)</li>
-<li>Duration(Max) : max duration time (sec)</li>
 <li>count : number of execute autoanalyze</li>
+<li>total duration (sec) : total duration time (sec)</li>
+<li>avg duration (sec) : average duration time (sec)</li>
+<li>max duration (sec) : max duration time (sec)</li>
+<li>last analyze time : last execute time of autoanalyze (use pg_statsinfo 3.0 higher)</li>
 </ul>
 </div>
 

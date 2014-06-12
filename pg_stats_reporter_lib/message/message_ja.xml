@@ -381,10 +381,11 @@
 <li>database : データベース名</li>
 <li>schema : スキーマ名</li>
 <li>table : テーブル名</li>
-<li>Duration(Total) : 処理時間の合計値 (秒)</li>
-<li>Duration(Avg) : 処理時間の平均値 (秒)</li>
-<li>Duration(Max) : 処理時間の最大値 (秒)</li>
 <li>count : autoanalyzeが実行された回数</li>
+<li>total duration (sec) : 処理時間の合計値 (秒)</li>
+<li>avg duration (sec) : 処理時間の平均値 (秒)</li>
+<li>max duration (sec) : 処理時間の最大値 (秒)</li>
+<li>last analyze time : autoanalyzeの最終実行日時(pg_statsinfo 3.0以降)</li>
 </ul>
 </div>
 

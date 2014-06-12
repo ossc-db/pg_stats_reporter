@@ -259,8 +259,11 @@ $query_string = array(
   "io_statistics" =>
   "SELECT datname AS \"database\", nspname AS \"schema\", relname AS \"table\", avg_page_hit AS \"avg page hit\", avg_page_miss AS \"avg page miss\", avg_page_dirty AS \"avg page dirty\", avg_read_rate AS \"avg read rate\", avg_write_rate AS \"avg write rate\" FROM statsrepo.get_autovacuum_activity2($1, $2)", 
 
-  "analyze_statistics" =>
-  "SELECT datname AS \"database\", nspname AS \"schema\", relname AS \"table\", total_duration AS \"Duration(Total)\", avg_duration AS \"Duration(Avg)\", max_duration AS \"Duration(Max)\", \"count\" FROM statsrepo.get_autoanalyze_stats($1, $2)", 
+  "analyze_statistics25" =>
+  "SELECT datname AS \"database\", nspname AS \"schema\", relname AS \"table\", \"count\", total_duration AS \"total duration (sec)\", avg_duration AS \"avg duration (sec)\", max_duration AS \"max duration (sec)\" FROM statsrepo.get_autoanalyze_stats($1, $2)", 
+
+  "analyze_statistics30" =>
+  "SELECT datname AS \"database\", nspname AS \"schema\", relname AS \"table\", \"count\", total_duration AS \"total duration (sec)\", avg_duration AS \"avg duration (sec)\", max_duration AS \"max duration (sec)\", start AS \"last analyze time\" FROM statsrepo.get_autoanalyze_stats($1, $2)", 
 
   // Replication Activity
   "current_replication_status" =>
