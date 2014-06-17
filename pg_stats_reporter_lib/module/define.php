@@ -263,7 +263,7 @@ $query_string = array(
   "SELECT datname AS \"database\", nspname AS \"schema\", relname AS \"table\", \"count\", total_duration AS \"total duration (sec)\", avg_duration AS \"avg duration (sec)\", max_duration AS \"max duration (sec)\" FROM statsrepo.get_autoanalyze_stats($1, $2)", 
 
   "analyze_statistics30" =>
-  "SELECT datname AS \"database\", nspname AS \"schema\", relname AS \"table\", \"count\", total_duration AS \"total duration (sec)\", avg_duration AS \"avg duration (sec)\", max_duration AS \"max duration (sec)\", start AS \"last analyze time\" FROM statsrepo.get_autoanalyze_stats($1, $2)", 
+  "SELECT datname AS \"database\", nspname AS \"schema\", relname AS \"table\", \"count\", total_duration AS \"total duration (sec)\", avg_duration AS \"avg duration (sec)\", max_duration AS \"max duration (sec)\", last_analyze AS \"last analyze time\" FROM statsrepo.get_autoanalyze_stats($1, $2)", 
 
   // Replication Activity
   "current_replication_status" =>

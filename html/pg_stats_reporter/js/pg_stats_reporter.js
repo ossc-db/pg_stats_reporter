@@ -376,7 +376,7 @@ $(function(){
   // Autovacuum Activity(Analyze Statistics)
   $("#analyze_statistics_table").tablesorter(
     $.extend({}, tablesorterDefaultOptions, {
-      sortList: [[3,1]],
+      sortList: [[4,1]],
       headers: {
         3: { sorter: "digit" },
         4: { sorter: "digit" },
