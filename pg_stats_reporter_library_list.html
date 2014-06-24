@@ -1,0 +1,554 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>pg_stats_reporter 使用言語・ライブラリ一覧</title>
+</head>
+
+<body>
+<h1>pg_stats_reporter 使用言語・ライブラリ一覧</h1>
+
+<h2>変更履歴</h2>
+
+<table border="1">
+<thead>
+<tr>
+<th>版数</th>
+<th>日付</th>
+<th>変更内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>第1.1版</td>
+<td>2014/06/17</td>
+<td>3.0で使用するライブラリの最新化<br/>更新時点の最新ライブラリ一覧の追加<br/>ページ内ジャンプを追加</td>
+</tr>
+<tr>
+<td>第1.0版</td>
+<td>2014/02/06</td>
+<td>初版</td>
+</tr>
+</tbody>
+</table>
+
+<h2>目次</h2>
+<ul>
+<li><a href="#now">2014/06/17時点最新版</a></li>
+<li><a href="#30">pg_stats_reporter 3.0</a></li>
+<li><a href="#20">pg_stats_reporter 2.0</a></li>
+<li><a href="#10">pg_stats_reporter 1.0</a></li>
+</ul>
+
+<br/><hr/>
+
+<h2 id="now">【2014/06/17時点最新版】</h2>
+
+<table border="1">
+<thead>
+<tr><th align="left" colspan="4">使用言語</th></tr>
+<tr>
+<th>言語</th>
+<th>バージョン</th>
+<th>試験時使用パッケージ</th>
+<th>備考</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td rowspan="10">PHP</td>
+<td rowspan="5">5.3.3</td>
+<td>php-5.3.3-27.el6</td>
+<td rowspan="5">CentOS 6.5<br/>yum updateした最新版</td>
+</tr>
+<tr>
+<td>php-cli-5.3.3-27.el6</td>
+</tr>
+<tr>
+<td>php-common-5.3.3-27.el6</td>
+</tr>
+<tr>
+<td>php-pgsql-5.3.3-27.el6</td>
+</tr>
+<tr>
+<td>php-intl-5.3.3-27.el6</td>
+</tr>
+
+<tr>
+<td rowspan="5">5.5.13</td>
+<td>php-5.3.13-3.el6</td>
+<td rowspan="5">CentOS 6.5<br/>epel, remiリポジトリを追加して、yum updateした最新版<br/>phpはremi-php55を使用</td>
+</tr>
+<tr>
+<td>php-cli-5.5.13-3.el6</td>
+</tr>
+<tr>
+<td>php-common-5.5.13-3.el6</td>
+</tr>
+<tr>
+<td>php-pgsql-5.5.13-3.el6</td>
+</tr>
+<tr>
+<td>php-intl-5.5.13-3.el6</td>
+</tr>
+
+</tbody>
+<tfoot><tr><td colspan="4">
+※ php-intlは、インストールディスクの2にあるが、yumを使っている場合は意識する必要なし<br/>※ CentOS 7では、PHPのバージョンは5.4の模様
+</td></tr></tfoot>
+</table>
+<br/>
+
+<table border="1">
+<thead>
+<tr><th align="left" colspan="5">使用ライブラリ</th></tr>
+<tr>
+<th>ライブラリ</th>
+<th>バージョン</th>
+<th>URL</th>
+<th>備考</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>jQuery</td>
+<td>2.1.1</td>
+<td><a href="http://jquery.com/">http://jquery.com/</a></td>
+<td></td>
+</tr>
+<tr>
+<td>jqPlot</td>
+<td>1.0.8r1250</td>
+<td><a href="http://www.jqplot.com/">http://www.jqplot.com/</a></td>
+<td></td>
+</tr>
+<tr>
+<td>Smarty</td>
+<td>3.1.18</td>
+<td><a href="http://www.smarty.net/">http://www.smarty.net/</a></td>
+<td></td>
+</tr>
+<tr>
+<td>tablesorter</td>
+<td>2.17.1</td>
+<td><a href="http://plugins.jquery.com/tablesorter/">http://plugins.jquery.com/tablesorter/</a></td>
+<td>PagerおよびPagerで使用するアイコンはaddonsに含まれています</td>
+</tr>
+<tr>
+<td>dygraphs</td>
+<td>1.0.1</td>
+<td><a href="http://dygraphs.com/">http://dygraphs.com/</a></td>
+<td>リリース版は1ファイル(dygraph-combined.js)の模様</td>
+</tr>
+<tr>
+<td>jQuery UI</td>
+<td>1.10.4</td>
+<td><a href="http://jqueryui.com/">http://jqueryui.com/</a></td>
+<td></td>
+</tr>
+<tr>
+<td>jquery-ui-timepicker-addon.js</td>
+<td>1.4.5</td>
+<td><a href="http://trentrichardson.com/examples/timepicker/">http://trentrichardson.com/examples/timepicker/</a></td>
+<td></td>
+</tr>
+<tr>
+<td>Superfish</td>
+<td>1.7.4</td>
+<td><a href="http://users.tpg.com.au/j_birch/plugins/superfish/">http://users.tpg.com.au/j_birch/plugins/superfish/</a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<br/><hr/>
+
+<h2 id="30">【pg_stats_reporter 3.0】</h2>
+
+<table border="1">
+<thead>
+<tr><th align="left" colspan="4">使用言語</th></tr>
+<tr>
+<th>言語</th>
+<th>バージョン</th>
+<th>試験時使用パッケージ</th>
+<th>備考</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td rowspan="10">PHP</td>
+<td rowspan="10">5.3.3</td>
+<td>php53-5.3.3-5.el5</td>
+<td rowspan="5">CentOS 5.8同梱版</td>
+</tr>
+<tr>
+<td>php53-cli-5.3.3-5.el5</td>
+</tr>
+<tr>
+<td>php53-common-5.3.3-5.el5</td>
+</tr>
+<tr>
+<td>php53-pgsql-5.3.3-5.el5</td>
+</tr>
+<tr>
+<td>php53-intl-5.3.3-5.el5</td>
+</tr>
+
+<tr>
+<td>php-5.3.3-26.el6</td>
+<td rowspan="5">CentOS 6.5同梱版</td>
+</tr>
+<tr>
+<td>php-cli-5.3.3-26.el6</td>
+</tr>
+<tr>
+<td>php-common-5.3.3-26.el6</td>
+</tr>
+<tr>
+<td>php-pgsql-5.3.3-26.el6</td>
+</tr>
+<tr>
+<td>php-intl-5.3.3-26.el6</td>
+</tr>
+
+</tbody>
+<tfoot><tr><td colspan="4">
+※ php-intlは、インストールディスクの2にあるため注意
+</td></tr></tfoot>
+</table>
+<br/>
+
+<table border="1">
+<thead>
+<tr><th align="left" colspan="5">使用ライブラリ</th></tr>
+<tr>
+<th>ライブラリ</th>
+<th>バージョン</th>
+<th>URL</th>
+<th>パッケージ</th>
+<th>備考</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>jQuery</td>
+<td>2.0.1</td>
+<td><a href="http://jquery.com/">http://jquery.com/</a></td>
+<td>jquery-2.0.1.min.js</td>
+<td></td>
+</tr>
+<tr>
+<td>jqPlot</td>
+<td>1.0.8r1250</td>
+<td><a href="http://www.jqplot.com/">http://www.jqplot.com/</a></td>
+<td>jquery.jqplot.1.0.8r1250.tar.gz</td>
+<td></td>
+</tr>
+<tr>
+<td>Smarty</td>
+<td>3.1.13</td>
+<td><a href="http://www.smarty.net/">http://www.smarty.net/</a></td>
+<td>Smarty-3.1.13.tar.gz</td>
+<td></td>
+</tr>
+<tr>
+<td>tablesorter</td>
+<td>2.15.5</td>
+<td><a href="http://plugins.jquery.com/tablesorter/">http://plugins.jquery.com/tablesorter/</a></td>
+<td>Mottie-tablesorter-v2.15.5-0-gcf1ea13.zip</td>
+<td>PagerおよびPagerで使用するアイコンはaddonsに含まれています<br/>カラム選択リストが利用可能な版を使用する</td>
+</tr>
+<tr>
+<td>dygraphs JavaScript Visualization Library</td>
+<td>b839102</td>
+<td><a href="http://dygraphs.com/">http://dygraphs.com/</a></td>
+<td>dygraphs-master.zip</td>
+<td>commit ID: b839102723a21830b8896413f9c3fa9b7c643238</td>
+</tr>
+<tr>
+<td>jQuery UI</td>
+<td>1.10.2</td>
+<td><a href="http://jqueryui.com/">http://jqueryui.com/</a></td>
+<td>jquery-ui-1.10.2.custom.zip</td>
+<td></td>
+</tr>
+<tr>
+<td>jquery-ui-timepicker-addon.js</td>
+<td>1.3</td>
+<td><a href="http://trentrichardson.com/examples/timepicker/">http://trentrichardson.com/examples/timepicker/</a></td>
+<td>jquery-ui-timepicker-addon.js</td>
+<td></td>
+</tr>
+<tr>
+<td>Superfish</td>
+<td>1.7.2</td>
+<td><a href="http://users.tpg.com.au/j_birch/plugins/superfish/">http://users.tpg.com.au/j_birch/plugins/superfish/</a></td>
+<td>superfish-1.7.2.zip</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<br/><hr/>
+
+<h2 id="20">【pg_stats_reporter 2.0】</h2>
+
+<table border="1">
+<thead>
+<tr><th align="left" colspan="4">使用言語</th></tr>
+<tr>
+<th>言語</th>
+<th>バージョン</th>
+<th>試験時使用パッケージ</th>
+<th>備考</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td rowspan="10">PHP</td>
+<td rowspan="10">5.3.3</td>
+<td>php53-5.3.3-5.el5</td>
+<td rowspan="5">CentOS 5.8同梱版</td>
+</tr>
+<tr>
+<td>php53-cli-5.3.3-5.el5</td>
+</tr>
+<tr>
+<td>php53-common-5.3.3-5.el5</td>
+</tr>
+<tr>
+<td>php53-pgsql-5.3.3-5.el5</td>
+</tr>
+<tr>
+<td>php53-intl-5.3.3-5.el5</td>
+</tr>
+
+<tr>
+<td>php-5.3.3-14.el6_3</td>
+<td rowspan="5">CentOS 6.4同梱版</td>
+</tr>
+<tr>
+<td>php-cli-5.3.3-14.el6_3</td>
+</tr>
+<tr>
+<td>php-common-5.3.3-14.el6_3</td>
+</tr>
+<tr>
+<td>php-pgsql-5.3.3-14.el6_3</td>
+</tr>
+<tr>
+<td>php-intl-5.3.3-14.el6_3</td>
+</tr>
+
+</tbody>
+<tfoot><tr><td colspan="4">
+※ php-intlは、インストールディスクの2にあるため注意
+</td></tr></tfoot>
+</table>
+<br/>
+
+<table border="1">
+<thead>
+<tr><th align="left" colspan="5">使用ライブラリ</th></tr>
+<tr>
+<th>ライブラリ</th>
+<th>バージョン</th>
+<th>URL</th>
+<th>パッケージ</th>
+<th>備考</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>jQuery</td>
+<td>2.0.1</td>
+<td><a href="http://jquery.com/">http://jquery.com/</a></td>
+<td>jquery-2.0.1.min.js</td>
+<td></td>
+</tr>
+<tr>
+<td>jqPlot</td>
+<td>1.0.8r1250</td>
+<td><a href="http://www.jqplot.com/">http://www.jqplot.com/</a></td>
+<td>jquery.jqplot.1.0.8r1250.tar.gz</td>
+<td></td>
+</tr>
+<tr>
+<td>Smarty</td>
+<td>3.1.13</td>
+<td><a href="http://www.smarty.net/">http://www.smarty.net/</a></td>
+<td>Smarty-3.1.13.tar.gz</td>
+<td></td>
+</tr>
+<tr>
+<td>tablesorter</td>
+<td>2.0.3</td>
+<td><a href="http://tablesorter.ru/docs/">http://tablesorter.ru/docs/</a></td>
+<td>jquery.tablesorter.zip</td>
+<td>PagerおよびPagerで使用するアイコンはaddonsに含まれています</td>
+</tr>
+<tr>
+<td>dygraphs JavaScript Visualization Library</td>
+<td>b839102</td>
+<td><a href="http://dygraphs.com/">http://dygraphs.com/</a></td>
+<td>dygraphs-master.zip</td>
+<td>commit ID: b839102723a21830b8896413f9c3fa9b7c643238</td>
+</tr>
+<tr>
+<td>jQuery UI</td>
+<td>1.10.2</td>
+<td><a href="http://jqueryui.com/">http://jqueryui.com/</a></td>
+<td>jquery-ui-1.10.2.custom.zip</td>
+<td></td>
+</tr>
+<tr>
+<td>jquery-ui-timepicker-addon.js</td>
+<td>1.3</td>
+<td><a href="http://trentrichardson.com/examples/timepicker/">http://trentrichardson.com/examples/timepicker/</a></td>
+<td>jquery-ui-timepicker-addon.js</td>
+<td></td>
+</tr>
+<tr>
+<td>Superfish</td>
+<td>1.7.2</td>
+<td><a href="http://users.tpg.com.au/j_birch/plugins/superfish/">http://users.tpg.com.au/j_birch/plugins/superfish/</a></td>
+<td>superfish-1.7.2.zip</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<br/><hr/>
+
+<h2 id="10">【pg_stats_reporter 1.0】</h2>
+
+<table border="1">
+<thead>
+<tr><th align="left" colspan="4">使用言語</th></tr>
+<tr>
+<th>言語</th>
+<th>バージョン</th>
+<th>試験時使用パッケージ</th>
+<th>備考</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td rowspan="10">PHP</td>
+<td rowspan="10">5.3.3</td>
+<td>php53-5.3.3-5.el5</td>
+<td rowspan="5">CentOS 5.8同梱版</td>
+</tr>
+<tr>
+<td>php53-cli-5.3.3-5.el5</td>
+</tr>
+<tr>
+<td>php53-common-5.3.3-5.el5</td>
+</tr>
+<tr>
+<td>php53-pgsql-5.3.3-5.el5</td>
+</tr>
+<tr>
+<td>php53-intl-5.3.3-5.el5</td>
+</tr>
+
+<tr>
+<td>php-5.3.3-3.el6_1.3</td>
+<td rowspan="5">CentOS 6.2同梱版</td>
+</tr>
+<tr>
+<td>php-cli-5.3.3-3.el6_1.3</td>
+</tr>
+<tr>
+<td>php-common-5.3.3-3.el6_1.3</td>
+</tr>
+<tr>
+<td>php-pgsql-5.3.3-3.el6_1.3</td>
+</tr>
+<tr>
+<td>php-intl-5.3.3-3.el6_1.3</td>
+</tr>
+
+</tbody>
+<tfoot><tr><td colspan="4">
+※ php-intlは、インストールディスクの2にあるため注意
+</td></tr></tfoot>
+</table>
+<br/>
+
+<table border="1">
+<thead>
+<tr><th align="left" colspan="5">使用ライブラリ</th></tr>
+<tr>
+<th>ライブラリ</th>
+<th>バージョン</th>
+<th>URL</th>
+<th>パッケージ</th>
+<th>備考</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>jQuery</td>
+<td>1.8.2</td>
+<td><a href="http://jquery.com/">http://jquery.com/</a></td>
+<td>jquery-1.8.2.min.js</td>
+<td></td>
+</tr>
+<tr>
+<td>jqPlot</td>
+<td>1.0.4r1121</td>
+<td><a href="http://www.jqplot.com/">http://www.jqplot.com/</a></td>
+<td>jquery.jqplot.1.0.4r1120.tar.gz</td>
+<td></td>
+</tr>
+<tr>
+<td>Smarty</td>
+<td>3.1.12</td>
+<td><a href="http://www.smarty.net/">http://www.smarty.net/</a></td>
+<td>Smarty-3.1.12.tar.gz</td>
+<td></td>
+</tr>
+<tr>
+<td>tablesorter</td>
+<td>2.0.3</td>
+<td><a href="http://tablesorter.ru/docs/">http://tablesorter.ru/docs/</a></td>
+<td>jquery.tablesorter.zip</td>
+<td>PagerおよびPagerで使用するアイコンはaddonsに含まれています</td>
+</tr>
+<tr>
+<td>dygraphs JavaScript Visualization Library</td>
+<td>4d3672f</td>
+<td><a href="http://dygraphs.com/">http://dygraphs.com/</a></td>
+<td>danvk-dygraphs-4d3672f.tar.gz</td>
+<td></td>
+</tr>
+<tr>
+<td>jQuery UI</td>
+<td>1.9.1</td>
+<td><a href="http://jqueryui.com/">http://jqueryui.com/</a></td>
+<td>jquery-ui-1.9.1.custom.zip</td>
+<td></td>
+</tr>
+<tr>
+<td>jquery-ui-timepicker-addon.js</td>
+<td>1.3</td>
+<td><a href="http://trentrichardson.com/examples/timepicker/">http://trentrichardson.com/examples/timepicker/</a></td>
+<td>jquery-ui-timepicker-addon.js</td>
+<td></td>
+</tr>
+<tr>
+<td>Superfish</td>
+<td>1.4.8</td>
+<td><a href="http://users.tpg.com.au/j_birch/plugins/superfish/">http://users.tpg.com.au/j_birch/plugins/superfish/</a></td>
+<td>superfish-1.4.8.zip</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<br/>
+
+</body>
+</html>
