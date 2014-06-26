@@ -709,6 +709,9 @@ EOD;
 	/* Contents Footer */
 	$html_string .=
 <<< EOD
+<hr/>
+<p align="right">End&nbsp;of&nbsp;report</p>
+
 </div> <!-- contents end -->
 
 EOD;
