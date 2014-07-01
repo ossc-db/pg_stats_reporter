@@ -1873,8 +1873,10 @@ EOD;
 </div>
 
 EOD;
-
-			$result = pg_query_params($conn, $query_string['table'], $ids);
+			if ($target['repo_version'] >= V30)
+				$result = pg_query_params($conn, $query_string['table30'], $ids);
+			else
+				$result = pg_query_params($conn, $query_string['table25'], $ids);
 			if (!$result) {
 				return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 			}

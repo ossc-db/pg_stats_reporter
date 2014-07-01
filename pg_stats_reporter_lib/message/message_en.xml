@@ -440,7 +440,8 @@ This information is not supported in this version. We will support in future ver
 <li>schema : schema name</li>
 <li>table : table name</li>
 <li>columns : number of colunms</li>
-<li>row width : average real columns data size (Bytes)</li>
+<li>rows : number of rows (use pg_statsinfo 3.0 higher)</li>
+<li>row width : average real columns data size (Bytes) (use pg_statsinfo 2.5 lower)</li>
 <li>MiB : table size (MiB)</li>
 <li>+MiB : increase table size (MiB)</li>
 <li>table scans : number of executing sequential scan</li>

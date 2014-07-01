@@ -440,7 +440,8 @@
 <li>schema : スキーマ名</li>
 <li>table : テーブル名</li>
 <li>columns : カラム数</li>
-<li>row width : 非NULL項目の平均保存幅 (Bytes)</li>
+<li>rows : テーブル内の行数 (pg_statsinfo 3.0以降)</li>
+<li>row width : 非NULL項目の平均保存幅 (Bytes) (pg_statsinfo 2.5以前)</li>
 <li>MiB : テーブルサイズ (MiB)</li>
 <li>+MiB : テーブルサイズの増分量 (MiB)</li>
 <li>table scans : シーケンシャルスキャンが実行された回数</li>
