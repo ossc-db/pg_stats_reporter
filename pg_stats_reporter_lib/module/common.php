@@ -51,8 +51,13 @@ function readConfigFile(&$err_msg)
 	}
 
 	foreach ($global_setting_list as $item) {
-		if (!array_key_exists($item, $config[GLOBAL_SECTION]))
-			$err_msg[] = "[".GLOBAL_SECTION."]".$item.": Required item not exists.";
+		if (!array_key_exists($item, $config[GLOBAL_SECTION])) {
+			// provisional cope
+			if ($item == "log_page_size")
+				$config[GLOBAL_SECTION]["log_page_size"] = 1000;
+			else
+				$err_msg[] = "[".GLOBAL_SECTION."]".$item.": Required item not exists.";
+		}
 	}
 	foreach (array_keys($config[GLOBAL_SECTION]) as $item) {
 		if (!in_array($item, $global_setting_list)) {

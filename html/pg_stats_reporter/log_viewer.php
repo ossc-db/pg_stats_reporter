@@ -21,7 +21,7 @@ set_default_timezone();
 $smarty = new Smarty();
 
 /* キャッシュの設定と各ディレクトリの設定 */
-$smarty->caching        = Smarty::CACHING_LIFETIME_CURRENT;
+$smarty->caching        = Smarty::CACHING_OFF;
 $smarty->compile_check  = true;
 $smarty->cache_lifetime = CACHE_LIFETIME;
 $smarty->cache_dir      = CACHE_DIR;

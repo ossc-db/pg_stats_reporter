@@ -392,14 +392,14 @@ $ su
 <p>グローバル設定は、セクション名 "[global_setting]" のセクションの設定項目です。</p>
 <p>グローバル設定のセクションの設定項目を以下に示します。</p>
 
-<table>
+<table width="100%">
 <thead>
   <tr>
     <th>設定項目</th>
     <th>設定可能な値</th>
     <th>項目省略時</th>
     <th>設定値省略時</th>
-    <th width="150">設定例</th>
+    <th>設定例</th>
     <th>説明</th>
   </tr>
 </thead>
@@ -409,16 +409,16 @@ $ su
     <td>文字列</td>
     <td>省略不可</td>
     <td>省略不可</td>
-    <td>/var/www</td>
+    <td>install_directory = /var/www</td>
     <td>当ツールのインストールディレクトリを指定します。(*1)</td>
   </tr>
 
   <tr>
     <td>log_page_size</td>
-    <td>数値</td>
+    <td>1 - 1000</td>
+    <td align="right">1000</td>
     <td>省略不可</td>
-    <td>省略不可</td>
-    <td>1000</td>
+    <td>log_page_size = 1000</td>
     <td>ログレポート画面の表のページ毎の最大表示件数を指定します。</td>
   </tr>
 </tbody>
@@ -442,7 +442,7 @@ $ su
     <th>設定可能な値</th>
     <th>項目省略時</th>
     <th>設定値省略時</th>
-    <th width="150">設定例</th>
+    <th>設定例</th>
     <th>説明</th>
   </tr>
 </thead>
