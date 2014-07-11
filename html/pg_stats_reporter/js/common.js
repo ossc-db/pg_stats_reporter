@@ -135,7 +135,7 @@ $(function(){
 	});
 
 	$.ui.dialog.prototype._focusTabbable = function(){
-		this.uiDialogTitlebar.focus();
+		this.uiDialogTitlebarClose.focus();
 	};
 
 	$("#report_range_dialog").dialog({
