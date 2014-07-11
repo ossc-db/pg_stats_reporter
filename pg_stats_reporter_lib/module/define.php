@@ -279,7 +279,7 @@ $query_string = array(
   /* Information */
   // Schema Information 
   "table25" =>
-  "SELECT datname AS \"database\", nspname AS \"schema\", relname AS \"table\", attnum AS columns, avg_width AS \"row width\", size AS \"MiB\", size_incr AS \"+MiB\", seq_scan AS \"table scans\", idx_scan AS \"index scans\" FROM statsrepo.get_schema_info_tables($1, $2)",
+  "SELECT datname AS \"database\", nspname AS \"schema\", relname AS \"table\", attnum AS columns, size AS \"MiB\", size_incr AS \"+MiB\", seq_scan AS \"table scans\", idx_scan AS \"index scans\" FROM statsrepo.get_schema_info_tables($1, $2)",
 
   "table30" =>
   "SELECT datname AS \"database\", nspname AS \"schema\", relname AS \"table\", attnum AS columns, tuples AS \"rows\", size AS \"MiB\", size_incr AS \"+MiB\", seq_scan AS \"table scans\", idx_scan AS \"index scans\" FROM statsrepo.get_schema_info_tables($1, $2)",
