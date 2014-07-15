@@ -350,12 +350,25 @@
 <li>database : database name</li>
 <li>schema : schema name</li>
 <li>table : table name</li>
-<li>count : number of execute autovaccum autovacuum</li>
+<li>count : number of execute autovacuum</li>
 <li>avg index scans : number of index scan</li>
 <li>avg removed rows : avarage removed rows</li>
 <li>avg remain rows : average remain rows</li>
 <li>avg duration (sec) : average duration time (sec)</li>
 <li>max duration (sec) : max duration time (sec)</li>
+<li>cancels : number of cancel autovacuum (use pg_statsinfo 3.0 higher)</li>
+</ul>
+</div>
+
+<div id="vacuum_cancels_dialog" class="help_dialog"
+  title="How to see a Vacuum Cancels table">
+<h4>How to see a Vacuum Cancels.</h4>
+<ul>
+<li>timestamp : timestamp</li>
+<li>database : database name</li>
+<li>schema : schema name</li>
+<li>table : table name</li>
+<li>cause query : SQL query</li>
 </ul>
 </div>
 

@@ -90,6 +90,7 @@ checkpoint_activity = true
 
 ; -- Autovacuum Activity --
 basic_statistics = true
+vacuum_cancels = true
 io_statistics = true
 analyze_statistics = true
 

@@ -356,6 +356,19 @@
 <li>avg remain rows : 残存するタプル数の平均値</li>
 <li>avg duration (sec) : 処理時間の平均値 (秒)</li>
 <li>max duration (sec) : 処理時間の最大値 (秒)</li>
+<li>cancels : autovacuumがキャンセルされた回数(pg_statsinfo 3.0以降)</li>
+</ul>
+</div>
+
+<div id="vacuum_cancels_dialog" class="help_dialog"
+  title="How to see a Vacuum Cancels table">
+<h4>Vacuum Cancels の見方</h4>
+<ul>
+<li>timestamp : キャンセル発生日時</li>
+<li>database : データベース名</li>
+<li>schema : スキーマ名</li>
+<li>table : テーブル名</li>
+<li>cause query : キャンセル要求元クエリ</li>
 </ul>
 </div>
 

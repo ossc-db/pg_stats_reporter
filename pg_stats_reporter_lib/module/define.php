@@ -87,6 +87,7 @@ $report_default = array(
   'lock_conflicts'             => true,
   'checkpoint_activity'       => true,
   'basic_statistics'          => true,
+  'vacuum_cancels'            => true,
   'io_statistics'             => true,
   'analyze_statistics'        => true,
   'current_replication_status' => true,
@@ -130,6 +131,7 @@ $help_list = array(
   'lock_conflicts'             => 'lock_conflicts_dialog',
   'checkpoint_activity'       => 'checkpoint_activity_dialog',
   'basic_statistics'          => 'basic_statistics_dialog',
+  'vacuum_cancels'            => 'vacuum_cancels_dialog',
   'io_statistics'             => 'io_statistics_dialog',
   'analyze_statistics'        => 'analyze_statistics_dialog',
   'current_replication_status' => 'current_replication_status_dialog',
@@ -253,8 +255,14 @@ $query_string = array(
   "SELECT ckpt_total AS \"total checkpoints\", ckpt_time AS \"checkpoints by time\", ckpt_xlog AS \"checkpoints by xlog\", avg_write_buff AS \"avg written buffers\", max_write_buff AS \"max written buffers\", avg_duration AS \"avg duration (sec)\", max_duration AS \"max duration (sec)\" FROM statsrepo.get_checkpoint_activity($1, $2)",
 
   // Autovacuum Activity
-  "basic_statistics" =>
+  "basic_statistics25" =>
   "SELECT datname AS \"database\", nspname AS \"schema\", relname AS \"table\", \"count\", avg_index_scans AS \"avg index scans\", avg_tup_removed AS \"avg removed rows\", avg_tup_remain AS \"avg remain rows\", avg_duration AS \"avg duration (sec)\", max_duration AS \"max duration (sec)\" FROM statsrepo.get_autovacuum_activity($1, $2)", 
+
+  "basic_statistics30" =>
+  "SELECT datname AS \"database\", nspname AS \"schema\", relname AS \"table\", \"count\", avg_index_scans AS \"avg index scans\", avg_tup_removed AS \"avg removed rows\", avg_tup_remain AS \"avg remain rows\", avg_duration AS \"avg duration (sec)\", max_duration AS \"max duration (sec)\", cancel AS \"cancels\" FROM statsrepo.get_autovacuum_activity($1, $2)", 
+
+  "vacuum_cancels" =>
+  "SELECT timestamp::timestamp(0) AS \"timestamp\", database, schema, \"table\", query AS \"cause query\" FROM statsrepo.autovacuum_cancel WHERE timestamp BETWEEN (SELECT min(time) AS time FROM statsrepo.snapshot WHERE snapid >= $1) AND (SELECT max(time) AS time FROM statsrepo.snapshot WHERE snapid <= $2) AND instid = (SELECT instid FROM statsrepo.snapshot WHERE snapid = $2) ORDER By timestamp",
 
   "io_statistics" =>
   "SELECT datname AS \"database\", nspname AS \"schema\", relname AS \"table\", avg_page_hit AS \"avg page hit\", avg_page_miss AS \"avg page miss\", avg_page_dirty AS \"avg page dirty\", avg_read_rate AS \"avg read rate\", avg_write_rate AS \"avg write rate\" FROM statsrepo.get_autovacuum_activity2($1, $2)", 

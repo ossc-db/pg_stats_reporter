@@ -314,6 +314,7 @@ EOD;
 	/* Activities */
 	if ($targetList['checkpoint_activity']
 		|| $targetList['basic_statistics']
+		|| $targetList['vacuum_cancels']
 		|| $targetList['io_statistics']
 		|| $targetList['analyze_statistics']
 		|| $targetList['current_replication_status']
@@ -327,6 +328,7 @@ EOD;
 
 		/* Autovacuum Activity */
 		if ($targetList['basic_statistics']
+			|| $targetList['vacuum_cancels']
 			|| $targetList['io_statistics']
 			|| $targetList['analyze_statistics']) {
 
@@ -334,6 +336,8 @@ EOD;
 
 			if ($targetList['basic_statistics'])
 				$html_string .= "<li><a href=\"#basic_statistics\">Basic Statistics (Average)</a></li>\n";
+			if ($targetList['vacuum_cancels'])
+				$html_string .= "<li><a href=\"#vacuum_cancels\">Vacuum Cancels</a></li>\n";
 			if ($targetList['io_statistics'])
 				$html_string .= "<li><a href=\"#io_statistics\">I/O Statistics (Average)</a></li>\n";
 			if ($targetList['analyze_statistics'])
@@ -513,6 +517,7 @@ function makePlainHeaderMenu()
   <li><a>Checkpoint Activity</a></li>
   <li><a>Autovacuum Activity</a><ul>
     <li><a>Basic Statistics (Average)</a></li>
+    <li><a>Vacuum Cancels</a></li>
     <li><a>I/O Statistics (Average)</a></li>
     <li><a>Analyze Statistics</a></li>
   </ul></li>
@@ -1566,6 +1571,7 @@ function makeActivitiesReport($conn, $target, $snapids, $errorMsg)
 
 	if (!$target['checkpoint_activity']
 		&& !$target['basic_statistics']
+		&& !$target['vacuum_cancels']
 		&& !$target['io_statistics']
 		&& !$target['analyze_statistics']
 		&& !$target['current_replication_status']
@@ -1626,8 +1632,12 @@ EOD;
 </div>
 
 EOD;
+			if ($target['repo_version'] >= V30) {
+				$result = pg_query_params($conn, $query_string['basic_statistics30'], $snapids);
+			} else {
+				$result = pg_query_params($conn, $query_string['basic_statistics25'], $snapids);
+			}
 
-			$result = pg_query_params($conn, $query_string['basic_statistics'], $snapids);
 			if (!$result) {
 				return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 			}
@@ -1638,6 +1648,37 @@ EOD;
 				$htmlString .= makeTablePagerHTML($result, "basic_statistics", 10, true);
 			}
 			pg_free_result($result);
+
+		}
+
+		if ($target['vacuum_cancels']) {
+			$htmlString .=
+<<< EOD
+<div id="vacuum_cancels" class="jump_margin"></div>
+<h3>Vacuum Cancels</h3>
+<div align="right" class="jquery_ui_button_info_h3">
+  <div><button class="help_button" dialog="#vacuum_cancels_dialog"></button></div>
+</div>
+
+
+EOD;
+
+			if ($target['repo_version'] >= V30) {
+				$result = pg_query_params($conn, $query_string['vacuum_cancels'], $snapids);
+
+				if (!$result) {
+					return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
+				}
+
+				if (pg_num_rows($result) == 0) {
+					$htmlString .= makeErrorTag($errorMsg['no_result']);
+				} else {
+					$htmlString .= makeTablePagerHTML($result, "vacuum_cancels", 10, true);
+				}
+				pg_free_result($result);
+			} else {
+				$htmlString .= makeErrorTag($errorMsg['st_version'], "3.0.0");
+			}
 		}
 
 		if ($target['io_statistics']) {
