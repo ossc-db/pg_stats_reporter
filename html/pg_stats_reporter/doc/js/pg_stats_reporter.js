@@ -330,13 +330,27 @@ $(function(){
         5: { sorter: "digit" },
         6: { sorter: "digit" },
         7: { sorter: "digit" },
-        8: { sorter: "digit" }
+        8: { sorter: "digit" },
+        9: { sorter: "digit" }
       }
     })
   )
   .tablesorterPager(
     $.extend({}, pagerDefaultOptions, {
       container: $('#pager_basic_statistics'),
+      size: 10
+    })
+  );
+
+  // Autovacuum Activity(Vacuum Cancels)
+  $("#vacuum_cancels_table").tablesorter(
+    $.extend({}, tablesorterDefaultOptions, {
+      sortList: [[0,1]]
+    })
+  )
+  .tablesorterPager(
+    $.extend({}, pagerDefaultOptions, {
+      container: $('#pager_vacuum_cancels'),
       size: 10
     })
   );
@@ -357,6 +371,25 @@ $(function(){
   .tablesorterPager(
     $.extend({}, pagerDefaultOptions, {
       container: $('#pager_io_statistics'),
+      size: 10
+    })
+  );
+
+  // Autovacuum Activity(Analyze Statistics)
+  $("#analyze_statistics_table").tablesorter(
+    $.extend({}, tablesorterDefaultOptions, {
+      sortList: [[4,1]],
+      headers: {
+        3: { sorter: "digit" },
+        4: { sorter: "digit" },
+        5: { sorter: "digit" },
+        6: { sorter: "digit" }
+      }
+    })
+  )
+  .tablesorterPager(
+    $.extend({}, pagerDefaultOptions, {
+      container: $('#pager_analyze_statistics'),
       size: 10
     })
   );

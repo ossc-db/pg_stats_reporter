@@ -98,7 +98,9 @@
 <li><a href="#checkpoint_activity">Checkpoint Activity</a></li>
 <li><a href="#autovacuum_activity">Autovacuum Activity</a><ul>
 <li><a href="#basic_statistics">Basic Statistics (Average)</a></li>
+<li><a href="#vacuum_cancels">Vacuum Cancels</a></li>
 <li><a href="#io_statistics">I/O Statistics (Average)</a></li>
+<li><a href="#analyze_statistics">Analyze Statistics</a></li>
 </ul></li>
 <li><a href="#replication_activity">Replication Activity</a><ul>
 <li><a href="#current_replication_status">Current Replication Status</a></li>
@@ -2479,16 +2481,45 @@ FROM sto...;</td></tr>
 </div>
 <div><table id="basic_statistics_table" class="tablesorter">
 <thead><tr>
-<th>database</th><th>schema</th><th>table</th><th>count</th><th>avg index scans</th><th>avg removed rows</th><th>avg remain rows</th><th>avg duration (sec)</th><th>max duration (sec)</th>
+<th>database</th><th>schema</th><th>table</th><th>count</th><th>avg index scans</th><th>avg removed rows</th><th>avg remain rows</th><th>avg duration (sec)</th><th>max duration (sec)</th><th>cancels</th>
 </tr></thead>
 <tbody>
-<tr><td class="str">dbt2</td><td class="str">public</td><td class="str">warehouse</td><td class="num">61</td><td class="num">0.066</td><td class="num">1346.459</td><td class="num">518.754</td><td class="num">0.560</td><td class="num">4.110</td></tr>
-<tr><td class="str">dbt2</td><td class="str">public</td><td class="str">district</td><td class="num">61</td><td class="num">0.230</td><td class="num">1090.984</td><td class="num">3580.721</td><td class="num">2.594</td><td class="num">23.420</td></tr>
-<tr><td class="str">dbt2</td><td class="str">pg_catalog</td><td class="str">pg_statistic</td><td class="num">1</td><td class="num">1.000</td><td class="num">120.000</td><td class="num">475.000</td><td class="num">0.020</td><td class="num">0.020</td></tr>
-<tr><td class="str">dbt2</td><td class="str">pg_toast</td><td class="str">pg_toast_2619</td><td class="num">1</td><td class="num">1.000</td><td class="num">69.000</td><td class="num">3.000</td><td class="num">0.000</td><td class="num">0.000</td></tr>
+<tr><td class="str">dbt2</td><td class="str">public</td><td class="str">warehouse</td><td class="num">61</td><td class="num">0.066</td><td class="num">1346.459</td><td class="num">518.754</td><td class="num">0.560</td><td class="num">4.110</td><td class="num">1</td></tr>
+<tr><td class="str">dbt2</td><td class="str">public</td><td class="str">district</td><td class="num">61</td><td class="num">0.230</td><td class="num">1090.984</td><td class="num">3580.721</td><td class="num">2.594</td><td class="num">23.420</td><td class="num">1</td></tr>
+<tr><td class="str">dbt2</td><td class="str">pg_catalog</td><td class="str">pg_statistic</td><td class="num">1</td><td class="num">1.000</td><td class="num">120.000</td><td class="num">475.000</td><td class="num">0.020</td><td class="num">0.020</td><td class="num">0</td></tr>
+<tr><td class="str">dbt2</td><td class="str">pg_toast</td><td class="str">pg_toast_2619</td><td class="num">1</td><td class="num">1.000</td><td class="num">69.000</td><td class="num">3.000</td><td class="num">0.000</td><td class="num">0.000</td><td class="num">0</td></tr>
 </tbody>
 </table>
 <div id="pager_basic_statistics"><form>
+<img src="../../package/tablesorter/addons/pager/icons/first.png" class="first"/>
+<img src="../../package/tablesorter/addons/pager/icons/prev.png" class="prev"/>
+<input type="text" class="pagedisplay"/>
+<img src="../../package/tablesorter/addons/pager/icons/next.png" class="next"/>
+<img src="../../package/tablesorter/addons/pager/icons/last.png" class="last"/>
+<select class="pagesize">
+<option value="5">5</option>
+<option selected="selected" value="10">10</option>
+<option value="20">20</option>
+<option value="30">30</option>
+</select>
+</form></div>
+</div>
+<div id="vacuum_cancels" class="jump_margin"></div>
+<h3>Vacuum Cancels</h3>
+<div align="right" class="jquery_ui_button_info_h3">
+  <div><button class="help_button" dialog="#vacuum_cancels_dialog"></button></div>
+</div>
+
+<div><table id="vacuum_cancels_table" class="tablesorter">
+<thead><tr>
+<th>timestamp</th><th>database</th><th>schema</th><th>table</th><th>cause query</th>
+</tr></thead>
+<tbody>
+<tr><td class="str">2013-06-07 15:32:20</td><td class="str">dbt2</td><td class="str">public</td><td class="str">warehouse</td><td class="str">ANALYZE</td></tr>
+<tr><td class="str">2013-06-07 15:37:13</td><td class="str">dbt2</td><td class="str">public</td><td class="str">district</td><td class="str">ANALYZE</td></tr>
+</tbody>
+</table>
+<div id="pager_vacuum_cancels"><form>
 <img src="../../package/tablesorter/addons/pager/icons/first.png" class="first"/>
 <img src="../../package/tablesorter/addons/pager/icons/prev.png" class="prev"/>
 <input type="text" class="pagedisplay"/>
@@ -2520,6 +2551,41 @@ FROM sto...;</td></tr>
 </tbody>
 </table>
 <div id="pager_io_statistics"><form>
+<img src="../../package/tablesorter/addons/pager/icons/first.png" class="first"/>
+<img src="../../package/tablesorter/addons/pager/icons/prev.png" class="prev"/>
+<input type="text" class="pagedisplay"/>
+<img src="../../package/tablesorter/addons/pager/icons/next.png" class="next"/>
+<img src="../../package/tablesorter/addons/pager/icons/last.png" class="last"/>
+<select class="pagesize">
+<option value="5">5</option>
+<option selected="selected" value="10">10</option>
+<option value="20">20</option>
+<option value="30">30</option>
+</select>
+</form></div>
+</div>
+<div id="analyze_statistics" class="jump_margin"></div>
+<h3>Analyze Statistics</h3>
+<div align="right" class="jquery_ui_button_info_h3">
+  <div><button class="help_button" dialog="#analyze_statistics_dialog"></button></div>
+</div>
+
+<div><table id="analyze_statistics_table" class="tablesorter">
+<thead><tr>
+<th>database</th><th>schema</th><th>table</th><th>count</th><th>total duration (sec)</th><th>avg duration (sec)</th><th>max duration (sec)</th><th>last analyze time</th>
+</tr></thead>
+<tbody>
+<tr><td class="str">dbt2</td><td class="str">public</td><td class="str">stock</td><td class="num">2</td><td class="num">64.960</td><td class="num">4.053</td><td class="num">48.160</td><td class="str">2013-06-07 15:21:38</td></tr>
+<tr><td class="str">dbt2</td><td class="str">public</td><td class="str">order_line</td><td class="num">1</td><td class="num">26.900</td><td class="num">3.878</td><td class="num">36.970</td><td class="str">2013-06-07 15:21:36</td></tr>
+<tr><td class="str">dbt2</td><td class="str">public</td><td class="str">customer</td><td class="num">1</td><td class="num">17.220</td><td class="num">2.747</td><td class="num">16.380</td><td class="str">2013-06-07 15:03:38</td></tr>
+<tr><td class="str">dbt2</td><td class="str">public</td><td class="str">warehouse</td><td class="num">130</td><td class="num">2.950</td><td class="num">0.021</td><td class="num">0.050</td><td class="str">2013-06-07 15:29:39</td></tr>
+<tr><td class="str">dbt2</td><td class="str">public</td><td class="str">orders</td><td class="num">1</td><td class="num">2.650</td><td class="num">0.961</td><td class="num">0.234</td><td class="str">2013-06-07 15:46:38</td></tr>
+<tr><td class="str">dbt2</td><td class="str">public</td><td class="str">new_order</td><td class="num">3</td><td class="num">1.300</td><td class="num">0.036</td><td class="num">0.043</td><td class="str">2013-06-07 15:16:39</td></tr>
+<tr><td class="str">dbt2</td><td class="str">public</td><td class="str">history</td><td class="num">1</td><td class="num">1.920</td><td class="num">0.273</td><td class="num">0.316</td><td class="str">2013-06-07 15:43:32</td></tr>
+<tr><td class="str">dbt2</td><td class="str">public</td><td class="str">district</td><td class="num">139</td><td class="num">0.800</td><td class="num">0.003</td><td class="num">0.005</td><td class="str">2013-06-07 15:29:39</td></tr>
+</tbody>
+</table>
+<div id="pager_analyze_statistics"><form>
 <img src="../../package/tablesorter/addons/pager/icons/first.png" class="first"/>
 <img src="../../package/tablesorter/addons/pager/icons/prev.png" class="prev"/>
 <input type="text" class="pagedisplay"/>
@@ -2716,18 +2782,18 @@ $("#replication_delays_line").button().click( function() {
 </div>
 <div><table id="table_table" class="tablesorter">
 <thead><tr>
-<th>database</th><th>schema</th><th>table</th><th>columns</th><th>row width</th><th>MiB</th><th>+MiB</th><th>table scans</th><th>index scans</th>
+<th>database</th><th>schema</th><th>table</th><th>columns</th><th>rows</th><th>MiB</th><th>+MiB</th><th>table scans</th><th>index scans</th>
 </tr></thead>
 <tbody>
-<tr><td class="str">dbt2</td><td class="str">public</td><td class="str">customer</td><td class="num">21</td><td class="num">557</td><td class="num">6745</td><td class="num">0</td><td class="num">1</td><td class="num">956265</td></tr>
-<tr><td class="str">dbt2</td><td class="str">public</td><td class="str">district</td><td class="num">11</td><td class="num">89</td><td class="num">1</td><td class="num">1</td><td class="num">1</td><td class="num">980850</td></tr>
-<tr><td class="str">dbt2</td><td class="str">public</td><td class="str">history</td><td class="num">8</td><td class="num">50</td><td class="num">871</td><td class="num">17</td><td class="num">1</td><td class="num">0</td></tr>
-<tr><td class="str">dbt2</td><td class="str">public</td><td class="str">item</td><td class="num">5</td><td class="num">70</td><td class="num">10</td><td class="num">0</td><td class="num">1</td><td class="num">2226383</td></tr>
-<tr><td class="str">dbt2</td><td class="str">public</td><td class="str">new_order</td><td class="num">3</td><td class="num">12</td><td class="num">139</td><td class="num">9</td><td class="num">1</td><td class="num">379720</td></tr>
-<tr><td class="str">dbt2</td><td class="str">public</td><td class="str">order_line</td><td class="num">10</td><td class="num">65</td><td class="num">10631</td><td class="num">260</td><td class="num">1</td><td class="num">417266</td></tr>
-<tr><td class="str">dbt2</td><td class="str">public</td><td class="str">orders</td><td class="num">8</td><td class="num">36</td><td class="num">726</td><td class="num">14</td><td class="num">1</td><td class="num">398550</td></tr>
-<tr><td class="str">dbt2</td><td class="str">public</td><td class="str">stock</td><td class="num">17</td><td class="num">312</td><td class="num">12656</td><td class="num">0</td><td class="num">0</td><td class="num">8310679</td></tr>
-<tr><td class="str">dbt2</td><td class="str">public</td><td class="str">warehouse</td><td class="num">9</td><td class="num">85</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">615521</td></tr>
+<tr><td class="str">dbt2</td><td class="str">public</td><td class="str">customer</td><td class="num">21</td><td class="num">68000</td><td class="num">6745</td><td class="num">0</td><td class="num">1</td><td class="num">956265</td></tr>
+<tr><td class="str">dbt2</td><td class="str">public</td><td class="str">district</td><td class="num">11</td><td class="num">10</td><td class="num">1</td><td class="num">1</td><td class="num">1</td><td class="num">980850</td></tr>
+<tr><td class="str">dbt2</td><td class="str">public</td><td class="str">history</td><td class="num">8</td><td class="num">9000</td><td class="num">871</td><td class="num">17</td><td class="num">1</td><td class="num">0</td></tr>
+<tr><td class="str">dbt2</td><td class="str">public</td><td class="str">item</td><td class="num">5</td><td class="num">100</td><td class="num">10</td><td class="num">0</td><td class="num">1</td><td class="num">2226383</td></tr>
+<tr><td class="str">dbt2</td><td class="str">public</td><td class="str">new_order</td><td class="num">3</td><td class="num">1500</td><td class="num">139</td><td class="num">9</td><td class="num">1</td><td class="num">379720</td></tr>
+<tr><td class="str">dbt2</td><td class="str">public</td><td class="str">order_line</td><td class="num">10</td><td class="num">102000</td><td class="num">10631</td><td class="num">260</td><td class="num">1</td><td class="num">417266</td></tr>
+<tr><td class="str">dbt2</td><td class="str">public</td><td class="str">orders</td><td class="num">8</td><td class="num">8000</td><td class="num">726</td><td class="num">14</td><td class="num">1</td><td class="num">398550</td></tr>
+<tr><td class="str">dbt2</td><td class="str">public</td><td class="str">stock</td><td class="num">17</td><td class="num">130000</td><td class="num">12656</td><td class="num">0</td><td class="num">0</td><td class="num">8310679</td></tr>
+<tr><td class="str">dbt2</td><td class="str">public</td><td class="str">warehouse</td><td class="num">9</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">615521</td></tr>
 </tbody>
 </table>
 <div id="pager_table"><form>
@@ -3138,12 +3204,22 @@ $("#replication_delays_line").button().click( function() {
 <li>database : database name</li>
 <li>schema : schema name</li>
 <li>table : table name</li>
-<li>count : number of execute autovaccum autovacuum</li>
+<li>count : number of execute autovacuum</li>
 <li>avg index scans : number of index scan</li>
 <li>avg removed rows : avarage removed rows</li>
 <li>avg remain rows : average remain rows</li>
 <li>avg duration (sec) : average duration time (sec)</li>
 <li>max duration (sec) : max duration time (sec)</li>
+<li>cancels : number of cancel autovacuum (use pg_statsinfo 3.0 higher)</li>
+</ul>
+</div><div id="vacuum_cancels_dialog" class="help_dialog" title="How to see a Vacuum Cancels table">
+<h4>How to see a Vacuum Cancels.</h4>
+<ul>
+<li>timestamp : timestamp</li>
+<li>database : database name</li>
+<li>schema : schema name</li>
+<li>table : table name</li>
+<li>cause query : SQL query</li>
 </ul>
 </div><div id="io_statistics_dialog" class="help_dialog" title="How to see a I/O Statistics (Average) table">
 <h4>How to see a I/O Statistics. (Average)</h4>
@@ -3156,6 +3232,18 @@ $("#replication_delays_line").button().click( function() {
 <li>avg page dirty : average page dirty</li>
 <li>avg read rate : average read rate</li>
 <li>avg write rate : average write rate</li>
+</ul>
+</div><div id="analyze_statistics_dialog" class="help_dialog" title="How to see a Analyze Statistics table">
+<h4>How to see a Analyze Statistics.</h4>
+<ul>
+<li>database : database name</li>
+<li>schema : schema name</li>
+<li>table : table name</li>
+<li>count : number of execute autoanalyze</li>
+<li>total duration (sec) : total duration time (sec)</li>
+<li>avg duration (sec) : average duration time (sec)</li>
+<li>max duration (sec) : max duration time (sec)</li>
+<li>last analyze time : last execute time of autoanalyze (use pg_statsinfo 3.0 higher)</li>
 </ul>
 </div><div id="current_replication_status_dialog" class="help_dialog" title="How to see a Current Replication Status table">
 <h4>How to see a Current Replication Status table.</h4>
@@ -3195,7 +3283,7 @@ This information is not supported in this version. We will support in future ver
 <li>schema : schema name</li>
 <li>table : table name</li>
 <li>columns : number of colunms</li>
-<li>row width : average real columns data size (Bytes)</li>
+<li>rows : number of rows (use pg_statsinfo 3.0 higher)</li>
 <li>MiB : table size (MiB)</li>
 <li>+MiB : increase table size (MiB)</li>
 <li>table scans : number of executing sequential scan</li>
@@ -3252,9 +3340,11 @@ Please see the <a href="http://pgstatsinfo.projects.pgfoundry.org/pg_statsinfo.h
 UPDATE statsrepo.alert SET rollback_tps = 3000 WHERE instid = 1;
 </pre>
 </p>
-</div></div> <!-- contents end -->
+</div><hr/>
+<p align="right">End&nbsp;of&nbsp;report</p>
+
+</div> <!-- contents end -->
 
 
 </body>
 </html>
- 
