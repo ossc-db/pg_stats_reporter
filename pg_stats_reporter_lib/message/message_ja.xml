@@ -301,6 +301,35 @@
 </ul>
 </div>
 
+<div id="plans_dialog" class="help_dialog"
+  title="How to see a Plans table">
+<h4>Plans の見方</h4>
+<ul>
+<li>query id : 問い合わせ文のID</li>
+<li>user : 問い合わせ文を実行したユーザ名</li>
+<li>database : 問い合わせ文が実行されたデータベース名</li>
+<li>plan count : 問い合わせ文から作成された実行計画の数</li>
+<li>calls : 問い合わせ文が実行された回数</li>
+<li>total time (sec) : 問い合わせ文の累積消費時間 (秒)</li>
+<li>time/call (sec) : 1回の問い合わせ文実行当たりの消費時間 (秒)</li>
+<li>block read time (ms) : 問い合わせ文のブロック読み取り総時間(ミリ秒)</li>
+<li>block write time (ms) : 問い合わせ文のブロック書き出し総時間(ミリ秒)</li>
+<li>query : 問い合わせ文</li>
+<li>plan information (child row) : 実行計画<ul>
+  <li>plan id : 実行計画のID</li>
+  <li>calls : 実行計画が使用された回数</li>
+  <li>total time (sec) : 問い合わせ文の累積消費時間 (秒)</li>
+  <li>time/call (sec) : 1回の問い合わせ文実行当たりの消費時間 (秒)</li>
+  <li>block read time (ms) : 問い合わせ文のブロック読み取り総時間(ミリ秒)</li>
+  <li>block write time (ms) : 問い合わせ文のブロック書き出し総時間(ミリ秒)</li>
+  <li>first call : 実行計画が最初に実行された日時</li>
+  <li>last call : 実行計画が最後に実行された日時</li>
+  <li>plan (child row) : 実行計画</li>
+</ul></li>
+</ul>
+<p>注意: 表示には、監視対象DBにpg_stat_statementsとpg_store_plansが、リポジトリDBにpg_store_plansがインストールされている必要があります</p>
+</div>
+
 <div id="long_transactions_dialog" class="help_dialog"
   title="How to see a Long Transactions table">
 <h4>Long Transactions の見方</h4>

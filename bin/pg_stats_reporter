@@ -211,6 +211,9 @@ if (!@include_once(($includePath = joinPathComponents($installDir, "pg_stats_rep
 if (!@include_once(($includePath = joinPathComponents($installDir, "pg_stats_reporter_lib/module/make_report.php"))))
 	elog(ERROR, "Could not include file: %s", $includePath);
 
+if (!@include_once(($includePath = joinPathComponents($installDir, "pg_stats_reporter_lib/module/make_report_plans.php"))))
+	elog(ERROR, "Could not include file: %s", $includePath);
+
 if (!@include_once(($includePath = joinPathComponents($installDir, "pg_stats_reporter_lib/module/make_report_list.php"))))
 	elog(ERROR, "Could not include file: %s", $includePath);
 

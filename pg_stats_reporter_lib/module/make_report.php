@@ -289,13 +289,16 @@ EOD;
 
 		/* Query Activity */
 		if ($targetList['functions']
-			|| $targetList['statements']) {
+			|| $targetList['statements']
+			|| $targetList['plans']) {
 			$html_string .= "<li><a href=\"#query_activity\">Query Activity</a><ul>\n";
 
 			if ($targetList['functions'])
 				$html_string .= "<li><a href=\"#qa_functions\">Functions</a></li>\n";
 			if ($targetList['statements'])
 				$html_string .= "<li><a href=\"#qa_statements\">Statements</a></li>\n";
+			if ($targetList['plans'])
+				$html_string .= "<li><a href=\"#qa_plans\">Plans</a></li>\n";
 
 			$html_string .= "</ul></li>\n";
 		}
@@ -509,6 +512,7 @@ function makePlainHeaderMenu()
   <li><a>Query Activity</a><ul>
     <li><a>Functions</a></li>
     <li><a>Statements</a></li>
+    <li><a>Plans</a></li>
   </ul></li>
   <li><a>Long Transactions</a></li>
   <li><a>Lock Conflicts</a></li>
@@ -1329,6 +1333,7 @@ function makeSQLReport($conn, $target, $snapids, $errorMsg)
 		&& !$target['fragmented_tables']
 		&& !$target['functions']
 		&& !$target['statements']
+		&& !$target['plans']
 		&& !$target['long_transactions']
 		&& !$target['lock_conflicts'])
 		return "";
@@ -1453,7 +1458,8 @@ EOD;
 
 	/* Query Activity */
 	if ($target['functions']
-		|| $target['statements']) {
+		|| $target['statements']
+		|| $target['plans']) {
 
 		$htmlString .=
 <<< EOD
@@ -1509,6 +1515,10 @@ EOD;
 				$htmlString .= makeTablePagerHTML($result, "statements", 10, true);
 			}
 			pg_free_result($result);
+		}
+
+		if ($target['plans']) {
+			$htmlString .= makePlansString($conn, $query_string, $snapids, $errorMsg);
 		}
 	}
 

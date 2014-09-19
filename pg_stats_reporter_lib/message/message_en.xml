@@ -301,6 +301,35 @@
 </ul>
 </div>
 
+<div id="plans_dialog" class="help_dialog"
+  title="How to see a Plans table">
+<h4>How to see a Plans table.</h4>
+<ul>
+<li>query id : identifier of query</li>
+<li>user : user name which executed query</li>
+<li>database : database name which was executed query</li>
+<li>plan count : number of plan</li>
+<li>calls : number of executing query</li>
+<li>total time (sec) : total executing time (sec)</li>
+<li>time/call (sec) : average executing time (sec)</li>
+<li>block read time (ms) : total block read time (ms)</li>
+<li>block write time (ms) : total block write time (ms)</li>
+<li>query : SQL query</li>
+<li>plan information (child row)<ul>
+  <li>plan id : identifier of plan</li>
+  <li>calls : number of executing query</li>
+  <li>total time : total executing time (sec)</li>
+  <li>time/call (sec) : average executing time (sec)</li>
+  <li>block read time (ms) : total block read time (ms)</li>
+  <li>block write time (ms) : total block write time (ms)</li>
+  <li>first call : call for the first time</li>
+  <li>last call : call for the last time</li>
+  <li>plan (child row) : query plan</li>
+</ul></li>
+</ul>
+<p>Note: Neet to install pg_stat_statements and pg_store_plans if view this table</p>
+</div>
+
 <div id="long_transactions_dialog" class="help_dialog"
   title="How to see a Long Transactions table">
 <h4>How to see a Long Transactions table.</h4>

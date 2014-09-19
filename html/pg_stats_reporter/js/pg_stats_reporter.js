@@ -289,6 +289,51 @@ $(function(){
     })
   );
 
+  // Query Activity Plans
+  $("#plans_table").tablesorter(
+    $.extend({}, tablesorterDefaultOptions, {
+	  cssChildRow: "talbesorter-childRow",
+      headers: {
+        0: { sorter: "digit" },
+        3: { sorter: "digit" },
+        4: { sorter: "digit" },
+		5: { sorter: "digit" },
+		6: { sorter: "digit" },
+		7: { sorter: "digit" },
+		8: { sorter: "digit" },
+		9: { sorter: false },
+		10: { sorter: false }
+      }
+    })
+  )
+  .tablesorterPager(
+    $.extend({}, pagerDefaultOptions, {
+      container: $('#pager_plans')
+    })
+  );
+
+  $(".childRowTable").tablesorter(
+    $.extend({}, tablesorterDefaultOptions, {
+      headers: {
+        0: { sorter: "digit" },
+		1: { sorter: "digit" },
+		2: { sorter: "digit" },
+        3: { sorter: "digit" },
+        4: { sorter: "digit" },
+		5: { sorter: "digit" },
+		8: { sorter: false }
+      }
+	})
+  );
+
+  $('.tablesorter').delegate('.toggle', 'click' ,function(){
+    $(this).closest('tr').nextUntil('tr:not(.tablesorter-childRow)').find('td').toggle();
+
+    return false;
+  });
+
+  $('.tablesorter-childRow td').hide();
+
   // Long Transaction
   $("#long_transactions_table").tablesorter(
     $.extend({}, tablesorterDefaultOptions, {

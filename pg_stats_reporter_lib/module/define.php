@@ -28,7 +28,7 @@ define("V30", "30000");
 define("CACHE_DIR", "../../pg_stats_reporter_lib/cache");
 define("COMPILE_DIR", "../../pg_stats_reporter_lib/compiled");
 define("TEMPLATE_DIR", "../../pg_stats_reporter_lib/template");
-define("CACHE_LIFETIME", 300);
+define("CACHE_LIFETIME", 3);
 define("TEMPLATE_FILE", "pg_stats_reporter.tpl");
 define("LOG_VIEWER_TEMPLATE_FILE", "log_viewer.tpl");
 
@@ -83,6 +83,7 @@ $report_default = array(
   'fragmented_tables'         => true,
   'functions'                 => true,
   'statements'                => true,
+  'plans'					  => true,
   'long_transactions'         => true,
   'lock_conflicts'             => true,
   'checkpoint_activity'       => true,
@@ -127,6 +128,7 @@ $help_list = array(
   'fragmented_tables'         => 'fragmented_tables_dialog',
   'functions'                 => 'functions_dialog',
   'statements'                => 'statements_dialog',
+  'plans'                     => 'plans_dialog',
   'long_transactions'         => 'long_transactions_dialog',
   'lock_conflicts'             => 'lock_conflicts_dialog',
   'checkpoint_activity'       => 'checkpoint_activity_dialog',
@@ -240,6 +242,18 @@ $query_string = array(
 
   "statements" =>
   "SELECT rolname AS \"user\", datname AS \"database\", query, calls, total_time AS \"total time (sec)\", time_per_call AS \"time/call (sec)\" FROM statsrepo.get_query_activity_statements($1, $2)",
+
+  "plans" =>
+  "SELECT * FROM statsrepo.get_query_activity_plans_report($1,$2)",
+
+  "plans_exists_store_plans" =>
+  "SELECT 1 FROM pg_proc WHERE proname='pg_store_plans_textplan'",
+
+  "plans_get_plan" =>
+  "SELECT pg_store_plans_textplan(plan) FROM statsrepo.plan WHERE snapid=$1 AND dbid=$2 AND userid=$3 AND planid=$4",
+
+  "plans_get_plan_does_not_exist" =>
+  "SELECT plan FROM statsrepo.plan WHERE snapid=$1 AND dbid=$2 AND userid=$3 AND planid=$4",
 
   // Long Transaction
   "long_transactions" =>

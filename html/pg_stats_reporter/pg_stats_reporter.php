@@ -9,6 +9,7 @@
 require_once "../../pg_stats_reporter_lib/module/define.php";
 require_once "../../pg_stats_reporter_lib/module/common.php";
 require_once "../../pg_stats_reporter_lib/module/make_report.php";
+require_once "../../pg_stats_reporter_lib/module/make_report_plans.php";
 require_once SMARTY_PATH."Smarty.class.php";
 
 $help_message = array();
