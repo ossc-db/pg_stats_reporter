@@ -13,7 +13,7 @@ define("SMARTY_PATH", "package/Smarty-3.1.13/libs/");
 define("JQUERY_PATH", "package/jquery-2.0.1/");
 define("JQUERYUI_PATH", "package/jquery-ui-1.10.2/");
 define("TIMEPICKER_PATH", "package/");
-define("TABLESORTER_PATH", "package/tablesorter/");
+define("TABLESORTER_PATH", "package/tablesorter-2.17.4/");
 define("SUPERFISH_PATH", "package/superfish/superfish-1.7.2/");
 define("JQPLOT_PATH", "package/jqPlot-1.0.8r1250/");
 define("DYGRAPHS_PATH", "package/danvk-dygraphs-b839102/");

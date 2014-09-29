@@ -314,6 +314,7 @@ $(function(){
 
   $(".childRowTable").tablesorter(
     $.extend({}, tablesorterDefaultOptions, {
+	  cssChildRow: "talbesorter-childRow",
       headers: {
         0: { sorter: "digit" },
 		1: { sorter: "digit" },

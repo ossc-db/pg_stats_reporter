@@ -138,7 +138,7 @@ EOD;
 		} else {
 
 			/* create row */
-			$htmlString .= "<tr><td rowspan=\"3\" class=\"num\"><a href\"#\" class=\"toggle\">".$qid."</a></td>";
+			$htmlString .= "<tr><td rowspan=\"3\" class=\"num\"><a href=\"#\" class=\"toggle\">".$qid."</a></td>";
 			$htmlString .="<td class=\"str\">".htmlspecialchars($uname, ENT_QUOTES)."</td>";
 			$htmlString .="<td class=\"str\">".htmlspecialchars($dname, ENT_QUOTES)."</td>";
 			$htmlString .="<td class=\"num\">".htmlspecialchars($pcount, ENT_QUOTES)."</td>";
