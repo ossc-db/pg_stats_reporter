@@ -45,6 +45,9 @@ define("MESSAGE_PATH", "../../pg_stats_reporter_lib/message/");
 define("MESSAGE_PREFIX", "message_");
 define("MESSAGE_SUFFIX", ".xml");
 
+// print query length
+define("PRINT_QUERY_LENGTH", 512);
+
 // global setting list
 $global_setting_list = array(
   'install_directory',
@@ -244,7 +247,7 @@ $query_string = array(
   "SELECT rolname AS \"user\", datname AS \"database\", query, calls, total_time AS \"total time (sec)\", time_per_call AS \"time/call (sec)\" FROM statsrepo.get_query_activity_statements($1, $2)",
 
   "plans" =>
-  "SELECT * FROM statsrepo.get_query_activity_plans_report($1,$2)",
+  "SELECT * FROM statsrepo.get_query_activity_plans_report($1,$2) ORDER BY queryid, rolname, datname",
 
   "plans_exists_store_plans" =>
   "SELECT 1 FROM pg_proc WHERE proname='pg_store_plans_textplan'",

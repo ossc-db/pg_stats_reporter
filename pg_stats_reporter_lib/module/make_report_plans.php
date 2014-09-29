@@ -71,8 +71,11 @@ EOD;
 	if (!$result2) {
 		return makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 	}
-	if (pg_num_rows($result2)) $exists_pg_store_plans = "plans_get_plan";
-	else $exists_pg_store_plans = "plans_get_plan_does_not_exist";
+	if (pg_num_rows($result2)) {
+		$exists_pg_store_plans = "plans_get_plan";
+	} else {
+		$exists_pg_store_plans = "plans_get_plan_does_not_exist";
+	}
 	pg_free_result($result2);
 
 	/* query information (first row) */
@@ -104,10 +107,14 @@ EOD;
 	pg_free_result($result2);
 
 	for($i = 1 ; $i < pg_num_rows($result) ; $i++ ) {
-		/* get queryid */
+		/* get queryid, dbname, username */
 		$queryid = pg_fetch_result($result, $i, 0);
+		$username = pg_fetch_result($result, $i, 2);
+		$dbname = pg_fetch_result($result, $i, 3);
 
-		if ($qid == $queryid) {
+		if ($qid == $queryid
+			&& strcmp($uname, $username) == 0
+			&& strcmp($dname, $dbname) == 0) {
 			$planid = pg_fetch_result($result, $i, 1); // planid
 			$pcount++;
 			$callcount += pg_fetch_result($result, $i, 4); // calls
@@ -141,9 +148,9 @@ EOD;
 			$htmlString .="<td class=\"num\">".htmlspecialchars(number_format($bread, 3, '.', ''), ENT_QUOTES)."</td>";
 			$htmlString .="<td class=\"num\">".htmlspecialchars(number_format($bwrite, 3, '.', ''), ENT_QUOTES)."</td>";
 			$htmlString .= "</tr>\n<tr class=\"tablesorter-childRow\"><td colspan=\"8\" class=\"str\"><pre>";
-			if (strlen($qstr) > 500) { // 500 is magic number !!
+			if (strlen($qstr) > PRINT_QUERY_LENGTH) {
 				$fullQueryArray[$qid.$uname.$dname] = $qstr;
-				$htmlString .= substr($qstr, 0, 500)."</pre>";
+				$htmlString .= substr($qstr, 0, PRINT_QUERY_LENGTH)."</pre>";
 				$htmlString .= "<a href=\"javascript:void(0)\" onclick=\"$('#dialog_".$qid.$uname.$dname."').dialog('open');return false;\">display full query string</a>";
 			} else {
 				$htmlString .= $qstr."</pre>";
@@ -159,8 +166,8 @@ EOD;
 			/* data initialize */
 			$qid = $queryid;
 			$planid = pg_fetch_result($result, $i, 1); // planid
-			$uname = pg_fetch_result($result, $i, 2); // user name
-			$dname = pg_fetch_result($result, $i, 3); // database name
+			$uname = $username;
+			$dname = $dbname;
 			$pcount = 1;
 			$callcount = pg_fetch_result($result, $i, 4); // calls
 			$ttime =  pg_fetch_result($result, $i, 5); // total time
