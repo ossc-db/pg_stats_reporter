@@ -193,7 +193,7 @@ EOD;
 	}
 
 	$htmlString .= "</tbody>\n</table>\n";
-	$htmlString .= makePagerHTML("plans", 10);
+	$htmlString .= makePagerHTML("plans", 10)."</div>\n";
 
 	/* query dialog */
 	if (count($fullQueryArray)) {
