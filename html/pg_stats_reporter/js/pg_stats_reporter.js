@@ -292,7 +292,7 @@ $(function(){
   // Query Activity Plans
   $("#plans_table").tablesorter(
     $.extend({}, tablesorterDefaultOptions, {
-	  cssChildRow: "talbesorter-childRow",
+	  cssChildRow: "tablesorter-childRow",
       headers: {
         0: { sorter: "digit" },
         3: { sorter: "digit" },
@@ -314,7 +314,7 @@ $(function(){
 
   $(".childRowTable").tablesorter(
     $.extend({}, tablesorterDefaultOptions, {
-	  cssChildRow: "talbesorter-childRow",
+	  cssChildRow: "tablesorter-childRow",
       headers: {
         0: { sorter: "digit" },
 		1: { sorter: "digit" },
