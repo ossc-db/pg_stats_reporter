@@ -76,6 +76,7 @@ fragmented_tables = true
 ; -- Query Activity --
 functions = true
 statements = true
+plans = true
 
 ; -- Long Transactions --
 long_transactions = true
