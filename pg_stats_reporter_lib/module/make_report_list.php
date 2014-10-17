@@ -134,11 +134,14 @@ function makeReportListHTML(&$html_string, $html_head, $html_body)
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>pg_stats_reporter report list</title>
 <!-- javascripts -->
-<script type="text/javascript" src="package/jquery-2.0.1/jquery-2.0.1.min.js"></script>
-<script type="text/javascript" src="package/jquery-2.0.1/jquery-migrate-1.2.1.js"></script>
-<script type="text/javascript" src="package/tablesorter/js/jquery.tablesorter.min.js"></script>
-<script type="text/javascript" src="package/jquery-ui-1.10.2/ui/minified/jquery-ui.min.js"></script>
 
+EOD;
+	$html_string .= "<script type=\"text/javascript\" src=\"".JQUERY_PATH."\"></script>\n";
+	$html_string .= "<script type=\"text/javascript\" src=\"".TABLESORTER_PATH."jquery.tablesorter.min.js\"></script>\n";
+	$html_string .= "<script type=\"text/javascript\" src=\"".JQUERYUI_PATH."jquery-ui.min.js\"></script>\n";
+
+	$html_string .=
+<<< EOD
 <script type="text/javascript">
 $(document).ready(function() {
 
@@ -169,8 +172,14 @@ EOD;
 <<< EOD
 </script>
 
-<link rel="stylesheet" type="text/css" href="package/jquery-ui-1.10.2/themes/start/jquery.ui.all.css"/>
-<link rel="stylesheet" type="text/css" href="package/tablesorter/css/theme.blue.css"/>
+
+EOD;
+
+		$html_string .= "<link rel=\"stylesheet\" type=\"text/css\" href=\"".JQUERYUI_PATH."jquery.ui.theme.min.css\"/>\n";
+		$html_string .= "<link rel=\"stylesheet\" type=\"text/css\" href=\"".TABLESORTER_PATH."css/theme.blue.css\"/>\n";
+		$html_string .=
+<<< EOD
+
 <style type="text/css">
 
 .tablesorter tbody tr {

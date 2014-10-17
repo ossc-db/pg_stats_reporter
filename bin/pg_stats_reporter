@@ -770,12 +770,12 @@ function copyLibraryFile($installDir, $outputDir)
 		'dir' => array( 
 						DYGRAPHS_PATH,
 						JQPLOT_PATH,
-						JQUERY_PATH,
 						JQUERYUI_PATH,
 						SUPERFISH_PATH,
+						TIMEPICKER_PATH,
 						TABLESORTER_PATH),
 		'file' => array( 
-						"package/jquery-ui-timepicker-addon.js",
+						JQUERY_PATH,
 						"js/common.js",
 						"js/pg_stats_reporter.js",
 						"css/pg_stats_reporter.css"));
