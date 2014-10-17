@@ -222,11 +222,20 @@ div.graph_button {
   width: 50%;
   font-size: 120%;
 }
-table.tablesorter thead tr th {
+.tablesorter thead tr th {
   font-size: 120%;
 }
 .tablesorter tbody td {
   font-size: 120%;
+}
+
+.childRowTable thead tr th {
+  background-color: #c5d3e1;
+  font-size: 90%;
+}
+
+.childRowTable tbody td {
+  font-size: 100%;
 }
 
 /* log viewer */
