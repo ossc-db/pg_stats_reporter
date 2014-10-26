@@ -293,6 +293,7 @@ $(function(){
   $("#plans_table").tablesorter(
     $.extend({}, tablesorterDefaultOptions, {
 	  cssChildRow: "tablesorter-childRow",
+	  sortList: [[5,1]],
       headers: {
         0: { sorter: "digit" },
         3: { sorter: "digit" },
@@ -315,6 +316,7 @@ $(function(){
   $(".childRowTable").tablesorter(
     $.extend({}, tablesorterDefaultOptions, {
 	  cssChildRow: "tablesorter-childRow",
+	  sortList: [[2,1]],
       headers: {
         0: { sorter: "digit" },
 		1: { sorter: "digit" },
