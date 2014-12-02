@@ -23,6 +23,7 @@ define("V23", "20300");
 define("V24", "20400");
 define("V25", "20500");
 define("V30", "30000");
+define("V31", "30100");
 
 // Smarty cache, compile, template directory
 define("CACHE_DIR", "../../pg_stats_reporter_lib/cache");
@@ -46,7 +47,7 @@ define("MESSAGE_PREFIX", "message_");
 define("MESSAGE_SUFFIX", ".xml");
 
 // print query length
-define("PRINT_QUERY_LENGTH", 512);
+define("PRINT_QUERY_LENGTH", 12);
 
 // global setting list
 $global_setting_list = array(
@@ -91,9 +92,9 @@ $report_default = array(
   'lock_conflicts'             => true,
   'checkpoint_activity'       => true,
   'basic_statistics'          => true,
-  'vacuum_cancels'            => true,
   'io_statistics'             => true,
   'analyze_statistics'        => true,
+  'vacuum_cancels'            => true,
   'current_replication_status' => true,
   'replication_delays'        => true,
   'database'                  => false,
@@ -136,9 +137,9 @@ $help_list = array(
   'lock_conflicts'             => 'lock_conflicts_dialog',
   'checkpoint_activity'       => 'checkpoint_activity_dialog',
   'basic_statistics'          => 'basic_statistics_dialog',
-  'vacuum_cancels'            => 'vacuum_cancels_dialog',
   'io_statistics'             => 'io_statistics_dialog',
   'analyze_statistics'        => 'analyze_statistics_dialog',
+  'vacuum_cancels'            => 'vacuum_cancels_dialog',
   'current_replication_status' => 'current_replication_status_dialog',
   'replication_delays'        => 'replication_delays_dialog',
   'database'                  => 'database_dialog',
@@ -281,6 +282,9 @@ $query_string = array(
   "vacuum_cancels" =>
   "SELECT timestamp::timestamp(0) AS \"timestamp\", database, schema, \"table\", query AS \"cause query\" FROM statsrepo.autovacuum_cancel WHERE timestamp BETWEEN (SELECT min(time) AS time FROM statsrepo.snapshot WHERE snapid >= $1) AND (SELECT max(time) AS time FROM statsrepo.snapshot WHERE snapid <= $2) AND instid = (SELECT instid FROM statsrepo.snapshot WHERE snapid = $2) ORDER By timestamp",
 
+  "vacuum_cancels31" =>
+  "SELECT timestamp::timestamp(0) AS \"timestamp\", database, schema, \"table\", 'VACUUM' AS \"cancel\", query AS \"cause query\" FROM statsrepo.autovacuum_cancel v WHERE timestamp BETWEEN (SELECT min(time) AS time FROM statsrepo.snapshot WHERE snapid >= $1) AND (SELECT max(time) AS time FROM statsrepo.snapshot WHERE snapid <= $2) AND instid = (SELECT instid FROM statsrepo.snapshot WHERE snapid = $2) UNION ALL SELECT timestamp::timestamp(0) AS \"timestamp\", database, schema, \"table\", 'ANALYZE' AS \"cancel\", query AS \"cause query\" FROM statsrepo.autoanalyze_cancel v WHERE timestamp BETWEEN (SELECT min(time) AS time FROM statsrepo.snapshot WHERE snapid >= $1) AND (SELECT max(time) AS time FROM statsrepo.snapshot WHERE snapid <= $2) AND instid = (SELECT instid FROM statsrepo.snapshot WHERE snapid = $2) ORDER By timestamp",
+
   "io_statistics" =>
   "SELECT datname AS \"database\", nspname AS \"schema\", relname AS \"table\", avg_page_hit AS \"avg page hit\", avg_page_miss AS \"avg page miss\", avg_page_dirty AS \"avg page dirty\", avg_read_rate AS \"avg read rate\", avg_write_rate AS \"avg write rate\" FROM statsrepo.get_autovacuum_activity2($1, $2)", 
 
@@ -289,6 +293,9 @@ $query_string = array(
 
   "analyze_statistics30" =>
   "SELECT datname AS \"database\", nspname AS \"schema\", relname AS \"table\", \"count\", total_duration AS \"total duration (sec)\", avg_duration AS \"avg duration (sec)\", max_duration AS \"max duration (sec)\", last_analyze AS \"last analyze time\" FROM statsrepo.get_autoanalyze_stats($1, $2)", 
+
+  "analyze_statistics31" =>
+  "SELECT datname AS \"database\", nspname AS \"schema\", relname AS \"table\", \"count\", total_duration AS \"total duration (sec)\", avg_duration AS \"avg duration (sec)\", max_duration AS \"max duration (sec)\", last_analyze AS \"last analyze time\", cancels FROM statsrepo.get_autoanalyze_stats($1, $2)", 
 
   // Replication Activity
   "current_replication_status" =>

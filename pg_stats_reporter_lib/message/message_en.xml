@@ -390,13 +390,14 @@
 </div>
 
 <div id="vacuum_cancels_dialog" class="help_dialog"
-  title="How to see a Vacuum Cancels table">
-<h4>How to see a Vacuum Cancels.</h4>
+  title="How to see a Vacuum and Analyze Cancels table">
+<h4>How to see a Vacuum and Analyze Cancels.</h4>
 <ul>
 <li>timestamp : timestamp</li>
 <li>database : database name</li>
 <li>schema : schema name</li>
 <li>table : table name</li>
+<li>cancel : VACUUM/ANALYZE</li>
 <li>cause query : SQL query</li>
 </ul>
 </div>
@@ -428,6 +429,7 @@
 <li>avg duration (sec) : average duration time (sec)</li>
 <li>max duration (sec) : max duration time (sec)</li>
 <li>last analyze time : last execute time of autoanalyze (use pg_statsinfo 3.0 higher)</li>
+<li>cancels : number of cancel autoanalyze (use pg_statsinfo 3.1 higher)</li>
 </ul>
 </div>
 
@@ -618,5 +620,6 @@ To narrow down the log, enter the search criteria and click "Search" button.
 <p id="no_info">This repository does not have snapshot at all.Please execute getting snapshot command or wait for few minutes(auto getting snapshot).</p>
 <p id="short_snapshots">does not present a reports. Because repository does not have snapshot at all. Please re-select report term or get snapshot.</p>
 <p id="invalid_regex">Invalid regular expression. (%s)&lt;br/&gt;%s</p>
+<p id="cancel_version">In pg_statsinfo 3.0, it will only display of Vacuum cancellation information.&lt;br/&gt;</p>
 </error>
 </document>

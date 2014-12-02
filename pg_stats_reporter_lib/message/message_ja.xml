@@ -390,13 +390,14 @@
 </div>
 
 <div id="vacuum_cancels_dialog" class="help_dialog"
-  title="How to see a Vacuum Cancels table">
-<h4>Vacuum Cancels の見方</h4>
+  title="How to see a Vacuum and Analyze Cancels table">
+<h4>Vacuum and Analyze Cancels の見方</h4>
 <ul>
 <li>timestamp : キャンセル発生日時</li>
 <li>database : データベース名</li>
 <li>schema : スキーマ名</li>
 <li>table : テーブル名</li>
+<li>cancel : キャンセルされた処理(VACUUMまたはANALYZE)</li>
 <li>cause query : キャンセル要求元クエリ</li>
 </ul>
 </div>
@@ -428,6 +429,7 @@
 <li>avg duration (sec) : 処理時間の平均値 (秒)</li>
 <li>max duration (sec) : 処理時間の最大値 (秒)</li>
 <li>last analyze time : autoanalyzeの最終実行日時(pg_statsinfo 3.0以降)</li>
+<li>cancels : autoanalyzeがキャンセルされた回数(pg_statsinfo 3.1以降)</li>
 </ul>
 </div>
 
@@ -618,5 +620,6 @@ UPDATE statsrepo.alert SET rollback_tps = 3000 WHERE instid = 1;
 <p id="no_info">情報をスナップショットで取得していません。</p>
 <p id="short_snapshots">指定した期間にはスナップショットが0件または、1件しかないため、レポートを表示できません。</p>
 <p id="invalid_regex">無効な正規表現です。 (%s)&lt;br/&gt;%s</p>
+<p id="cancel_version"> pg_statsinfo 3.0では、Vacuumキャンセル情報の表示のみとなります。&lt;br/&gt;</p>
 </error>
 </document>
