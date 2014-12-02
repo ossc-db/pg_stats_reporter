@@ -10,6 +10,8 @@ function load_config(&$config, &$err_msg)
 {
 	$err_msg = null;
 
+	/* Abolished the cache configuration file */
+
 	/* read config from configuration file */
 	$config = readConfigFile($error);
 	if (count($error) > 0) {

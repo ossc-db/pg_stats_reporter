@@ -56,6 +56,8 @@ unset($url_param['reload']);
 
 /* 設定ファイルの読み込み */
 if (!load_config($config, $err_msg)) {
+	/* 1つでもエラーが発生したら、レポート表示可能なセクションがあっても */
+	/* エラーで終了する(リポジトリDB接続エラー等も含む) */
 	showConfigError($smarty, $config, $err_msg);
 	exit;
 }
