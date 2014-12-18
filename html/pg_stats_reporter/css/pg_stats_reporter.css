@@ -362,3 +362,8 @@ div.graph_button {
   font-size: small;
   margin: 5px 0px;
 }
+
+pre {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}

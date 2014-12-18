@@ -147,14 +147,8 @@ EOD;
 			$htmlString .="<td class=\"num\">".htmlspecialchars(number_format(($callcount==0?0:$ttime/$callcount), 3, '.', ''), ENT_QUOTES)."</td>";
 			$htmlString .="<td class=\"num\">".htmlspecialchars(number_format($bread, 3, '.', ''), ENT_QUOTES)."</td>";
 			$htmlString .="<td class=\"num\">".htmlspecialchars(number_format($bwrite, 3, '.', ''), ENT_QUOTES)."</td>";
-			$htmlString .= "</tr>\n<tr class=\"tablesorter-childRow\"><td colspan=\"8\" class=\"str\"><pre>";
-			if (strlen($qstr) > PRINT_QUERY_LENGTH) {
-				$fullQueryArray[$qid.$uname.$dname] = $qstr;
-				$htmlString .= substr($qstr, 0, PRINT_QUERY_LENGTH)."</pre>";
-				$htmlString .= "<a href=\"javascript:void(0)\" onclick=\"$('#dialog_".$qid.$uname.$dname."').dialog('open');return false;\">display full query string</a>";
-			} else {
-				$htmlString .= $qstr."</pre>";
-			}
+			$htmlString .= "</tr>\n<tr class=\"tablesorter-childRow\"><td colspan=\"8\" class=\"str\">";
+			$htmlString .= makeQueryDialog("plans", $qstr);
 			$htmlString .="</td></tr>\n";
 
 			$htmlString .= "<tr class=\"tablesorter-childRow\">\n";
@@ -194,22 +188,6 @@ EOD;
 
 	$htmlString .= "</tbody>\n</table>\n";
 	$htmlString .= makePagerHTML("plans", 10)."</div>\n";
-
-	/* query dialog */
-	if (count($fullQueryArray)) {
-		$jscript = "<script>\n$(function() {\n";
-		$querydialog = "";
-		foreach($fullQueryArray as $qid => $query) {
-			/* make javascript */
-			$jscript .= "$(\"#dialog_".$qid."\").dialog({\n\tautoOpen: false,\n\tmodal: true,\n\tbuttons: {\n\t\tOK: function() {\n\t\t\t$(this).dialog(\"close\");\n\t\t}\n\t},\n\twidth: 800,\n\tmaxHeight: 600\n});\n\n";
-
-			/* make dialog */
-			$querydialog .= "<div id=\"dialog_".$qid."\"><font size=\"-1\"><pre>".$query."</pre></div>\n";
-
-		}
-		$jscript .= "});\n</script>\n";
-		$htmlString .= $jscript.$querydialog;
-	}
 
 	return $htmlString;
 }

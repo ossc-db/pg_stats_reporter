@@ -309,7 +309,8 @@ $(function(){
   )
   .tablesorterPager(
     $.extend({}, pagerDefaultOptions, {
-      container: $('#pager_plans')
+	  container: $('#pager_plans'),
+	  size: 10
     })
   );
 

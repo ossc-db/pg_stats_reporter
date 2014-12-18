@@ -214,6 +214,21 @@ $(function(){
 	});
 
 
+	/*** query string dialog ***/
+	$(".query_string_dialog").each(function(){
+		$(this).dialog({
+			autoOpen: false,
+			modal: true,
+			buttons: {
+				OK: function() {
+					$(this).dialog("close");
+				}
+			},
+			width: 800,
+			maxHeight: 600
+		});
+	});
+
 	/*** help dialog ***/
 	$(".help_dialog").each(function(){
 		$(this).dialog({

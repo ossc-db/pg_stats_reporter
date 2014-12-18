@@ -12,6 +12,7 @@ require_once "../../pg_stats_reporter_lib/module/make_report.php";
 require_once "../../pg_stats_reporter_lib/module/make_report_plans.php";
 require_once SMARTY_PATH."Smarty.class.php";
 
+$fullquery_string = array(); /* id -> div tag (associative arrays) */
 $help_message = array();
 $error_message = array();
 

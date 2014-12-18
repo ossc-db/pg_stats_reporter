@@ -46,8 +46,9 @@ define("MESSAGE_PATH", "../../pg_stats_reporter_lib/message/");
 define("MESSAGE_PREFIX", "message_");
 define("MESSAGE_SUFFIX", ".xml");
 
-// print query length
-define("PRINT_QUERY_LENGTH", 12);
+// print query limit
+define("PRINT_QUERY_LENGTH_LIMIT", 256);
+define("PRINT_QUERY_LINE_LIMIT", 5);
 
 // global setting list
 $global_setting_list = array(

@@ -661,6 +661,7 @@ EOD;
 
 function makeContents($conn, $infoData, $targetInfo, $snapids)
 {
+	global $fullquery_string;
 	global $help_message;
 	global $error_message;
 	global $query_string;
@@ -711,7 +712,13 @@ EOD;
 	/* Information */
 	$html_string .= makeInformationReport($conn, $targetData, $snapids, $error_message);
 
+	/* full query string dialog */
+	$html_string .= "\n<!-- full query string dialog -->\n";
+	foreach($fullquery_string as $query)
+		$html_string .= $query;
+
 	/* help dialog */
+	$html_string .= "\n<!-- help dialog -->\n";
 	foreach($help_message as $msg)
 		$html_string .= $msg;
 
@@ -1512,7 +1519,9 @@ EOD;
 			if (pg_num_rows($result) == 0) {
 				$htmlString .= makeErrorTag($errorMsg['no_result']);
 			} else {
-				$htmlString .= makeTablePagerHTML($result, "statements", 10, true);
+				$qarray = array_fill(0, pg_num_fields($result), false);
+				$qarray[2] = true;
+				$htmlString .= makeTablePagerHTML_impl($result, "statements", 10, true, $qarray);
 			}
 			pg_free_result($result);
 		}
@@ -1542,7 +1551,9 @@ EOD;
 		if (pg_num_rows($result) == 0) {
 			$htmlString .= makeErrorTag($errorMsg['no_result']);
 		} else {
-			$htmlString .= makeTablePagerHTML($result, "long_transactions", 10, true);
+			$qarray = array_fill(0, pg_num_fields($result), false);
+			$qarray[4] = true;
+			$htmlString .= makeTablePagerHTML_impl($result, "long_transactions", 10, true, $qarray);
 		}
 		pg_free_result($result);
 	}
@@ -1752,7 +1763,9 @@ EOD;
 				if (pg_num_rows($result) == 0) {
 					$htmlString .= makeErrorTag($errorMsg['no_result']);
 				} else {
-					$htmlString .= makeTablePagerHTML($result, "vacuum_cancels", 10, true);
+					$qarray = array_fill(0, pg_num_fields($result), false);
+					$qarray[5] = true;
+					$htmlString .= makeTablePagerHTML_impl($result, "vacuum_cancels", 10, true, $qarray);
 				}
 				pg_free_result($result);
 			} else if ($target['repo_version'] >= V30) {
@@ -2185,6 +2198,14 @@ function makeTableHTML($result, $id)
 
 function makeTablePagerHTML($result, $id, $default, $pagerOn)
 {
+
+	$qarray = array_fill(0, pg_num_fields($result), false);
+
+	return makeTablePagerHTML_impl($result, $id, $default, $pagerOn, $qarray);
+}
+
+function makeTablePagerHTML_impl($result, $id, $default, $pagerOn, $qarray)
+{
 	$htmlString = "<div><table id=\"".$id."_table\" class=\"tablesorter\">\n<thead><tr>\n";
 
 	for ($i = 0 ; $i < pg_num_fields($result) ; $i++) {
@@ -2198,7 +2219,13 @@ function makeTablePagerHTML($result, $id, $default, $pagerOn)
 		$htmlString .= "<tr>";
 
 		for($j = 0 ; $j < pg_num_fields($result) ; $j++ ) {
-			$htmlString .= "<td class=\"".getDataTypeClass(pg_field_type($result, $j))."\">".htmlspecialchars(pg_fetch_result($result, $i, $j), ENT_QUOTES)."</td>";
+			$htmlString .= "<td class=\"".getDataTypeClass(pg_field_type($result, $j))."\">";
+			if ($qarray[$j] == true) {
+				$htmlString .= makeQueryDialog($id, pg_fetch_result($result, $i, $j));
+			} else {
+				$htmlString .= htmlspecialchars(pg_fetch_result($result, $i, $j), ENT_QUOTES);
+			}
+			$htmlString .= "</td>";
 		}
 
 		$htmlString .= "</tr>\n";
@@ -2559,5 +2586,52 @@ EOD;
 	$html_string .= "	".$id.".updateOptions({\n		animatedZooms: true\n	});\n} );\n";
 
 	return $html_string;
+}
+
+function makeQueryDialog($header, $qstr)
+{
+	global $fullquery_string;
+	static $num = 0;
+	$htmlSubStr = "";
+
+	if (strlen($qstr) > PRINT_QUERY_LENGTH_LIMIT
+		|| substr_count($qstr, "\n") > PRINT_QUERY_LINE_LIMIT) {
+
+		$dialogid = "dialog_".$header.sprintf("%05d", $num);
+		$pos = 0;
+
+		if (substr_count($qstr, "\n") > PRINT_QUERY_LINE_LIMIT) {
+			for ($i=0 ; $i<PRINT_QUERY_LINE_LIMIT ; $i++) {
+				$pos = strpos($qstr, "\n", $pos)+1;
+			}
+		} else {
+			$pos = PRINT_QUERY_LENGTH_LIMIT;
+		}
+
+		if (substr_count($qstr, "\n")) {
+			$htmlSubStr = "<pre>".substr($qstr, 0, $pos)."</pre>";
+		} else {
+			$htmlSubStr = "<font style=\"font-family: monospace;\">".substr($qstr, 0, $pos)."</font><br/>";
+		}
+		$htmlSubStr .= "<a href=\"javascript:void(0)\" onclick=\"$('#".$dialogid."').dialog('open');return false;\">display full query string</a>";
+
+		$fullquery_string[$dialogid] = "<div title=\"Query String\" id=\"".$dialogid."\" class=\"query_string_dialog\"><font size=\"-1\">";
+		if (substr_count($qstr, "\n")) {
+			$fullquery_string[$dialogid] .= "<pre>".$qstr."</pre>";
+		} else {
+			$fullquery_string[$dialogid] .= "<font style=\"font-family: monospace;\">".$qstr."</font>";
+		}
+		$fullquery_string[$dialogid] .= "</font></div>\n";
+		$num++;
+	} else {
+		if (substr_count($qstr, "\n")) {
+			$htmlSubStr = "<pre>".$qstr."</pre>";
+		} else {
+			$htmlSubStr = "<font style=\"font-family: monospace;\">".$qstr."</font>";
+		}
+	}
+
+	return $htmlSubStr;
+
 }
 ?>
