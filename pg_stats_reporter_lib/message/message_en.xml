@@ -40,8 +40,8 @@
   title="How to see a Transaction Statistics graph">
 <h4>How to see a Transaction Statistics graph.</h4>
 <ul>
-<li>x axis  : time</li>
-<li>y axis  : transactions per second (xact/s)</li>
+<li>horizontal axis  : time</li>
+<li>vertical axis  : transactions per second (xact/s)</li>
 <li>[database name] commit_tps : commited transactions of [database name] per second (xact/s)</li>
 <li>[database name] rollback_tps : rollback transaction of [database name] per second (xact/s)</li>
 </ul>
@@ -51,8 +51,8 @@
   title="How to see a Database Size">
 <h4>How to see a Database Size table.</h4>
 <ul>
-<li>x axis : time</li>
-<li>y axis : size of database (Bytes)</li>
+<li>horizontal axis : time</li>
+<li>vertial axis : size of database (Bytes)</li>
 <li>[database name] size : size of [database name] (Bytes)</li>
 </ul>
 </div>
@@ -79,9 +79,9 @@
 </ul>
 <h4>How to seea WAL Statistics graphs.</h4>
 <ul>
-<li>x axis : time (snapshot time)</li>
-<li>y axis1 (left) : size of WAL(xlog) data per snapshot (Bytes)</li>
-<li>y axis2 (right) : size of WAL(xlog) data per second (Bytes/s)</li>
+<li>horizontal axis : time (snapshot time)</li>
+<li>vertial axis1 (left) : size of WAL(xlog) data per snapshot (Bytes)</li>
+<li>vertial axis2 (right) : size of WAL(xlog) data per second (Bytes/s)</li>
 <li>write_size : size of WAL output / snapshot time (Bytes)</li>
 <li>write_size_per_sec : size pf WAL output / second (Bytes/s)</li>
 </ul>
@@ -102,8 +102,8 @@
   title="How to see a Instance Processes graph">
 <h4>How to see a Instance Processes graph.</h4>
 <ul>
-<li>x axis : time</li>
-<li>y axis : ratio (%)</li>
+<li>horizontal axis : time</li>
+<li>vertial axis : ratio (%)</li>
 <li>idle : ratio of idle backend process (%)</li>
 <li>idle in xact : ratio of idle backend process in transaction (%)</li>
 <li>waiting : ratio of waiting backend process by locks (%)</li>
@@ -115,8 +115,8 @@
   title="How to see a CPU Usage graph">
 <h4>How to see a CPU Usage graph.</h4>
 <ul>
-<li>x axis  : time </li>
-<li>y axis  : ratio(%) </li>
+<li>horizontal axis  : time </li>
+<li>vertial axis  : ratio(%) </li>
 <li>user : ratio of CPU usage in user mode (%)</li>
 <li>system : ratio of CPU usage in system mode (%)</li>
 <li>iowait : ratio of CPU usage in iowait (%)</li>
@@ -128,8 +128,8 @@
   title="How to see a Load Average graph">
 <h4>How to see a Load Average graph.</h4>
 <ul>
-<li>x axis : time</li>
-<li>y axis : load average</li>
+<li>horizontal axis : time</li>
+<li>vertial axis : load average</li>
 <li>1min : load average in one minute</li>
 <li>5min : load average in five minutes</li>
 <li>15min : load average in fifteen minutes</li>
@@ -152,15 +152,15 @@
 <ul>*The small value is displayed as zero by the truncation of the number in unit conversion</ul>
 <h4>How to see a I/O Size</h4>
 <ul>
-<li>x axis : time </li>
-<li>y axis : database size (Bytes/s)</li>
+<li>horizontal axis : time </li>
+<li>vertial axis : database size (Bytes/s)</li>
 <li>[device] read : read I/O size per second in a device (Bytes/s)</li>
 <li>[device] write : write I/O size per second in a device (Bytes/s)</li>
 </ul>
 <h4>How to see a I/O Time</h4>
 <ul>
-<li>x axis : time </li>
-<li>y axis : avarage time (sec)</li>
+<li>horizontal axis : time </li>
+<li>vertial axis : avarage time (sec)</li>
 <li>[device] avg read time : time of read I/O in a device (sec)</li>
 <li>[device] avg write time : time of write I/O in a device (sec)</li>
 </ul>
@@ -170,8 +170,8 @@
   title="How to see a Memory Usage graph">
 <h4>How to see a memory Usage graph table.</h4>
 <ul>
-<li>x axis : time </li>
-<li>y axis : size (Bytes)</li>
+<li>horizontal axis : time </li>
+<li>vertial axis : size (Bytes)</li>
 <li>memfree : size of free memory (Bytes)</li>
 <li>buffers : size of buffers cached (Bytes)</li>
 <li>cached : size of file cached(not include buffer cached) (Bytes)</li>
@@ -379,13 +379,13 @@
 <li>database : database name</li>
 <li>schema : schema name</li>
 <li>table : table name</li>
-<li>count : number of execute autovacuum</li>
+<li>count : number of autovacuum executed</li>
 <li>avg index scans : number of index scan</li>
 <li>avg removed rows : avarage removed rows</li>
 <li>avg remain rows : average remain rows</li>
 <li>avg duration (sec) : average duration time (sec)</li>
 <li>max duration (sec) : max duration time (sec)</li>
-<li>cancels : number of cancel autovacuum (use pg_statsinfo 3.0 higher)</li>
+<li>cancels : number of cancelled autovacuum (use pg_statsinfo 3.0 higher)</li>
 </ul>
 </div>
 
@@ -404,7 +404,7 @@
 
 <div id="io_statistics_dialog" class="help_dialog"
   title="How to see a I/O Statistics (Average) table">
-<h4>How to see a I/O Statistics. (Average)</h4>
+<h4>How to see I/O Statistics. (Average)</h4>
 <ul>
 <li>database : database name</li>
 <li>schema : schema name</li>
@@ -429,7 +429,7 @@
 <li>avg duration (sec) : average duration time (sec)</li>
 <li>max duration (sec) : max duration time (sec)</li>
 <li>last analyze time : last execute time of autoanalyze (use pg_statsinfo 3.0 higher)</li>
-<li>cancels : number of cancel autoanalyze (use pg_statsinfo 3.1 higher)</li>
+<li>cancels : number of cancelled autoanalyze (use pg_statsinfo 3.1 higher)</li>
 </ul>
 </div>
 
@@ -458,8 +458,8 @@
   title="How to see a Replication Delays table">
 <h4>How to see a Replication Delays</h4>
 <ul>
-<li>x axis : time</li>
-<li>y axis : WAL delay (Bytes)</li>
+<li>horizontal axis : time</li>
+<li>vertical axis : WAL delay (Bytes)</li>
 <li>[address]:[port-number] flush_delay_size : WAL flush-delay between Master and Standby (Bytes)<br/>* Synchronous standby is indicated by [sync]</li>
 <li>[address]:[port-number] replay_delay_size : replay-delay between Master and Standby (Bytes)<br/>* Synchronous standby is indicated by [sync]</li></ul>
 </div>
