@@ -1527,7 +1527,22 @@ EOD;
 		}
 
 		if ($target['plans']) {
-			$htmlString .= makePlansString($conn, $query_string, $snapids, $errorMsg);
+
+			$htmlString .=
+<<< EOD
+<div id="qa_plans" class="jump_margin"></div>
+<h3>Plans</h3>
+<div align="right" class="jquery_ui_button_info_h3">
+  <div><button class="help_button" dialog="#plans_dialog"></button></div>
+</div>
+
+EOD;
+
+			if ($target['repo_version'] >= V31) {
+				$htmlString .= makePlansString($conn, $query_string, $snapids, $errorMsg);
+			} else {
+				$htmlString .= makeErrorTag($errorMsg['st_version'], "3.1.0");
+			}
 		}
 	}
 

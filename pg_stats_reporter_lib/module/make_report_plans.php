@@ -9,15 +9,7 @@ function makePlansString($conn, $query_string, $snapids, $errorMsg) {
 
 	global $query_string;
 
-	$htmlString =
-<<< EOD
-<div id="qa_plans" class="jump_margin"></div>
-<h3>Plans</h3>
-<div align="right" class="jquery_ui_button_info_h3">
-  <div><button class="help_button" dialog="#plans_dialog"></button></div>
-</div>
-
-EOD;
+	$htmlString = "";
 
 	/* get data */
 	$result = pg_query_params($conn, $query_string['plans'], $snapids);
