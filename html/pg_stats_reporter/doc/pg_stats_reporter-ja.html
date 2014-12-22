@@ -32,14 +32,14 @@
   <li><a href="#configuration">設定ファイル</a></li>
   <li><a href="#restrictions">使用上の注意と制約</a></li>
   <li><a href="#faq">よくあるQ&amp;A</a></li>
-  <li><a href="#change">pg_stats_reporter 2.0 からの変更点</a></li>
+  <li><a href="#change">pg_stats_reporter 3.0 からの変更点</a></li>
   <li><a href="#seealso">関連項目</a></li>
   <li><a href="#acknowledgment">謝辞</a></li>
 </ol>
 </div>
-<h1 id="pg_stats_reporter">pg_stats_reporter 3.0</h1>
+<h1 id="pg_stats_reporter">pg_stats_reporter 3.1</h1>
 <h2 id="name">pg_stats_reporter とは?</h2>
-<p><a href="http://pgstatsinfo.projects.postgresql.org/pg_statsinfo-ja.html">pg_statsinfo-3.0 </a>が収集した統計情報を元に、PostgreSQL サーバの利用統計情報をHTML形式のグラフィカルなレポートで出力します。</p>
+<p><a href="http://pgstatsinfo.projects.postgresql.org/pg_statsinfo-ja.html">pg_statsinfo-3.1 </a>が収集した統計情報を元に、PostgreSQL サーバの利用統計情報をHTML形式のグラフィカルなレポートで出力します。</p>
 <p>当ツールで作成したレポートの例は<a href="files/report_sample.html">こちら</a>をご覧ください。</p>
 
 <h2 id="synopsis">機能概要</h2>
@@ -67,7 +67,7 @@ WEBサーバにブラウザを利用してアクセスすることで、ブラ�
 <h3 id="requirement">動作確認環境</h3>
 <dl>
   <dt>pg_statsinfo</dt>
-  <dd>バージョン 2.4 以降</dd>
+  <dd>バージョン 2.5 以降</dd>
   <dt>動作確認済みPHP</dt>
   <dd>バージョン 5.3.3 (OS同梱のもの)</dd>
   <dd>バージョン 5.5.12</dd>
@@ -101,7 +101,7 @@ WEBサーバにブラウザを利用してアクセスすることで、ブラ�
 <h5>yumを使用する場合のインストール手順</h5>
 <pre>
 # yum install httpd php php-pgsql php-intl php-cli
-# rpm -ivh pg_stats_reporter-3.0.0-1.el6.noarch.rpm
+# rpm -ivh pg_stats_reporter-3.1.0-1.el6.noarch.rpm
 </pre>
 <h5>yumを使用しない場合のインストール手順</h5>
 <pre>
@@ -112,7 +112,7 @@ WEBサーバにブラウザを利用してアクセスすることで、ブラ�
            php-pgsql-5.3.3-3.el6_2.8.x86_64.rpm \
            php-intl-5.3.3-3.el6_2.8.x86_64.rpm \
            php-cli-5.3.3-22.el6.x86_64.rpm \
-           pg_stats_reporter-3.0.0-1.el6.noarch.rpm
+           pg_stats_reporter-3.1.0-1.el6.noarch.rpm
 </pre>
 
 <h4>コマンドライン機能のみ</h4>
@@ -121,7 +121,7 @@ WEBサーバにブラウザを利用してアクセスすることで、ブラ�
 <h5>yumを使用する場合のインストール手順</h5>
 <pre>
 # yum install php-pgsql php-intl php-cli
-# rpm -ivh --nodeps pg_stats_reporter-3.0.0-1.el6.noarch.rpm
+# rpm -ivh --nodeps pg_stats_reporter-3.1.0-1.el6.noarch.rpm
 </pre>
 <h5>yumを使用しない場合のインストール手順</h5>
 <pre>
@@ -380,7 +380,7 @@ http://&lt;<I>ホスト名</I>&gt;/pg_stats_reporter/pg_stats_reporter.php
 なお、アンインストールにより設定ファイル(/etc/pg_stats_reporter.ini)は削除されません。設定ファイルを削除したい場合は手動で削除してください。</p>
 <pre>
 $ su
-# rpm -e pg_stats_reporter-3.0.0-1.el6.noarch
+# rpm -e pg_stats_reporter-3.1.0-1.el6.noarch
 </pre>
 <p>ソースセットからインストールした場合のアンインストール手順は、ソースセットに同梱されている INSTALL.ja ファイルを参照してください。</p>
 
@@ -397,8 +397,7 @@ $ su
   <tr>
     <th>設定項目</th>
     <th>設定可能な値</th>
-    <th>項目省略時</th>
-    <th>設定値省略時</th>
+    <th>デフォルト</th>
     <th>設定例</th>
     <th>説明</th>
   </tr>
@@ -408,7 +407,6 @@ $ su
     <td>install_directory</td>
     <td>文字列</td>
     <td>省略不可</td>
-    <td>省略不可</td>
     <td>install_directory = /var/www</td>
     <td>当ツールのインストールディレクトリを指定します。(*1)</td>
   </tr>
@@ -417,7 +415,6 @@ $ su
     <td>log_page_size</td>
     <td>1 - 1000</td>
     <td align="right">1000</td>
-    <td>省略不可</td>
     <td>log_page_size = 1000</td>
     <td>ログレポート画面の表のページ毎の最大表示件数を指定します。</td>
   </tr>
@@ -440,8 +437,7 @@ $ su
   <tr>
     <th>設定項目</th>
     <th>設定可能な値</th>
-    <th>項目省略時</th>
-    <th>設定値省略時</th>
+    <th>デフォルト</th>
     <th>設定例</th>
     <th>説明</th>
   </tr>
@@ -451,7 +447,6 @@ $ su
     <td>[<I>リポジトリDB名</I>]</td>
     <td>文字列</td>
     <td>省略不可</td>
-    <td>省略不可</td>
     <td>[repository1]</td>
     <td>左側のリポジトリ選択メニューに表示するリポジトリDBの名称を指定します。</td>
   </tr>
@@ -460,7 +455,6 @@ $ su
     <td>host</td>
     <td>ホスト名または IP アドレス</td>
     <td>(*1)</td>
-    <td>空文字列</td>
     <td>host = localhost</td>
     <td>接続するリポジトリDBのホストを指定します。指定するホスト名は、PostgreSQLが受け付ける形式で指定する必要があります。</td>
   </tr>
@@ -469,7 +463,6 @@ $ su
     <td>port</td>
     <td>ポート番号</td>
     <td>(*1)</td>
-    <td>空文字列</td>
     <td>port = 5432</td>
     <td>接続するリポジトリDBのポート番号を指定します。PostgreSQL の待ち受けポートを指定してください。</td>
   </tr>
@@ -477,7 +470,6 @@ $ su
   <tr>
     <td>dbname</td>
     <td>文字列</td>
-    <td>(*1)</td>
     <td>(*1)</td>
     <td>dbname = postgres</td>
     <td>接続するリポジトリDBのデータベース名を指定します。pg_statsinfo でリポジトリDBとして使用しているデータベースの名称を指定してください。</td>
@@ -487,7 +479,6 @@ $ su
     <td>username</td>
     <td>文字列</td>
     <td>(*1)</td>
-    <td>(*1)</td>
     <td>username = postgres</td>
     <td>リポジトリDBに接続するDBユーザの名称を指定します。リポジトリDBに参照権限のあるDBユーザの名称を指定してください。</td>
   </tr>
@@ -495,7 +486,6 @@ $ su
   <tr>
     <td>password</td>
     <td>文字列</td>
-    <td>パスワード指定なし</td>
     <td>パスワード指定なし</td>
     <td>password = abc</td>
     <td>リポジトリDBへの接続で使用するパスワードを指定します。PostgreSQL への接続パスワードを .pgpass を使用して設定する場合は、値を設定しないでください。(*2)</li></td>
@@ -505,7 +495,6 @@ $ su
     <td>language</td>
     <td>auto/ja/en</td>
     <td>auto</td>
-    <td>en</td>
     <td>language = ja</td>
     <td>レポートの表示言語の言語タグを設定します。auto を設定した場合は、表示するブラウザの設定を使用します。指定した言語に対応するメッセージが存在しない場合は英語で表示します。(*3)</td>
   </tr>
@@ -514,7 +503,6 @@ $ su
     <td>表示項目<br/>(summary - profiles)</td>
     <td>true/false</td>
     <td>true</td>
-    <td>false</td>
     <td>summary = true</td>
     <td>レポートに項目の表示/非表示を bool 値で設定します。</td>
   </tr>
@@ -552,8 +540,8 @@ $ su
 <h4>Q4. Apache HTTP Server の worker モードには対応していますか？</h4>
 <dl>A4. PHP の仕様のため、worker モードでの使用は推奨されません。prefork モードで使用するか、コマンドライン機能を使用してください。</dl>
 
-<h2 id="change">pg_stats_reporter 2.0 からの変更点</h2>
-<p>pg_stats_reporter 2.0 からの変更点は以下の通りです。</p>
+<h2 id="change">pg_stats_reporter 3.0 からの変更点</h2>
+<p>pg_stats_reporter 3.0 からの変更点は以下の通りです。</p>
 <ul>
   <li>データベースのログのレポートを作成する機能を追加</li>
   <li>レポート項目にアラート情報を追加</li>
@@ -573,7 +561,7 @@ $ su
 <li>jquery-ui-timepicker-addon : <a href="http://trentrichardson.com/examples/timepicker/">http://trentrichardson.com/examples/timepicker/</a></li>
 <li>dygraphs JavaScript Visualization Library : <a href="http://dygraphs.com/">http://dygraphs.com/</a></li>
 <li>jqPlot : <a href="http://www.jqplot.com/">http://www.jqplot.com/</a></li>
-<li>tablesorter : <a href="http://mottie.github.io/tablesorter">http://mottie.github.io/tablesorter/</a></li>
+<li>tablesorter : <a href="http://plugins.jquery.com/tablesorter/">http://plugins.jquery.com/tablesorter/</a></li>
 <li>Superfish : <a href="http://users.tpg.com.au/j_birch/plugins/superfish/">http://users.tpg.com.au/j_birch/plugins/superfish/</a></li>
 <li>Smarty : <a href="http://www.smarty.net/">http://www.smarty.net/</a></li>
 </ul>
@@ -583,7 +571,7 @@ $ su
   <a href="http://pgstatsinfo.projects.postgresql.org/index_ja.html">Top</a> &gt;
   <a href="http://pgstatsinfo.projects.postgresql.org/pg_stats_reporter-ja.html">pg_stats_reporter</a>
 </div>
-<p class="footer">Copyright (c) 2012,2014, NIPPON TELEGRAPH AND TELEPHONE CORPORATION</p>
+<p class="footer">Copyright (c) 2012,2015, NIPPON TELEGRAPH AND TELEPHONE CORPORATION</p>
 
 <script type="text/javascript">
 var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");

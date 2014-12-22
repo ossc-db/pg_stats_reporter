@@ -24,7 +24,7 @@ host = localhost
 port = 5432
 dbname = postgres
 username = postgres
-password =
+;password =
 
 ;-------------------------------------
 ; report setting
@@ -75,6 +75,7 @@ fragmented_tables = true
 ; -- Query Activity --
 functions = true
 statements = true
+plans = true
 
 ; -- Long Transactions --
 long_transactions = true
@@ -90,6 +91,8 @@ checkpoint_activity = true
 ; -- Autovacuum Activity --
 basic_statistics = true
 io_statistics = true
+analyze_statistics = true
+vacuum_cancels = true
 
 ; -- Replication Activity --
 current_replication_status = true
@@ -118,7 +121,7 @@ host = localhost
 port = 5433
 dbname = postgres
 username = postgres
-password =
+;password =
 
 ;-------------------------------------
 ; report setting
@@ -166,6 +169,7 @@ fragmented_tables = true
 ; -- Query Activity --
 functions = true
 statements = true
+plans = false
 
 ; -- Long Transactions --
 long_transactions = true
@@ -181,6 +185,8 @@ checkpoint_activity = true
 ; -- Autovacuum Activity --
 basic_statistics = true
 io_statistics = true
+analyze_statistics = true
+vacuum_cancels = true
 
 ; -- Replication Activity --
 current_replication_status = true

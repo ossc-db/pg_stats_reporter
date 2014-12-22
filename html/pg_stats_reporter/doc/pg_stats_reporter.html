@@ -1,9 +1,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD html 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
+<html><head>
 <title>pg_stats_reporter</title>
 <link rel="home" title="pg_stats_reporter" href="index.html">
-<link rel="stylesheet" TYPE="text/css"href="style.css">
+<link rel="stylesheet" type="text/css" href="style.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
 
@@ -21,7 +20,7 @@
     <li><a href="#requirement">Requirement</a></li>
     <li><a href="#pg_stats_reporter_install">Install pg_stats_reporter</a></li>
     <li><a href="#initialize">Initial settings</a></li>
-    <li><a href="#execute_test">Install cheack</a></li>
+    <li><a href="#execute_test">Install check</a></li>
   </ol></li>
   <li><a href="#execute">Usage</a>
   <ol>
@@ -32,46 +31,58 @@
   <li><a href="#configuration">Configuration</a></li>
   <li><a href="#restrictions">Restrictions and cautions</a></li>
   <li><a href="#faq">FAQ</a></li>
-  <li><a href="#change">Changes from pg_stats_reporter 1.0</a></li>
+  <li><a href="#change">Changes from pg_stats_reporter 3.0</a></li>
   <li><a href="#seealso">See also</a></li>
-  <li><a href="#acknowledgment">Acknowledgement</a></li>
+  <li><a href="#acknowledgment">Acknowledgment</a></li>
 </ol>
 </div>
-<h1 id="pg_stats_reporter">pg_stats_reporter 2.0</h1>
+<h1 id="pg_stats_reporter">pg_stats_reporter 3.1</h1>
 <h2 id="name">What is pg_stats_reporter?</h2>
-<p>pg_stats_reporter can make statistical and graphical reports by <a href="http://pgstatsinfo.projects.postgresql.org/pg_statsinfo-ja.html">pg_statsinfo's(2.4 or later)</a> statistical database(we call it 'snapshot'). Example of report is <a href="files/report_sample.html">here</a> </p>
+<p>pg_stats_reporter makes statistical and graphical reports based on <a href="http://pgstatsinfo.projects.postgresql.org/pg_statsinfo-ja.html">pg_statsinfo's (2.5 or later)</a> statistical database (we call it 'snapshot'). Example of report is <a href="files/report_sample.html">here</a> </p>
 
 <h2 id="synopsis">Summary</h2>
-<p>Pg_stats_reporter is web-based software and can make statistical and graphical reports by pg_statsinfo's snapshot which is statistic of PostgreSQL.<br/>
-<p>We can create reports in two ways which are under following.</p>
+<p>Pg_stats_reporter is a web-based software that makes statistical and 
+graphical reports based on pg_statsinfo's snapshot which is derived from
+ PostgreSQL.<br/>
+</p><p>We can create reports in two ways following.</p>
 
 <h3 id="synopsis_server">Create reports by Web browser</h3>
-<p>This method can easy to create reports on Web browser, program executes on Apache HTTP Server.<br/>
-If you access web server by Web browser, you can create reports by GUI on your Web browser window.</p>
+<p>This method can easily create reports on the Web browser by the pg_stats_reporter program that executes on Apache HTTP Server.<br/>
+If you access web server with a web browser, you can get reports on the browser that includes two kinds of reports following.</p>
+<p>
+<dl>
+<dt>Performance report</dt>
+<dd>This report helps you know the performance statistics on the database you specify and resource usages derived from the OS on which the database run.</dd>
+<dl>
+<dt>Log report</dt>
+<dd>This report helps you know the log messages issued by the database you specify and alerts detected by the pg_statsinfo.
+</dd>
+</p>
 
 <h3 id="synopsis_command">Create reports by command-line</h3>
 <p>This method can create reports on command-line.<br/>
-This method doesn't need Apache HTTP Server. If you cannot use Apache HTTP Server or would like to create reports by crond in specific period, you had better select this method.</p>
+This method doesn't need Apache HTTP Server. If you cannot use Apache 
+HTTP Server or would like to create reports periodically by crond, you 
+had better use this method.</p>
 
 <h2 id="install">Install</h2>
 <p>Please download <a href="http://pgfoundry.org/frs/?group_id=1000422">install package</a> of pg_stats_reporter.<br/>
-If you would like to install by source package, please read the INSTALL.en file which is included in source package.</p>
+If you would like to install from source package, please read the INSTALL.en file which is included in the source package.</p>
 
 <h3 id="requirement">Requirement</h3>
 <dl>
   <dt>pg_statsinfo</dt>
-  <dd>version 2.4 or later</dd>
+  <dd>version 2.5 or later</dd>
   <dt>PHP</dt>
-  <dd>version 5.3.3 (It's included in rpm package of OS.)</dd>
+  <dd>version 5.3.3 (It's included in rpm package of OS.), 5.5.12</dd>
   <dt>OS</dt>
-  <dd>RHEL 5.9, RHEL 6.4</dd>
-  <dt>web browser</dt>
-  <dd>Internet Explorer : 9, 10</dd>
-  <dd>Firefox : 10.0.12, 21.0</dd>
-  <dd>Google Chrome : 27.0.1453.110 m</dd>
-  <dd>Safari (Windows) : 5.1.7</dd>
+  <dd>RHEL 6.5</dd>
+  <dt>Web browser</dt>
+  <!-- IEs are deleted from the list-->
+  <dd>Firefox : 28.0</dd>
+  <dd>Google Chrome : 33.0</dd>
   <dt>HTTP Server</dt>
-  <dd>Apache HTTP Server : 2.2.3 (It's included in RHEL 5.9), 2.2.15 (It's included in RHEL 6.4)</dd>
+  <dd>Apache HTTP Server : 2.2.15 (It's included in RHEL 6.5)</dd>
   <dt>libraries (They are included in package of pg_stats_reporter.)</dt>
   <dd><ul>
     <li>jQuery : 2.0.1</li>
@@ -79,7 +90,7 @@ If you would like to install by source package, please read the INSTALL.en file 
     <li>jquery-ui-timepicker-addon : 1.3</li>
     <li>dygraphs JavaScript Visualization Library : b839102723 (commit ID)</li>
     <li>jqPlot : 1.0.8 r1250</li>
-    <li>tablesorter : 2.0.3</li>
+    <li>tablesorter : 2.15.5</li>
     <li>Superfish : 1.7.2</li>
     <li>Smarty : 3.1.13</li>
   </ul></dd>
@@ -88,12 +99,21 @@ If you would like to install by source package, please read the INSTALL.en file 
 </dl>
 
 <h3 id="pg_stats_reporter_install">How to install pg_stats_reporter?</h3>
-<p>Install rpm packages which has dependency by yum or rpm command. Install command example is under following.</p>
-<pre>
-$ su
+<h4>Full Installation </h4>
+<p> If you would like to install all the functionality of 
+pg_stats_reporter, you should do things below as a superuser. You can 
+install by yum command or rpm packages.</p>
+<h5>Installation by yum </h5>
+<p>Install pg_stats_reporter by yum command. Install example is as follows.</p>
+<pre>$ su
 /* Example of install command by yum. */
 # yum install httpd php php-pgsql php-intl php-cli
+# rpm -ivh pg_stats_reporter-3.1.0-1.el6.noarch.rpm
+</pre>
 
+<h5>Installation by RPM</h5>
+<p>Install pg_stats_reporter with rpm command. Install example is as follows.</p>
+<pre>$ su
 /* Example of install command by rpm. */
 # rpm -ivh httpd-2.2.15-15.el6_2.1.x86_64.rpm \
            php-common-5.3.3-3.el6_2.8.x86_64.rpm \
@@ -101,408 +121,505 @@ $ su
            php-pdo-5.3.3-22.el6.x86_64.rpm \
            php-pgsql-5.3.3-3.el6_2.8.x86_64.rpm \
            php-intl-5.3.3-3.el6_2.8.x86_64.rpm \
-           php-cli-5.3.3-22.el6.x86_64.rpm
+           php-cli-5.3.3-22.el6.x86_64.rpm \
+           pg_stats_reporter-3.0.0-1.el6.noarch.rpm
+</pre>
 
-[caution1] php-intl rpm file is included under following directory in OS install disk 2.
-  Packages/php-intl-5.3.3-22.el6.x86_64.rpm
-[caution2] It can work without php-intl rpm file. However, it doesn't work feature of auto language detection.
-</pre>
-<p>Install pg_stats_reporter by rpm command. Install example is under following.</p>
-<pre>
-# rpm -ivh pg_stats_reporter-2.0.0-1.el6.noarch.rpm
-</pre>
-<p>Under following install example, it only uses feature of createing reports by command-line.
-<pre>
-$ su
+<h4>Installation limited to command-line mode</h4>
+<p> If you would like to install only command-line mode functions, you should do things below as a superuser.</p>
+<h5>Installation by yum</h5>
+<p>Installation example pg_stats_reporter limited to command-line mode with yum command is shown below.</p>
+<pre>$ su
 /* Example of install command by yum. */
 # yum install php-pgsql php-intl php-cli
+# rpm -ivh --nodeps pg_stats_reporter-3.1.0-1.el6.noarch.rpm
+</pre>
 
-/* Example of install command by rpm. */
+<h5>Installation by RPM</h5>
+<p>Installation example pg_stats_reporter limited to command-line mode with RPM is shown below.</p>
+<pre>/* Example of install command by rpm. */
 # rpm -ivh php-common-5.3.3-3.el6_2.8.x86_64.rpm \
            php-pdo-5.3.3-22.el6.x86_64.rpm \
            php-pgsql-5.3.3-3.el6_2.8.x86_64.rpm \
            php-intl-5.3.3-3.el6_2.8.x86_64.rpm \
            php-cli-5.3.3-22.el6.x86_64.rpm
 
-[caution1] php-intl rpm file is included under following directory in OS install disk 2.
-  Packages/php-intl-5.3.3-22.el6.x86_64.rpm
-[caution2] It can work without php-intl rpm file. However, it doesn't work feature of auto language detection.
+[caution1] php-intl rpm file is included in the following directory
+  of OS install disk No. 2.
+  "Packages/php-intl-5.3.3-22.el6.x86_64.rpm"
+[caution2] It can work without php-intl rpm file. 
+  However, it doesn't work feature of auto language detection.
 </pre>
-<p>Install pg_stats_reporter by rpm command. Install example is under following.</p>
-<pre>
-# rpm -ivh --nodeps pg_stats_reporter-2.0.0-1.el6.noarch.rpm
-</pre>
+<br/>
 
 <h3 id="initialize">Initial Setting</h3>
 <h4>Configuration of repository database</h4>
-<p>Edit configuration file for connecting repository database. Configuration method is <a href="#configuration">here</a>.<br/>
-And sample of configuration is <a href="files/pg_stats_reporter.ini.sample">here</a>.</p>
+<p>Edit configuration file for connecting the repository database. Configuration method is <a href="#configuration">explained later</a>, and sample configuration is <a href="files/pg_stats_reporter.ini.sample">here</a>.</p>
+<h4>Start repository database</h4>
+<p>After setting configuration, you should start a repository database.</p>
 
 <h4>Start HTTP Server</h4>
-<p>If you would like to use Web reporting feature, start HTTP Server.</p>
-<pre>
-# service httpd start
+<p>If you would like to use Web reporting feature, start the HTTP Server.</p>
+<pre># service httpd start
 </pre>
+<p>
+If you would like to  start the HTTP server at the system start, run the command below.
+<pre># chkconfig httpd on
+</pre>
+</p>
 
 <h3 id="execute_test">Install Check</h3>
-<h4>How to confirm to work Web reporting feature collectly?</h4>
-<p>Check <a href="#execute_server">Usage of creating reports by Web browser</a>  and access HTTP server by your web browser. If you see report window of pg_stats_reporter, install is collectly finished.</p>
+<h4>How to confirm that Web reporting feature works correctly</h4>
+<p>Check <a href="#execute_server">Usage of creating reports by Web browser</a>  and access HTTP server by your web browser. If you see a report window of pg_stats_reporter, install is correctly finished.</p>
 
-<h4>How to confirm to work creating reports by command-line collectly?</h4>
-<p>Check <a href="#execute_command">Usage of creating reports by command-line</a> and show snapshot list on conmmad-line. If you see snapshot list, instakk is collectly finished.</p>
+<h4>How to confirm that creating reports by command-line works correctly</h4>
+<p>Check <a href="#execute_command">Usage of creating reports by command-line</a> and show snapshot list on command-line. If you see snapshot list, install is correctly finished.</p>
 
 <h2 id="execute">Usage</h2>
 
-<p>Pg_stats_reporter is visual and graphical report software for pg_statsinfo's statistical snapshot database.<br/>
-You prepare installing pg_statsinfo before you use pg_stats_reporter.</p>
+<p>Pg_stats_reporter visualizes database statistics collected by 
+pg_statsinfo. So you need to install and run pg_statsinfo before you use
+ pg_stats_reporter.</p>
 
 <h3 id="execute_server">Usage of creating reports by Web browser</h3>
-<p>You access pg_stats_reporter.php by web browser.<br/>
-When you access your report which is created by pg_stats_reporter by web browser, example of reports URL is under following.
-</p>
-<pre>
-http://&lt;<I>hostname</I>&gt;/pg_stats_reporter/pg_stats_reporter.php
+<h4>How to start creating reports</h4>
+<p>If you access the URL below, you can see an initial report from 
+pg_stats_reporter and refine the report through a GUI controller.</p>
+<pre>http://&lt;<i>hostname</i>&gt;/pg_stats_reporter/pg_stats_reporter.php
 </pre>
-<p>If you access above URL, you can see a pg_statsinfo's GUI.</p>
-<br/>
 
-<h4>Detail usage</h4>
-<p>Detail usage on window is under following.</p>
+<h4>Detailed operation</h4>
+<p>Detail operations on the web browser's GUI are followings.</p>
 <h5>report display</h5>
-<img id="report_sample" src="image/pg_stats_reporter.png" width="800px;"/>
+<img id="report_sample" src="image/report_sample.png" width="800px;">
 <br/>
 <dl>
-<dt>① : Button of create report</dt>
-<dd>This button can create report and select term. More details is <a href="#dialog">"dialog of creating report and selecting term"</a> </dd>
-<dt>② : Menu of repository databases</dt>
-<dd>If you select a repository database in this menu, pg_stats_reporter displays management instances in this repository database.</dd>
-<dt>③ : Menu of report instances</dt>
-<dd>If you select a instance in this menu, pg_stats_reporter displays graphical reports in the instance.</dd>
-<dt>④ : Botton of reload pg_stats_reporter.ini</dt>
-<dd>If you push this button, pg_stats_reporter reload configuration file(pg_stats_reporter.ini) and create new report in latest setting.</dd>
-<dt>⑤ : Menu of report items</dt>
-<dd>If you select a item, pg_stats_reporter displays selective item in the report.</dd>
-<dt>⑥ : Button of display or not left-side menu</dt>
-<dd>If you push this button, left-side menu is displayed or not</dd>
-<dt>⑦ : Help button</dt>
-<dd>Display explanation which is how to see this table or graph.</dd>
+<dt>① : Create report</dt>
+<dd>You can create a new report about specified term as it is explained in section <a href="#dialog">"dialog for creating reports and selecting term"</a> </dd>
+<dt>② : Display or hide repository databases</dt>
+<dd>If you select a repository database in this menu, the monitored 
+database instances in this repository database are displayed or hidden.</dd>
+<dt>③ : Instance selector</dt>
+<dd>If you select an instance from this menu, pg_stats_reporter create reports about the instance.</dd>
+<dt>④ : Reload pg_stats_reporter.ini</dt>
+<dd>If you push this button, pg_stats_reporter reload configuration file
+ (pg_stats_reporter.ini) and create new report along the latest 
+settings.</dd>
+<dt>⑤ : Item selector</dt>
+<dd>If you select a report item such as Summary, SQL and others, pg_stats_reporter displays selected items in the report.</dd>
+<dt>⑥ : Go to the top</dt>
+<dd>If you push this button, the report is displayed from the top.</dd>
+<dt>⑦ : Display or hide the left-side menu</dt>
+<dd>If you push this button, left-side menu column is displayed or not.</dd>
+<dt>⑧ : Help</dt>
+<dd>Display simplified explanation how to see tables or graphs.</dd>
 </dl>
 <br/>
-<h4 id="dialog">Dialog of creating report and selecting term</h4>
-<img src="image/dialog.png"/>
+<h5 id="dialog">Dialog for creating reports and selecting term</h5>
+<img src="image/dialog.png">
 <br/>
 <dl>
-<dt>⑧ : Text box of begginnig date of report</dt>
-<dd>Input beginning date of report in this box. If you select this box, pop up a calender dialog. </dd>
-<dt>⑨ : Text box of end date of report</dt>
-<dd>Input end date of report in this box. If you select this box, pop up a calender dialog. </dd>
-<dt>⑩ : Button of create report</dt>
-<dd>Create report in your inputting report term</dd>
-<dt>⑪ : Cancel button</dt>
-<dd>Cancel for creating report</dd>
+<dt>⑨ : Entry for beginning date of the report</dt>
+<dd>Input beginning date of the report in this box. If you click this entry, pop up a calendar dialog. </dd>
+<dt>⑩ : Entry for ending date of the report</dt>
+<dd>Input ending date of the report in this box. If you click this entry, pop up a calendar dialog. </dd>
+<dt>⑪ : Create report</dt>
+<dd>Create a report according to a specified term.</dd>
+<dt>⑫ : Cancel button</dt>
+<dd>Cancel creating a report.</dd>
 </dl>
+<h5>log viewer</h5>
+<img id="logviewer_sample" src="image/log_viewer_sample.png" width="800px;">
+<br/>
+<dt>① : Display or hide the search option menu</dt>
+<dd>If you push this button, search option is displayed or not.</dd>
+<dt>② : Entries for the search conditions</dt>
+<dd>You can specify the conditions to search the log records as follow.
+<ul>
+<li>ELEVEL:massage level</li>
+<li>USERNAME:user name of the database</li>
+<li>DATABASE:database name</li>
+<li>MESSAGE:specify the pattern to match the message text as <a href="http://www.postgresql.org/docs/9.3/static/functions-matching.html"> that of PostgreSQL</a>.</li>
+</ul>
+</dd>
+<dt>③ : Search</dt>
+<dd>You can search the log records that match the conditions you specify at serch conditions. (see ②)</dd>
+<dt>④ : Clear the condition</dt>
+<dd>You can clear the conditions in the entries.</dd>
+<dt>⑤ : Column selector</dt>
+<dd>Pushing the button, you can display the check boxes at each column 
+which you set visible or invisible. To hide the check boxes, push the 
+button again.</dd>
+<dt>⑥ : Reset the table filter conditions</dt>
+<dd>You can reset the filter conditions accompanied with each column on the table.</dd>
+<dt>⑦ : Page selector</dt>
+<dd>You can see the next or previous page.</dd>
+<dt>⑧ : Table filter conditions</dt>
+<dd>You can select rows that meet the condition you specify. The conditions can be expressed same as <a href="http://mottie.github.io/tablesorter/docs/example-widget-filter.html"> those of tablesorter</a>.</dd>
+<dt>⑨ : Help button</dt>
+<dd>You can get help messages.</dd>
+<br/>
 
 <h3 id="execute_command">Usage of creating reports by command-line</h3>
 
-<h4>Createing report</h4>
+<h4>Creating report</h4>
 <pre>$ pg_stats_reporter [-R DBNAME] [-i INSTANCEID] [-a] [-O DIRECTORY] [-b SNAPID] [-e SNAPID] [-B DATE] [-E DATE]</pre>
 
-<p>Example of command is under following.<br/>
-This sample of command shows creating report which is created from snapshot which is in repository database named sample, and it is default report setting.</p>
+<p>A command example is shown below.  This command creates a report 
+which is derived from a snapshot in repository database named sample, 
+and the report is created by default settings shown below.</p>
 <ul>
-  <li>Period of report is fist snapshot to final snapshot in default.</li>
-  <li>Report target is all of monitoring instance.</li>
-  <li>Report output target is in current directory.</li>
+  <li>Period of report is from the beginning of yesterday (00:00 a.m.) to the present.</li>
+  <li>Report target is all the monitored instance.</li>
+  <li>Report is output to the current directory.</li>
 </ul>
 
-<p>When you create reports, HTML reports and directories which are JavaScript libraries and CSS files are created in report output directory.</p>
+<p>When you create reports, HTML reports and directories which include 
+JavaScript libraries and CSS files are created in the report output 
+directory.</p>
 
 <pre>$ pg_stats_reporter -R sample</pre>
 
 <dl>
   <dt>-R, --repositorydb=DBNAME</dt>
-  <dd>Set repository database which you would like to create reports.</dd>
-  <dd>This option can be omitted. If you doesn't set this parameter, default setting sets top of repository database in your config file.</dd>
+  <dd>Set the repository database on which you would like to create reports.</dd>
+  <dd>This option can be omitted. If you don't set this parameter, the 
+top of the repository database in your config file is used by default.</dd>
 
-  <dt>-i, --instid=INSTANCEID=DBNAME</dt>
-  <dd>Set the monitored instance which you would like to create reports.</dd>
-  <dd>This option can be omitted. If you doesn't set this parameter, default setting sets all of monitored instance in your repository database.</dd>
+  <dt>-i, --instid=INSTANCEID</dt>
+  <dd>Set the monitored instance on which you would like to create reports.</dd>
+  <dd>This option can be omitted. If you don't set this parameter, all 
+of the monitored instances stored in your repository database are 
+reported by default.</dd>
 
   <dt>-a, --all</dt>
-  <dd>Show all reports item, if we set this option.</dd>
+  <dd>If we set this option, all report items are shown.</dd>
 
   <dt>-O, --outputdir=DIRECTORY</dt>
-  <dd>Set reports output directory</dd>
-  <dd>This option can be omitted. If you doesn't set this parameter, default setting outputs at current directory.</dd>
-  <dd>If you select unexists directory, it creates new directory.</dd>
+  <dd>Set reports output directory.</dd>
+  <dd>This option can be omitted. If you don't set this option, the 
+report is put in the current directory by default. If you specify a 
+nonexistent directory, it creates the new directory with the specifed 
+name.</dd>
 
   <dt>-b, --beginid=SNAPID</dt>
-  <dd>Set snapshot id which is begining of snapshot you would like to create report.</dd>
-  <dd>This option can be omitted. If you doesn't set this parameter, default setting sets start of the snapshot in the monitored instance. (*1) (*2)</dd>
+  <dd>Set snapshot id which is beginning of snapshot you would like to create report.</dd>
+  <dd>This option can be omitted. If you don't set this parameter, 
+default setting sets start of the snapshot in the monitored instance. 
+(*a) (*b)</dd>
 
   <dt>-e, --endid=SNAPID</dt>
   <dd>Set snapshot id which is end of snapshot you would like to create report.</dd>
-  <dd>This option can be omitted. If you doesn't set this parameter, default setting sets end of the snapshot in the monitored instance. (*1) (*2)</dd>
+  <dd>This option can be omitted. If you don't set this parameter, 
+default setting sets end of the snapshot in the monitored instance. (*a)
+ (*b)</dd>
 
   <dt>-B, --begindate=DATE</dt>
-  <dd>Set date which is beginning of snapshot you would like to create report.(YYYY-MM-DD HH:MI:SS format)</dd>
-  <dd>This option can be omitted. If you doesn't set this parameter, default setting sets start of snapshot in the monitored instance. (*1) (*2)</dd>
+  <dd>Setting this parameter with a data value (YYYY-MM-DD HH:MI:SS 
+format), you can specify the earliest snapshot in the duration you would
+ like to report.</dd>
+  <dd>This parameter is optional. If you omit setting this parameter, 
+the earliest snapshot among the monitored instances should be used as a 
+starting point of the report.(*a) (*b)</dd>
 
   <dt>-E, --enddate=DATE</dt>
-  <dd>Set date which is end of snapshot you would like to create report.(YYYY-MM-DD HH:MI:SS format)</dd>
-  <dd>This option can be omitted. If you doesn't set this parameter, default setting sets end of the snapshot in the monitored instance. (*1) (*2)</dd>
+  <dd>Setting this parameter with a data value (YYYY-MM-DD HH:MI:SS 
+format), you can specify the latest snapshot in the duration you would 
+like to report.</dd>
+  <dd>This parameter is optional. If you omit setting this parameter, 
+the latest snapshot among the monitored instances should be used as a 
+ending point of the report.(*a) (*b)</dd>
 </dl>
-
 <p>
-*1: Can not set snapshot id and date in a same.<br/>
-*2: If you ommit period of snapshot, default setting sets from 0:00 a.m. of the day before to the present.
+<ol type="a">
+<li> Can not set both snapshot id and date at once.</li>
+<li> If you omit period of snapshot, default duration is from 0:00 a.m. of the day before to the present.</li>
+</ol>
 </p>
 
-<h4>List of snapshot</h4>
+<h4>Show the list of snapshot</h4>
 <pre>$ pg_stats_reporter -l [-R DBNAME] [-i INSTANCEID]</pre>
 
-<p>Sample command is under following.<br/>
-Under following command example shows list of snapshots stored in sample database in the repository database.</p>
+<p>Sample command is following.<br/>
+The following command example shows the list of snapshots stored in the database named 'sample' in the repository.</p>
 <pre>$ pg_stats_reporter -l -R sample</pre>
 
 <dl>
   <dt>-l, --list</dt>
-  <dd>Show list of snapshots, if you select this option.</dd>
+  <dd>If you select this option, the list of snapshots are shown.</dd>
   
   <dt>-R, --repositorydb=DBNAME</dt>
-  <dd>Set repository database which you would like to see list of snapshots.</dd>
-  <dd>This option can be omitted. If you doesn't set this parameter, default setting is top og repository database in config file.</dd>
+  <dd>You can select the repository database, and the list of snapshots the database has is shown. </dd>
+  <dd>This parameter is optional. If you omit it, the first repository 
+database appeared in the config file should be shown by default.</dd>
 
   <dt>-i, --instid=INSTANCEID</dt>
-  <dd>Set instance id which you would like to see list of snapshots.</dd>
-  <dd>This option can be omitted. If you doesn't set this parameter, default setting is showing all of the monitored instance.</dd>
+  <dd>You can select the id of monitored instance, and the list of snapshots the instance has is shown. </dd>
+  <dd>This parameter is optional. If you omit it, the all snapshots included all the monitored instances by default.</dd>
 </dl>
 
-<h4>Show list of moritored instances</h4>
+<h4>Show list of monitored instances</h4>
 <pre>$ pg_stats_reporter -L [-R DBNAME]</pre>
 
-<p>Sample command is under following.<br/>
-Under following command sample shows list of monitored instances submitted in "sample" database in repository database.</p>
+<p>Sample command is following.<br/>
+The following sample command shows the list of the monitored instances stored in "sample" database in the repository database.</p>
 <pre>$ pg_stats_reporter -L -R sample</pre>
 
 <dl>
   <dt>-L, --dblist</dt>
-  <dd>Select this option, show list of monitored instances.</dd>
+  <dd>If you select this option, the list of the monitored instances should be shown.</dd>
 
   <dt>-R, --repositorydb=DBNAME</dt>
-  <dd>Set repository database which you would like to see list of monitored instances.</dd>
-  <dd>This option can be omitted. If you don't set this parameter, default setting is top of repository database in your config file.</dd>
+  <dd>You can select the id of the monitored instance, and the list of snapshots in the instances has is shown. </dd>
+  <dd>This parameter is optional. If you omit it, the all snapshots included all the monitored instances by default.</dd>
 </dl>
 
-<h4>Show snapshots size</h4>
+<h4>Show snapshot size</h4>
 <pre>$ pg_stats_reporter -s [-R DBNAME]</pre>
 
-<p>Sample command is under following. The command example shows snapshots size in "sample" database stored in repository database.</p>
+<p>Sample command is following. This shows the snapshot size of the "sample" database stored in the repository database.</p>
 <pre>$ pg_stats_reporter -s -R sample</pre>
 
 <dl>
   <dt>-s, --size</dt>
   <dd>Show snapshot size, if you use this option.</dd>
-
   <dt>-R, --repositorydb=DBNAME</dt>
-  <dd>Set repository database name which you want to confirm snapshot size</dd>
-  <dd>This option can be omitted. If you don't set this parameter, default setting is top of repository database in your config file.</dd>
+  <dd>You can specify the repository database name which you would like to show the snapshot's size.</dd>
+  <dd>This parameter is optional. If you omit it, the first repository database size in the config file should be shown by default.</dd>
 </dl>
 
 <h4>Create an index of reports</h4>
 <pre>$ pg_stats_reporter --index [-O DIRECTORY]</pre>
 
-<p>Sample command is under following. In this sample command, create an index of report in /var/report directory.</p>
+<p>Sample command is following. This sample command creates the index of the reports in the /var/report directory.</p>
 <pre>$ pg_stats_reporter --index -O /var/report</pre>
 
 <dl>
   <dt>--index</dt>
-  <dd>Create an index of reports, If you set this option and execute, create only an index of report not reports.</dd>
+  <dd>If you set this option and execute, the index about reports should be created instead of a set of the reports.</dd>
 
   <dt>-O, --outputdir=DIRECTORY</dt>
-  <dd>Set output directory for created reports</dd>
-  <dd>This option can be omitted. If you don't set this parameter, default setting is current directory.</dd>
+  <dd>You can specify the output directory for the index created.</dd>
+  <dd>This is optional. If you omit this parameter, the index should be created in the  current directory by default.</dd>
 </dl>
 
 <h2 id="uninstall">Uninstall</h2>
-<p>If you use rpm package, please command under following.<br/>If you use source package, please see INSTALL.en for details.</p>
-<pre>
-$ su
-# rpm -e pg_stats_reporter-2.0.0-1.el6.noarch
+<p>If you installed pg_stats_repoter by the RPM package, you can 
+uninstall it as follows. The following uninstall command doesn't delete the configuration file ('/etc/pg_stats_repoter.ini'). If you would like to delete it, do manually. </p>
+<pre>$ su
+# rpm -e pg_stats_reporter-3.1.0-1.el6.noarch
 </pre>
-<br/>
+<p>
+On the other hand, if you installed it by the 
+source package, please see the method explained in detail in INSTALL.en 
+included with the package.
+</p>
 
-<h2 id="configuration">Configuration</h2>
-<p>Configuration file of pg_stats_reporter is "pg_stats_reporter.ini" in /etc directory.<br/>
-Configuration file is composed mainly two sections which are global setting and repository database setting.</p>
+<h2 id="configuration">Configuration File</h2>
+<p>Configuration file for pg_stats_reporter is "pg_stats_reporter.ini" in /etc directory.<br/>
+It is composed of two main sections. One is for global settings, and the other is repository database settings.</p>
 
-<h3>Global setting</h3>
-<p>Global setting is "[global_setting]" of section name.<br/>
-If you install pg_stats_reporter from rpm package, you don't need to set global setting<br/>
-If you install it only from source, set global setting. More detail is written in INSTALL.ja which is included source package.</p>
+<h3>Global settings</h3>
+<p>Global settings should be specified in the "[global_setting]" section.<br/>
+If you install pg_stats_reporter from RPM package, you don't need to set these values.<br/>
+If you install the tool from the source package, set global setting 
+values. The method is explained in detail in the file INSTALL.ja that is
+ included with the source package.</p>
 
-<h3>Setting of repository database</h3>
-<p>Please set one setting section by one repository database server; Global settig section is repository database setting section.<br/>
-The section name in repository database setting is be repository database name.</p>
-
-<p>Configuration of repository database is under following.<br/>
-Sample configuration is <a href="files/pg_stats_reporter.ini.sample">here</a></p>
-
-<table>
+<table align="center" width="100%">
 <thead>
   <tr>
-    <th>parameter</th>
-    <th>kind of parameter</th>
-    <th>Not set parameter</th>
-    <th>Default setting</th>
-    <th width="150">example</th>
+    <th>parameters</th>
+    <th>type of values</th>
+    <th>default value</th>
+    <th>sample</th>
     <th>description</th>
   </tr>
 </thead>
 <tbody>
   <tr>
-    <td>[<I>repository database</I>]</td>
+    <td>install_directory</td>
+    <td>string</td>
+    <td>mandatory</td>
+    <td>install_directory = /var/www</td>
+    <td>set install directory of this tool(*a)</td>
+  </tr>
+
+  <tr>
+    <td>log_page_size</td>
+    <td>1 - 1000</td>
+    <td align="right">1000</td>
+    <td>log_page_size = 1000</td>
+    <td>maximum number of rows of the log report table</td>
+  </tr>
+</tbody>
+</table>
+
+<ol type="a">
+<li> When you install pg_reporter from RPM package, this value is set automatically. Otherwise, you should set appropriate value.</li>
+</ol>
+
+
+
+<h3>Setting for repository databases</h3>
+<p>Please describe one setting section for one repository database server.
+The section name for a repository database settings sould be the repository database name.</p>
+
+<p>Parameters for a repository database are shown below.
+And you can get the sample configuration file from <a href="files/pg_stats_reporter.ini.sample">here.</a></p>
+
+<table>
+<thead>
+  <tr>
+    <th>parameters</th>
+    <th>type of values</th>
+    <th>default value</th>
+    <th width="150">sample</th>
+    <th>description</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>[<i>repository database</i>]</td>
     <td>character</td>
-    <td>not omission</td>
-    <td>not omission</td>
+    <td>mandatory</td>
     <td>[repository1]</td>
-    <td>Repository name at left-side menu in pg_stats_reporter.</td>
+    <td>The repository database should be specified.</td>
   </tr>
 
   <tr>
     <td>host</td>
     <td>host name or IP address</td>
-    <td>(*1)</td>
-    <td>NULL</td>
+    <td>(*a)</td>
     <td>host = localhost</td>
-    <td>Host name or IP address of repository database.</td>
+    <td>The host name or IP address of the database server that the repository resides.</td>
   </tr>
 
   <tr>
     <td>port</td>
     <td>port number</td>
-    <td>(*1)</td>
-    <td>NULL</td>
+    <td>(*a)</td>
     <td>port = 5432</td>
-    <td>Port number of repository database cluster.</td>
+    <td>The port number of the database server that the repository resides.</td>
   </tr>
 
   <tr>
     <td>dbname</td>
-    <td>character</td>
-    <td>(*1)</td>
-    <td>(*1)</td>
+    <td>string</td>
+    <td>(*a)</td>
     <td>dbname = postgres</td>
-    <td>repository database name.Please set repository database in pg_statsinfo(Defalut repository database is 'postgres'.).</td>
+    <td>The name of the repository database. You should specify the same
+ name as that for pg_statsinfo (The repository database is stored in 
+'postgres' by default).</td>
   </tr>
 
   <tr>
     <td>username</td>
-    <td>char</td>
-    <td>(*1)</td>
-    <td>(*1)</td>
+    <td>string</td>
+    <td>(*a)</td>
     <td>username = postgres</td>
-    <td>connect user for repository database. Please set user which has read permission in repository database.</td>
+    <td>The user name to connect to the repository database. Pay attention to the user's read permission to the repository database.</td>
   </tr>
 
   <tr>
     <td>password</td>
-    <td>char</td>
+    <td>string</td>
     <td>no password</td>
-    <td>no password</td>
-    <td>password = hogehoge</td>
-    <td>connect password for repository database. If you use .pgpass, do not set this parameter.</li></td>
+    <td>password = foo-bar-baz</td>
+    <td>The password for connection to the repository database. If you use .pgpass, you should describe nothing about this parameter.</td>
   </tr>
 
   <tr>
     <td>language</td>
     <td>auto/ja/en</td>
     <td>auto</td>
-    <td>en</td>
     <td>language = ja</td>
-    <td>language in reports. If you set auto, we use browser information for language setting. (*2)</td>
+    <td>The language used in the reports. If you set auto, the language set by the browser should be used. (*b)</td>
   </tr>
 
   <tr>
-    <td>report item settings<br/>(summary ~ profiles)</td>
+    <td>report items reported (*c)</td>
     <td>true/false</td>
     <td>true</td>
-    <td>false</td>
     <td>summary = true</td>
-    <td>If you set true, this report item is created.</td>
+    <td>If you set a parameter for an item to true, the item should be occurred in the output report.</td>
   </tr>
 </tbody>
 </table>
 <br/>
 <p>
-(*1): If you do not set this parameter, please see <a href="http://www.postgresql.jp/document/9.2/html/libpq-connect.html#LIBPQ-PARAMKEYWORDS">PostgreSQL document</a>.<br/>
-(*2): If it didn't install php-intl package, it will show messages in English.
-</p>
+</p><ol type="a">
+<li> If you do not set this parameter, please see <a href="http://www.postgresql.jp/document/9.2/html/libpq-connect.html#LIBPQ-PARAMKEYWORDS">PostgreSQL document</a>.</li>
+<li> If you don't install php-intl package, messages will be shown in English.</li>
+<li> Various report items you can use are shown in the <a href="files/pg_stats_reporter.ini.sample">sample configuration file.</a>
+</li></ol>
+<p></p>
 
 <h2 id="restrictions">Cautions and restrictions</h2>
-<p>pg_stats_reporter has cautions and restrictions under following. Please read it before you use.</p>
+<p>pg_stats_reporter has cautions and restrictions as followings. Please read them before you use.</p>
 <ul>
-  <li>In some distribution, HTTP Server's document root home directory is /home/user. You should confirm that .pgpass is not visible from web browser and check file's permission.</li>
-  <li>If you didn't set default time zone at php.ini, it might not works well. Please set default time zone correctly at php.ini.</li>
-  <li>pg_stats_reporter execute rounding off fractions, therefore very small value will transform zero value.</li>
-  <li>We cannot use "/"  in Linux OS. Because it will transform to "\ / : * ? < > |" in Windows OS. If you use reports of pg_stats_reporter in both Linux OS and Windows OS, you must not use "/" character at section name in pg_stats_reporter.ini.</li>
-  <li>Don't set section name "global setting" in pg_stats_reporter.ini. "global setting" is reserved keyword by other feature.</li>
+  <li>In some distribution, HTTP Server's document root home directory 
+is /home/user. You should confirm that .pgpass is not visible from web 
+browser and check file's permission.</li>
+  <li>If you didn't set default time zone at php.ini, pg_stats_reporter 
+might not work well. Please set the default time zone correctly at 
+php.ini.</li>
+  <li>pg_stats_reporter execute rounding off fractions, therefore a number between -1 and 1 may be displayed zero.</li>
+  <li>About section names we cannot use "/"  in Linux OS and "\ / : * ? 
+&lt; &gt; |" in Windows OS. If you use reports of pg_stats_reporter in 
+both Linux OS and Windows OS, you must not use all of them in 
+pg_stats_reporter.ini.</li>
+  <li>Don't set "global setting" as a value for section name in pg_stats_reporter.ini. Because "global setting" is reserved keyword.</li>
 </ul>
 
 <h2 id="faq">FAQ</h2>
-<h4>Q1. Pg_stats_reporter does not display in my web browser.</h4>
-<dl>A1. You had better review setting which are firewall(iptables etc) and SE Linux.</dl>
+<h4>Q1. Pg_stats_reporters report can display reports in my web browser.</h4>
+<dl>A1. You had better review settings such as firewalls (iptables etc.), SE Linux and so on.</dl>
 
-<h4>Q2. error massage which is database connection error is displayed in my browser. What should I do?</h4>
-<dl>A2. You had better review under following.<ul>
+<h4>Q2. error massage that says database connection error is displayed in my browser. What should I do?</h4>
+<dl>A2. You had better review followings.<ul>
 <li>Setting of "database connection" in pg_stats_reporter.ini</li>
-<li>Connection setting in PostgreSQL (postgresql.conf, pg_hba.conf)</li>
+<li>Connection settings in PostgreSQL (postgresql.conf, pg_hba.conf)</li>
 </ul></dl>
 
-<h4>Q3. I use Internet Explorer browser. But I think that createing report and display may not correctly.</h4>
-<dl>A3. Internet Explore is not recommended browser. We recommend Firefox.</dl>
+<h4>Q3. I use Internet Explorer for a browser. But I think that the report is not displayed correctly.</h4>
+<dl>A3. Internet Explore is not recommended. We recommend Firefox.</dl>
 
-<h4>Q4. Does pg_stats_reporter supoort Apache HTTP Server's worker mode?</h4>
-<dl>A4. It doesn't support it, because PHP package is recommend to use in prefork mode.</dl>
+<h4>Q4. Does pg_stats_reporter support Apache HTTP Server's worker mode?</h4>
+<dl>A4. pg_stats_reporter doesn't support this mode, because PHP package is recommend to use in prefork mode.</dl>
 
-<h2 id="change">Changes from pg_stats_reporter 1.0</h2>
-<p>Change points from pg_stats_reporter 1.0 is under following.</p>
+<h2 id="change">Changes from pg_stats_reporter 3.0</h2>
+<p>Changes from pg_stats_reporter 3.0 are shown below.</p>
 <ul>
-  <li>Add feature of creating report by command-line(CUI).</li>
-  <ul>
-    <li>Can create reports by crond in a period</li>
-    <li>Create an index of report list together with a report.</li>
-  </ul>
-  <li>Add report item which is replication delay.</li>
-  <li>Add highlight button for period of CHECKPOINT executed time at each graphs.</li>
-  <li>Add report item which is unit of parameters in "Setting Parameters".</li>
-  <li>Change animation setting in dygraphs</li>
-  <li>Can works normally without php-intl rpm package.<br/>If you doesn't install php-intl rpm package, it shows messages in only English.</li>
+<li>Create report about database log messages</li>
+<li>Items about alerts are added to report</li>
+<li>Items about Autoanalyze are added to report</li>
+<li>Items about cancellation of Autovacuum are added to report</li>
 </ul>
 <br/>
 
 <h2 id="seealso">See also</h2>
-<a href="http://pgstatsinfo.projects.postgresql.org/pg_statsinfo-ja.html">pg_statsinfo</a> 
+<a href="http://pgstatsinfo.projects.postgresql.org/pg_statsinfo.html">pg_statsinfo</a> 
 <br/><br/>
-<h2 id="acknowledgment">Acknowledgements</h2>
-<p>Pg_stats_reporter use under following libraries. Thank you for developper of libraries<br/>
-<ul>
+<h2 id="acknowledgment">Acknowledgments</h2>
+<p>Pg_stats_reporter uses libraries shown below. We are deeply graceful to the developers of the libraries.<br/>
+</p><ul>
 <li>jQuery : <a href="http://jquery.com/">http://jquery.com/</a></li>
 <li>jQuery UI : <a href="http://jqueryui.com/">http://jqueryui.com/</a></li>
 <li>jquery-ui-timepicker-addon : <a href="http://trentrichardson.com/examples/timepicker/">http://trentrichardson.com/examples/timepicker/</a></li>
 <li>dygraphs JavaScript Visualization Library : <a href="http://dygraphs.com/">http://dygraphs.com/</a></li>
 <li>jqPlot : <a href="http://www.jqplot.com/">http://www.jqplot.com/</a></li>
-<li>tablesorter : <a href="http://tablesorter.ru/docs/">http://tablesorter.ru/docs/</a></li>
+<li>tablesorter : <a href="http://plugins.jquery.com/tablesorter/">http://plugins.jquery.com/tablesorter/</a></li>
 <li>Superfish : <a href="http://users.tpg.com.au/j_birch/plugins/superfish/">http://users.tpg.com.au/j_birch/plugins/superfish/</a></li>
 <li>Smarty : <a href="http://www.smarty.net/">http://www.smarty.net/</a></li>
 </ul>
 <br/><br/>
-<hr/>
+<hr>
 <div class="navigation">
-  <a href="http://pgstatsinfo.projects.postgresql.org/index_ja.html">Top</a> &gt;
-  <a href="http://pgstatsinfo.projects.postgresql.org/pg_stats_reporter-ja.html">pg_stats_reporter</a>
+  <a href="http://pgstatsinfo.projects.postgresql.org/index.html">Top</a> &gt;
+  <a href="http://pgstatsinfo.projects.postgresql.org/pg_stats_reporter.html">pg_stats_reporter</a>
 </div>
-<p class="footer">Copyright (c) 2012,2013, NIPPON TELEGRAPH AND TELEPHONE CORPORATION</p>
+<p class="footer">Copyright (c) 2012,2015, NIPPON TELEGRAPH AND TELEPHONE CORPORATION</p>
 
 <script type="text/JavaScript">
 var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
