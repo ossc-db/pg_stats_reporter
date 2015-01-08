@@ -38,6 +38,9 @@ $smarty->assign("superfish_path", SUPERFISH_PATH);
 $smarty->assign("jqplot_path", JQPLOT_PATH);
 $smarty->assign("dygraphs_path", DYGRAPHS_PATH);
 
+/* pg_stats_reporterのバージョンを設定 */
+$smarty->assign("program_version", PROGRAM_VERSION);
+
 /* 生存期間を経過したキャッシュファイルを削除 */
 $smarty->clearCache(TEMPLATE_FILE, null, null, $smarty->cache_lifetime);
 

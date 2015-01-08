@@ -5,6 +5,9 @@
  * Copyright (c) 2012,2014, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
  */
 
+// pg_stats_reporter's version
+define("PROGRAM_VERSION", "3.1.0");
+
 // Image File
 define("IMAGE_FILE", "pgsql_banner01.png");
 
@@ -208,8 +211,8 @@ $query_string = array(
   "io_size" =>
   "SELECT replace(\"timestamp\", '-', '/'), device_name, avg(read_size_tps*1024) AS read, avg(write_size_tps*1024) AS write FROM statsrepo.get_io_usage_tendency_report($1, $2) GROUP BY 1,2 ORDER BY 1,2",
 
-  "io_time" =>
-  "SELECT replace(\"timestamp\", '-', '/'), device_name, avg(read_time_tps)/1000 AS \"avg read time\", avg(write_time_tps)/1000 AS \"avg write time\" FROM statsrepo.get_io_usage_tendency_report($1, $2) GROUP BY 1,2 ORDER BY 1,2",
+  "io_time" => // temporary (ms/s to s/s -> ms/s to percent)
+  "SELECT replace(\"timestamp\", '-', '/'), device_name, avg(read_time_tps)/10 AS \"avg read time\", avg(write_time_tps)/10 AS \"avg write time\" FROM statsrepo.get_io_usage_tendency_report($1, $2) GROUP BY 1,2 ORDER BY 1,2",
 
   "memory_usage" =>
   "SELECT replace(\"timestamp\", '-', '/'), avg(memfree*1024*1024) AS memfree, avg(buffers*1024*1024) AS buffers, avg(cached*1024*1024) AS cached, avg(swap*1024*1024) AS swap, avg(dirty*1024*1024) AS dirty FROM statsrepo.get_memory_tendency($1, $2) GROUP BY 1 ORDER BY 1",

@@ -1175,7 +1175,7 @@ EOD;
 				makeTupleListForDygraphs($result, $name, $value);
 				$opt = array();
 				array_push($opt, "title: 'I/O Size'");
-				array_push($opt, "ylabel: 'Data Size (Bytes/s)'");
+				array_push($opt, "ylabel: 'I/O Size (Bytes/s)'");
 				array_push($opt, "labelsKMG2: true");
 				$htmlString .= makeLineGraphHTML($name, $value, "io_size", $opt);
 			}
@@ -1193,7 +1193,7 @@ EOD;
 				makeTupleListForDygraphs($result, $name, $value);
 				$opt = array();
 				array_push($opt, "title: 'I/O Time'");
-				array_push($opt, "ylabel: 'Average Time (sec)'");
+				array_push($opt, "ylabel: 'I/O Time (%)'");
 				array_push($opt, "labelsKMB: true");
 				$htmlString .= makeLineGraphHTML($name, $value, "io_time", $opt);
 			}

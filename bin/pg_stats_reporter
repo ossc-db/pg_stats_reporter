@@ -7,7 +7,7 @@
  */
 
 define("PROGRAM_NAME", "pg_stats_reporter");
-define("PROGRAM_VERSION", "3.0.0");
+define("PROGRAM_VERSION", "3.1.0");
 define("PROGRAM_URL", "http://pgstatsinfo.projects.postgresql.org/");
 define("PROGRAM_EMAIL", "pgstatsinfo-general@pgfoundry.org");
 
@@ -894,6 +894,9 @@ function createSmartyInstance($installDir, $outputdir, $tmpDir)
 	$smarty->assign("superfish_path", SUPERFISH_PATH);
 	$smarty->assign("jqplot_path", JQPLOT_PATH);
 	$smarty->assign("dygraphs_path", DYGRAPHS_PATH);
+
+	/* Assign pg_stats_reporter version
+	$smarty->assign("program_version", PROGRAM_VERSION);
 
 	return $smarty;
 }

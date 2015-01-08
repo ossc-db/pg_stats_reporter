@@ -35,6 +35,9 @@ $smarty->assign("timepicker_path", TIMEPICKER_PATH);
 $smarty->assign("tablesorter_path", TABLESORTER_PATH);
 $smarty->assign("superfish_path", SUPERFISH_PATH);
 
+/* pg_stats_reporterのバージョンを設定 */
+$smarty->assign("program_version", PROGRAM_VERSION);
+
 /* 生存期間を経過したキャッシュファイルを削除 */
 $smarty->clearCache(LOG_VIEWER_TEMPLATE_FILE, null, null, $smarty->cache_lifetime);
 
