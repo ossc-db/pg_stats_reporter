@@ -1194,7 +1194,6 @@ EOD;
 				$opt = array();
 				array_push($opt, "title: 'I/O Time'");
 				array_push($opt, "ylabel: 'I/O Time (%)'");
-				array_push($opt, "labelsKMB: true");
 				$htmlString .= makeLineGraphHTML($name, $value, "io_time", $opt);
 			}
 			pg_free_result($result);
