@@ -319,6 +319,7 @@ EOD;
 		|| $targetList['basic_statistics']
 		|| $targetList['io_statistics']
 		|| $targetList['analyze_statistics']
+		|| $targetList['modified_rows_ratio']
 		|| $targetList['vacuum_cancels']
 		|| $targetList['current_replication_status']
 		|| $targetList['replication_delays']) {
@@ -333,6 +334,7 @@ EOD;
 		if ($targetList['basic_statistics']
 			|| $targetList['io_statistics']
 			|| $targetList['analyze_statistics']
+			|| $targetList['modified_rows_ratio']
 			|| $targetList['vacuum_cancels']) {
 
 			$html_string .= "<li><a href=\"#autovacuum_activity\">Autovacuum Activity</a><ul>\n";
@@ -343,6 +345,8 @@ EOD;
 				$html_string .= "<li><a href=\"#io_statistics\">I/O Statistics (Average)</a></li>\n";
 			if ($targetList['analyze_statistics'])
 				$html_string .= "<li><a href=\"#analyze_statistics\">Analyze Statistics</a></li>\n";
+			if ($targetList['modified_rows_ratio'])
+				$html_string .= "<li><a href=\"#modified_rows_ratio\">Modified rows ratio</a></li>\n";
 			if ($targetList['vacuum_cancels'])
 				$html_string .= "<li><a href=\"#vacuum_cancels\">Vacuum and Analyze Cancels</a></li>\n";
 
@@ -523,6 +527,7 @@ function makePlainHeaderMenu()
     <li><a>Basic Statistics (Average)</a></li>
     <li><a>I/O Statistics (Average)</a></li>
     <li><a>Analyze Statistics</a></li>
+    <li><a>Modified rows ratio</a></li>
     <li><a>Vacuum and Analyze Cancels</a></li>
   </ul></li>
   <li><a>Replication Activity</a><ul>
@@ -967,7 +972,11 @@ EOD;
 
 EOD;
 			if ($target['repo_version'] >= V24) {
-				$result = pg_query_params($conn, $query_string['wal_statistics_stats'], $snapids);
+				if ($target['repo_version'] >= V31) {
+					$result = pg_query_params($conn, $query_string['wal_statistics_stats31'], $snapids);
+				} else {
+					$result = pg_query_params($conn, $query_string['wal_statistics_stats'], $snapids);
+				}
 				if (!$result) {
 					return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 				}
@@ -975,7 +984,8 @@ EOD;
 				if (is_null(pg_fetch_result($result,0,0)) == 1) {
 					$htmlString .= makeErrorTag($errorMsg['no_result']);
 				} else {
-					$htmlString .= makeTablePagerHTML($result, "wal_statistics_stats", 5, false);
+					// $htmlString .= makeTablePagerHTML($result, "wal_statistics_stats", 5, false);
+					$htmlString .= makeTableHTML($result, "wal_statistics_stats");
 				}
 				pg_free_result($result);
 
@@ -1667,7 +1677,9 @@ EOD;
 </div>
 
 EOD;
-			if ($target['repo_version'] >= V30) {
+			if ($target['repo_version'] >= V31) {
+				$result = pg_query_params($conn, $query_string['basic_statistics31'], $snapids);
+			} else if($target['repo_version'] == V30) {
 				$result = pg_query_params($conn, $query_string['basic_statistics30'], $snapids);
 			} else {
 				$result = pg_query_params($conn, $query_string['basic_statistics25'], $snapids);
@@ -1750,6 +1762,36 @@ EOD;
 					$htmlString .= makeTablePagerHTML($result, "analyze_statistics", 10, true);
 				}
 				pg_free_result($result);
+
+				if ($target['repo_version'] >= V31) {
+					$htmlString .=
+<<< EOD
+<div id="modified_rows_ratio" class="jump_margin"></div>
+<h3>Modified rows ratio</h3>
+<div align="right" class="jquery_ui_button_info_h3">
+  <div><button class="help_button" dialog="#modified_rows_ratio_dialog"></button></div>
+</div>
+
+
+EOD;
+
+					$qstr = $query_string['modified_rows_ratio'];
+					$result = pg_query_params($conn, $qstr, array_merge($snapids, (array)PRINT_MODIFIED_ROWS_RATIO_TABLES));
+					if (!$result) {
+						return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
+					}
+
+					if (pg_num_rows($result) == 0) {
+						$htmlString .= makeErrorTag($errorMsg['no_result']);
+					} else {
+						makeTupleListForDygraphs($result, $name, $value);
+						$opt = array();
+						array_push($opt, "title: 'Modified rows ratio'");
+						array_push($opt, "ylabel: 'Modified rows ratio(%)'");
+						$htmlString .= makeLineGraphHTML($name, $value, "modified_rows_ratio", $opt);
+					}
+					pg_free_result($result);
+				}
 			} else {
 				$htmlString .= makeErrorTag($errorMsg['st_version'], "2.5.0");
 			}

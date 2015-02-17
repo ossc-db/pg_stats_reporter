@@ -99,10 +99,7 @@ $(function(){
   // WAL Statistics
   $("#wal_statistics_stats_table").tablesorter(
     $.extend({}, tablesorterDefaultOptions, {
-      headers: {
-        0: { sorter: false },
-        1: { sorter: false }
-      }
+      widgets: [ ]
     })
   );
 

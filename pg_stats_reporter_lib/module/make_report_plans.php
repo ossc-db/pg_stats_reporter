@@ -20,21 +20,35 @@ function makePlansString($conn, $query_string, $snapids, $errorMsg) {
 	if (pg_num_rows($result) == 0) {
 		$htmlString .= makeErrorTag($errorMsg['no_result']);
 	} else {
-		$htmlString .= makePlansTablePagerHTML($conn, $result, $snapids);
+		$htmlString .= makePlansTablePagerHTML($conn, $result, $snapids, $errorMsg);
 	}
 	pg_free_result($result);
 
 	return $htmlString;
 }
 
-function makePlansTablePagerHTML($conn, $result, $snapids) {
+function makePlansTablePagerHTML($conn, $result, $snapids, $errorMsg) {
 
 	global $query_string;
 
 	$fullQueryArray = array();
 	$exists_pg_store_plans = "";
+	$htmlString = "";
 
-	$htmlString =
+	/* pg_store_plans check */
+	$result2 = pg_query($conn, $query_string['plans_exists_store_plans']);
+	if (!$result2) {
+		return makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
+	}
+	if (pg_num_rows($result2)) {
+		$exists_pg_store_plans = "plans_get_plan";
+	} else {
+		$exists_pg_store_plans = "plans_get_plan_does_not_exist";
+		$htmlString = makeErrorTag($errorMsg['no_pg_store_plans']);
+	}
+	pg_free_result($result2);
+
+	$htmlString .=
 <<< EOD
 <div><table id="plans_table" class="tablesorter">
 <thead><tr>
@@ -57,18 +71,6 @@ function makePlansTablePagerHTML($conn, $result, $snapids) {
 <tbody>
 
 EOD;
-
-	/* pg_store_plans check */
-	$result2 = pg_query($conn, $query_string['plans_exists_store_plans']);
-	if (!$result2) {
-		return makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
-	}
-	if (pg_num_rows($result2)) {
-		$exists_pg_store_plans = "plans_get_plan";
-	} else {
-		$exists_pg_store_plans = "plans_get_plan_does_not_exist";
-	}
-	pg_free_result($result2);
 
 	/* query information (first row) */
 	$qid = pg_fetch_result($result, 0, 0); // queryid

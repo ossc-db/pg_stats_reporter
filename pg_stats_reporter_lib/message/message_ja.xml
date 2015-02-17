@@ -160,7 +160,7 @@
 <h4>I/O Time の見方</h4>
 <ul>
 <li>横軸 : 時刻</li>
-<li>縦軸 : 平均時間 (sec)</li>
+<li>縦軸 : I/O時間の割合 (%)</li>
 <li>[デバイス名] avg read time : [デバイス名]の秒単位あたりに読み込みにかかった時間 (秒)</li>
 <li>[デバイス名] avg write time : [デバイス名]の秒単位あたりに書き込みにかかった時間 (秒)</li>
 </ul>
@@ -171,7 +171,7 @@
 <h4>Memory Usage の見方</h4>
 <ul>
 <li>横軸 : スナップショット取得日時</li>
-<li>縦軸 :サイズ (Bytes)</li>
+<li>縦軸 : サイズ (Bytes)</li>
 <li>memfree : 空きメモリサイズ (Bytes)</li>
 <li>buffers : バッファキャッシュサイズ (Bytes)</li>
 <li>cached : ページキャッシュからバッファキャッシュを除いたサイズ (Bytes)</li>
@@ -327,7 +327,7 @@
   <li>plan (child row) : 実行計画</li>
 </ul></li>
 </ul>
-<p>注意: 表示には、監視対象DBにpg_stat_statementsとpg_store_plansが、リポジトリDBにpg_store_plansがインストールされている必要があります</p>
+<p>注意: Plans を表示するには、監視対象DBにpg_stat_statementsとpg_store_plansがインストールされている必要があります。また、実行計画を正しく表示するには、リポジトリDBにpg_store_plansがインストールされている必要があります</p>
 </div>
 
 <div id="long_transactions_dialog" class="help_dialog"
@@ -431,6 +431,17 @@
 <li>last analyze time : autoanalyzeの最終実行日時(pg_statsinfo 3.0以降)</li>
 <li>cancels : autoanalyzeがキャンセルされた回数(pg_statsinfo 3.1以降)</li>
 </ul>
+</div>
+
+<div id="modified_rows_ratio_dialog" class="help_dialog"
+  title="How to see a Modified rows ratio table">
+<h4>Modified rows ratio の見方</h4>
+<ul>
+<li>横軸 : スナップショット取得日時</li>
+<li>縦軸 : サイズ (Bytes)</li>
+<li>[テーブル名] ratio : [テーブル名]の最後のanalyze以降に変更されたタプル数の割合</li>
+</ul>
+<p>タプル数の上位10テーブル分の情報を表示します。</p>
 </div>
 
 <div id="current_replication_status_dialog" class="help_dialog"
@@ -621,5 +632,6 @@ UPDATE statsrepo.alert SET rollback_tps = 3000 WHERE instid = 1;
 <p id="short_snapshots">指定した期間にはスナップショットが0件または、1件しかないため、レポートを表示できません。</p>
 <p id="invalid_regex">無効な正規表現です。 (%s)&lt;br/&gt;%s</p>
 <p id="cancel_version"> pg_statsinfo 3.0では、Vacuumキャンセル情報の表示のみとなります。&lt;br/&gt;</p>
+<p id="no_pg_store_plans">リポジトリDBにpg_store_plansがインストールされていないため、実行計画は正しく表示されません。</p>
 </error>
 </document>

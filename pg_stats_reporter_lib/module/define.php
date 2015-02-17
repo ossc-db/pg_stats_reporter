@@ -53,6 +53,9 @@ define("MESSAGE_SUFFIX", ".xml");
 define("PRINT_QUERY_LENGTH_LIMIT", 256);
 define("PRINT_QUERY_LINE_LIMIT", 5);
 
+// modified rows ratio's table count
+define("PRINT_MODIFIED_ROWS_RATIO_TABLES", 10);
+
 // global setting list
 $global_setting_list = array(
   'install_directory',
@@ -98,6 +101,7 @@ $report_default = array(
   'basic_statistics'          => true,
   'io_statistics'             => true,
   'analyze_statistics'        => true,
+  'modified_rows_ratio'       => true,
   'vacuum_cancels'            => true,
   'current_replication_status' => true,
   'replication_delays'        => true,
@@ -143,6 +147,7 @@ $help_list = array(
   'basic_statistics'          => 'basic_statistics_dialog',
   'io_statistics'             => 'io_statistics_dialog',
   'analyze_statistics'        => 'analyze_statistics_dialog',
+  'modified_rows_ratio'       => 'modified_rows_ratio_dialog',
   'vacuum_cancels'            => 'vacuum_cancels_dialog',
   'current_replication_status' => 'current_replication_status_dialog',
   'replication_delays'        => 'replication_delays_dialog',
@@ -189,7 +194,10 @@ $query_string = array(
   "SELECT replace(\"timestamp\", '-', '/') AS \"timestamp\", avg(write_size*1024*1024) AS \"write_size (Bytes)\", avg(write_size_per_sec*1024*1024) As \"write_size_per_sec (Bytes/s)\" FROM statsrepo.get_xlog_tendency($1, $2) GROUP BY 1 ORDER BY 1",
 
   "wal_statistics_stats" =>
-  "SELECT * FROM statsrepo.get_xlog_stats($1, $2)",
+  "SELECT write_total AS \"WAL write total (MiB)\", write_speed AS \"WAL write speed (MiB/s)\" FROM statsrepo.get_xlog_stats($1, $2)",
+
+  "wal_statistics_stats31" =>
+  "SELECT write_total AS \"WAL write total (MiB)\", write_speed AS \"WAL write speed (MiB/s)\", archive_total AS \"WAL archive total (files)\", archive_failed AS \"WAL archive failed (files)\", last_wal_file AS \"last WAL file\", last_archive_file AS \"last archived WAL\" FROM statsrepo.get_xlog_stats($1, $2)",
 
   "instance_processes_ratio" =>
   "SELECT idle AS \"idle (%)\", idle_in_xact AS \"idle in xact (%)\", waiting AS \"waiting (%)\", running AS \"running (%)\" FROM statsrepo.get_proc_ratio($1, $2)",
@@ -283,6 +291,9 @@ $query_string = array(
   "basic_statistics30" =>
   "SELECT datname AS \"database\", nspname AS \"schema\", relname AS \"table\", \"count\", avg_index_scans AS \"avg index scans\", avg_tup_removed AS \"avg removed rows\", avg_tup_remain AS \"avg remain rows\", avg_duration AS \"avg duration (sec)\", max_duration AS \"max duration (sec)\", cancel AS \"cancels\" FROM statsrepo.get_autovacuum_activity($1, $2)", 
 
+  "basic_statistics31" =>
+  "SELECT datname AS \"database\", nspname AS \"schema\", relname AS \"table\", \"count\", avg_index_scans AS \"avg index scans\", avg_tup_removed AS \"avg removed rows\", avg_tup_remain AS \"avg remain rows\", avg_tup_dead AS \"avg remain dead\", avg_duration AS \"avg duration (sec)\", max_duration AS \"max duration (sec)\", cancel AS \"cancels\" FROM statsrepo.get_autovacuum_activity($1, $2)", 
+
   "vacuum_cancels" =>
   "SELECT timestamp::timestamp(0) AS \"timestamp\", database, schema, \"table\", query AS \"cause query\" FROM statsrepo.autovacuum_cancel WHERE timestamp BETWEEN (SELECT min(time) AS time FROM statsrepo.snapshot WHERE snapid >= $1) AND (SELECT max(time) AS time FROM statsrepo.snapshot WHERE snapid <= $2) AND instid = (SELECT instid FROM statsrepo.snapshot WHERE snapid = $2) ORDER By timestamp",
 
@@ -299,7 +310,10 @@ $query_string = array(
   "SELECT datname AS \"database\", nspname AS \"schema\", relname AS \"table\", \"count\", total_duration AS \"total duration (sec)\", avg_duration AS \"avg duration (sec)\", max_duration AS \"max duration (sec)\", last_analyze AS \"last analyze time\" FROM statsrepo.get_autoanalyze_stats($1, $2)", 
 
   "analyze_statistics31" =>
-  "SELECT datname AS \"database\", nspname AS \"schema\", relname AS \"table\", \"count\", total_duration AS \"total duration (sec)\", avg_duration AS \"avg duration (sec)\", max_duration AS \"max duration (sec)\", last_analyze AS \"last analyze time\", cancels FROM statsrepo.get_autoanalyze_stats($1, $2)", 
+  "SELECT datname AS \"database\", nspname AS \"schema\", relname AS \"table\", \"count\", total_duration AS \"total duration (sec)\", avg_duration AS \"avg duration (sec)\", max_duration AS \"max duration (sec)\", last_analyze AS \"last analyze time\", cancels, mod_rows_max AS \"max modified rows\" FROM statsrepo.get_autoanalyze_stats($1, $2)", 
+
+  "modified_rows_ratio" =>
+  "SELECT replace(\"timestamp\", '-', '/') AS timestamp, datname||'.'||nspname||','||relname, ratio FROM statsrepo.get_modified_row_ratio($1, $2, $3)",
 
   // Replication Activity
   "current_replication_status" =>

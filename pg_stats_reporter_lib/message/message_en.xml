@@ -160,7 +160,7 @@
 <h4>How to see a I/O Time</h4>
 <ul>
 <li>horizontal axis : time </li>
-<li>vertial axis : avarage time (sec)</li>
+<li>vertial axis : I/O time ratio (%)</li>
 <li>[device] avg read time : time of read I/O in a device (sec)</li>
 <li>[device] avg write time : time of write I/O in a device (sec)</li>
 </ul>
@@ -433,6 +433,17 @@
 </ul>
 </div>
 
+<div id="modified_rows_ratio_dialog" class="help_dialog"
+  title="How to see a Modified rows ratio table">
+<h4>How to see a Modified rows ratio</h4>
+<ul>
+<li>horizontal axis : time</li>
+<li>vertial axis : Modified rows ratio (%)</li>
+<li>[table] ratio : Estimated ratio of rows modified since this table was last analyzed</li>
+</ul>
+<p>Display the top 10 table of information of the number of tuples.</p>
+</div>
+
 <div id="current_replication_status_dialog" class="help_dialog"
   title="How to see a Current Replication Status table">
 <h4>How to see a Current Replication Status table.</h4>
@@ -621,5 +632,6 @@ To narrow down the log, enter the search criteria and click "Search" button.
 <p id="short_snapshots">does not present a reports. Because repository does not have snapshot at all. Please re-select report term or get snapshot.</p>
 <p id="invalid_regex">Invalid regular expression. (%s)&lt;br/&gt;%s</p>
 <p id="cancel_version">In pg_statsinfo 3.0, it will only display of Vacuum cancellation information.&lt;br/&gt;</p>
+<p id="no_pg_store_plans">For the repository DB pg_store_plans is not installed, the execution plan is not displayed correctly.</p>
 </error>
 </document>
