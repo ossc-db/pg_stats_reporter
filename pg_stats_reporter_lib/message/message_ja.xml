@@ -74,8 +74,12 @@
   title="How to see a WAL Statistics graph">
 <h4>WAL Statistics(トータル) の見方</h4>
 <ul>
-<li>write_total : WALの出力量のレポート期間内合計 (MiB)</li>
-<li>write_speed : WALの出力量のレポート期間内平均 (MiB/秒)</li>
+<li>WAL write total (MiB) : WALの出力量のレポート期間内合計 (MiB)</li>
+<li>WAL write speed (MiB/s) : WALの出力量のレポート期間内平均 (MiB/秒)</li>
+<li>WAL archive total (files) : アーカイブに成功したファイルの数(pg_statsinfo 3.1以降)</li>
+<li>WAL archive failed (files) : アーカイブに失敗した回数(pg_statsinfo 3.1以降)</li>
+<li>last WAL file : 最後に出力されたWALファイル名(pg_statsinfo 3.1以降)</li>
+<li>last archived WAL : 最後にアーカイブされたWALファイル名(pg_statsinfo 3.1以降)</li>
 </ul>
 <h4>WAL Statistics の見方</h4>
 <ul>
@@ -327,7 +331,6 @@
   <li>plan (child row) : 実行計画</li>
 </ul></li>
 </ul>
-<p>注意: Plans を表示するには、監視対象DBにpg_stat_statementsとpg_store_plansがインストールされている必要があります。また、実行計画を正しく表示するには、リポジトリDBにpg_store_plansがインストールされている必要があります</p>
 </div>
 
 <div id="long_transactions_dialog" class="help_dialog"
@@ -383,6 +386,7 @@
 <li>avg index scans : インデックススキャンの実施回数</li>
 <li>avg removed rows : 削除されたタプル数の平均値</li>
 <li>avg remain rows : 残存するタプル数の平均値</li>
+<li>avg remain dead : 回収できなかった無効タプルの数の平均値(pg_statsinfo 3.1以降)</li>
 <li>avg duration (sec) : 処理時間の平均値 (秒)</li>
 <li>max duration (sec) : 処理時間の最大値 (秒)</li>
 <li>cancels : autovacuumがキャンセルされた回数(pg_statsinfo 3.0以降)</li>
@@ -430,6 +434,7 @@
 <li>max duration (sec) : 処理時間の最大値 (秒)</li>
 <li>last analyze time : autoanalyzeの最終実行日時(pg_statsinfo 3.0以降)</li>
 <li>cancels : autoanalyzeがキャンセルされた回数(pg_statsinfo 3.1以降)</li>
+<li>max modified rows : 最後のanalyze以降に更新されたタプル数の最大値(pg_statsinfo 3.1以降)</li>
 </ul>
 </div>
 

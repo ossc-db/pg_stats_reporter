@@ -76,6 +76,10 @@
 <ul>
 <li>write_total : total size of WAL(xlog) data in this report (MiB)</li>
 <li>write_speed : average size of WAL(xlog) data in this report (MiB)</li>
+<li>WAL archive total (files) : number of successful file in the archive (use pg_statsinfo 3.1 higher)</li>
+<li>WAL archive failed (files) : number of times it fails to archive (use pg_statsinfo 3.1 higher)</li>
+<li>last WAL file : last WAL file name (use pg_statsinfo 3.1 higher)</li>
+<li>last archived WAL : last archived WAL file name (use pg_statsinfo 3.1 higher)</li>
 </ul>
 <h4>How to seea WAL Statistics graphs.</h4>
 <ul>
@@ -327,7 +331,6 @@
   <li>plan (child row) : query plan</li>
 </ul></li>
 </ul>
-<p>Note: Neet to install pg_stat_statements and pg_store_plans if view this table</p>
 </div>
 
 <div id="long_transactions_dialog" class="help_dialog"
@@ -383,6 +386,7 @@
 <li>avg index scans : number of index scan</li>
 <li>avg removed rows : avarage removed rows</li>
 <li>avg remain rows : average remain rows</li>
+<li>avg remain dead : average remain invalid rows (use pg_statsinfo 3.1 higher)</li>
 <li>avg duration (sec) : average duration time (sec)</li>
 <li>max duration (sec) : max duration time (sec)</li>
 <li>cancels : number of cancelled autovacuum (use pg_statsinfo 3.0 higher)</li>
@@ -430,6 +434,7 @@
 <li>max duration (sec) : max duration time (sec)</li>
 <li>last analyze time : last execute time of autoanalyze (use pg_statsinfo 3.0 higher)</li>
 <li>cancels : number of cancelled autoanalyze (use pg_statsinfo 3.1 higher)</li>
+<li>max modified rows : last been updated since analyze tuple number of maximum value (use pg_statsinfo 3.1 higher)</li>
 </ul>
 </div>
 
