@@ -165,8 +165,8 @@
 <ul>
 <li>horizontal axis : time </li>
 <li>vertial axis : I/O time ratio (%)</li>
-<li>[device] avg read time : time of read I/O in a device (sec)</li>
-<li>[device] avg write time : time of write I/O in a device (sec)</li>
+<li>[device] avg read time : ratio of read I/O time in a device</li>
+<li>[device] avg write time : ratio of write I/O time in a device</li>
 </ul>
 </div>
 
