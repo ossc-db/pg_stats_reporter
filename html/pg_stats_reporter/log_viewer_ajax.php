@@ -2,7 +2,7 @@
 /*
  * ajax_log_data
  *
- * Copyright (c) 2012,2014, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
+ * Copyright (c) 2012-2015, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
  */
 
 // include sub module
