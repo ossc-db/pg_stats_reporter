@@ -1642,7 +1642,10 @@ EOD;
 		if (pg_num_rows($result) == 0) {
 			$htmlString .= makeErrorTag($errorMsg['no_result']);
 		} else {
-			$htmlString .= makeTablePagerHTML($result, "lock_conflicts", 10, true);
+			$qarray = array_fill(0, pg_num_fields($result), false);
+			$qarray[7] = true;
+			$qarray[8] = true;
+			$htmlString .= makeTablePagerHTML_impl($result, "lock_conflicts", 10, true, $qarray);
 		}
 		pg_free_result($result);
 	}
