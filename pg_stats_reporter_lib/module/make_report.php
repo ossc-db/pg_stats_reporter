@@ -1161,7 +1161,14 @@ EOD;
 EOD;
 
 			// I/O Usage
-			$result = pg_query_params($conn, $query_string['io_usage'], $snapids);
+			$qstr = "";
+			if ($target['repo_version'] >= V31) {
+				$qstr = $query_string['io_usage31'];
+			} else {
+				$qstr = $query_string['io_usage'];
+			}
+
+			$result = pg_query_params($conn, $qstr, $snapids);
 			if (!$result) {
 				return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 			}
@@ -1169,9 +1176,11 @@ EOD;
 			if (pg_num_rows($result) == 0) {
 				$htmlString .= makeErrorTag($errorMsg['no_result']);
 			} else {
-				$htmlString .= makeTablePagerHTML($result, "io_usage", 5, true);
+				$htmlString .= makeIOUsageTablePagerHTML($result, "io_usage", 5, true, $target['repo_version'], $target['repo_version'], array_fill(0, pg_num_fields($result), false));
 			}
 			pg_free_result($result);
+
+			$htmlString .= "<br/>\n";
 
 			// I/O Size
 			$result = pg_query_params($conn, $query_string['io_size'], $snapids);
@@ -1187,12 +1196,43 @@ EOD;
 				array_push($opt, "title: 'I/O Size'");
 				array_push($opt, "ylabel: 'I/O Size (Bytes/s)'");
 				array_push($opt, "labelsKMG2: true");
-				$htmlString .= makeLineGraphHTML($name, $value, "io_size", $opt);
+				$htmlString .= makeLineGraphHTML_childrow($name, $value, "io_size", "I/O Size", $opt);
 			}
 			pg_free_result($result);
 
+			$htmlString .= "<br/>\n";
+
+			// I/O Size(peak)
+			if ($target['repo_version'] >= V31) {
+				$result = pg_query_params($conn, $query_string['io_size_peak'], $snapids);
+				if (!$result) {
+					return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
+				}
+
+				if (pg_num_rows($result) == 0) {
+					$htmlString .= makeErrorTag($errorMsg['no_result']);
+				} else {
+					makeTupleListForDygraphs($result, $name, $value);
+					$opt = array();
+					array_push($opt, "title: 'I/O Size (Peak)'");
+					array_push($opt, "ylabel: 'I/O Size (Bytes/s)'");
+					array_push($opt, "labelsKMG2: true");
+					$htmlString .= makeLineGraphHTML_childrow($name, $value, "io_size_peak", "I/O Size (Peak)", $opt);
+				}
+				pg_free_result($result);
+
+				$htmlString .= "<br/>\n";
+			}
+
 			// I/O Time
-			$result = pg_query_params($conn, $query_string['io_time'], $snapids);
+			$qstr = "";
+			if ($target['repo_version'] >= V31) {
+				$qstr = $query_string['io_time31'];
+			} else {
+				$qstr = $query_string['io_time'];
+			}
+
+			$result = pg_query_params($conn, $qstr, $snapids);
 			if (!$result) {
 				return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 			}
@@ -1204,7 +1244,7 @@ EOD;
 				$opt = array();
 				array_push($opt, "title: 'I/O Time'");
 				array_push($opt, "ylabel: 'I/O Time (%)'");
-				$htmlString .= makeLineGraphHTML($name, $value, "io_time", $opt);
+				$htmlString .= makeLineGraphHTML_childrow($name, $value, "io_time", "I/O Time", $opt);
 			}
 			pg_free_result($result);
 		}
@@ -2296,6 +2336,67 @@ function makeTablePagerHTML_impl($result, $id, $default, $pagerOn, $qarray)
 
 }
 
+// I/O Usage table pager HTML
+function makeIOUsageTablePagerHTML($result, $id, $default, $pagerOn, $statsinfo_version, $qarray)
+{
+	$htmlString = "<div><table id=\"".$id."_table\" class=\"tablesorter\">\n<thead><tr>\n";
+
+	// Be careful if you add more the number of display items
+	$htmlString .= "<th rowspan=\"2\">".htmlspecialchars(pg_field_name($result, 0), ENT_QUOTES)."</th>";
+	$htmlString .= "<th rowspan=\"2\">".htmlspecialchars(pg_field_name($result, 1), ENT_QUOTES)."</th>";
+	if ($statsinfo_version >= V31) {
+		$htmlString .= "<th colspan=\"3\" align=\"center\">read</th>";
+		$htmlString .= "<th colspan=\"3\" align=\"center\">write</th>";
+		$htmlString .= "<th rowspan=\"2\">".htmlspecialchars(pg_field_name($result, 8), ENT_QUOTES)."</th>";
+		$htmlString .= "<th rowspan=\"2\">".htmlspecialchars(pg_field_name($result, 9), ENT_QUOTES)."</th>";
+		$htmlString .= "\n</tr><tr>\n";
+		$htmlString .= "<th>total size (MiB)</th>";
+		$htmlString .= "<th>peak size (KiB/s)</th>";
+		$htmlString .= "<th>total time (ms)</th>";
+		$htmlString .= "<th>total size (MiB)</th>";
+		$htmlString .= "<th>peak size (KiB/s)</th>";
+		$htmlString .= "<th>total time (ms)</th>";
+	} else {
+		$htmlString .= "<th colspan=\"2\" align=\"center\">read</th>";
+		$htmlString .= "<th colspan=\"2\" align=\"center\">write</th>";
+		$htmlString .= "<th rowspan=\"2\">".htmlspecialchars(pg_field_name($result, 6), ENT_QUOTES)."</th>";
+		$htmlString .= "<th rowspan=\"2\">".htmlspecialchars(pg_field_name($result, 7), ENT_QUOTES)."</th>";
+		$htmlString .= "\n</tr><tr>\n";
+		$htmlString .= "<th>total size (MiB)</th>";
+		$htmlString .= "<th>total time (ms)</th>";
+		$htmlString .= "<th>total size (MiB)</th>";
+		$htmlString .= "<th>total time (ms)</th>";
+	}
+
+	$htmlString .= "\n</tr></thead>\n<tbody>\n";
+
+
+	for($i = 0 ; $i < pg_num_rows($result) ; $i++ ) {
+		$htmlString .= "<tr>";
+
+		for($j = 0 ; $j < pg_num_fields($result) ; $j++ ) {
+			$htmlString .= "<td class=\"".getDataTypeClass(pg_field_type($result, $j))."\">";
+			if ($qarray[$j] == true) {
+				$htmlString .= makeQueryDialog($id, pg_fetch_result($result, $i, $j));
+			} else {
+				$htmlString .= htmlspecialchars(pg_fetch_result($result, $i, $j), ENT_QUOTES);
+			}
+			$htmlString .= "</td>";
+		}
+
+		$htmlString .= "</tr>\n";
+	}
+
+	$htmlString .= "</tbody>\n</table>\n";
+
+	if ($pagerOn)
+		$htmlString .= makePagerHTML($id, $default);
+
+	return $htmlString."</div>\n";
+
+}
+
+
 // legend with search results
 function makeLineGraphHTML($labelNames, $values, $id, $options)
 {
@@ -2303,7 +2404,58 @@ function makeLineGraphHTML($labelNames, $values, $id, $options)
 		.$id."_graph\" class=\"linegraph\"></div>\n</td><td>\n<div id=\""
 		.$id."_status\" class=\"labels\"></div>\n</td></tr>\n"
 		."<tr><td><div class=\"graph_button\">\n<button id=\""
-		.$id."_line\">checkpoint highlight switch</button>\n"
+		.$id."_line\">toggle checkpoint highlight</button>\n"
+		."</div></td></tr>\n</table>\n";
+
+	$htmlString .= "<script type=\"text/javascript\">\n";
+	$htmlString .= "var ".$id."_highlight = false;\n\n";
+	$htmlString .= "var ".$id." = new Dygraph(document.getElementById('"
+		.$id."_graph'),[\n";
+
+	foreach($values as $row) {
+		$htmlString .= "    [new Date('".$row[0]."'), ";
+		foreach($row[1] as $val)
+			$htmlString .= $val.", ";
+		$htmlString .= " ],\n";
+	}
+
+	$htmlString .= "  ],\n";
+
+	/* Dygraphs options */
+	$htmlString .= "  {\n    labelsDivStyles: { border: '1px solid black' } ,\n";
+	$htmlString .= "    labelsDiv: document.getElementById('".$id."_status'),\n";
+	$htmlString .=
+<<< EOD
+    labelsSeparateLines: true,
+    hideOverlayOnMouseOut: false,
+    legend: 'always',
+    xlabel: 'Timestamp',
+    yAxisLabelWidth: 70,
+	animatedZooms: true,
+
+EOD;
+	foreach($options as $opt)
+		$htmlString .= $opt.",\n";
+	$htmlString .= "    labels: [ ";
+	foreach($labelNames as $col)
+		$htmlString .="\"". $col."\", ";
+	$htmlString .= " ],\n".makeCheckpointSetting($id);
+
+	return $htmlString."</script>\n";
+}
+
+// legend with search results(hide line graph)
+function makeLineGraphHTML_childrow($labelNames, $values, $id, $title, $options)
+{
+	$htmlString = "<table class=\"tablesorter\">"
+		."<tr><td colspan=\"2\"><a href=\"#\" class=\"toggle\">toggle "
+		.$title." graph</a></td></tr>"
+		."<tr class=\"tablesorter-childRow\"><td rowspan=\"2\">\n<div id=\""
+		.$id."_graph\" class=\"linegraph\"></div>\n</td><td>\n<div id=\""
+		.$id."_status\" class=\"labels\"></div>\n</td></tr>\n"
+		."<tr class=\"tablesorter-childRow\">"
+		."<td><div class=\"graph_button\">\n<button id=\""
+		.$id."_line\">toggle checkpoint highlight</button>\n"
 		."</div></td></tr>\n</table>\n";
 
 	$htmlString .= "<script type=\"text/javascript\">\n";
@@ -2356,7 +2508,7 @@ function makeSimpleLineGraphHTML($results, $id, $options, $stack, $changeScale)
 		.$id."_status\" class=\"labels\"></div>\n</td></tr>\n";
 
 	$htmlString .= "<tr><td><div class=\"graph_button\">\n<button id=\""
-		.$id."_line\">checkpoint highlight switch</button>\n</div>";
+		.$id."_line\">toggle checkpoint highlight</button>\n</div>";
 
 	if ($changeScale)
 		$htmlString .= "<div class=\"graph_button\">\n<button id=\""
@@ -2437,7 +2589,7 @@ function makeWALStatisticsGraphHTML($results)
 <div id="wal_statistics_status" class="labels"></div>
 </td></tr>
 <tr><td><div class="graph_button">
-<button id="wal_statistics_line">checkpoint highlight switch</button>
+<button id="wal_statistics_line">toggle checkpoint highlight</button>
 </div></td></tr>
 </table>
 <script type="text/javascript">

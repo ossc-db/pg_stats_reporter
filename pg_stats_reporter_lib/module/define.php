@@ -213,11 +213,20 @@ $query_string = array(
   "load_average" =>
   "SELECT replace(\"timestamp\", '-', '/'), avg(\"1min\") AS \"1min\", avg(\"5min\") AS \"5min\", avg(\"15min\") AS \"15min\" FROM statsrepo.get_loadavg_tendency($1, $2) GROUP BY 1 ORDER BY 1",
 
+  "io_usage31" =>
+  "SELECT device_name, device_tblspaces AS \"including TableSpaces\", total_read AS \"total read (MiB)\", read_size_tps_peak AS \"peak read\", total_read_time AS \"total read time (ms)\", total_write AS \"total write (MiB)\", write_size_tps_peak AS \"peak write\", total_write_time AS \"total write time (ms)\", io_queue AS \"current I/O queue\", total_io_time AS \"total I/O time (ms)\" FROM statsrepo.get_io_usage($1, $2)",
+
   "io_usage" =>
   "SELECT device_name, device_tblspaces AS \"including TableSpaces\", total_read AS \"total read (MiB)\", total_write AS \"total write (MiB)\", total_read_time AS \"total read time (ms)\", total_write_time AS \"total write time (ms)\", io_queue AS \"current I/O queue\", total_io_time AS \"total I/O time (ms)\" FROM statsrepo.get_io_usage($1, $2)",
 
   "io_size" =>
   "SELECT replace(\"timestamp\", '-', '/'), device_name, avg(read_size_tps*1024) AS read, avg(write_size_tps*1024) AS write FROM statsrepo.get_io_usage_tendency_report($1, $2) GROUP BY 1,2 ORDER BY 1,2",
+
+  "io_size_peak" =>
+  "SELECT replace(\"timestamp\", '-', '/'), device_name, avg(read_size_tps_peak*1024) AS read, avg(write_size_tps_peak*1024) AS write FROM statsrepo.get_io_usage_tendency_report($1, $2) GROUP BY 1,2 ORDER BY 1,2",
+
+  "io_time31" =>
+  "SELECT replace(\"timestamp\", '-', '/'), device_name, avg(read_time_rate) AS \"avg read time\", avg(write_time_rate) AS \"avg write time\" FROM statsrepo.get_io_usage_tendency_report($1, $2) GROUP BY 1,2 ORDER BY 1,2",
 
   "io_time" => // temporary (ms/s to s/s -> ms/s to percent)
   "SELECT replace(\"timestamp\", '-', '/'), device_name, avg(read_time_tps)/10 AS \"avg read time\", avg(write_time_tps)/10 AS \"avg write time\" FROM statsrepo.get_io_usage_tendency_report($1, $2) GROUP BY 1,2 ORDER BY 1,2",

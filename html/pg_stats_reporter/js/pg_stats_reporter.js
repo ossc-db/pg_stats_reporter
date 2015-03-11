@@ -118,14 +118,14 @@ $(function(){
   // IO Usage
   $("#io_usage_table").tablesorter(
     $.extend({}, tablesorterDefaultOptions, {
-      sortList: [[7,1]],
       headers: {
-        2: { sorter: "digit" },
-        3: { sorter: "digit" },
+        2: { sorter: false },
+        3: { sorter: false },
         4: { sorter: "digit" },
         5: { sorter: "digit" },
         6: { sorter: "digit" },
-        7: { sorter: "digit" }
+        7: { sorter: "digit" },
+        8: { sorter: "digit" }
       }
     })
   )
