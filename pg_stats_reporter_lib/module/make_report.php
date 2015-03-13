@@ -1176,7 +1176,7 @@ EOD;
 			if (pg_num_rows($result) == 0) {
 				$htmlString .= makeErrorTag($errorMsg['no_result']);
 			} else {
-				$htmlString .= makeIOUsageTablePagerHTML($result, "io_usage", 5, true, $target['repo_version'], $target['repo_version'], array_fill(0, pg_num_fields($result), false));
+				$htmlString .= makeIOUsageTablePagerHTML($result, "io_usage", 5, true, $target['repo_version'], array_fill(0, pg_num_fields($result), false));
 			}
 			pg_free_result($result);
 
@@ -1805,9 +1805,12 @@ EOD;
 					$htmlString .= makeTablePagerHTML($result, "analyze_statistics", 10, true);
 				}
 				pg_free_result($result);
+			} else {
+				$htmlString .= makeErrorTag($errorMsg['st_version'], "2.5.0");
+			}
 
-				if ($target['repo_version'] >= V31) {
-					$htmlString .=
+
+			$htmlString .=
 <<< EOD
 <div id="modified_rows_ratio" class="jump_margin"></div>
 <h3>Modified rows ratio</h3>
@@ -1817,26 +1820,26 @@ EOD;
 
 
 EOD;
+			if ($target['repo_version'] >= V31) {
 
-					$qstr = $query_string['modified_rows_ratio'];
-					$result = pg_query_params($conn, $qstr, array_merge($snapids, (array)PRINT_MODIFIED_ROWS_RATIO_TABLES));
-					if (!$result) {
-						return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
-					}
-
-					if (pg_num_rows($result) == 0) {
-						$htmlString .= makeErrorTag($errorMsg['no_result']);
-					} else {
-						makeTupleListForDygraphs($result, $name, $value);
-						$opt = array();
-						array_push($opt, "title: 'Modified rows ratio'");
-						array_push($opt, "ylabel: 'Modified rows ratio(%)'");
-						$htmlString .= makeLineGraphHTML($name, $value, "modified_rows_ratio", $opt);
-					}
-					pg_free_result($result);
+				$qstr = $query_string['modified_rows_ratio'];
+				$result = pg_query_params($conn, $qstr, array_merge($snapids, (array)PRINT_MODIFIED_ROWS_RATIO_TABLES));
+				if (!$result) {
+					return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 				}
+
+				if (pg_num_rows($result) == 0) {
+					$htmlString .= makeErrorTag($errorMsg['no_result']);
+				} else {
+					makeTupleListForDygraphs($result, $name, $value);
+					$opt = array();
+					array_push($opt, "title: 'Modified rows ratio'");
+					array_push($opt, "ylabel: 'Modified rows ratio(%)'");
+					$htmlString .= makeLineGraphHTML($name, $value, "modified_rows_ratio", $opt);
+				}
+				pg_free_result($result);
 			} else {
-				$htmlString .= makeErrorTag($errorMsg['st_version'], "2.5.0");
+				$htmlString .= makeErrorTag($errorMsg['st_version'], "3.1.0");
 			}
 		}
 
