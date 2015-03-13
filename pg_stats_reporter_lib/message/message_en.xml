@@ -146,10 +146,16 @@
 <ul>
 <li>device_name : device name</li>
 <li>Including TableSpaces : size of table space in a device</li>
-<li>total read (MiB) : total read size in a device (MiB)</li>
-<li>total write (MiB) : total write size in a device (MiB)</li>
-<li>total read time (ms) : total read time in a device (ms)</li>
-<li>total write time (ms) : total write time in a device (ms)</li>
+<li>read<ul>
+<li>total size (MiB) : total read size in a device (MiB)</li>
+<li>peak size (KiB/s) : read peak I/O size per second in a device (KiB/s) (use pg_statsinfo 3.1 higher)</li>
+<li>total time (ms) : total read time in a device (ms)</li>
+</ul></li>
+<li>write<ul>
+<li>total size (MiB) : total write size in a device (MiB)</li>
+<li>peak size (KiB/s) : write peak I/O size per second in a device (KiB/s) (use pg_statsinfo 3.1 higher)</li>
+<li>total time (ms) : total write time in a device (ms)</li>
+</ul></li>
 <li>current I/O queue : number of current I/O queue in a device</li>
 <li>total I/O time (ms) : total time of I/O in a device (ms)</li>
 </ul>
@@ -160,6 +166,13 @@
 <li>vertial axis : database size (Bytes/s)</li>
 <li>[device] read : read I/O size per second in a device (Bytes/s)</li>
 <li>[device] write : write I/O size per second in a device (Bytes/s)</li>
+</ul>
+<h4>How to see a I/O Size (Peak) (use pg_statsinfo 3.1 higher)</h4>
+<ul>
+<li>horizontal axis : time </li>
+<li>vertial axis : database size (Bytes/s)</li>
+<li>[device] read : read peak I/O size per second in a device (Bytes/s)</li>
+<li>[device] write : write peak I/O size per second in a device (Bytes/s)</li>
 </ul>
 <h4>How to see a I/O Time</h4>
 <ul>

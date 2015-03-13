@@ -146,10 +146,16 @@
 <ul>
 <li>device_name : デバイス名</li>
 <li>Including TableSpaces : デバイスに含まれるテーブルスペース</li>
-<li>total read (MiB) : 読み込んだ合計サイズ (MiB)</li>
-<li>total write (MiB) : 書き込んだ合計サイズ (MiB)</li>
-<li>total read time (ms) : 読み込みにかかった合計時間 (ミリ秒)</li>
-<li>total write time (ms) : 書き込みにかかった合計時間 (ミリ秒)</li>
+<li>read<ul>
+<li>total size (MiB) : 読み込んだ合計サイズ (MiB)</li>
+<li>peak size (KiB/s) : 秒あたりの読み込み量のピーク値(KiB/秒) (pg_statsinfo 3.1以降)</li>
+<li>total time (ms) : 読み込みにかかった合計時間 (ミリ秒)</li>
+</ul></li>
+<li>write<ul>
+<li>total size (MiB) : 書き込んだ合計サイズ (MiB)</li>
+<li>peak size (KiB/s) : 秒あたりの書き込み量のピーク値(KiB/秒) (pg_statsinfo 3.1以降)</li>
+<li>total time (ms) : 書き込みにかかった合計時間 (ミリ秒)</li>
+</ul></li>
 <li>current I/O queue : 現在実施中のI/O(キューイングされた)数</li>
 <li>total I/O time (ms) : 入出力にかかった合計時間 (ミリ秒)</li>
 </ul>
@@ -160,6 +166,13 @@
 <li>縦軸 : データサイズ (Bytes/秒)</li>
 <li>[デバイス名] read : 秒あたりに読み込んだサイズ (Bytes/秒)</li>
 <li>[デバイス名] write : 秒あたりに書き込んだサイズ (Bytes/秒)</li>
+</ul>
+<h4>I/O Size (Peak) の見方 (pg_statsinfo 3.1以降)</h4>
+<ul>
+<li>横軸 : 時刻</li>
+<li>縦軸 : データサイズ (Bytes/秒)</li>
+<li>[デバイス名] read : 秒あたりの読み込み量のピーク値 (Bytes/秒)</li>
+<li>[デバイス名] write : 秒あたりの書き込み量のピーク値 (Bytes/秒)</li>
 </ul>
 <h4>I/O Time の見方</h4>
 <ul>
