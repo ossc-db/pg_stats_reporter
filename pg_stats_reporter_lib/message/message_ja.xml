@@ -452,11 +452,11 @@
 </div>
 
 <div id="modified_rows_ratio_dialog" class="help_dialog"
-  title="How to see a Modified rows ratio table">
+  title="How to see a Modified rows ratio graph">
 <h4>Modified rows ratio の見方</h4>
 <ul>
 <li>横軸 : スナップショット取得日時</li>
-<li>縦軸 : サイズ (Bytes)</li>
+<li>縦軸 : パーセント(%)</li>
 <li>[テーブル名] ratio : [テーブル名]の最後のanalyze以降に変更されたタプル数の割合</li>
 </ul>
 <p>タプル数の上位10テーブル分の情報を表示します。</p>

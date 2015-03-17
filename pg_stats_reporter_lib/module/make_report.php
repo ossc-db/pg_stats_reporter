@@ -2640,7 +2640,7 @@ EOD;
 EOD;
 
 	$htmlString .= "    '".pg_field_name($results, 2)."': {axis: { } },\n";
-	$htmlString .= "    axes: { y2: { valueRange: [0, ".ceil($high2ndaxes*2)." ] } } ,\n";
+	$htmlString .= "    axes: { y2: { valueRange: [0, ".pow(10, round(log10($high2ndaxes)))." ] } } ,\n";
 
 	$htmlString .= "    labels: [ ";
 	for($i = 0 ; $i < pg_num_fields($results) ; $i++)

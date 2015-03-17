@@ -452,7 +452,7 @@
 </div>
 
 <div id="modified_rows_ratio_dialog" class="help_dialog"
-  title="How to see a Modified rows ratio table">
+  title="How to see a Modified rows ratio graph">
 <h4>How to see a Modified rows ratio</h4>
 <ul>
 <li>horizontal axis : time</li>
