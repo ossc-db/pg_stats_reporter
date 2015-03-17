@@ -895,7 +895,7 @@ function createSmartyInstance($installDir, $outputdir, $tmpDir)
 	$smarty->assign("jqplot_path", JQPLOT_PATH);
 	$smarty->assign("dygraphs_path", DYGRAPHS_PATH);
 
-	/* Assign pg_stats_reporter version
+	/* Assign pg_stats_reporter version */
 	$smarty->assign("program_version", PROGRAM_VERSION);
 
 	return $smarty;
