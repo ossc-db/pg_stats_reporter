@@ -87,10 +87,7 @@ $(function(){
   // WAL Statistics
   $("#wal_statistics_stats_table").tablesorter(
     $.extend({}, tablesorterDefaultOptions, {
-      headers: {
-        0: { sorter: false },
-        1: { sorter: false }
-      }
+      widgets: [ ]
     })
   );
 
@@ -109,14 +106,14 @@ $(function(){
   // IO Usage
   $("#io_usage_table").tablesorter(
     $.extend({}, tablesorterDefaultOptions, {
-      sortList: [[7,1]],
       headers: {
-        2: { sorter: "digit" },
-        3: { sorter: "digit" },
+        2: { sorter: false },
+        3: { sorter: false },
         4: { sorter: "digit" },
         5: { sorter: "digit" },
         6: { sorter: "digit" },
-        7: { sorter: "digit" }
+        7: { sorter: "digit" },
+        8: { sorter: "digit" }
       }
     })
   )
@@ -276,6 +273,55 @@ $(function(){
       size: 10
     })
   );
+
+  // Query Activity Plans
+  $("#plans_table").tablesorter(
+    $.extend({}, tablesorterDefaultOptions, {
+	  cssChildRow: "tablesorter-childRow",
+	  sortList: [[5,1]],
+      headers: {
+        0: { sorter: "digit" },
+        3: { sorter: "digit" },
+        4: { sorter: "digit" },
+		5: { sorter: "digit" },
+		6: { sorter: "digit" },
+		7: { sorter: "digit" },
+		8: { sorter: "digit" },
+		9: { sorter: false },
+		10: { sorter: false }
+      }
+    })
+  )
+  .tablesorterPager(
+    $.extend({}, pagerDefaultOptions, {
+	  container: $('#pager_plans'),
+	  size: 10
+    })
+  );
+
+  $(".childRowTable").tablesorter(
+    $.extend({}, tablesorterDefaultOptions, {
+	  cssChildRow: "tablesorter-childRow",
+	  sortList: [[2,1]],
+      headers: {
+        0: { sorter: "digit" },
+		1: { sorter: "digit" },
+		2: { sorter: "digit" },
+        3: { sorter: "digit" },
+        4: { sorter: "digit" },
+		5: { sorter: "digit" },
+		8: { sorter: false }
+      }
+	})
+  );
+
+  $('.tablesorter').delegate('.toggle', 'click' ,function(){
+    $(this).closest('tr').nextUntil('tr:not(.tablesorter-childRow)').find('td').toggle();
+
+    return false;
+  });
+
+  $('.tablesorter-childRow td').hide();
 
   // Long Transaction
   $("#long_transactions_table").tablesorter(

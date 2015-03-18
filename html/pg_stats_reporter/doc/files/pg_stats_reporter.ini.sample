@@ -92,6 +92,7 @@ checkpoint_activity = true
 basic_statistics = true
 io_statistics = true
 analyze_statistics = true
+modified_rows_ratio = true
 vacuum_cancels = true
 
 ; -- Replication Activity --
@@ -186,6 +187,7 @@ checkpoint_activity = true
 basic_statistics = true
 io_statistics = true
 analyze_statistics = true
+modified_rows_ratio = true
 vacuum_cancels = true
 
 ; -- Replication Activity --
