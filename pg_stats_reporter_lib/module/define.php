@@ -32,7 +32,7 @@ define("V31", "30100");
 define("CACHE_DIR", "../../pg_stats_reporter_lib/cache");
 define("COMPILE_DIR", "../../pg_stats_reporter_lib/compiled");
 define("TEMPLATE_DIR", "../../pg_stats_reporter_lib/template");
-define("CACHE_LIFETIME", 3);
+define("CACHE_LIFETIME", 300);
 define("TEMPLATE_FILE", "pg_stats_reporter.tpl");
 define("LOG_VIEWER_TEMPLATE_FILE", "log_viewer.tpl");
 
