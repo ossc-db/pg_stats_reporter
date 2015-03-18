@@ -2809,12 +2809,12 @@ function makeQueryDialog($header, $qstr)
 	$htmlSubStr = "";
 
 	if (strlen($qstr) > PRINT_QUERY_LENGTH_LIMIT
-		|| substr_count($qstr, "\n") > PRINT_QUERY_LINE_LIMIT) {
+		|| substr_count($qstr, "\n") >= PRINT_QUERY_LINE_LIMIT) {
 
 		$dialogid = "dialog_".$header.sprintf("%05d", $num);
 		$pos = 0;
 
-		if (substr_count($qstr, "\n") > PRINT_QUERY_LINE_LIMIT) {
+		if (substr_count($qstr, "\n") >= PRINT_QUERY_LINE_LIMIT) {
 			for ($i=0 ; $i<PRINT_QUERY_LINE_LIMIT ; $i++) {
 				$pos = strpos($qstr, "\n", $pos)+1;
 			}
