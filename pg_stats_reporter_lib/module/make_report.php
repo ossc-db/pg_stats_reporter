@@ -1808,8 +1808,9 @@ EOD;
 			} else {
 				$htmlString .= makeErrorTag($errorMsg['st_version'], "2.5.0");
 			}
+		}
 
-
+		if ($target['modified_rows_ratio']) {
 			$htmlString .=
 <<< EOD
 <div id="modified_rows_ratio" class="jump_margin"></div>
