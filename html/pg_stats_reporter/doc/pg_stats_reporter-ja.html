@@ -69,26 +69,26 @@ WEBサーバにブラウザを利用してアクセスすることで、ブラ�
   <dt>pg_statsinfo</dt>
   <dd>バージョン 2.5 以降</dd>
   <dt>動作確認済みPHP</dt>
-  <dd>バージョン 5.3.3 (OS同梱のもの)</dd>
-  <dd>バージョン 5.5.12</dd>
+  <dd>バージョン 5.3.3 (RHEL 6.6 同梱のもの)</dd>
+  <dd>バージョン 5.5.22</dd>
   <dt>動作確認済みOS</dt>
-  <dd>RHEL 6.5</dd>
+  <dd>RHEL 6.6</dd>
   <dt>動作確認済みブラウザ</dt>
   <dd>Internet Explorer : 11</dd>
-  <dd>Firefox : 28.0</dd>
-  <dd>Google Chrome : 33.0</dd>
+  <dd>Firefox : 36.0</dd>
+  <dd>Google Chrome : 41.0</dd>
   <dt>動作確認済みHTTP Server</dt>
-  <dd>Apache HTTP Server : 2.2.15 (RHEL 6.5 同梱のもの)</dd>
+  <dd>Apache HTTP Server : 2.2.15 (RHEL 6.6 同梱のもの)</dd>
   <dt>利用ライブラリ (pg_stats_reporter のインストールパッケージに同梱)</dt>
   <dd><ul>
-    <li>jQuery : 2.0.1</li>
-    <li>jQuery UI : 1.10.2</li>
-    <li>jquery-ui-timepicker-addon : 1.3</li>
-    <li>dygraphs JavaScript Visualization Library : b839102723 (commit ID)</li>
+    <li>jQuery : 2.1.3</li>
+    <li>jQuery UI : 1.11.3</li>
+    <li>jquery-ui-timepicker-addon : 1.5.0</li>
+    <li>dygraphs JavaScript Visualization Library : 1.1.0</li>
     <li>jqPlot : 1.0.8 r1250</li>
-    <li>tablesorter : 2.15.5</li>
-    <li>Superfish : 1.7.2</li>
-    <li>Smarty : 3.1.13</li>
+    <li>tablesorter : 2.17.8</li>
+    <li>Superfish : 1.7.5</li>
+    <li>Smarty : 3.1.21</li>
   </ul></dd>
   <dt>ディスプレイ解像度</dt>
   <dd>1024x786(SXGA)以上推奨</dd>
@@ -105,13 +105,13 @@ WEBサーバにブラウザを利用してアクセスすることで、ブラ�
 </pre>
 <h5>yumを使用しない場合のインストール手順</h5>
 <pre>
-# rpm -ivh httpd-2.2.15-15.el6_2.1.x86_64.rpm \
-           php-common-5.3.3-3.el6_2.8.x86_64.rpm \
-           php-5.3.3-3.el6_2.8.x86_64.rpm \
-           php-pdo-5.3.3-22.el6.x86_64.rpm \
-           php-pgsql-5.3.3-3.el6_2.8.x86_64.rpm \
-           php-intl-5.3.3-3.el6_2.8.x86_64.rpm \
-           php-cli-5.3.3-22.el6.x86_64.rpm \
+# rpm -ivh httpd-2.2.15-39.el6.x86_64.rpm \
+           php-common-5.3.3-38.el6.x86_64.rpm \
+           php-5.3.3-38.el6.x86_64.rpm \
+           php-pdo-5.3.3-38.el6.x86_64.rpm \
+           php-pgsql-5.3.3-38.el6.x86_64.rpm \
+           php-intl-5.3.3-38.el6.x86_64.rpm \
+           php-cli-5.3.3-38.el6.x86_64.rpm \
            pg_stats_reporter-3.1.0-1.el6.noarch.rpm
 </pre>
 
@@ -125,16 +125,16 @@ WEBサーバにブラウザを利用してアクセスすることで、ブラ�
 </pre>
 <h5>yumを使用しない場合のインストール手順</h5>
 <pre>
-# rpm -ivh php-common-5.3.3-3.el6_2.8.x86_64.rpm \
-           php-pdo-5.3.3-22.el6.x86_64.rpm \
-           php-pgsql-5.3.3-3.el6_2.8.x86_64.rpm \
-           php-intl-5.3.3-3.el6_2.8.x86_64.rpm \
-           php-cli-5.3.3-22.el6.x86_64.rpm
+# rpm -ivh php-common-5.3.3-38.el6.x86_64.rpm \
+           php-pdo-5.3.3-38.el6.x86_64.rpm \
+           php-pgsql-5.3.3-38.el6.x86_64.rpm \
+           php-intl-5.3.3-38.el6.x86_64.rpm \
+           php-cli-5.3.3-38.el6.x86_64.rpm
 # rpm -ivh --nodeps pg_stats_reporter-3.0.0-1.el6.noarch.rpm
 </pre>
 
 <p>
-※php-intl のRPMファイルは、インストールディスク2枚目の「Packages/php-intl-5.3.3-22.el6.x86_64.rpm」に格納されています。<br/>
+※php-intl のRPMファイルは、インストールディスク2枚目の「Packages/php-intl-5.3.3-38.el6.x86_64.rpm」に格納されています。<br/>
 ※php-intl が未インストールの状態でも動作しますが、表示言語の自動設定が機能しなくなります。
 </p>
 
@@ -287,24 +287,26 @@ http://&lt;<I>ホスト名</I>&gt;/pg_stats_reporter/pg_stats_reporter.php
 
   <dt>-b, --beginid=SNAPID</dt>
   <dd>レポート範囲の開始点とするスナップショットをスナップショットIDで指定します。</dd>
-  <dd>本オプションは省略可能です。省略時は最初のスナップショットを開始点とします。(*1) (*2)</dd>
+  <dd>本オプションは省略可能です。省略時は最初のスナップショットを開始点とします。(*a) (*b)</dd>
 
   <dt>-e, --endid=SNAPID</dt>
   <dd>レポート範囲の終了点とするスナップショットをスナップショットIDで指定します。</dd>
-  <dd>本オプションは省略可能です。省略時は最後のスナップショットを終了点とします。(*1) (*2)</dd>
+  <dd>本オプションは省略可能です。省略時は最後のスナップショットを終了点とします。(*a) (*b)</dd>
 
   <dt>-B, --begindate=DATE</dt>
   <dd>レポート範囲の開始点とするスナップショットを日時 (YYYY-MM-DD HH:MI:SS形式) で指定します。</dd>
-  <dd>本オプションは省略可能です。省略時は最初のスナップショットを開始点とします。(*1) (*2)</dd>
+  <dd>本オプションは省略可能です。省略時は最初のスナップショットを開始点とします。(*a) (*b)</dd>
 
   <dt>-E, --enddate=DATE</dt>
   <dd>レポート範囲の終了点とするスナップショットを日時 (YYYY-MM-DD HH:MI:SS形式) で指定します。</dd>
-  <dd>本オプションは省略可能です。省略時は最後のスナップショットを終了点とします。(*1) (*2)</dd>
+  <dd>本オプションは省略可能です。省略時は最後のスナップショットを終了点とします。(*a) (*b)</dd>
 </dl>
 
 <p>
-*1: スナップショットID指定と日時指定を混在して指定することはできません。<br/>
-*2: レポート範囲の開始点と終了点の両方が省略された場合は、前日の午前0時から現在日時の範囲とします。
+<ol type="a">
+  <li>スナップショットID指定と日時指定を混在して指定することはできません。</li>
+  <li>レポート範囲の開始点と終了点の両方が省略された場合は、前日の午前0時から現在日時の範囲とします。</li>
+</ol>
 </p>
 
 <h4>スナップショット一覧表示</h4>
@@ -408,7 +410,7 @@ $ su
     <td>文字列</td>
     <td>省略不可</td>
     <td>install_directory = /var/www</td>
-    <td>当ツールのインストールディレクトリを指定します。(*1)</td>
+    <td>当ツールのインストールディレクトリを指定します。(*a)</td>
   </tr>
 
   <tr>
@@ -422,7 +424,9 @@ $ su
 </table>
 
 <p>
-*1: RPMパッケージからインストールした場合は変更する必要はありません。ソースセットからインストールした場合のみ変更してください。
+<ol type="a">
+  <li>RPMパッケージからインストールした場合は変更する必要はありません。ソースセットからインストールした場合のみ変更してください。</li>
+</ol>
 </p>
 
 <h3>リポジトリDB設定</h3>
@@ -454,7 +458,7 @@ $ su
   <tr>
     <td>host</td>
     <td>ホスト名または IP アドレス</td>
-    <td>(*1)</td>
+    <td>(*a)</td>
     <td>host = localhost</td>
     <td>接続するリポジトリDBのホストを指定します。指定するホスト名は、PostgreSQLが受け付ける形式で指定する必要があります。</td>
   </tr>
@@ -462,7 +466,7 @@ $ su
   <tr>
     <td>port</td>
     <td>ポート番号</td>
-    <td>(*1)</td>
+    <td>(*a)</td>
     <td>port = 5432</td>
     <td>接続するリポジトリDBのポート番号を指定します。PostgreSQL の待ち受けポートを指定してください。</td>
   </tr>
@@ -470,7 +474,7 @@ $ su
   <tr>
     <td>dbname</td>
     <td>文字列</td>
-    <td>(*1)</td>
+    <td>(*a)</td>
     <td>dbname = postgres</td>
     <td>接続するリポジトリDBのデータベース名を指定します。pg_statsinfo でリポジトリDBとして使用しているデータベースの名称を指定してください。</td>
   </tr>
@@ -478,7 +482,7 @@ $ su
   <tr>
     <td>username</td>
     <td>文字列</td>
-    <td>(*1)</td>
+    <td>(*a)</td>
     <td>username = postgres</td>
     <td>リポジトリDBに接続するDBユーザの名称を指定します。リポジトリDBに参照権限のあるDBユーザの名称を指定してください。</td>
   </tr>
@@ -488,7 +492,7 @@ $ su
     <td>文字列</td>
     <td>パスワード指定なし</td>
     <td>password = abc</td>
-    <td>リポジトリDBへの接続で使用するパスワードを指定します。PostgreSQL への接続パスワードを .pgpass を使用して設定する場合は、値を設定しないでください。(*2)</li></td>
+    <td>リポジトリDBへの接続で使用するパスワードを指定します。PostgreSQL への接続パスワードを .pgpass を使用して設定する場合は、値を設定しないでください。(*b)</li></td>
   </tr>
 
   <tr>
@@ -496,11 +500,11 @@ $ su
     <td>auto/ja/en</td>
     <td>auto</td>
     <td>language = ja</td>
-    <td>レポートの表示言語の言語タグを設定します。auto を設定した場合は、表示するブラウザの設定を使用します。指定した言語に対応するメッセージが存在しない場合は英語で表示します。(*3)</td>
+    <td>レポートの表示言語の言語タグを設定します。auto を設定した場合は、表示するブラウザの設定を使用します。指定した言語に対応するメッセージが存在しない場合は英語で表示します。(*c)</td>
   </tr>
 
   <tr>
-    <td>表示項目<br/>(summary - profiles)</td>
+    <td>表示項目<br/>(summary - profiles)(*d)</td>
     <td>true/false</td>
     <td>true</td>
     <td>summary = true</td>
@@ -510,9 +514,12 @@ $ su
 </table>
 
 <p>
-*1: 項目または設定値を省略した場合の挙動は、libpqの接続文字列のパラメータと同じです。詳しくは <a href="http://www.postgresql.jp/document/current/html/libpq-connect.html#LIBPQ-PARAMKEYWORDS">こちら</a> を参照してください。<br/>
-*2: ディストリビューションによっては、HTTP Server のドキュメントルートのデフォルトが実行ユーザのホームディレクトリになっている場合があります。そのため、PostgreSQL の接続パスワードで .pgpass を使用する場合には、外部から参照されないように注意して配置してください。<br/>
-*3: php-intl が未インストールの状態で auto が設定されている場合は強制的に英語で表示されます。
+<ol type="a">
+  <li>項目または設定値を省略した場合の挙動は、libpqの接続文字列のパラメータと同じです。詳しくは <a href="http://www.postgresql.jp/document/current/html/libpq-connect.html#LIBPQ-PARAMKEYWORDS">こちら</a> を参照してください。</li>
+  <li>ディストリビューションによっては、HTTP Server のドキュメントルートのデフォルトが実行ユーザのホームディレクトリになっている場合があります。そのため、PostgreSQL の接続パスワードで .pgpass を使用する場合には、外部から参照されないように注意して配置してください。</li>
+  <li>php-intl が未インストールの状態で auto が設定されている場合は強制的に英語で表示されます。</li>
+  <li>各種レポート項目は、<a href="files/pg_stats_reporter.ini.sample">pg_stats_reporter.iniファイルのサンプル</a>を参照してください。</li>
+</ol>
 </p>
 
 <h2 id="restrictions">使用上の注意と制約</h2>
@@ -543,10 +550,16 @@ $ su
 <h2 id="change">pg_stats_reporter 3.0 からの変更点</h2>
 <p>pg_stats_reporter 3.0 からの変更点は以下の通りです。</p>
 <ul>
-  <li>データベースのログのレポートを作成する機能を追加</li>
-  <li>レポート項目にアラート情報を追加</li>
-  <li>レポート項目にAutoanalyzeの情報を追加</li>
-  <li>レポート項目にAutovacuumのキャンセルの情報を追加</li>
+  <li>レポート項目にクエリ実行計画の情報を追加</li>
+  <li>レポート項目にAutoanalyzeのキャンセルの情報を追加</li>
+  <li>レポート項目にAutovacuumの未回収タプルの情報を追加</li>
+  <li>レポート項目に最後のAnalyze以降に変更されたタプル数の情報を追加</li>
+  <li>レポート項目にWALアーカイブに関する情報を追加</li>
+  <li>レポート項目にディスクI/Oの秒当たりの読み込み量のピーク値を追加</li>
+  <li>レポート項目にディスクI/Oの秒当たりの書き込み量のピーク値を追加</li>
+  <li>レポート項目にディスクI/Oの秒当たりの読み込み/書き込み量のピーク値のグラフを追加</li>
+  <li>I/O Usageのグラフを表示/非表示切り替え用リンクを追加</li>
+  <li>クエリ全文表示ボタンを設置</li>
 </ul>
 <br/>
 
