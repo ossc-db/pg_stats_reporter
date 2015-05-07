@@ -585,7 +585,7 @@
 </ul>
 <h4>アラート設定の変更方法</h4>
 <p>リポジトリDBのアラート条件設定テーブルを更新します。<br/>
-アラート設定の詳細は <a href="http://pgstatsinfo.projects.pgfoundry.org/pg_statsinfo-ja.html#usage-alert">pg_statsinfo マニュアル</a> をご覧ください。</p>
+アラート設定の詳細は <a href="http://pgstatsinfo.sourceforge.net/pg_statsinfo-ja.html#usage-alert">pg_statsinfo マニュアル</a> をご覧ください。</p>
 <p>設定例: 秒間ロールバック数の閾値を「3000」に変更する場合
 <pre style="border: 1px solid; padding: 10px;">
 UPDATE statsrepo.alert SET rollback_tps = 3000 WHERE instid = 1;
