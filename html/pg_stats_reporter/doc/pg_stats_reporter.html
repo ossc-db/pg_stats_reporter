@@ -72,27 +72,27 @@ If you would like to install from source package, please read the INSTALL.en fil
 <h3 id="requirement">Requirement</h3>
 <dl>
   <dt>pg_statsinfo</dt>
-  <dd>version 2.5 or later</dd>
+  <dd>version 2.5, 3.0, 3.1</dd>
   <dt>PHP</dt>
-  <dd>version 5.3.3 (It's included in rpm package of OS.), 5.5.12</dd>
+  <dd>version 5.3.3 (It's included in rpm package of OS.), 5.4.16 (It's included in rpm package of OS.), 5.5.22</dd>
   <dt>OS</dt>
-  <dd>RHEL 6.5</dd>
+  <dd>RHEL 6.6, 7.1</dd>
   <dt>Web browser</dt>
   <!-- IEs are deleted from the list-->
-  <dd>Firefox : 28.0</dd>
-  <dd>Google Chrome : 33.0</dd>
+  <dd>Firefox : 37.0</dd>
+  <dd>Google Chrome : 42.0</dd>
   <dt>HTTP Server</dt>
-  <dd>Apache HTTP Server : 2.2.15 (It's included in RHEL 6.5)</dd>
+  <dd>Apache HTTP Server : 2.2.15 (It's included in RHEL 6.6), 2.4.6 (It's included in RHEL 7.1)</dd>
   <dt>libraries (They are included in package of pg_stats_reporter.)</dt>
   <dd><ul>
-    <li>jQuery : 2.0.1</li>
-    <li>jQuery UI : 1.10.2</li>
-    <li>jquery-ui-timepicker-addon : 1.3</li>
-    <li>dygraphs JavaScript Visualization Library : b839102723 (commit ID)</li>
+    <li>jQuery : 2.1.3</li>
+    <li>jQuery UI : 1.11.3</li>
+    <li>jquery-ui-timepicker-addon : 1.5.0</li>
+    <li>dygraphs JavaScript Visualization Library : 1.1.0</li>
     <li>jqPlot : 1.0.8 r1250</li>
-    <li>tablesorter : 2.15.5</li>
-    <li>Superfish : 1.7.2</li>
-    <li>Smarty : 3.1.13</li>
+    <li>tablesorter : 2.17.8</li>
+    <li>Superfish : 1.7.5</li>
+    <li>Smarty : 3.1.21</li>
   </ul></dd>
   <dt>Resolution</dt>
   <dd>1024x786(SXGA) or higher</dd>
@@ -115,14 +115,14 @@ install by yum command or rpm packages.</p>
 <p>Install pg_stats_reporter with rpm command. Install example is as follows.</p>
 <pre>$ su
 /* Example of install command by rpm. */
-# rpm -ivh httpd-2.2.15-15.el6_2.1.x86_64.rpm \
-           php-common-5.3.3-3.el6_2.8.x86_64.rpm \
-           php-5.3.3-3.el6_2.8.x86_64.rpm \
-           php-pdo-5.3.3-22.el6.x86_64.rpm \
-           php-pgsql-5.3.3-3.el6_2.8.x86_64.rpm \
-           php-intl-5.3.3-3.el6_2.8.x86_64.rpm \
-           php-cli-5.3.3-22.el6.x86_64.rpm \
-           pg_stats_reporter-3.0.0-1.el6.noarch.rpm
+# rpm -ivh httpd-2.2.15-39.el6.x86_64.rpm \
+           php-common-5.3.3-38.el6.x86_64.rpm \
+           php-5.3.3-38.el6.x86_64.rpm \
+           php-pdo-5.3.3-38.el6.x86_64.rpm \
+           php-pgsql-5.3.3-38.el6.x86_64.rpm \
+           php-intl-5.3.3-38.el6.x86_64.rpm \
+           php-cli-5.3.3-38.el6.x86_64.rpm \
+           pg_stats_reporter-3.1.0-1.el6.noarch.rpm
 </pre>
 
 <h4>Installation limited to command-line mode</h4>
@@ -138,15 +138,16 @@ install by yum command or rpm packages.</p>
 <h5>Installation by RPM</h5>
 <p>Installation example pg_stats_reporter limited to command-line mode with RPM is shown below.</p>
 <pre>/* Example of install command by rpm. */
-# rpm -ivh php-common-5.3.3-3.el6_2.8.x86_64.rpm \
-           php-pdo-5.3.3-22.el6.x86_64.rpm \
-           php-pgsql-5.3.3-3.el6_2.8.x86_64.rpm \
-           php-intl-5.3.3-3.el6_2.8.x86_64.rpm \
-           php-cli-5.3.3-22.el6.x86_64.rpm
+# rpm -ivh php-common-5.3.3-38.el6.x86_64.rpm \
+           php-pdo-5.3.3-38.el6.x86_64.rpm \
+           php-pgsql-5.3.3-38.el6.x86_64.rpm \
+           php-intl-5.3.3-38.el6.x86_64.rpm \
+           php-cli-5.3.3-38.el6.x86_64.rpm
+# rpm -ivh --nodeps pg_stats_reporter-3.1.0-1.el6.noarch.rpm
 
 [caution1] php-intl rpm file is included in the following directory
   of OS install disk No. 2.
-  "Packages/php-intl-5.3.3-22.el6.x86_64.rpm"
+  "Packages/php-intl-5.3.3-38.el6.x86_64.rpm"
 [caution2] It can work without php-intl rpm file. 
   However, it doesn't work feature of auto language detection.
 </pre>
