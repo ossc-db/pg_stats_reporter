@@ -175,7 +175,7 @@ EOD;
 
 EOD;
 
-		$html_string .= "<link rel=\"stylesheet\" type=\"text/css\" href=\"".JQUERYUI_PATH."jquery.ui.theme.min.css\"/>\n";
+		$html_string .= "<link rel=\"stylesheet\" type=\"text/css\" href=\"".JQUERYUI_PATH."jquery-ui.min.css\"/>\n";
 		$html_string .= "<link rel=\"stylesheet\" type=\"text/css\" href=\"".TABLESORTER_PATH."css/theme.blue.css\"/>\n";
 		$html_string .=
 <<< EOD
