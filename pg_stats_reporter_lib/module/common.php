@@ -15,7 +15,7 @@ function load_config(&$config, &$err_msg)
 	/* read config from configuration file */
 	$config = readConfigFile($error);
 	if (count($error) > 0) {
-		$err_msg .= "An error has occurred in pg_stats_reporter.ini<br/>\n";
+		$err_msg .= "Error in pg_stats_reporter.ini<br/>\n";
 		foreach ($error as $val) {
 			$err_msg .= " - " . $val . "<br/>\n";
 		}
@@ -39,7 +39,7 @@ function readConfigFile(&$err_msg)
 
 	/* read pg_stats_reporter.ini */
 	if (!is_file(CONFIG_FILE)) {
-		$err_msg[] = "pg_stats_reporter.ini is not found.";
+		$err_msg[] = "Configration file \"pg_stats_reporter.ini\" not found.";
 		return array();
 	}
 
@@ -88,7 +88,7 @@ function readConfigFile(&$err_msg)
 	/* check format and get data */
 	foreach ($config as $repo_name => $data_array) {
 		if (!is_array($data_array)) {
-			$err_msg[] = "Does not contain a section(repositoryDB name:".$repo_name.").";
+			$err_msg[] = "No section found in .ini file.(repositoryDB name:".$repo_name.").";
 			return array();
 		}
 
@@ -119,7 +119,7 @@ function readConfigFile(&$err_msg)
 		// and get pg_statsinfo version
 		$conn = pg_connect($connect_str);
 		if (!$conn) {
-			$err_msg[] = "connect error.(repository database = ".$repo_name.")";
+			$err_msg[] = "Connection failure.(repository database = ".$repo_name.")";
 			continue;
 		} else {
 			pg_set_client_encoding($conn, "UTF-8");
@@ -127,7 +127,7 @@ function readConfigFile(&$err_msg)
 			// statsrepo schema is not found
 			$result = pg_query($conn, "SELECT nspname FROM pg_catalog.pg_namespace WHERE nspname = 'statsrepo'");
 			if (!$result || !pg_num_rows($result)) {
-				$err_msg[] = "statsrepo schema is not found.(repository database = ".$repo_name.")";
+				$err_msg[] = "statsrepo schema not found.(repository database = ".$repo_name.")";
 				pg_free_result($result);
 				pg_close($conn);
 				continue;
@@ -138,7 +138,7 @@ function readConfigFile(&$err_msg)
 
 			$result = pg_query($conn, "SELECT p.proname FROM pg_catalog.pg_proc p LEFT JOIN pg_catalog.pg_namespace n ON p.pronamespace = n.oid WHERE n.nspname = 'statsrepo' AND p.proname = 'get_version'");
 			if (!$result) {
-				$err_msg[] = "execute query error. ".pg_last_error();
+				$err_msg[] = "Query execution error. ".pg_last_error();
 			}
 			if (pg_num_rows($result) == 0) {
 				$cache_contents[] = "repo_version = ".V23."\n";
@@ -146,7 +146,7 @@ function readConfigFile(&$err_msg)
 				pg_free_result($result);
 				$result = pg_query($conn, "SELECT statsrepo.get_version()");
 				if (!$result) {
-					$err_msg[] = "execute query error. ".pg_last_error();
+					$err_msg[] = "Query execution error. ".pg_last_error();
 				}
 				$row_array = pg_fetch_array($result, NULL, PGSQL_NUM);
 				$cache_contents[] = "repo_version = ".$row_array[0]."\n";
@@ -155,9 +155,9 @@ function readConfigFile(&$err_msg)
 
 			$result = pg_query($conn, "SELECT instid, hostname, port, pg_version FROM statsrepo.instance");
 			if (!$result) {
-				$err_msg[] = "execute query error. ".pg_last_error();
+				$err_msg[] = "Query execution error. ".pg_last_error();
 			} else if (pg_num_rows($result) == 0){
-				$err_msg[] = "monitored database is not registered at all.(repository database = ".$repo_name.")";
+				$err_msg[] = "No target server registered (repository database = ".$repo_name.")";
 			} else {
 				for ($i = 0 ; $i < pg_num_rows($result) ; $i++ ) {
 					$row_array = pg_fetch_array($result, NULL, PGSQL_NUM);
@@ -204,7 +204,7 @@ function readConfigFile(&$err_msg)
 	// For multiple executions, use an unique temporary file
 	$tmpCacheFilename = tempnam(CONFIG_CACHE_DIR, CONFIG_FILENAME . ".");
 	if (file_put_contents($tmpCacheFilename, $cache_contents) == false) {
-		$err_msg[] = "do not write cache file(".$tmpCacheFilename.")";
+		$err_msg[] = "Failed to write cache file(".$tmpCacheFilename.")";
 		return array();
 	}
 
@@ -292,7 +292,7 @@ function readMessageFile($language, $msg_file_list,
 
 	$xml = simplexml_load_file($msgfile);
 	if ($xml == false) {
-		$msg = "Access denied or invalid XML format.(".$msgfile.")";
+		$msg = "Access denied or invalid XML format (".$msgfile.")";
 		if (!empty($_SERVER['DOCUMENT_ROOT']))
 			die($msg);
 		else
@@ -302,7 +302,7 @@ function readMessageFile($language, $msg_file_list,
 	// make help message
 	$err_val = $xml->xpath("/document/help/div[@id=\"error\"]");
 	if (count($err_val) == 0) {
-		$err_val[0] = "help item is not found.";
+		$err_val[0] = "No help item found";
 	}
 
 	foreach($help_list as $id_key => $id_val) {

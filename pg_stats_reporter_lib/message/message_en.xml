@@ -2,92 +2,107 @@
 <!-- Copyright (c) 2012-2015, NIPPON TELEGRAPH AND TELEPHONE CORPORATION -->
 
 <help>
-<div id="summary_dialog" class="help_dialog"
-  title="How to see a Summary table">
-<h4>How to see a Summary table.</h4>
+<div id="overview_dialog" class="help_dialog"
+  title="The Report Overview Table">
+<h4>This table shows the overview of entire this report.</h4>
 <ul>
-<li>instname : database cluster instance id</li>
-<li>hostname : host server name</li>
-<li>port : port of database cluster instance</li>
-<li>pg_version : version of PostgreSQL</li>
-<li>snap_begin : start point in this report</li>
-<li>snap_end : end point in this report</li>
-<li>duration : term in this report</li>
-<li>total_dbsize : total database size</li>
-<li>total_commits : total commit transactions in this database cluster</li>
-<li>total_rollbacks : total rollback transactions in this database cluster</li>
+<li>Database system identifier: An ID which you will see using pg_controldata</li>
+<li>Host name: Name of the host this instance resides on</li>
+<li>Port ID: Port ID this server is listening on</li>
+<li>PostgreSQL version:	Version of PostgreSQL</li>
+<li>Begins at: Timestamp of the earliest snapshot in this report</li>
+<li>Ends at: Timestamp of the latest snapshot in this report</li>
+<li>Period: Period of this report</li>
+<li>Datbase size: Database size at the time of the latest snapshot in this report</li>
+<li>Number of commits: Number of transactions committed during the period of this report</li>
+<li>Number of rollbakcs: Number of transactions rollbacked during the period of this report</li>
 </ul>
 </div>
 
 <div id="database_statistics_dialog" class="help_dialog"
-  title="How to see a Database Statistics table">
-<h4>How to see a Database Statistics table.</h4>
+  title="The Database Statistics Table">
+<h4>Each line in this table shows statistic overview of a database.</h4>
 <ul>
-<li>database : database name</li>
-<li>MiB : size of database (MiB)</li>
-<li>+MiB : increase size of database (MiB)</li>
-<li>commit/s : committed transactions per second</li>
-<li>rollback/s : rollback transactions per second</li>
-<li>hit% : cache hit's rate (shared_buffers hit's rate)</li>
-<li>gets/s : read blocks from disk and disk cache per second</li>
-<li>reads/s : read blocks from disk per second</li>
-<li>rows/s : number of rows from tables and indexes per second</li>
+<li>Database: Database name</li>
+<li>MiB: Size of the database at the time of the last snapshot in MiB.</li>
+<li>+MiB: Increase or decrease in the database size during this report period in MiB.</li>
+<li>Commit/s: Average frequency of commits during this report period.</li>
+<li>Rollback/s: Average frequency of rollbacks during this report period.</li>
+<li>Hit% : Shared buffer's hit rate throughout this report period.</li>
+<li>Gets/s : Average number of blocks per second found in shared buffers during this report period. </li>
+<li>reads/s : Average number of blocks per second read from disks during this report period.</li>
+<li>rows/s : Average number of rows per second fetched from tables and indexes during thie report period.</li>
 </ul>
-<ul>*The small value is displayed as zero by the truncation of the number in unit conversion</ul>
+*Small values may be shown as zero by round off.
 </div>
 
 <div id="transaction_statistics_dialog" class="help_dialog"
-  title="How to see a Transaction Statistics graph">
-<h4>How to see a Transaction Statistics graph.</h4>
+  title="The Transactions Table">
+<h4>This graph shows the trend of number of transactions per seconds.</h4>
+<h4>Axes</h4>
 <ul>
-<li>horizontal axis  : time</li>
-<li>vertical axis  : transactions per second (xact/s)</li>
-<li>[database name] commit_tps : commited transactions of [database name] per second (xact/s)</li>
-<li>[database name] rollback_tps : rollback transaction of [database name] per second (xact/s)</li>
+<li>Horizontal axis  : Time</li>
+<li>Vertical axis  : Transactions per second (xact/s)</li>
+</ul>
+<h4>Legend</h4>
+<ul>
+<li>[database name] commit_tps : commited transactions</li>
+<li>[database name] rollback_tps : rollbacked transactions</li>
 </ul>
 </div>
 
 <div id="database_size_dialog" class="help_dialog"
-  title="How to see a Database Size">
-<h4>How to see a Database Size table.</h4>
+  title="The Trend of Database Size Table">
+<h4>This graph shows the trend of database size.</h4>
+<h4>Axes</h4>
 <ul>
-<li>horizontal axis : time</li>
-<li>vertial axis : size of database (Bytes)</li>
-<li>[database name] size : size of [database name] (Bytes)</li>
+<li>Horizontal axis: Time.</li>
+<li>Vertial axis: Size of database in bytes.</li>
+</ul>
+<h4>Legend</h4>
+<ul>
+<li>[database name] size : Size of the database in bytes.</li>
 </ul>
 </div>
 
 <div id="recovery_conflicts_dialog" class="help_dialog"
-  title="How to see a Recovery Conflicts table">
-<h4>How to see a Recovery Conflicts table.</h4>
+  title="The Recovery Conflicts Table">
+<h4>This table shows the number of canceled queries for every database due to conflict with some activities on master during this report period. This table have values only when the instance is a standby server.</h4>
 <ul>
-<li>database : database name</li>
-<li>conflict tblspc : number of query cancels by conflict with deleted table space</li>
-<li>conflict lock : number of query cancels by conflict with database locks</li>
-<li>conflict snapshot : number of query cancels by conflict with VACUUM in tuples</li>
-<li>conflict bufferpin : number of query cancels by conflict with VACUUM in shared_buffers</li>
-<li>conflict deadlock : number of query cancels by deadlocks</li>
+<li>Database: Database name</li>
+<li>On tablespaces : Number of queries that have been canceled  due to dropped table space.</li>
+<li>On locks: Number of queries that have been canceled due to lock timeouts.</li>
+<li>On snapshots: Number of queries that have been canceled due to old snapshots.</li>
+<li>On bufferpins: Number of queries that have been canceled due to pinned buffers.</li>
+<li>On deadlocks: Number of queries that have been canceled due to deadlocks.</li>
 </ul>
 </div>
 
 <div id="wal_statistics_dialog" class="help_dialog"
-  title="How to see a WAL Statistics graph">
-<h4>How to see a WAL Statistics(total) graph.</h4>
+  title="The Write Ahead Logs Table and The WAL Trend Graph">
+<h4>This table shows the overview of Write Ahead Logs.</h4>
 <ul>
-<li>write_total : total size of WAL(xlog) data in this report (MiB)</li>
-<li>write_speed : average size of WAL(xlog) data in this report (MiB)</li>
-<li>WAL archive total (files) : number of successful file in the archive (use pg_statsinfo 3.1 higher)</li>
-<li>WAL archive failed (files) : number of times it fails to archive (use pg_statsinfo 3.1 higher)</li>
-<li>last WAL file : last WAL file name (use pg_statsinfo 3.1 higher)</li>
-<li>last archived WAL : last archived WAL file name (use pg_statsinfo 3.1 higher)</li>
+<li>Total size: Total size of write ahead log (WAL or XLOG, stands on
+transactions log) written out during this report period in MiB.</li>
+<li>Average output rate: Average output rate of WAL throughout this report period in MiB.</li>
+<li>Number of archived files: Number of successfully archived WAL segment files during this report period. Available on pg_statsinfo 3.1 or later and PostgreSQL 9.4 or later.</li>
+<li>Number of archiving errors: Number of WAL archiving errors occurred during this report period. Available on pg_statsinfo 3.1 or later and PostgreSQL 9.4 or later.</li>
+<li>Latest WAL file: File name of the WAL segment file currently written to. Available on pg_statsinfo 3.1 or later and PostgreSQL 9.4 or later.</li>
+<li>Last archived file : File name of the WAL segment file most recently archived. Available on pg_statsinfo 3.1 or later and PostgreSQL 9.4 and later.</li>
 </ul>
-<h4>How to seea WAL Statistics graphs.</h4>
+<h4>This graph shows the trend of the rate of WAL output. One of the
+lines shows amount of WAL written during every snapshot interval and
+the another shows the amount divided by the snapshot interval.</h4>
+<h4>Axes</h4>
 <ul>
-<li>horizontal axis : time (snapshot time)</li>
-<li>vertial axis1 (left) : size of WAL(xlog) data per snapshot (Bytes)</li>
-<li>vertial axis2 (right) : size of WAL(xlog) data per second (Bytes/s)</li>
-<li>write_size : size of WAL output / snapshot time (Bytes)</li>
-<li>write_size_per_sec : size pf WAL output / second (Bytes/s)</li>
+<li>Horizontal axis : Time</li>
+<li>Vertial axis1 (left): Axis for Bytes/snapshot shown below.</li>
+<li>vertial axis2 (right): Axis for output rate shown below.</li>
+</ul>
+<h4>Legend</h4>
+<ul>
+<li>Bytes/snapshot: Amount of WAL written during every snapshot interval in bytes.</li>
+<li>Output rate: Average output rate of WAL for every snapshot interval in bytes/s</li>
 </ul>
 </div>
 
@@ -129,464 +144,487 @@
 </div>
 
 <div id="load_average_dialog" class="help_dialog"
-  title="How to see a Load Average graph">
-<h4>How to see a Load Average graph.</h4>
+  title="The Load Average Trend Graph">
+<h4>This graph shows system load averages over time.</h4>
+<h4>Axes</h4>
 <ul>
-<li>horizontal axis : time</li>
-<li>vertial axis : load average</li>
-<li>1min : load average in one minute</li>
-<li>5min : load average in five minutes</li>
-<li>15min : load average in fifteen minutes</li>
+<li>Horizontal axis: Time</li>
+<li>Vertial axis: Load averages</li>
+</ul>
+<h4>Legend</h4>
+<ul>
+<li>1min: Load average for past one minute</li>
+<li>5min: Load average for past five minutes</li>
+<li>15min: Load average for past fifteen minutes</li>
 </ul>
 </div>
 
 <div id="io_usage_dialog" class="help_dialog"
-  title="How to see a I/O Usage table/graph">
-<h4>How to see a I/O Usage table/graph.</h4>
+  title="The I/O Usage Section">
+<h4>This section consists of one overview table and tree trend
+graphs. The graphs are hidden at first and comes out by clicking the
+corresponding links.</h4>
+<h4>The I/O Usage Table shows the overview of I/O usage throughout the report period. Each row represents one device.</h4>
 <ul>
-<li>device_name : device name</li>
-<li>Including TableSpaces : size of table space in a device</li>
-<li>read<ul>
-<li>total size (MiB) : total read size in a device (MiB)</li>
-<li>peak size (KiB/s) : read peak I/O size per second in a device (KiB/s) (use pg_statsinfo 3.1 higher)</li>
-<li>total time (ms) : total read time in a device (ms)</li>
+<li>Device_name : Name of the device</li>
+<li>Containing table spaces: List of table spaces located in the device.</li>
+<li>Read: Device read statistics<ul>
+<li>Total bytes (MiB): Read bytes throughout the report period in Mebibytes.</li>
+<li>Peak rate (KiB/s): Maximum read rate during the report period in Kibibytes per seconds. Available on pg_statsinfo 3.1 or later and PostgreSQL 9.4 or later.</li>
+<li>Total time (ms): Sum of the time spent to read this device in milliseconds throughout this report period.</li>
 </ul></li>
-<li>write<ul>
-<li>total size (MiB) : total write size in a device (MiB)</li>
-<li>peak size (KiB/s) : write peak I/O size per second in a device (KiB/s) (use pg_statsinfo 3.1 higher)</li>
-<li>total time (ms) : total write time in a device (ms)</li>
+<li>Write: Device write statistics<ul>
+<li>Total bytes (MiB): Write bytes throughout the report period in Mebibytes.</li>
+<li>Peak rate (KiB/s): maximum write rate during the report period in Kibibytes. Available on pg_statsinfo 3.1 or later and PostgreSQL 9.4 or later.</li>
+<li>Total time (ms): Sum of the time spent to write to this device in milliseconds.</li>
 </ul></li>
-<li>current I/O queue : number of current I/O queue in a device</li>
-<li>total I/O time (ms) : total time of I/O in a device (ms)</li>
+<li>Average I/O queue: Average length of I/O queue throughout this report period.</li>
+<li>Total I/O time (ms): Sum of the time spent by I/O operations in milliseconds. This field corresponds to "weighted # of milliseconds spent doing I/Os" in /proc/diskstats.</li>
 </ul>
-<ul>*The small value is displayed as zero by the truncation of the number in unit conversion</ul>
-<h4>How to see a I/O Size</h4>
+*Small values may be shown as zero by round off.
+<h4>The I/O Rate Graph shows the read/write rate over snapshots. The values are the average in a snapshot.</h4>
+<h4>Axes</h4>
 <ul>
-<li>horizontal axis : time </li>
-<li>vertial axis : database size (Bytes/s)</li>
-<li>[device] read : read I/O size per second in a device (Bytes/s)</li>
-<li>[device] write : write I/O size per second in a device (Bytes/s)</li>
+<li>Horizontal axis: Time </li>
+<li>Vertial axis: I/O rate in bytes per seconds</li>
 </ul>
-<h4>How to see a I/O Size (Peak) (use pg_statsinfo 3.1 higher)</h4>
+<h4>Legend</h4>
 <ul>
-<li>horizontal axis : time </li>
-<li>vertial axis : database size (Bytes/s)</li>
-<li>[device] read : read peak I/O size per second in a device (Bytes/s)</li>
-<li>[device] write : write peak I/O size per second in a device (Bytes/s)</li>
+<li>[device] read: Read I/O rate</li>
+<li>[device] write: Write I/O rate</li>
 </ul>
-<h4>How to see a I/O Time</h4>
+<h4>The I/O Peak Rate Graph shows the read/write peak rate over snapshots. The values are the maximum within a snapshot. Available on pg_statsinfo 3.1 or later, and PostgreSQL 9.4 or later.</h4>
+<h4>Axes</h4>
 <ul>
-<li>horizontal axis : time </li>
-<li>vertial axis : I/O time ratio (%)</li>
-<li>[device] avg read time : ratio of read I/O time in a device</li>
-<li>[device] avg write time : ratio of write I/O time in a device</li>
+<li>Horizontal axis: Time </li>
+<li>Vertial axis: I/O peak rate in every snapshot in bytes per seconeds</li>
+</ul>
+<h4>Legend</h4>
+<ul>
+<li>[device] read: Read I/O rate</li>
+<li>[device] write: Write I/O rate</li>
+</ul>
+<h4>The I/O Time Graph shows the time spent by reading from or writing
+to the device over snapshots. The values are the average for each
+snapshot and are the sums over all processes simultaneously running so
+they may go above 100 % for certain load.</h4>
+<h4>Axes</h4>
+<ul>
+<li>Horizontal axis: Time</li>
+<li>Vertial axis: Percentage of I/O Time against real time</li>
+</ul>
+<h4>Legend</h4>
+<ul>
+<li>[device] avg read time: Read time</li>
+<li>[device] avg write time: Write time</li>
 </ul>
 </div>
 
 <div id="memory_usage_dialog" class="help_dialog"
-  title="How to see a Memory Usage graph">
-<h4>How to see a memory Usage graph table.</h4>
+  title="The Memory Usage Graph">
+<h4>This graph shows itemized memory usage over time. The values are read from /proc/meminfo.</h4>
+<h4>Axes</h4>
 <ul>
-<li>horizontal axis : time </li>
-<li>vertial axis : size (Bytes)</li>
-<li>memfree : size of free memory (Bytes)</li>
-<li>buffers : size of buffers cached (Bytes)</li>
-<li>cached : size of file cached(not include buffer cached) (Bytes)</li>
-<li>swap : size of swap (Bytes)</li>
-<li>dirty : size of dirty pages (Bytes)</li>
+<li>Horizontal axis: Time </li>
+<li>Vertial axis: Memory usage in bytes. Alters by clicking "change scale" button between linear scale and log scale.</li>
+</ul>
+<h4>Legend</h4>
+<ul>
+<li>memfree : The amount of physical RAM left unused by the system.</li>
+<li>buffers : The amount of physical RAM used for file buffers.</li>
+<li>cached : The amount of physical RAM used as cache memory.</li>
+<li>swap : The amount of swap under use.</li>
+<li>dirty : The amount of memory waiting to be written back to the disk.</li>
 </ul>
 </div>
 
 <div id="disk_usage_per_tablespace_dialog" class="help_dialog"
-  title="How to see a Disk Usage per Tablespace table">
-<h4>How to see a Disk Usage per Tablespace table.</h4>
+  title="Disk Usage per Tablespace Table">
+<h4>Each row in this table shows the overview of a table space.</h4>
 <ul>
-<li>tablespace : name of tablespace</li>
-<li>location : directory of tablespace</li>
-<li>device : device number of directory of tablespace</li>
-<li>used (MiB) : usage data size in table space directory device (MiB)</li>
-<li>avail (MiB) : avalable data size in table space directory device (MiB)</li>
-<li>remain (%) : remain data size in table space directory device</li>
+<li>Tablespace: Name of tablespace</li>
+<li>Location: Path in the file system that this tablespace is located in</li>
+<li>Device: Major and minor device numbers</li>
+<li>Used: The amount of disk space used in Mebibytes</li>
+<li>Avail: The amount of available disk space in Mebibytes</li>
+<li>Remain: Percentage of available space against the whole device</li>
 </ul>
-<ul>*The small value is displayed as zero by the truncation of the number in unit conversion</ul>
+*Small values may be shown as zero by round off.
 </div>
 
 <div id="disk_usage_per_table_dialog" class="help_dialog"
-  title="How to see a Disk Usage per Table table/graph">
-<h4>How to see a Disk Usage per Table table/graph.</h4>
+  title="The Disk Usage per Table Section">
+<h4>This section consists of one overview table and two graphs.</h4>
+<h4>Each row in the Disk Usage per Table Table shows the disk usage
+overview of one table.</h4>
 <ul>
-<li>database : database name</li>
-<li>schema : schema name</li>
-<li>table : table name</li>
-<li>size (MiB) : size of table (MiB)</li>
-<li>table reads : table_blocks_reads</li>
-<li>index reads : index_blocks_reads</li>
-<li>toast reads : TOAST_blocks_reads</li>
+<li>Database: Name of the database this table resides in</li>
+<li>Schema: Name of the schema this table belongs to</li>
+<li>Table: Name of this table</li>
+<li>Size: Size of this table in Mebibytes</li>
+<li>Table reads: Number of PostgreSQL disk blocks read from this table</li>
+<li>Index reads: Number of PostgresQL disk blocks read from all indexes on this table</li>
+<li>Toast reads: Number of disk blocks read from this table's TOAST table and its index (if any)</li>
 </ul>
-<ul>*The small value is displayed as zero by the truncation of the number in unit conversion</ul>
-<h4>How to see a Table Size table.</h4>
-<ul>
-<li>entry : table name [database name].[schema name].[table name])</li>
-<li>value : table size ratio</li>
-</ul>
-<h4>How to see a Disk Read table.</h4>
-<ul>
-<li>entry : table name ([database name].[schema name].[table name])</li>
-<li>value : amount of read all blocks (all tables, indexes, TOAST table and TOAST index)</li>
-</ul>
+*Small values may be shown as zero by round off.
+<h4>The Table Size Chart shows the table size ratios among the whole tables.</h4>
+<h4>The Disk Read Chart shows the ratios of the number of blocks read
+from this table and its belongings.</h4>
 </div>
 
 <div id="heavily_updated_tables_dialog" class="help_dialog"
-  title="How to see a Heavily Updated Tables table">
-<h4>How to see a Heavily Updated Tables table.</h4>
+  title="The Heavily Updated Tables Table">
+<h4>Each row in this table shows the update activity overview of a table. The rows are shown in descending order of the "Total" field at first.</h4>
 <ul>
-<li>database : database name</li>
-<li>schema : schema name</li>
-<li>table : table name</li>
-<li>INSERT : number of INSERT rows</li>
-<li>UPDATE : number of UPDATE rows (include HOT update)</li>
-<li>DELETE :number of DELETE rows</li>
-<li>total : number of INSERT, UPDATE and DELETE rows</li>
-<li>HOT (%) : ratio of HOT update rows per all table rows</li>
+<li>Database: Name of the database this table resides in</li>
+<li>schema: Name of the schema this table belongs to</li>
+<li>table: Name of this table</li>
+<li>INSERT: Number of rows inserted during this report period</li>
+<li>UPDATE: Number of rows updated during this report period including HOT updates</li>
+<li>DELETE: Number of rows deleted during this report period</li>
+<li>total : The sum of the tree fields above</li>
+<li>HOT (%) : Percentage of HOT updates against all UPDATEs</li>
 </ul>
 </div>
 
 <div id="heavily_accessed_tables_dialog" class="help_dialog"
-  title="How to see a Heavily Accessed Tables table">
-<h4>How to see a Heavily Accessed Tables table.</h4>
+  title="The Heavily Accessed Tables Table">
+<h4>Each row in this table shows the scan activity overview of a
+table. The rows are shown in descending order of the "Seq scan" field at
+first.</h4>
 <ul>
-<li>database : database name</li>
-<li>schema : schema name</li>
-<li>table : table name</li>
-<li>seq_scan : time of executing sequential scan</li>
-<li>seq_tup_read : rows of sequential scan read</li>
-<li>tup_per_seq : rows of sequential scan read per once</li>
-<li>hit (%) : cache hit ratio</li>
+<li>Database: Name of the database this table resides in</li>
+<li>Schema: Name of the schema this table belongs to</li>
+<li>Table: Name of this table</li>
+<li>Seq scan: Number of sequential scans ran on this table during this report period</li>
+<li>Seq tup read: Number of tuples fetched by sequential scans on this table during this report period</li>
+<li>Tup per seq : Average number of tuples fetched by one sequential scan throughout this report period</li>
+<li>Hit ratio: Cache hit ratio in percent of this table averaged throughout this report period</li>
 </ul>
 </div>
 
 <div id="low_density_tables_dialog" class="help_dialog"
-  title="How to see a Low Density Tables table">
-<h4>How to see a Low Density Tables table.</h4>
+  title="The Low Density Tables Table">
+<h4>Each rows in this table shows some figures related to filling factor of one table at the time of the latest snapshot in reportin period. The rows are shown in descending order of the "Tuples" field at first.</h4>
 <ul>
-<li>database : database name</li>
-<li>schema : schama name</li>
-<li>table : table name</li>
-<li>tuples : tuples in the table</li>
-<li>logical_pages : number of logical pages in all records</li>
-<li>physical_pages : number of physical pages in all records</li>
-<li>tratio : ratio of logical pages per physical pages</li>
+<li>Database: Name of the database this table resides in</li>
+<li>Schema: Name of the schama this table belongs to</li>
+<li>Table: Name of this table</li>
+<li>Tuples: Number of live tuples in this table</li>
+<li>Logical pages: Estimated pages required to store all live tuples</li>
+<li>Physicalppages: Number of pages allocated to this table</li>
+<li>L/P ratio: Percentage of logical (required) pages agenst physical (existing) pages</li>
 </ul>
 </div>
 
 <div id="fragmented_tables_dialog" class="help_dialog"
-  title="How to see a Fragmented Tables table">
-<h4>How to see a Fragmented Tables table.</h4>
+  title="The Fragmented Tables Table">
+<h4>Each row in this table shows the fragmentation (correlation
+between physical and logical ordering) of one column. The correlation
+factor closer to zero means the stronger fragmentation of column. The rows are shown in descending rder of the "Correlation" field at first.</h4>
 <ul>
-<li>database : database name</li>
-<li>schema : schema name</li>
-<li>table : table name</li>
-<li>column : colum name</li>
-<li>correlation : correlation of record sort in table</li>
+<li>Database: Name of the database that the table containig this column resides in</li>
+<li>Schema: Name of the schema that the table containing this columns belongs to</li>
+<li>Table: Name of the table this column belongs to</li>
+<li>Column: Name of this column</li>
+<li>Correlation: Correlation factor of the values of this column</li>
 </ul>
 </div>
 
 <div id="functions_dialog" class="help_dialog"
-  title="How to see a Functions table">
-<h4>How to see a Functions table.</h4>
+  title="The Functions Table">
+<h4>Each row in this table shows usage statistics of one function. The rows are shown in descending order of the "Time/call" field.</h4>
 <ul>
-<li>Database : database name</li>
-<li>Schema : schema name</li>
-<li>Function : function name</li>
-<li>calls : time of function calls</li>
-<li>total time (ms) : total execute time (ms)</li>
-<li>self time (ms) : self execute time (ms)</li>
-<li>time/call (ms) : total execute time per calls (ms)</li>
+<li>Database: Name of the database this function resides in</li>
+<li>Schema: Name of the schema this function belongs to</li>
+<li>Function: Name of this function</li>
+<li>Calls: Number of times this function has been called during this report period</li>
+<li>Total time: Total time spent in this function and all other functions called by it during this report period in milliseconds</li>
+<li>Self time: Total time spent in this function itself during this report period in milliseconds</li>
+<li>Time/call: Average total time per one call throughout this report period in milliseconds</li>
 </ul>
 </div>
 
 <div id="statements_dialog" class="help_dialog"
-  title="How to see a Statements table">
-<h4>How to see a Statements table.</h4>
+  title="The Statements Table">
+<h4>Each row in this table shows execution statistics of a
+query. Multiple execitions by diffent users or on different databases
+of a statement have their own rows.  This feature requires
+pg_stat_statsments to be installed.</h4>
 <ul>
-<li>User : user name which executed query</li>
-<li>Database : database name which was executed query</li>
-<li>query : SQL query</li>
-<li>calls : number of executing query</li>
-<li>total time (sec) : total executing time (sec)</li>
-<li>time/call (sec) : average executing time (sec)</li>
+<li>User: Name of the user who executed this statement</li>
+<li>Database: Name of the database in which this statement was executed</li>
+<li>Query: Text of a representative statement</li>
+<li>Calls: Number of times this statement executed during this report period</li>
+<li>Total time: Total time spent in this statement during this report period in seconds</li>
+<li>Time/call: Average total time per call throughout this report period in seconds</li>
 </ul>
 </div>
 
 <div id="plans_dialog" class="help_dialog"
-  title="How to see a Plans table">
-<h4>How to see a Plans table.</h4>
+  title="The Plans Table">
+<h4>Each row in this table shows execution statistics itemized by execution plan. Clicking Query ID opens the itemized execution plan statistics. This feature requires pg_stat_statements and pg_store_plans to be installed. </h4>
 <ul>
-<li>query id : identifier of query</li>
-<li>user : user name which executed query</li>
-<li>database : database name which was executed query</li>
-<li>plan count : number of plan</li>
-<li>calls : number of executing query</li>
-<li>total time (sec) : total executing time (sec)</li>
-<li>time/call (sec) : average executing time (sec)</li>
-<li>block read time (ms) : total block read time (ms)</li>
-<li>block write time (ms) : total block write time (ms)</li>
-<li>query : SQL query</li>
-<li>plan information (child row)<ul>
-  <li>plan id : identifier of plan</li>
-  <li>calls : number of executing query</li>
-  <li>total time : total executing time (sec)</li>
-  <li>time/call (sec) : average executing time (sec)</li>
-  <li>block read time (ms) : total block read time (ms)</li>
-  <li>block write time (ms) : total block write time (ms)</li>
-  <li>first call : call for the first time</li>
-  <li>last call : call for the last time</li>
-  <li>plan (child row) : query plan</li>
+<li>Query ID: Hash code of this query. This field is calculated by
+pg_stat_statements on PostgreSQL 9.4 or later and is of
+pg_store_plans' own calculation otherwise. So query identification may
+be different from pg_stat_statement in some cases for the older
+versions of PosgreSQL.</li>
+<li>User: Name of the user who executed this statement</li>
+<li>Database: Name of the database in which the statement was executed</li>
+<li>Plan count: Number of plans executed for the statemnet</li>
+<li>Calls: Number of times this statement executed</li>
+<li>Total time: Total time spent in this statment during this report period in seconds</li>
+<li>Time/call: Average time per execution of this query throughout thie report period in seconds</li>
+<li>Block read time: Total time this query spent to read blocks during this report time in milliseconds. This and the next field requires track_io_timing to be enabled.</li>
+<li>Block write time: Total time this query spent to write blocks during this report time in milliseconds.</li>
+<li>Query: Query string corresponding the plans listed</li>
+<li>Plan details: Execution summaries of individual plans<ul>
+  <li>Plan ID: Hash code which identifies plans. </li>
+  <li>Calls: Number of times this plan exected</li>
+  <li>Total time: Total time spent in single execution throughout this report period in seconds</li>
+  <li>Time/call: Average time per execution of this plan throughout this report period in seconds</li>
+  <li>Block read time: Total time this plan spent to read blocks during this report period in milliseconds. This field and the next field requires track_io_timing to be enabled.</li>
+  <li>Block write time: Total time this plan spent to write blocks during this report period in millisecond</li>
+  <li>First call: Time when this plan first executed</li>
+  <li>Last call: Time when this plan last executed</li>
+  <li>Plan: Plan string. This string holds numbers in last execution, which are omitted in calulating plan IDs.</li>
 </ul></li>
 </ul>
 </div>
 
 <div id="long_transactions_dialog" class="help_dialog"
-  title="How to see a Long Transactions table">
-<h4>How to see a Long Transactions table.</h4>
+  title="The Long Transactions Table">
+<h4>This table shows the list of long lasting transactions. Every
+snapshot holds certain number of longest transactions at the time of
+creation and the same transaction are merged then the merged
+transactions are shown in this table, in descending order of their
+duration at first. Transactions are identified by the set of "PID",
+"Client address" and "Began at". pg_statsinfo.long_transaction_max
+specifies how many long transactions every snapshot records.</h4>
 <ul>
-<li>pid : pid of backend process in long transaction</li>
-<li>client address : client ip address of backend process in long transaction</li>
-<li>when to start : start time of long transaction</li>
-<li>duration (sec) : duration time of long transaction (sec)</li>
-<li>query : query of long transaction</li>
+<li>PID: PID of the backend process where the transaction running on</li>
+<li>Client address: Client IP address connected to the backend process</li>
+<li>Began at: Time when the transaction has started</li>
+<li>Duration: Time elapsed since the transaction started</li>
+<li>Query: Query string that last executed in the transaction</li>
 </ul>
 </div>
 
 <div id="lock_conflicts_dialog" class="help_dialog"
-  title="How to see a Lock Activity table">
-<h4>How to see a Lock Activity table.</h4>
+  title="The Lock Conflicts table">
+<h4>This table shows lock conflicts observed druing this report period. </h4>
 <ul>
-<li>database : database name which has lock waiting object</li>
-<li>schema : schema name which has lock waiting object</li>
-<li>relation : relation name which has lock waiting</li>
-<li>duration : duration time which has lock waiting</li>
-<li>blockee pid : blockee pid which has lock waiting</li>
-<li>blocker pid : blocke pid which has lock</li>
-<li>blocker gid : gid of blocker backend</li>
-<li>blockee query : executing query which is lock wating in transaction</li>
-<li>blocker query : query list which has lock in transaction</li>
+<li>Database: Name of the database where this conflict occurs</li>
+<li>Schema: Name of the schema of the relation where this conflict occurs. This field left blank if the conflict is occurred on other than a relation.</li>
+<li>Relation: Name of the relation where this coflict occurs. This field left blank if the conflict is occurred on other than a relation. </li>
+<li>Duration: Time spent to wait for the lock to be acquired </li>
+<li>Blockee PID: PID of the blocked backend</li>
+<li>Blocker PID: PID of the blocking backend</li>
+<li>Blocker GID: GID of the blocking backend</li>
+<li>Blockee query: Query string wating for the lock</li>
+<li>Blocker query: Queries executed in the blocking transaction. This field is no longer than 1000 bytes so it may be cut off at the middle of the queries</li>
 </ul>
 </div>
 
 <div id="checkpoint_activity_dialog" class="help_dialog"
-  title="How to see a Checkpoint Activity table">
-<h4>How to see a Checkpoint Activity table.</h4>
+  title="The Checkpoint Activity Table">
+<h4>This table shows the summary of checkpoint activity.</h4>
 <ul>
-<li>total checkpoints : number of total checkpoint</li>
-<li>checkpoints by time : number of checkpoint executed by checkpoint_timeout</li>
-<li>checkpoints by xlog : number of checkpoint executed by checkpoint segments</li>
-<li>avg written buffers : average written buffer size</li>
-<li>max written buffers : max written buffer size</li>
-<li>avg duration (sec) : average time of checkpoint's duration (sec)</li>
-<li>max duration (sec) : max time of checkpoint's duration (sec)</li>
+<li>Number of checkpoints: Number of checkpoints completed during this report period</li>
+<li>Caused by timeout: Number of checkpoints started by chckpoint timeout</li>
+<li>Caused by xlogs: Number of checkpoints started by XLOG growth</li>
+<li>Average written buffers: Average number of the written buffers by each checkpoint throughout this report period</li>
+<li>Maximum written buffers: Number of the buffers written by the checkpoint that have written largest number of buffers throughout this report period</li>
+<li>Average duration: Average duration of checkpoints cmopleted during this report period, in seconds</li>
+<li>Maximum duration: Duration of the checkpoint with the longest completion time in this report period, in seconds</li>
 </ul>
 </div>
 
 <div id="basic_statistics_dialog" class="help_dialog"
-  title="How to see a Basic Statistics (Average) table">
-<h4>How to see a Basic Statistics. (Average)</h4>
+  title="The Autovacuum Overview Table">
+<h4>This table shows the overview of autovacuum activities. Each row
+corresponds to one table reported by autovacuum logs. This shows only
+tables that autovacuum has been done at least once in this report
+period.</h4>
 <ul>
-<li>database : database name</li>
-<li>schema : schema name</li>
-<li>table : table name</li>
-<li>count : number of autovacuum executed</li>
-<li>avg index scans : number of index scan</li>
-<li>avg removed rows : avarage removed rows</li>
-<li>avg remain rows : average remain rows</li>
-<li>avg remain dead : average remain invalid rows (use pg_statsinfo 3.1 higher)</li>
-<li>avg duration (sec) : average duration time (sec)</li>
-<li>max duration (sec) : max duration time (sec)</li>
-<li>cancels : number of cancelled autovacuum (use pg_statsinfo 3.0 higher)</li>
+<li>Database:  Name of the database this table resides in </li>
+<li>Schema: Name of the schema this table belongs to</li>
+<li>Table: Name of this table</li>
+<li>Count: Number of autovacuum executed on this table</li>
+<li>Avg index scans: Average number of indexes involved in  each vacuum on table</li>
+<li>Avg removed rows: Avarage number of rows that each autovacuum removed throughout this report period</li>
+<li>Avg remain rows: Average number of rows that each autovacuum had not removed throughout this report period. This includes "Avg remain dead".</li>
+<li>Avg remain dead: Average number of dead rows that each autovacuum cannot be removed. Available for pg_statsinfo 3.1 or higher and PostgreSQL 9.4 or later)</li>
+<li>Avg duration: Average time each autovacuum during this report period took, in seconds</li>
+<li>Max duration: Maximum duration among all autovacuums executed during this report period, in secods</li>
+<li>Cancels: Number of cancelled autovacuum trial during this report period. Available on pg_statsinfo 3.0 or later and PostgresQL 9.3 and later)</li>
 </ul>
+<div>This feature reuiqres autovacuum logs so set
+log_autovacuum_min_duration to 0 to make this feature fully
+available. Less logging reduces the completeness this table.</div>
 </div>
 
 <div id="vacuum_cancels_dialog" class="help_dialog"
-  title="How to see a Vacuum and Analyze Cancels table">
-<h4>How to see a Vacuum and Analyze Cancels.</h4>
+  title="The Cancellations Table">
+<h4>This table lists the cancellation events of autovacuums and autoanalyzes occurred during this report period.</h4>
 <ul>
-<li>timestamp : timestamp</li>
-<li>database : database name</li>
-<li>schema : schema name</li>
-<li>table : table name</li>
-<li>cancel : VACUUM/ANALYZE</li>
-<li>cause query : SQL query</li>
+<li>Time: timestamp</li>
+<li>Database: Name of the database the table resides in</li>
+<li>Schema: Name of the schema the table belongs to</li>
+<li>Table: Name of the table where the cancellation occurred</li>
+<li>Activity: Canclled activity, either of ANALYZE or VACUUM</li>
+<li>Causal query: Query string caused the cancellation</li>
 </ul>
 </div>
 
 <div id="io_statistics_dialog" class="help_dialog"
-  title="How to see a I/O Statistics (Average) table">
-<h4>How to see I/O Statistics. (Average)</h4>
+  title="The Autovacuum I/O Statistics Table">
+<h4>This table shows the I/O statistics for autovacuums.</h4>
 <ul>
-<li>database : database name</li>
-<li>schema : schema name</li>
-<li>table : table name</li>
-<li>avg page hit : average page hit</li>
-<li>avg page miss : average page miss</li>
-<li>avg page dirty : average page dirty</li>
-<li>avg read rate : average read rate</li>
-<li>avg write rate : average write rate</li>
+<li>Database: Name of the database this table resides in</li>
+<li>Schema: Name of the schema this table belongs to</li>
+<li>Table: Name of the table</li>
+<li>Avg page hit: Average number of buffers that each autovacuum read from shared buffers throughout this report period</li>
+<li>Avg page miss: Average number of buffers that each autovacuum read from disks throughout this report period</li>
+<li>Avg page dirtied: Average number of buffers that each autovacuum has dirtied throughout this report period</li>
+<li>Avg read rate: Average time that each autovacuum spent to read disks throughout this report period</li>
+<li>Avg write rate: Average time that each autovacuum spent to write disks throughout this report period</li>
 </ul>
 </div>
 
 <div id="analyze_statistics_dialog" class="help_dialog"
-  title="How to see a Analyze Statistics table">
-<h4>How to see a Analyze Statistics.</h4>
+  title="The Analyze Overview Table">
+<h4>This table shows the overview of autoanalyze activities. Each row
+corresponds to one table reported in autoanalyze logs. This shows only tables
+that autoanalyze has been done at least once in this report period. </h4>
 <ul>
-<li>database : database name</li>
-<li>schema : schema name</li>
-<li>table : table name</li>
-<li>count : number of execute autoanalyze</li>
-<li>total duration (sec) : total duration time (sec)</li>
-<li>avg duration (sec) : average duration time (sec)</li>
-<li>max duration (sec) : max duration time (sec)</li>
-<li>last analyze time : last execute time of autoanalyze (use pg_statsinfo 3.0 higher)</li>
-<li>cancels : number of cancelled autoanalyze (use pg_statsinfo 3.1 higher)</li>
-<li>max modified rows : last been updated since analyze tuple number of maximum value (use pg_statsinfo 3.1 higher)</li>
+<li>Database: Name of the database this table resides in</li>
+<li>Schema: Name of the schema this table belongs to</li>
+<li>Table: Name of this table</li>
+<li>Count: Number of autoanalyze executed on this table during this report period</li>
+<li>Total duration: Total time of each autoanalyze execution on this table during this report period</li>
+<li>Avg duration: Average time of each autoanalyze execution on this table throughout this report period</li>
+<li>Max duration: Execution time of autoanalyze on this table which took longest, in seconds</li>
+<li>Last analyzed: Time when the last autoanalyze ran on this table. Available on pg_statsinfo 3.0 or later and PostgreSQL 9.3 and later.</li>
+<li>Cancels : Number of autoanalyze cancellation occurred on this table. Available on pg_statsinfo 3.1 or later and PostgreSQL 9.4 and alter.</li>
+<li>Max modified rows: Number of rows updated by autoanalyze on this table that has been modified largest number of rows during this repor period. Available one pg_statsinfo 3.1 or later and PostgreSQL 9.4 and later.</li>
 </ul>
+<div>This feature requires autovanalyze logs so set
+log_autovacuum_min_duration to 0 to make this feature fully
+available. Less logging reduces the completeness this table.</div>
 </div>
 
 <div id="modified_rows_ratio_dialog" class="help_dialog"
-  title="How to see a Modified rows ratio graph">
-<h4>How to see a Modified rows ratio</h4>
+  title="The Modified Rows Graph">
+<h4>This graph shows how many rows inserted, updated and deleted since last analyze for each table in percentage to all tuples including dead tuples, which is related to the threshold of autoanalyze.</h4>
+<h4>Axes</h4>
 <ul>
-<li>horizontal axis : time</li>
-<li>vertial axis : Modified rows ratio (%)</li>
-<li>[table] ratio : Estimated ratio of rows modified since this table was last analyzed</li>
+<li>Horizontal axis: Time</li>
+<li>Vertial axis: Percentage of modified rows aganst all rows including dead tuples stored in the table</li>
 </ul>
-<p>Display the top 10 table of information of the number of tuples.</p>
+<h4>Legend</h4>
+<ul>
+<li>[table] ratio: Percentage of modified rows for the table</li>
+</ul>
+<p>To avoid losing readability of the graph, only ten largest tables in number of tuples are shown in this graph. The values are calculated as pg_stat_get_mod_since_analyze(table) / (reltuples of the table).</p>
 </div>
 
 <div id="current_replication_status_dialog" class="help_dialog"
-  title="How to see a Current Replication Status table">
-<h4>How to see a Current Replication Status table.</h4>
+  title="The Replication Activity Overview Table">
+<h4>This table shows the overview of replication activities at the end
+of reporting period. One column is shown for one replication
+session.</h4>
 <ul>
-<li>user : user name</li>
-<li>appname : application name</li>
-<li>client addr : IP address in standby</li>
-<li>client_host : host name in standby</li>
-<li>client_port : port number in standby</li>
-<li>backend start : start time of walsender walsender</li>
-<li>state : state of walsender</li>
-<li>current location : current WAL location</li>
-<li>sent location : sent WAL location</li>
-<li>write location : write WAL location in standby (LSN or WAL file name)</li>
-<li>flush location : flush WAL location in standby (LSN or WAL file name)</li>
-<li>replay location : replay WAL location in standby (LSN or WAL file name)</li>
-<li>sync priority : priority of synchronous replication</li>
-<li>sync state : state of synchronous replication</li>
+<li>Session user: Name of the user for this replication session</li>
+<li>Appname: Application name of this replication session</li>
+<li>Client addr: Client IP address of this replication session</li>
+<li>Client host: Host name of this replication session</li>
+<li>Client port: Client port ID for this replication session</li>
+<li>Started at: Time when this replication session started</li>
+<li>State: State of walsender</li>
+<li>Current location: Current transaction log position on this cluster</li>
+<li>Sent location: Last transaction log position and filename sent on this replication session</li>
+<li>Write location: Last transaction log position and filename written to disk by the standby server on this replication session</li>
+<li>Flush location: Last transaction log position and filename flushed to disk by the standby server on this replication session</li>
+<li>Replay location: Last transaction log position and filename replayed into the database on the standby server on this replication session</li>
+<li>Sync priority: Priority of the standby server on this replication session for being chosen as the synchronous standby</li>
+<li>Sync state: Synchronous state of the standby server on this replication session</li>
 </ul>
 </div>
 
 <div id="replication_delays_dialog" class="help_dialog"
-  title="How to see a Replication Delays table">
-<h4>How to see a Replication Delays</h4>
+  title="The Replication Delays Graph">
+<h4>This graph shows how far the standby servers are behind this server.</h4>
+<h4>Axes</h4>
 <ul>
-<li>horizontal axis : time</li>
-<li>vertical axis : WAL delay (Bytes)</li>
-<li>[address]:[port-number] flush_delay_size : WAL flush-delay between Master and Standby (Bytes)<br/>* Synchronous standby is indicated by [sync]</li>
-<li>[address]:[port-number] replay_delay_size : replay-delay between Master and Standby (Bytes)<br/>* Synchronous standby is indicated by [sync]</li></ul>
-</div>
-
-<div id="database_dialog" class="help_dialog"
-  title="How to see a Database table">
-<h4>How to see a Database table.</h4>
-This information is not supported in this version. We will support in future version.
-</div>
-
-<div id="schema_dialog" class="help_dialog"
-  title="How to see a Schema table">
-<h4>How to see a Schema table.</h4>
-This information is not supported in this version. We will support in future version.
+<li>Horizontal axis: Time</li>
+<li>Vertical axis: Delays in bytes</li>
+</ul>
+<h4>Legend</h4>
+<ul>
+<li>[address]:[port-number] flush: Delay amount of flush on standby server.<br/>* Synchronous standby is prefixed by [sync] and drawn by thick line.</li>
+<li>[address]:[port-number] replay : Delay amount of replay on standby server.<br/>* Synchronous standby is prefixed by [sync] and drawn by thick line</li></ul>
 </div>
 
 <div id="table_dialog" class="help_dialog"
-  title="How to see a Table table">
-<h4>How to see a Table table.</h4>
+  title="The Table Table">
+<h4>Each rows in this table shows the overview of a table.</h4>
 <ul>
-<li>database : database name</li>
-<li>schema : schema name</li>
-<li>table : table name</li>
-<li>columns : number of colunms</li>
-<li>rows : number of rows (use pg_statsinfo 3.0 higher)</li>
-<li>MiB : table size (MiB)</li>
-<li>+MiB : increase table size (MiB)</li>
-<li>table scans : number of executing sequential scan</li>
-<li>index scans : number of executing index scan</li>
+<li>Database: Name of the database this table resides in</li>
+<li>Schema: Name of the schema this table belongs to</li>
+<li>Table: Name of this table</li>
+<li>Columns: Number of user columns in this table</li>
+<li>Rows: Number of rows in this table. Available only on pg_statsinfo 3.0 or later and PostgreSQL 9.3 and later.</li>
+<li>MiB: Size of this table at the end of this report period in Mebibytes</li>
+<li>+MiB: Increase or decrease in size of this table during this report period in Mebibytes</li>
+<li>Table scans: Number of sequential scans executed during this report period</li>
+<li>Index scans: Number of index scans executed during this report period</li>
 </ul>
-<ul>*The small value is displayed as zero by the truncation of the number in unit conversion</ul>
+*Small values may be shown as zero by round off.
 </div>
 
 <div id="index_dialog" class="help_dialog"
-  title="How to see a Index table">
-<h4>How to see a Index table.</h4>
+  title="The Ibdexes Table">
+<h4>Each rows in this table shows the overview of a index.</h4>
 <ul>
-<li>database : database name</li>
-<li>schema : schema name</li>
-<li>index : index name</li>
-<li>table : table name is refferd to index</li>
-<li>MiB : index size (MiB)</li>
-<li>+MiB : increase index size (MiB)</li>
-<li>scans : number of executing index scans</li>
-<li>rows/scan : returned rows which is executing once index scan</li>
-<li>reads : read by disk blocks</li>
-<li>hits : read by cache blocks</li>
-<li>keys : value of index key</li>
+<li>Database: Name of the databsae this index resides in</li>
+<li>Schema: Name of the schema this index belongs to</li>
+<li>Index: Name of this table</li>
+<li>Table: Name of the table this index belongs to</li>
+<li>MiB: Size of this index at the end of this report period in Mebibytes</li>
+<li>+MiB: Increase or descrease in size of this index during this report period in Mebibytes</li>
+<li>Scans: Number of scans executed on this index</li>
+<li>Rows/scan: Average number of live table rows fetched by each simple index scan using this index throughout this report period</li>
+<li>Reads: Number of (PostgreSQL) disk blocks read from this index during this report period</li>
+<li>Hits: Number of buffer hits in this index during this report period</li>
+<li>Keys: List of keys of this index</li>
 </ul>
-<ul>*The small value is displayed as zero by the truncation of the number in unit conversion</ul>
-</div>
-
-<div id="view_dialog" class="help_dialog"
-  title="How to see a View table">
-<h4>How to seea View table.</h4>
-This information is not supported in this version. We will support in future version.
-</div>
-
-<div id="sequence_dialog" class="help_dialog"
-  title="How to see a Sequence table">
-<h4>How to see a Sequence table.</h4>
-This information is not supported in this version. We will support in future version.
-</div>
-
-<div id="trigger_dialog" class="help_dialog"
-  title="How to see a Trigger table">
-<h4>How to see a Trigger table.</h4>
-This information is not supported in this version. We will support in future version.
-</div>
-
-<div id="role_dialog" class="help_dialog"
-  title="How to see a Role table">
-<h4>How to see a Role table.</h4>
-This information is not supported in this version. We will support in future version.
+*Small values may be shown as zero by round off.
 </div>
 
 <div id="parameter_dialog" class="help_dialog"
-  title="How to see a Parameter table">
-<h4>How to see a Parameter table.</h4>
+  title="The Run-time parameters Table">
+<h4>This table shows the overview of run-time parameters.</h4>
 <ul>
-<li>name : parameter name</li>
-<li>setting : parameter value</li>
-<li>unit : unit</li>
-<li>source : setting parameter</li>
+<li>Name: Name of the parameter</li>
+<li>Setting: Current value of the parameter if it is not changed though this report period. Shows the transition elsewise.</li>
+<li>Unit: Implicit unit of this parameter</li>
+<li>Source: Source of the value at the end of this report period</li>
 </ul>
 </div>
 
 <div id="alert_dialog" class="help_dialog"
-  title="How to see a Alert table">
-<h4>How to see a Alert table.</h4>
+  title="The Alert Table">
+<h4>This table lists the alerts issued during this report period.</h4>
 <ul>
-<li>timestamp : timestamp</li>
-<li>message : alert message</li>
+<li>Time: Time when this alert issued</li>
+<li>Message: Alert message body</li>
 </ul>
-<h4>How to change alert settings.</h4>
-<p>Update the alert setting table of the repository DB.<br/>
-Please see the <a href="http://pgstatsinfo.sourceforge.net/pg_statsinfo.html#usage-alert">pg_statsinfo manual</a> for details of the alert settings.</p>
-<p>e.g. Change the threshold of Rollback per seconds to "3000".
+<h4>Changing alert settings.</h4>
+<p>Update the alert setting table of the repository database to change alert settings.<br/>
+Please see the <a href="http://pgstatsinfo.sourceforge.net/pg_statsinfo.html#usage-alert">pg_statsinfo manual</a> for details.</p>
+<p>e.g. Change the threshold of Rollback per seconds to "3000" for instance 1.
 <pre style="border: 1px solid; padding: 10px;">
 UPDATE statsrepo.alert SET rollback_tps = 3000 WHERE instid = 1;
 </pre>
@@ -642,14 +680,14 @@ To narrow down the log, enter the search criteria and click "Search" button.
 </help>
 
 <error>
-<p id="query_error">SQL executing failure.&lt;br/&gt;%s</p>
-<p id="no_result">This repository does not have result in this instance.</p>
-<p id="st_version">This pg_statsinfo version is not supported. Please use %s higher.</p>
-<p id="pg_version">This PostgreSQL version is not supported. Please use 8.3.x higher.</p>
-<p id="no_info">This repository does not have snapshot at all.Please execute getting snapshot command or wait for few minutes(auto getting snapshot).</p>
-<p id="short_snapshots">does not present a reports. Because repository does not have snapshot at all. Please re-select report term or get snapshot.</p>
+<p id="query_error">Query execution failure&lt;br/&gt;%s</p>
+<p id="no_result">No item found in this repository.</p>
+<p id="st_version">This version of pg_statsinfo not supported. Please use %s or later.</p>
+<p id="pg_version">This version of PostgreSQL ot supported. Please use 8.4.x or later.</p>
+<p id="no_info">No snapshot found. Please retry after a while or take snapshot manually.</p>
+<p id="short_snapshots">No snapshot found for specified period</p>
 <p id="invalid_regex">Invalid regular expression. (%s)&lt;br/&gt;%s</p>
-<p id="cancel_version">In pg_statsinfo 3.0, it will only display of Vacuum cancellation information.&lt;br/&gt;</p>
-<p id="no_pg_store_plans">For the repository DB pg_store_plans is not installed, the execution plan is not displayed correctly.</p>
+<p id="cancel_version">Autoanalyze cancellations are not available for pg_statsinfo 3.0&lt;br/&gt;</p>
+<p id="no_pg_store_plans">Plan strings are displayed in raw form. Please install pg_store_plans in your repository database.</p>
 </error>
 </document>

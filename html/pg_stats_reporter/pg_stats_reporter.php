@@ -78,8 +78,8 @@ if ($url_param['repodb'] && $url_param['instid']) {
 	}
 
 	if (!$repo_exists) {
-		$err_msg = "Can not create a report being displayed<br/>";
-		$err_msg .= "- Repository database is not found : ".$url_param['repodb']."<br/>";
+		$err_msg = "No report available<br/>";
+		$err_msg .= "- Repository database not found : ".$url_param['repodb']."<br/>";
 		showConfigError($smarty, $config, $err_msg);
 		exit;
 	}

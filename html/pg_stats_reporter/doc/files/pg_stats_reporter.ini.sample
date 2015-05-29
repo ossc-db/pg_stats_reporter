@@ -10,11 +10,12 @@
 install_directory = /var/www
 log_page_size = 1000
 
+
 ;-------------------------------------
 ; repository DB setting section
 ;-------------------------------------
 
-[repository1]
+[sample]
 
 ;-------------------------------------
 ; database connection
@@ -34,7 +35,7 @@ username = postgres
 language = auto
 
 ; --- Summary ---
-summary = true
+overview = true
 
 ; -- Alert --
 alert = true
@@ -76,101 +77,6 @@ fragmented_tables = true
 functions = true
 statements = true
 plans = true
-
-; -- Long Transactions --
-long_transactions = true
-
-; -- Lock Conflicts --
-lock_conflicts = true
-
-; --- Operation Activity ---
-
-; -- Checkpoint Activity --
-checkpoint_activity = true
-
-; -- Autovacuum Activity --
-basic_statistics = true
-io_statistics = true
-analyze_statistics = true
-modified_rows_ratio = true
-vacuum_cancels = true
-
-; -- Replication Activity --
-current_replication_status = true
-replication_delays = true
-
-; --- Information ---
-
-; -- Schema Information --
-table = true
-index = true
-
-; -- Setting Parameters --
-parameter = true
-
-; -- Profiles --
-profiles = false
-
-
-[repository2]
-
-;-------------------------------------
-; database connection
-;-------------------------------------
-
-host = localhost
-port = 5433
-dbname = postgres
-username = postgres
-;password =
-
-;-------------------------------------
-; report setting
-;-------------------------------------
-
-; --- Language Setting ---
-language = auto
-
-; --- Summary ---
-summary = true
-
-; --- Database System ---
-
-; -- Database Statistics --
-database_statistics = true
-transaction_statistics = true
-database_size = true
-recovery_conflicts = true
-
-; -- Instance Activity --
-wal_statistics = true
-instance_processes_ratio = true
-instance_processes = true
-
-; --- Operating System ---
-
-; -- OS Resource Usage --
-cpu_usage = true
-load_average = true
-io_usage = true
-memory_usage = true
-
-; -- Disk Usage --
-disk_usage_per_tablespace = true
-disk_usage_per_table = true
-
-; --- SQL ---
-
-; -- Notable Tables --
-heavily_updated_tables = true
-heavily_accessed_tables = true
-low_density_tables = true
-fragmented_tables = true
-
-; -- Query Activity --
-functions = true
-statements = true
-plans = false
 
 ; -- Long Transactions --
 long_transactions = true

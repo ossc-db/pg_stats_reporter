@@ -144,15 +144,15 @@ function makeHeaderMenu($infoData, $targetInfo)
 
 EOD;
 
-	if ($targetList['summary']
+	if ($targetList['overview']
 		|| $targetList['alert']) {
 
-		$html_string .= "<li><a href=\"#summary\">Summary</a>";
+		$html_string .= "<li><a href=\"#overview\">Overview</a>";
 
 		/* Alert */
 		if ($targetList['alert']) {
 			$html_string .= "<ul>\n";
-			$html_string .= "<li><a href=\"#alert\">Alert</a></li>\n";
+			$html_string .= "<li><a href=\"#alert\">Alerts</a></li>\n";
 			$html_string .= "</ul>";
 		}
 
@@ -176,12 +176,12 @@ EOD;
 			|| $targetList['database_size']
 			|| $targetList['recovery_conflicts']) {
 
-			$html_string .= "<li><a href=\"#database_statistics\">Database Statistics</a><ul>\n";
+			$html_string .= "<li><a href=\"#database_statistics\">Databases Statistics</a><ul>\n";
 
 			if ($targetList['transaction_statistics'])
-				$html_string .= "<li><a href=\"#transaction_statistics\">Transaction Statistics</a></li>\n";
+				$html_string .= "<li><a href=\"#transaction_statistics\">Transactions</a></li>\n";
 			if ($targetList['database_size'])
-				$html_string .= "<li><a href=\"#database_size\">Database Size</a></li>\n";
+				$html_string .= "<li><a href=\"#database_size\">Database Size Trend</a></li>\n";
 			if ($targetList['recovery_conflicts'])
 				$html_string .= "<li><a href=\"#recovery_conflicts\">Recovery Conflicts</a></li>\n";
 
@@ -193,14 +193,14 @@ EOD;
 			|| $targetList['instance_processes_ratio']
 			|| $targetList['instance_processes']) {
 
-			$html_string .= "<li><a href=\"#instance_activity\">Instance Activity</a><ul>\n";
+			$html_string .= "<li><a href=\"#instance_activity\">Instance Statistics</a><ul>\n";
 
 			if ($targetList['wal_statistics'])
-				$html_string .= "<li><a href=\"#wal_statistics\">WAL Statistics</a></li>\n";
+				$html_string .= "<li><a href=\"#wal_statistics\">Write Ahead Logs</a></li>\n";
 			if ($targetList['instance_processes_ratio'])
-				$html_string .= "<li><a href=\"#instance_processes_ratio\">Instance Processes Ratio</a></li>\n";
+				$html_string .= "<li><a href=\"#instance_processes_ratio\">Backend Status</a></li>\n";
 			if ($targetList['instance_processes'])
-				$html_string .= "<li><a href=\"#instance_processes\">Instance Processes</a></li>\n";
+				$html_string .= "<li><a href=\"#instance_processes\">Backend Status Trend</a></li>\n";
 
 			$html_string .= "</ul></li>\n";
 		}
@@ -224,7 +224,7 @@ EOD;
 			|| $targetList['io_usage']
 			|| $targetList['memory_usage']) {
 
-			$html_string .= "<li><a href=\"#os_resource_usage\">OS Resource Usage</a><ul>\n";
+			$html_string .= "<li><a href=\"#os_resource_usage\">CPU and Memory</a><ul>\n";
 
 			if ($targetList['cpu_usage'])
 				$html_string .= "<li><a href=\"#cpu_usage\">CPU Usage</a></li>\n";
@@ -242,7 +242,7 @@ EOD;
 		if ($targetList['disk_usage_per_tablespace']
 			|| $targetList['disk_usage_per_table']) {
 
-			$html_string .= "<li><a href=\"#disk_usage\">Disk Usage</a><ul>\n";
+			$html_string .= "<li><a href=\"#disk_usage\">Disks</a><ul>\n";
 
 			if ($targetList['disk_usage_per_tablespace'])
 				$html_string .= "<li><a href=\"#disk_usage_per_tablespace\">Disk Usage per Tablespace</a></li>\n";
@@ -265,7 +265,7 @@ EOD;
 		|| $targetList['long_transactions']
 		|| $targetList['lock_conflicts']) {
 
-		$html_string .= "<li><a href=\"#sql\">SQL</a><ul>\n";
+		$html_string .= "<li><a href=\"#sql\">Activities</a><ul>\n";
 
 		/* Notable Tables */
 		if ($targetList['heavily_updated_tables']
@@ -282,7 +282,7 @@ EOD;
 			if ($targetList['low_density_tables'])
 				$html_string .= "<li><a href=\"#low_density_tables\">Low Density Tables</a></li>\n";
 			if ($targetList['fragmented_tables'])
-				$html_string .= "<li><a href=\"#fragmented_tables\">Fragmented Tables</a></li>\n";
+				$html_string .= "<li><a href=\"#fragmented_tables\">Table Fragmentations</a></li>\n";
 
 			$html_string .= "</ul></li>\n";
 		}
@@ -324,11 +324,11 @@ EOD;
 		|| $targetList['current_replication_status']
 		|| $targetList['replication_delays']) {
 
-		$html_string .= "<li><a href=\"#activities\">Activities</a><ul>\n";
+		$html_string .= "<li><a href=\"#activities\">Maintenance</a><ul>\n";
 
 		/* Checkpoint Activity */
 		if ($targetList['checkpoint_activity'])
-			$html_string .= "<li><a href=\"#checkpoint_activity\">Checkpoint Activity</a></li>\n";
+			$html_string .= "<li><a href=\"#checkpoint_activity\">Checkpoints</a></li>\n";
 
 		/* Autovacuum Activity */
 		if ($targetList['basic_statistics']
@@ -337,18 +337,18 @@ EOD;
 			|| $targetList['modified_rows_ratio']
 			|| $targetList['vacuum_cancels']) {
 
-			$html_string .= "<li><a href=\"#autovacuum_activity\">Autovacuum Activity</a><ul>\n";
+			$html_string .= "<li><a href=\"#autovacuum_activity\">Autovacuums</a><ul>\n";
 
 			if ($targetList['basic_statistics'])
-				$html_string .= "<li><a href=\"#basic_statistics\">Basic Statistics (Average)</a></li>\n";
+				$html_string .= "<li><a href=\"#basic_statistics\">Overview</a></li>\n";
 			if ($targetList['io_statistics'])
-				$html_string .= "<li><a href=\"#io_statistics\">I/O Statistics (Average)</a></li>\n";
+				$html_string .= "<li><a href=\"#io_statistics\">I/O Summary</a></li>\n";
 			if ($targetList['analyze_statistics'])
-				$html_string .= "<li><a href=\"#analyze_statistics\">Analyze Statistics</a></li>\n";
+				$html_string .= "<li><a href=\"#analyze_statistics\">Analyze Overview</a></li>\n";
 			if ($targetList['modified_rows_ratio'])
-				$html_string .= "<li><a href=\"#modified_rows_ratio\">Modified rows ratio</a></li>\n";
+				$html_string .= "<li><a href=\"#modified_rows_ratio\">Modified Rows</a></li>\n";
 			if ($targetList['vacuum_cancels'])
-				$html_string .= "<li><a href=\"#vacuum_cancels\">Vacuum and Analyze Cancels</a></li>\n";
+				$html_string .= "<li><a href=\"#vacuum_cancels\">Cancellations</a></li>\n";
 
 			$html_string .= "</ul></li>\n";
 		}
@@ -357,12 +357,12 @@ EOD;
 		if ($targetList['current_replication_status']
 			|| $targetList['replication_delays'])
 
-			$html_string .= "<li><a href=\"#replication_activity\">Replication Activity</a><ul>\n";
+			$html_string .= "<li><a href=\"#replication_activity\">Replication</a><ul>\n";
 
 			if($targetList['current_replication_status'])
-				$html_string .= "<li><a href=\"#current_replication_status\">Current Replication Status</a></li>\n";
+				$html_string .= "<li><a href=\"#current_replication_status\">Overview</a></li>\n";
 			if($targetList['replication_delays'])
-				$html_string .= "<li><a href=\"#replication_delays\">Replication Delays</a></li>\n";
+				$html_string .= "<li><a href=\"#replication_delays\">Delays</a></li>\n";
 
 			$html_string .= "</ul></li>\n";
 
@@ -370,59 +370,33 @@ EOD;
 	}
 
 	/* Information */
-	if ($targetList['database']
-		|| $targetList['schema']
-		|| $targetList['table']
+	if ($targetList['table']
 		|| $targetList['index']
-		|| $targetList['view']
-		|| $targetList['sequence']
-		|| $targetList['trigger']
-		|| $targetList['role']
 		|| $targetList['parameter']
-		|| $targetList['alert']
 		|| $targetList['profiles']) {
 
-		$html_string .= "<li><a href=\"#information\">Information</a><ul>\n";
+		$html_string .= "<li><a href=\"#information\">Misc</a><ul>\n";
 
 		/* Schema Information */
-		if ($targetList['database']
-			|| $targetList['schema']
-			|| $targetList['table']
-			|| $targetList['index']
-			|| $targetList['view']
-			|| $targetList['sequence']
-			|| $targetList['trigger']) {
+		if ($targetList['table']
+			|| $targetList['index']) {
 
-			$html_string .= "<li><a href=\"#schema_information\">Schema Information</a><ul>\n";
-			if ($targetList['database'])
-				$html_string .= "<li><a href=\"#database\">Database</a></li>\n";
-			if ($targetList['schema'])
-				$html_string .= "<li><a href=\"#schema\">Schema</a></li>\n";
+			$html_string .= "<li><a href=\"#schema_information\">Tables and Indexes</a><ul>\n";
 			if ($targetList['table'])
-				$html_string .= "<li><a href=\"#table\">Table</a></li>\n";
+				$html_string .= "<li><a href=\"#table\">Tables</a></li>\n";
 			if ($targetList['index'])
-				$html_string .= "<li><a href=\"#index\">Index</a></li>\n";
-			if ($targetList['view'])
-				$html_string .= "<li><a href=\"#view\">View</a></li>\n";
-			if ($targetList['sequence'])
-				$html_string .= "<li><a href=\"#sequence\">Sequence</a></li>\n";
-			if ($targetList['trigger'])
-				$html_string .= "<li><a href=\"#trigger\">Trigger</a></li>\n";
+				$html_string .= "<li><a href=\"#index\">Indexes</a></li>\n";
 
 			$html_string .= "</ul></li>\n";
 		}
 
 
 		/* Setting Parameters */
-		if ($targetList['role']
-			|| $targetList['parameter']) {
+		if ($targetList['parameter']) {
 
-			$html_string .= "<li><a href=\"#setting_parameters\">Setting Parameters</a><ul>\n";
+			$html_string .= "<li><a href=\"#setting_parameters\">Settings</a><ul>\n";
 
-			if ($targetList['role'])
-				$html_string .= "<li><a href=\"#role\">Role</a></li>\n";
-			if ($targetList['parameter'])
-				$html_string .= "<li><a href=\"#parameter\">Paramter</a></li>\n";
+			$html_string .= "<li><a href=\"#parameter\">Run-time paramters</a></li>\n";
 
 			$html_string .= "</ul></li>\n";
 		}
@@ -479,39 +453,39 @@ function makePlainHeaderMenu()
 	$html_string .=
 <<< EOD
 <ul id="dropdown" class="sf-menu">
-<li><a>Summary</a><ul>
-  <li><a>Alert</a><li>
+<li><a>Overview</a><ul>
+  <li><a>Alerts</a><li>
 </ul></li>
 <li><a>Statistics</a><ul>
-  <li><a>Database Statistics</a><ul>
-    <li><a>Transaction Statistics</a></li>
-    <li><a>Database Size</a></li>
+  <li><a>Databases Statistics</a><ul>
+    <li><a>Transactions</a></li>
+    <li><a>Database Size Trend</a></li>
     <li><a>Recovery Conflicts</a></li>
   </ul></li>
-  <li><a>Instance Activity</a><ul>
-    <li><a>WAL Statistics</a></li>
-    <li><a>Instance Processes Ratio</a></li>
-    <li><a>Instance Processes</a></li>
+  <li><a>Instance Statistics</a><ul>
+    <li><a>Write Ahead Logs</a></li>
+    <li><a>Backend Status</a></li>
+    <li><a>Backend Status Trend</a></li>
   </ul></li>
 </ul></li>
 <li><a>OS</a><ul>
-  <li><a>OS Resource Usage</a><ul>
+  <li><a>CPU and Memory</a><ul>
     <li><a>CPU Usage</a></li>
     <li><a>Load Average</a></li>
     <li><a>I/O Usage</a></li>
     <li><a>Memory Usage</a></li>
   </ul></li>
-  <li><a>Disk Usage</a><ul>
+  <li><a>Disks</a><ul>
     <li><a>Disk Usage per Tablespace</a></li>
     <li><a>Disk Usage per Table</a></li>
   </ul></li>
 </ul></li>
-<li><a>SQL</a><ul>
+<li><a>Activities</a><ul>
   <li><a>Notable Tables</a><ul>
     <li><a>Heavily Updated Tables</a></li>
     <li><a>Heavily Accessed Tables</a></li>
     <li><a>Low Density Tables</a></li>
-    <li><a>Fragmented Tables</a></li>
+    <li><a>Table Fragmentations</a></li>
   </ul></li>
   <li><a>Query Activity</a><ul>
     <li><a>Functions</a></li>
@@ -521,35 +495,28 @@ function makePlainHeaderMenu()
   <li><a>Long Transactions</a></li>
   <li><a>Lock Conflicts</a></li>
 </ul></li>
-<li><a>Activities</a><ul>
-  <li><a>Checkpoint Activity</a></li>
-  <li><a>Autovacuum Activity</a><ul>
-    <li><a>Basic Statistics (Average)</a></li>
-    <li><a>I/O Statistics (Average)</a></li>
-    <li><a>Analyze Statistics</a></li>
-    <li><a>Modified rows ratio</a></li>
-    <li><a>Vacuum and Analyze Cancels</a></li>
+<li><a>Maintenance</a><ul>
+  <li><a>Checkpoints</a></li>
+  <li><a>Autovacuums</a><ul>
+    <li><a>Overview</a></li>
+    <li><a>I/O Summary</a></li>
+    <li><a>Analyze Overview</a></li>
+    <li><a>Modified Rows</a></li>
+    <li><a>Cancellations</a></li>
   </ul></li>
-  <li><a>Replication Activity</a><ul>
-    <li><a>Current Replication Status</a></li>
-    <li><a>Replication Delays</a></li>
+  <li><a>Replication</a><ul>
+    <li><a>Overview</a></li>
+    <li><a>Delays</a></li>
   </ul></li>
 </ul></li>
-<li><a>Information</a><ul>
-  <li><a>Schema Information</a><ul>
-    <li><a>Database</a></li>
-    <li><a>Schema</a></li>
-    <li><a>Table</a></li>
-    <li><a>Index</a></li>
-    <li><a>View</a></li>
-    <li><a>Sequence</a></li>
-    <li><a>Trigger</a></li>
+<li><a>Misc</a><ul>
+  <li><a>Tables and Indexes</a><ul>
+    <li><a>Tables</a></li>
+    <li><a>Indexes</a></li>
   </ul></li>
-  <li><a>Setting Parameters</a><ul>
-    <li><a>Role</a></li>
-    <li><a>Parameter</a></li>
+  <li><a>Settings</a><ul>
+    <li><a>Run-time Parameters</a></li>
   </ul></li>
-  <li><a>Alert</a></li>
   <li><a>Profiles</a></li>
 </ul></li>
 </ul>
@@ -744,28 +711,28 @@ function makeSummaryReport($conn, $target, $snapids, $errorMsg)
 {
 	global $query_string;
 
-	if (!$target['summary']
+	if (!$target['overview']
 		&& !$target['alert'])
 		return "";
 
 	$htmlString =
 <<< EOD
 
-<div id="summary" class="jump_margin"></div>
-<h1>Summary</h1>
+<div id="overview" class="jump_margin"></div>
+<h1>Report Overview</h1>
 
 EOD;
 
-	if ($target['summary']) {
+	if ($target['overview']) {
 		$htmlString .=
 <<< EOD
 <div align="right" class="jquery_ui_button_info_h1">
-  <div><button class="help_button" dialog="#summary_dialog"></button></div>
+  <div><button class="help_button" dialog="#overview_dialog"></button></div>
 </div>
 
 EOD;
 
-		$result = pg_query_params($conn, $query_string['summary'], $snapids);
+		$result = pg_query_params($conn, $query_string['overview'], $snapids);
 		if (!$result) {
 			return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 		}
@@ -773,7 +740,7 @@ EOD;
 		if (pg_num_rows($result) == 0) {
 			$htmlString .= makeErrorTag($errorMsg['no_result']);
 		} else {
-			$htmlString .= makeTableHTML($result, "summary");
+			$htmlString .= makeTableHTML($result, "overview");
 		}
 		pg_free_result($result);
 	}
@@ -783,7 +750,7 @@ EOD;
 <<< EOD
 
 <div id="alert" class="jump_margin"></div>
-<h2>Alert</h2>
+<h2>Alerts</h2>
 <div align="right" class="jquery_ui_button_info_h2">
   <div><button class="help_button" dialog="#alert_dialog"></button></div>
 </div>
@@ -839,7 +806,7 @@ EOD;
 		$htmlString .=
 <<< EOD
 <div id="database_statistics" class="jump_margin"></div>
-<h2>Database Statistics</h2>
+<h2>Databases Statistics</h2>
 
 EOD;
 
@@ -870,7 +837,7 @@ EOD;
 			$htmlString .=
 <<< EOD
 <div id="transaction_statistics" class="jump_margin"></div>
-<h3>Transaction Statistics</h3>
+<h3>Transactions</h3>
 <div align="right" class="jquery_ui_button_info_h3">
   <div><button class="help_button" dialog="#transaction_statistics_dialog"></button></div>
 </div>
@@ -887,8 +854,8 @@ EOD;
 			} else {
 				makeTupleListForDygraphs($result, $name, $value);
 				$opt = array();
-				array_push($opt, "title: 'Transaction Statistics'");
-				array_push($opt, "ylabel: 'Transaction per second (xact/s)'");
+				array_push($opt, "title: 'Transactions'");
+				array_push($opt, "ylabel: 'Transactions per second'");
 				array_push($opt, "labelsKMB: true");
 				$htmlString .= makeLineGraphHTML($name, $value, "transaction_statistics", $opt);
 			}
@@ -900,7 +867,7 @@ EOD;
 			$htmlString .=
 <<< EOD
 <div id="database_size" class="jump_margin"></div>
-<h3>Database Size</h3>
+<h3>Database Size Trend</h3>
 <div align="right" class="jquery_ui_button_info_h3">
   <div><button class="help_button" dialog="#database_size_dialog"></button></div>
 </div>
@@ -916,7 +883,7 @@ EOD;
 			} else {
 				makeTupleListForDygraphs($result, $name, $value);
 				$opt = array();
-				array_push($opt, "title: 'Database Size'");
+				array_push($opt, "title: 'Trend of Database Size'");
 				array_push($opt, "ylabel: 'Database Size (Bytes)'");
 				array_push($opt, "labelsKMG2: true");
 				$htmlString .= makeLineGraphHTML($name, $value, "database_size", $opt);
@@ -957,7 +924,7 @@ EOD;
 		$htmlString .=
 <<< EOD
 <div id="instance_activity" class="jump_margin"></div>
-<h2>Instance Activity</h2>
+<h2>Instance Statistics</h2>
 
 EOD;
 
@@ -965,7 +932,7 @@ EOD;
 			$htmlString .=
 <<< EOD
 <div id="wal_statistics" class="jump_margin"></div>
-<h3>WAL Statistics</h3>
+<h3>Write Ahead Logs</h3>
 <div align="right" class="jquery_ui_button_info_h3">
   <div><button class="help_button" dialog="#wal_statistics_dialog"></button></div>
 </div>
@@ -1009,7 +976,7 @@ EOD;
 			$htmlString .=
 <<< EOD
 <div id="instance_processes_ratio" class="jump_margin"></div>
-<h3>Instance Processes Ratio</h3>
+<h3>Backend Status</h3>
 <div align="right" class="jquery_ui_button_info_h3">
   <div><button class="help_button" dialog="#instance_processes_ratio_dialog"></button></div>
 </div>
@@ -1033,7 +1000,7 @@ EOD;
 			$htmlString .=
 <<< EOD
 <div id="instance_processes" class="jump_margin"></div>
-<h3>Instance Processes</h3>
+<h3>Backend Status Trend</h3>
 <div align="right" class="jquery_ui_button_info_h3">
   <div><button class="help_button" dialog="#instance_processes_dialog"></button></div>
 </div>
@@ -1049,8 +1016,8 @@ EOD;
 				$htmlString .= makeErrorTag($errorMsg['no_result']);
 			} else {
 				$opt = array();
-				array_push($opt, "title: 'Instance Processes'");
-				array_push($opt, "ylabel: 'Percent (%)'");
+				array_push($opt, "title: 'Backend Status Trend'");
+				array_push($opt, "ylabel: 'Percent'");
 				$htmlString .= makeSimpleLineGraphHTML($result, "instance_processes", $opt, true, false);
 			}
 			pg_free_result($result);
@@ -1075,7 +1042,7 @@ function makeOperatingSystemReport($conn, $target, $snapids, $errorMsg)
 	$htmlString =
 <<< EOD
 <div id="os" class="jump_margin"></div>
-<h1>OS</h1>
+<h1>OS Resources</h1>
 
 EOD;
 
@@ -1088,7 +1055,7 @@ EOD;
 		$htmlString .=
 <<< EOD
 <div id="os_resource_usage" class="jump_margin"></div>
-<h2>OS Resource Usage</h2>
+<h2>CPU and Memory</h2>
 
 EOD;
 
@@ -1112,7 +1079,7 @@ EOD;
 			} else {
 				$opt = array();
 				array_push($opt, "title: 'CPU Usage'");
-				array_push($opt, "ylabel: 'Percent (%)'");
+				array_push($opt, "ylabel: 'Percent'");
 				$htmlString .= makeSimpleLineGraphHTML($result, "cpu_usage", $opt, true, false);
 			}
 			pg_free_result($result);
@@ -1139,7 +1106,7 @@ EOD;
 					$htmlString .= makeErrorTag($errorMsg['no_result']);
 				} else {
 					$opt = array();
-					array_push($opt, "title: 'Load Average'");
+					array_push($opt, "title: 'Load Average Trend'");
 					array_push($opt, "ylabel: 'Load Average'");
 					$htmlString .= makeSimpleLineGraphHTML($result, "load_average", $opt, false, false);
 				}
@@ -1193,10 +1160,10 @@ EOD;
 			} else {
 				makeTupleListForDygraphs($result, $name, $value);
 				$opt = array();
-				array_push($opt, "title: 'I/O Size'");
-				array_push($opt, "ylabel: 'I/O Size (Bytes/s)'");
+				array_push($opt, "title: 'I/O Rate'");
+				array_push($opt, "ylabel: 'I/O Rate (Bytes/s)'");
 				array_push($opt, "labelsKMG2: true");
-				$htmlString .= makeLineGraphHTML_childrow($name, $value, "io_size", "I/O Size", $opt);
+				$htmlString .= makeLineGraphHTML_childrow($name, $value, "io_size", "I/O Rate", $opt);
 			}
 			pg_free_result($result);
 
@@ -1214,10 +1181,10 @@ EOD;
 				} else {
 					makeTupleListForDygraphs($result, $name, $value);
 					$opt = array();
-					array_push($opt, "title: 'I/O Size (Peak)'");
-					array_push($opt, "ylabel: 'I/O Size (Bytes/s)'");
+					array_push($opt, "title: 'I/O Peak Rate per Snapshot Interval'");
+					array_push($opt, "ylabel: 'I/O Peak Rate (Bytes/s)'");
 					array_push($opt, "labelsKMG2: true");
-					$htmlString .= makeLineGraphHTML_childrow($name, $value, "io_size_peak", "I/O Size (Peak)", $opt);
+					$htmlString .= makeLineGraphHTML_childrow($name, $value, "io_size_peak", "I/O Peak Rate", $opt);
 				}
 				pg_free_result($result);
 
@@ -1270,7 +1237,7 @@ EOD;
 				} else {
 					$opt = array();
 					array_push($opt, "title: 'Memory Usage (Linear Scale)'");
-					array_push($opt, "ylabel: 'Size (Bytes)'");
+					array_push($opt, "ylabel: 'Bytes'");
 					array_push($opt, "labelsKMG2: true");
 					$htmlString .= makeSimpleLineGraphHTML($result, "memory_usage", $opt, false, true);
 				}
@@ -1288,7 +1255,7 @@ EOD;
 	$htmlString .=
 <<< EOD
 <div id="disk_usage" class="jump_margin"></div>
-<h2>Disk Usage</h2>
+<h2>Disks</h2>
 
 EOD;
 
@@ -1397,7 +1364,7 @@ function makeSQLReport($conn, $target, $snapids, $errorMsg)
 	$htmlString =
 <<< EOD
 <div id="sql" class="jump_margin"></div>
-<h1>SQL</h1>
+<h1>Activities</h1>
 
 EOD;
 
@@ -1491,7 +1458,7 @@ EOD;
 			$htmlString .=
 <<< EOD
 <div id="fragmented_tables" class="jump_margin"></div>
-<h3>Fragmented Tables</h3>
+<h3>Table Fragmentations</h3>
 <div align="right" class="jquery_ui_button_info_h3">
   <div><button class="help_button" dialog="#fragmented_tables_dialog"></button></div>
 </div>
@@ -1669,7 +1636,7 @@ function makeActivitiesReport($conn, $target, $snapids, $errorMsg)
 	$htmlString =
 <<< EOD
 <div id="activities" class="jump_margin"></div>
-<h1>Activities</h1>
+<h1>Maintenances</h1>
 
 EOD;
 
@@ -1678,7 +1645,7 @@ EOD;
 		$htmlString .=
 <<< EOD
 <div id="checkpoint_activity" class="jump_margin"></div>
-<h2>Checkpoint Activity</h2>
+<h2>Checkpoints</h2>
 <div align="right" class="jquery_ui_button_info_h2">
   <div><button class="help_button" dialog="#checkpoint_activity_dialog"></button></div>
 </div>
@@ -1706,7 +1673,7 @@ EOD;
 		$htmlString .=
 <<< EOD
 <div id="autovacuum_activity" class="jump_margin"></div>
-<h2>Autovacuum Activity</h2>
+<h2>Autovacuums</h2>
 
 EOD;
 
@@ -1714,7 +1681,7 @@ EOD;
 			$htmlString .=
 <<< EOD
 <div id="basic_statistics" class="jump_margin"></div>
-<h3>Basic Statistics (Average)</h3>
+<h3>Overview</h3>
 <div align="right" class="jquery_ui_button_info_h3">
   <div><button class="help_button" dialog="#basic_statistics_dialog"></button></div>
 </div>
@@ -1745,7 +1712,7 @@ EOD;
 			$htmlString .=
 <<< EOD
 <div id="io_statistics" class="jump_margin"></div>
-<h3>I/O Statistics (Average)</h3>
+<h3>I/O Summary</h3>
 <div align="right" class="jquery_ui_button_info_h3">
   <div><button class="help_button" dialog="#io_statistics_dialog"></button></div>
 </div>
@@ -1773,7 +1740,7 @@ EOD;
 			$htmlString .=
 <<< EOD
 <div id="analyze_statistics" class="jump_margin"></div>
-<h3>Analyze Statistics</h3>
+<h3>Analyze Overview</h3>
 <div align="right" class="jquery_ui_button_info_h3">
   <div><button class="help_button" dialog="#analyze_statistics_dialog"></button></div>
 </div>
@@ -1814,7 +1781,7 @@ EOD;
 			$htmlString .=
 <<< EOD
 <div id="modified_rows_ratio" class="jump_margin"></div>
-<h3>Modified rows ratio</h3>
+<h3>Modified Rows</h3>
 <div align="right" class="jquery_ui_button_info_h3">
   <div><button class="help_button" dialog="#modified_rows_ratio_dialog"></button></div>
 </div>
@@ -1834,8 +1801,8 @@ EOD;
 				} else {
 					makeTupleListForDygraphs($result, $name, $value);
 					$opt = array();
-					array_push($opt, "title: 'Modified rows ratio'");
-					array_push($opt, "ylabel: 'Modified rows ratio(%)'");
+					array_push($opt, "title: 'Modified Rows'");
+					array_push($opt, "ylabel: 'Modified rows (%)'");
 					$htmlString .= makeLineGraphHTML($name, $value, "modified_rows_ratio", $opt);
 				}
 				pg_free_result($result);
@@ -1848,7 +1815,7 @@ EOD;
 			$htmlString .=
 <<< EOD
 <div id="vacuum_cancels" class="jump_margin"></div>
-<h3>Vacuum and Analyze Cancels</h3>
+<h3>Cancellations</h3>
 <div align="right" class="jquery_ui_button_info_h3">
   <div><button class="help_button" dialog="#vacuum_cancels_dialog"></button></div>
 </div>
@@ -1898,7 +1865,7 @@ EOD;
                 	$htmlString .=
 <<< EOD
 <div id="replication_activity" class="jump_margin"></div>
-<h2>Replication Activity</h2>
+<h2>Replication</h2>
 
 EOD;
 
@@ -1906,7 +1873,7 @@ EOD;
 		$htmlString .=
 <<< EOD
 <div id="current_replication_status" class="jump_margin"></div>
-<h3>Current Replication Status</h3>
+<h3>Overview</h3>
 <div align="right" class="jquery_ui_button_info_h3">
   <div><button class="help_button" dialog="#current_replication_status_dialog"></button></div>
 </div>
@@ -1931,7 +1898,7 @@ EOD;
 		$htmlString .=
 <<< EOD
 <div id="replication_delays" class="jump_margin"></div>
-<h3>Replication Delays</h3>
+<h3>Delays</h3>
 <div align="right" class="jquery_ui_button_info_h3">
   <div><button class="help_button" dialog="#replication_delays_dialog"></button></div>
 </div>
@@ -1950,7 +1917,7 @@ EOD;
 					makeTupleListForDygraphs($result, $name, $value);
 					$opt = array();
 					array_push($opt, "title: 'Replication Delays'");
-					array_push($opt, "ylabel: 'Delaying amount (Bytes)'");
+					array_push($opt, "ylabel: 'Delay (Bytes)'");
 					array_push($opt, "labelsKMG2: true");
 
 					$result2 = pg_query_params($conn, $query_string['replication_delays_get_sync_host'], array($snapids[1]));
@@ -1988,14 +1955,8 @@ function makeInformationReport($conn, $target, $ids, $errorMsg)
 {
 	global $query_string;
 
-	if (!$target['database']
-		&& !$target['schema']
-		&& !$target['table']
+	if (!$target['table']
 		&& !$target['index']
-		&& !$target['view']
-		&& !$target['sequence']
-		&& !$target['trigger']
-		&& !$target['role']
 		&& !$target['parameter']
 		&& !$target['profiles'])
 		return "";
@@ -2003,58 +1964,25 @@ function makeInformationReport($conn, $target, $ids, $errorMsg)
 	$htmlString =
 <<< EOD
 <div id="information" class="jump_margin"></div>
-<h1>Information</h1>
+<h1>Miscellaneous</h1>
 EOD;
 
 	/* Schema Information */
-	if ($target['database']
-		|| $target['schema']
-		|| $target['table']
-		|| $target['index']
-		|| $target['view']
-		|| $target['sequence']
-		|| $target['trigger']) {
+	if ($target['table']
+		|| $target['index']) {
 
 		$htmlString .=
 <<< EOD
 <div id="schema_information" class="jump_margin"></div>
-<h2>Schema Information</h2>
+<h2>Tables and Indexes</h2>
 
 EOD;
-
-		if ($target['database']) {
-			$htmlString .=
-<<< EOD
-<div id="database" class="jump_margin"></div>
-<h3>Database</h3>
-<div align="right" class="jquery_ui_button_info_h3">
-  <div><button class="help_button" dialog="#database_dialog"></button></div>
-</div>
-
-EOD;
-
-			$htmlString .= makeErrorTag($errorMsg['no_info']);
-		}
-
-		if ($target['schema']) {
-			$htmlString .=
-<<< EOD
-<div id="schema" class="jump_margin"></div>
-<h3>Schema</h3>
-<div align="right" class="jquery_ui_button_info_h3">
-  <div><button class="help_button" dialog="#schema_dialog"></button></div>
-</div>
-
-EOD;
-
-			$htmlString .= makeErrorTag($errorMsg['no_info']);
-		}
 
 		if ($target['table']) {
 			$htmlString .=
 <<< EOD
 <div id="table" class="jump_margin"></div>
-<h3>Table</h3>
+<h3>Tables</h3>
 <div align="right" class="jquery_ui_button_info_h3">
   <div><button class="help_button" dialog="#table_dialog"></button></div>
 </div>
@@ -2080,7 +2008,7 @@ EOD;
 			$htmlString .=
 <<< EOD
 <div id="index" class="jump_margin"></div>
-<h3>Index</h3>
+<h3>Indexes</h3>
 <div align="right" class="jquery_ui_button_info_h3">
   <div><button class="help_button" dialog="#index_dialog"></button></div>
 </div>
@@ -2099,101 +2027,37 @@ EOD;
 			}
 			pg_free_result($result);
 		}
-
-		if ($target['view']) {
-			$htmlString .=
-<<< EOD
-<div id="view" class="jump_margin"></div>
-<h3>View</h3>
-<div align="right" class="jquery_ui_button_info_h3">
-  <div><button class="help_button" dialog="#view_dialog"></button></div>
-</div>
-
-EOD;
-
-			$htmlString .= makeErrorTag($errorMsg['no_info']);
-		}
-
-		if ($target['sequence']) {
-			$htmlString .=
-<<< EOD
-<div id="sequence" class="jump_margin"></div>
-<h3>Sequence</h3>
-<div align="right" class="jquery_ui_button_info_h3">
-  <div><button class="help_button" dialog="#sequence_dialog"></button></div>
-</div>
-
-EOD;
-
-			$htmlString .= makeErrorTag($errorMsg['no_info']);
-		}
-
-		if ($target['trigger']) {
-			$htmlString .=
-<<< EOD
-<div id="trigger" class="jump_margin"></div>
-<h3>Trigger</h3>
-<div align="right" class="jquery_ui_button_info_h3">
-  <div><button class="help_button" dialog="#trigger_dialog"></button></div>
-</div>
-
-EOD;
-
-			$htmlString .= makeErrorTag($errorMsg['no_info']);
-		}
 	}
 
 	/* Setting Parameters */
-	if ($target['role']
-		|| $target['parameter']) {
+	if ($target['parameter']) {
 
 		$htmlString .=
 <<< EOD
 <div id="setting_parameters" class="jump_margin"></div>
-<h2>Setting Parameters</h2>
-
-EOD;
-
-		if ($target['role']) {
-			$htmlString .=
-<<< EOD
-<div id="role" class="jump_margin"></div>
-<h3>Role</h3>
-<div align="right" class="jquery_ui_button_info_h3">
-  <div><button class="help_button" dialog="#role_dialog"></button></div>
-</div>
-
-EOD;
-
-			$htmlString .= makeErrorTag($errorMsg['no_info']);
-		}
-
-		if ($target['parameter']) {
-			$htmlString .=
-<<< EOD
+<h2>Settings</h2>
 <div id="parameter" class="jump_margin"></div>
-<h3>Parameter</h3>
+<h3>Run-time parameters</h3>
 <div align="right" class="jquery_ui_button_info_h3">
   <div><button class="help_button" dialog="#parameter_dialog"></button></div>
 </div>
 
 EOD;
-			if ($target['repo_version'] >= V25) {
-				$result = pg_query_params($conn, $query_string['parameter2'], $ids);
-			} else { 
-				$result = pg_query_params($conn, $query_string['parameter'], $ids);
-			}
-			if (!$result) {
-				return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
-			}
-
-			if (pg_num_rows($result) == 0) {
-				$htmlString .= makeErrorTag($errorMsg['no_result']);
-			} else {
-				$htmlString .= makeTablePagerHTML($result, "parameter", 10, true);
-			}
-			pg_free_result($result);
+		if ($target['repo_version'] >= V25) {
+			$result = pg_query_params($conn, $query_string['parameter2'], $ids);
+		} else { 
+			$result = pg_query_params($conn, $query_string['parameter'], $ids);
 		}
+		if (!$result) {
+			return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
+		}
+
+		if (pg_num_rows($result) == 0) {
+			$htmlString .= makeErrorTag($errorMsg['no_result']);
+		} else {
+			$htmlString .= makeTablePagerHTML($result, "parameter", 10, true);
+		}
+		pg_free_result($result);
 	}
 
 	/* Profiles */
@@ -2352,27 +2216,27 @@ function makeIOUsageTablePagerHTML($result, $id, $default, $pagerOn, $statsinfo_
 	$htmlString .= "<th rowspan=\"2\">".htmlspecialchars(pg_field_name($result, 0), ENT_QUOTES)."</th>";
 	$htmlString .= "<th rowspan=\"2\">".htmlspecialchars(pg_field_name($result, 1), ENT_QUOTES)."</th>";
 	if ($statsinfo_version >= V31) {
-		$htmlString .= "<th colspan=\"3\" align=\"center\">read</th>";
-		$htmlString .= "<th colspan=\"3\" align=\"center\">write</th>";
+		$htmlString .= "<th colspan=\"3\" align=\"center\">Read</th>";
+		$htmlString .= "<th colspan=\"3\" align=\"center\">Write</th>";
 		$htmlString .= "<th rowspan=\"2\">".htmlspecialchars(pg_field_name($result, 8), ENT_QUOTES)."</th>";
 		$htmlString .= "<th rowspan=\"2\">".htmlspecialchars(pg_field_name($result, 9), ENT_QUOTES)."</th>";
 		$htmlString .= "\n</tr><tr>\n";
-		$htmlString .= "<th>total size (MiB)</th>";
-		$htmlString .= "<th>peak size (KiB/s)</th>";
-		$htmlString .= "<th>total time (ms)</th>";
-		$htmlString .= "<th>total size (MiB)</th>";
-		$htmlString .= "<th>peak size (KiB/s)</th>";
-		$htmlString .= "<th>total time (ms)</th>";
+		$htmlString .= "<th>Total bytes (MiB)</th>";
+		$htmlString .= "<th>Peak rate (KiB/s)</th>";
+		$htmlString .= "<th>Total time (ms)</th>";
+		$htmlString .= "<th>Total bytes (MiB)</th>";
+		$htmlString .= "<th>Peak rate (KiB/s)</th>";
+		$htmlString .= "<th>Total time (ms)</th>";
 	} else {
-		$htmlString .= "<th colspan=\"2\" align=\"center\">read</th>";
-		$htmlString .= "<th colspan=\"2\" align=\"center\">write</th>";
+		$htmlString .= "<th colspan=\"2\" align=\"center\">Read</th>";
+		$htmlString .= "<th colspan=\"2\" align=\"center\">Write</th>";
 		$htmlString .= "<th rowspan=\"2\">".htmlspecialchars(pg_field_name($result, 6), ENT_QUOTES)."</th>";
 		$htmlString .= "<th rowspan=\"2\">".htmlspecialchars(pg_field_name($result, 7), ENT_QUOTES)."</th>";
 		$htmlString .= "\n</tr><tr>\n";
-		$htmlString .= "<th>total size (MiB)</th>";
-		$htmlString .= "<th>total time (ms)</th>";
-		$htmlString .= "<th>total size (MiB)</th>";
-		$htmlString .= "<th>total time (ms)</th>";
+		$htmlString .= "<th>Total bytes (MiB)</th>";
+		$htmlString .= "<th>Total time (ms)</th>";
+		$htmlString .= "<th>Total bytes (MiB)</th>";
+		$htmlString .= "<th>Total time (ms)</th>";
 	}
 
 	$htmlString .= "\n</tr></thead>\n<tbody>\n";
@@ -2436,7 +2300,7 @@ function makeLineGraphHTML($labelNames, $values, $id, $options)
     labelsSeparateLines: true,
     hideOverlayOnMouseOut: false,
     legend: 'always',
-    xlabel: 'Timestamp',
+    xlabel: 'Time',
     yAxisLabelWidth: 70,
 	animatedZooms: true,
 
@@ -2455,8 +2319,8 @@ EOD;
 function makeLineGraphHTML_childrow($labelNames, $values, $id, $title, $options)
 {
 	$htmlString = "<table class=\"tablesorter\">"
-		."<tr><td colspan=\"2\"><a href=\"#\" class=\"toggle\">toggle "
-		.$title." graph</a></td></tr>"
+		."<tr><td colspan=\"2\"><a href=\"#\" class=\"toggle\">Toggle "
+		.$title." Graph</a></td></tr>"
 		."<tr class=\"tablesorter-childRow\"><td rowspan=\"2\">\n<div id=\""
 		.$id."_graph\" class=\"linegraph\"></div>\n</td><td>\n<div id=\""
 		.$id."_status\" class=\"labels\"></div>\n</td></tr>\n"
@@ -2487,7 +2351,7 @@ function makeLineGraphHTML_childrow($labelNames, $values, $id, $title, $options)
     labelsSeparateLines: true,
     hideOverlayOnMouseOut: false,
     legend: 'always',
-    xlabel: 'Timestamp',
+    xlabel: 'Time',
     yAxisLabelWidth: 70,
 	animatedZooms: true,
 
@@ -2546,7 +2410,7 @@ function makeSimpleLineGraphHTML($results, $id, $options, $stack, $changeScale)
     labelsSeparateLines: true,
     hideOverlayOnMouseOut: false,
     legend: 'always',
-    xlabel: 'Timestamp',
+    xlabel: 'Time',
     yAxisLabelWidth: 70,
 	animatedZooms: true,
 
@@ -2630,11 +2494,11 @@ EOD;
     labelsSeparateLines: true,
     hideOverlayOnMouseOut: false,
     legend: 'always',
-    xlabel: 'Timestamp',
+    xlabel: 'Time',
     yAxisLabelWidth: 70,
-	title: 'WAL Statistics',
-	ylabel: 'Size (Bytes)',
-	y2label: 'Speed (Bytes/s)',
+	title: 'WAL Trend',
+	ylabel: 'Bytes per snapshot',
+	y2label: 'Output rate (Bytes/s)',
 	labelsKMG2: true,
 	animatedZooms: true,
 

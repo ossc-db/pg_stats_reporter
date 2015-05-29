@@ -2,7 +2,7 @@
 <!-- Copyright (c) 2012-2015, NIPPON TELEGRAPH AND TELEPHONE CORPORATION -->
 
 <help>
-<div id="summary_dialog" class="help_dialog"
+<div id="overview_dialog" class="help_dialog"
   title="How to see a Summary table">
 <h4>Summary の見方</h4>
 <ul>
@@ -493,18 +493,6 @@
 <li>[アドレス]:[ポート番号] replay_delay_size : スタンバイのリカバリ遅延量 (Bytes)<br/>※同期モードのスタンバイには先頭に[sync]が表示されます</li></ul>
 </div>
 
-<div id="database_dialog" class="help_dialog"
-  title="How to see a Database table">
-<h4>Database の見方</h4>
-情報をスナップショットで取得していないため表示はありません。
-</div>
-
-<div id="schema_dialog" class="help_dialog"
-  title="How to see a Schema table">
-<h4>Schema の見方</h4>
-情報をスナップショットで取得していないため表示はありません。
-</div>
-
 <div id="table_dialog" class="help_dialog"
   title="How to see a Table table">
 <h4>Table の見方</h4>
@@ -539,30 +527,6 @@
 <li>keys : インデックスのキー値 (カラム名または括弧に囲まれた式)</li>
 </ul>
 <ul>※単位換算での数値の切り捨てにより微小な値は0と表示される場合があります</ul>
-</div>
-
-<div id="view_dialog" class="help_dialog"
-  title="How to see a View table">
-<h4>View の見方</h4>
-情報をスナップショットで取得していないため表示はありません。
-</div>
-
-<div id="sequence_dialog" class="help_dialog"
-  title="How to see a Sequence table">
-<h4>Sequence の見方</h4>
-情報をスナップショットで取得していないため表示はありません。
-</div>
-
-<div id="trigger_dialog" class="help_dialog"
-  title="How to see a Trigger table">
-<h4>Trigger の見方</h4>
-情報をスナップショットで取得していないため表示はありません。
-</div>
-
-<div id="role_dialog" class="help_dialog"
-  title="How to see a Role table">
-<h4>Role の見方</h4>
-情報をスナップショットで取得していないため表示はありません。
 </div>
 
 <div id="parameter_dialog" class="help_dialog"

@@ -47,7 +47,7 @@ $(function(){
   };
 
   // Summary
-  $("#summary_table").tablesorter(
+  $("#overview_table").tablesorter(
     $.extend({}, tablesorterDefaultOptions, {
       widgets: [ ]
     })

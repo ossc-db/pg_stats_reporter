@@ -34,28 +34,28 @@ username = postgres
 ; --- Language Setting ---
 language = auto
 
-; --- Summary ---
-summary = true
+; --- Report Overview ---
+overview = true
 
-; -- Alert --
+; -- Alerts --
 alert = true
 
-; --- Database System ---
+; --- Statistics ---
 
-; -- Database Statistics --
+; -- Databases Statistics --
 database_statistics = true
 transaction_statistics = true
 database_size = true
 recovery_conflicts = true
 
-; -- Instance Activity --
+; -- Instance Statistics --
 wal_statistics = true
 instance_processes_ratio = true
 instance_processes = true
 
-; --- Operating System ---
+; --- OS Resources ---
 
-; -- OS Resource Usage --
+; -- CPU and Memory --
 cpu_usage = true
 load_average = true
 io_usage = true
@@ -65,7 +65,7 @@ memory_usage = true
 disk_usage_per_tablespace = true
 disk_usage_per_table = true
 
-; --- SQL ---
+; --- Activities ---
 
 ; -- Notable Tables --
 heavily_updated_tables = true
@@ -89,7 +89,7 @@ lock_conflicts = true
 ; -- Checkpoint Activity --
 checkpoint_activity = true
 
-; -- Autovacuum Activity --
+; -- Autovacuums --
 basic_statistics = true
 io_statistics = true
 analyze_statistics = true
@@ -100,13 +100,13 @@ vacuum_cancels = true
 current_replication_status = true
 replication_delays = true
 
-; --- Information ---
+; --- Miscellaneous ---
 
-; -- Schema Information --
+; -- Tables and Indexes --
 table = true
 index = true
 
-; -- Setting Parameters --
+; -- Settings --
 parameter = true
 
 ; -- Profiles --

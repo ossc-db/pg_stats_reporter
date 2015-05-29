@@ -195,7 +195,7 @@ http://&lt;<I>ホスト名</I>&gt;/pg_stats_reporter/pg_stats_reporter.php
 <dt>④ : Reload config ボタン</dt>
 <dd>設定ファイルの再読み込みを行います。読み込み後は表示中のレポートと同様の条件でレポートを表示します。</dd>
 <dt>⑤ : ヘッダメニュー</dt>
-<dd>"Summary" ～ "Information" の項目を選択すると、性能レポートの該当項目へ移動します。</dd>
+<dd>"Overview" ～ "Misc" の項目を選択すると、性能レポートの該当項目へ移動します。</dd>
 <dd>"Log Viewer" を選択すると、ログレポート画面に移動します。</dd>
 <dt>⑥ : トップに移動ボタン</dt>
 <dd>レポートのトップに移動します。</dd>
@@ -506,10 +506,10 @@ $ su
   </tr>
 
   <tr>
-    <td>表示項目<br/>(summary - profiles)(*d)</td>
+    <td>表示項目<br/>(overview - profiles)(*d)</td>
     <td>true/false</td>
     <td>true</td>
-    <td>summary = true</td>
+    <td>overview = true</td>
     <td>レポートに項目の表示/非表示を bool 値で設定します。</td>
   </tr>
 </tbody>
@@ -537,17 +537,18 @@ $ su
 <h4>Q1. pg_stats_reporter の画面が表示されません。</h4>
 <dl>A1. ファイアウォール、SELinux、および PHP のメモリ使用上限の設定が正しい設定となっているか見直してください。
 
-ファイアウォールの場合、/etc/sysconfig/iptables で、httpd のポートのアクセスが許可されていることを確認してください。
-<pre>
-http のポートが 80 でアクセスが許可されている場合、/etc/sysconfig/iptables に以下の項目が存在します
+<p>ファイアウォールについては、httpd のポートのアクセスが許可されていることを確認してください。</p>
 
--A INPUT -m state --state NEW -m tcp -p tcp --dport 80 -j ACCEPT
-</pre>
-SELinux の場合は、以下のコマンドで設定が on になっていることを確認してください。
+<p>SELinux については、以下のコマンドで httpd_can_network_connect_db の設定が on になっていること、および SELinux コンテキストに<ul>
+<li>/var/www/pg_stats_reporter_lib/cache</li>
+<li>/var/www/pg_stats_reporter_lib/compiled</li>
+</ul>が含まれていることを確認してください。
 <pre>
 # getsebool httpd_can_network_connect_db
-</pre>
-PHP のメモリ使用上限の場合は、/etc/php.ini の memory_limit の値を大きくし、HTTP Server を再起動してください。
+# semanage fcontext -l
+</pre></p>
+
+<p>PHP のメモリ使用上限については、/etc/php.ini の memory_limit の値を大きくし、HTTP Server を再起動してください。</p>
 </dl>
 
 <h4>Q2. データベース接続失敗のエラーが表示されて、pg_stats_reporter の画面が表示されません。</h4>
@@ -573,6 +574,7 @@ PHP のメモリ使用上限の場合は、/etc/php.ini の memory_limit の値�
   <li>レポート項目にディスクI/Oの秒当たりの読み込み量のピーク値を追加</li>
   <li>レポート項目にディスクI/Oの秒当たりの書き込み量のピーク値を追加</li>
   <li>レポート項目にディスクI/Oの秒当たりの読み込み/書き込み量のピーク値のグラフを追加</li>
+  <li>レポート項目のタイトルを変更</li>
   <li>I/O Usageのグラフを表示/非表示切り替え用リンクを追加</li>
   <li>クエリ全文表示ボタンを設置</li>
 </ul>

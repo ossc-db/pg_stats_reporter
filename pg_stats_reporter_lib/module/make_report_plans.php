@@ -52,21 +52,21 @@ function makePlansTablePagerHTML($conn, $result, $snapids, $errorMsg) {
 <<< EOD
 <div><table id="plans_table" class="tablesorter">
 <thead><tr>
-  <th rowspan="3">query id</th>
-  <th>user</th>
-  <th>database</th>
-  <th>plan count</th>
-  <th>calls</th>
-  <th>total time (sec)</th>
-  <th>time/call (sec)</th>
-  <th>block read time (ms)</th>
-  <th>block write time (ms)</th>
+  <th rowspan="3">Query ID</th>
+  <th>User</th>
+  <th>Database</th>
+  <th>Plans</th>
+  <th>Calls</th>
+  <th>Total time (sec)</th>
+  <th>Time/call (sec)</th>
+  <th>Block read time (ms)</th>
+  <th>Block write time (ms)</th>
 </tr>
 <tr>
-  <th colspan="8">query (child row)</th>
+  <th colspan="8">Query (child row)</th>
 </tr>
 <tr>
-  <th colspan="8">plan information (child row)</th>
+  <th colspan="8">Plan details (child row)</th>
 </tr></thead>
 <tbody>
 
@@ -146,7 +146,7 @@ EOD;
 			$htmlString .="</td></tr>\n";
 
 			$htmlString .= "<tr class=\"tablesorter-childRow\">\n";
-			$htmlString .= "<td colspan=\"8\"><table class=\"tablesorter childRowTable\"><thead><tr><th rowspan=\"2\">plan id</th><th>calls</th><th>total time (sec)</th><th>time/call (sec)</th><th>block read time (ms)</th><th>block write time (ms)</th><th>first call</th><th>last call</th></tr><tr><th colspan=\"7\">plan (child row)</th></tr></thead><tbody>\n";
+			$htmlString .= "<td colspan=\"8\"><table class=\"tablesorter childRowTable\"><thead><tr><th rowspan=\"2\">Plan ID</th><th>Calls</th><th>Total time (sec)</th><th>Time/call (sec)</th><th>Block read time (ms)</th><th>Block write time (ms)</th><th>First call</th><th>Last call</th></tr><tr><th colspan=\"7\">Plan (child row)</th></tr></thead><tbody>\n";
 			$htmlString .= $childHtmlString;
 			$htmlString .= "</tbody></table></td>\n";
 			$htmlString .= "</tr>\n\n";
