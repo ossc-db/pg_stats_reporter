@@ -9,7 +9,6 @@
 define("PROGRAM_NAME", "pg_stats_reporter");
 define("PROGRAM_VERSION", "3.1.0");
 define("PROGRAM_URL", "http://pgstatsinfo.sourceforge.net/");
-define("PROGRAM_EMAIL", "pgstatsinfo-general@pgfoundry.org");
 
 define("CONFIG_FILE", "/etc/pg_stats_reporter.ini");
 define("LOCAL_CONFIG_FILE", getenv('HOME')."/.pg_stats_reporter.ini");
@@ -1190,7 +1189,6 @@ Generic options:
   --help                    show this help, then exit
   --version                 output version information, then exit
 
-Report bugs to <".PROGRAM_EMAIL.">
 ";
 }
 /* Display version */
@@ -1199,7 +1197,6 @@ function displayVersion()
         echo PROGRAM_NAME." version ".PROGRAM_VERSION."
 Copyright (c) 2012-2015, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
 Web site: ".PROGRAM_URL."
-E-Mail: ".PROGRAM_EMAIL."
 ";
 }
 

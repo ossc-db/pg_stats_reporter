@@ -5,7 +5,7 @@ Summary:		Graphical viewer for pg_statsinfo
 Summary(ja):	pg_statsinfo 用グラフィカルビューア
 Group:			Applications/Databases
 License:		BSD
-URL:			http://pgstatsinfo.projects.pgfoundry.org/index_ja.html
+URL:			http://pgstatsinfo.sourceforge.net/index_ja.html
 Packager:		NIPPON TELEGRAPH AND TELEPHONE CORPORATION
 Source0:		pg_stats_reporter-2.0.0.tar.gz
 BuildRoot:		%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
