@@ -535,33 +535,32 @@ $ su
 
 <h2 id="faq">よくあるQ&amp;A</h2>
 <h4>Q1. pg_stats_reporter の画面が表示されません。</h4>
-<dl>A1. ファイアウォール、SELinux、および PHP のメモリ使用上限の設定が正しい設定となっているか見直してください。
+<p>A1. ファイアウォール、SELinuxの設定、および PHP のメモリ使用上限設定を必要に応じて変更してください。</p>
 
-<p>ファイアウォールについては、httpd のポートのアクセスが許可されていることを確認してください。</p>
+<ul>
+<li>ファイアウォールでは、httpd のポートへのアクセスを許可する必要があります。</li>
 
-<p>SELinux については、以下のコマンドで httpd_can_network_connect_db の設定が on になっていること、および SELinux コンテキストに<ul>
-<li>/var/www/pg_stats_reporter_lib/cache</li>
-<li>/var/www/pg_stats_reporter_lib/compiled</li>
-</ul>が含まれていることを確認してください。
-<pre>
-# getsebool httpd_can_network_connect_db
-# semanage fcontext -l
-</pre></p>
+<li>SELinux については、httpd_can_network_connect_db の設定が on に、また pg_stats_reporter が書き込みを行うディレクトリの SELinuxファイルタイプが httpd_sys_rw_context_t になっている必要があります. 現在の設定は以下のようにして確認できます。
 
-<p>PHP のメモリ使用上限については、/etc/php.ini の memory_limit の値を大きくし、HTTP Server を再起動してください。</p>
-</dl>
+<pre>getsebool httpd_can_network_connect_db
+ls -dZ /var/www/pg_stats_reporter_lib/{cache,compiled}
+</pre>
+</li>
+
+<li>PHP のメモリ使用上限は、/etc/php.ini の memory_limit で設定します。 変更後は httpd を再起動してください。</li>
+</ul>
 
 <h4>Q2. データベース接続失敗のエラーが表示されて、pg_stats_reporter の画面が表示されません。</h4>
-<dl>A2. 以下の2点を確認してください。<ul>
+<p>A2. 以下の2点を確認してください。<ul>
 <li>pg_stats_reporter.ini に記述されている「database connection」の情報</li>
 <li>接続先の PostgreSQL の設定 (postgresql.conf, pg_hba.conf)</li>
-</ul></dl>
+</ul></p>
 
 <h4>Q3. ブラウザに Internet Explorer を使用してレポートを表示したところ、正しく表示されません。</h4>
-<dl>A3. ブラウザに Internet Explorer を使用してレポートを作成した場合、Internet Explorer のバージョンによって正しく表示されない場合があります。ブラウザは Firefox を使用することを推奨します。</dl>
+<p>A3. ブラウザに Internet Explorer を使用してレポートを作成した場合、Internet Explorer のバージョンによって正しく表示されない場合があります。ブラウザは Firefox を使用することを推奨します。</p>
 
 <h4>Q4. Apache HTTP Server の worker モードには対応していますか？</h4>
-<dl>A4. PHP の仕様のため、worker モードでの使用は推奨されません。prefork モードで使用するか、コマンドライン機能を使用してください。</dl>
+<p>A4. PHP の仕様のため、worker モードでの使用は推奨されません。prefork モードで使用するか、コマンドライン機能を使用してください。</p>
 
 <h2 id="change">pg_stats_reporter 3.0 からの変更点</h2>
 <p>pg_stats_reporter 3.0 からの変更点は以下の通りです。</p>
