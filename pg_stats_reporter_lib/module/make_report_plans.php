@@ -55,7 +55,7 @@ function makePlansTablePagerHTML($conn, $result, $snapids, $errorMsg) {
   <th rowspan="3">Query ID</th>
   <th>User</th>
   <th>Database</th>
-  <th>Plans</th>
+  <th>Plan count</th>
   <th>Calls</th>
   <th>Total time (sec)</th>
   <th>Time/call (sec)</th>

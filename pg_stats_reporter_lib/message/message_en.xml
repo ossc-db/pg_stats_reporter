@@ -30,14 +30,14 @@
 <li>Rollback/s: Average frequency of rollbacks during this report period.</li>
 <li>Hit% : Shared buffer's hit rate throughout this report period.</li>
 <li>Gets/s : Average number of blocks per second found in shared buffers during this report period. </li>
-<li>reads/s : Average number of blocks per second read from disks during this report period.</li>
-<li>rows/s : Average number of rows per second fetched from tables and indexes during thie report period.</li>
+<li>Reads/s : Average number of blocks per second read from disks during this report period.</li>
+<li>Rows/s : Average number of rows per second fetched from tables and indexes during thie report period.</li>
 </ul>
-*Small values may be shown as zero by round off.
+* Small values may be shown as zero by round off.
 </div>
 
 <div id="transaction_statistics_dialog" class="help_dialog"
-  title="The Transactions Table">
+  title="The Transactions Graph">
 <h4>This graph shows the trend of number of transactions per seconds.</h4>
 <h4>Axes</h4>
 <ul>
@@ -52,12 +52,12 @@
 </div>
 
 <div id="database_size_dialog" class="help_dialog"
-  title="The Trend of Database Size Table">
+  title="The Trend of Database Size Graph">
 <h4>This graph shows the trend of database size.</h4>
 <h4>Axes</h4>
 <ul>
-<li>Horizontal axis: Time.</li>
-<li>Vertial axis: Size of database in bytes.</li>
+<li>Horizontal axis : Time.</li>
+<li>Vertial axis : Size of database in bytes.</li>
 </ul>
 <h4>Legend</h4>
 <ul>
@@ -107,8 +107,8 @@ the another shows the amount divided by the snapshot interval.</h4>
 </div>
 
 <div id="instance_processes_ratio_dialog" class="help_dialog"
-  title="How to see a Instance Processes Ratio table">
-<h4>How to see a Instance Processes Ratio table.</h4>
+  title="The Backend Status Table">
+<h4>This table shows the backend status.</h4>
 <ul>
 <li>idle (%) : ratio of idle backend process (%)</li>
 <li>idle in xact (%) : ratio of idle backend process in transaction (%)</li>
@@ -118,11 +118,15 @@ the another shows the amount divided by the snapshot interval.</h4>
 </div>
 
 <div id="instance_processes_dialog" class="help_dialog"
-  title="How to see a Instance Processes graph">
-<h4>How to see a Instance Processes graph.</h4>
+  title="The Backend Status Trend Graph">
+<h4>This graph shows the trend of backend status.</h4>
+<h4>Axes</h4>
 <ul>
-<li>horizontal axis : time</li>
-<li>vertial axis : ratio (%)</li>
+<li>Horizontal axis : Time</li>
+<li>Vertial axis : ratio (%)</li>
+</ul>
+<h4>Legend</h4>
+<ul>
 <li>idle : ratio of idle backend process (%)</li>
 <li>idle in xact : ratio of idle backend process in transaction (%)</li>
 <li>waiting : ratio of waiting backend process by locks (%)</li>
@@ -131,11 +135,15 @@ the another shows the amount divided by the snapshot interval.</h4>
 </div>
 
 <div id="cpu_usage_dialog" class="help_dialog"
-  title="How to see a CPU Usage graph">
-<h4>How to see a CPU Usage graph.</h4>
+  title="The CPU Usage Graph">
+<h4>This graph shows the CPU usage.</h4>
+<h4>Axes</h4>
 <ul>
-<li>horizontal axis  : time </li>
-<li>vertial axis  : ratio(%) </li>
+<li>Horizontal axis  : time </li>
+<li>Vertial axis  : ratio(%) </li>
+</ul>
+<h4>Legend</h4>
+<ul>
 <li>user : ratio of CPU usage in user mode (%)</li>
 <li>system : ratio of CPU usage in system mode (%)</li>
 <li>iowait : ratio of CPU usage in iowait (%)</li>
@@ -166,7 +174,7 @@ graphs. The graphs are hidden at first and comes out by clicking the
 corresponding links.</h4>
 <h4>The I/O Usage Table shows the overview of I/O usage throughout the report period. Each row represents one device.</h4>
 <ul>
-<li>Device_name : Name of the device</li>
+<li>Device name : Name of the device</li>
 <li>Containing table spaces: List of table spaces located in the device.</li>
 <li>Read: Device read statistics<ul>
 <li>Total bytes (MiB): Read bytes throughout the report period in Mebibytes.</li>
@@ -181,7 +189,7 @@ corresponding links.</h4>
 <li>Average I/O queue: Average length of I/O queue throughout this report period.</li>
 <li>Total I/O time (ms): Sum of the time spent by I/O operations in milliseconds. This field corresponds to "weighted # of milliseconds spent doing I/Os" in /proc/diskstats.</li>
 </ul>
-*Small values may be shown as zero by round off.
+* Small values may be shown as zero by round off.
 <h4>The I/O Rate Graph shows the read/write rate over snapshots. The values are the average in a snapshot.</h4>
 <h4>Axes</h4>
 <ul>
@@ -239,7 +247,7 @@ they may go above 100 % for certain load.</h4>
 </div>
 
 <div id="disk_usage_per_tablespace_dialog" class="help_dialog"
-  title="Disk Usage per Tablespace Table">
+  title="The Disk Usage per Tablespace Table">
 <h4>Each row in this table shows the overview of a table space.</h4>
 <ul>
 <li>Tablespace: Name of tablespace</li>
@@ -249,7 +257,7 @@ they may go above 100 % for certain load.</h4>
 <li>Avail: The amount of available disk space in Mebibytes</li>
 <li>Remain: Percentage of available space against the whole device</li>
 </ul>
-*Small values may be shown as zero by round off.
+* Small values may be shown as zero by round off.
 </div>
 
 <div id="disk_usage_per_table_dialog" class="help_dialog"
@@ -266,7 +274,7 @@ overview of one table.</h4>
 <li>Index reads: Number of PostgresQL disk blocks read from all indexes on this table</li>
 <li>Toast reads: Number of disk blocks read from this table's TOAST table and its index (if any)</li>
 </ul>
-*Small values may be shown as zero by round off.
+* Small values may be shown as zero by round off.
 <h4>The Table Size Chart shows the table size ratios among the whole tables.</h4>
 <h4>The Disk Read Chart shows the ratios of the number of blocks read
 from this table and its belongings.</h4>
@@ -277,12 +285,12 @@ from this table and its belongings.</h4>
 <h4>Each row in this table shows the update activity overview of a table. The rows are shown in descending order of the "Total" field at first.</h4>
 <ul>
 <li>Database: Name of the database this table resides in</li>
-<li>schema: Name of the schema this table belongs to</li>
-<li>table: Name of this table</li>
+<li>Schema: Name of the schema this table belongs to</li>
+<li>Table: Name of this table</li>
 <li>INSERT: Number of rows inserted during this report period</li>
 <li>UPDATE: Number of rows updated during this report period including HOT updates</li>
 <li>DELETE: Number of rows deleted during this report period</li>
-<li>total : The sum of the tree fields above</li>
+<li>Total : The sum of the tree fields above</li>
 <li>HOT (%) : Percentage of HOT updates against all UPDATEs</li>
 </ul>
 </div>
@@ -312,13 +320,13 @@ first.</h4>
 <li>Table: Name of this table</li>
 <li>Tuples: Number of live tuples in this table</li>
 <li>Logical pages: Estimated pages required to store all live tuples</li>
-<li>Physicalppages: Number of pages allocated to this table</li>
+<li>Physical pages: Number of pages allocated to this table</li>
 <li>L/P ratio: Percentage of logical (required) pages agenst physical (existing) pages</li>
 </ul>
 </div>
 
 <div id="fragmented_tables_dialog" class="help_dialog"
-  title="The Fragmented Tables Table">
+  title="The Table Fragmentations Table">
 <h4>Each row in this table shows the fragmentation (correlation
 between physical and logical ordering) of one column. The correlation
 factor closer to zero means the stronger fragmentation of column. The rows are shown in descending rder of the "Correlation" field at first.</h4>
@@ -407,7 +415,7 @@ specifies how many long transactions every snapshot records.</h4>
 <li>Client address: Client IP address connected to the backend process</li>
 <li>Began at: Time when the transaction has started</li>
 <li>Duration: Time elapsed since the transaction started</li>
-<li>Query: Query string that last executed in the transaction</li>
+<li>Last query: Query string that last executed in the transaction</li>
 </ul>
 </div>
 
@@ -428,7 +436,7 @@ specifies how many long transactions every snapshot records.</h4>
 </div>
 
 <div id="checkpoint_activity_dialog" class="help_dialog"
-  title="The Checkpoint Activity Table">
+  title="The Checkpoints Table">
 <h4>This table shows the summary of checkpoint activity.</h4>
 <ul>
 <li>Number of checkpoints: Number of checkpoints completed during this report period</li>
@@ -436,8 +444,8 @@ specifies how many long transactions every snapshot records.</h4>
 <li>Caused by xlogs: Number of checkpoints started by XLOG growth</li>
 <li>Average written buffers: Average number of the written buffers by each checkpoint throughout this report period</li>
 <li>Maximum written buffers: Number of the buffers written by the checkpoint that have written largest number of buffers throughout this report period</li>
-<li>Average duration: Average duration of checkpoints cmopleted during this report period, in seconds</li>
-<li>Maximum duration: Duration of the checkpoint with the longest completion time in this report period, in seconds</li>
+<li>Average checkpoint duration: Average duration of checkpoints cmopleted during this report period, in seconds</li>
+<li>Maximum checkpoint duration: Duration of the checkpoint with the longest completion time in this report period, in seconds</li>
 </ul>
 </div>
 
@@ -479,8 +487,8 @@ available. Less logging reduces the completeness this table.</div>
 </div>
 
 <div id="io_statistics_dialog" class="help_dialog"
-  title="The Autovacuum I/O Statistics Table">
-<h4>This table shows the I/O statistics for autovacuums.</h4>
+  title="The Autovacuum I/O Summary Table">
+<h4>This table shows the I/O summary for autovacuums.</h4>
 <ul>
 <li>Database: Name of the database this table resides in</li>
 <li>Schema: Name of the schema this table belongs to</li>
@@ -537,8 +545,8 @@ of reporting period. One column is shown for one replication
 session.</h4>
 <ul>
 <li>Session user: Name of the user for this replication session</li>
-<li>Appname: Application name of this replication session</li>
-<li>Client addr: Client IP address of this replication session</li>
+<li>Application name: Application name of this replication session</li>
+<li>Client address: Client IP address of this replication session</li>
 <li>Client host: Host name of this replication session</li>
 <li>Client port: Client port ID for this replication session</li>
 <li>Started at: Time when this replication session started</li>
@@ -568,7 +576,7 @@ session.</h4>
 </div>
 
 <div id="table_dialog" class="help_dialog"
-  title="The Table Table">
+  title="The Tables Table">
 <h4>Each rows in this table shows the overview of a table.</h4>
 <ul>
 <li>Database: Name of the database this table resides in</li>
@@ -581,11 +589,11 @@ session.</h4>
 <li>Table scans: Number of sequential scans executed during this report period</li>
 <li>Index scans: Number of index scans executed during this report period</li>
 </ul>
-*Small values may be shown as zero by round off.
+* Small values may be shown as zero by round off.
 </div>
 
 <div id="index_dialog" class="help_dialog"
-  title="The Ibdexes Table">
+  title="The Indexes Table">
 <h4>Each rows in this table shows the overview of a index.</h4>
 <ul>
 <li>Database: Name of the databsae this index resides in</li>
@@ -600,7 +608,7 @@ session.</h4>
 <li>Hits: Number of buffer hits in this index during this report period</li>
 <li>Keys: List of keys of this index</li>
 </ul>
-*Small values may be shown as zero by round off.
+* Small values may be shown as zero by round off.
 </div>
 
 <div id="parameter_dialog" class="help_dialog"
@@ -615,7 +623,7 @@ session.</h4>
 </div>
 
 <div id="alert_dialog" class="help_dialog"
-  title="The Alert Table">
+  title="The Alerts Table">
 <h4>This table lists the alerts issued during this report period.</h4>
 <ul>
 <li>Time: Time when this alert issued</li>
@@ -632,16 +640,16 @@ UPDATE statsrepo.alert SET rollback_tps = 3000 WHERE instid = 1;
 </div>
 
 <div id="profiles_dialog" class="help_dialog"
-  title="How to see a Profiles table">
-<h4>How to see a Profiles table.</h4>
+  title="The Profiles table">
+<h4>This table shows profiles.</h4>
 <ul>
-<li>processing : processing name</li>
-<li>executes : average number of executing</li>
+<li>Processing : processing name</li>
+<li>Executes : average number of executing</li>
 </ul>
 </div>
 
 <div id="log_viewer_dialog" class="help_dialog"
-  title="How to use Log Viewer">
+  title="The Log Viewer table">
 <h4>How to use Search Option.</h4>
 To narrow down the log, enter the search criteria and click "Search" button.
 <ul>
@@ -650,7 +658,7 @@ To narrow down the log, enter the search criteria and click "Search" button.
 <li>DATABASE : database name</li>
 <li>MESSAGE : error message (POSIX Regular Expressions)</li>
 </ul>
-<h4>How to see a Log table.</h4>
+<h4>This table shows server log.</h4>
 <ul>
 <li>timestamp : timestamp with milliseconds</li>
 <li>username : user name</li>

@@ -185,7 +185,7 @@ $query_string = array(
   "SELECT write_total AS \"Total size (MiB)\", write_speed AS \"Average output rate (MiB/s)\" FROM statsrepo.get_xlog_stats($1, $2)",
 
   "wal_statistics_stats31" =>
-  "SELECT write_total AS \"Total size (MiB)\", write_speed AS \"Average output rate (MiB/s)\", archive_total AS \"Number of archived files\", archive_failed AS \"Number of archiving error\", last_wal_file AS \"Latest WAL file\", last_archive_file AS \"Last archived file\" FROM statsrepo.get_xlog_stats($1, $2)",
+  "SELECT write_total AS \"Total size (MiB)\", write_speed AS \"Average output rate (MiB/s)\", archive_total AS \"Number of archived files\", archive_failed AS \"Number of archiving errors\", last_wal_file AS \"Latest WAL file\", last_archive_file AS \"Last archived file\" FROM statsrepo.get_xlog_stats($1, $2)",
 
   "instance_processes_ratio" =>
   "SELECT idle AS \"idle (%)\", idle_in_xact AS \"idle in xact (%)\", waiting AS \"waiting (%)\", running AS \"running (%)\" FROM statsrepo.get_proc_ratio($1, $2)",
