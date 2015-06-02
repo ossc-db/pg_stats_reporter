@@ -38,13 +38,13 @@
 <p>pg_stats_reporter is a graphical report generator for <a href="http://pgstatsinfo.sourceforge.net/pg_statsinfo.html">pg_statsinfo</a>. It offers you various statistical information collected by pg_statsinfo in a graphical and interactive representation. pg_stats_reporter 3.1 is compatible with pg_statsinfo 2.5 or later but some features are not available for the versions earlier than 3.1. You can see an example report <a href="files/report_sample.html">here</a>. </p>
 
 <h2 id="synopsis">Online and Offline Reports</h2>
-<p>pg_stats_reporter runs in two ways.  It runs as a CGI script and connects to repository server of pg_statsinfo in common usage but it also provides a command-line interface to generate off-line reports, which is portalbe form of the graphical report. 
+<p>pg_stats_reporter runs in two ways.  It runs as a CGI script and connects to repository server of pg_statsinfo in common usage but it also provides a command-line interface to generate off-line reports, which is portable form of the graphical report. 
 
 <h2 id="install">Installation</h2>
 <p>RPM package is available  <a href="http://sourceforge.net/projects/pgstatsinfo/files/pg_stats_reporter/">here</a>.<br/>
 If you would like to install from source, you will see instructions in INSTALL.en file in the top of source tree.</p>
 
-<h3 id="requirement">Envoronment</h3>
+<h3 id="requirement">Environment</h3>
 pg_stats_reporter is tested on the following environment.
 
 <dl>
@@ -77,9 +77,9 @@ pg_stats_reporter is tested on the following environment.
 
 <h3 id="pg_stats_reporter_install">Installing pg_stats_reporter</h3>
 <h4>Full Installation </h4>
-<p> If you would like to use both of online and offline reports. You should install all files required by both of CGI and command line part of pg_stats_reporter. Follwoing the steps below as a superuser will do that. pg_stas_reporter is distributed as an RPM package but subsidiary packages can be installed using yum.</p>
+<p> If you would like to use both of online and offline reports. You should install all files required by both of CGI and command line part of pg_stats_reporter. Following the steps below as a superuser will do that. pg_stas_reporter is distributed as an RPM package but subsidiary packages can be installed using yum.</p>
 <h5>Installing using yum </h5>
-<p>The required packges are are installed by the steps like following using yum.</p>
+<p>The required packages are are installed by the steps like following using yum.</p>
 <pre>$ su
 # yum install httpd php php-pgsql php-intl php-cli
 # rpm -ivh pg_stats_reporter-3.1.0-1.el6.noarch.rpm
@@ -108,7 +108,7 @@ pg_stats_reporter is tested on the following environment.
 </pre>
 
 <h5>Installing using RPM</h5>
-<p>The fewer pakcages are required. --nodeps is requried for
+<p>The fewer packages are required. --nodeps is required for
 pg_stats_reporter.</p>
 <pre># rpm -ivh php-common-5.3.3-38.el6.x86_64.rpm \
            php-pdo-5.3.3-38.el6.x86_64.rpm \
@@ -166,19 +166,19 @@ pg_stats_reporter works retrieving data from repository database of pg_statsinfo
 <dt>&#9312; : Create new report button</dt>
 <dd>Shows a popup to specify the period for new report. Details are shown in <a href="#create_report_dialog">"Create new report" dialog</a> section.</dd>
 <dt>&#9313; : Repository bar</dt>
-<dd>One foldable list for one repository. Clicking the repository name toggles the instance (server) list inside to be exapnded or collapsed.</dd>
+<dd>One foldable list for one repository. Clicking the repository name toggles the instance (server) list inside to be expanded or collapsed.</dd>
 <dt>&#9314; : Instance list</dt>
 <dd>List of instances that the repository stores their statistics. Clicking an item selects it as the current instance for reporting. </dd>
 <dt>&#9315; : Reload config</dt>
-<dd>Tell pg_stats_reporter to realod the configuration file. If you
+<dd>Tell pg_stats_reporter to reload the configuration file. If you
 made some changes in pg_stats_reporter.ini file, clicking this button
 makes the changes effective in the new report.</dd>
 <dt>&#9316; : Menu</dt>
 <dd>Jumps directly to the item selected in this page.</dd>
 <dt>&#9317; : Go to top button</dt>
 <dd>Jumps to the top of this page.</dd>
-<dt>&#9318; : Toggle idebar button</dt>
-<dd>Shows or hide the sidebar alternatingly.</dd>
+<dt>&#9318; : Toggle sidebar button</dt>
+<dd>Shows or hides the sidebar alternatingly.</dd>
 <dt>&#9319; : Help button</dt>
 <dd>Shows help popup.</dd>
 </dl>
@@ -187,12 +187,12 @@ makes the changes effective in the new report.</dd>
 <img src="image/dialog.png">
 <br/>
 <dl>
-<dt>&#9320; : Begining of the report period</dt>
+<dt>&#9320; : Beginning of the report period</dt>
 <dd>This field specifies the beginning date and time of the report
 period. You can fill it immediately or clicking it shows calendar
 widget to select date and time.</dd>
 <dt>&#9321; : End of the report period</dt>
-<dd>This field specifies the ending date and time of the report period. Calendar widget is also available for thie field.</dd>
+<dd>This field specifies the ending date and time of the report period. Calendar widget is also available for this field.</dd>
 <dt>&#9322; : Create report</dt>
 <dd>Finishes entering the period and make the new report.</dd>
 <dt>&#9323; : Cancel</dt>
@@ -207,7 +207,7 @@ widget to select date and time.</dd>
 <dt>&#9313; : Filter condition fields</dt>
 <dd>You can filter out unnecessary logs from the table below by filling these fields and click the "Search" button below.
 <ul>
-<li>ELEVEL: Massage level</li>
+<li>ELEVEL: Message level</li>
 <li>USERNAME: User name</li>
 <li>DATABASE: Database name</li>
 <li>MESSAGE: Regular expression that <a href="http://www.postgresql.org/docs/9.3/static/functions-matching.html"> PostgreSQL defines for SIMILAR TO</a>.</li>
@@ -233,12 +233,12 @@ expressions for tablesorter</a>.</dd>
 
 <h3 id="execute_command">Generating Offline Reports</h3>
 
-<h4>Gnerating Reports</h4>
+<h4>Generating Reports</h4>
 <pre>$ pg_stats_reporter [-R DBNAME] [-i INSTANCEID] [-a] [-O DIRECTORY] [-b SNAPID] [-e SNAPID] [-B DATE] [-E DATE]</pre>
 
 <p>The very simple example below generates an offline report from
 snapshots in repository database named sample with default settings
-as follwoing.</p>
+as following.</p>
 <ul>
   <li>Report period is whole yesterday and until now.</li>
   <li>Includes all targets registered.</li>
@@ -255,13 +255,13 @@ css         js       sample_localhost_5432_1_20150528-0000_20150529-1650.html
 
 <dl>
   <dt>-R, --repositorydb=DBNAME</dt>
-  <dd>Make a report connecting to the repository databsae with DBNAME. Default is the first reporsitory in configuration file.</dd>
+  <dd>Make a report connecting to the repository database with DBNAME. Default is the first reporsitory in configuration file.</dd>
 
   <dt>-i, --instid=INSTANCEID</dt>
-  <dd>Make a report only for the target instance of INSTANCEID. All instances stored in the repository database by defalut.</dd>
+  <dd>Make a report only for the target instance of INSTANCEID. All instances stored in the repository database by default.</dd>
 
   <dt>-a, --all</dt>
-  <dd>Emit all report items igoring default setting.</dd>
+  <dd>Emit all report items ignoring default setting.</dd>
 
   <dt>-O, --outputdir=DIRECTORY</dt>
   <dd>Place output files in the directory DIRECTORY. The default is to put in the current directory. If the directory does not exist, it will be created.</dd>
@@ -270,7 +270,7 @@ css         js       sample_localhost_5432_1_20150528-0000_20150529-1650.html
   <dd>Make a report for the period begins with the snapshot of SNAPID. The default behavior of this option is described below.</dd>
 
   <dt>-e, --endid=SNAPID</dt>
-  <dd>Make a report for the poriod ends with the snapshot of SNAPID. The default behavior of this option is described at the end of this section.</dd>
+  <dd>Make a report for the period ends with the snapshot of SNAPID. The default behavior of this option is described at the end of this section.</dd>
 
   <dt>-B, --begindate=DATE</dt>
   <dd>Make a report for the period begins with DATE, in the format of "YYYY-MM-DD HH:MI:SS". The default behavior of this option is described  at the end of this section.</dd>
@@ -280,8 +280,8 @@ css         js       sample_localhost_5432_1_20150528-0000_20150529-1650.html
 </dl>
 <p>
 <ol type="a">
-<li>Date specificaitons and Snapshot ID specifications are exclusive.</li>
-<li>If you specify only one end of report period, the opositte end is assumed to be the fist, or last of all snapshots.</li>
+<li>Date specifications and Snapshot ID specifications are exclusive.</li>
+<li>If you specify only one end of report period, the opposite end is assumed to be the first, or the last of all snapshots.</li>
 <li>If both ends are omitted, the default report period begins yesterday midnight and lasts until now.</li>
 </ol>
 </p>
@@ -297,7 +297,7 @@ css         js       sample_localhost_5432_1_20150528-0000_20150529-1650.html
   <dd>Show the list of snapshots.</dd>
   
   <dt>-R, --repositorydb=DBNAME</dt>
-  <dd>List snapshots in the reposiotry database DBNAME. Default is the first repository in configuration file.</dd>
+  <dd>List snapshots in the repository database DBNAME. Default is the first repository in configuration file.</dd>
 
   <dt>-i, --instid=INSTANCEID</dt>
   <dd>List snapshots of the target instance of INSTANCEID. All instances stored in the repository database by default.</dd>
@@ -314,20 +314,20 @@ css         js       sample_localhost_5432_1_20150528-0000_20150529-1650.html
   <dd>List all of the target instances.</dd>
 
   <dt>-R, --repositorydb=DBNAME</dt>
-  <dd>List snapshots in the reposiotry database DBNAME. Default is the first repository in configuration file.</dd>
+  <dd>List snapshots in the repository database DBNAME. Default is the first repository in configuration file.</dd>
 </dl>
 
 <h4>Show snapshot size</h4>
 <pre>$ pg_stats_reporter -s [-R DBNAME]</pre>
 
-<p>The options "-s" instructs to do this. The example command below shows the amount of disk space cosumed by the snapshots in the repository database "sample".</p>
+<p>The options "-s" instructs to do this. The example command below shows the amount of disk space consumed by the snapshots in the repository database "sample".</p>
 <pre>$ pg_stats_reporter -s -R sample</pre>
 
 <dl>
   <dt>-s, --size</dt>
   <dd>Show amount of disk space used by snapshots.</dd>
   <dt>-R, --repositorydb=DBNAME</dt>
-  <dd>List snapshots in the reposiotry database DBNAME. Default is the first repository in configuration file.</dd>
+  <dd>List snapshots in the repository database DBNAME. Default is the first repository in configuration file.</dd>
 </dl>
 
 <h4>Recreate index page</h4>
@@ -348,7 +348,7 @@ display the content correctly.</p>
 </dl>
 
 <h2 id="uninstall">Uninstallation</h2>
-<p>pg_stats_reporter installed by RPM package is uninstalled by the following steps. The configuration file ('/etc/pg_stats_repoter.ini') is left alone by the steps, so you shoud delete it manually if it is not necessary. </p>
+<p>pg_stats_reporter installed by RPM package is uninstalled by the following steps. The configuration file ('/etc/pg_stats_repoter.ini') is left alone by the steps, so you should delete it manually if it is not necessary. </p>
 <pre>$ su
 # rpm -e pg_stats_reporter-3.1.0-1.el6.noarch
 </pre>
@@ -362,7 +362,7 @@ You will see the instructions to uninstall manually in INSTALL.en in the top sou
 <h3>Global settings</h3>
 <p>The section marker "[global_setting]" indicates the beginning of
 the global settings. If you installed following instructions, you
-don't need to change the settings here from the sample configuraion
+don't need to change the settings here from the sample configuration
 file.
 
 <table align="center" width="100%">
@@ -371,7 +371,7 @@ file.
     <th>Parameter</th>
     <th>Type of value</th>
     <th>Default value</th>
-    <th>Eexample</th>
+    <th>Example</th>
     <th>Description</th>
   </tr>
 </thead>
@@ -416,7 +416,7 @@ file.
     <td>character</td>
     <td>mandatory</td>
     <td>[repository 1]</td>
-    <td>Section marker for this repository. The name is isplayed as repository name in the sidebar of web interface.</td>
+    <td>Section marker for this repository. The name is displayed as repository name in the sidebar of web interface.</td>
   </tr>
 
   <tr>
@@ -448,7 +448,7 @@ file.
     <td>string</td>
     <td>(*a)</td>
     <td>username = postgres</td>
-    <td>User name to connect to the repository database.</td>
+    <td>Name of the User to connect to the repository database.</td>
   </tr>
 
   <tr>
@@ -473,7 +473,7 @@ file.
     <td>true</td>
     <td>summary = true</td>
     <td>Specifies whether to show or not for each report item. All
-    report items shold have their own settings. They are prewritten in
+    report items should have their own settings. They are prewritten in
     the <a href="files/pg_stats_reporter.ini.sample">sample
     configuration file</a>.</td>
   </tr>
@@ -487,19 +487,19 @@ file.
 <p></p>
 
 <h2 id="restrictions">Cautions and Restrictions</h2>
-<p>This section provides important information that can affect stability and information about what might be confising. Be sure to read them before use.</p>
+<p>This section provides important information that can affect stability and information about what might be confusing. Be sure to read them before use.</p>
 <ul>
   <li>pg_stats_reporter might get confused if default timezone is not set in php.ini. It is recommended to set appropriate timezone.</li>
-  <li>Some values might be rounded off to zero.</li>
-  <li>By the restriction of PHP, some caharacters cannot be used in
-  section name, which is repository name on the Web UI. "/" for Linux
+  <li>The value "0" in rounded-off fields doesn't necesarily mean "nothing at all".</li>
+  <li>By the restriction of PHP, some characters cannot be used in
+  section name, which is used as repository name on the Web UI. "/" for Linux
   and "\ / : * ? &lt; &gt; |" for Windows.</li>
   <li>The section name "global_setting" is reserved by pg_stats_reporter so you cannot have a repository with the display name.</li>
 </ul>
 
 <h2 id="faq">FAQ</h2>
 <h4>Q1. I can only see a blank page on browser when accessing online report.</h4>
-<dl>A1. It might be caused by settings of firewall, SELinux or memory usage limitation of PHP.  They might be changed.</dl>
+<p>A1. It might be caused by settings of firewall, SELinux or memory usage limitation of PHP.  They might be changed.</p>
 <ul>
 <li>Firewall should be configured to allow inbound access of http.</li>
 
@@ -518,11 +518,11 @@ ls -dZ /var/www/pg_stats_reporter_lib/{cache,compiled}
 </ul>
 
 
-<h4>Q2. pg_stats_reporter shows an error dialog of connection failure to reposiotry at the first connection.</h4>
-<p>A2. Repository connection settings in pg_stats_reporter.ini or access control of repository might be wrong. Make sure that they are correct.</p>
+<h4>Q2. pg_stats_reporter shows an error dialog of connection failure to repository at the first connection.</h4>
+<p>A2. Repository connection settings in pg_stats_reporter.ini or access control setting of the repository database might be wrong. Make sure that they are correct.</p>
 
 <h4>Q3. My Internext Explorer displays the report but it looks broken.</h4>
-<p>A3. Use Firefox or Chrome instead. Internet Explore is not recommended.</p>
+<p>A3. Use Firefox or Chrome instead. Internet Explorer is not recommended.</p>
 
 <h4>Q4. Can I run pg_stats_reporter on worker mode of Apache?</h4>
 <p>A4. Unfortunately, PHP is not recommended to be used on multithreaded MPM and we tested pg_stats_reporter only on prefork mode.</p>
@@ -532,11 +532,11 @@ ls -dZ /var/www/pg_stats_reporter_lib/{cache,compiled}
 <ul>
   <li>Added execution plans statistics as a new report item</li>
   <li>Added autoanalyze cancellations statistics as a new report item</li>
-  <li>Added ramaining rows in vacuum statistics</li>
+  <li>Added remaining rows in vacuum statistics</li>
   <li>Added modified rows in analyze statistics</li>
   <li>Added archive information in WAL statistics</li>
   <li>Added I/O peak rate in I/O Usage</li>
-  <li>Loger queries/plans are folded in initial display</li>
+  <li>Longer queries/plans are folded in initial display</li>
 </ul>
 <br/>
 
