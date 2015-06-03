@@ -235,6 +235,7 @@ $(function(){
 			autoOpen: false,
 			modal: true,
 			resizable: false,
+			maxHeight: 500,
 			width: 600
 		});
 	});
