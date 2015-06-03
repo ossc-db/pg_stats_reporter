@@ -108,47 +108,50 @@ the another shows the amount divided by the snapshot interval.</h4>
 
 <div id="instance_processes_ratio_dialog" class="help_dialog"
   title="The Backend Status Table">
-<h4>This table shows the backend status.</h4>
+<h4>This table shows the average percentage of time the backends spend in different state throughout this report period.</h4>
 <ul>
-<li>idle (%) : ratio of idle backend process (%)</li>
-<li>idle in xact (%) : ratio of idle backend process in transaction (%)</li>
-<li>waiting (%) : ratio of waiting backend process by locks (%)</li>
-<li>running (%) : ratio of running backend process in transaction (%)</li>
+<li>idle: Average percentage of time spent by the backends waiting a new client command throughout this report period</li>
+<li>idle in xact: Average percentage of time spent by the backends waiting a command in a transaction throughout this report period</li>
+<li>waiting: Average percentage of time spent by the backends waiting on a lock throughout this report period</li>
+<li>running: Average percentage of time spent by the backends executing a query throughout this report period</li>
 </ul>
+<p>The data in this table is collected by the interval specified with the configuration parameter pg_statsinfo.sampling_interval (5 seconds by default).</p>
 </div>
 
 <div id="instance_processes_dialog" class="help_dialog"
   title="The Backend Status Trend Graph">
-<h4>This graph shows the trend of backend status.</h4>
+<h4>This graph shows the trend of percentage of time the backends spend in different state.</h4>
 <h4>Axes</h4>
 <ul>
 <li>Horizontal axis : Time</li>
-<li>Vertial axis : ratio (%)</li>
+<li>Vertial axis : Percentage</li>
 </ul>
 <h4>Legend</h4>
 <ul>
-<li>idle : ratio of idle backend process (%)</li>
-<li>idle in xact : ratio of idle backend process in transaction (%)</li>
-<li>waiting : ratio of waiting backend process by locks (%)</li>
-<li>running : ratio of running backend process in transaction (%)</li>
+<li>idle: Percentage of time spent by the backends waiting a new client command</li>
+<li>idle in xact: Percentage of time spent by the backends waiting a command in a transaction</li>
+<li>waiting: Percentage of time spent by the backends waiting on a lock</li>
+<li>running: Percentage of time spent by the backends executing a query</li>
 </ul>
+<p>This graph shows average for every snapshot interval of the percentage of states collected by the interval specified with the configuration parameter pg_statsinfo.sampling_interval (5 seconds by default).</p>
 </div>
 
 <div id="cpu_usage_dialog" class="help_dialog"
   title="The CPU Usage Graph">
-<h4>This graph shows the CPU usage.</h4>
-<h4>Axes</h4>
+<h4>This graph shows the trend of percentage of time the CPU spends in different states.</h4>
+<h4>Legend</h4>
 <ul>
-<li>Horizontal axis  : time </li>
-<li>Vertial axis  : ratio(%) </li>
+<li>Horizontal axis: Time </li>
+<li>Vertial axis: Percentage</li>
 </ul>
 <h4>Legend</h4>
 <ul>
-<li>user : ratio of CPU usage in user mode (%)</li>
-<li>system : ratio of CPU usage in system mode (%)</li>
-<li>iowait : ratio of CPU usage in iowait (%)</li>
-<li>idle : ratio of CPU usage in idle (%)</li>
+<li>user: Percentage of time spent by the processes in user mode</li>
+<li>system: Percentage of time spent by the processes in kernel mode</li>
+<li>iowait : Percentage of time spent by the processes waiting for I/O to complete</li>
+<li>idle : Percentage of time spent by the process waiting to run</li>
 </ul>
+<p>This graph shows average percentage for every snapshot interval.</p>
 </div>
 
 <div id="load_average_dialog" class="help_dialog"
