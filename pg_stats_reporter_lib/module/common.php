@@ -249,11 +249,11 @@ function createMessageFileList($file_dir, &$msg_file_list)
 
 	/* TODO: Check out message_message_ja.xml */
 	while($fn = readdir($dir)) {
-		$path_parts = pathinfo($file_dir."/".$fn);
+		$path_parts = pathinfo($file_dir.$fn);
 		if (strncmp(MESSAGE_PREFIX, $path_parts["filename"], $msg_len) == 0
 			&& strcmp(".".$path_parts["extension"], MESSAGE_SUFFIX) == 0) {
 			$lang = str_replace(MESSAGE_PREFIX, "", $path_parts["filename"]);
-			$msg_file_list[$lang] = $file_dir."/".$fn;
+			$msg_file_list[$lang] = $file_dir.$fn;
 		}
 	}
 	closedir($dir);
