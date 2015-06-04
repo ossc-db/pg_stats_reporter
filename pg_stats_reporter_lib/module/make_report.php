@@ -1924,19 +1924,19 @@ EOD;
 					if (pg_num_rows($result2) != 0) {
 						$syncHost = pg_fetch_result($result2, 0, 0);
 
-						$key = array_search($syncHost." flush_delay_size", $name);
+						$key = array_search($syncHost." flush", $name);
 						if ($key != false) {
 							$name[$key] = "[sync]".$name[$key];
 							array_push($opt, "'".$name[$key]."': {strokeWidth: 3, highlightCircleSize: 5}");
 						} else
-							array_push($opt, "'".$syncHost." flush_delay_size': {strokeWidth: 3, highlightCircleSize: 5},");
+							array_push($opt, "'".$syncHost." flush': {strokeWidth: 3, highlightCircleSize: 5},");
 
-						$key = array_search($syncHost." replay_delay_size", $name);
+						$key = array_search($syncHost." replay", $name);
 						if ($key != false) {
 							$name[$key] = "[sync]".$name[$key];
 							array_push($opt, "'".$name[$key]."': {strokeWidth: 3, highlightCircleSize: 5}");
 						} else
-							array_push($opt, "'".$syncHost." replay_delay_size': {strokeWidth: 3, highlightCircleSize: 5},");
+							array_push($opt, "'".$syncHost." replay': {strokeWidth: 3, highlightCircleSize: 5},");
 					}
 					pg_free_result($result2);
 
