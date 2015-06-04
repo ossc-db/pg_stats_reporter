@@ -19,7 +19,7 @@
 </ul>
 </div>
 
-<div id="database_statistics_dialog" class="help_dialog"
+<div id="databases_statistics_dialog" class="help_dialog"
   title="The Database Statistics Table">
 <h4>Each line in this table shows statistic overview of a database.</h4>
 <ul>
@@ -36,7 +36,7 @@
 * Small values may be shown as zero by round off.
 </div>
 
-<div id="transaction_statistics_dialog" class="help_dialog"
+<div id="transactions_dialog" class="help_dialog"
   title="The Transactions Graph">
 <h4>This graph shows the trend of number of transactions per seconds.</h4>
 <h4>Axes</h4>
@@ -51,7 +51,7 @@
 </ul>
 </div>
 
-<div id="database_size_dialog" class="help_dialog"
+<div id="database_size_trend_dialog" class="help_dialog"
   title="The Trend of Database Size Graph">
 <h4>This graph shows the trend of database size.</h4>
 <h4>Axes</h4>
@@ -78,7 +78,7 @@
 </ul>
 </div>
 
-<div id="wal_statistics_dialog" class="help_dialog"
+<div id="write_ahead_logs_dialog" class="help_dialog"
   title="The Write Ahead Logs Table and The WAL Trend Graph">
 <h4>This table shows the overview of Write Ahead Logs.</h4>
 <ul>
@@ -106,7 +106,7 @@ the another shows the amount divided by the snapshot interval.</h4>
 </ul>
 </div>
 
-<div id="instance_processes_ratio_dialog" class="help_dialog"
+<div id="backend_status_dialog" class="help_dialog"
   title="The Backend Status Table">
 <h4>This table shows the average percentage of time the backends spend in different state throughout this report period.</h4>
 <ul>
@@ -118,7 +118,7 @@ the another shows the amount divided by the snapshot interval.</h4>
 <p>The data in this table is collected by the interval specified with the configuration parameter pg_statsinfo.sampling_interval (5 seconds by default).</p>
 </div>
 
-<div id="instance_processes_dialog" class="help_dialog"
+<div id="backend_status_trend_dialog" class="help_dialog"
   title="The Backend Status Trend Graph">
 <h4>This graph shows the trend of percentage of time the backends spend in different state.</h4>
 <h4>Axes</h4>
@@ -328,7 +328,7 @@ first.</h4>
 </ul>
 </div>
 
-<div id="fragmented_tables_dialog" class="help_dialog"
+<div id="table_fragmentations_dialog" class="help_dialog"
   title="The Table Fragmentations Table">
 <h4>Each row in this table shows the fragmentation (correlation
 between physical and logical ordering) of one column. The correlation
@@ -438,7 +438,7 @@ specifies how many long transactions every snapshot records.</h4>
 </ul>
 </div>
 
-<div id="checkpoint_activity_dialog" class="help_dialog"
+<div id="checkpoints_dialog" class="help_dialog"
   title="The Checkpoints Table">
 <h4>This table shows the summary of checkpoint activity.</h4>
 <ul>
@@ -452,7 +452,7 @@ specifies how many long transactions every snapshot records.</h4>
 </ul>
 </div>
 
-<div id="basic_statistics_dialog" class="help_dialog"
+<div id="autovacuum_overview_dialog" class="help_dialog"
   title="The Autovacuum Overview Table">
 <h4>This table shows the overview of autovacuum activities. Each row
 corresponds to one table reported by autovacuum logs. This shows only
@@ -476,7 +476,7 @@ log_autovacuum_min_duration to 0 to make this feature fully
 available. Less logging reduces the completeness this table.</div>
 </div>
 
-<div id="vacuum_cancels_dialog" class="help_dialog"
+<div id="cancellations_dialog" class="help_dialog"
   title="The Cancellations Table">
 <h4>This table lists the cancellation events of autovacuums and autoanalyzes occurred during this report period.</h4>
 <ul>
@@ -489,7 +489,7 @@ available. Less logging reduces the completeness this table.</div>
 </ul>
 </div>
 
-<div id="io_statistics_dialog" class="help_dialog"
+<div id="autovacuum_io_summary_dialog" class="help_dialog"
   title="The Autovacuum I/O Summary Table">
 <h4>This table shows the I/O summary for autovacuums.</h4>
 <ul>
@@ -504,7 +504,7 @@ available. Less logging reduces the completeness this table.</div>
 </ul>
 </div>
 
-<div id="analyze_statistics_dialog" class="help_dialog"
+<div id="analyze_overview_dialog" class="help_dialog"
   title="The Analyze Overview Table">
 <h4>This table shows the overview of autoanalyze activities. Each row
 corresponds to one table reported in autoanalyze logs. This shows only tables
@@ -526,7 +526,7 @@ log_autovacuum_min_duration to 0 to make this feature fully
 available. Less logging reduces the completeness this table.</div>
 </div>
 
-<div id="modified_rows_ratio_dialog" class="help_dialog"
+<div id="modified_rows_dialog" class="help_dialog"
   title="The Modified Rows Graph">
 <h4>This graph shows how many rows inserted, updated and deleted since last analyze for each table in percentage to all tuples including dead tuples, which is related to the threshold of autoanalyze.</h4>
 <h4>Axes</h4>
@@ -541,7 +541,7 @@ available. Less logging reduces the completeness this table.</div>
 <p>To avoid losing readability of the graph, only ten largest tables in number of tuples are shown in this graph. The values are calculated as pg_stat_get_mod_since_analyze(table) / (reltuples of the table).</p>
 </div>
 
-<div id="current_replication_status_dialog" class="help_dialog"
+<div id="replication_overview_dialog" class="help_dialog"
   title="The Replication Activity Overview Table">
 <h4>This table shows the overview of replication activities at the end
 of reporting period. One column is shown for one replication
@@ -578,7 +578,7 @@ session.</h4>
 <li>[address]:[port-number] replay : Delay amount of replay on standby server.<br/>* Synchronous standby is prefixed by [sync] and drawn by thick line</li></ul>
 </div>
 
-<div id="table_dialog" class="help_dialog"
+<div id="tables_dialog" class="help_dialog"
   title="The Tables Table">
 <h4>Each rows in this table shows the overview of a table.</h4>
 <ul>
@@ -595,7 +595,7 @@ session.</h4>
 * Small values may be shown as zero by round off.
 </div>
 
-<div id="index_dialog" class="help_dialog"
+<div id="indexes_dialog" class="help_dialog"
   title="The Indexes Table">
 <h4>Each rows in this table shows the overview of a index.</h4>
 <ul>
@@ -614,7 +614,7 @@ session.</h4>
 * Small values may be shown as zero by round off.
 </div>
 
-<div id="parameter_dialog" class="help_dialog"
+<div id="runtime_params_dialog" class="help_dialog"
   title="The Run-time parameters Table">
 <h4>This table shows the overview of run-time parameters.</h4>
 <ul>
@@ -625,7 +625,7 @@ session.</h4>
 </ul>
 </div>
 
-<div id="alert_dialog" class="help_dialog"
+<div id="alerts_dialog" class="help_dialog"
   title="The Alerts Table">
 <h4>This table lists the alerts issued during this report period.</h4>
 <ul>

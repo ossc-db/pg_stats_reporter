@@ -145,14 +145,14 @@ function makeHeaderMenu($infoData, $targetInfo)
 EOD;
 
 	if ($targetList['overview']
-		|| $targetList['alert']) {
+		|| $targetList['alerts']) {
 
 		$html_string .= "<li><a href=\"#overview\">Overview</a>";
 
-		/* Alert */
-		if ($targetList['alert']) {
+		/* Alerts */
+		if ($targetList['alerts']) {
 			$html_string .= "<ul>\n";
-			$html_string .= "<li><a href=\"#alert\">Alerts</a></li>\n";
+			$html_string .= "<li><a href=\"#alerts\">Alerts</a></li>\n";
 			$html_string .= "</ul>";
 		}
 
@@ -160,47 +160,47 @@ EOD;
 	}
 
 	/* Statistics */
-	if ($targetList['database_statistics']
-		|| $targetList['transaction_statistics']
-		|| $targetList['database_size']
+	if ($targetList['databases_statistics']
+		|| $targetList['transactions']
+		|| $targetList['database_size_trend']
 		|| $targetList['recovery_conflicts']
-		|| $targetList['wal_statistics']
-		|| $targetList['instance_processes_ratio']
-		|| $targetList['instance_processes']) {
+		|| $targetList['write_ahead_logs']
+		|| $targetList['backend_status']
+		|| $targetList['backend_status_trend']) {
 
 		$html_string .= "<li><a href=\"#statistics\">Statistics</a><ul>\n";
 
-		/* Database Statistics */
-		if ($targetList['database_statistics']
-			|| $targetList['transaction_statistics']
-			|| $targetList['database_size']
+		/* Databases Statistics */
+		if ($targetList['databases_statistics']
+			|| $targetList['transactions']
+			|| $targetList['database_size_trend']
 			|| $targetList['recovery_conflicts']) {
 
-			$html_string .= "<li><a href=\"#database_statistics\">Databases Statistics</a><ul>\n";
+			$html_string .= "<li><a href=\"#databases_statistics\">Databases Statistics</a><ul>\n";
 
-			if ($targetList['transaction_statistics'])
-				$html_string .= "<li><a href=\"#transaction_statistics\">Transactions</a></li>\n";
-			if ($targetList['database_size'])
-				$html_string .= "<li><a href=\"#database_size\">Database Size Trend</a></li>\n";
+			if ($targetList['transactions'])
+				$html_string .= "<li><a href=\"#transactions\">Transactions</a></li>\n";
+			if ($targetList['database_size_trend'])
+				$html_string .= "<li><a href=\"#database_size_trend\">Database Size Trend</a></li>\n";
 			if ($targetList['recovery_conflicts'])
 				$html_string .= "<li><a href=\"#recovery_conflicts\">Recovery Conflicts</a></li>\n";
 
 			$html_string .= "</ul></li>\n";
 		}
 
-		/* Instance Activity */
-		if ($targetList['wal_statistics']
-			|| $targetList['instance_processes_ratio']
-			|| $targetList['instance_processes']) {
+		/* Instance Statistics */
+		if ($targetList['write_ahead_logs']
+			|| $targetList['backend_status']
+			|| $targetList['backend_status_trend']) {
 
 			$html_string .= "<li><a href=\"#instance_activity\">Instance Statistics</a><ul>\n";
 
-			if ($targetList['wal_statistics'])
-				$html_string .= "<li><a href=\"#wal_statistics\">Write Ahead Logs</a></li>\n";
-			if ($targetList['instance_processes_ratio'])
-				$html_string .= "<li><a href=\"#instance_processes_ratio\">Backend Status</a></li>\n";
-			if ($targetList['instance_processes'])
-				$html_string .= "<li><a href=\"#instance_processes\">Backend Status Trend</a></li>\n";
+			if ($targetList['write_ahead_logs'])
+				$html_string .= "<li><a href=\"#write_ahead_logs\">Write Ahead Logs</a></li>\n";
+			if ($targetList['backend_status'])
+				$html_string .= "<li><a href=\"#backend_status\">Backend Status</a></li>\n";
+			if ($targetList['backend_status_trend'])
+				$html_string .= "<li><a href=\"#backend_status_trend\">Backend Status Trend</a></li>\n";
 
 			$html_string .= "</ul></li>\n";
 		}
@@ -208,7 +208,7 @@ EOD;
 		$html_string .= "</ul></li>\n";
 	}
 
-	/* OS */
+	/* OS Resource */
 	if ($targetList['cpu_usage']
 		|| $targetList['load_average']
 		|| $targetList['io_usage']
@@ -218,7 +218,7 @@ EOD;
 
 		$html_string .= "<li><a href=\"#os\">OS</a><ul>\n";
 
-		/* OS Resource Usage */
+		/* CPU and Memory */
 		if ($targetList['cpu_usage']
 			|| $targetList['load_average']
 			|| $targetList['io_usage']
@@ -238,7 +238,7 @@ EOD;
 			$html_string .= "</ul></li>\n";
 		}
 
-		/* Disk Usage */
+		/* Disks */
 		if ($targetList['disk_usage_per_tablespace']
 			|| $targetList['disk_usage_per_table']) {
 
@@ -255,11 +255,11 @@ EOD;
 		$html_string .= "</ul></li>\n";
 	}
 
-	/* SQL */
+	/* Activity */
 	if ($targetList['heavily_updated_tables']
 		|| $targetList['heavily_accessed_tables']
 		|| $targetList['low_density_tables']
-		|| $targetList['fragmented_tables']
+		|| $targetList['table_fragmentations']
 		|| $targetList['functions']
 		|| $targetList['statements']
 		|| $targetList['long_transactions']
@@ -271,7 +271,7 @@ EOD;
 		if ($targetList['heavily_updated_tables']
 			|| $targetList['heavily_accessed_tables']
 			|| $targetList['low_density_tables']
-			|| $targetList['fragmented_tables']) {
+			|| $targetList['table_fragmentations']) {
 
 			$html_string .= "<li><a href=\"#notable_tables\">Notable Tables</a><ul>\n";
 
@@ -281,8 +281,8 @@ EOD;
 				$html_string .= "<li><a href=\"#heavily_accessed_tables\">Heavily Accessed Tables</a></li>\n";
 			if ($targetList['low_density_tables'])
 				$html_string .= "<li><a href=\"#low_density_tables\">Low Density Tables</a></li>\n";
-			if ($targetList['fragmented_tables'])
-				$html_string .= "<li><a href=\"#fragmented_tables\">Table Fragmentations</a></li>\n";
+			if ($targetList['table_fragmentations'])
+				$html_string .= "<li><a href=\"#table_fragmentations\">Table Fragmentations</a></li>\n";
 
 			$html_string .= "</ul></li>\n";
 		}
@@ -314,53 +314,53 @@ EOD;
 		$html_string .= "</ul></li>\n";
 	}
 
-	/* Activities */
-	if ($targetList['checkpoint_activity']
-		|| $targetList['basic_statistics']
-		|| $targetList['io_statistics']
-		|| $targetList['analyze_statistics']
-		|| $targetList['modified_rows_ratio']
-		|| $targetList['vacuum_cancels']
-		|| $targetList['current_replication_status']
+	/* Maintenance */
+	if ($targetList['checkpoints']
+		|| $targetList['autovacuum_overview']
+		|| $targetList['autovacuum_io_summary']
+		|| $targetList['analyze_overview']
+		|| $targetList['modified_rows']
+		|| $targetList['cancellations']
+		|| $targetList['replication_overview']
 		|| $targetList['replication_delays']) {
 
 		$html_string .= "<li><a href=\"#activities\">Maintenance</a><ul>\n";
 
-		/* Checkpoint Activity */
-		if ($targetList['checkpoint_activity'])
-			$html_string .= "<li><a href=\"#checkpoint_activity\">Checkpoints</a></li>\n";
+		/* Checkpoints */
+		if ($targetList['checkpoints'])
+			$html_string .= "<li><a href=\"#checkpoints\">Checkpoints</a></li>\n";
 
-		/* Autovacuum Activity */
-		if ($targetList['basic_statistics']
-			|| $targetList['io_statistics']
-			|| $targetList['analyze_statistics']
-			|| $targetList['modified_rows_ratio']
-			|| $targetList['vacuum_cancels']) {
+		/* Autovacuums */
+		if ($targetList['autovacuum_overview']
+			|| $targetList['autovacuum_io_summary']
+			|| $targetList['analyze_overview']
+			|| $targetList['modified_rows']
+			|| $targetList['cancellations']) {
 
 			$html_string .= "<li><a href=\"#autovacuum_activity\">Autovacuums</a><ul>\n";
 
-			if ($targetList['basic_statistics'])
-				$html_string .= "<li><a href=\"#basic_statistics\">Overview</a></li>\n";
-			if ($targetList['io_statistics'])
-				$html_string .= "<li><a href=\"#io_statistics\">I/O Summary</a></li>\n";
-			if ($targetList['analyze_statistics'])
-				$html_string .= "<li><a href=\"#analyze_statistics\">Analyze Overview</a></li>\n";
-			if ($targetList['modified_rows_ratio'])
-				$html_string .= "<li><a href=\"#modified_rows_ratio\">Modified Rows</a></li>\n";
-			if ($targetList['vacuum_cancels'])
-				$html_string .= "<li><a href=\"#vacuum_cancels\">Cancellations</a></li>\n";
+			if ($targetList['autovacuum_overview'])
+				$html_string .= "<li><a href=\"#autovacuum_overview\">Overview</a></li>\n";
+			if ($targetList['autovacuum_io_summary'])
+				$html_string .= "<li><a href=\"#autovacuum_io_summary\">I/O Summary</a></li>\n";
+			if ($targetList['analyze_overview'])
+				$html_string .= "<li><a href=\"#analyze_overview\">Analyze Overview</a></li>\n";
+			if ($targetList['modified_rows'])
+				$html_string .= "<li><a href=\"#modified_rows\">Modified Rows</a></li>\n";
+			if ($targetList['cancellations'])
+				$html_string .= "<li><a href=\"#cancellations\">Cancellations</a></li>\n";
 
 			$html_string .= "</ul></li>\n";
 		}
 
-		/* Replication Activity */
-		if ($targetList['current_replication_status']
+		/* Replication */
+		if ($targetList['replication_overview']
 			|| $targetList['replication_delays'])
 
 			$html_string .= "<li><a href=\"#replication_activity\">Replication</a><ul>\n";
 
-			if($targetList['current_replication_status'])
-				$html_string .= "<li><a href=\"#current_replication_status\">Overview</a></li>\n";
+			if($targetList['replication_overview'])
+				$html_string .= "<li><a href=\"#replication_overview\">Overview</a></li>\n";
 			if($targetList['replication_delays'])
 				$html_string .= "<li><a href=\"#replication_delays\">Delays</a></li>\n";
 
@@ -369,34 +369,34 @@ EOD;
 		$html_string .= "</ul></li>\n";
 	}
 
-	/* Information */
-	if ($targetList['table']
-		|| $targetList['index']
-		|| $targetList['parameter']
+	/* Miscellaneous */
+	if ($targetList['tables']
+		|| $targetList['indexes']
+		|| $targetList['runtime_params']
 		|| $targetList['profiles']) {
 
 		$html_string .= "<li><a href=\"#information\">Misc</a><ul>\n";
 
-		/* Schema Information */
-		if ($targetList['table']
-			|| $targetList['index']) {
+		/* Tables and Indexes */
+		if ($targetList['tables']
+			|| $targetList['indexes']) {
 
 			$html_string .= "<li><a href=\"#schema_information\">Tables and Indexes</a><ul>\n";
-			if ($targetList['table'])
-				$html_string .= "<li><a href=\"#table\">Tables</a></li>\n";
-			if ($targetList['index'])
-				$html_string .= "<li><a href=\"#index\">Indexes</a></li>\n";
+			if ($targetList['tables'])
+				$html_string .= "<li><a href=\"#tables\">Tables</a></li>\n";
+			if ($targetList['indexes'])
+				$html_string .= "<li><a href=\"#indexes\">Indexes</a></li>\n";
 
 			$html_string .= "</ul></li>\n";
 		}
 
 
-		/* Setting Parameters */
-		if ($targetList['parameter']) {
+		/* Settings */
+		if ($targetList['runtime_params']) {
 
 			$html_string .= "<li><a href=\"#setting_parameters\">Settings</a><ul>\n";
 
-			$html_string .= "<li><a href=\"#parameter\">Run-time paramters</a></li>\n";
+			$html_string .= "<li><a href=\"#runtime_params\">Run-time paramters</a></li>\n";
 
 			$html_string .= "</ul></li>\n";
 		}
@@ -666,22 +666,22 @@ EOD;
 	$html_string .= "];\n</script>\n\n";
 	pg_free_result($result);
 
-	/* Summary */
+	/* Report Overview */
 	$html_string .= makeSummaryReport($conn, $targetData, $snapids, $error_message);
 
 	/* Statistics */
 	$html_string .= makeDatabaseSystemReport($conn, $targetData, $snapids, $error_message);
 
-	/* OS */
+	/* OS Resources */
 	$html_string .= makeOperatingSystemReport($conn, $targetData, $snapids, $error_message);
 
-	/* SQL */
+	/* Activities */
 	$html_string .= makeSQLReport($conn, $targetData, $snapids, $error_message);
 
-	/* Activities */
+	/* Maintenance */
 	$html_string .= makeActivitiesReport($conn, $targetData, $snapids, $error_message);
 
-	/* Information */
+	/* Miscellaneous */
 	$html_string .= makeInformationReport($conn, $targetData, $snapids, $error_message);
 
 	/* full query string dialog */
@@ -707,12 +707,13 @@ EOD;
 	return $html_string;
 }
 
+/* Report Overview */
 function makeSummaryReport($conn, $target, $snapids, $errorMsg)
 {
 	global $query_string;
 
 	if (!$target['overview']
-		&& !$target['alert'])
+		&& !$target['alerts'])
 		return "";
 
 	$htmlString =
@@ -745,19 +746,19 @@ EOD;
 		pg_free_result($result);
 	}
 
-	if ($target['alert']) {
+	if ($target['alerts']) {
 		$htmlString .=
 <<< EOD
 
-<div id="alert" class="jump_margin"></div>
+<div id="alerts" class="jump_margin"></div>
 <h2>Alerts</h2>
 <div align="right" class="jquery_ui_button_info_h2">
-  <div><button class="help_button" dialog="#alert_dialog"></button></div>
+  <div><button class="help_button" dialog="#alerts_dialog"></button></div>
 </div>
 
 EOD;
 		if ($target['repo_version'] >= V30) {
-			$result = pg_query_params($conn, $query_string['alert'], $snapids);
+			$result = pg_query_params($conn, $query_string['alerts'], $snapids);
 			if (!$result) {
 				return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 			}
@@ -765,7 +766,7 @@ EOD;
 			if (pg_num_rows($result) == 0) {
 				$htmlString .= makeErrorTag($errorMsg['no_result']);
 			} else {
-				$htmlString .= makeTablePagerHTML($result, "alert", 10, true);
+				$htmlString .= makeTablePagerHTML($result, "alerts", 10, true);
 			}
 			pg_free_result($result);
 		} else {
@@ -776,17 +777,18 @@ EOD;
 	return $htmlString;
 }
 
+/* Statistics */
 function makeDatabaseSystemReport($conn, $target, $snapids, $errorMsg)
 {
 	global $query_string;
 
-	if (!$target['database_statistics']
-		&& !$target['transaction_statistics']
-		&& !$target['database_size']
+	if (!$target['databases_statistics']
+		&& !$target['transactions']
+		&& !$target['database_size_trend']
 		&& !$target['recovery_conflicts']
-		&& !$target['wal_statistics']
-		&& !$target['instance_processes_ratio']
-		&& !$target['instance_processes'])
+		&& !$target['write_ahead_logs']
+		&& !$target['backend_status']
+		&& !$target['backend_status_trend'])
 		return "";
 
 	$htmlString =
@@ -798,28 +800,28 @@ function makeDatabaseSystemReport($conn, $target, $snapids, $errorMsg)
 EOD;
 
 	/* Database Statistics */
-	if ($target['database_statistics']
-		|| $target['transaction_statistics']
-		|| $target['database_size']
+	if ($target['databases_statistics']
+		|| $target['transactions']
+		|| $target['database_size_trend']
 		|| $target['recovery_conflicts']) {
 
 		$htmlString .=
 <<< EOD
-<div id="database_statistics" class="jump_margin"></div>
+<div id="databases_statistics" class="jump_margin"></div>
 <h2>Databases Statistics</h2>
 
 EOD;
 
-		if ($target['database_statistics']) {
+		if ($target['databases_statistics']) {
 			$htmlString .=
 <<< EOD
 <div align="right" class="jquery_ui_button_info_h2">
-  <div><button class="help_button" dialog="#database_statistics_dialog"></button></div>
+  <div><button class="help_button" dialog="#databases_statistics_dialog"></button></div>
 </div>
 
 EOD;
 
-			$result = pg_query_params($conn, $query_string['database_statistics'], $snapids);
+			$result = pg_query_params($conn, $query_string['databases_statistics'], $snapids);
 			if (!$result) {
 				return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 			}
@@ -827,24 +829,24 @@ EOD;
 			if (pg_num_rows($result) == 0) {
 				$htmlString .= makeErrorTag($errorMsg['no_result']);
 			} else {
-				$htmlString .= makeTablePagerHTML($result, "database_statistics", 5, true);
+				$htmlString .= makeTablePagerHTML($result, "databases_statistics", 5, true);
 			}
 			pg_free_result($result);
 
 		}
 
-		if ($target['transaction_statistics']) {
+		if ($target['transactions']) {
 			$htmlString .=
 <<< EOD
-<div id="transaction_statistics" class="jump_margin"></div>
+<div id="transactions" class="jump_margin"></div>
 <h3>Transactions</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button class="help_button" dialog="#transaction_statistics_dialog"></button></div>
+  <div><button class="help_button" dialog="#transactions_dialog"></button></div>
 </div>
 
 EOD;
 
-			$result = pg_query_params($conn, $query_string['transaction_statistics'], $snapids);
+			$result = pg_query_params($conn, $query_string['transactions'], $snapids);
 			if (!$result) {
 				return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 			}
@@ -857,23 +859,23 @@ EOD;
 				array_push($opt, "title: 'Transactions'");
 				array_push($opt, "ylabel: 'Transactions per second'");
 				array_push($opt, "labelsKMB: true");
-				$htmlString .= makeLineGraphHTML($name, $value, "transaction_statistics", $opt);
+				$htmlString .= makeLineGraphHTML($name, $value, "transactions", $opt);
 			}
 			pg_free_result($result);
 
 		}
 
-		if ($target['database_size']) {
+		if ($target['database_size_trend']) {
 			$htmlString .=
 <<< EOD
-<div id="database_size" class="jump_margin"></div>
+<div id="database_size_trend" class="jump_margin"></div>
 <h3>Database Size Trend</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button class="help_button" dialog="#database_size_dialog"></button></div>
+  <div><button class="help_button" dialog="#database_size_trend_dialog"></button></div>
 </div>
 EOD;
 
-			$result = pg_query_params($conn, $query_string['database_size'], $snapids);
+			$result = pg_query_params($conn, $query_string['database_size_trend'], $snapids);
 			if (!$result) {
 				return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 			}
@@ -886,7 +888,7 @@ EOD;
 				array_push($opt, "title: 'Trend of Database Size'");
 				array_push($opt, "ylabel: 'Database Size (Bytes)'");
 				array_push($opt, "labelsKMG2: true");
-				$htmlString .= makeLineGraphHTML($name, $value, "database_size", $opt);
+				$htmlString .= makeLineGraphHTML($name, $value, "database_size_trend", $opt);
 			}
 			pg_free_result($result);
 
@@ -916,10 +918,10 @@ EOD;
 		}
 	}
 
-	/* Instance Activity */
-	if ($target['wal_statistics']
-		|| $target['instance_processes_ratio']
-		|| $target['instance_processes']) {
+	/* Instance Statistics */
+	if ($target['write_ahead_logs']
+		|| $target['backend_status']
+		|| $target['backend_status_trend']) {
 
 		$htmlString .=
 <<< EOD
@@ -928,21 +930,21 @@ EOD;
 
 EOD;
 
-		if ($target['wal_statistics']) {
+		if ($target['write_ahead_logs']) {
 			$htmlString .=
 <<< EOD
-<div id="wal_statistics" class="jump_margin"></div>
+<div id="write_ahead_logs" class="jump_margin"></div>
 <h3>Write Ahead Logs</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button class="help_button" dialog="#wal_statistics_dialog"></button></div>
+  <div><button class="help_button" dialog="#write_ahead_logs_dialog"></button></div>
 </div>
 
 EOD;
 			if ($target['repo_version'] >= V24) {
 				if ($target['repo_version'] >= V31) {
-					$result = pg_query_params($conn, $query_string['wal_statistics_stats31'], $snapids);
+					$result = pg_query_params($conn, $query_string['write_ahead_logs_stats31'], $snapids);
 				} else {
-					$result = pg_query_params($conn, $query_string['wal_statistics_stats'], $snapids);
+					$result = pg_query_params($conn, $query_string['write_ahead_logs_stats'], $snapids);
 				}
 				if (!$result) {
 					return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
@@ -951,12 +953,12 @@ EOD;
 				if (is_null(pg_fetch_result($result,0,0)) == 1) {
 					$htmlString .= makeErrorTag($errorMsg['no_result']);
 				} else {
-					// $htmlString .= makeTablePagerHTML($result, "wal_statistics_stats", 5, false);
-					$htmlString .= makeTableHTML($result, "wal_statistics_stats");
+					// $htmlString .= makeTablePagerHTML($result, "write_ahead_logs_stats", 5, false);
+					$htmlString .= makeTableHTML($result, "write_ahead_logs_stats");
 				}
 				pg_free_result($result);
 
-				$result = pg_query_params($conn, $query_string['wal_statistics'], $snapids);
+				$result = pg_query_params($conn, $query_string['write_ahead_logs'], $snapids);
 				if (!$result) {
 					return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 				}
@@ -972,18 +974,18 @@ EOD;
 			}
 		}
 
-		if ($target['instance_processes_ratio']) {
+		if ($target['backend_status']) {
 			$htmlString .=
 <<< EOD
-<div id="instance_processes_ratio" class="jump_margin"></div>
+<div id="backend_status" class="jump_margin"></div>
 <h3>Backend Status</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button class="help_button" dialog="#instance_processes_ratio_dialog"></button></div>
+  <div><button class="help_button" dialog="#backend_status_dialog"></button></div>
 </div>
 
 EOD;
 
-			$result = pg_query_params($conn, $query_string['instance_processes_ratio'], $snapids);
+			$result = pg_query_params($conn, $query_string['backend_status'], $snapids);
 			if (!$result) {
 				return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 			}
@@ -991,23 +993,23 @@ EOD;
 			if (is_null(pg_fetch_result($result,0,0)) == 1) {
 				$htmlString .= makeErrorTag($errorMsg['no_result']);
 			} else {
-				$htmlString .= makeTablePagerHTML($result, "instance_processes_ratio", 5, false);
+				$htmlString .= makeTablePagerHTML($result, "backend_status", 5, false);
 			}
 			pg_free_result($result);
 		}
 
-		if ($target['instance_processes']) {
+		if ($target['backend_status_trend']) {
 			$htmlString .=
 <<< EOD
-<div id="instance_processes" class="jump_margin"></div>
+<div id="backend_status_trend" class="jump_margin"></div>
 <h3>Backend Status Trend</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button class="help_button" dialog="#instance_processes_dialog"></button></div>
+  <div><button class="help_button" dialog="#backend_status_trend_dialog"></button></div>
 </div>
 
 EOD;
 
-			$result = pg_query_params($conn, $query_string['instance_processes'], $snapids);
+			$result = pg_query_params($conn, $query_string['backend_status_trend'], $snapids);
 			if (!$result) {
 				return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 			}
@@ -1018,7 +1020,7 @@ EOD;
 				$opt = array();
 				array_push($opt, "title: 'Backend Status Trend'");
 				array_push($opt, "ylabel: 'Percent'");
-				$htmlString .= makeSimpleLineGraphHTML($result, "instance_processes", $opt, true, false);
+				$htmlString .= makeSimpleLineGraphHTML($result, "backend_status_trend", $opt, true, false);
 			}
 			pg_free_result($result);
 		}
@@ -1027,6 +1029,7 @@ EOD;
 	return $htmlString;
 }
 
+/* OS Resources */
 function makeOperatingSystemReport($conn, $target, $snapids, $errorMsg)
 {
 	global $query_string;
@@ -1046,7 +1049,7 @@ function makeOperatingSystemReport($conn, $target, $snapids, $errorMsg)
 
 EOD;
 
-	/* OS Resource Usage */
+	/* CPU and Memory */
 	if ($target['cpu_usage']
 		|| $target['load_average']
 		|| $target['io_usage']
@@ -1149,7 +1152,7 @@ EOD;
 
 			$htmlString .= "<br/>\n";
 
-			// I/O Size
+			// I/O rate
 			$result = pg_query_params($conn, $query_string['io_size'], $snapids);
 			if (!$result) {
 				return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
@@ -1169,7 +1172,7 @@ EOD;
 
 			$htmlString .= "<br/>\n";
 
-			// I/O Size(peak)
+			// I/O Peak Rate
 			if ($target['repo_version'] >= V31) {
 				$result = pg_query_params($conn, $query_string['io_size_peak'], $snapids);
 				if (!$result) {
@@ -1248,7 +1251,7 @@ EOD;
 		}
 	}
 
-	/* Disk Usage */
+	/* Disks */
 	if ($target['disk_usage_per_tablespace']
 		|| $target['disk_usage_per_table']) {
 
@@ -1346,6 +1349,7 @@ EOD;
 	return $htmlString;
 }
 
+/* Activities */
 function makeSQLReport($conn, $target, $snapids, $errorMsg)
 {
 	global $query_string;
@@ -1353,7 +1357,7 @@ function makeSQLReport($conn, $target, $snapids, $errorMsg)
 	if (!$target['heavily_updated_tables']
 		&& !$target['heavily_accessed_tables']
 		&& !$target['low_density_tables']
-		&& !$target['fragmented_tables']
+		&& !$target['table_fragmentations']
 		&& !$target['functions']
 		&& !$target['statements']
 		&& !$target['plans']
@@ -1372,7 +1376,7 @@ EOD;
 	if ($target['heavily_updated_tables']
 		|| $target['heavily_accessed_tables']
 		|| $target['low_density_tables']
-		|| $target['fragmented_tables']) {
+		|| $target['table_fragmentations']) {
 
 		$htmlString .=
 <<< EOD
@@ -1454,18 +1458,18 @@ EOD;
 			pg_free_result($result);
 		}
 
-		if ($target['fragmented_tables']) {
+		if ($target['table_fragmentations']) {
 			$htmlString .=
 <<< EOD
-<div id="fragmented_tables" class="jump_margin"></div>
+<div id="table_fragmentations" class="jump_margin"></div>
 <h3>Table Fragmentations</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button class="help_button" dialog="#fragmented_tables_dialog"></button></div>
+  <div><button class="help_button" dialog="#table_fragmentations_dialog"></button></div>
 </div>
 
 EOD;
 
-			$result = pg_query_params($conn, $query_string['fragmented_tables'], $snapids);
+			$result = pg_query_params($conn, $query_string['table_fragmentations'], $snapids);
 			if (!$result) {
 				return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 			}
@@ -1473,7 +1477,7 @@ EOD;
 			if (pg_num_rows($result) == 0) {
 				$htmlString .= makeErrorTag($errorMsg['no_result']);
 			} else {
-				$htmlString .= makeTablePagerHTML($result, "fragmented_tables", 10, true);
+				$htmlString .= makeTablePagerHTML($result, "table_fragmentations", 10, true);
 			}
 			pg_free_result($result);
 		}
@@ -1562,7 +1566,7 @@ EOD;
 		}
 	}
 
-	/* Long Transaction */
+	/* Long Transactions */
 	if ($target['long_transactions']) {
 		$htmlString .=
 <<< EOD
@@ -1620,16 +1624,17 @@ EOD;
 	return $htmlString;
 }
 
+/* Maintenance */
 function makeActivitiesReport($conn, $target, $snapids, $errorMsg)
 {
 	global $query_string;
 
-	if (!$target['checkpoint_activity']
-		&& !$target['basic_statistics']
-		&& !$target['io_statistics']
-		&& !$target['analyze_statistics']
-		&& !$target['vacuum_cancels']
-		&& !$target['current_replication_status']
+	if (!$target['checkpoints']
+		&& !$target['autovacuum_overview']
+		&& !$target['autovacuum_io_summary']
+		&& !$target['analyze_overview']
+		&& !$target['cancellations']
+		&& !$target['replication_overview']
 		&& !$target['replication_delays'])
 		return "";
 
@@ -1640,19 +1645,19 @@ function makeActivitiesReport($conn, $target, $snapids, $errorMsg)
 
 EOD;
 
-	/* Checkpoint Activity */
-	if ($target['checkpoint_activity']) {
+	/* Checkpoints */
+	if ($target['checkpoints']) {
 		$htmlString .=
 <<< EOD
-<div id="checkpoint_activity" class="jump_margin"></div>
+<div id="checkpoints" class="jump_margin"></div>
 <h2>Checkpoints</h2>
 <div align="right" class="jquery_ui_button_info_h2">
-  <div><button class="help_button" dialog="#checkpoint_activity_dialog"></button></div>
+  <div><button class="help_button" dialog="#checkpoints_dialog"></button></div>
 </div>
 
 EOD;
 
-		$result = pg_query_params($conn, $query_string['checkpoint_activity'], $snapids);
+		$result = pg_query_params($conn, $query_string['checkpoints'], $snapids);
 		if (!$result) {
 			return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 		}
@@ -1660,15 +1665,15 @@ EOD;
 		if (is_null(pg_fetch_result($result,0,3)) == 1) {
 			$htmlString .= makeErrorTag($errorMsg['no_result']);
 		} else {
-			$htmlString .= makeTableHTML($result, "checkpoint_activity");
+			$htmlString .= makeTableHTML($result, "checkpoints");
 		}
 		pg_free_result($result);
 	}
 
-	/* Autovacuum Activity */
-	if ($target['basic_statistics']
-		|| $target['io_statistics']
-		|| $target['analyze_statistics']) {
+	/* Autovacuums */
+	if ($target['autovacuum_overview']
+		|| $target['autovacuum_io_summary']
+		|| $target['analyze_overview']) {
 
 		$htmlString .=
 <<< EOD
@@ -1677,22 +1682,22 @@ EOD;
 
 EOD;
 
-		if ($target['basic_statistics']) {
+		if ($target['autovacuum_overview']) {
 			$htmlString .=
 <<< EOD
-<div id="basic_statistics" class="jump_margin"></div>
+<div id="autovacuum_overview" class="jump_margin"></div>
 <h3>Overview</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button class="help_button" dialog="#basic_statistics_dialog"></button></div>
+  <div><button class="help_button" dialog="#autovacuum_overview_dialog"></button></div>
 </div>
 
 EOD;
 			if ($target['repo_version'] >= V31) {
-				$result = pg_query_params($conn, $query_string['basic_statistics31'], $snapids);
+				$result = pg_query_params($conn, $query_string['autovacuum_overview31'], $snapids);
 			} else if($target['repo_version'] == V30) {
-				$result = pg_query_params($conn, $query_string['basic_statistics30'], $snapids);
+				$result = pg_query_params($conn, $query_string['autovacuum_overview30'], $snapids);
 			} else {
-				$result = pg_query_params($conn, $query_string['basic_statistics25'], $snapids);
+				$result = pg_query_params($conn, $query_string['autovacuum_overview25'], $snapids);
 			}
 
 			if (!$result) {
@@ -1702,25 +1707,25 @@ EOD;
 			if (pg_num_rows($result) == 0) {
 				$htmlString .= makeErrorTag($errorMsg['no_result']);
 			} else {
-				$htmlString .= makeTablePagerHTML($result, "basic_statistics", 10, true);
+				$htmlString .= makeTablePagerHTML($result, "autovacuum_overview", 10, true);
 			}
 			pg_free_result($result);
 
 		}
 
-		if ($target['io_statistics']) {
+		if ($target['autovacuum_io_summary']) {
 			$htmlString .=
 <<< EOD
-<div id="io_statistics" class="jump_margin"></div>
+<div id="autovacuum_io_summary" class="jump_margin"></div>
 <h3>I/O Summary</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button class="help_button" dialog="#io_statistics_dialog"></button></div>
+  <div><button class="help_button" dialog="#autovacuum_io_summary_dialog"></button></div>
 </div>
 
 
 EOD;
 			if ($target['repo_version'] >= V24) {
-				$result = pg_query_params($conn, $query_string['io_statistics'], $snapids);
+				$result = pg_query_params($conn, $query_string['autovacuum_io_summary'], $snapids);
 				if (!$result) {
 					return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 				}
@@ -1728,7 +1733,7 @@ EOD;
 				if (pg_num_rows($result) == 0) {
 					$htmlString .= makeErrorTag($errorMsg['no_result']);
 				} else {
-					$htmlString .= makeTablePagerHTML($result, "io_statistics", 10, true);
+					$htmlString .= makeTablePagerHTML($result, "autovacuum_io_summary", 10, true);
 				}
 				pg_free_result($result);
 			} else {
@@ -1736,13 +1741,13 @@ EOD;
 			}
 		}
 
-		if ($target['analyze_statistics']) {
+		if ($target['analyze_overview']) {
 			$htmlString .=
 <<< EOD
-<div id="analyze_statistics" class="jump_margin"></div>
+<div id="analyze_overview" class="jump_margin"></div>
 <h3>Analyze Overview</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button class="help_button" dialog="#analyze_statistics_dialog"></button></div>
+  <div><button class="help_button" dialog="#analyze_overview_dialog"></button></div>
 </div>
 
 
@@ -1752,13 +1757,13 @@ EOD;
 				$qstr = "";
 				switch ($target['repo_version']) {
 				case V31:
-					$qstr = $query_string['analyze_statistics31'];
+					$qstr = $query_string['analyze_overview31'];
 					break;
 				case V30:
-					$qstr = $query_string['analyze_statistics30'];
+					$qstr = $query_string['analyze_overview30'];
 					break;
 				case V25:
-					$qstr = $query_string['analyze_statistics25'];
+					$qstr = $query_string['analyze_overview25'];
 				}
 
 				$result = pg_query_params($conn, $qstr, $snapids);
@@ -1769,7 +1774,7 @@ EOD;
 				if (pg_num_rows($result) == 0) {
 					$htmlString .= makeErrorTag($errorMsg['no_result']);
 				} else {
-					$htmlString .= makeTablePagerHTML($result, "analyze_statistics", 10, true);
+					$htmlString .= makeTablePagerHTML($result, "analyze_overview", 10, true);
 				}
 				pg_free_result($result);
 			} else {
@@ -1777,21 +1782,21 @@ EOD;
 			}
 		}
 
-		if ($target['modified_rows_ratio']) {
+		if ($target['modified_rows']) {
 			$htmlString .=
 <<< EOD
-<div id="modified_rows_ratio" class="jump_margin"></div>
+<div id="modified_rows" class="jump_margin"></div>
 <h3>Modified Rows</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button class="help_button" dialog="#modified_rows_ratio_dialog"></button></div>
+  <div><button class="help_button" dialog="#modified_rows_dialog"></button></div>
 </div>
 
 
 EOD;
 			if ($target['repo_version'] >= V31) {
 
-				$qstr = $query_string['modified_rows_ratio'];
-				$result = pg_query_params($conn, $qstr, array_merge($snapids, (array)PRINT_MODIFIED_ROWS_RATIO_TABLES));
+				$qstr = $query_string['modified_rows'];
+				$result = pg_query_params($conn, $qstr, array_merge($snapids, (array)PRINT_MODIFIED_ROWS_TABLES));
 				if (!$result) {
 					return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 				}
@@ -1803,7 +1808,7 @@ EOD;
 					$opt = array();
 					array_push($opt, "title: 'Modified Rows'");
 					array_push($opt, "ylabel: 'Modified rows (%)'");
-					$htmlString .= makeLineGraphHTML($name, $value, "modified_rows_ratio", $opt);
+					$htmlString .= makeLineGraphHTML($name, $value, "modified_rows", $opt);
 				}
 				pg_free_result($result);
 			} else {
@@ -1811,20 +1816,20 @@ EOD;
 			}
 		}
 
-		if ($target['vacuum_cancels']) {
+		if ($target['cancellations']) {
 			$htmlString .=
 <<< EOD
-<div id="vacuum_cancels" class="jump_margin"></div>
+<div id="cancellations" class="jump_margin"></div>
 <h3>Cancellations</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button class="help_button" dialog="#vacuum_cancels_dialog"></button></div>
+  <div><button class="help_button" dialog="#cancellations_dialog"></button></div>
 </div>
 
 
 EOD;
 
 			if ($target['repo_version'] >= V31) {
-				$result = pg_query_params($conn, $query_string['vacuum_cancels31'], $snapids);
+				$result = pg_query_params($conn, $query_string['cancellations31'], $snapids);
 
 				if (!$result) {
 					return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
@@ -1835,11 +1840,11 @@ EOD;
 				} else {
 					$qarray = array_fill(0, pg_num_fields($result), false);
 					$qarray[5] = true;
-					$htmlString .= makeTablePagerHTML_impl($result, "vacuum_cancels", 10, true, $qarray);
+					$htmlString .= makeTablePagerHTML_impl($result, "cancellations", 10, true, $qarray);
 				}
 				pg_free_result($result);
 			} else if ($target['repo_version'] >= V30) {
-				$result = pg_query_params($conn, $query_string['vacuum_cancels'], $snapids);
+				$result = pg_query_params($conn, $query_string['cancellations'], $snapids);
 
 				if (!$result) {
 					return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
@@ -1849,7 +1854,7 @@ EOD;
 					$htmlString .= makeErrorTag($errorMsg['no_result']);
 				} else {
 					$htmlString .= makeErrorTag($errorMsg['cancel_version']);
-					$htmlString .= makeTablePagerHTML($result, "vacuum_cancels", 10, true);
+					$htmlString .= makeTablePagerHTML($result, "cancellations", 10, true);
 				}
 				pg_free_result($result);
 			} else {
@@ -1859,8 +1864,8 @@ EOD;
 
 	}
 
-	/* Replication Acivity */
-	if ($target['current_replication_status']
+	/* Replication */
+	if ($target['replication_overview']
 		|| $target['replication_delays'])
                 	$htmlString .=
 <<< EOD
@@ -1869,18 +1874,18 @@ EOD;
 
 EOD;
 
-	if ($target['current_replication_status']) {
+	if ($target['replication_overview']) {
 		$htmlString .=
 <<< EOD
-<div id="current_replication_status" class="jump_margin"></div>
+<div id="replication_overview" class="jump_margin"></div>
 <h3>Overview</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button class="help_button" dialog="#current_replication_status_dialog"></button></div>
+  <div><button class="help_button" dialog="#replication_overview_dialog"></button></div>
 </div>
 
 EOD;
 
-		$result = pg_query_params($conn, $query_string['current_replication_status'], $snapids);
+		$result = pg_query_params($conn, $query_string['replication_overview'], $snapids);
 		if (!$result) {
 			return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 		}
@@ -1888,7 +1893,7 @@ EOD;
 		if (pg_num_rows($result) == 0) {
 			$htmlString .= makeErrorTag($errorMsg['no_result']);
 		} else {
-			$htmlString .= makeTableHTML($result, "current_replication_status");
+			$htmlString .= makeTableHTML($result, "replication_overview");
 		}
 		pg_free_result($result);
 	}
@@ -1951,13 +1956,14 @@ EOD;
 	return $htmlString;
 }
 
+/* Miscellaneous */
 function makeInformationReport($conn, $target, $ids, $errorMsg)
 {
 	global $query_string;
 
-	if (!$target['table']
-		&& !$target['index']
-		&& !$target['parameter']
+	if (!$target['tables']
+		&& !$target['indexes']
+		&& !$target['runtime_params']
 		&& !$target['profiles'])
 		return "";
 
@@ -1967,9 +1973,9 @@ function makeInformationReport($conn, $target, $ids, $errorMsg)
 <h1>Miscellaneous</h1>
 EOD;
 
-	/* Schema Information */
-	if ($target['table']
-		|| $target['index']) {
+	/* Tables and Indexes */
+	if ($target['tables']
+		|| $target['indexes']) {
 
 		$htmlString .=
 <<< EOD
@@ -1978,20 +1984,20 @@ EOD;
 
 EOD;
 
-		if ($target['table']) {
+		if ($target['tables']) {
 			$htmlString .=
 <<< EOD
-<div id="table" class="jump_margin"></div>
+<div id="tables" class="jump_margin"></div>
 <h3>Tables</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button class="help_button" dialog="#table_dialog"></button></div>
+  <div><button class="help_button" dialog="#tables_dialog"></button></div>
 </div>
 
 EOD;
 			if ($target['repo_version'] >= V30)
-				$result = pg_query_params($conn, $query_string['table30'], $ids);
+				$result = pg_query_params($conn, $query_string['tables30'], $ids);
 			else
-				$result = pg_query_params($conn, $query_string['table25'], $ids);
+				$result = pg_query_params($conn, $query_string['tables25'], $ids);
 			if (!$result) {
 				return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 			}
@@ -1999,23 +2005,23 @@ EOD;
 			if (pg_num_rows($result) == 0) {
 				$htmlString .= makeErrorTag($errorMsg['no_result']);
 			} else {
-				$htmlString .= makeTablePagerHTML($result, "table", 10, true);
+				$htmlString .= makeTablePagerHTML($result, "tables", 10, true);
 			}
 			pg_free_result($result);
 		}
 
-		if ($target['index']) {
+		if ($target['indexes']) {
 			$htmlString .=
 <<< EOD
-<div id="index" class="jump_margin"></div>
+<div id="indexes" class="jump_margin"></div>
 <h3>Indexes</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button class="help_button" dialog="#index_dialog"></button></div>
+  <div><button class="help_button" dialog="#indexes_dialog"></button></div>
 </div>
 
 EOD;
 
-			$result = pg_query_params($conn, $query_string['index'], $ids);
+			$result = pg_query_params($conn, $query_string['indexes'], $ids);
 			if (!$result) {
 				return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 			}
@@ -2023,30 +2029,30 @@ EOD;
 			if (pg_num_rows($result) == 0) {
 				$htmlString .= makeErrorTag($errorMsg['no_result']);
 			} else {
-				$htmlString .= makeTablePagerHTML($result, "index", 10, true);
+				$htmlString .= makeTablePagerHTML($result, "indexes", 10, true);
 			}
 			pg_free_result($result);
 		}
 	}
 
-	/* Setting Parameters */
-	if ($target['parameter']) {
+	/* Settings */
+	if ($target['runtime_params']) {
 
 		$htmlString .=
 <<< EOD
 <div id="setting_parameters" class="jump_margin"></div>
 <h2>Settings</h2>
-<div id="parameter" class="jump_margin"></div>
+<div id="runtime_params" class="jump_margin"></div>
 <h3>Run-time parameters</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button class="help_button" dialog="#parameter_dialog"></button></div>
+  <div><button class="help_button" dialog="#runtime_params_dialog"></button></div>
 </div>
 
 EOD;
 		if ($target['repo_version'] >= V25) {
-			$result = pg_query_params($conn, $query_string['parameter2'], $ids);
+			$result = pg_query_params($conn, $query_string['runtime_params2'], $ids);
 		} else { 
-			$result = pg_query_params($conn, $query_string['parameter'], $ids);
+			$result = pg_query_params($conn, $query_string['runtime_params'], $ids);
 		}
 		if (!$result) {
 			return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
@@ -2055,7 +2061,7 @@ EOD;
 		if (pg_num_rows($result) == 0) {
 			$htmlString .= makeErrorTag($errorMsg['no_result']);
 		} else {
-			$htmlString .= makeTablePagerHTML($result, "parameter", 10, true);
+			$htmlString .= makeTablePagerHTML($result, "runtime_params", 10, true);
 		}
 		pg_free_result($result);
 	}
@@ -2455,17 +2461,17 @@ function makeWALStatisticsGraphHTML($results)
 	$htmlString = 
 <<< EOD
 <table><tr><td rowspan="2">
-<div id="wal_statistics_graph" class="linegraph"></div>
+<div id="write_ahead_logs_graph" class="linegraph"></div>
 </td><td>
-<div id="wal_statistics_status" class="labels"></div>
+<div id="write_ahead_logs_status" class="labels"></div>
 </td></tr>
 <tr><td><div class="graph_button">
-<button id="wal_statistics_line">toggle checkpoint highlight</button>
+<button id="write_ahead_logs_line">toggle checkpoint highlight</button>
 </div></td></tr>
 </table>
 <script type="text/javascript">
-var wal_statistics_highlight = false;
-var wal_statistics = new Dygraph(document.getElementById('wal_statistics_graph'),[
+var write_ahead_logs_highlight = false;
+var write_ahead_logs = new Dygraph(document.getElementById('write_ahead_logs_graph'),[
 
 EOD;
 
@@ -2490,7 +2496,7 @@ EOD;
 <<< EOD
   {
     labelsDivStyles: { border: '1px solid black' },
-    labelsDiv: document.getElementById('wal_statistics_status'),
+    labelsDiv: document.getElementById('write_ahead_logs_status'),
     labelsSeparateLines: true,
     hideOverlayOnMouseOut: false,
     legend: 'always',
@@ -2510,7 +2516,7 @@ EOD;
 	$htmlString .= "    labels: [ ";
 	for($i = 0 ; $i < pg_num_fields($results) ; $i++)
 		$htmlString .= "\"".pg_field_name($results, $i)."\", ";
-	$htmlString .= " ],\n".makeCheckpointSetting("wal_statistics");
+	$htmlString .= " ],\n".makeCheckpointSetting("write_ahead_logs");
 
 	return $htmlString."</script>\n";
 

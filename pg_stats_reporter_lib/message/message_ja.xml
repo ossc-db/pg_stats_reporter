@@ -19,7 +19,7 @@
 </ul>
 </div>
 
-<div id="database_statistics_dialog" class="help_dialog"
+<div id="databases_statistics_dialog" class="help_dialog"
   title="How to see a Database Statistics table">
 <h4>Database Statistics の見方</h4>
 <ul>
@@ -36,7 +36,7 @@
 <ul>※単位換算での数値の切り捨てにより微小な値は0と表示される場合があります</ul>
 </div>
 
-<div id="transaction_statistics_dialog" class="help_dialog"
+<div id="transactions_dialog" class="help_dialog"
   title="How to see a Transaction Statistics graph">
 <h4>Transaction Statistics の見方</h4>
 <ul>
@@ -47,7 +47,7 @@
 </ul>
 </div>
 
-<div id="database_size_dialog" class="help_dialog"
+<div id="database_size_trend_dialog" class="help_dialog"
   title="How to see a Database Size">
 <h4>Database Size の見方</h4>
 <ul>
@@ -70,7 +70,7 @@
 </ul>
 </div>
 
-<div id="wal_statistics_dialog" class="help_dialog"
+<div id="write_ahead_logs_dialog" class="help_dialog"
   title="How to see a WAL Statistics graph">
 <h4>WAL Statistics(トータル) の見方</h4>
 <ul>
@@ -91,7 +91,7 @@
 </ul>
 </div>
 
-<div id="instance_processes_ratio_dialog" class="help_dialog"
+<div id="backend_status_dialog" class="help_dialog"
   title="How to see a Instance Processes Ratio table">
 <h4>Instance Processes Ratio の見方</h4>
 <ul>
@@ -102,7 +102,7 @@
 </ul>
 </div>
 
-<div id="instance_processes_dialog" class="help_dialog"
+<div id="backend_status_trend_dialog" class="help_dialog"
   title="How to see a Instance Processes graph">
 <h4>Instance Processes の見方</h4>
 <ul>
@@ -279,7 +279,7 @@
 </ul>
 </div>
 
-<div id="fragmented_tables_dialog" class="help_dialog"
+<div id="table_fragmentations_dialog" class="help_dialog"
   title="How to see a Fragmented Tables table">
 <h4>Fragmented Tables の見方</h4>
 <ul>
@@ -374,7 +374,7 @@
 </ul>
 </div>
 
-<div id="checkpoint_activity_dialog" class="help_dialog"
+<div id="checkpoints_dialog" class="help_dialog"
   title="How to see a Checkpoint Activity table">
 <h4>Checkpoint Activity の見方</h4>
 <ul>
@@ -388,7 +388,7 @@
 </ul>
 </div>
 
-<div id="basic_statistics_dialog" class="help_dialog"
+<div id="autovacuum_overview_dialog" class="help_dialog"
   title="How to see a Basic Statistics (Average) table">
 <h4>Basic Statistics (Average) の見方</h4>
 <ul>
@@ -406,7 +406,7 @@
 </ul>
 </div>
 
-<div id="vacuum_cancels_dialog" class="help_dialog"
+<div id="cancellations_dialog" class="help_dialog"
   title="How to see a Vacuum and Analyze Cancels table">
 <h4>Vacuum and Analyze Cancels の見方</h4>
 <ul>
@@ -419,7 +419,7 @@
 </ul>
 </div>
 
-<div id="io_statistics_dialog" class="help_dialog"
+<div id="autovacuum_io_summary_dialog" class="help_dialog"
   title="How to see a I/O Statistics (Average) table">
 <h4>I/O Statistics (Average) の見方</h4>
 <ul>
@@ -434,7 +434,7 @@
 </ul>
 </div>
 
-<div id="analyze_statistics_dialog" class="help_dialog"
+<div id="analyze_overview_dialog" class="help_dialog"
   title="How to see a Analayze Statistics table">
 <h4>Analyze Statisticsの見方</h4>
 <ul>
@@ -451,7 +451,7 @@
 </ul>
 </div>
 
-<div id="modified_rows_ratio_dialog" class="help_dialog"
+<div id="modified_rows_dialog" class="help_dialog"
   title="How to see a Modified rows ratio graph">
 <h4>Modified rows ratio の見方</h4>
 <ul>
@@ -462,7 +462,7 @@
 <p>タプル数の上位10テーブル分の情報を表示します。</p>
 </div>
 
-<div id="current_replication_status_dialog" class="help_dialog"
+<div id="replication_overview_dialog" class="help_dialog"
   title="How to see a Current Replication Status table">
 <h4>Current Replication Status の見方</h4>
 <ul>
@@ -493,7 +493,7 @@
 <li>[アドレス]:[ポート番号] replay_delay_size : スタンバイのリカバリ遅延量 (Bytes)<br/>※同期モードのスタンバイには先頭に[sync]が表示されます</li></ul>
 </div>
 
-<div id="table_dialog" class="help_dialog"
+<div id="tables_dialog" class="help_dialog"
   title="How to see a Table table">
 <h4>Table の見方</h4>
 <ul>
@@ -510,7 +510,7 @@
 <ul>※単位換算での数値の切り捨てにより微小な値は0と表示される場合があります</ul>
 </div>
 
-<div id="index_dialog" class="help_dialog"
+<div id="indexes_dialog" class="help_dialog"
   title="How to see a Index table">
 <h4>Index の見方</h4>
 <ul>
@@ -529,7 +529,7 @@
 <ul>※単位換算での数値の切り捨てにより微小な値は0と表示される場合があります</ul>
 </div>
 
-<div id="parameter_dialog" class="help_dialog"
+<div id="runtime_params_dialog" class="help_dialog"
   title="How to see a Parameter table">
 <h4>Parameter の見方</h4>
 <ul>
@@ -540,9 +540,9 @@
 </ul>
 </div>
 
-<div id="alert_dialog" class="help_dialog"
-  title="How to see a Alert table">
-<h4>Alert の見方</h4>
+<div id="alerts_dialog" class="help_dialog"
+  title="How to see a Alerts table">
+<h4>Alerts の見方</h4>
 <ul>
 <li>timestamp : アラート発生日時</li>
 <li>message : アラートメッセージ</li>
