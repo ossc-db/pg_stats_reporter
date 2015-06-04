@@ -153,10 +153,14 @@ WEBサーバにブラウザを利用してアクセスすることで、ブラ�
 <pre>
 # service httpd start
 </pre>
+<p>RHEL 7の場合は、以下のコマンドを実行して起動します。</p>
+<pre># systemctl start http.service</pre>
 <p>OS 起動時に HTTP Server を自動的に起動させる場合は以下のコマンドを実行します。</p>
 <pre>
 # chkconfig httpd on
 </pre>
+<p>RHEL 7の場合は、以下のコマンドを実行します。</p>
+<pre># systemctl enable http.service</pre>
 
 <h3 id="execute_test">動作確認</h3>
 <h4>Webレポート機能の動作確認</h4>
