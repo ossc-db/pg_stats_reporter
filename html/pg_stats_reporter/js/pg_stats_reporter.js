@@ -104,7 +104,7 @@ $(function(){
   );
 
   // Instance Processes Raito
-  $("#backend_status_table").tablesorter(
+  $("#backend_states_overview_table").tablesorter(
     $.extend({}, tablesorterDefaultOptions, {
       headers: {
         0: { sorter: false },

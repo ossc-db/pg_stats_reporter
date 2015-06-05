@@ -51,9 +51,9 @@
 </ul>
 </div>
 
-<div id="database_size_trend_dialog" class="help_dialog"
-  title="The Trend of Database Size Graph">
-<h4>This graph shows the trend of database size.</h4>
+<div id="database_size_dialog" class="help_dialog"
+  title="The Database Size Graph">
+<h4>This graph shows the database size over time.</h4>
 <h4>Axes</h4>
 <ul>
 <li><em>Horizontal axis</em>: Time.</li>
@@ -79,7 +79,7 @@
 </div>
 
 <div id="write_ahead_logs_dialog" class="help_dialog"
-  title="The Write Ahead Logs Table and The WAL Trend Graph">
+  title="The Write Ahead Logs Table and The WAL Write Rate Graph">
 <h4>This table shows the overview of Write Ahead Logs.</h4>
 <ul>
 <li><em>Total size</em>: Total size of write ahead log (WAL or XLOG, stands on
@@ -97,17 +97,17 @@ the another shows the amount divided by the snapshot interval.</h4>
 <ul>
 <li><em>Horizontal axis</em>: Time</li>
 <li><em>Vertial axis1 (left)</em>: Axis for Bytes/snapshot shown below.</li>
-<li><em>vertial axis2 (right)</em>: Axis for output rate shown below.</li>
+<li><em>Vertial axis2 (right)</em>: Axis for write rate shown below.</li>
 </ul>
 <h4>Legend</h4>
 <ul>
 <li><em>Bytes/snapshot</em>: Amount of WAL written during every snapshot interval in bytes.</li>
-<li><em>Output rate</em>: Average output rate of WAL for every snapshot interval in bytes/s</li>
+<li><em>Write rate</em>: Average output rate of WAL for every snapshot interval in bytes/s</li>
 </ul>
 </div>
 
-<div id="backend_status_dialog" class="help_dialog"
-  title="The Backend Status Table">
+<div id="backend_states_overview_dialog" class="help_dialog"
+  title="The Backend States Overview Table">
 <h4>This table shows the average percentage of time the backends spend in different state throughout this report period.</h4>
 <ul>
 <li><em>idle</em>: Average percentage of time spent by the backends waiting a new client command throughout this report period</li>
@@ -118,9 +118,9 @@ the another shows the amount divided by the snapshot interval.</h4>
 <p>The data in this table is collected by the interval specified with the configuration parameter pg_statsinfo.sampling_interval (5 seconds by default).</p>
 </div>
 
-<div id="backend_status_trend_dialog" class="help_dialog"
-  title="The Backend Status Trend Graph">
-<h4>This graph shows the trend of percentage of time the backends spend in different state.</h4>
+<div id="backend_states_dialog" class="help_dialog"
+  title="The Backend States Graph">
+<h4>This graph shows the percentage of time the backends spend in different states over time.</h4>
 <h4>Axes</h4>
 <ul>
 <li><em>Horizontal axis</em>: Time</li>
@@ -155,12 +155,12 @@ the another shows the amount divided by the snapshot interval.</h4>
 </div>
 
 <div id="load_average_dialog" class="help_dialog"
-  title="The Load Average Trend Graph">
+  title="The Load Average Graph">
 <h4>This graph shows system load averages over time.</h4>
 <h4>Axes</h4>
 <ul>
 <li><em>Horizontal axis</em>: Time</li>
-<li><em>Vertial axis</em>: Load averages</li>
+<li><em>Vertial axis</em>: Load average</li>
 </ul>
 <h4>Legend</h4>
 <ul>

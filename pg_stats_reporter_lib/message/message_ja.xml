@@ -51,8 +51,8 @@
 </ul>
 </div>
 
-<div id="database_size_trend_dialog" class="help_dialog"
-  title="The Trend of Database Size Graph">
+<div id="database_size_dialog" class="help_dialog"
+  title="The Database Size Graph">
 <h4>このグラフはデータベースサイズの推移を示します。</h4>
 <h4>軸の説明</h4>
 <ul>
@@ -79,7 +79,7 @@
 </div>
 
 <div id="write_ahead_logs_dialog" class="help_dialog"
-  title="The Write Ahead Logs Table and The WAL Trend Graph">
+  title="The Write Ahead Logs Table and The WAL Write Rate Graph">
 <h4>このテーブルは先行書き込みログ(WAL)の概要を示します。</h4>
 <ul>
 <li><em>Total size</em>: レポート期間中に出力された先行書き込みログ(WAL または XLOG)の合計サイズ (MiB)</li>
@@ -99,12 +99,12 @@
 <h4>凡例</h4>
 <ul>
 <li><em>Bytes/snapshot</em>: スナップショット期間毎のWALの出力量</li>
-<li><em>Output rate</em>: スナップショット間期間でのWALの平均出力速度</li>
+<li><em>Write rate</em>: スナップショット間期間でのWALの平均出力速度</li>
 </ul>
 </div>
 
-<div id="backend_status_dialog" class="help_dialog"
-  title="The Backend Status Table">
+<div id="backend_states_overview_dialog" class="help_dialog"
+  title="The Backend States Overview Table">
 <h4>この表はバックエンドプロセスの状態毎の比率のレポート期間中の平均値を示します。</h4>
 <ul>
 <li><em>idle</em>: 待機中(コマンド待ち状態)のバックエンドプロセス数の比率のレポート期間中の平均値</li>
@@ -115,8 +115,8 @@
 <p>この表の情報は設定パラメータ pg_statsinfo.sampling_interval で指定した時間(デフォルト値は5秒)ごとに収集したものです。</p>
 </div>
 
-<div id="backend_status_trend_dialog" class="help_dialog"
-  title="The Backend Status Trend Graph">
+<div id="backend_states_dialog" class="help_dialog"
+  title="The Backend States Graph">
 <h4>このグラフはバックエンドプロセスの状態毎の比率の推移を示します。</h4>
 <h4>軸の説明</h4>
 <ul>

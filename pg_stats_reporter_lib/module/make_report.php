@@ -162,26 +162,26 @@ EOD;
 	/* Statistics */
 	if ($targetList['databases_statistics']
 		|| $targetList['transactions']
-		|| $targetList['database_size_trend']
+		|| $targetList['database_size']
 		|| $targetList['recovery_conflicts']
 		|| $targetList['write_ahead_logs']
-		|| $targetList['backend_status']
-		|| $targetList['backend_status_trend']) {
+		|| $targetList['backend_states_overview']
+		|| $targetList['backend_states']) {
 
 		$html_string .= "<li><a href=\"#statistics\">Statistics</a><ul>\n";
 
 		/* Databases Statistics */
 		if ($targetList['databases_statistics']
 			|| $targetList['transactions']
-			|| $targetList['database_size_trend']
+			|| $targetList['database_size']
 			|| $targetList['recovery_conflicts']) {
 
 			$html_string .= "<li><a href=\"#databases_statistics\">Databases Statistics</a><ul>\n";
 
 			if ($targetList['transactions'])
 				$html_string .= "<li><a href=\"#transactions\">Transactions</a></li>\n";
-			if ($targetList['database_size_trend'])
-				$html_string .= "<li><a href=\"#database_size_trend\">Database Size Trend</a></li>\n";
+			if ($targetList['database_size'])
+				$html_string .= "<li><a href=\"#database_size\">Database Size</a></li>\n";
 			if ($targetList['recovery_conflicts'])
 				$html_string .= "<li><a href=\"#recovery_conflicts\">Recovery Conflicts</a></li>\n";
 
@@ -190,17 +190,17 @@ EOD;
 
 		/* Instance Statistics */
 		if ($targetList['write_ahead_logs']
-			|| $targetList['backend_status']
-			|| $targetList['backend_status_trend']) {
+			|| $targetList['backend_states_overview']
+			|| $targetList['backend_states']) {
 
 			$html_string .= "<li><a href=\"#instance_activity\">Instance Statistics</a><ul>\n";
 
 			if ($targetList['write_ahead_logs'])
 				$html_string .= "<li><a href=\"#write_ahead_logs\">Write Ahead Logs</a></li>\n";
-			if ($targetList['backend_status'])
-				$html_string .= "<li><a href=\"#backend_status\">Backend Status</a></li>\n";
-			if ($targetList['backend_status_trend'])
-				$html_string .= "<li><a href=\"#backend_status_trend\">Backend Status Trend</a></li>\n";
+			if ($targetList['backend_states_overview'])
+				$html_string .= "<li><a href=\"#backend_states_overview\">Backend States Overview</a></li>\n";
+			if ($targetList['backend_states'])
+				$html_string .= "<li><a href=\"#backend_states\">Backend States</a></li>\n";
 
 			$html_string .= "</ul></li>\n";
 		}
@@ -459,13 +459,13 @@ function makePlainHeaderMenu()
 <li><a>Statistics</a><ul>
   <li><a>Databases Statistics</a><ul>
     <li><a>Transactions</a></li>
-    <li><a>Database Size Trend</a></li>
+    <li><a>Database Size</a></li>
     <li><a>Recovery Conflicts</a></li>
   </ul></li>
   <li><a>Instance Statistics</a><ul>
     <li><a>Write Ahead Logs</a></li>
-    <li><a>Backend Status</a></li>
-    <li><a>Backend Status Trend</a></li>
+    <li><a>Backend States Overview</a></li>
+    <li><a>Backend States</a></li>
   </ul></li>
 </ul></li>
 <li><a>OS</a><ul>
@@ -784,11 +784,11 @@ function makeDatabaseSystemReport($conn, $target, $snapids, $errorMsg)
 
 	if (!$target['databases_statistics']
 		&& !$target['transactions']
-		&& !$target['database_size_trend']
+		&& !$target['database_size']
 		&& !$target['recovery_conflicts']
 		&& !$target['write_ahead_logs']
-		&& !$target['backend_status']
-		&& !$target['backend_status_trend'])
+		&& !$target['backend_states_overview']
+		&& !$target['backend_states'])
 		return "";
 
 	$htmlString =
@@ -802,7 +802,7 @@ EOD;
 	/* Database Statistics */
 	if ($target['databases_statistics']
 		|| $target['transactions']
-		|| $target['database_size_trend']
+		|| $target['database_size']
 		|| $target['recovery_conflicts']) {
 
 		$htmlString .=
@@ -865,17 +865,17 @@ EOD;
 
 		}
 
-		if ($target['database_size_trend']) {
+		if ($target['database_size']) {
 			$htmlString .=
 <<< EOD
-<div id="database_size_trend" class="jump_margin"></div>
-<h3>Database Size Trend</h3>
+<div id="database_size" class="jump_margin"></div>
+<h3>Database Size</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button class="help_button" dialog="#database_size_trend_dialog"></button></div>
+  <div><button class="help_button" dialog="#database_size_dialog"></button></div>
 </div>
 EOD;
 
-			$result = pg_query_params($conn, $query_string['database_size_trend'], $snapids);
+			$result = pg_query_params($conn, $query_string['database_size'], $snapids);
 			if (!$result) {
 				return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 			}
@@ -885,10 +885,10 @@ EOD;
 			} else {
 				makeTupleListForDygraphs($result, $name, $value);
 				$opt = array();
-				array_push($opt, "title: 'Trend of Database Size'");
+				array_push($opt, "title: 'Database Size'");
 				array_push($opt, "ylabel: 'Database Size (Bytes)'");
 				array_push($opt, "labelsKMG2: true");
-				$htmlString .= makeLineGraphHTML($name, $value, "database_size_trend", $opt);
+				$htmlString .= makeLineGraphHTML($name, $value, "database_size", $opt);
 			}
 			pg_free_result($result);
 
@@ -920,8 +920,8 @@ EOD;
 
 	/* Instance Statistics */
 	if ($target['write_ahead_logs']
-		|| $target['backend_status']
-		|| $target['backend_status_trend']) {
+		|| $target['backend_states_overview']
+		|| $target['backend_states']) {
 
 		$htmlString .=
 <<< EOD
@@ -974,18 +974,18 @@ EOD;
 			}
 		}
 
-		if ($target['backend_status']) {
+		if ($target['backend_states_overview']) {
 			$htmlString .=
 <<< EOD
-<div id="backend_status" class="jump_margin"></div>
-<h3>Backend Status</h3>
+<div id="backend_states_overview" class="jump_margin"></div>
+<h3>Backend States Overview</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button class="help_button" dialog="#backend_status_dialog"></button></div>
+  <div><button class="help_button" dialog="#backend_states_overview_dialog"></button></div>
 </div>
 
 EOD;
 
-			$result = pg_query_params($conn, $query_string['backend_status'], $snapids);
+			$result = pg_query_params($conn, $query_string['backend_states_overview'], $snapids);
 			if (!$result) {
 				return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 			}
@@ -993,23 +993,23 @@ EOD;
 			if (is_null(pg_fetch_result($result,0,0)) == 1) {
 				$htmlString .= makeErrorTag($errorMsg['no_result']);
 			} else {
-				$htmlString .= makeTablePagerHTML($result, "backend_status", 5, false);
+				$htmlString .= makeTablePagerHTML($result, "backend_states_overview", 5, false);
 			}
 			pg_free_result($result);
 		}
 
-		if ($target['backend_status_trend']) {
+		if ($target['backend_states']) {
 			$htmlString .=
 <<< EOD
-<div id="backend_status_trend" class="jump_margin"></div>
-<h3>Backend Status Trend</h3>
+<div id="backend_states" class="jump_margin"></div>
+<h3>Backend States</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button class="help_button" dialog="#backend_status_trend_dialog"></button></div>
+  <div><button class="help_button" dialog="#backend_states_dialog"></button></div>
 </div>
 
 EOD;
 
-			$result = pg_query_params($conn, $query_string['backend_status_trend'], $snapids);
+			$result = pg_query_params($conn, $query_string['backend_states'], $snapids);
 			if (!$result) {
 				return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 			}
@@ -1018,9 +1018,9 @@ EOD;
 				$htmlString .= makeErrorTag($errorMsg['no_result']);
 			} else {
 				$opt = array();
-				array_push($opt, "title: 'Backend Status Trend'");
+				array_push($opt, "title: 'Backend States'");
 				array_push($opt, "ylabel: 'Percent'");
-				$htmlString .= makeSimpleLineGraphHTML($result, "backend_status_trend", $opt, true, false);
+				$htmlString .= makeSimpleLineGraphHTML($result, "backend_states", $opt, true, false);
 			}
 			pg_free_result($result);
 		}
@@ -1109,7 +1109,7 @@ EOD;
 					$htmlString .= makeErrorTag($errorMsg['no_result']);
 				} else {
 					$opt = array();
-					array_push($opt, "title: 'Load Average Trend'");
+					array_push($opt, "title: 'Load Average'");
 					array_push($opt, "ylabel: 'Load Average'");
 					$htmlString .= makeSimpleLineGraphHTML($result, "load_average", $opt, false, false);
 				}
@@ -2502,9 +2502,9 @@ EOD;
     legend: 'always',
     xlabel: 'Time',
     yAxisLabelWidth: 70,
-	title: 'WAL Trend',
+	title: 'WAL Write Rate',
 	ylabel: 'Bytes per snapshot',
-	y2label: 'Output rate (Bytes/s)',
+	y2label: 'Write rate (Bytes/s)',
 	labelsKMG2: true,
 	animatedZooms: true,
 

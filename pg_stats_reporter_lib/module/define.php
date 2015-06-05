@@ -77,11 +77,11 @@ $report_default = array(
   'overview'                  => true,
   'databases_statistics'      => true,
   'transactions'              => true,
-  'database_size_trend'       => true,
+  'database_size'             => true,
   'recovery_conflicts'        => true,
   'write_ahead_logs'          => true,
-  'backend_status'            => true,
-  'backend_status_trend'      => true,
+  'backend_states_overview'   => true,
+  'backend_states'            => true,
   'cpu_usage'                 => true,
   'load_average'              => true,
   'io_usage'                  => true,
@@ -117,11 +117,11 @@ $help_list = array(
   'overview'                  => 'overview_dialog',
   'databases_statistics'      => 'databases_statistics_dialog',
   'transactions'              => 'transactions_dialog',
-  'database_size_trend'       => 'database_size_trend_dialog',
+  'database_size'             => 'database_size_dialog',
   'recovery_conflicts'        => 'recovery_conflicts_dialog',
   'write_ahead_logs'          => 'write_ahead_logs_dialog',
-  'backend_status'            => 'backend_status_dialog',
-  'backend_status_trend'      => 'backend_status_trend_dialog',
+  'backend_states_overview'   => 'backend_states_overview_dialog',
+  'backend_states'            => 'backend_states_dialog',
   'cpu_usage'                 => 'cpu_usage_dialog',
   'load_average'              => 'load_average_dialog',
   'io_usage'                  => 'io_usage_dialog',
@@ -171,7 +171,7 @@ $query_string = array(
   "transactions" =>
   "SELECT replace(\"timestamp\", '-', '/') AS \"timestamp\", datname, avg(commit_tps) AS commit_tps, avg(rollback_tps) AS rollback_tps FROM statsrepo.get_xact_tendency_report($1, $2) GROUP BY 1,2 ORDER BY 1,2",
 
-  "database_size_trend" =>
+  "database_size" =>
   "SELECT replace(\"timestamp\", '-', '/') AS \"timestamp\", datname, avg(size*1024*1024) AS size FROM statsrepo.get_dbsize_tendency_report($1, $2) GROUP BY 1,2 ORDER BY 1,2",
 
   "recovery_conflicts" =>
@@ -179,7 +179,7 @@ $query_string = array(
 
   // Instance Statistics
   "write_ahead_logs" =>
-  "SELECT replace(\"timestamp\", '-', '/') AS \"timestamp\", avg(write_size*1024*1024) AS \"Bytes/snapshot (Bytes)\", avg(write_size_per_sec*1024*1024) As \"Output rate (Bytes/s)\" FROM statsrepo.get_xlog_tendency($1, $2) GROUP BY 1 ORDER BY 1",
+  "SELECT replace(\"timestamp\", '-', '/') AS \"timestamp\", avg(write_size*1024*1024) AS \"Bytes/snapshot (Bytes)\", avg(write_size_per_sec*1024*1024) As \"Write rate (Bytes/s)\" FROM statsrepo.get_xlog_tendency($1, $2) GROUP BY 1 ORDER BY 1",
 
   "write_ahead_logs_stats" =>
   "SELECT write_total AS \"Total size (MiB)\", write_speed AS \"Average output rate (MiB/s)\" FROM statsrepo.get_xlog_stats($1, $2)",
@@ -187,10 +187,10 @@ $query_string = array(
   "write_ahead_logs_stats31" =>
   "SELECT write_total AS \"Total size (MiB)\", write_speed AS \"Average output rate (MiB/s)\", archive_total AS \"Number of archived files\", archive_failed AS \"Number of archiving errors\", last_wal_file AS \"Latest WAL file\", last_archive_file AS \"Last archived file\" FROM statsrepo.get_xlog_stats($1, $2)",
 
-  "backend_status" =>
+  "backend_states_overview" =>
   "SELECT idle AS \"idle (%)\", idle_in_xact AS \"idle in xact (%)\", waiting AS \"waiting (%)\", running AS \"running (%)\" FROM statsrepo.get_proc_ratio($1, $2)",
 
-  "backend_status_trend" =>
+  "backend_states" =>
   "SELECT replace(\"timestamp\", '-', '/'), avg(idle) AS idle, avg(idle_in_xact) AS \"idle in xact\", avg(waiting) AS waiting, avg(running) AS running FROM statsrepo.get_proc_tendency_report($1, $2) GROUP BY 1 ORDER BY 1",
 
   /* OS Resources */
