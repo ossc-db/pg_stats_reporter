@@ -102,7 +102,7 @@ the another shows the amount divided by the snapshot interval.</h4>
 <h4>Legend</h4>
 <ul>
 <li><em>Bytes/snapshot</em>: Amount of WAL written during every snapshot interval in bytes.</li>
-<li><em>Write rate</em>: Average output rate of WAL for every snapshot interval in bytes/s</li>
+<li><em>Write rate</em>: Average write rate of WAL for every snapshot interval in bytes/s</li>
 </ul>
 </div>
 
