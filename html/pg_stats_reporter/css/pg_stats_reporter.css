@@ -355,6 +355,12 @@ div.graph_button {
   float: left;
 }
 
+/* help dialog */
+li em {
+  font-style: normal;
+  font-weight: bold;
+}
+
 /* message dialog */
 #message_dialog {
   font-weight: bold;

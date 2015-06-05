@@ -3,554 +3,598 @@
 
 <help>
 <div id="overview_dialog" class="help_dialog"
-  title="How to see a Summary table">
-<h4>Summary の見方</h4>
+  title="The Report Overview Table">
+<h4>Summary テーブルはこのレポートの概要を示します</h4>
 <ul>
-<li>instname : データベースクラスタ固有ID</li>
-<li>hostname : ホスト名</li>
-<li>port : PostgreSQLの稼動ポート番号</li>
-<li>pg_version : PostgreSQLのバージョン</li>
-<li>snap_begin : レポート期間の始点日時</li>
-<li>snap_end : レポート期間の終点日時</li>
-<li>duration : レポート期間の間隔</li>
-<li>total_dbsize : データベース全体のサイズ</li>
-<li>total_commits : データベース全体のコミットされたトランザクション数</li>
-<li>total_rollbacks : データベース全体のロールバックされたトランザクション数</li>
+<li><em>Database system identifier</em>: データベースクラスタ固有ID</li>
+<li><em>Host name</em>: レポート対象のインスタンスがあるサーバーのホスト名</li>
+<li><em>Port ID</em>: 接続先サーバーの待ち受けポート番号</li>
+<li><em>PostgreSQL version</em>: PostgreSQL のバージョン</li>
+<li><em>Begins at</em>: レポート期間の始点日時</li>
+<li><em>Ends at</em>: レポート期間の終点日時</li>
+<li><em>Period</em>: レポート期間の長さ</li>
+<li><em>Database size</em>: 最終スナップショット時点のデータベース全体のサイズ</li>
+<li><em>Number of commits</em>: レポート期間中にコミットされたトランザクションの数</li>
+<li><em>Number of rollbacks</em>: レポート期間中にロールバックされたトランザクションの数</li>
 </ul>
 </div>
 
 <div id="databases_statistics_dialog" class="help_dialog"
-  title="How to see a Database Statistics table">
-<h4>Database Statistics の見方</h4>
+  title="The Database Statistics Table">
+<h4>このテーブルではデータベース毎の統計の概要を示します。</h4>
 <ul>
-<li>database : データベース名 </li>
-<li>MiB : データベースサイズ (MiB)</li>
-<li>+MiB : データベースサイズの増分量 (MiB)</li>
-<li>commit/s : 1秒あたりにコミットされたトランザクション数</li>
-<li>rollback/s : 1秒あたりにロールバックされたトランザクション数</li>
-<li>hit% : キャッシュのヒット率</li>
-<li>gets/s : 1秒あたりにディスクとキャッシュから読み込んだブロック数</li>
-<li>reads/s : 1秒あたりにディスクから読み込んだブロック数</li>
-<li>rows/s : 1秒あたりにテーブル＋インデックスから読み込んだ行数</li>
+<li><em>Database</em>: データベース名 </li>
+<li><em>MiB</em>: レポート期間中最後のスナップショットでのデータベースサイズ (MiB)</li>
+<li><em>+MiB</em>: レポート期間中のデータベースサイズの増減 (MiB)</li>
+<li><em>Commit/s</em>: コミット頻度のレポート期間での平均値 (回/秒)</li>
+<li><em>Rollback/s</em>: ロールバック頻度のレポート期間での平均値 (回/秒)</li>
+<li><em>Hit%</em>: レポート期間中の共有バッファの平均ヒット率</li>
+<li><em>Gets/s</em>: ブロック要求頻度のレポート期間中の平均値 (ブロック/秒)</li>
+<li><em>Reads/s</em>: ディスクからのブロック読み込み頻度のレポート期間中の平均値 (ブロック/秒)</li>
+<li><em>Rows/s</em>: テーブルおよびインデックスからの行取得の頻度のレポート期間中の平均値 (行/秒)</li>
 </ul>
-<ul>※単位換算での数値の切り捨てにより微小な値は0と表示される場合があります</ul>
+※小さな値は切り捨てにより0と表示される場合があります
 </div>
 
 <div id="transactions_dialog" class="help_dialog"
-  title="How to see a Transaction Statistics graph">
-<h4>Transaction Statistics の見方</h4>
+  title="The Transactions Graph">
+<h4>このグラフは秒あたりのトランザクション数の推移を示します</h4>
+<h4>軸の説明</h4>
 <ul>
-<li>横軸 : 時刻</li>
-<li>縦軸 : 1秒あたりのトランザクション数 (xact/秒)</li>
-<li>[DB名] commit_tps : [DB名]の1秒あたりにコミットされたトランザクション数 (xact/秒)</li>
-<li>[DB名] rollback_tps : [DB名]の1秒あたりにロールバックされたトランザクション数 (xact/秒)</li>
+<li><em>横軸</em>: 時刻</li>
+<li><em>縦軸</em>: 1秒あたりのトランザクション数 (xact/秒)</li>
+</ul>
+<h4>凡例</h4>
+<ul>
+<li><em>[DB名] commit_tps</em>: [DB名]でコミットされたトランザクション</li>
+<li><em>[DB名] rollback_tps</em>: [DB名]でロールバックされたトランザクション</li>
 </ul>
 </div>
 
 <div id="database_size_trend_dialog" class="help_dialog"
-  title="How to see a Database Size">
-<h4>Database Size の見方</h4>
+  title="The Trend of Database Size Graph">
+<h4>このグラフはデータベースサイズの推移を示します。</h4>
+<h4>軸の説明</h4>
 <ul>
-<li>横軸 : 時刻</li>
-<li>縦軸 : データベースサイズ (Bytes)</li>
-<li>[DB名] size : [DB]のデータベースサイズ (Bytes)</li>
+<li><em>横軸</em>: 時刻</li>
+<li><em>縦軸</em>: データベースサイズ (Bytes)</li>
+</ul>
+<h4>凡例</h4>
+<ul>
+<li><em>[DB名] size</em>: [DB]のデータベースサイズ</li>
 </ul>
 </div>
 
 <div id="recovery_conflicts_dialog" class="help_dialog"
-  title="How to see a Recovery Conflicts table">
-<h4>Recovery Conflicts の見方</h4>
+  title="The Recovery Conflicts Table">
+<h4>このテーブルはこのレポート期間中にレプリケーションマスタの動作が原因でキャンセルされた問い合わせの数をデータベースごとに示します。このテーブルにはこのインスタンスがスタンバイサーバである場合にだけ情報が表示されます。</h4>
 <ul>
-<li>database : データベース名</li>
-<li>conflict tblspc : テーブルスペース削除との競合によるクエリのキャンセル数</li>
-<li>conflict lock : ロック競合によるクエリのキャンセル数</li>
-<li>conflict snapshot : VACUUMとの競合によるクエリのキャンセル数(クエリが参照中の行をVACUUMが除去したケース)</li>
-<li>conflict bufferpin : VACUUMとの競合によるクエリのキャンセル数(クエリがアクセス中のページをVACUUMが除去したケース)</li>
-<li>conflict deadlock : デッドロックとの競合によるクエリのキャンセル数 </li>
+<li><em>Database</em>: データベース名</li>
+<li><em>On tablespaces</em>: テーブルスペースが削除されたことでキャンセルされたクエリの数</li>
+<li><em>On locks</em>: ロック競合のタイムアウトによりキャンセルされたクエリの数</li>
+<li><em>On snapshots</em>: 古いスナップショットが原因でキャンセルされたクエリの数</li>
+<li><em>On bufferpin</em>: バッファピンが原因でキャンセルされたクエリの数</li>
+<li><em>On deadlocks</em>: デッドロックによりキャンセルされたクエリの数 </li>
 </ul>
 </div>
 
 <div id="write_ahead_logs_dialog" class="help_dialog"
-  title="How to see a WAL Statistics graph">
-<h4>WAL Statistics(トータル) の見方</h4>
+  title="The Write Ahead Logs Table and The WAL Trend Graph">
+<h4>このテーブルは先行書き込みログ(WAL)の概要を示します。</h4>
 <ul>
-<li>WAL write total (MiB) : WALの出力量のレポート期間内合計 (MiB)</li>
-<li>WAL write speed (MiB/s) : WALの出力量のレポート期間内平均 (MiB/秒)</li>
-<li>WAL archive total (files) : アーカイブに成功したファイルの数(pg_statsinfo 3.1以降)</li>
-<li>WAL archive failed (files) : アーカイブに失敗した回数(pg_statsinfo 3.1以降)</li>
-<li>last WAL file : 最後に出力されたWALファイル名(pg_statsinfo 3.1以降)</li>
-<li>last archived WAL : 最後にアーカイブされたWALファイル名(pg_statsinfo 3.1以降)</li>
+<li><em>Total size</em>: レポート期間中に出力された先行書き込みログ(WAL または XLOG)の合計サイズ (MiB)</li>
+<li><em>Average output rate</em>: WALの出力速度のレポート期間中の平均 (MiB/秒)</li>
+<li><em>Number of archived files</em>: レポート期間中にアーカイブに成功したWALファイルの数。 pg_statsinfo 3.1以降かつ PostgreSQL 9.4 以降でのみ有効</li>
+<li><em>Number of arching errors</em>: レポート期間中にアーカイブに失敗した回数。 pg_statsinfo 3.1以降かつ PostgreSQL 9.4 以降でのみ有効</li>
+<li><em>Latest WAL file</em>: 現在書き込み中のWALセグメントファイル名。 pg_statsinfo 3.1以降のみで有効</li>
+<li><em>Last archived file</em>: 最後にアーカイブされたWALセグメントファイル名。 pg_statsinfo 3.1以降かつ PostgreSQL 9.4 以降でのみ有効</li>
 </ul>
-<h4>WAL Statistics の見方</h4>
+<h4>このグラフはWAL出力速度の推移を示します。一方の線はスナップショット期間ごとに出力された量を示し、もう一方はそれをスナップショット期間で割った値を示します。</h4>
+<h4>軸の説明</h4>
 <ul>
-<li>横軸 : スナップショット取得日時</li>
-<li>縦軸 : スナップショット間でのWALの出力量 (Bytes)</li>
-<li>縦軸 : スナップショット間での秒間のWALの出力量 (Bytes/秒)</li>
-<li>write_size : スナップショット間でのWALの出力量 (Bytes)</li>
-<li>write_size_per_sec : スナップショット間での1秒あたりのWALの出力量 (Bytes/秒)</li>
+<li><em>横軸</em>: スナップショット取得日時</li>
+<li><em>縦軸(左側)</em>: スナップショット期間毎のWAL出力量 (Bytes)</li>
+<li><em>縦軸(右側)</em>: スナップショット期間毎のWALの出力速度 (Bytes/秒)</li>
+</ul>
+<h4>凡例</h4>
+<ul>
+<li><em>Bytes/snapshot</em>: スナップショット期間毎のWALの出力量</li>
+<li><em>Output rate</em>: スナップショット間期間でのWALの平均出力速度</li>
 </ul>
 </div>
 
 <div id="backend_status_dialog" class="help_dialog"
-  title="How to see a Instance Processes Ratio table">
-<h4>Instance Processes Ratio の見方</h4>
+  title="The Backend Status Table">
+<h4>この表はバックエンドプロセスの状態毎の比率のレポート期間中の平均値を示します。</h4>
 <ul>
-<li>idle (%) : 待機中(コマンド待ち状態)のバックエンドプロセス数の比率</li>
-<li>idle in xact (%) : トランザクション内で待機中(コマンド待ち状態)のバックエンドプロセス数の比率</li>
-<li>waiting (%) : ロック待ち状態のバックエンドプロセス数の比率</li>
-<li>running (%) : トランザクション実行中のバックエンドプロセス数の比率</li>
+<li><em>idle</em>: 待機中(コマンド待ち状態)のバックエンドプロセス数の比率のレポート期間中の平均値</li>
+<li><em>idle in xact</em>: トランザクション内で待機中(コマンド待ち状態)のバックエンドプロセス数の比率のレポート期間中の平均値</li>
+<li><em>waiting</em>: ロック待ち状態のバックエンドプロセス数の比率のレポート期間中の平均値</li>
+<li><em>running</em>: 問い合わせ実行中のバックエンドプロセス数の比率のレポート期間中の平均値</li>
 </ul>
+<p>この表の情報は設定パラメータ pg_statsinfo.sampling_interval で指定した時間(デフォルト値は5秒)ごとに収集したものです。</p>
 </div>
 
 <div id="backend_status_trend_dialog" class="help_dialog"
-  title="How to see a Instance Processes graph">
-<h4>Instance Processes の見方</h4>
+  title="The Backend Status Trend Graph">
+<h4>このグラフはバックエンドプロセスの状態毎の比率の推移を示します。</h4>
+<h4>軸の説明</h4>
 <ul>
-<li>横軸 : 時刻</li>
-<li>縦軸 : パーセント(%)</li>
-<li>idle : 待機中(コマンド待ち状態)のバックエンドプロセス数の比率 (%)</li>
-<li>idle in xact : トランザクション内で待機中(コマンド待ち状態)のバックエンドプロセス数の比率 (%)</li>
-<li>waiting : ロック待ち状態のバックエンドプロセス数の比率 (%)</li>
-<li>running : トランザクション実行中のバックエンドプロセス数の比率 (%)</li>
+<li><em>横軸</em>: 時刻</li>
+<li><em>縦軸</em>: 割合(%)</li>
 </ul>
-</div>
+<h4>凡例</h4>
+<ul>
+<li><em>idle</em>: 待機中(コマンド待ち状態)のバックエンドプロセス数の比率</li>
+<li><em>idle in xact</em>: トランザクション内で待機中(コマンド待ち状態)のバックエンドプロセス数の比率</li>
+<li><em>waiting</em>: ロック待ち状態のバックエンドプロセス数の比率</li>
+<li><em>running</em>: 問い合わせ実行中のバックエンドプロセス数の比率</li>
+</ul>
+<p>このグラフの値は設定パラメータ pg_statsinfo.sampling_interval で指定した時間(デフォルト値は5秒)ごとに収集したデータをスナップショットごとに平均したものです。</p></div>
 
 <div id="cpu_usage_dialog" class="help_dialog"
-  title="How to see a CPU Usage graph">
-<h4>CPU Usage の見方</h4>
+  title="The CPU Usage Graph">
+<h4>このグラフはCPUの状態毎の時間消費の割合の推移を示します。</h4>
+<h4>軸の説明</h4>
 <ul>
-<li>横軸 : 時刻</li>
-<li>縦軸 : パーセント(%)</li>
-<li>idle : タスク待ちで CPU を消費した時間の比率 (%)</li>
-<li>iowait : 入出力の完了待ちで CPU を消費した時間の比率 (%)</li>
-<li>system : システムモードで CPU を消費した時間の比率 (%)</li>
-<li>user : ユーザモードで CPU を消費した時間の比率 (%)</li>
+<li><em>横軸</em>: 時刻</li>
+<li><em>縦軸</em>: 割合 (%)</li>
 </ul>
+<h4>凡例</h4>
+<ul>
+<li><em>user</em>: ユーザモードのプロセスが消費した時間の比率</li>
+<li><em>system</em>: カーネルモードのプロセスが消費した時間の比率</li>
+<li><em>iowait</em>: 入出力の完了待ちのプロセスが消費した時間の比率</li>
+<li><em>idle</em>: タスク待ちのプロセスが消費した時間の比率</li>
+</ul>
+<p>このグラフはスナップショット毎の平均値を示します。</p>
 </div>
 
 <div id="load_average_dialog" class="help_dialog"
-  title="How to see a Load Average graph">
-<h4>Load Average の見方</h4>
+  title="The Load Average Trand Graph">
+<h4>このグラフはシステム平均負荷の推移を示します。</h4>
+<h4>軸の説明</h4>
 <ul>
-<li>横軸 : スナップショット取得日時</li>
-<li>縦軸 :ロードアベレージ</li>
-<li>1min : 過去1分間のロードアベレージ</li>
-<li>5min : 過去5分間のロードアベレージ</li>
-<li>15min : 過去15分間のロードアベレージ</li>
+<li><em>横軸</em>: 時刻</li>
+<li><em>縦軸</em>: システムロードアベレージ</li>
+</ul>
+<h4>軸の説明</h4>
+<ul>
+<li><em>1min</em>: 過去1分間のロードアベレージ</li>
+<li><em>5min</em>: 過去5分間のロードアベレージ</li>
+<li><em>15min</em>: 過去15分間のロードアベレージ</li>
 </ul>
 </div>
 
 <div id="io_usage_dialog" class="help_dialog"
-  title="How to see a I/O Usage table/graph">
-<h4>I/O Usage の見方</h4>
+  title="The I/O Usage Section">
+<h4>このセクションには1つの概要を示す表と3つの推移を示すグラフがあります。グラフは初期状態では隠されていて、リンクをクリックすることで表示されます。</h4>
+<h4>I/O Usageテーブルはレポート期間を通したI/O使用量の概要を示します。デバイス毎に1行表示されます。</h4>
 <ul>
-<li>device_name : デバイス名</li>
-<li>Including TableSpaces : デバイスに含まれるテーブルスペース</li>
-<li>read<ul>
-<li>total size (MiB) : 読み込んだ合計サイズ (MiB)</li>
-<li>peak size (KiB/s) : 秒あたりの読み込み量のピーク値(KiB/秒) (pg_statsinfo 3.1以降)</li>
-<li>total time (ms) : 読み込みにかかった合計時間 (ミリ秒)</li>
+<li><em>Device name</em>: デバイスの名前</li>
+<li><em>Containing table spaces</em>: このデバイスに置かれているテーブルスペース</li>
+<li><em>Read</em>: 読み込み統計<ul>
+<li><em>Total bytes (MiB)</em>: レポート期間内に読み込んだ総バイト数</li>
+<li><em>Peak rate (KiB/s)</em>: 読み込み速度の最大値 (KiB/秒) pg_statsinfo 3.1以降でのみ有効</li>
+<li><em>Total time (ms)</em>: 読み込みの所要時間のレポート期間での合計 (ミリ秒)</li>
 </ul></li>
-<li>write<ul>
-<li>total size (MiB) : 書き込んだ合計サイズ (MiB)</li>
-<li>peak size (KiB/s) : 秒あたりの書き込み量のピーク値(KiB/秒) (pg_statsinfo 3.1以降)</li>
-<li>total time (ms) : 書き込みにかかった合計時間 (ミリ秒)</li>
+<li><em>Write</em>: 書き込み統計<ul>
+<li><em>Total bytes (MiB)</em>: レポート期間内に書き込んだ総バイト数 (MiB)</li>
+<li><em>Peak rate (KiB/s)</em>: 書き込み速度の最大値 (KiB/秒) pg_statsinfo 3.1以降でのみ有効</li>
+<li><em>Total time (ms)</em>: 書き込みの所要時間の合計 (ミリ秒)</li>
 </ul></li>
-<li>current I/O queue : 現在実施中のI/O(キューイングされた)数</li>
-<li>total I/O time (ms) : 入出力にかかった合計時間 (ミリ秒)</li>
+<li><em>Average I/O queue</em>: I/Oキューの長さのレポート期間での平均値</li>
+<li><em>Total I/O time (ms)</em>: 入出力の所要時間の合計 (ミリ秒)</li>
 </ul>
-<ul>※単位換算での数値の切り捨てにより微小な値は0と表示される場合があります</ul>
-<h4>I/O Size の見方</h4>
+※小さな値は切り捨てにより0と表示される場合があります
+<h4>I/O Rage のグラフはスナップショット毎の入出力速度の推移を示します。値はスナップショット毎の平均値です。</h4>
+<h4>軸の説明</h4>
 <ul>
-<li>横軸 : 時刻</li>
-<li>縦軸 : データサイズ (Bytes/秒)</li>
-<li>[デバイス名] read : 秒あたりに読み込んだサイズ (Bytes/秒)</li>
-<li>[デバイス名] write : 秒あたりに書き込んだサイズ (Bytes/秒)</li>
+<li><em>横軸</em>: 時刻</li>
+<li><em>縦軸</em>: 入出力速度 (Bytes/秒)</li>
 </ul>
-<h4>I/O Size (Peak) の見方 (pg_statsinfo 3.1以降)</h4>
+<h4>凡例</h4>
 <ul>
-<li>横軸 : 時刻</li>
-<li>縦軸 : データサイズ (Bytes/秒)</li>
-<li>[デバイス名] read : 秒あたりの読み込み量のピーク値 (Bytes/秒)</li>
-<li>[デバイス名] write : 秒あたりの書き込み量のピーク値 (Bytes/秒)</li>
+<li><em>[デバイス名] read</em>: 読み込み速度 (Bytes/秒)</li>
+<li><em>[デバイス名] write</em>: 書き込み速度 (Bytes/秒)</li>
 </ul>
-<h4>I/O Time の見方</h4>
+<h4>I/O Peak Rate グラフはスナップショット毎の読書速度の最大値の推移を示します。値はスナップショット期間内の最大値です。pg_statsinfo 3.1以降でのみ有効です。</h4>
+<h4>軸の説明</h4>
 <ul>
-<li>横軸 : 時刻</li>
-<li>縦軸 : I/O時間の割合 (%)</li>
-<li>[デバイス名] avg read time : [デバイス名]の秒あたりに読み込みにかかった時間の割合</li>
-<li>[デバイス名] avg write time : [デバイス名]の秒あたりに書き込みにかかった時間の割合</li>
+<li><em>横軸</em>: 時刻</li>
+<li><em>縦軸</em>: 入出力速度 (Bytes/秒)</li>
+</ul>
+<h4>凡例</h4>
+<ul>
+<li><em>[デバイス名] read</em>: 読み込み速度 (Bytes/秒)</li>
+<li><em>[デバイス名] write</em>: 書き込み速度 (Bytes/秒)</li>
+</ul>
+<h4>I/O Time グラフはデバイスへの入出力所要時間のスナップショット毎の推移を示します。値は入出力の所要時間の実時間に対する割合で、同時に実行中のすべてのプロセスの合計値です。そのためこの値は負荷の状況によっては100%を超える場合があります。</h4>
+<h4>軸の説明</h4>
+<ul>
+<li><em>横軸</em>: 時刻</li>
+<li><em>縦軸</em>: I/O時間の割合 (%)</li>
+</ul>
+<h4>凡例</h4>
+<ul>
+<li><em>[デバイス名] avg read time</em>: [デバイス名]の読み込み時間</li>
+<li><em>[デバイス名] avg write time</em>: [デバイス名]の書き込み時間</li>
 </ul>
 </div>
 
 <div id="memory_usage_dialog" class="help_dialog"
-  title="How to see a Memory Usage graph">
-<h4>Memory Usage の見方</h4>
+  title="The Memory Usage Graph">
+<h4>このグラフは項目別のメモリ使用量の推移を示します。値は /proc/meminfo から読み取っています。</h4>
+<h4>軸の説明</h4>
 <ul>
-<li>横軸 : スナップショット取得日時</li>
-<li>縦軸 : サイズ (Bytes)</li>
-<li>memfree : 空きメモリサイズ (Bytes)</li>
-<li>buffers : バッファキャッシュサイズ (Bytes)</li>
-<li>cached : ページキャッシュからバッファキャッシュを除いたサイズ (Bytes)</li>
-<li>swap : スワップ使用量 (Bytes)</li>
-<li>dirty : ダーティページサイズ (Bytes)</li>
+<li><em>横軸</em>: 時刻</li>
+<li><em>縦軸</em>: バイト単位のメモリ使用量。"change scale"ボタンをクリックすると縦軸のログスケールとリニアスケール間の切り替えを行います。</li>
+</ul>
+<h4>軸の説明</h4>
+<ul>
+<li><em>memfree</em>: 未使用の物理メモリ量</li>
+<li><em>buffers</em>: ファイルバッファに使用中の物理メモリ量</li>
+<li><em>cached</em>: キャッシュメモリとして使用中の物理メモリ量</li>
+<li><em>swap</em>: スワップされているメモリ量</li>
+<li><em>dirty</em>: ダーティ(ファイル書き込み待ち)のメモリ量</li>
 </ul>
 </div>
 
 <div id="disk_usage_per_tablespace_dialog" class="help_dialog"
-  title="How to see a Disk Usage per Tablespace table">
-<h4>Disk Usage per Tablespace の見方</h4>
+  title="The Disk Usage per Tablespace Table">
+<h4>1行でひとつのテーブルスペースの概要を示します。</h4>
 <ul>
-<li>tablespace : テーブルスペース名</li>
-<li>location : テーブルスペース格納ディレクトリ名</li>
-<li>device : テーブルスペース格納ディレクトリのデバイス(ディスク)のデバイス番号</li>
-<li>used (MiB) : テーブルスペース格納ディレクトリのデバイスの使用済みサイズ (MiB)</li>
-<li>avail (MiB) : テーブルスペース格納ディレクトリのデバイスの利用可能サイズ (MiB)</li>
-<li>remain (%) : テーブルスペース格納ディレクトリのデバイスで利用可能な領域の割合</li>
+<li><em>Tablespace</em>: テーブルスペース名</li>
+<li><em>Location</em>: テーブルスペースを格納しているディレクトリパス</li>
+<li><em>Device</em>: デバイスのメジャー/マイナー番号</li>
+<li><em>Used</em>: デバイス内で使用中のディスク容量 (MiB)</li>
+<li><em>Avail</em>: 利用可能なディスク容量 (MiB)</li>
+<li><em>Remain</em>: デバイスの総容量に対する利用可能な領域の割合 (%)</li>
 </ul>
-<ul>※単位換算での数値の切り捨てにより微小な値は0と表示される場合があります</ul>
+※小さな値は切り捨てにより0と表示される場合があります
 </div>
 
 <div id="disk_usage_per_table_dialog" class="help_dialog"
-  title="How to see a Disk Usage per Table table/graph">
-<h4>Disk Usage per Table の見方</h4>
+  title="The Disk Usage per Table Section">
+<h4>このセクションには概要の表と2つのグラフがあります。表は行ごとに一つのテーブルのディスク使用量と読み込み量の概要を示しています。</h4>
 <ul>
-<li>database : データベース名</li>
-<li>schema : スキーマ名</li>
-<li>table : テーブル名</li>
-<li>size (MiB) : テーブルサイズ (MiB)</li>
-<li>table reads : テーブルブロック抽出要求でディスクから読み込んだブロック数</li>
-<li>index reads : インデックスブロック抽出要求でディスクから読み込んだブロック数</li>
-<li>toast reads : TOASTテーブルのブロック抽出要求でディスクから読み込んだブロック数</li>
+<li><em>Database</em>: このテーブルが含まれるデータベースの名前</li>
+<li><em>Schema</em>: このテーブルが属するスキーマの名前</li>
+<li><em>Table</em>: このテーブルの名前</li>
+<li><em>Size</em>: このテーブルのサイズ (MiB)</li>
+<li><em>Table reads</em>: このテーブルのアクセスの際にディスクから読み込んだPostgreSQLディスクブロック数</li>
+<li><em>Index reads</em>: このテーブルのすべてのインデックスへのアクセスの際にディスクから読み込んだPostgreSQLブロック数</li>
+<li><em>Toast reads</em>: このテーブルのTOASTテーブル(もしあれば)のアクセスの際にディスクから読み込んだPostgreSQLブロック数</li>
 </ul>
-<ul>※単位換算での数値の切り捨てにより微小な値は0と表示される場合があります</ul>
-<h4>Table Size の見方</h4>
-<ul>
-<li>エントリー : テーブル名([データベース名].[スキーマ名].[テーブル名])</li>
-<li>値 : テーブルサイズの比率</li>
-</ul>
-<h4>Disk Read の見方</h4>
-<ul>
-<li>エントリー : テーブル名([データベース名].[スキーマ名].[テーブル名])</li>
-<li>値 : 全てのブロック抽出要求(テーブル、インデックス、TOASTテーブル、TOASTインデックス)でディスクから読み込んだブロック数の合計の比率</li>
-</ul>
+※小さな値は切り捨てにより0と表示される場合があります
+<h4>Table Size グラフはテーブルごとの容量の比率を示します。</h4>
+<h4>Disk Raad グラフはテーブルとその付属物からの読み込みブロック数のテーブルごとの比率を示します。</h4>
 </div>
 
 <div id="heavily_updated_tables_dialog" class="help_dialog"
-  title="How to see a Heavily Updated Tables table">
-<h4>Heavily Updated Tables の見方</h4>
+  title="The Heavily Updated Tables Table">
+<h4>各行はテーブル毎の更新の活発さを示します。初期状態では "Total" 列の降順に並べられています。</h4>
 <ul>
-<li>database : データベース名</li>
-<li>schema : スキーマ名</li>
-<li>table : テーブル名</li>
-<li>INSERT : テーブルに挿入された行数</li>
-<li>UPDATE : テーブルで更新された行数 (HOT更新を含む)</li>
-<li>DELETE : テーブルで削除された行数</li>
-<li>total : テーブルで挿入／更新／削除された行数の合計</li>
-<li>HOT (%) : テーブルで更新された行の内、HOT更新された行の割合</li>
+<li><em>Database</em>: このテーブルがあるデータベースの名前</li>
+<li><em>Schema</em>: このテーブルが属するスキーマの名前</li>
+<li><em>Table</em>: このテーブルの名前</li>
+<li><em>INSERT</em>: レポート期間中にこのテーブルに挿入された行数</li>
+<li><em>UPDATE</em>: レポート期間中にこのテーブルで更新された行数 (HOT更新を含む)</li>
+<li><em>DELETE</em>: レポート期間中にこのテーブルから削除された行数</li>
+<li><em>Total</em>: 上の3つの項目の合計</li>
+<li><em>HOT (%)</em>: テーブルで更新された行の内、HOT更新された行の割合</li>
 </ul>
 </div>
 
 <div id="heavily_accessed_tables_dialog" class="help_dialog"
-  title="How to see a Heavily Accessed Tables table">
-<h4>Heavily Accessed Tables の見方</h4>
+  title="The Heavily Accessed Tables Table">
+<h4>この表の各行はテーブルごとのスキャンの活発さを示します。初期状態では"Seq scan"の降順に並べられています。</h4>
 <ul>
-<li>database : データベース名</li>
-<li>schema : スキーマ名</li>
-<li>table : テーブル名</li>
-<li>seq_scan : シーケンシャルスキャンの実行回数</li>
-<li>seq_tup_read : シーケンシャルスキャンによって読みとられた行数</li>
-<li>tup_per_seq : シーケンシャルスキャン1回当たりに読みとられた行数</li>
-<li>hit (%) : キャッシュヒット率</li>
+<li><em>Database</em>: このテーブルがあるデータベースの名前</li>
+<li><em>Schema</em>: このテーブルが属するスキーマの名前</li>
+<li><em>Table</em>: このテーブルの名前</li>
+<li><em>Seq scan</em>: レポート期間中にこのテーブルに対して行われたシーケンシャルスキャンの回数</li>
+<li><em>Seq tup read</em>: レポート期間中にこのテーブルからシーケンシャルスキャンで読みだされたタプルの総数</li>
+<li><em>Tup per seq</em>: このテーブルからシーケンシャルスキャン1回あたりで読み出されたタプルの数のレポート期間中を通した平均値</li>
+<li><em>Hit ratio</em>: 百分率で表したこのテーブルでのキャッシュヒット率のレポート期間中の平均値</li>
 </ul>
 </div>
 
 <div id="low_density_tables_dialog" class="help_dialog"
-  title="How to see a Low Density Tables table">
-<h4>Low Density Tables の見方</h4>
+  title="The Low Density Tables Table">
+<h4>この表はレポート期間の最終スナップショットにおけるテーブルの充填率をあらわし、各行がひとつのテーブルに対応します。</h4>
 <ul>
-<li>database : データベース名</li>
-<li>schema : スキーマ名</li>
-<li>table : テーブル名</li>
-<li>tuples : テーブル内の有効行数</li>
-<li>logical_pages : レコード数が論理的に占めるページ数</li>
-<li>physical_pages : レコード数が実際に占めているページ数</li>
-<li>tratio : 論理的に占めるページ数の割合</li>
+<li><em>Database</em>: このテーブルがデータベースの名前</li>
+<li><em>Schema</em>: このテーブルが属するスキーマの名前</li>
+<li><em>Table</em>: このテーブルの名前</li>
+<li><em>Tuples</em>: このテーブル内の有効行数</li>
+<li><em>Logical pages</em>: 論理ページ数。このテーブルの有効行を収めるのに必要なページの数</li>
+<li><em>Physical pages</em>: 物理ページ数。このテーブルで実際に使用しているページの数</li>
+<li><em>L/P ratio</em>: 論理ページ数の物理ページ数に対する割合</li>
 </ul>
 </div>
 
 <div id="table_fragmentations_dialog" class="help_dialog"
-  title="How to see a Fragmented Tables table">
-<h4>Fragmented Tables の見方</h4>
+  title="The Table Fragmentations Table">
+<h4>この表の各行はカラムごとのフラグメンテーション(論理的な並びと物理的な並びの相関係数)を示します。相関係数は0に近いほどフラグメンテーションが強いことを示します。初期状態では Correlation(相関)欄の降順に並んでいます。</h4>
 <ul>
-<li>database : データベース名</li>
-<li>schema : スキーマ名</li>
-<li>table : テーブル名</li>
-<li>column : カラム名</li>
-<li>correlation : 物理的な並び順と論理的な並び順の相関</li>
+<li><em>Database</em>: このカラムを含むテーブルがあるデータベースの名前</li>
+<li><em>Schema</em>: このカラムを含むテーブルが属するスキーマの名前</li>
+<li><em>Table</em>: このカラムを含むテーブルの名前</li>
+<li><em>Column</em>: このカラムの名前</li>
+<li><em>Correlation</em>: 物理的な並び順と論理的な並び順の相関係数</li>
 </ul>
 </div>
 
 <div id="functions_dialog" class="help_dialog"
-  title="How to see a Functions table">
-<h4>Functions の見方</h4>
+  title="The Functions Table">
+<h4>このテーブルの各行は関数毎の使用統計を示します。初期状態では "Time/call" の降順に並べられています。</h4>
 <ul>
-<li>database : データベース名</li>
-<li>schema : スキーマ名</li>
-<li>function : 関数名</li>
-<li>calls : 関数が呼ばれた回数</li>
-<li>total time (ms) : 関数全体(関数内で呼ばれた別の関数を含む)の累積消費時間 (ミリ秒)</li>
-<li>self time (ms) : 関数単位の累積消費時間 (ミリ秒)</li>
-<li>time/call (ms) : 1回の関数実行当たりの消費時間 (ミリ秒)</li>
+<li><em>Database</em>: この関数があるデータベースの名前</li>
+<li><em>Schema</em>: この関数が属するスキーマの名前</li>
+<li><em>Function</em>: この関数の名前</li>
+<li><em>Calls</em>: この関数がレポート期間中に呼ばれた回数</li>
+<li><em>Total time</em>: この関数とこの関数が呼び出した他の関数全体でのレポート期間を通した累積の消費時間 (ミリ秒)</li>
+<li><em>Self time</em>: この関数自身のレポート期間を通した累積消費時間 (ミリ秒)</li>
+<li><em>Time/call</em>: この関数の1実行当たりの消費時間のレポート期間中の平均値 (ミリ秒)</li>
 </ul>
 </div>
 
 <div id="statements_dialog" class="help_dialog"
-  title="How to see a Statements table">
-<h4>Statements の見方</h4>
+  title="The Statements Table">
+<h4>このテーブルの各行は問い合わせ毎の実行統計を示します。異なるユーザ、異なるデータベースでの実行は異なる問い合わせとして扱われます。この機能を利用するには pg_stat_statements をインストールする必要があります。</h4>
 <ul>
-<li>user : 問い合わせ文を実行したユーザ名</li>
-<li>database : 問い合わせ文が実行されたデータベース名</li>
-<li>query : 問い合わせ文</li>
-<li>calls : 問い合わせ文が実行された回数</li>
-<li>total time (sec) : 問い合わせ文の累積消費時間 (秒)</li>
-<li>time/call (sec) : 1回の問い合わせ文実行当たりの消費時間 (秒)</li>
+<li><em>User</em>: この問い合わせを実行したユーザの名前</li>
+<li><em>Database</em>: この問い合わせが実行されたデータベースの名前</li>
+<li><em>Query</em>: 問い合わせ文</li>
+<li><em>Calls</em>: この問い合わせが実行された回数</li>
+<li><em>Total time</em>: この問い合わせの実行に要した時間のレポート期間中の合計 (秒)</li>
+<li><em>Time/call</em>: この問い合わせの1回あたりの実行所要時間のレポート期間中の平均値 (秒)</li>
 </ul>
 </div>
 
 <div id="plans_dialog" class="help_dialog"
-  title="How to see a Plans table">
-<h4>Plans の見方</h4>
+  title="The Plans Table">
+<h4>この表の各行は実行計画毎の実行統計を示します。"QueryID"の値をクリックすると実行計画毎の統計が表示されます。この機能を利用するには pg_stat_statements と pg_store_plans をインストールする必要があります。</h4>
 <ul>
-<li>query id : 問い合わせ文のID</li>
-<li>user : 問い合わせ文を実行したユーザ名</li>
-<li>database : 問い合わせ文が実行されたデータベース名</li>
-<li>plan count : 問い合わせ文から作成された実行計画の数</li>
-<li>calls : 問い合わせ文が実行された回数</li>
-<li>total time (sec) : 問い合わせ文の累積消費時間 (秒)</li>
-<li>time/call (sec) : 1回の問い合わせ文実行当たりの消費時間 (秒)</li>
-<li>block read time (ms) : 問い合わせ文のブロック読み取り総時間(ミリ秒)</li>
-<li>block write time (ms) : 問い合わせ文のブロック書き出し総時間(ミリ秒)</li>
-<li>query : 問い合わせ文</li>
-<li>plan information (child row) : 実行計画<ul>
-  <li>plan id : 実行計画のID</li>
-  <li>calls : 実行計画が使用された回数</li>
-  <li>total time (sec) : 問い合わせ文の累積消費時間 (秒)</li>
-  <li>time/call (sec) : 1回の問い合わせ文実行当たりの消費時間 (秒)</li>
-  <li>block read time (ms) : 問い合わせ文のブロック読み取り総時間(ミリ秒)</li>
-  <li>block write time (ms) : 問い合わせ文のブロック書き出し総時間(ミリ秒)</li>
-  <li>first call : 実行計画が最初に実行された日時</li>
-  <li>last call : 実行計画が最後に実行された日時</li>
-  <li>plan (child row) : 実行計画</li>
+<li><em>Query ID</em>: この問い合わせ文のハッシュ値. PostgreSQL 9.4以降では pg_stat_statements が算出した値、それ以外では pg_store_plans 自身が算出した値となります。 そのため、PostgreSQLの古いバージョンでの問い合わせ文の同定は pg_stat_statement と異なる場合があります。</li>
+<li><em>User</em>: この問い合わせを実行したユーザの名前</li>
+<li><em>Database</em>: この問い合わせが実行されたデータベースの名前</li>
+<li><em>Plan count</em>: この問い合わせに関して実行された実行計画の数</li>
+<li><em>Calls</em>: この問い合わせのレポート期間中の実行回数</li>
+<li><em>Total time</em>: この問い合わせの実行に要した時間のレポート期間中の合計 (秒)</li>
+<li><em>Time/call</em>: この問い合わせの実行1回あたりに要した時間のレポート期間中の平均値 (秒)</li>
+<li><em>Block read time</em>: この問い合わせの実行に際してブロック読み込みに要した時間のレポート期間中の合計 (秒)。この項目と次の項目の取得には track_io_timing を有効にしておく必要があります。</li>
+<li><em>Block write time</em>: この問い合わせの実行に際してブロック書き込みに要した時間のレポート期間中の合計 (秒)</li>
+<li><em>Query</em>: 実行計画の一覧に対応する問い合わせ文 Query ID をクリックすると現れます</li>
+<li><em>Plan details</em>: 実行計画毎の実行統計。 Query ID をクリックすると現れます<ul>
+  <li><em>Plan ID</em>: この実行計画のハッシュ値</li>
+  <li><em>Calls</em>: この実行計画がレポート期間中に実行された回数</li>
+  <li><em>Total time</em>: この実行計画の実行に要した時間のレポート期間中の合計 (秒)</li>
+  <li><em>Time/call</em>: この実行計画の実行1回あたりに要した時間のレポート期間中の平均値 (秒)</li>
+  <li><em>Block read time</em>: この実行計画の実行に際してブロック読み込みに要した時間のレポート期間中の合計 (秒)。この項目と次の項目の取得には track_io_timing を有効にしておく必要があります。</li>
+  <li><em>Block write time</em>: この実行計画の実行に際してブロック書き込みに要した時間のレポート期間中の合計 (秒)</li>
+  <li><em>First call</em>: この実行計画が最初に実行された時刻</li>
+  <li><em>Last call</em>: この実行計画が最後に実行された時刻</li>
+  <li><em>Plan</em>: 実行計画。実行計画中の値は最後に実行された際のものが表示されます。</li>
 </ul></li>
 </ul>
 </div>
 
 <div id="long_transactions_dialog" class="help_dialog"
-  title="How to see a Long Transactions table">
-<h4>Long Transactions の見方</h4>
+  title="The Long Transactions Table">
+<h4>この表は長時間継続しているトランザクションを示します。スナップショット作成時には存在するトランザクションのうち継続時間が長いものを一定数保存し、レポート作成時にはスナップショットにまたがる同一のトランザクションのデータをまとめてこの表に表示します。初期状態では継続時間(duration)の降順に並んでいます。トランザクションは"PID", クライアントアドレス, 開始時刻の組で識別します。スナップショット毎に記録するトランザクションの数の上限は pg_sttsinfo.long_transaction_max で指定します。</h4>
 <ul>
-<li>pid : ロングトランザクションのバックエンドプロセスのPID</li>
-<li>client address : ロングトランザクションのバックエンドプロセスの接続元(クライアント)のアドレス</li>
-<li>when to start : ロングトランザクションの開始日時</li>
-<li>duration (sec) : ロングトランザクションの存続期間 (秒)</li>
-<li>query : ロングトランザクションの問い合わせ文</li>
+<li><em>PID</em>: このトランザクションが実行されているバックエンドプロセスのプロセスID</li>
+<li><em>Client address</em>: このバックエンドに接続しているクライアントの IP アドレス</li>
+<li><em>Began at</em>: このトランザクションが開始された時刻</li>
+<li><em>Duration</em>: このトランザクションが開始されたからの経過時間</li>
+<li><em>Last query</em>: このトランザクションで最後に実行された問い合わせ</li>
 </ul>
 </div>
 
 <div id="lock_conflicts_dialog" class="help_dialog"
-  title="How to see a Lock Conflicts table">
-<h4>Lock Conflicts の見方</h4>
+  title="The Lock Conflicts table">
+<h4>この表はこのレポート期間内で観測されたロックの衝突を示します。</h4>
 <ul>
-<li>database : ロック待ちが発生しているオブジェクトが所属するデータベース名</li>
-<li>schema : ロック待ちが発生しているオブジェクトが所属するスキーマ名</li>
-<li>relation : ロック待ちが発生しているオブジェクト名</li>
-<li>duration : ロック待ちが発生してからの経過時間</li>
-<li>blockee pid : ロック待ちのバックエンドのPID</li>
-<li>blocker pid : ロック元のバックエンドのPID</li>
-<li>blocker gid : ロック元のバックエンドのGID</li>
-<li>blockee query : ロック待ちのトランザクションで実行中のクエリ</li>
-<li>blocker query : ロック元のトランザクションで実行したクエリ一覧</li>
+  <li><em>Database</em>: 　この衝突が発生したデータベースの名前</li>
+  <li><em>Schema</em>: 　この衝突が発生したテーブルの属するスキーマの名前。テーブル以外で生している場合は空白になります。</li>
+<li><em>Relation</em>: この衝突が発生したテーブルの名前。テーブル以外で発生している場合は空白になります。</li>
+<li><em>Duration</em>: このロックを待っていた時間 (秒)</li>
+<li><em>Blockee PID</em>: ブロックされているバックエンドのプロセスID</li>
+<li><em>Blocker PID</em>: ブロックしているバックエンドのプロセスID</li>
+<li><em>Blocker GID</em>: ブロックしているバックエンドのグループID</li>
+<li><em>Blockee query</em>: ロックを待っている問い合わせ</li>
+<li><em>Blocker query</em>: ブロックしているトランザクションで実行された問い合わせ。この項目は1000バイトで打ち切られるためすべてが収まっていない場合があります。</li>
 </ul>
 </div>
 
 <div id="checkpoints_dialog" class="help_dialog"
-  title="How to see a Checkpoint Activity table">
-<h4>Checkpoint Activity の見方</h4>
+  title="The Checkpoints Table">
+<h4>この表はチェックポイントの活動を示します。</h4>
 <ul>
-<li>total checkpoints : チェックポイントが実行された回数</li>
-<li>checkpoints by time : checkpoint_timeout契機で実行されたチェックポイントの回数</li>
-<li>checkpoints by xlog : checkpoint_segments契機で実行されたチェックポイントの回数</li>
-<li>avg written buffers : 書き出したバッファのサイズの平均値</li>
-<li>max written buffers : 書き出したバッファのサイズの最大値</li>
-<li>avg duration (sec) : 処理時間の平均値 (秒)</li>
-<li>max duration (sec) : 処理時間の最大値 (秒)</li>
+<li><em>Number of checkpoints</em>: レポート期間中に完了したチェックポイントの回数</li>
+<li><em>Caused by timeout</em>: タイムアウト契機で開始した回数</li>
+<li><em>Caused by xlogs</em>: WALの進行契機で開始した回数</li>
+<li><em>Average written buffers</em>: チェックポイント毎に書き出されたバッファの数のレポート期間を通した平均値</li>
+<li><em>Maximum written buffers</em>: チェックポイント毎に書き出されたバッファの数のレポート期間中の最大値</li>
+<li><em>Average checkpoint duration</em>: チェックポイントの所要時間のレポート期間を通じた平均値 (秒)</li>
+<li><em>Maximum checkpoint duration</em>: チェックポイントの所要時間のレポート期間中の最大値 (秒)</li>
 </ul>
 </div>
 
 <div id="autovacuum_overview_dialog" class="help_dialog"
-  title="How to see a Basic Statistics (Average) table">
-<h4>Basic Statistics (Average) の見方</h4>
+  title="The Autovacuum Overview Table">
+<h4>この表は自動Vacuum の活動を示します。各行は自動Vacuumが行われたことがログに出力されているテーブルひとつに対応しています。</h4>
 <ul>
-<li>database : データベース名</li>
-<li>schema : スキーマ名</li>
-<li>table : テーブル名</li>
-<li>count : autovacuumが実行された回数</li>
-<li>avg index scans : インデックススキャンの実施回数</li>
-<li>avg removed rows : 削除されたタプル数の平均値</li>
-<li>avg remain rows : 残存するタプル数の平均値</li>
-<li>avg remain dead : 回収できなかった無効タプルの数の平均値(pg_statsinfo 3.1以降)</li>
-<li>avg duration (sec) : 処理時間の平均値 (秒)</li>
-<li>max duration (sec) : 処理時間の最大値 (秒)</li>
-<li>cancels : autovacuumがキャンセルされた回数(pg_statsinfo 3.0以降)</li>
+ <li><em>Database</em>: このテーブルがあるデータベースの名前</li>
+<li><em>Schema</em>: このテーブルが属するスキーマの名前</li>
+<li><em>Table</em>: このテーブルの名前</li>
+<li><em>Count</em>: このテーブルに対して自動Vacuumが実行された回数</li>
+<li><em>Avg index scans</em>: 1つのテーブルに付随してスキャンしたインデックスの平均の数</li>
+<li><em>Avg removed rows</em>: 1回の自動Vacuumで削除された行のレポート期間を通した平均値</li>
+<li><em>Avg remain rows</em>: 1回の自動Vacuumの実行後に残った行のレポート期間を通じた平均値。この値は削除されなかったデットタプルの数を含みます</li>
+<li><em>Avg remain dead</em>: 1回の自動Vacuumの実行時に削除できなったデッドタプルの数のレポート期間を通じた平均値。pg_statsinfo 3.1以降かつ PostgreSQL 9.4以降でのみ有効</li>
+<li><em>Avg duration</em>: 自動Vacuumの1回あたりの所要時間のレポート期間を通した平均値 (秒)</li>
+<li><em>Max duration</em>: 自動Vacuumの所要時間のレポート期間中の最大値 (秒)</li>
+<li><em>Cancels</em>: レポート期間中にキャンセルされた自動Vacuumの回数。pg_statsinfo 3.1以降かつ PostgreSQL 9.4以降でのみ有効</li>
 </ul>
-</div>
+<div>この機能は自動Vacuumのログが必要です。log_autovacuum_min_duration を 0 に設定することで完全な情報を得られ、ログ出力を減らすと完全度は下がっていきます。</div></div>
 
 <div id="cancellations_dialog" class="help_dialog"
-  title="How to see a Vacuum and Analyze Cancels table">
-<h4>Vacuum and Analyze Cancels の見方</h4>
+  title="The Cancellations Table">
+<h4>この表はレポート期間中に発生した自動Vacuumと自動Analyzeのキャンセル情報を示します。</h4>
 <ul>
-<li>timestamp : キャンセル発生日時</li>
-<li>database : データベース名</li>
-<li>schema : スキーマ名</li>
-<li>table : テーブル名</li>
-<li>cancel : キャンセルされた処理(VACUUMまたはANALYZE)</li>
-<li>cause query : キャンセル要求元クエリ</li>
+<li><em>Time</em>: 発生日時</li>
+<li><em>Database</em>: 対象テーブルがあるデータベースの名前</li>
+<li><em>Schema</em>: 対象テーブルが属するスキーマの名前</li>
+<li><em>Table</em>: キャンセルが発生したテーブルの名前</li>
+<li><em>Activity</em>: キャンセルされた活動の種類。 ANALYZE または VACUUM</li>
+<li><em>Causal query</em>: キャンセルを引き起こした問い合わせ</li>
 </ul>
 </div>
 
 <div id="autovacuum_io_summary_dialog" class="help_dialog"
-  title="How to see a I/O Statistics (Average) table">
-<h4>I/O Statistics (Average) の見方</h4>
+  title="The Autovacuum I/O Summary Table">
+<h4>この表は自動VacuumのI/O統計を示します。各行は自動Vacuumのログで示されるテーブルひとつに対応しています。PostgreSQL 9.2 以降でのみ有効です。</h4>
 <ul>
-<li>database : データベース名</li>
-<li>schema : スキーマ名</li>
-<li>table : テーブル名</li>
-<li>avg page hit : page hit の平均値</li>
-<li>avg page miss : page miss の平均値</li>
-<li>avg page dirty : page dirty の平均値</li>
-<li>avg read rate : read rate の平均値</li>
-<li>avg write rate : write rate の平均値</li>
+<li><em>Database</em>: このテーブルがあるデータベースの名前</li>
+<li><em>Schema</em>: このテーブルが属するスキーマの名前</li>
+<li><em>Table</em>: このテーブルの名前</li>
+<li><em>Avg page hit</em>: 1回の自動Vacuum毎に共有バッファから読み込んだページ数のレポート期間中の平均値</li>
+<li><em>Avg page miss</em>: 1回の自動Vacuum毎にディスクから読み込んだページ数のレポート期間中の平均値</li>
+<li><em>Avg page dirtied</em>: 1回の自動Vacuum毎に内容を変更したページ数のレポート期間中の平均値</li>
+<li><em>Avg read rate</em>: 自動Vacuum中のディスク読み込み速度のレポート期間中の平均値 (MB/s)</li>
+<li><em>Avg write rate</em>: 自動Vacuum中のディスク書き込み速度のレポート期間中の平均値 (MB/s)</li>
 </ul>
 </div>
 
 <div id="analyze_overview_dialog" class="help_dialog"
-  title="How to see a Analayze Statistics table">
-<h4>Analyze Statisticsの見方</h4>
+  title="The Analyze Overview Table">
+<h4>この表は自動ananlzyeの活動の概要を示します。各行は自動Analyzeのログで示されるテーブルひとつに対応しています。</h4>
 <ul>
-<li>database : データベース名</li>
-<li>schema : スキーマ名</li>
-<li>table : テーブル名</li>
-<li>count : autoanalyzeが実行された回数</li>
-<li>total duration (sec) : 処理時間の合計値 (秒)</li>
-<li>avg duration (sec) : 処理時間の平均値 (秒)</li>
-<li>max duration (sec) : 処理時間の最大値 (秒)</li>
-<li>last analyze time : autoanalyzeの最終実行日時(pg_statsinfo 3.0以降)</li>
-<li>cancels : autoanalyzeがキャンセルされた回数(pg_statsinfo 3.1以降)</li>
-<li>max modified rows : 最後のanalyze以降に更新されたタプル数の最大値(pg_statsinfo 3.1以降)</li>
+<li><em>Database</em>: このテーブルがあるデータベースの名前</li>
+<li><em>Schema</em>: このテーブルが属するスキーマの名前</li>
+<li><em>Table</em>: このテーブルの名前</li>
+<li><em>Count</em>: このテーブルに対してレポート期間中に実行された自動anaoyzeの回数</li>
+<li><em>Total duration</em>: このテーブルに対してレポート期間中に行われた自動Analyzeの所要時間の合計 (秒)</li>
+<li><em>Avg duration</em>: このテーブルに対して行われた自動Analyzeの1回あたりの所要時間のレポート期間を通した平均値 (秒)</li>
+<li><em>Max duration</em>: このテーブルに対してレポート期間中に行われた自動Analyzeのうちもっとも時間がかかったものの所要時間 (秒)</li>
+<li><em>Last analyzed</em>: このテーブルに対して行われた直近の自動Analyzeの時刻。pg_statsinfo 3.0以降でのみ有効</li>
+<li><em>Cancels</em>: このテーブルに対する自動Analyzeがレポート期間中にキャンセルされた回数。pg_statsinfo 3.1以降でのみ有効</li>
+<li><em>Max modified rows</em>: 自動Vacuum の実行間隔に更新された行数の最大値。pg_statsinfo 3.1以降かつ PostgreSQL 9.4以降で有効</li>
 </ul>
 </div>
 
 <div id="modified_rows_dialog" class="help_dialog"
-  title="How to see a Modified rows ratio graph">
-<h4>Modified rows ratio の見方</h4>
+  title="The Modified Rows Graph">
+<h4>このグラフは直近の自動ananlyze以降に挿入、更新ないしは削除された行の数をテーブルごとにデッドタプルを含めた全タプルに対する比率で示します。この比率は自動Analyzeの実行契機に関係します。</h4>
+<h4>軸の説明</h4>
 <ul>
-<li>横軸 : スナップショット取得日時</li>
-<li>縦軸 : パーセント(%)</li>
-<li>[テーブル名] ratio : [テーブル名]の最後のanalyze以降に変更されたタプル数の割合</li>
+<li><em>横軸</em>: 時刻</li>
+<li><em>縦軸</em>: 変更された行のデッドタプルを含む全行に対する割合 (%)</li>
 </ul>
-<p>タプル数の上位10テーブル分の情報を表示します。</p>
+<h4>凡例</h4>
+<ul>
+<li><em>[テーブル名] ratio</em>: [テーブル名]の変更された行の割合</li>
+</ul>
+<p>グラフの表示の見やすさのためタプル数で上位10テーブル分の情報のみを表示します。この値は pg_stat_get_mod_since_analyze(テーブル) / (このテーブルの reltuples) の式で算出されています。</p>
 </div>
 
 <div id="replication_overview_dialog" class="help_dialog"
-  title="How to see a Current Replication Status table">
-<h4>Current Replication Status の見方</h4>
+  title="The Replication Activity Overview Table">
+<h4>この表はレポート期間の終わりの時点でのレプリケーションの状況の概要を示します。起動した walsender 一つにつき一つのカラムが表示されます。</h4>
 <ul>
-<li>user : ユーザ名</li>
-<li>appname : アプリケーション名</li>
-<li>client addr : スタンバイのIPアドレス</li>
-<li>client_host : スタンバイのホスト名</li>
-<li>client_port : 現在接続しているポート番号</li>
-<li>backend start : walsenderの開始時刻</li>
-<li>state : walsenderの状態</li>
-<li>current location : WALの現在の書き込み位置</li>
-<li>sent location : WALの送信完了位置</li>
-<li>write location : スタンバイでのWALの書き込み完了位置 (LSNおよびWALファイル名)</li>
-<li>flush location : スタンバイでのWALのフラッシュ完了位置 (LSNおよびWALファイル名)</li>
-<li>replay location : スタンバイでのWALのREDO完了位置 (LSNおよびWALファイル名)</li>
-<li>sync priority : 同期レプリケーションの優先度</li>
-<li>sync state : レプリケーションの同期モード</li>
+<li><em>Session user</em>: この walsender プロセスに接続しているユーザの名前</li>
+<li><em>Application name</em>: この walsender プロセスに接続しているアプリケーションの名前</li>
+<li><em>Client address</em>: この walsender に接続しているクライアントのIPアドレス</li>
+<li><em>Client host</em>: この walsender に接続しているクライアントのホスト名</li>
+<li><em>Client port</em>: クライアントがこの walsender との通信に使用しているポート番号</li>
+<li><em>Started at</em>: この walsernder の起動時刻</li>
+<li><em>State</em>: walsender の状態</li>
+<li><em>Current location</em>: このクラスタでのトランザクションログの現在位置とWALセグメントファイル名</li>
+<li><em>Sent location</em>: この接続で送られた最後のトランザクションログの位置とWALセグメントファイル名</li>
+<li><em>Write location</em>: このスタンバイサーバでディスクに書き込まれた最後のトランザクションログの位置とWALセグメントファイル名</li>
+<li><em>Flush location</em>: このスタンバイサーバーでディスクにフラッシュされた最後のトランザクションログの位置とWALセグメントファイル名</li>
+<li><em>Replay location</em>: このスタンバイサーバーでデータベースにリプレイされた最後のトランザクションログの位置とWALセグメントファイル名</li>
+<li><em>Sync priority</em>: このスタンバイサーバが同期サーバに選択される優先度</li>
+<li><em>Sync state</em>: このスタンバイサーバの同期状態</li>
 </ul>
 </div>
 
 <div id="replication_delays_dialog" class="help_dialog"
-  title="How to see a Replication Delays table">
-<h4>Replication Delays の見方</h4>
+  title="The Replication Delays Graph">
+<h4>このグラフはスタンバイサーバがこのマスタからの遅れの状況を示します。</h4>
+<h4>軸の説明</h4>
 <ul>
-<li>横軸 : 時刻</li>
-<li>縦軸 : WALの遅延量 (Bytes)</li>
-<li>[アドレス]:[ポート番号] flush_delay_size : マスタとスタンバイ間のWAL書き込み遅延量 (Bytes)<br/>※同期モードのスタンバイには先頭に[sync]が表示されます</li>
-<li>[アドレス]:[ポート番号] replay_delay_size : スタンバイのリカバリ遅延量 (Bytes)<br/>※同期モードのスタンバイには先頭に[sync]が表示されます</li></ul>
+<li><em>横軸</em>: 時刻</li>
+<li><em>縦軸</em>: レプリケーションの遅延量 (Bytes)</li>
+</ul>
+<h4>判例</h4>
+<ul>
+<li><em>[アドレス]:[ポート番号] flush</em>: スタンバイでのWAL書き込み遅延量<br/>※同期モードのスタンバイには先頭に[sync]が表示されます</li>
+<li><em>[アドレス]:[ポート番号] replay</em>: スタンバイでのリカバリ遅延量<br/>※同期モードのスタンバイには先頭に[sync]が表示されます</li></ul>
 </div>
 
 <div id="tables_dialog" class="help_dialog"
-  title="How to see a Table table">
-<h4>Table の見方</h4>
+  title="The Tables Table">
+<h4>この表の各行はデータベースのひとつの表の概要を示します。</h4>
 <ul>
-<li>database : データベース名</li>
-<li>schema : スキーマ名</li>
-<li>table : テーブル名</li>
-<li>columns : カラム数</li>
-<li>rows : テーブル内の行数 (pg_statsinfo 3.0以降)</li>
-<li>MiB : テーブルサイズ (MiB)</li>
-<li>+MiB : テーブルサイズの増分量 (MiB)</li>
-<li>table scans : シーケンシャルスキャンが実行された回数</li>
-<li>index scans : インデックススキャンが実行された回数</li>
+<li><em>Database</em>: このテーブルがあるデータベースの名前</li>
+<li><em>Schema</em>: このテーブルが属するスキーマの名前</li>
+<li><em>Table</em>: このテーブルの名前</li>
+<li><em>Columns</em>: このテーブルにあるユーザカラムの数</li>
+<li><em>Rows</em>: このテーブルに格納されている行の数。pg_statsinfo 3.0以降でのみ有効</li>
+<li><em>MiB</em>: レポート時間の終わり時点でのこのテーブルのサイズ (MiB)</li>
+<li><em>+MiB</em>: レポート期間中のこのテーブルのサイズの増減 (MiB)</li>
+<li><em>Table scans</em>: レポート期間中にこのテーブルに対して行われたシーケンシャルスキャの回数</li>
+<li><em>Index scans</em>: レポート期間中にこのテーブルに対して行われたインデックススキャの回数</li>
 </ul>
-<ul>※単位換算での数値の切り捨てにより微小な値は0と表示される場合があります</ul>
+※小さな値は切り捨てにより0と表示される場合があります
 </div>
 
 <div id="indexes_dialog" class="help_dialog"
-  title="How to see a Index table">
-<h4>Index の見方</h4>
+  title="The Indexes Table">
+<h4>この表の各行は一つのインデックスの概要を示します。</h4>
 <ul>
-<li>database : データベース名</li>
-<li>schema : スキーマ名</li>
-<li>index : インデックス名</li>
-<li>table : インデックスが参照するテーブル名</li>
-<li>MiB : インデックスサイズ (MiB)</li>
-<li>+MiB : インデックスサイズの増分量 (MiB)</li>
-<li>scans : インデックススキャンの実行回数</li>
-<li>rows/scan : 1回のインデックススキャン当たりで返却された行数</li>
-<li>reads : ディスクから読み込んだブロック数</li>
-<li>hits : キャッシュから読み込んだブロック数</li>
-<li>keys : インデックスのキー値 (カラム名または括弧に囲まれた式)</li>
+<li><em>Database</em>: このインデックスがあるデータベースの名前</li>
+<li><em>Schema</em>: このインデックスが属するスキーマの名前</li>
+<li><em>Index</em>: このインデックスの名前</li>
+<li><em>Table</em>: このインデックスが属するテーブルの名前</li>
+<li><em>MiB</em>: レポート期間の終わり時点でのこのインデックスのサイズ (MiB)</li>
+<li><em>+MiB</em>: レポート期間中のこのインデックスのサイズの増減 (MiB)</li>
+<li><em>Scans</em>: レポート期間中にこのインデックスで行ったスキャンの回数</li>
+<li><em>Rows/scan</em>: 1回の単純なインデックススキャンで取得した有効タプルの数のこのレポート期間を通じた平均値</li>
+<li><em>Reads</em>: このレポート期間を通じてこのインデックスへのアクセスで読み込まれた(PostgreSQL)ディスクブロック数</li>
+<li><em>Hits</em>: このレポート期間を通じてこのインデックスへのアクセスでヒットした共有バッファブロック数</li>
+<li><em>Keys</em>: このインデックスのキーカラム</li>
 </ul>
-<ul>※単位換算での数値の切り捨てにより微小な値は0と表示される場合があります</ul>
+※小さな値は切り捨てにより0と表示される場合があります
 </div>
 
 <div id="runtime_params_dialog" class="help_dialog"
-  title="How to see a Parameter table">
-<h4>Parameter の見方</h4>
+  title="The Run-time parameters Table">
+<h4>この表は実行時パラメータの一覧です。</h4>
 <ul>
-<li>name : パラメータ名</li>
-<li>setting : パラメータ値</li>
-<li>unit : 単位</li>
-<li>source : 現在のパラメータ値のソース(変更方法)</li>
+<li><em>Name</em>: パラメータの名前</li>
+<li><em>Setting</em>: パラメータの値。レポート期間の最初と最後で違いがあった場合はその変化を示します</li>
+<li><em>Unit</em>: パラメータの単位</li>
+<li><em>Source</em>: 現在のパラメータ値のソース(設定方法)</li>
 </ul>
 </div>
 
 <div id="alerts_dialog" class="help_dialog"
-  title="How to see a Alerts table">
-<h4>Alerts の見方</h4>
+  title="The Alerts Table">
+<h4>このテーブルはこのレポート期間中のアラートの一覧を示します</h4>
+<h4>軸の説明</h4>
 <ul>
-<li>timestamp : アラート発生日時</li>
-<li>message : アラートメッセージ</li>
+<li><em>Time</em>: アラート発生日時</li>
+<li><em>Message</em>: アラートメッセージ</li>
 </ul>
 <h4>アラート設定の変更方法</h4>
-<p>リポジトリDBのアラート条件設定テーブルを更新します。<br/>
-アラート設定の詳細は <a href="http://pgstatsinfo.sourceforge.net/pg_statsinfo-ja.html#usage-alert">pg_statsinfo マニュアル</a> をご覧ください。</p>
-<p>設定例: 秒間ロールバック数の閾値を「3000」に変更する場合
+<p>リポジトリDBのアラート条件設定テーブルを更新してください。<br/>
+設定の詳細は <a href="http://pgstatsinfo.sourceforge.net/pg_statsinfo-ja.html#usage-alert">pg_statsinfo マニュアル</a> をご覧ください。</p>
+<p>設定例: インスタンス1の秒間ロールバック数の閾値を「3000」に変更する場合
 <pre style="border: 1px solid; padding: 10px;">
 UPDATE statsrepo.alert SET rollback_tps = 3000 WHERE instid = 1;
 </pre>
@@ -558,49 +602,49 @@ UPDATE statsrepo.alert SET rollback_tps = 3000 WHERE instid = 1;
 </div>
 
 <div id="profiles_dialog" class="help_dialog"
-  title="How to see a Profiles table">
-<h4>Profiles の見方</h4>
+  title="The Profiles Table">
+<h4>この表はシステムタップを使ったプロファイリングの結果を示します。</h4>
 <ul>
-<li>processing : 処理名</li>
-<li>executes : 処理を実行した回数の平均値</li>
+<li><em>Processing</em>: 調査対象</li>
+<li><em>Executes</em>: 調査対象を実行した頻度</li>
 </ul>
 </div>
 
 <div id="log_viewer_dialog" class="help_dialog"
-  title="How to use Log Viewer">
+  title="The Log Viewer">
 <h4>Search Option の使い方</h4>
 検索条件を入力し、"Search"ボタンを押下することでログを絞り込みます。
 <ul>
-<li>ELEVEL : メッセージレベルを選択します</li>
-<li>USERNAME : ユーザ名を指定します</li>
-<li>DATABASE : データベース名を指定します</li>
-<li>MESSAGE : エラーメッセージを指定します (POSIX正規表現)</li>
+<li><em>ELEVEL</em>: メッセージレベルを選択します</li>
+<li><em>USERNAME</em>: ユーザ名を指定します</li>
+<li><em>DATABASE</em>: データベース名を指定します</li>
+<li><em>MESSAGE</em>: エラーメッセージを指定します (PostgreSQL の ~ 演算子で有効なPOSIX正規表現)</li>
 </ul>
 <h4>Log の見方</h4>
 <ul>
-<li>timestamp : ログ出力日時</li>
-<li>username : ユーザ名</li>
-<li>database : データベース名</li>
-<li>pid : プロセス識別子</li>
-<li>client_addr : クライアントホスト：ポート番号</li>
-<li>session_id : セッション識別子</li>
-<li>session_line_num : セッション前行番号</li>
-<li>ps_display : コマンドタグ</li>
-<li>session_start : セッション開始日時</li>
-<li>vxid : 仮想トランザクション識別子</li>
-<li>xid : 通常トランザクション識別子</li>
-<li>elevel : エラーレベル</li>
-<li>sqlstate : SQLSTATEコード</li>
-<li>message : エラーメッセージ</li>
-<li>detail : エラーメッセージ(詳細)</li>
-<li>hint : ヒント</li>
-<li>query : エラーとなった内部的なクエリ</li>
-<li>query_pos : 内部的なクエリにおけるエラー位置の文字数</li>
-<li>context : エラーの文脈</li>
-<li>user_query : エラーとなったユーザのクエリ</li>
-<li>user_query_pos : ユーザのクエリにおけるエラー位置の文字数</li>
-<li>location : PostgreSQLソースコード上のエラー発生場所</li>
-<li>application_name : アプリケーション名</li>
+<li><em>timestamp</em>: ログ出力日時</li>
+<li><em>username</em>: ユーザ名</li>
+<li><em>database</em>: データベース名</li>
+<li><em>pid</em>: プロセス識別子</li>
+<li><em>client_addr</em>: クライアントホスト：ポート番号</li>
+<li><em>session_id</em>: セッション識別子</li>
+<li><em>session_line_num</em>: セッション前行番号</li>
+<li><em>ps_display</em>: コマンドタグ</li>
+<li><em>session_start</em>: セッション開始日時</li>
+<li><em>vxid</em>: 仮想トランザクション識別子</li>
+<li><em>xid</em>: 通常トランザクション識別子</li>
+<li><em>elevel</em>: エラーレベル</li>
+<li><em>sqlstate</em>: SQLSTATEコード</li>
+<li><em>message</em>: エラーメッセージ</li>
+<li><em>detail</em>: エラーメッセージ(詳細)</li>
+<li><em>hint</em>: ヒント</li>
+<li><em>query</em>: エラーとなった内部的なクエリ</li>
+<li><em>query_pos</em>: 内部的なクエリにおけるエラー位置の文字数</li>
+<li><em>context</em>: エラーの文脈</li>
+<li><em>user_query</em>: エラーとなったユーザのクエリ</li>
+<li><em>user_query_pos</em>: ユーザのクエリにおけるエラー位置の文字数</li>
+<li><em>location</em>: PostgreSQLソースコード上のエラー発生場所</li>
+<li><em>application_name</em>: アプリケーション名</li>
 </ul>
 </div>
 </help>
