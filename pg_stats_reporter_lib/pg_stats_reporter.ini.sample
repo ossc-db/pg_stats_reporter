@@ -43,7 +43,7 @@ alerts = true                       ; Alerts
 ; --- Statistics ---
 
 ; -- Databases Statistics --
-database_statistics = true          ; Databases Statistics
+databases_statistics = true         ; Databases Statistics
 transactions = true                 ; Transactions
 database_size_trend = true          ; Database Size Trend
 recovery_conflicts = true           ; Recovery Conflicts
@@ -93,7 +93,7 @@ checkpoints = true                  ; Checkpoints
 autovacuum_overview = true          ; Overview
 autovacuum_io_summary = true        ; I/O Summary
 analyze_overview = true             ; Analyze Overview
-modified_rows_ratio = true          ; Modified Rows
+modified_rows = true                ; Modified Rows
 cancellations = true                ; Cancellations
 
 ; -- Replication --
