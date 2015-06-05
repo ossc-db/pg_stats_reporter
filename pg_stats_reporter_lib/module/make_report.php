@@ -221,7 +221,6 @@ EOD;
 		/* CPU and Memory */
 		if ($targetList['cpu_usage']
 			|| $targetList['load_average']
-			|| $targetList['io_usage']
 			|| $targetList['memory_usage']) {
 
 			$html_string .= "<li><a href=\"#os_resource_usage\">CPU and Memory</a><ul>\n";
@@ -230,8 +229,6 @@ EOD;
 				$html_string .= "<li><a href=\"#cpu_usage\">CPU Usage</a></li>\n";
 			if ($targetList['load_average'])
 				$html_string .= "<li><a href=\"#load_average\">Load Average</a></li>\n";
-			if ($targetList['io_usage'])
-				$html_string .= "<li><a href=\"#io_usage\">I/O Usage</a></li>\n";
 			if ($targetList['memory_usage'])
 				$html_string .= "<li><a href=\"#memory_usage\">Memory Usage</a></li>\n";
 
@@ -240,7 +237,8 @@ EOD;
 
 		/* Disks */
 		if ($targetList['disk_usage_per_tablespace']
-			|| $targetList['disk_usage_per_table']) {
+			|| $targetList['disk_usage_per_table']
+			|| $targetList['io_usage']) {
 
 			$html_string .= "<li><a href=\"#disk_usage\">Disks</a><ul>\n";
 
@@ -248,6 +246,8 @@ EOD;
 				$html_string .= "<li><a href=\"#disk_usage_per_tablespace\">Disk Usage per Tablespace</a></li>\n";
 			if ($targetList['disk_usage_per_table'])
 				$html_string .= "<li><a href=\"#disk_usage_per_table\">Disk Usage per Table</a></li>\n";
+			if ($targetList['io_usage'])
+				$html_string .= "<li><a href=\"#io_usage\">I/O Usage</a></li>\n";
 
 			$html_string .= "</ul></li>\n";
 		}
@@ -472,12 +472,12 @@ function makePlainHeaderMenu()
   <li><a>CPU and Memory</a><ul>
     <li><a>CPU Usage</a></li>
     <li><a>Load Average</a></li>
-    <li><a>I/O Usage</a></li>
     <li><a>Memory Usage</a></li>
   </ul></li>
   <li><a>Disks</a><ul>
     <li><a>Disk Usage per Tablespace</a></li>
     <li><a>Disk Usage per Table</a></li>
+    <li><a>I/O Usage</a></li>
   </ul></li>
 </ul></li>
 <li><a>Activities</a><ul>
@@ -1036,10 +1036,10 @@ function makeOperatingSystemReport($conn, $target, $snapids, $errorMsg)
 
 	if (!$target['cpu_usage']
 		&& !$target['load_average']
-		&& !$target['io_usage']
 		&& !$target['memory_usage']
 		&& !$target['disk_usage_per_tablespace']
-		&& !$target['disk_usage_per_table'])
+		&& !$target['disk_usage_per_table']
+		&& !$target['io_usage'])
 		return "";
 
 	$htmlString =
@@ -1052,7 +1052,6 @@ EOD;
 	/* CPU and Memory */
 	if ($target['cpu_usage']
 		|| $target['load_average']
-		|| $target['io_usage']
 		|| $target['memory_usage']) {
 
 		$htmlString .=
@@ -1117,6 +1116,133 @@ EOD;
 			} else {
 				$htmlString .= makeErrorTag($errorMsg['st_version'], "2.4.0");
 			}
+		}
+
+		if ($target['memory_usage']) {
+			$htmlString .=
+<<< EOD
+<div id="memory_usage" class="jump_margin"></div>
+<h3>Memory Usage</h3>
+<div align="right" class="jquery_ui_button_info_h3">
+  <div><button class="help_button" dialog="#memory_usage_dialog"></button></div>
+</div>
+
+EOD;
+			if ($target['repo_version'] >= V24) {
+				$result = pg_query_params($conn, $query_string['memory_usage'], $snapids);
+				if (!$result) {
+					return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
+				}
+
+				if (pg_num_rows($result) == 0) {
+					$htmlString .= makeErrorTag($errorMsg['no_result']);
+				} else {
+					$opt = array();
+					array_push($opt, "title: 'Memory Usage (Linear Scale)'");
+					array_push($opt, "ylabel: 'Bytes'");
+					array_push($opt, "labelsKMG2: true");
+					$htmlString .= makeSimpleLineGraphHTML($result, "memory_usage", $opt, false, true);
+				}
+				pg_free_result($result);
+			} else {
+				$htmlString .= makeErrorTag($errorMsg['st_version'], "2.4.0");
+			}
+		}
+	}
+
+	/* Disks */
+	if ($target['disk_usage_per_tablespace']
+		|| $target['disk_usage_per_table']
+		|| $target['io_usage']) {
+
+	$htmlString .=
+<<< EOD
+<div id="disk_usage" class="jump_margin"></div>
+<h2>Disks</h2>
+
+EOD;
+
+		if ($target['disk_usage_per_tablespace']) {
+			$htmlString .=
+<<< EOD
+<div id="disk_usage_per_tablespace" class="jump_margin"></div>
+<h3>Disk Usage per Tablespace</h3>
+<div align="right" class="jquery_ui_button_info_h3">
+  <div><button class="help_button" dialog="#disk_usage_per_tablespace_dialog"></button></div>
+</div>
+
+EOD;
+
+			$result = pg_query_params($conn, $query_string['disk_usage_per_tablespace'], $snapids);
+			if (!$result) {
+				return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
+			}
+
+			if (pg_num_rows($result) == 0) {
+				$htmlString .= makeErrorTag($errorMsg['no_result']);
+			} else {
+				$htmlString .= makeTablePagerHTML($result, "disk_usage_per_tablespace", 5, true);
+			}
+			pg_free_result($result);
+		}
+
+		if ($target['disk_usage_per_table']) {
+			$htmlString .=
+<<< EOD
+<div id="disk_usage_per_table" class="jump_margin"></div>
+<h3>Disk Usage per Table</h3>
+<div align="right" class="jquery_ui_button_info_h3">
+  <div><button class="help_button" dialog="#disk_usage_per_table_dialog"></button></div>
+</div>
+
+EOD;
+
+			// Disk Usage per Table
+			$result = pg_query_params($conn, $query_string['disk_usage_per_table'], $snapids);
+			if (!$result) {
+				return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
+			}
+
+			if (pg_num_rows($result) == 0) {
+				$htmlString .= makeErrorTag($errorMsg['no_result']);
+			} else {
+				$htmlString .= makeTablePagerHTML($result, "disk_usage_per_table", 10, true);
+			}
+			pg_free_result($result);
+
+			// Table Size
+			$result = pg_query_params($conn, $query_string['table_size'], array($snapids[1]));
+			if (!$result) {
+				return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
+			}
+
+			if (pg_num_rows($result) == 0) {
+				$htmlString .= makeErrorTag($errorMsg['no_result']);
+			} else {
+				$value = makeTupleListForPieGraph($result);
+				if (count($value) == 0)
+					$htmlString .= makeErrorTag($errorMsg['no_result']);
+				else
+					$htmlString .= makePieGraphHTML($value, "table_size", "Table Size");
+			}
+			pg_free_result($result);
+
+			// Disk Read
+			$result = pg_query_params($conn, $query_string['disk_read'], $snapids);
+			if (!$result) {
+				return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
+			}
+
+			if (pg_num_rows($result) == 0) {
+				$htmlString .= makeErrorTag($errorMsg['no_result']);
+			} else {
+				$value = makeTupleListForPieGraph($result);
+				if (count($value) ==0)
+					$htmlString .= makeErrorTag($errorMsg['no_result']);
+				else
+					$htmlString .= makePieGraphHTML($value, "disk_read", "Disk Read");
+			}
+			pg_free_result($result);
 		}
 
 		if ($target['io_usage']) {
@@ -1219,131 +1345,6 @@ EOD;
 			pg_free_result($result);
 		}
 
-		if ($target['memory_usage']) {
-			$htmlString .=
-<<< EOD
-<div id="memory_usage" class="jump_margin"></div>
-<h3>Memory Usage</h3>
-<div align="right" class="jquery_ui_button_info_h3">
-  <div><button class="help_button" dialog="#memory_usage_dialog"></button></div>
-</div>
-
-EOD;
-			if ($target['repo_version'] >= V24) {
-				$result = pg_query_params($conn, $query_string['memory_usage'], $snapids);
-				if (!$result) {
-					return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
-				}
-
-				if (pg_num_rows($result) == 0) {
-					$htmlString .= makeErrorTag($errorMsg['no_result']);
-				} else {
-					$opt = array();
-					array_push($opt, "title: 'Memory Usage (Linear Scale)'");
-					array_push($opt, "ylabel: 'Bytes'");
-					array_push($opt, "labelsKMG2: true");
-					$htmlString .= makeSimpleLineGraphHTML($result, "memory_usage", $opt, false, true);
-				}
-				pg_free_result($result);
-			} else {
-				$htmlString .= makeErrorTag($errorMsg['st_version'], "2.4.0");
-			}
-		}
-	}
-
-	/* Disks */
-	if ($target['disk_usage_per_tablespace']
-		|| $target['disk_usage_per_table']) {
-
-	$htmlString .=
-<<< EOD
-<div id="disk_usage" class="jump_margin"></div>
-<h2>Disks</h2>
-
-EOD;
-
-		if ($target['disk_usage_per_tablespace']) {
-			$htmlString .=
-<<< EOD
-<div id="disk_usage_per_tablespace" class="jump_margin"></div>
-<h3>Disk Usage per Tablespace</h3>
-<div align="right" class="jquery_ui_button_info_h3">
-  <div><button class="help_button" dialog="#disk_usage_per_tablespace_dialog"></button></div>
-</div>
-
-EOD;
-
-			$result = pg_query_params($conn, $query_string['disk_usage_per_tablespace'], $snapids);
-			if (!$result) {
-				return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
-			}
-
-			if (pg_num_rows($result) == 0) {
-				$htmlString .= makeErrorTag($errorMsg['no_result']);
-			} else {
-				$htmlString .= makeTablePagerHTML($result, "disk_usage_per_tablespace", 5, true);
-			}
-			pg_free_result($result);
-		}
-
-		if ($target['disk_usage_per_table']) {
-			$htmlString .=
-<<< EOD
-<div id="disk_usage_per_table" class="jump_margin"></div>
-<h3>Disk Usage per Table</h3>
-<div align="right" class="jquery_ui_button_info_h3">
-  <div><button class="help_button" dialog="#disk_usage_per_table_dialog"></button></div>
-</div>
-
-EOD;
-
-			// Disk Usage per Table
-			$result = pg_query_params($conn, $query_string['disk_usage_per_table'], $snapids);
-			if (!$result) {
-				return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
-			}
-
-			if (pg_num_rows($result) == 0) {
-				$htmlString .= makeErrorTag($errorMsg['no_result']);
-			} else {
-				$htmlString .= makeTablePagerHTML($result, "disk_usage_per_table", 10, true);
-			}
-			pg_free_result($result);
-
-			// Table Size
-			$result = pg_query_params($conn, $query_string['table_size'], array($snapids[1]));
-			if (!$result) {
-				return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
-			}
-
-			if (pg_num_rows($result) == 0) {
-				$htmlString .= makeErrorTag($errorMsg['no_result']);
-			} else {
-				$value = makeTupleListForPieGraph($result);
-				if (count($value) == 0)
-					$htmlString .= makeErrorTag($errorMsg['no_result']);
-				else
-					$htmlString .= makePieGraphHTML($value, "table_size", "Table Size");
-			}
-			pg_free_result($result);
-
-			// Disk Read
-			$result = pg_query_params($conn, $query_string['disk_read'], $snapids);
-			if (!$result) {
-				return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
-			}
-
-			if (pg_num_rows($result) == 0) {
-				$htmlString .= makeErrorTag($errorMsg['no_result']);
-			} else {
-				$value = makeTupleListForPieGraph($result);
-				if (count($value) ==0)
-					$htmlString .= makeErrorTag($errorMsg['no_result']);
-				else
-					$htmlString .= makePieGraphHTML($value, "disk_read", "Disk Read");
-			}
-			pg_free_result($result);
-		}
 	}
 
 	return $htmlString;

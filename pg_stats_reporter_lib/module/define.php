@@ -84,10 +84,10 @@ $report_default = array(
   'backend_states'            => true,
   'cpu_usage'                 => true,
   'load_average'              => true,
-  'io_usage'                  => true,
   'memory_usage'              => true,
   'disk_usage_per_tablespace' => true,
   'disk_usage_per_table'      => true,
+  'io_usage'                  => true,
   'heavily_updated_tables'    => true,
   'heavily_accessed_tables'   => true,
   'low_density_tables'        => true,
@@ -124,10 +124,10 @@ $help_list = array(
   'backend_states'            => 'backend_states_dialog',
   'cpu_usage'                 => 'cpu_usage_dialog',
   'load_average'              => 'load_average_dialog',
-  'io_usage'                  => 'io_usage_dialog',
   'memory_usage'              => 'memory_usage_dialog',
   'disk_usage_per_tablespace' => 'disk_usage_per_tablespace_dialog',
   'disk_usage_per_table'      => 'disk_usage_per_table_dialog',
+  'io_usage'                  => 'io_usage_dialog',
   'heavily_updated_tables'    => 'heavily_updated_tables_dialog',
   'heavily_accessed_tables'   => 'heavily_accessed_tables_dialog',
   'low_density_tables'        => 'low_density_tables_dialog',
@@ -201,6 +201,23 @@ $query_string = array(
   "load_average" =>
   "SELECT replace(\"timestamp\", '-', '/'), avg(\"1min\") AS \"1min\", avg(\"5min\") AS \"5min\", avg(\"15min\") AS \"15min\" FROM statsrepo.get_loadavg_tendency($1, $2) GROUP BY 1 ORDER BY 1",
 
+  "memory_usage" =>
+  "SELECT replace(\"timestamp\", '-', '/'), avg(memfree*1024*1024) AS memfree, avg(buffers*1024*1024) AS buffers, avg(cached*1024*1024) AS cached, avg(swap*1024*1024) AS swap, avg(dirty*1024*1024) AS dirty FROM statsrepo.get_memory_tendency($1, $2) GROUP BY 1 ORDER BY 1",
+
+  // Disks
+  "disk_usage_per_tablespace" =>
+  "SELECT spcname AS \"Tablespace\", location AS \"Location\", device AS \"Device\", used AS \"Used (MiB)\", avail AS \"Avail (MiB)\", remain AS \"Remain (%)\" FROM statsrepo.get_disk_usage_tablespace($1, $2)",
+
+  "disk_usage_per_table" =>
+  "SELECT datname AS \"Database\", nspname AS \"Schema\", relname AS \"Table\", size AS \"Size (MiB)\", table_reads AS \"Table reads\", index_reads AS \"Index reads\", toast_reads AS \"Toast reads\" FROM statsrepo.get_disk_usage_table($1, $2)",
+
+  "table_size" =>
+  "SELECT e.database || '.' || e.schema || '.' || e.table, e.size/1024/1024 AS \"MiB\" FROM statsrepo.tables e WHERE e.snapid = $1 ORDER BY 2 DESC LIMIT 15",
+
+  "disk_read" =>
+  "SELECT e.database || '.' || e.schema || '.' || e.table, statsrepo.sub(e.heap_blks_read, b.heap_blks_read) + statsrepo.sub(e.idx_blks_read, b.idx_blks_read) + statsrepo.sub(e.toast_blks_read, b.toast_blks_read) + statsrepo.sub(e.tidx_blks_read, b.tidx_blks_read) FROM statsrepo.tables e LEFT JOIN statsrepo.table b ON e.tbl = b.tbl AND e.nsp = b.nsp AND e.dbid = b.dbid AND b.snapid = $1 WHERE e.snapid = $2 ORDER BY 2 DESC limit 15",
+
+  /* Activities */
   "io_usage31" =>
   "SELECT device_name AS \"Device name\", device_tblspaces AS \"Containing table spaces\", total_read AS \"total read (MiB)\", read_size_tps_peak AS \"peak read\", total_read_time AS \"total read time (ms)\", total_write AS \"total write (MiB)\", write_size_tps_peak AS \"peak write\", total_write_time AS \"total write time (ms)\", io_queue AS \"Average I/O queue\", total_io_time AS \"Total I/O time (ms)\" FROM statsrepo.get_io_usage($1, $2)",
 
@@ -219,23 +236,6 @@ $query_string = array(
   "io_time" => // temporary (ms/s to s/s -> ms/s to percent)
   "SELECT replace(\"timestamp\", '-', '/'), device_name, avg(read_time_tps)/10 AS \"avg read time\", avg(write_time_tps)/10 AS \"avg write time\" FROM statsrepo.get_io_usage_tendency_report($1, $2) GROUP BY 1,2 ORDER BY 1,2",
 
-  "memory_usage" =>
-  "SELECT replace(\"timestamp\", '-', '/'), avg(memfree*1024*1024) AS memfree, avg(buffers*1024*1024) AS buffers, avg(cached*1024*1024) AS cached, avg(swap*1024*1024) AS swap, avg(dirty*1024*1024) AS dirty FROM statsrepo.get_memory_tendency($1, $2) GROUP BY 1 ORDER BY 1",
-
-  // Disks
-  "disk_usage_per_tablespace" =>
-  "SELECT spcname AS \"Tablespace\", location AS \"Location\", device AS \"Device\", used AS \"Used (MiB)\", avail AS \"Avail (MiB)\", remain AS \"Remain (%)\" FROM statsrepo.get_disk_usage_tablespace($1, $2)",
-
-  "disk_usage_per_table" =>
-  "SELECT datname AS \"Database\", nspname AS \"Schema\", relname AS \"Table\", size AS \"Size (MiB)\", table_reads AS \"Table reads\", index_reads AS \"Index reads\", toast_reads AS \"Toast reads\" FROM statsrepo.get_disk_usage_table($1, $2)",
-
-  "table_size" =>
-  "SELECT e.database || '.' || e.schema || '.' || e.table, e.size/1024/1024 AS \"MiB\" FROM statsrepo.tables e WHERE e.snapid = $1 ORDER BY 2 DESC LIMIT 15",
-
-  "disk_read" =>
-  "SELECT e.database || '.' || e.schema || '.' || e.table, statsrepo.sub(e.heap_blks_read, b.heap_blks_read) + statsrepo.sub(e.idx_blks_read, b.idx_blks_read) + statsrepo.sub(e.toast_blks_read, b.toast_blks_read) + statsrepo.sub(e.tidx_blks_read, b.tidx_blks_read) FROM statsrepo.tables e LEFT JOIN statsrepo.table b ON e.tbl = b.tbl AND e.nsp = b.nsp AND e.dbid = b.dbid AND b.snapid = $1 WHERE e.snapid = $2 ORDER BY 2 DESC limit 15",
-
-  /* Activities */
   // Notable Tables
   "heavily_updated_tables" =>
   "SELECT datname AS \"Database\", nspname AS \"Schema\", relname AS \"Table\", n_tup_ins AS \"INSERT\", n_tup_upd AS \"UPDATE\", n_tup_del AS \"DELETE\", n_tup_total AS \"Total\", hot_upd_rate AS \"HOT (%)\" FROM statsrepo.get_heavily_updated_tables($1, $2)",
