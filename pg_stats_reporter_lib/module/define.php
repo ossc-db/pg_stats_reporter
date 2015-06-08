@@ -310,7 +310,7 @@ $query_string = array(
   "SELECT datname AS \"Database\", nspname AS \"Schema\", relname AS \"Table\", \"count\" AS \"Count\", total_duration AS \"Total duration (sec)\", avg_duration AS \"Avg duration (sec)\", max_duration AS \"Max duration (sec)\", last_analyze AS \"Last analyzed\", cancels AS \"Cancels\", mod_rows_max AS \"Max modified rows\" FROM statsrepo.get_autoanalyze_stats($1, $2)", 
 
   "modified_rows" =>
-  "SELECT replace(\"timestamp\", '-', '/') AS timestamp, datname||'.'||nspname||','||relname, ratio FROM statsrepo.get_modified_row_ratio($1, $2, $3)",
+  "SELECT replace(\"timestamp\", '-', '/') AS timestamp, datname||'.'||nspname||'.'||relname, ratio FROM statsrepo.get_modified_row_ratio($1, $2, $3)",
 
   // Replication
   "replication_overview" =>
