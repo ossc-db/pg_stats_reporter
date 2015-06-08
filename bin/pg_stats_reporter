@@ -202,14 +202,18 @@ $installDir = $globalSetting[INSTALL_DIR];
 
 // require submodule
 $include_files =
-     array("pg_stats_reporter_lib/module/define.php", "pg_stats_reporter_lib/module/common.php",
-           "pg_stats_reporter_lib/module/make_report.php", "pg_stats_reporter_lib/module/make_report_plans.php",
-	   "pg_stats_reporter_lib/module/make_report_list.php");
+     array("define.php", "common.php",
+           "make_report.php", "make_report_plans.php",
+                  "make_report_list.php");
+$module_path =
+     joinPathComponents($installDir, "pg_stats_reporter_lib/module");
 
 foreach ($include_files as $f) {	       
-  if (!@include_once(($includePath = joinPathComponents($installDir, $f))))
+  if (!@include_once(($includePath = joinPathComponents($module_path, $f))))
 	elog(ERROR, "Failed to include file: %s", $includePath);
 }
+
+// the variable SMARTY_PATH is defined in define.php
 if (!@include_once(($includePath = joinPathComponents($installDir, "html/pg_stats_reporter/".SMARTY_PATH."/Smarty.class.php"))))
 	elog(ERROR, "Failed to include file: %s", $includePath);
 
