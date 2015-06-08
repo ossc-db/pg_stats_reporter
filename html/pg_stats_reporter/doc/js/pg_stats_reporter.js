@@ -35,14 +35,14 @@ $(function(){
   };
 
   // Summary
-  $("#summary_table").tablesorter(
+  $("#overview_table").tablesorter(
     $.extend({}, tablesorterDefaultOptions, {
       widgets: [ ]
     })
   );
 
   // Database Statistics
-  $("#database_statistics_table").tablesorter(
+  $("#databases_statistics_table").tablesorter(
     $.extend({}, tablesorterDefaultOptions, {
       sortList: [[1,1]],
       headers: {
@@ -59,7 +59,7 @@ $(function(){
   )
   .tablesorterPager(
     $.extend({}, pagerDefaultOptions, {
-      container: $('#pager_database_statistics'),
+      container: $('#pager_databases_statistics'),
       size: 5
     })
   );
@@ -85,14 +85,14 @@ $(function(){
   );
 
   // WAL Statistics
-  $("#wal_statistics_stats_table").tablesorter(
+  $("#write_ahead_logs_stats_table").tablesorter(
     $.extend({}, tablesorterDefaultOptions, {
       widgets: [ ]
     })
   );
 
   // Instance Processes Raito
-  $("#instance_processes_ratio_table").tablesorter(
+  $("#backend_states_overview_table").tablesorter(
     $.extend({}, tablesorterDefaultOptions, {
       headers: {
         0: { sorter: false },
@@ -222,7 +222,7 @@ $(function(){
   );
 
   // Fragmented Tables
-  $("#fragmented_tables_table").tablesorter(
+  $("#table_fragmentations_table").tablesorter(
     $.extend({}, tablesorterDefaultOptions, {
       sortList: [[4,1]],
       headers: {
@@ -232,7 +232,7 @@ $(function(){
   )
   .tablesorterPager(
     $.extend({}, pagerDefaultOptions, {
-      container: $('#pager_fragmented_tables'),
+      container: $('#pager_table_fragmentations'),
       size: 10
     })
   );
@@ -360,14 +360,14 @@ $(function(){
   );
 
   // Checkpoint Activity
-  $("#checkpoint_activity_table").tablesorter(
+  $("#checkpoints_table").tablesorter(
     $.extend({}, tablesorterDefaultOptions, {
       widgets: [ ]
     })
   );
 
   // Autovacuum Activity(Basic Statistics)
-  $("#basic_statistics_table").tablesorter(
+  $("#autovacuum_overview_table").tablesorter(
     $.extend({}, tablesorterDefaultOptions, {
       sortList: [[4,1]],
       headers: {
@@ -383,26 +383,26 @@ $(function(){
   )
   .tablesorterPager(
     $.extend({}, pagerDefaultOptions, {
-      container: $('#pager_basic_statistics'),
+      container: $('#pager_autovacuum_overview'),
       size: 10
     })
   );
 
   // Autovacuum Activity(Vacuum Cancels)
-  $("#vacuum_cancels_table").tablesorter(
+  $("#cancellations_table").tablesorter(
     $.extend({}, tablesorterDefaultOptions, {
       sortList: [[0,1]]
     })
   )
   .tablesorterPager(
     $.extend({}, pagerDefaultOptions, {
-      container: $('#pager_vacuum_cancels'),
+      container: $('#pager_cancellations'),
       size: 10
     })
   );
 
   // Autovacuum Activity(I/O Statistics)
-  $("#io_statistics_table").tablesorter(
+  $("#autovacuum_io_summary_table").tablesorter(
     $.extend({}, tablesorterDefaultOptions, {
       sortList: [[4,1]],
       headers: {
@@ -416,13 +416,13 @@ $(function(){
   )
   .tablesorterPager(
     $.extend({}, pagerDefaultOptions, {
-      container: $('#pager_io_statistics'),
+      container: $('#pager_autovacuum_io_summary'),
       size: 10
     })
   );
 
   // Autovacuum Activity(Analyze Statistics)
-  $("#analyze_statistics_table").tablesorter(
+  $("#analyze_overview_table").tablesorter(
     $.extend({}, tablesorterDefaultOptions, {
       sortList: [[4,1]],
       headers: {
@@ -435,20 +435,20 @@ $(function(){
   )
   .tablesorterPager(
     $.extend({}, pagerDefaultOptions, {
-      container: $('#pager_analyze_statistics'),
+      container: $('#pager_analyze_overview'),
       size: 10
     })
   );
 
   // Replication Activity
-  $("#current_replication_status_table").tablesorter(
+  $("#replication_overview_table").tablesorter(
     $.extend({}, tablesorterDefaultOptions, {
       widgets: [ ]
     })
   );
 
   // Table (Schema Information)
-  $("#table_table").tablesorter(
+  $("#tables_table").tablesorter(
     $.extend({}, tablesorterDefaultOptions, {
       headers: {
         3: { sorter: "digit" },
@@ -462,13 +462,13 @@ $(function(){
   )
   .tablesorterPager(
     $.extend({}, pagerDefaultOptions, {
-      container: $('#pager_table'),
+      container: $('#pager_tables'),
       size: 10
     })
   );
 
   // Index (Schema Information)
-  $("#index_table").tablesorter(
+  $("#indexes_table").tablesorter(
     $.extend({}, tablesorterDefaultOptions, {
       headers: {
         3: { sorter: "digit" },
@@ -484,13 +484,13 @@ $(function(){
   )
   .tablesorterPager(
     $.extend({}, pagerDefaultOptions, {
-      container: $('#pager_index'),
+      container: $('#pager_indexes'),
       size: 10
     })
   );
 
   // Parameter (Setting Parameters)
-  $("#parameter_table").tablesorter(
+  $("#runtime_params_table").tablesorter(
     $.extend({}, tablesorterDefaultOptions, {
       headers: {
         2: { sorter: false }
@@ -499,20 +499,20 @@ $(function(){
   )
   .tablesorterPager(
     $.extend({}, pagerDefaultOptions, {
-      container: $('#pager_parameter'),
+      container: $('#pager_runtime_params'),
       size: 10
     })
   );
 
   // Alert
-  $("#alert_table").tablesorter(
+  $("#alerts_table").tablesorter(
     $.extend({}, tablesorterDefaultOptions, {
       sortList: [[0,0]]
     })
   )
   .tablesorterPager(
     $.extend({}, pagerDefaultOptions, {
-      container: $('#pager_alert'),
+      container: $('#pager_alerts'),
       size: 10
     })
   );
