@@ -685,9 +685,11 @@ EOD;
 	$html_string .= makeInformationReport($conn, $targetData, $snapids, $error_message);
 
 	/* full query string dialog */
-	$html_string .= "\n<!-- full query string dialog -->\n";
-	foreach($fullquery_string as $query)
-		$html_string .= $query;
+	if (count($fullquery_string) != 0) {
+		$html_string .= "\n<!-- full query string dialog -->\n";
+		foreach($fullquery_string as $query)
+			$html_string .= $query;
+	}
 
 	/* help dialog */
 	$html_string .= "\n<!-- help dialog -->\n";
