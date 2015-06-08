@@ -204,12 +204,14 @@ $installDir = $globalSetting[INSTALL_DIR];
 $include_files =
      array("pg_stats_reporter_lib/module/define.php", "pg_stats_reporter_lib/module/common.php",
            "pg_stats_reporter_lib/module/make_report.php", "pg_stats_reporter_lib/module/make_report_plans.php",
-	   "pg_stats_reporter_lib/module/make_report_list.php", "html/pg_stats_reporter/".SMARTY_PATH."/Smarty.class.php");
+	   "pg_stats_reporter_lib/module/make_report_list.php");
 
 foreach ($include_files as $f) {	       
-  if (!@include_once(($includePath = joinPathComponents($installDir, "pg_stats_reporter_lib/module/define.php"))))
+  if (!@include_once(($includePath = joinPathComponents($installDir, $f))))
 	elog(ERROR, "Failed to include file: %s", $includePath);
 }
+if (!@include_once(($includePath = joinPathComponents($installDir, "html/pg_stats_reporter/".SMARTY_PATH."/Smarty.class.php"))))
+	elog(ERROR, "Failed to include file: %s", $includePath);
 
 // read pg_stats_reporter.ini
 if (($infoData = initInformationFileForCommandline(
@@ -262,7 +264,7 @@ if (isset($optionInfo["repositorydb"])) {
 }
 
 // create message file list
-createMessageFileList(joinPathComponents($installDir, "pg_stats_reporter_lib/message"), $msgFileList);
+createMessageFileList(joinPathComponents($installDir, "pg_stats_reporter_lib/message/"), $msgFileList);
 
 // execute command line function
 if ($optionInfo["list"]) {
