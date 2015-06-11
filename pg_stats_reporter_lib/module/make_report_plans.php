@@ -180,6 +180,37 @@ EOD;
 		}
 	}
 
+	/* output last data */
+	$childHtmlString = "<tr><td rowspan=\"2\" class=\"num\"><a href=\"#\" class=\"toggle\">".$planid."</a></td>";
+	for ($j = 4 ; $j < 11 ; $j++ ) {
+		$childHtmlString .= "<td class=\"".getDataTypeClass(pg_field_type($result, $j))."\">".htmlspecialchars(pg_fetch_result($result, $i-1, $j), ENT_QUOTES)."</td>";
+	}
+	/* get plan string */
+	$result2 = pg_query_params($conn, $query_string[$exists_pg_store_plans], $pparam) ;
+	if (!$result2) {
+		return makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
+	}
+	$childHtmlString .= "</tr><tr class=\"tablesorter-childRow\"><td colspan=\"7\" class=\"str\"><pre>".pg_fetch_result($result2, 0, 0)."</pre></td></tr>";
+	pg_free_result($result2);
+	$htmlString .= "<tr><td rowspan=\"3\" class=\"num\"><a href=\"#\" class=\"toggle\">".$qid."</a></td>";
+	$htmlString .="<td class=\"str\">".htmlspecialchars($uname, ENT_QUOTES)."</td>";
+	$htmlString .="<td class=\"str\">".htmlspecialchars($dname, ENT_QUOTES)."</td>";
+	$htmlString .="<td class=\"num\">".htmlspecialchars($pcount, ENT_QUOTES)."</td>";
+	$htmlString .="<td class=\"num\">".htmlspecialchars($callcount, ENT_QUOTES)."</td>";
+	$htmlString .="<td class=\"num\">".htmlspecialchars(number_format($ttime, 3, '.', ''), ENT_QUOTES)."</td>";
+	$htmlString .="<td class=\"num\">".htmlspecialchars(number_format(($callcount==0?0:$ttime/$callcount), 3, '.', ''), ENT_QUOTES)."</td>";
+	$htmlString .="<td class=\"num\">".htmlspecialchars(number_format($bread, 3, '.', ''), ENT_QUOTES)."</td>";
+	$htmlString .="<td class=\"num\">".htmlspecialchars(number_format($bwrite, 3, '.', ''), ENT_QUOTES)."</td>";
+	$htmlString .= "</tr>\n<tr class=\"tablesorter-childRow\"><td colspan=\"8\" class=\"str\">";
+	$htmlString .= makeQueryDialog("plans", $qstr);
+	$htmlString .="</td></tr>\n";
+
+	$htmlString .= "<tr class=\"tablesorter-childRow\">\n";
+	$htmlString .= "<td colspan=\"8\"><table class=\"tablesorter childRowTable\"><thead><tr><th rowspan=\"2\">Plan ID</th><th>Calls</th><th>Total time (sec)</th><th>Time/call (sec)</th><th>Block read time (ms)</th><th>Block write time (ms)</th><th>First call</th><th>Last call</th></tr><tr><th colspan=\"7\">Plan (child row)</th></tr></thead><tbody>\n";
+	$htmlString .= $childHtmlString;
+	$htmlString .= "</tbody></table></td>\n";
+	$htmlString .= "</tr>\n\n";
+
 	$htmlString .= "</tbody>\n</table>\n";
 	$htmlString .= makePagerHTML("plans", 10)."</div>\n";
 
