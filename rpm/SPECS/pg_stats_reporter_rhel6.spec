@@ -1,5 +1,5 @@
 Name:			pg_stats_reporter
-Version:		3.0.0
+Version:		3.1.0
 Release:		1%{?dist}
 Summary:		Graphical viewer for pg_statsinfo
 Summary(ja):	pg_statsinfo 用グラフィカルビューア
@@ -7,7 +7,7 @@ Group:			Applications/Databases
 License:		BSD
 URL:			http://pgstatsinfo.sourceforge.net/index_ja.html
 Packager:		NIPPON TELEGRAPH AND TELEPHONE CORPORATION
-Source0:		pg_stats_reporter-3.0.0.tar.gz
+Source0:		%{name}-%{version}.tar.gz
 BuildRoot:		%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:		noarch
 Requires:		php >= 5.3.3, php-pgsql >= 5.3.3
@@ -66,6 +66,8 @@ if [ $1 = 1 ] ; then
 fi
 
 %changelog
+* Thu Jun  11 2015 - NTT OSS Center 3.1.0-1
+- pg_stats_reporter 3.1.0 released
 * Thu Jul  24 2014 - NTT OSS Center 3.0.0-1
 - pg_stats_reporter 3.0.0 released
 * Fri Oct  25 2013 - NTT OSS Center 2.0.0-1
