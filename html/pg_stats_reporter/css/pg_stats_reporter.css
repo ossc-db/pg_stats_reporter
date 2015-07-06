@@ -372,4 +372,6 @@ li em {
 pre {
   margin-top: 0px;
   margin-bottom: 0px;
+  overflow: auto;
+  max-width: 100em;
 }

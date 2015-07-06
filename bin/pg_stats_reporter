@@ -554,7 +554,7 @@ function parseCommandOptions(&$optionInfo)
 					elog(ERROR, "Invalid option -- '%s'".$addMsg, $opt);
 			}
 		} else {
-			elog(ERROR, "Unrecognized option: '$s'".$addMsg, $opt);
+			elog(ERROR, "Unrecognized option: '%s'".$addMsg, $opt);
 		}
 	}
 	checkOptionCombination($optionInfo, $addMsg);
