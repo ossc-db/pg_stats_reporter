@@ -34,80 +34,80 @@ username = postgres
 ; --- Language Setting ---
 language = auto
 
-; --- Summary ---
-overview = true
+; --- Report Overview ---
+overview = true                     ; Report Overview
 
-; -- Alert --
-alert = true
+; -- Alerts --
+alerts = true                       ; Alerts
 
-; --- Database System ---
+; --- Statistics ---
 
-; -- Database Statistics --
-database_statistics = true
-transaction_statistics = true
-database_size = true
-recovery_conflicts = true
+; -- Databases Statistics --
+databases_statistics = true         ; Databases Statistics
+transactions = true                 ; Transactions
+database_size = true                ; Database Size
+recovery_conflicts = true           ; Recovery Conflicts
 
-; -- Instance Activity --
-wal_statistics = true
-instance_processes_ratio = true
-instance_processes = true
+; -- Instance Statistics --
+write_ahead_logs = true             ; Write Ahead Logs
+backend_states_overview = true      ; Backend States Overview
+backend_states = true               ; Backend States
 
-; --- Operating System ---
+; --- OS Resources ---
 
-; -- OS Resource Usage --
-cpu_usage = true
-load_average = true
-io_usage = true
-memory_usage = true
+; -- CPU and Memory --
+cpu_usage = true                    ; CPU Usage
+load_average = true                 ; Load Average
+memory_usage = true                 ; Memory Usage
 
-; -- Disk Usage --
-disk_usage_per_tablespace = true
-disk_usage_per_table = true
+; -- Disks --
+disk_usage_per_tablespace = true    ; Disk Usage per Tablespace
+disk_usage_per_table = true         ; Disk Usage per Table
+io_usage = true                     ; I/O Usage
 
-; --- SQL ---
+; --- Activities ---
 
 ; -- Notable Tables --
-heavily_updated_tables = true
-heavily_accessed_tables = true
-low_density_tables = true
-fragmented_tables = true
+heavily_updated_tables = true       ; Heavily Updated Tables
+heavily_accessed_tables = true      ; Heavily Accessed Tables
+low_density_tables = true           ; Low Density Tables
+table_fragmentations = true         ; Table Fragmentations
 
 ; -- Query Activity --
-functions = true
-statements = true
-plans = true
+functions = true                    ; Functions
+statements = true                   ; Statements
+plans = true                        ; Plans
 
 ; -- Long Transactions --
-long_transactions = true
+long_transactions = true            ; Long Transactions
 
 ; -- Lock Conflicts --
-lock_conflicts = true
+lock_conflicts = true               ; Lock Conflicts
 
-; --- Operation Activity ---
+; --- Maintenance ---
 
-; -- Checkpoint Activity --
-checkpoint_activity = true
+; -- Checkpoints --
+checkpoints = true                  ; Checkpoints
 
-; -- Autovacuum Activity --
-basic_statistics = true
-io_statistics = true
-analyze_statistics = true
-modified_rows_ratio = true
-vacuum_cancels = true
+; -- Autovacuums --
+autovacuum_overview = true          ; Overview
+autovacuum_io_summary = true        ; I/O Summary
+analyze_overview = true             ; Analyze Overview
+modified_rows = true                ; Modified Rows
+cancellations = true                ; Cancellations
 
-; -- Replication Activity --
-current_replication_status = true
-replication_delays = true
+; -- Replication --
+replication_overview = true         ; Overview
+replication_delays = true           ; Delays
 
-; --- Information ---
+; --- Miscellaneous ---
 
-; -- Schema Information --
-table = true
-index = true
+; -- Tables and Indexes --
+tables = true                       ; Tables
+indexes = true                      ; Indexes
 
-; -- Setting Parameters --
-parameter = true
+; -- Settings --
+runtime_params = true               ; Run-time parameters
 
 ; -- Profiles --
-profiles = false
+profiles = false                    ; Profiles
