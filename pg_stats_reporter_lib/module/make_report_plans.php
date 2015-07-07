@@ -141,10 +141,13 @@ EOD;
 			$htmlString .="<td class=\"num\">".htmlspecialchars(number_format(($callcount==0?0:$ttime/$callcount), 3, '.', ''), ENT_QUOTES)."</td>";
 			$htmlString .="<td class=\"num\">".htmlspecialchars(number_format($bread, 3, '.', ''), ENT_QUOTES)."</td>";
 			$htmlString .="<td class=\"num\">".htmlspecialchars(number_format($bwrite, 3, '.', ''), ENT_QUOTES)."</td>";
+
+			/* query (child row) */
 			$htmlString .= "</tr>\n<tr class=\"tablesorter-childRow\"><td colspan=\"8\" class=\"str\">";
-			$htmlString .= makeQueryDialog("plans", $qstr);
+			$htmlString .= makeFullstringDialog("plans", $qstr, true);
 			$htmlString .="</td></tr>\n";
 
+			/* plan data (child row) */
 			$htmlString .= "<tr class=\"tablesorter-childRow\">\n";
 			$htmlString .= "<td colspan=\"8\"><table class=\"tablesorter childRowTable\"><thead><tr><th rowspan=\"2\">Plan ID</th><th>Calls</th><th>Total time (sec)</th><th>Time/call (sec)</th><th>Block read time (ms)</th><th>Block write time (ms)</th><th>First call</th><th>Last call</th></tr><tr><th colspan=\"7\">Plan (child row)</th></tr></thead><tbody>\n";
 			$htmlString .= $childHtmlString;
@@ -175,7 +178,9 @@ EOD;
 			if (!$result2) {
 				return makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 			}
-			$childHtmlString .= "</tr><tr class=\"tablesorter-childRow\"><td colspan=\"7\" class=\"str\"><pre>".pg_fetch_result($result2, 0, 0)."</pre></td></tr>";
+			$childHtmlString .= "</tr><tr class=\"tablesorter-childRow\"><td colspan=\"7\" class=\"str\"><pre>";
+			$childHtmlString .= makeFullstringDialog("plans", pg_fetch_result($result2, 0, 0), false);
+			$childHtmlString .= "</pre></td></tr>";
 			pg_free_result($result2);
 		}
 	}
@@ -202,7 +207,7 @@ EOD;
 	$htmlString .="<td class=\"num\">".htmlspecialchars(number_format($bread, 3, '.', ''), ENT_QUOTES)."</td>";
 	$htmlString .="<td class=\"num\">".htmlspecialchars(number_format($bwrite, 3, '.', ''), ENT_QUOTES)."</td>";
 	$htmlString .= "</tr>\n<tr class=\"tablesorter-childRow\"><td colspan=\"8\" class=\"str\">";
-	$htmlString .= makeQueryDialog("plans", $qstr);
+	$htmlString .= makeFullstringDialog("plans", $qstr, false);
 	$htmlString .="</td></tr>\n";
 
 	$htmlString .= "<tr class=\"tablesorter-childRow\">\n";

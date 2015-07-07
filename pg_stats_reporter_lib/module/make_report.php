@@ -2197,7 +2197,7 @@ function makeTablePagerHTML_impl($result, $id, $default, $pagerOn, $qarray)
 		for($j = 0 ; $j < pg_num_fields($result) ; $j++ ) {
 			$htmlString .= "<td class=\"".getDataTypeClass(pg_field_type($result, $j))."\">";
 			if ($qarray[$j] == true) {
-				$htmlString .= makeQueryDialog($id, pg_fetch_result($result, $i, $j));
+				$htmlString .= makeFullstringDialog($id, pg_fetch_result($result, $i, $j), true);
 			} else {
 				$htmlString .= htmlspecialchars(pg_fetch_result($result, $i, $j), ENT_QUOTES);
 			}
@@ -2257,7 +2257,7 @@ function makeIOUsageTablePagerHTML($result, $id, $default, $pagerOn, $statsinfo_
 		for($j = 0 ; $j < pg_num_fields($result) ; $j++ ) {
 			$htmlString .= "<td class=\"".getDataTypeClass(pg_field_type($result, $j))."\">";
 			if ($qarray[$j] == true) {
-				$htmlString .= makeQueryDialog($id, pg_fetch_result($result, $i, $j));
+				$htmlString .= makeFullstringDialog($id, pg_fetch_result($result, $i, $j), true);
 			} else {
 				$htmlString .= htmlspecialchars(pg_fetch_result($result, $i, $j), ENT_QUOTES);
 			}
@@ -2676,7 +2676,7 @@ EOD;
 	return $html_string;
 }
 
-function makeQueryDialog($header, $qstr)
+function makeFullstringDialog($header, $qstr, $isQuery)
 {
 	global $fullquery_string;
 	static $num = 0;
@@ -2701,9 +2701,16 @@ function makeQueryDialog($header, $qstr)
 		} else {
 			$htmlSubStr = "<font style=\"font-family: monospace;\">".substr($qstr, 0, $pos)."</font><br/>";
 		}
-		$htmlSubStr .= "<a href=\"javascript:void(0)\" onclick=\"$('#".$dialogid."').dialog('open');return false;\">display full query string</a>";
+		$htmlSubStr .= "<a href=\"javascript:void(0)\" onclick=\"$('#".$dialogid."').dialog('open');return false;\">";
+		if ($isQuery) {
+			$htmlSubStr .= "display full query string</a>";
+			$fullquery_string[$dialogid] = "<div title=\"Query String\"";
+		} else{
+			$htmlSubStr .= "display full plan string</a>";
+			$fullquery_string[$dialogid] = "<div title=\"Plan String\"";
+		}
 
-		$fullquery_string[$dialogid] = "<div title=\"Query String\" id=\"".$dialogid."\" class=\"query_string_dialog\"><font size=\"-1\">";
+		$fullquery_string[$dialogid] .= " id=\"".$dialogid."\" class=\"query_string_dialog\"><font size=\"-1\">";
 		if (substr_count($qstr, "\n")) {
 			$fullquery_string[$dialogid] .= "<pre>".$qstr."</pre>";
 		} else {
