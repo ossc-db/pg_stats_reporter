@@ -145,7 +145,7 @@ EOD;
 			if (!$result2) {
 				return makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 			}
-			$childHtmlString .= "</tr><tr class=\"tablesorter-childRow\"><td colspan=\"7\" class=\"str\"><pre>".pg_fetch_result($result2, 0, 0)."</pre></td></tr>";
+			$childHtmlString .= "</tr><tr class=\"tablesorter-childRow\"><td colspan=\"7\" class=\"str\"><pre>";
 			$childHtmlString .= makeFullstringDialog('plans', pg_fetch_result($result2, 0, 0), false);
 			$childHtmlString .= "</pre></td></tr>";
 			pg_free_result($result2);
