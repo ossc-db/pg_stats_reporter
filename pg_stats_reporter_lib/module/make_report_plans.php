@@ -109,9 +109,9 @@ EOD;
 	if (!$result2) {
 		return makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 	}
-	$childHtmlString .= "</tr><tr class=\"tablesorter-childRow\"><td colspan=\"7\" class=\"str\"><pre>";
+	$childHtmlString .= "</tr><tr class=\"tablesorter-childRow\"><td colspan=\"7\" class=\"str\">";
 	$childHtmlString .= makeFullstringDialog('plans', pg_fetch_result($result2, 0, 0), false);
-	$childHtmlString .= "</pre></td></tr>";
+	$childHtmlString .= "</td></tr>";
 	pg_free_result($result2);
 
 	for($i = 1 ; $i < pg_num_rows($result) ; $i++ ) {
@@ -145,9 +145,9 @@ EOD;
 			if (!$result2) {
 				return makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 			}
-			$childHtmlString .= "</tr><tr class=\"tablesorter-childRow\"><td colspan=\"7\" class=\"str\"><pre>";
+			$childHtmlString .= "</tr><tr class=\"tablesorter-childRow\"><td colspan=\"7\" class=\"str\">";
 			$childHtmlString .= makeFullstringDialog('plans', pg_fetch_result($result2, 0, 0), false);
-			$childHtmlString .= "</pre></td></tr>";
+			$childHtmlString .= "</td></tr>";
 			pg_free_result($result2);
 		} else {
 
@@ -173,9 +173,9 @@ EOD;
 			if (!$result2) {
 				return makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 			}
-			$childHtmlString .= "</tr><tr class=\"tablesorter-childRow\"><td colspan=\"7\" class=\"str\"><pre>";
+			$childHtmlString .= "</tr><tr class=\"tablesorter-childRow\"><td colspan=\"7\" class=\"str\">";
 			$childHtmlString .= makeFullstringDialog('plans', pg_fetch_result($result2, 0, 0), false);
-			$childHtmlString .= "</pre></td></tr>";
+			$childHtmlString .= "</td></tr>";
 			pg_free_result($result2);
 		}
 	}
