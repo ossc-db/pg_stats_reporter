@@ -2697,7 +2697,10 @@ function makeFullstringDialog($header, $qstr, $isQuery)
 		}
 
 		if (substr_count($qstr, "\n")) {
-			$htmlSubStr = "<pre>".substr($qstr, 0, $pos)."</pre>";
+			// 無条件にoverflow-xを設定するが、table-layout:fixedのテーブル内
+			// のpreタグのみ有効なので問題なし
+			// dialogありの場合、はみ出た部分を隠す
+			$htmlSubStr = "<pre style=\"overflow-x: hidden\">".substr($qstr, 0, $pos)."</pre>";
 		} else {
 			$htmlSubStr = "<font style=\"font-family: monospace;\">".substr($qstr, 0, $pos)."</font><br/>";
 		}
@@ -2720,7 +2723,10 @@ function makeFullstringDialog($header, $qstr, $isQuery)
 		$num++;
 	} else {
 		if (substr_count($qstr, "\n")) {
-			$htmlSubStr = "<pre>".$qstr."</pre>";
+			// 無条件にoverflow-xを設定するが、table-layout:fixedのテーブル内
+			// のpreタグのみ有効なので問題なし
+			// dialogなしの場合、横スクロールさせる
+			$htmlSubStr = "<pre style=\"overflow-x: scroll\">".$qstr."</pre>";
 		} else {
 			$htmlSubStr = "<font style=\"font-family: monospace;\">".$qstr."</font>";
 		}
