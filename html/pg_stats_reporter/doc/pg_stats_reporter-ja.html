@@ -567,6 +567,10 @@ ls -dZ /var/www/pg_stats_reporter_lib/{cache,compiled}
 <h4>Q4. Apache HTTP Server の worker モードには対応していますか？</h4>
 <p>A4. PHP の仕様のため、worker モードでの使用は推奨されません。prefork モードで使用するか、コマンドライン機能を使用してください。</p>
 
+<h4>Q5. リポジトリDB選択メニューに現在未使用の監視対象DBが表示されます。</h4>
+<p>A5. リポジトリDBから現在未使用の監視対象DBのインスタンス情報を削除してください。
+インスタンス情報の削除方法は、pg_statsinfoマニュアルの「<a href="http://pgstatsinfo.sourceforge.net/pg_statsinfo-ja.html#user-operations">運用上必要となる作業</a>」を参照してください。</p>
+
 <h2 id="change">pg_stats_reporter 3.0 からの変更点</h2>
 <p>pg_stats_reporter 3.0 からの変更点は以下の通りです。</p>
 <ul>
