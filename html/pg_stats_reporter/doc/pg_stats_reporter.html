@@ -529,6 +529,10 @@ ls -dZ /var/www/pg_stats_reporter_lib/{cache,compiled}
 <h4>Q4. Can I run pg_stats_reporter on worker mode of Apache?</h4>
 <p>A4. Unfortunately, PHP is not recommended to be used on multithreaded MPM and we tested pg_stats_reporter only on prefork mode.</p>
 
+<h4>Q5. I see the name of a no-longer-monitored database in the repository bar.</h4>
+<p>A5. It is brought about by the data for such instances left in the repository. You can remove such items by manually deleting the
+corresponding data in repository. See details <a href="http://pgstatsinfo.sourceforge.net/pg_statsinfo.html#instance-deletion">here</a>.</p>
+
 <h2 id="change">Changes from pg_stats_reporter 3.0</h2>
 <p>Changes from pg_stats_reporter 3.0 are shown below.</p>
 <ul>
