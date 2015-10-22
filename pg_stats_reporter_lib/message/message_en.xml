@@ -399,7 +399,7 @@ versions of PosgreSQL.</li>
   <li><em>Block write time</em>: Total time this plan spent to write blocks during this report period in millisecond</li>
   <li><em>First call</em>: Time when this plan first executed</li>
   <li><em>Last call</em>: Time when this plan last executed</li>
-  <li><em>Plan</em>: Plan string. This string holds numbers in last execution, which are omitted in calulating plan IDs.</li>
+  <li><em>Plan</em>: Plan string. This string holds numbers in last execution, which are omitted in calculating plan IDs.</li>
 </ul></li>
 </ul>
 </div>
