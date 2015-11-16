@@ -27,6 +27,7 @@ define("V24", "20400");
 define("V25", "20500");
 define("V30", "30000");
 define("V31", "30100");
+define("V32", "30200");
 
 // Smarty cache, compile, template directory
 define("CACHE_DIR", "../../pg_stats_reporter_lib/cache");

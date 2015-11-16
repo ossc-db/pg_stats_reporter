@@ -1759,14 +1759,13 @@ EOD;
 				// if repository database version >= 3.0, add last analyze time
 				$qstr = "";
 				switch ($target['repo_version']) {
-				case V31:
-					$qstr = $query_string['analyze_overview31'];
-					break;
 				case V30:
 					$qstr = $query_string['analyze_overview30'];
 					break;
 				case V25:
 					$qstr = $query_string['analyze_overview25'];
+				default:
+					$qstr = $query_string['analyze_overview31'];
 				}
 
 				$result = pg_query_params($conn, $qstr, $snapids);
