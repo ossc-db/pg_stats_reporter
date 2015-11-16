@@ -30,12 +30,12 @@
   <li><a href="#configuration">Configuration</a></li>
   <li><a href="#restrictions">Cautions and Restrictions</a></li>
   <li><a href="#faq">FAQ</a></li>
-  <li><a href="#change">Changes from pg_stats_reporter 3.0</a></li>
+  <li><a href="#change">Changes from pg_stats_reporter 3.1</a></li>
   <li><a href="#seealso">See also</a></li>
   <li><a href="#acknowledgment">Acknowledgments</a></li>
 </ol>
 </div>
-<h1 id="pg_stats_reporter">pg_stats_reporter 3.1</h1>
+<h1 id="pg_stats_reporter">pg_stats_reporter 3.2</h1>
 <h2 id="name">What is pg_stats_reporter?</h2>
 <p>pg_stats_reporter is a graphical report generator for <a href="http://pgstatsinfo.sourceforge.net/pg_statsinfo.html">pg_statsinfo</a>. It offers you various statistical information collected by pg_statsinfo in a graphical and interactive representation. pg_stats_reporter 3.1 is compatible with pg_statsinfo 2.5 or later but some features are not available for the versions earlier than 3.1. You can see an example report <a href="files/report_sample.html">here</a>. </p>
 
@@ -51,17 +51,18 @@ pg_stats_reporter is tested on the following environment.
 
 <dl>
   <dt>pg_statsinfo</dt>
-  <dd>version 2.5, 3.0, 3.1</dd>
+  <dd>version 3.0, 3.1, 3.2</dd>
   <dt>PHP</dt>
-  <dd>version 5.3.3 (bundled with RHEL6), 5.4.16 (bundled with RHEL7), 5.5.22</dd>
+  <dd>version 5.3.3 (bundled with RHEL6)</dd>
+  <dd>version 5.4.16 (bundled with RHEL7)</dd>
   <dt>OS</dt>
-  <dd>RHEL 6.6, 7.1</dd>
+  <dd>RHEL 6.7, RHEL 7.1</dd>
   <dt>Web browser</dt>
-  <!-- IEs are deleted from the list-->
-  <dd>Firefox : 37.0</dd>
-  <dd>Google Chrome : 42.0</dd>
+  <dd>Firefox : 42.0</dd>
+  <dd>Internet Explorer : 11</dd>
   <dt>HTTP Server</dt>
-  <dd>Apache HTTP Server : 2.2.15 (bundled with RHEL6), 2.4.6 (bundled with RHEL7)</dd>
+  <dd>Apache HTTP Server : 2.2.15 (bundled with RHEL6)</dd>
+  <dd>Apache HTTP Server : 2.4.6 (bundled with RHEL7)</dd>
   <dt>libraries (These packages are included in the package of pg_stats_reporter)</dt>
   <dd><ul>
     <li>jQuery : 2.1.3</li>
@@ -84,7 +85,7 @@ pg_stats_reporter is tested on the following environment.
 <p>The required packages are are installed by the steps like following using yum.</p>
 <pre>$ su
 # yum install httpd php php-pgsql php-intl php-cli
-# rpm -ivh pg_stats_reporter-3.1.0-1.el6.noarch.rpm
+# rpm -ivh pg_stats_reporter-3.2.0-1.el6.noarch.rpm
 </pre>
 
 <h5>Installing using RPM</h5>
@@ -97,7 +98,7 @@ pg_stats_reporter is tested on the following environment.
            php-pgsql-5.3.3-38.el6.x86_64.rpm \
            php-intl-5.3.3-38.el6.x86_64.rpm \
            php-cli-5.3.3-38.el6.x86_64.rpm \
-           pg_stats_reporter-3.1.0-1.el6.noarch.rpm
+           pg_stats_reporter-3.2.0-1.el6.noarch.rpm
 </pre>
 
 <h4>Installing for offline reports only</h4>
@@ -106,7 +107,7 @@ pg_stats_reporter is tested on the following environment.
 <p>Required packages for offline reports are installed by the steps like following. pg_stats_reporter package depends on php so --nodeps needed for this case.</p>
 <pre>$ su
 # yum install php-pgsql php-intl php-cli
-# rpm -ivh --nodeps pg_stats_reporter-3.1.0-1.el6.noarch.rpm
+# rpm -ivh --nodeps pg_stats_reporter-3.2.0-1.el6.noarch.rpm
 </pre>
 
 <h5>Installing using RPM</h5>
@@ -117,7 +118,7 @@ pg_stats_reporter.</p>
            php-pgsql-5.3.3-38.el6.x86_64.rpm \
            php-intl-5.3.3-38.el6.x86_64.rpm \
            php-cli-5.3.3-38.el6.x86_64.rpm
-# rpm -ivh --nodeps pg_stats_reporter-3.1.0-1.el6.noarch.rpm
+# rpm -ivh --nodeps pg_stats_reporter-3.2.0-1.el6.noarch.rpm
 </pre>
 
 <p>* You will find the "php-intl" package in the following directory on the installation disc No. 2 of RHEL.</p>
@@ -133,12 +134,12 @@ pg_stats_reporter.</p>
 <p>Start the HTTP Service when you use online reporting. You may also have to set up firewall and SELinux properly to allow pg_stats_reporter to work.</p>
 <pre># service httpd start</pre>
 <p>On RHEL7 do the following instead.</p>
-<pre># systemctl start http.service</pre>
+<pre># systemctl start httpd.service</pre>
 <p>If you would like to run HTTP server at the next time you boot the
 system, run the command below.<p>
 <pre># chkconfig httpd on</pre>
 <p>On RHEL7, </p>
-<pre># systemctl enable http.service</pre>
+<pre># systemctl enable httpd.service</pre>
 </p>
 
 <h3 id="execute_test">Checking of installation</h3>
@@ -352,7 +353,7 @@ display the content correctly.</p>
 <h2 id="uninstall">Uninstallation</h2>
 <p>pg_stats_reporter installed by RPM package is uninstalled by the following steps. The configuration file ('/etc/pg_stats_repoter.ini') is left alone by the steps, so you should delete it manually if it is not necessary. </p>
 <pre>$ su
-# rpm -e pg_stats_reporter-3.1.0-1.el6.noarch
+# rpm -e pg_stats_reporter-3.2.0-1.el6.noarch
 </pre>
 <p>
 You will see the instructions to uninstall manually in INSTALL.en in the top source directory.
@@ -533,16 +534,11 @@ ls -dZ /var/www/pg_stats_reporter_lib/{cache,compiled}
 <p>A5. It is brought about by the data for such instances left in the repository. You can remove such items by manually deleting the
 corresponding data in repository. See details <a href="http://pgstatsinfo.sourceforge.net/pg_statsinfo.html#instance-deletion">here</a>.</p>
 
-<h2 id="change">Changes from pg_stats_reporter 3.0</h2>
-<p>Changes from pg_stats_reporter 3.0 are shown below.</p>
+<h2 id="change">Changes from pg_stats_reporter 3.1</h2>
+<p>Changes from pg_stats_reporter 3.1 are shown below.</p>
 <ul>
-  <li>Added execution plans statistics as a new report item</li>
-  <li>Added autoanalyze cancellations statistics as a new report item</li>
-  <li>Added remaining rows in vacuum statistics</li>
-  <li>Added modified rows in analyze statistics</li>
-  <li>Added archive information in WAL statistics</li>
-  <li>Added I/O peak rate in I/O Usage</li>
-  <li>Longer queries/plans are folded in initial display</li>
+  <li>Supports pg_statsinfo 3.2</li>
+  <li>Dropped support for pg_statsinfo 2.5.</li>
 </ul>
 <br/>
 
