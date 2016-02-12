@@ -534,6 +534,8 @@ $ su
   <li>データサイズなどを示す一部の項目の値は、単位換算での数値の切り捨てによりゼロと表示される可能性があります。</li>
   <li>Linux環境では "/" が、Windowsのエクスプローラでは "\ / : * ? < > |" の8種類の文字がファイル名の制約となるため、セクション名で使用できません。そのため、Linux と Windows の両方の環境にてpg_stats_reporter を使用する場合は正常に動作しない可能性があります。</li>
   <li>グローバルな設定項目用のセクション名として利用しているため、リポジトリDB設定のセクション名として "global_setting" を設定しないでください。</li>
+  <li>監視対象となっているPostgreSQLサーバ上で、監視対象DB以外に対して大量のSQLクエリが実行された場合、当ツールが作成するレポートの Query Activity に、監視対象DBで実行されたSQLクエリの情報が表示されないことがあります。これは、当ツールは pg_stat_statementを利用してクエリの実行情報を収集しており、監視対象DB以外にtotal_timeが長いクエリが多数ある場合に、監視対象DBに対するクエリの実行情報が押し出されてしまうためです。同様に、監視対象DB上で、レポート作成期間外に total_time が長いクエリが多数ある場合、レポート作成期間内に実行されたクエリが表示されなくなることがあります。</li>
+  <li>監視対象となっているPostgreSQLサーバ上で、監視対象DB以外に対して実行されているトランザクションの情報も表示されることがあります。</li>
 </ul>
 
 <h2 id="faq">よくあるQ&amp;A</h2>
@@ -598,7 +600,7 @@ ls -dZ /var/www/pg_stats_reporter_lib/{cache,compiled}
   <a href="http://pgstatsinfo.sourceforge.net/index_ja.html">Top</a> &gt;
   <a href="http://pgstatsinfo.sourceforge.net/pg_stats_reporter-ja.html">pg_stats_reporter</a>
 </div>
-<p class="footer">Copyright (c) 2012-2015, NIPPON TELEGRAPH AND TELEPHONE CORPORATION</p>
+<p class="footer">Copyright (c) 2012-2016, NIPPON TELEGRAPH AND TELEPHONE CORPORATION</p>
 
 <script type="text/javascript">
 var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
