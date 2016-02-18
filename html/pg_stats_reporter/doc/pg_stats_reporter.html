@@ -498,6 +498,8 @@ file.
   section name, which is used as repository name on the Web UI. "/" for Linux
   and "\ / : * ? &lt; &gt; |" for Windows.</li>
   <li>The section name "global_setting" is reserved by pg_stats_reporter so you cannot have a repository with the display name.</li>
+  <li>pg_stats_reporter may not display SQL query information in the Query Activity part of the report when too many queries were placed to observed DB out of the snapshot period.</li>
+  <li>pg_stats_reporter may not display transaction information when too many transactions are executed on the databases that are not observed.</li>
 </ul>
 
 <h2 id="faq">FAQ</h2>
