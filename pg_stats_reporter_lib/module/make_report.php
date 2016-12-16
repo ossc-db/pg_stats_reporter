@@ -567,8 +567,8 @@ function makeLeftMenu($infoData, $targetInfo)
 		$end_date = $targetInfo['end_date'];
 
 		$html_string .= "<p class=\"report_data\">\n";
-		$html_string .= "[<span id=\"target_repodb\">" . $targetInfo['repodb'] . "</span>]<br/>";
-		$html_string .= "<span id=\"target_name\">" . $targetName . "</span><br/>";
+		$html_string .= "[<span id=\"target_repodb\">" . htmlspecialchars($targetInfo['repodb'], ENT_QUOTES) . "</span>]<br/>";
+		$html_string .= "<span id=\"target_name\">" . htmlspecialchars($targetName, ENT_QUOTES) . "</span><br/>";
 		$html_string .= "begin:<br/><span id=\"target_begin\">" . $begin_date . "</span><br/>";
 		$html_string .= "end:<br/><span id=\"target_end\">" . $end_date . "</span><br/>";
 		$html_string .= "<span id=\"target_instid\" style=\"display: none\">" . $targetInfo['instid'] . "</span></p>\n";
@@ -2319,7 +2319,7 @@ EOD;
 		$htmlString .= $opt.",\n";
 	$htmlString .= "    labels: [ ";
 	foreach($labelNames as $col)
-		$htmlString .="\"". $col."\", ";
+		$htmlString .="\"". htmlspecialchars($col, ENT_QUOTES)."\", ";
 	$htmlString .= " ],\n".makeCheckpointSetting($id);
 
 	return $htmlString."</script>\n";
@@ -2370,7 +2370,7 @@ EOD;
 		$htmlString .= $opt.",\n";
 	$htmlString .= "    labels: [ ";
 	foreach($labelNames as $col)
-		$htmlString .="\"". $col."\", ";
+		$htmlString .="\"". htmlspecialchars($col, ENT_QUOTES)."\", ";
 	$htmlString .= " ],\n".makeCheckpointSetting($id);
 
 	return $htmlString."</script>\n";
@@ -2430,7 +2430,7 @@ EOD;
 
 	$htmlString .= "    labels: [ ";
 	for($i = 0 ; $i < pg_num_fields($results) ; $i++)
-		$htmlString .= "\"".pg_field_name($results, $i)."\", ";
+		$htmlString .= "\"".htmlspecialchars(pg_field_name($results, $i), ENT_QUOTES)."\", ";
 	$htmlString .= " ],\n";
 
 	if ($changeScale)
@@ -2519,7 +2519,7 @@ EOD;
 
 	$htmlString .= "    labels: [ ";
 	for($i = 0 ; $i < pg_num_fields($results) ; $i++)
-		$htmlString .= "\"".pg_field_name($results, $i)."\", ";
+		$htmlString .= "\"".htmlspecialchars(pg_field_name($results, $i), ENT_QUOTES)."\", ";
 	$htmlString .= " ],\n".makeCheckpointSetting("write_ahead_logs");
 
 	return $htmlString."</script>\n";
@@ -2535,7 +2535,7 @@ function makePieGraphHTML($value, $id, $title)
 		.$id."_pie\",\n[[\n";
 
 	foreach($value as $val)
-		$htmlString .= "[\"".$val[0]."\", ".$val[1]."],\n";
+		$htmlString .= "[\"".htmlspecialchars($val[0], ENT_QUOTES)."\", ".htmlspecialchars($val[1], ENT_QUOTES)."],\n";
 
 	$htmlString .= "]], {\n     title: {\n       text:  '".$title."',\n";
 
@@ -2701,9 +2701,9 @@ function makeFullstringDialog($header, $qstr, $isQuery)
 			// 無条件にoverflow-xを設定するが、table-layout:fixedのテーブル内
 			// のpreタグのみ有効なので問題なし
 			// dialogありの場合、はみ出た部分を隠す
-			$htmlSubStr = "<pre style=\"overflow-x: hidden\">".substr($qstr, 0, $pos)."</pre>";
+			$htmlSubStr = "<pre style=\"overflow-x: hidden\">".htmlspecialchars(substr($qstr, 0, $pos), ENT_QUOTES)."</pre>";
 		} else {
-			$htmlSubStr = "<font style=\"font-family: monospace;\">".substr($qstr, 0, $pos)."</font><br/>";
+			$htmlSubStr = "<font style=\"font-family: monospace;\">".htmlspecialchars(substr($qstr, 0, $pos), ENT_QUOTES)."</font><br/>";
 		}
 		$htmlSubStr .= "<a href=\"javascript:void(0)\" onclick=\"$('#".$dialogid."').dialog('open');return false;\">";
 		if ($isQuery) {
@@ -2716,9 +2716,9 @@ function makeFullstringDialog($header, $qstr, $isQuery)
 
 		$fullquery_string[$dialogid] .= " id=\"".$dialogid."\" class=\"query_string_dialog\"><font size=\"-1\">";
 		if (substr_count($qstr, "\n")) {
-			$fullquery_string[$dialogid] .= "<pre>".$qstr."</pre>";
+			$fullquery_string[$dialogid] .= "<pre>".htmlspecialchars($qstr, ENT_QUOTES)."</pre>";
 		} else {
-			$fullquery_string[$dialogid] .= "<font style=\"font-family: monospace;\">".$qstr."</font>";
+			$fullquery_string[$dialogid] .= "<font style=\"font-family: monospace;\">".htmlspecialchars($qstr, ENT_QUOTES)."</font>";
 		}
 		$fullquery_string[$dialogid] .= "</font></div>\n";
 		$num++;
@@ -2727,9 +2727,9 @@ function makeFullstringDialog($header, $qstr, $isQuery)
 			// 無条件にoverflow-xを設定するが、table-layout:fixedのテーブル内
 			// のpreタグのみ有効なので問題なし
 			// dialogなしの場合、横スクロールさせる
-			$htmlSubStr = "<pre style=\"overflow-x: scroll\">".$qstr."</pre>";
+			$htmlSubStr = "<pre style=\"overflow-x: scroll\">".htmlspecialchars($qstr, ENT_QUOTES)."</pre>";
 		} else {
-			$htmlSubStr = "<font style=\"font-family: monospace;\">".$qstr."</font>";
+			$htmlSubStr = "<font style=\"font-family: monospace;\">".htmlspecialchars($qstr, ENT_QUOTES)."</font>";
 		}
 	}
 
