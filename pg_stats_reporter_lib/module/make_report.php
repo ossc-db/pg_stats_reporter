@@ -2319,7 +2319,7 @@ EOD;
 		$htmlString .= $opt.",\n";
 	$htmlString .= "    labels: [ ";
 	foreach($labelNames as $col)
-		$htmlString .="\"". htmlspecialchars($col, ENT_QUOTES)."\", ";
+		$htmlString .="\"". $col ."\", ";
 	$htmlString .= " ],\n".makeCheckpointSetting($id);
 
 	return $htmlString."</script>\n";
@@ -2370,7 +2370,7 @@ EOD;
 		$htmlString .= $opt.",\n";
 	$htmlString .= "    labels: [ ";
 	foreach($labelNames as $col)
-		$htmlString .="\"". htmlspecialchars($col, ENT_QUOTES)."\", ";
+		$htmlString .="\"". $col ."\", ";
 	$htmlString .= " ],\n".makeCheckpointSetting($id);
 
 	return $htmlString."</script>\n";
@@ -2430,7 +2430,7 @@ EOD;
 
 	$htmlString .= "    labels: [ ";
 	for($i = 0 ; $i < pg_num_fields($results) ; $i++)
-		$htmlString .= "\"".htmlspecialchars(pg_field_name($results, $i), ENT_QUOTES)."\", ";
+		$htmlString .= "\"".pg_field_name($results, $i)."\", ";
 	$htmlString .= " ],\n";
 
 	if ($changeScale)
@@ -2519,7 +2519,7 @@ EOD;
 
 	$htmlString .= "    labels: [ ";
 	for($i = 0 ; $i < pg_num_fields($results) ; $i++)
-		$htmlString .= "\"".htmlspecialchars(pg_field_name($results, $i), ENT_QUOTES)."\", ";
+		$htmlString .= "\"".pg_field_name($results, $i)."\", ";
 	$htmlString .= " ],\n".makeCheckpointSetting("write_ahead_logs");
 
 	return $htmlString."</script>\n";
