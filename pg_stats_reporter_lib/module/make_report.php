@@ -2479,16 +2479,11 @@ var write_ahead_logs = new Dygraph(document.getElementById('write_ahead_logs_gra
 
 EOD;
 
-	$high2ndaxes = 0;
 	for($i = 0 ; $i < pg_num_rows($results) ; $i++) {
 		$row = pg_fetch_array($results, NULL, PGSQL_NUM);
 		$htmlString .= "    [new Date('".$row[0]."'), ";
 		for($j = 1 ; $j < pg_num_fields($results) ; $j++) {
 			$htmlString .= $row[$j].", ";
-
-			// get second axes' max value
-			if ($j >= 2 && $high2ndaxes < $row[$j])
-				$high2ndaxes = $row[$j];
 		}
 		$htmlString .= " ],\n";
 	}
@@ -2505,18 +2500,18 @@ EOD;
     hideOverlayOnMouseOut: false,
     legend: 'always',
     xlabel: 'Time',
-    yAxisLabelWidth: 70,
 	title: 'WAL Write Rate',
 	ylabel: 'Bytes per snapshot',
 	y2label: 'Write rate (Bytes/s)',
-	labelsKMG2: true,
 	animatedZooms: true,
+    axes: {
+		  y: {labelsKMG2: true, AxisLabelWidth: 70},
+	  	 y2: {labelsKMG2: true, AxisLabelWidth: 70}
+	   },
 
 EOD;
 
 	$htmlString .= "    '".pg_field_name($results, 2)."': {axis: { } },\n";
-	$htmlString .= "    axes: { y2: { valueRange: [0, ".pow(10, round(log10($high2ndaxes)))." ] } } ,\n";
-
 	$htmlString .= "    labels: [ ";
 	for($i = 0 ; $i < pg_num_fields($results) ; $i++)
 		$htmlString .= "\"".pg_field_name($results, $i)."\", ";
