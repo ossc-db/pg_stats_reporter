@@ -2505,8 +2505,8 @@ EOD;
 	y2label: 'Write rate (Bytes/s)',
 	animatedZooms: true,
     axes: {
-		  y: {labelsKMG2: true, AxisLabelWidth: 70},
-	  	 y2: {labelsKMG2: true, AxisLabelWidth: 70}
+		  y: {labelsKMG2: true, axisLabelWidth: 70},
+	  	 y2: {labelsKMG2: true, axisLabelWidth: 80}
 	   },
 
 EOD;
