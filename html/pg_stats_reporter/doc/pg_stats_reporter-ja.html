@@ -4,7 +4,7 @@
 
 <title>pg_stats_reporter</title>
 <link rel="home" title="pg_stats_reporter" href="index.html">
-<link rel="stylesheet" TYPE="text/css"href="style.css">
+<link rel="stylesheet" TYPE="text/css" href="style.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
 
@@ -40,7 +40,7 @@
 </div>
 <h1 id="pg_stats_reporter">pg_stats_reporter 3.2</h1>
 <h2 id="name">pg_stats_reporter とは?</h2>
-<p><a href="http://pgstatsinfo.sourceforge.net/pg_statsinfo-ja.html">pg_statsinfo-3.2 </a>が収集した統計情報を元に、PostgreSQL サーバの利用統計情報をHTML形式のグラフィカルなレポートで出力します。</p>
+<p><a href="http://pgstatsinfo.sourceforge.net/documents/statsinfo3.2/pg_statsinfo-ja.html">pg_statsinfo-3.2 </a>が収集した統計情報を元に、PostgreSQL サーバの利用統計情報をHTML形式のグラフィカルなレポートで出力します。</p>
 <p>当ツールで作成したレポートの例は<a href="files/report_sample.html">こちら</a>をご覧ください。</p>
 
 <h2 id="synopsis">機能概要</h2>
@@ -236,7 +236,7 @@ http://&lt;<I>ホスト名</I>&gt;/pg_stats_reporter/pg_stats_reporter.php
 <li>DATABASE: データベース名</li>
 <li>MESSAGE: メッセージ本文 (<a href="http://www.postgresql.jp/document/current/html/functions-matching.html#FUNCTIONS-POSIX-REGEXP">PostgreSQLの正規表現</a>で指定してください)</li>
 </ul></dd>
-</dd>
+
 <dt>③ : 検索ボタン</dt>
 <dd>②に入力されている条件で検索を実行します。</dd>
 <dt>④ : 検索条件のリセットボタン</dt>
@@ -532,10 +532,11 @@ $ su
 <ul>
   <li>PHP の設定ファイル (php.ini) にデフォルトのタイムゾーンが設定されていない場合、実行環境のロケールによっては正しく動作しない可能性があります。php.ini にデフォルトのタイムゾーン (date.timezone) を設定することを推奨します。</li>
   <li>データサイズなどを示す一部の項目の値は、単位換算での数値の切り捨てによりゼロと表示される可能性があります。</li>
-  <li>Linux環境では "/" が、Windowsのエクスプローラでは "\ / : * ? < > |" の8種類の文字がファイル名の制約となるため、セクション名で使用できません。そのため、Linux と Windows の両方の環境にてpg_stats_reporter を使用する場合は正常に動作しない可能性があります。</li>
+  <li>Linux環境では "/" が、Windowsのエクスプローラでは "\ / : * ? &lt; &gt; |" の8種類の文字がファイル名の制約となるため、セクション名で使用できません。そのため、Linux と Windows の両方の環境にてpg_stats_reporter を使用する場合は正常に動作しない可能性があります。</li>
   <li>グローバルな設定項目用のセクション名として利用しているため、リポジトリDB設定のセクション名として "global_setting" を設定しないでください。</li>
-  <li>監視対象となっているPostgreSQLサーバ上で、監視対象DB以外に対して大量のSQLクエリが実行された場合、当ツールが作成するレポートの Query Activity に、監視対象DBで実行されたSQLクエリの情報が表示されないことがあります。これは、当ツールは pg_stat_statementを利用してクエリの実行情報を収集しており、監視対象DB以外にtotal_timeが長いクエリが多数ある場合に、監視対象DBに対するクエリの実行情報が押し出されてしまうためです。同様に、監視対象DB上で、レポート作成期間外に total_time が長いクエリが多数ある場合、レポート作成期間内に実行されたクエリが表示されなくなることがあります。</li>
-  <li>監視対象となっているPostgreSQLサーバ上で、監視対象DB以外に対して実行されているトランザクションの情報も表示されることがあります。</li>
+  <li>監視対象となっているPostgreSQLサーバ上で、監視対象DB以外において大量のSQLクエリが実行された場合、pg_statsinfo が作成するレポートの Query Activity に、監視対象DBで実行されたSQLクエリの情報が表示されないことがあります。これは、当ツールは pg_stat_statements を利用してクエリの実行情報を収集しており、監視対象DB以外に total_time が長いクエリが多数ある場合に、監視対象DBに対するクエリの実行情報が押し出されてしまうためです。同様に、監視対象DB上で、レポート作成期間外に total_time が長いクエリが多数ある場合、レポート作成期間内に実行されたクエリが表示されなくなることがあります。</li>
+  <li>pg_statsinfo で監視対象とするデータベースは <a href="http://pgstatsinfo.sourceforge.net/documents/statsinfo3.2/pg_statsinfo-ja.html">excluded_dbnames</a> で制限することができるようになっています。しかし現在の実装ではロングトランザクション情報など一部の情報で、これらの制限されたデータベースの情報を表示するものがあります。</li>
+  <li>監視対象DBが複数の同期スタンバイサーバを持つ構成の場合、Replication Delaysのグラフの中では、そのうちの1つのみが同期として表示されます。各サーバの同期、非同期の確認は、Overviewの表のsync stateの項目で行ってください。</font></li>
 </ul>
 
 <h2 id="faq">よくあるQ&amp;A</h2>
@@ -569,7 +570,7 @@ ls -dZ /var/www/pg_stats_reporter_lib/{cache,compiled}
 
 <h4>Q5. リポジトリDB選択メニューに現在未使用の監視対象DBが表示されます。</h4>
 <p>A5. リポジトリDBから現在未使用の監視対象DBのインスタンス情報を削除してください。
-インスタンス情報の削除方法は、pg_statsinfoマニュアルの「<a href="http://pgstatsinfo.sourceforge.net/pg_statsinfo-ja.html#user-operations">運用上必要となる作業</a>」を参照してください。</p>
+インスタンス情報の削除方法は、pg_statsinfoマニュアルの「<a href="http://pgstatsinfo.sourceforge.net/documents/statsinfo3.2/pg_statsinfo-ja.html#user-operations">運用上必要となる作業</a>」を参照してください。</p>
 
 <h2 id="change">pg_stats_reporter 3.1 からの変更点</h2>
 <p>pg_stats_reporter 3.1 からの変更点は以下の通りです。</p>
@@ -580,7 +581,7 @@ ls -dZ /var/www/pg_stats_reporter_lib/{cache,compiled}
 <br/>
 
 <h2 id="seealso">関連項目</h2>
-<a href="http://pgstatsinfo.sourceforge.net/pg_statsinfo-ja.html">pg_statsinfo</a> 
+<a href="http://pgstatsinfo.sourceforge.net/documents/statsinfo3.2/pg_statsinfo-ja.html">pg_statsinfo 3.2</a> 
 <br/><br/>
 <h2 id="acknowledgment">謝辞</h2>
 <p>pg_stats_reporter では、以下のライブラリを活用させていただいております。感謝いたします。<br/>
@@ -598,9 +599,9 @@ ls -dZ /var/www/pg_stats_reporter_lib/{cache,compiled}
 <hr/>
 <div class="navigation">
   <a href="http://pgstatsinfo.sourceforge.net/index_ja.html">Top</a> &gt;
-  <a href="http://pgstatsinfo.sourceforge.net/pg_stats_reporter-ja.html">pg_stats_reporter</a>
+  <a href="http://pgstatsinfo.sourceforge.net/documents/reporter3.2/html/pg_stats_reporter-ja.html">pg_stats_reporter</a>
 </div>
-<p class="footer">Copyright (c) 2012-2016, NIPPON TELEGRAPH AND TELEPHONE CORPORATION</p>
+<p class="footer">Copyright (c) 2012-2017, NIPPON TELEGRAPH AND TELEPHONE CORPORATION</p>
 
 <script type="text/javascript">
 var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");

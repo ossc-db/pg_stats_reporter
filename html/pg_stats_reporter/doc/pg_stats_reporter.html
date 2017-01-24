@@ -37,7 +37,7 @@
 </div>
 <h1 id="pg_stats_reporter">pg_stats_reporter 3.2</h1>
 <h2 id="name">What is pg_stats_reporter?</h2>
-<p>pg_stats_reporter is a graphical report generator for <a href="http://pgstatsinfo.sourceforge.net/pg_statsinfo.html">pg_statsinfo</a>. It offers you various statistical information collected by pg_statsinfo in a graphical and interactive representation. pg_stats_reporter 3.1 is compatible with pg_statsinfo 2.5 or later but some features are not available for the versions earlier than 3.1. You can see an example report <a href="files/report_sample.html">here</a>. </p>
+<p>pg_stats_reporter is a graphical report generator for <a href="http://pgstatsinfo.sourceforge.net/documents/statsinfo3.2/pg_statsinfo.html">pg_statsinfo</a>. It offers you various statistical information collected by pg_statsinfo in a graphical and interactive representation. pg_stats_reporter 3.1 is compatible with pg_statsinfo 2.5 or later but some features are not available for the versions earlier than 3.1. You can see an example report <a href="files/report_sample.html">here</a>. </p>
 
 <h2 id="synopsis">Online and Offline Reports</h2>
 <p>pg_stats_reporter runs in two ways.  It runs as a CGI script and connects to repository server of pg_statsinfo in common usage but it also provides a command-line interface to generate off-line reports, which is portable form of the graphical report. 
@@ -140,7 +140,7 @@ system, run the command below.<p>
 <pre># chkconfig httpd on</pre>
 <p>On RHEL7, </p>
 <pre># systemctl enable httpd.service</pre>
-</p>
+<br/>
 
 <h3 id="execute_test">Checking of installation</h3>
 pg_stats_reporter works retrieving data from repository database of pg_statsinfo. Please check if it is working beforehand.
@@ -186,7 +186,7 @@ makes the changes effective in the new report.</dd>
 <dd>Shows help popup.</dd>
 </dl>
 <br/>
-<h5 id="crete_report_dialog">The "Create new report" dialog</h5>
+<h5 id="create_report_dialog">The "Create new report" dialog</h5>
 <img src="image/dialog.png">
 <br/>
 <dl>
@@ -214,8 +214,7 @@ widget to select date and time.</dd>
 <li>USERNAME: User name</li>
 <li>DATABASE: Database name</li>
 <li>MESSAGE: Regular expression that <a href="http://www.postgresql.org/docs/current/static/functions-matching.html"> PostgreSQL defines for SIMILAR TO</a>.</li>
-</ul>
-</dd>
+</ul></dd>
 <dt>&#9314; : Search button</dt>
 <dd>Start searching the repository for the filtered logs.</dd>
 <dt>&#9315; : Clear button</dt>
@@ -399,7 +398,7 @@ file.
 </p>
 
 <h3>Per-repository settings</h3>
-<p>Every repository requires one section describing settings about it. The section tag is the display name in the sidebar for the repository.</p>
+<p>Every repository requires one section describing settings about it. The section tag is the display name for the repository in the sidebar.</p>
 
 <p>Available setting parameters are shown below.</p>
 
@@ -494,32 +493,47 @@ file.
 <ul>
   <li>pg_stats_reporter might get confused if default timezone is not set in php.ini. It is recommended to set appropriate timezone.</li>
   <li>The value "0" in rounded-off fields doesn't necesarily mean "nothing at all".</li>
-  <li>By the restriction of PHP, some characters cannot be used in
-  section name, which is used as repository name on the Web UI. "/" for Linux
-  and "\ / : * ? &lt; &gt; |" for Windows.</li>
-  <li>The section name "global_setting" is reserved by pg_stats_reporter so you cannot have a repository with the display name.</li>
-  <li>pg_stats_reporter may not display SQL query information in the Query Activity part of the report when too many queries were placed to observed DB out of the snapshot period.</li>
-  <li>pg_stats_reporter may not display transaction information when too many transactions are executed on the databases that are not observed.</li>
+  <li>By a restriction of PHP, some characters cannot be used in
+  section name, which is used as repository name on the Web UI. "/"
+  for Linux and "\ / : * ? &lt; &gt; |" for Windows.</li>
+  <li>The section name "global_setting" is reserved by
+  pg_stats_reporter so you cannot have a repository with the display
+  name.</li>
+  <li>pg_stats_reporter may miss some queries in the Query Activity
+  part of the report when too many queries were executed on unobserved
+  databases on the instance during the snapshot period. This is due to
+  the maximum number of queries that pg_stat_statements can
+  trace. Likewise, many long queries executed on unobserved databases
+  can push away the queries on observed databases.</li>
+	<li>Although pg_statsinfo is designed to exlclude databases
+	specified by the
+	parameter <a href="http://pgstatsinfo.sourceforge.net/documents/statsinfo3.2/pg_statsinfo.html">excluded_dbnames</a>
+	from snapshots, it fails for some report items such as "long
+	transactions".</li>
+	<li>Since PostgreSQL 9.6, two or more standbys are allowed to be synchronous.
+	pg_stats_reporter shows one of them as synchronous for the case. The
+	"sync state" field in the Overview table offers the true status of
+	each standby.</li>
 </ul>
 
 <h2 id="faq">FAQ</h2>
 <h4>Q1. I can only see a blank page on browser when accessing online report.</h4>
-<p>A1. It might be caused by settings of firewall, SELinux or memory usage limitation of PHP.  They might be changed.</p>
+<p>A1. It might be caused by settings of firewall, SELinux or memory usage limitation of PHP.</p>
 <ul>
-<li>Firewall should be configured to allow inbound access of http.</li>
+<li>Configure firewall to allow http inbound access.</li>
 
-<li>SELinux should be configured that httpd_can_network_connect_db is
-on, and directories written by pg_stats_reporter should have the file
-type of httpd_sys_rw_context_t. You can see the current setting by
-doing the following.
+<li>Set httpd_can_network_connect_db of SELinux configuration to on,
+and directories written by pg_stats_reporter should have the context
+of httpd_sys_rw_context_t. You can see the current setting by doing
+the following.
 
 <pre>getsebool httpd_can_network_connect_db
 ls -dZ /var/www/pg_stats_reporter_lib/{cache,compiled}
 </pre>
 </li>
 
-<li>Edit the memory_limit parameter in /etc/php.ini to appropriate
-    amount and restart the http server.</li>
+<li>Increase the memory_limit parameter in /etc/php.ini as necessary
+then restart the http server.</li>
 </ul>
 
 
@@ -534,7 +548,7 @@ ls -dZ /var/www/pg_stats_reporter_lib/{cache,compiled}
 
 <h4>Q5. I see the name of a no-longer-monitored database in the repository bar.</h4>
 <p>A5. It is brought about by the data for such instances left in the repository. You can remove such items by manually deleting the
-corresponding data in repository. See details <a href="http://pgstatsinfo.sourceforge.net/pg_statsinfo.html#instance-deletion">here</a>.</p>
+corresponding data in repository. See details <a href="http://pgstatsinfo.sourceforge.net/documents/statsinfo3.2/pg_statsinfo.html#instance-deletion">here</a>.</p>
 
 <h2 id="change">Changes from pg_stats_reporter 3.1</h2>
 <p>Changes from pg_stats_reporter 3.1 are shown below.</p>
@@ -545,7 +559,7 @@ corresponding data in repository. See details <a href="http://pgstatsinfo.source
 <br/>
 
 <h2 id="seealso">See also</h2>
-<a href="http://pgstatsinfo.sourceforge.net/pg_statsinfo.html">pg_statsinfo</a> 
+<a href="http://pgstatsinfo.sourceforge.net/documents/statsinfo3.2/pg_statsinfo.html">pg_statsinfo 3.2</a> 
 <br/><br/>
 <h2 id="acknowledgment">Acknowledgments</h2>
 <p>Pg_stats_reporter uses many libraries. We are deeply grateful to the developers of these libraries.<br/>
@@ -563,9 +577,9 @@ corresponding data in repository. See details <a href="http://pgstatsinfo.source
 <hr>
 <div class="navigation">
   <a href="http://pgstatsinfo.sourceforge.net/index.html">Top</a> &gt;
-  <a href="http://pgstatsinfo.sourceforge.net/pg_stats_reporter.html">pg_stats_reporter</a>
+  <a href="http://pgstatsinfo.sourceforge.net/documents/reporter3.2/html/pg_stats_reporter.html">pg_stats_reporter</a>
 </div>
-<p class="footer">Copyright (c) 2012-2016, NIPPON TELEGRAPH AND TELEPHONE CORPORATION</p>
+<p class="footer">Copyright (c) 2012-2017, NIPPON TELEGRAPH AND TELEPHONE CORPORATION</p>
 
 <script type="text/JavaScript">
 var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
