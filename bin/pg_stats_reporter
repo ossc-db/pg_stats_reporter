@@ -3,7 +3,7 @@
 /*
  * pg_stats_reporter commandline mode
  *
- * Copyright (c) 2012-2016, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
+ * Copyright (c) 2012-2017, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
  */
 
 define("PROGRAM_NAME", "pg_stats_reporter");
@@ -1145,7 +1145,7 @@ function prettySize($size)
 function displayUsage()
 {
         echo PROGRAM_NAME." version ".PROGRAM_VERSION."
-Copyright (c) 2012-2016, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
+Copyright (c) 2012-2017, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
 Web site: ".PROGRAM_URL."
 
 ".PROGRAM_NAME." reports a PostgreSQL database.
@@ -1193,7 +1193,7 @@ Generic options:
 function displayVersion()
 {
         echo PROGRAM_NAME." version ".PROGRAM_VERSION."
-Copyright (c) 2012-2016, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
+Copyright (c) 2012-2017, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
 Web site: ".PROGRAM_URL."
 ";
 }
