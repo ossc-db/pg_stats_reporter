@@ -6,7 +6,7 @@
  */
 
 // pg_stats_reporter's version
-define("PROGRAM_VERSION", "3.2.0");
+define("PROGRAM_VERSION", "3.3.0");
 
 // Image File
 define("IMAGE_FILE", "pgsql_banner01.png");
@@ -28,6 +28,7 @@ define("V25", "20500");
 define("V30", "30000");
 define("V31", "30100");
 define("V32", "30200");
+define("V33", "30300");
 
 // Smarty cache, compile, template directory
 define("CACHE_DIR", "../../pg_stats_reporter_lib/cache");
@@ -317,11 +318,11 @@ $query_string = array(
   "replication_overview" =>
   "SELECT usename AS \"Session user\", application_name AS \"Application name\", client_addr AS \"Client address\", client_hostname AS \"Client host\", client_port AS \"Client port\", backend_start AS \"Started at\", state AS \"State\", current_location AS \"Current location\", sent_location AS \"Sent location\", write_location AS \"Write location\", flush_location AS \"Flush location\", replay_location AS \"Replay location\", sync_priority AS \"Sync priority\", sync_state AS \"Sync state\" FROM statsrepo.get_replication_activity($1, $2)",
 
-  "replication_delays" =>
-  "SELECT replace(\"timestamp\", '-', '/'), client , flush_delay_size AS \"flush\", replay_delay_size AS \"replay\" FROM statsrepo.get_replication_delays($1, $2)",
+  "replication_overview33" =>
+  "SELECT usename AS \"Session user\", application_name AS \"Application name\", client_addr AS \"Client address\", client_hostname AS \"Client host\", client_port AS \"Client port\", backend_start AS \"Started at\", state AS \"State\", current_location AS \"Current location\", sent_location AS \"Sent location\", write_location AS \"Write location\", flush_location AS \"Flush location\", replay_location AS \"Replay location\", pg_size_pretty(replay_delay_avg::bigint) AS \"Average replay delay\", pg_size_pretty(replay_delay_peak::bigint) AS \"Peak replay delay\", sync_priority AS \"Sync priority\", sync_state AS \"Sync state\" FROM statsrepo.get_replication_activity($1, $2)",
 
-  "replication_delays_get_sync_host" =>
-  "SELECT host(client_addr) || ':' || client_port FROM statsrepo.replication WHERE snapid = $1 AND sync_state = 'sync'",
+  "replication_delays" =>
+  "SELECT replace(\"timestamp\", '-', '/'), client , flush_delay_size AS \"flush\", replay_delay_size AS \"replay\", sync_state FROM statsrepo.get_replication_delays($1, $2)",
 
   /* Miscellaneous */
   // Tables and Indexes

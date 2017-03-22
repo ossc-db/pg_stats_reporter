@@ -1888,8 +1888,13 @@ EOD;
 </div>
 
 EOD;
-
-		$result = pg_query_params($conn, $query_string['replication_overview'], $snapids);
+		$qstr = "";
+		if ($target['repo_version'] >= V33) {
+			$qstr = $query_string['replication_overview33'];
+		} else {
+			$qstr = $query_string['replication_overview'];
+		}
+		$result = pg_query_params($conn, $qstr, $snapids);
 		if (!$result) {
 			return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 		}
@@ -1923,31 +1928,20 @@ EOD;
 				if (pg_num_rows($result) == 0) {
 					$htmlString .= makeErrorTag($errorMsg['no_result']);
 				} else {
-					makeTupleListForDygraphs($result, $name, $value);
+					makeTupleListForDygraphs_delays($result, $name, $value, $sync);
 					$opt = array();
 					array_push($opt, "title: 'Replication Delays'");
 					array_push($opt, "ylabel: 'Delay (Bytes)'");
 					array_push($opt, "labelsKMG2: true");
 
-					$result2 = pg_query_params($conn, $query_string['replication_delays_get_sync_host'], array($snapids[1]));
-					if (pg_num_rows($result2) != 0) {
-						$syncHost = pg_fetch_result($result2, 0, 0);
-
-						$key = array_search($syncHost." flush", $name);
+					for ($i = 0 ; $i < count($sync) ; $i++) {
+						$key = array_search($sync[$i], $name);
 						if ($key != false) {
 							$name[$key] = "[sync]".$name[$key];
 							array_push($opt, "'".$name[$key]."': {strokeWidth: 3, highlightCircleSize: 5}");
-						} else
-							array_push($opt, "'".$syncHost." flush': {strokeWidth: 3, highlightCircleSize: 5},");
+						}
 
-						$key = array_search($syncHost." replay", $name);
-						if ($key != false) {
-							$name[$key] = "[sync]".$name[$key];
-							array_push($opt, "'".$name[$key]."': {strokeWidth: 3, highlightCircleSize: 5}");
-						} else
-							array_push($opt, "'".$syncHost." replay': {strokeWidth: 3, highlightCircleSize: 5},");
 					}
-					pg_free_result($result2);
 
 					$htmlString .= makeLineGraphHTML($name, $value, "replication_delays", $opt);
 				}
@@ -2595,6 +2589,68 @@ function makeTupleListForDygraphs($result, &$name, &$value)
 		}
 	  	for ($j = 2 ; $j < pg_num_fields($result) ; $j++ ) {
 			$pos = $col_array[$row[1]]*(pg_num_fields($result)-2)+($j-2);
+			$tuple[$pos] = $row[$j];
+	  	}
+	}
+	array_push($value, array($snapshot_time, $tuple));
+
+}
+
+function makeTupleListForDygraphs_delays($result, &$name, &$value, &$sync)
+{
+	$name = array();
+	$value = array();
+	$sync = array();
+	$col_array = array();
+	$sync_array = array();
+
+	// count target
+	for ($i = 0 ; $i < pg_num_rows($result) ; $i++) {
+		$col_array[pg_fetch_result($result, $i, 1)] = 1;
+		if (pg_fetch_result($result, $i, 4) == 'sync') {
+		    $sync_array[pg_fetch_result($result, $i, 1)] = 1;
+		} else {
+			$sync_array[pg_fetch_result($result, $i, 1)] = 0;
+		}
+	}
+	$col_names = array_keys($col_array);
+
+	// set column name
+	$name[0] = pg_field_name($result, 0);
+
+	for ($i = 0 ; $i < count($col_names) ; $i++) {
+		for($j = 2 ; $j < pg_num_fields($result)-1 ; $j++ ) {
+			array_push($name, $col_names[$i]." ".pg_field_name($result, $j));
+		}
+	}
+
+	// value count : pg_num_fields($result) - (timestamp, client, sync_state)
+	$value_count = pg_num_fields($result)-3;
+
+	// set sync column name
+	foreach($sync_array as $id => $val) {
+		if ($val == 1) {
+			for($j = 2 ; $j < pg_num_fields($result)-1 ; $j++ ) {
+				array_push($sync, $id." ".pg_field_name($result, $j));
+			}
+		}
+	}
+
+	$col_array = array_flip($col_names);
+
+	$snapshot_time = "";
+	$tuple = array_fill(0, count($name)-1, "null"); // Fill an array with null
+	for ($i = 0 ; $i < pg_num_rows($result) ; $i++ ) {
+		$row = pg_fetch_array($result, $i, PGSQL_NUM);
+		if ($snapshot_time != $row[0]) {
+			if ($snapshot_time != "") {
+				array_push($value, array($snapshot_time, $tuple));
+				$tuple = array_fill(0, count($name)-1, "null");
+			}
+			$snapshot_time = $row[0];
+		}
+	  	for ($j = 2 ; $j < pg_num_fields($result)-1 ; $j++ ) {
+			$pos = $col_array[$row[1]]*($value_count)+($j-2);
 			$tuple[$pos] = $row[$j];
 	  	}
 	}
