@@ -166,7 +166,8 @@ EOD;
 		|| $targetList['recovery_conflicts']
 		|| $targetList['write_ahead_logs']
 		|| $targetList['backend_states_overview']
-		|| $targetList['backend_states']) {
+		|| $targetList['backend_states']
+    	|| $targetList['bgwriter_statistics']) {
 
 		$html_string .= "<li><a href=\"#statistics\">Statistics</a><ul>\n";
 
@@ -191,7 +192,8 @@ EOD;
 		/* Instance Statistics */
 		if ($targetList['write_ahead_logs']
 			|| $targetList['backend_states_overview']
-			|| $targetList['backend_states']) {
+			|| $targetList['backend_states']
+        	|| $targetList['bgwriter_statistics']) {
 
 			$html_string .= "<li><a href=\"#instance_activity\">Instance Statistics</a><ul>\n";
 
@@ -201,6 +203,8 @@ EOD;
 				$html_string .= "<li><a href=\"#backend_states_overview\">Backend States Overview</a></li>\n";
 			if ($targetList['backend_states'])
 				$html_string .= "<li><a href=\"#backend_states\">Backend States</a></li>\n";
+            if ($targetList['bgwriter_statistics'])
+                $html_string .= "<li><a href=\"#bgwriter_statistics\">Background writer Statistics</a></li>\n";
 
 			$html_string .= "</ul></li>\n";
 		}
@@ -466,6 +470,7 @@ function makePlainHeaderMenu()
     <li><a>Write Ahead Logs</a></li>
     <li><a>Backend States Overview</a></li>
     <li><a>Backend States</a></li>
+    <li><a>Background writer Statistics</a></li>
   </ul></li>
 </ul></li>
 <li><a>OS</a><ul>
@@ -790,7 +795,8 @@ function makeDatabaseSystemReport($conn, $target, $snapids, $errorMsg)
 		&& !$target['recovery_conflicts']
 		&& !$target['write_ahead_logs']
 		&& !$target['backend_states_overview']
-		&& !$target['backend_states'])
+		&& !$target['backend_states']
+    	&& !$target['bgwriter_statistics'])
 		return "";
 
 	$htmlString =
@@ -923,8 +929,8 @@ EOD;
 	/* Instance Statistics */
 	if ($target['write_ahead_logs']
 		|| $target['backend_states_overview']
-		|| $target['backend_states']) {
-
+		|| $target['backend_states']
+    	|| $target['bgwriter_statistics']) {
 		$htmlString .=
 <<< EOD
 <div id="instance_activity" class="jump_margin"></div>
@@ -1026,6 +1032,41 @@ EOD;
 			}
 			pg_free_result($result);
 		}
+
+        if ($target['bgwriter_statistics']) {
+            $htmlString .=
+<<< EOD
+<div id="bgwriter_statistics" class="jump_margin"></div>
+<h3>Background writer Statistics</h3>
+<div align="right" class="jquery_ui_button_info_h3">
+  <div><button class="help_button" dialog="#bgwriter_statistics_dialog"></button></div>
+</div>
+
+
+EOD;
+			if ($target['repo_version'] >= V33) {
+                $result = pg_query_params($conn, $query_string['bgwriter_statistics_overview'], $snapids);
+				if (!$result) {
+					return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
+				}
+                $htmlString .= makeTableHTML($result, "bgwriter_statistics");
+                pg_free_result($result);
+
+                $result = pg_query_params($conn, $query_string['bgwriter_statistics'], $snapids);
+				if (!$result) {
+					return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
+				}
+                if (pg_num_rows($result) == 0) {
+					$htmlString .= makeErrorTag($errorMsg['no_result']);
+				} else {
+                    $htmlString .= makebgwriterStatisticsGraphHTML($result);
+				}
+				pg_free_result($result);
+
+            } else {
+				$htmlString .= makeErrorTag($errorMsg['st_version'], "3.3.0");
+            }
+        }
 	}
 
 	return $htmlString;
@@ -2305,7 +2346,9 @@ function makeLineGraphHTML($labelNames, $values, $id, $options)
     hideOverlayOnMouseOut: false,
     legend: 'always',
     xlabel: 'Time',
-    yAxisLabelWidth: 70,
+    axis: {
+      y: {axisLabelWidth: 70}
+    },
 	animatedZooms: true,
 
 EOD;
@@ -2356,7 +2399,9 @@ function makeLineGraphHTML_childrow($labelNames, $values, $id, $title, $options)
     hideOverlayOnMouseOut: false,
     legend: 'always',
     xlabel: 'Time',
-    yAxisLabelWidth: 70,
+    axis: {
+      y: {axisLabelWidth: 70}
+    },
 	animatedZooms: true,
 
 EOD;
@@ -2415,7 +2460,9 @@ function makeSimpleLineGraphHTML($results, $id, $options, $stack, $changeScale)
     hideOverlayOnMouseOut: false,
     legend: 'always',
     xlabel: 'Time',
-    yAxisLabelWidth: 70,
+    axis: {
+      y: {axisLabelWidth: 70}
+    },
 	animatedZooms: true,
 
 EOD;
@@ -2505,11 +2552,78 @@ EOD;
 
 EOD;
 
-	$htmlString .= "    '".pg_field_name($results, 2)."': {axis: { } },\n";
+    $htmlString .= "    series : {\n";
+	$htmlString .= "      '".pg_field_name($results, 2)."': {axis: 'y2' },\n";
+    $htmlString .= "    },\n";
 	$htmlString .= "    labels: [ ";
 	for($i = 0 ; $i < pg_num_fields($results) ; $i++)
 		$htmlString .= "\"".pg_field_name($results, $i)."\", ";
 	$htmlString .= " ],\n".makeCheckpointSetting("write_ahead_logs");
+
+	return $htmlString."</script>\n";
+
+}
+
+// bgwriter Statistics 2-Axes Line Graph
+function makebgwriterStatisticsGraphHTML($results)
+{
+	$htmlString = 
+<<< EOD
+<table><tr><td rowspan="2">
+<div id="bgwriter_statistics_graph" class="linegraph"></div>
+</td><td>
+<div id="bgwriter_statistics_status" class="labels"></div>
+</td></tr>
+<tr><td><div class="graph_button">
+<button id="bgwriter_statistics_line">toggle checkpoint highlight</button>
+</div></td></tr>
+</table>
+<script type="text/javascript">
+var bgwriter_statistics_highlight = false;
+var bgwriter_statistics = new Dygraph(document.getElementById('bgwriter_statistics_graph'),[
+
+EOD;
+
+	for($i = 0 ; $i < pg_num_rows($results) ; $i++) {
+		$row = pg_fetch_array($results, NULL, PGSQL_NUM);
+		$htmlString .= "    [new Date('".$row[0]."'), ";
+		for($j = 1 ; $j < pg_num_fields($results) ; $j++) {
+			$htmlString .= $row[$j].", ";
+		}
+		$htmlString .= " ],\n";
+	}
+
+	$htmlString .= "  ],\n";
+
+	/* Dygraphs options */
+	$htmlString .=
+<<< EOD
+  {
+    labelsDivStyles: { border: '1px solid black' },
+    labelsDiv: document.getElementById('bgwriter_statistics_status'),
+    labelsSeparateLines: true,
+    hideOverlayOnMouseOut: false,
+    legend: 'always',
+    xlabel: 'Time',
+	title: 'Background writer Statistics',
+	ylabel: 'Average of buffers (buffers/s)',
+	y2label: 'Average of times (count/s)',
+	animatedZooms: true,
+    axes: {
+		  y: {axisLabelWidth: 70},
+	  	 y2: {axisLabelWidth: 80}
+	   },
+
+EOD;
+
+    $htmlString .= "    series : {\n";
+	$htmlString .= "      '".pg_field_name($results, 4)."': {axis: 'y2' },\n";
+	$htmlString .= "      '".pg_field_name($results, 5)."': {axis: 'y2' },\n";
+    $htmlString .= "    },\n";
+	$htmlString .= "    labels: [ ";
+	for($i = 0 ; $i < pg_num_fields($results) ; $i++)
+		$htmlString .= "\"".pg_field_name($results, $i)."\", ";
+	$htmlString .= " ],\n".makeCheckpointSetting("bgwriter_statistics");
 
 	return $htmlString."</script>\n";
 

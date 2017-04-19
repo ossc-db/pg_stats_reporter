@@ -132,6 +132,33 @@
 </ul>
 <p>このグラフの値は設定パラメータ pg_statsinfo.sampling_interval で指定した時間(デフォルト値は5秒)ごとに収集したデータをスナップショットごとに平均したものです。</p></div>
 
+<div id="bgwriter_statistics_dialog" class="help_dialog"
+  title="The Background writer Statistics Table and Graph">
+<h4>このテーブルは、バックグラウンドライタプロセスの活動状況に関する統計情報の概要を示します。</h4>
+<ul>
+<li><em>Written buffers by bgwriter</em>: バックグラウンドライタにより書き出されたバッファ数</li>
+<li><em>Written buffers by backend</em>: バックエンドにより直接書き出されたバッファ数</li>
+<li><em>bgwriter stopped scanning</em>: バックグラウンドライタが書き出したバッファ数が多過ぎたために、整理用スキャンを停止した回数</li>
+<li><em>Backend executed fsync</em>: バックエンドが独自にfsync呼び出しを実行しなければならなかった回数</li>
+<li><em>Allocated buffers</em>: 割当られたバッファ数</li>
+</ul>
+<h4>このグラフは、バックグラウンドライタプロセスの活動状況の推移を示します。</h4>
+<h4>軸の説明</h4>
+<ul>
+<li><em>横軸</em>: 時刻</li>
+<li><em>縦軸(左側)</em>: バッファ数の平均値</li>
+<li><em>縦軸(右側)</em>: 回数の平均値</li>
+</ul>
+<h4>凡例</h4>
+<ul>
+<li><em>Written buffers by bgwriter</em>: バックグラウンドライタにより書き出されたバッファ数</li>
+<li><em>Written buffers by backend</em>: バックエンドにより直接書き出されたバッファ数</li>
+<li><em>bgwriter stopped scanning</em>: バックグラウンドライタが書き出したバッファ数が多過ぎたために、整理用スキャンを停止した回数</li>
+<li><em>Backend executed fsync</em>: バックエンドが独自にfsync呼び出しを実行しなければならなかった回数</li>
+<li><em>Allocated buffers</em>: 割当られたバッファ数</li>
+</ul>
+</div>
+
 <div id="cpu_usage_dialog" class="help_dialog"
   title="The CPU Usage Graph">
 <h4>このグラフはCPUの状態毎の時間消費の割合の推移を示します。</h4>

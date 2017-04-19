@@ -84,6 +84,7 @@ $report_default = array(
   'write_ahead_logs'          => true,
   'backend_states_overview'   => true,
   'backend_states'            => true,
+  'bgwriter_statistics'       => true,
   'cpu_usage'                 => true,
   'load_average'              => true,
   'memory_usage'              => true,
@@ -124,6 +125,7 @@ $help_list = array(
   'write_ahead_logs'          => 'write_ahead_logs_dialog',
   'backend_states_overview'   => 'backend_states_overview_dialog',
   'backend_states'            => 'backend_states_dialog',
+  'bgwriter_statistics'       => 'bgwriter_statistics_dialog',
   'cpu_usage'                 => 'cpu_usage_dialog',
   'load_average'              => 'load_average_dialog',
   'memory_usage'              => 'memory_usage_dialog',
@@ -194,6 +196,12 @@ $query_string = array(
 
   "backend_states" =>
   "SELECT replace(\"timestamp\", '-', '/'), avg(idle) AS idle, avg(idle_in_xact) AS \"idle in xact\", avg(waiting) AS waiting, avg(running) AS running FROM statsrepo.get_proc_tendency_report($1, $2) GROUP BY 1 ORDER BY 1",
+
+  "bgwriter_statistics_overview" =>
+  "SELECT bgwriter_write_avg AS \"Written buffers by bgwriter\", backend_write_avg AS \"Written buffers by backend\", bgwriter_stopscan_avg AS \"bgwriter stopped scanning\", backend_fsync_avg AS \"Backend executed fsync\", buffer_alloc_avg AS \"Allocated buffers\" FROM statsrepo.get_bgwriter_stats($1, $2)",
+
+  "bgwriter_statistics" =>
+  "SELECT timestamp, bgwriter_write_tps AS \"Written buffers by bgwriter\", backend_write_tps AS \"Written buffers by backend\", buffer_alloc_tps AS \"Allocated buffers\", bgwriter_stopscan_tps AS \"bgwriter stopped scanning\", backend_fsync_tps AS \"Backend executed fsync\" FROM statsrepo.get_bgwriter_tendency($1, $2)",
 
   /* OS Resources */
   // CPU and Memory

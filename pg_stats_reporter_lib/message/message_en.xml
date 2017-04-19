@@ -136,6 +136,33 @@ the another shows the amount divided by the snapshot interval.</h4>
 <p>This graph shows average for every snapshot interval of the percentage of states collected by the interval specified with the configuration parameter pg_statsinfo.sampling_interval (5 seconds by default).</p>
 </div>
 
+<div id="bgwriter_statistics_dialog" class="help_dialog"
+  title="The Background writer Statistics Table and Graph">
+<h4>This table shows the overview of the background writer process's activity.</h4>
+<ul>
+<li><em>Written buffers by bgwriter</em>: Number of buffers written by the background writer.</li>
+<li><em>Written buffers by backend</em>: Number of buffers written directly by a backend.</li>
+<li><em>bgwriter stopped scanning</em>: Number of times the background writer stopped a cleaning scan because it had written too many buffers.</li>
+<li><em>Backend executed fsync</em>: Number of times a backend had to execute its own fsync call.</li>
+<li><em>Allocated buffers</em>: Number of buffers allocated.</li>
+</ul>
+<h4>This graph shows the trend of the background writer process's activity.</h4>
+<h4>Axes</h4>
+<ul>
+<li><em>Horizontal axis</em>: Time</li>
+<li><em>Vertial axis1</em>: Average of buffers</li>
+<li><em>Vertial axis2</em>: Average of times</li>
+</ul>
+<h4>Legend</h4>
+<ul>
+<li><em>Written buffers by bgwriter</em>: Number of buffers written by the background writer.</li>
+<li><em>Written buffers by backend</em>: Number of buffers written directly by a backend.</li>
+<li><em>bgwriter stopped scanning</em>: Number of times the background writer stopped a cleaning scan because it had written too many buffers.</li>
+<li><em>Backend executed fsync</em>: Number of times a backend had to execute its own fsync call.</li>
+<li><em>Allocated buffers</em>: Number of buffers allocated.</li>
+</ul>
+</div>
+
 <div id="cpu_usage_dialog" class="help_dialog"
   title="The CPU Usage Graph">
 <h4>This graph shows the trend of percentage of time the CPU spends in different states.</h4>
