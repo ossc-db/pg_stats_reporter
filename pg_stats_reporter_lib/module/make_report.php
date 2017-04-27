@@ -645,6 +645,9 @@ function makeContents($conn, $infoData, $targetInfo, $snapids)
 
 	$targetData = $infoData[$targetInfo['repodb']];
 
+    /* リポジトリのバージョン情報は5桁の数値しか入らないため数値型に強制設定 */
+    settype($targetData['repo_version'], "integer");
+
 	/* Contents Header */
 	if (empty($_SERVER['DOCUMENT_ROOT']))
 		/* When it is run in command-line mode */
@@ -1738,7 +1741,7 @@ EOD;
 EOD;
 			if ($target['repo_version'] >= V31) {
 				$result = pg_query_params($conn, $query_string['autovacuum_overview31'], $snapids);
-			} else if($target['repo_version'] == V30) {
+			} else if($target['repo_version'] >= V30) {
 				$result = pg_query_params($conn, $query_string['autovacuum_overview30'], $snapids);
 			} else {
 				$result = pg_query_params($conn, $query_string['autovacuum_overview25'], $snapids);
@@ -1799,17 +1802,13 @@ EOD;
 			if ($target['repo_version'] >= V25) {
 				// if repository database version >= 3.0, add last analyze time
 				$qstr = "";
-				switch ($target['repo_version']) {
-				case V25:
-					$qstr = $query_string['analyze_overview25'];
-					break;
-				case V30:
-					$qstr = $query_string['analyze_overview30'];
-					break;
-				case V31:
-				default:
+                if ($target['repo_version'] >= V31) {
 					$qstr = $query_string['analyze_overview31'];
-				}
+                } else if ($target['repo_version'] >= V30) {
+					$qstr = $query_string['analyze_overview30'];
+                } else {
+					$qstr = $query_string['analyze_overview25'];
+                }
 
 				$result = pg_query_params($conn, $qstr, $snapids);
 				if (!$result) {

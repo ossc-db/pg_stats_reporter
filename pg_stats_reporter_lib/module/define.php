@@ -22,13 +22,13 @@ define("JQPLOT_PATH", "package/jqPlot-1.0.8r1250/");
 define("DYGRAPHS_PATH", "package/dygraphs-1.1.0/");
 
 // pg_statsinfo's version
-define("V23", "20300");
-define("V24", "20400");
-define("V25", "20500");
-define("V30", "30000");
-define("V31", "30100");
-define("V32", "30200");
-define("V33", "30300");
+define("V23", 20300);
+define("V24", 20400);
+define("V25", 20500);
+define("V30", 30000);
+define("V31", 30100);
+define("V32", 30200);
+define("V33", 30300);
 
 // Smarty cache, compile, template directory
 define("CACHE_DIR", "../../pg_stats_reporter_lib/cache");
@@ -201,7 +201,7 @@ $query_string = array(
   "SELECT bgwriter_write_avg AS \"Written buffers by bgwriter\", backend_write_avg AS \"Written buffers by backend\", bgwriter_stopscan_avg AS \"bgwriter stopped scanning\", backend_fsync_avg AS \"Backend executed fsync\", buffer_alloc_avg AS \"Allocated buffers\" FROM statsrepo.get_bgwriter_stats($1, $2)",
 
   "bgwriter_statistics" =>
-  "SELECT timestamp, bgwriter_write_tps AS \"Written buffers by bgwriter\", backend_write_tps AS \"Written buffers by backend\", buffer_alloc_tps AS \"Allocated buffers\", bgwriter_stopscan_tps AS \"bgwriter stopped scanning\", backend_fsync_tps AS \"Backend executed fsync\" FROM statsrepo.get_bgwriter_tendency($1, $2)",
+  "SELECT replace(\"timestamp\", '-', '/'), bgwriter_write_tps AS \"Written buffers by bgwriter\", backend_write_tps AS \"Written buffers by backend\", buffer_alloc_tps AS \"Allocated buffers\", bgwriter_stopscan_tps AS \"bgwriter stopped scanning\", backend_fsync_tps AS \"Backend executed fsync\" FROM statsrepo.get_bgwriter_tendency($1, $2)",
 
   /* OS Resources */
   // CPU and Memory
