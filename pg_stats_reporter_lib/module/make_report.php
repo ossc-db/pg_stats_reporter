@@ -2345,7 +2345,7 @@ function makeLineGraphHTML($labelNames, $values, $id, $options)
     hideOverlayOnMouseOut: false,
     legend: 'always',
     xlabel: 'Time',
-    axis: {
+    axes: {
       y: {axisLabelWidth: 70}
     },
 	animatedZooms: true,
@@ -2398,7 +2398,7 @@ function makeLineGraphHTML_childrow($labelNames, $values, $id, $title, $options)
     hideOverlayOnMouseOut: false,
     legend: 'always',
     xlabel: 'Time',
-    axis: {
+    axes: {
       y: {axisLabelWidth: 70}
     },
 	animatedZooms: true,
@@ -2459,7 +2459,7 @@ function makeSimpleLineGraphHTML($results, $id, $options, $stack, $changeScale)
     hideOverlayOnMouseOut: false,
     legend: 'always',
     xlabel: 'Time',
-    axis: {
+    axes: {
       y: {axisLabelWidth: 70}
     },
 	animatedZooms: true,
