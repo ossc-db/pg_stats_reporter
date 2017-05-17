@@ -12,14 +12,14 @@ define("PROGRAM_VERSION", "3.3.0");
 define("IMAGE_FILE", "pgsql_banner01.png");
 
 // Library path
-define("SMARTY_PATH", "package/Smarty-3.1.21/libs/");
-define("JQUERY_PATH", "package/jquery-2.1.3.min.js");
-define("JQUERYUI_PATH", "package/jquery-ui-1.11.3.custom/");
-define("TIMEPICKER_PATH", "package/jquery-timepicker-addon-1.5.0/");
-define("TABLESORTER_PATH", "package/tablesorter-2.17.8/");
-define("SUPERFISH_PATH", "package/superfish-1.7.5/dist/");
+define("SMARTY_PATH", "package/Smarty-3.1.30/libs/");
+define("JQUERY_PATH", "package/jquery-3.2.1.min.js");
+define("JQUERYUI_PATH", "package/jquery-ui-1.12.1.custom/");
+define("TIMEPICKER_PATH", "package/jquery-ui-timepicker-addon-1.6.3/");
+define("TABLESORTER_PATH", "package/tablesorter-2.28.10/");
+define("SUPERFISH_PATH", "package/superfish-1.7.9/dist/");
 define("JQPLOT_PATH", "package/jqPlot-1.0.8r1250/");
-define("DYGRAPHS_PATH", "package/dygraphs-1.1.0/");
+define("DYGRAPHS_PATH", "package/dygraphs-2.0.0/");
 
 // pg_statsinfo's version
 define("V23", 20300);

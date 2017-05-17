@@ -137,7 +137,7 @@ function makeReportListHTML(&$html_string, $html_head, $html_body)
 
 EOD;
 	$html_string .= "<script type=\"text/javascript\" src=\"".JQUERY_PATH."\"></script>\n";
-	$html_string .= "<script type=\"text/javascript\" src=\"".TABLESORTER_PATH."js/jquery.tablesorter.min.js\"></script>\n";
+	$html_string .= "<script type=\"text/javascript\" src=\"".TABLESORTER_PATH."js/jquery.tablesorter.js\"></script>\n";
 	$html_string .= "<script type=\"text/javascript\" src=\"".JQUERYUI_PATH."jquery-ui.min.js\"></script>\n";
 
 	$html_string .=
