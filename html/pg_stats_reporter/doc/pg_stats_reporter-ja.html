@@ -2,7 +2,7 @@
 
 <html lang="ja"><head>
 
-<title>pg_stats_reporter</title>
+<title>pg_stats_reporter 3.3</title>
 <link rel="home" title="pg_stats_reporter" href="index.html">
 <link rel="stylesheet" TYPE="text/css" href="style.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -33,14 +33,14 @@
   <li><a href="#configuration">設定ファイル</a></li>
   <li><a href="#restrictions">使用上の注意と制約</a></li>
   <li><a href="#faq">よくあるQ&amp;A</a></li>
-  <li><a href="#change">pg_stats_reporter 3.1 からの変更点</a></li>
+  <li><a href="#change">pg_stats_reporter 3.2 からの変更点</a></li>
   <li><a href="#seealso">関連項目</a></li>
   <li><a href="#acknowledgment">謝辞</a></li>
 </ol>
 </div>
-<h1 id="pg_stats_reporter">pg_stats_reporter 3.2</h1>
+<h1 id="pg_stats_reporter">pg_stats_reporter 3.3</h1>
 <h2 id="name">pg_stats_reporter とは?</h2>
-<p><a href="http://pgstatsinfo.sourceforge.net/documents/statsinfo3.2/pg_statsinfo-ja.html">pg_statsinfo-3.2 </a>が収集した統計情報を元に、PostgreSQL サーバの利用統計情報をHTML形式のグラフィカルなレポートで出力します。</p>
+<p><a href="http://pgstatsinfo.sourceforge.net/documents/statsinfo3.3/pg_statsinfo-ja.html">pg_statsinfo-3.3 </a>が収集した統計情報を元に、PostgreSQL サーバの利用統計情報をHTML形式のグラフィカルなレポートで出力します。</p>
 <p>当ツールで作成したレポートの例は<a href="files/report_sample.html">こちら</a>をご覧ください。</p>
 
 <h2 id="synopsis">機能概要</h2>
@@ -68,19 +68,19 @@ WEBサーバにブラウザを利用してアクセスすることで、ブラ�
 <h3 id="requirement">動作確認環境</h3>
 <dl>
   <dt>pg_statsinfo</dt>
-  <dd>バージョン 3.0, 3.1, 3.2</dd>
+  <dd>バージョン 3.1, 3.2, 3.3</dd>
   <dt>動作確認済みPHP</dt>
-  <dd>バージョン 5.3.3 (RHEL 6.7 同梱のもの)</dd>
-  <dd>バージョン 5.4.16 (RHEL 7.1 同梱のもの)</dd>
+  <dd>バージョン 5.3.3 (RHEL 6.9 同梱のもの)</dd>
+  <dd>バージョン 5.4.16 (RHEL 7.3 同梱のもの)</dd>
   <dt>動作確認済みOS</dt>
-  <dd>RHEL 6.7, RHEL 7.1</dd>
+  <dd>RHEL 6.9, RHEL 7.3</dd>
   <dt>動作確認済みブラウザ</dt>
-  <dd>Firefox : 42.0</dd>
+  <dd>Firefox : 53.0</dd>
   <dd>Internet Explorer : 11</dd>
   <dt>動作確認済みHTTP Server</dt>
-  <dd>Apache HTTP Server : 2.2.15 (RHEL 6.7 同梱のもの)</dd>
-  <dd>Apache HTTP Server : 2.4.6 (RHEL 7.1 同梱のもの)</dd>
-  <dt>利用ライブラリ (pg_stats_reporter のインストールパッケージに同梱)</dt>
+  <dd>Apache HTTP Server : 2.2.15 (RHEL 6.9 同梱のもの)</dd>
+  <dd>Apache HTTP Server : 2.4.6 (RHEL 7.3 同梱のもの)</dd>
+  <dt><font color="red">[修正(未)]</font>利用ライブラリ (pg_stats_reporter のインストールパッケージに同梱)</dt>
   <dd><ul>
     <li>jQuery : 2.1.3</li>
     <li>jQuery UI : 1.11.3</li>
@@ -102,18 +102,18 @@ WEBサーバにブラウザを利用してアクセスすることで、ブラ�
 <h5>yumを使用する場合のインストール手順</h5>
 <pre>
 # yum install httpd php php-pgsql php-intl php-cli
-# rpm -ivh pg_stats_reporter-3.2.0-1.el6.noarch.rpm
+# rpm -ivh pg_stats_reporter-3.3.0-1.el7.noarch.rpm
 </pre>
 <h5>yumを使用しない場合のインストール手順</h5>
 <pre>
-# rpm -ivh httpd-2.2.15-39.el6.x86_64.rpm \
-           php-common-5.3.3-38.el6.x86_64.rpm \
-           php-5.3.3-38.el6.x86_64.rpm \
-           php-pdo-5.3.3-38.el6.x86_64.rpm \
-           php-pgsql-5.3.3-38.el6.x86_64.rpm \
-           php-intl-5.3.3-38.el6.x86_64.rpm \
-           php-cli-5.3.3-38.el6.x86_64.rpm \
-           pg_stats_reporter-3.2.0-1.el6.noarch.rpm
+# rpm -ivh httpd-2.4.6-45.el7.x86_64.rpm \
+           php-common-5.4.16-42.el6.x86_64.rpm \
+           php-5.4.16-42.el7.x86_64.rpm \
+           php-pdo-5.4.16-42.el7.x86_64.rpm \
+           php-pgsql-5.4.16-42.el7.x86_64.rpm \
+           php-intl-5.4.16-42.el7.x86_64.rpm \
+           php-cli-5.4.16-42.el7.x86_64.rpm \
+           pg_stats_reporter-3.3.0-1.el7.noarch.rpm
 </pre>
 
 <h4>コマンドライン機能のみ</h4>
@@ -122,20 +122,20 @@ WEBサーバにブラウザを利用してアクセスすることで、ブラ�
 <h5>yumを使用する場合のインストール手順</h5>
 <pre>
 # yum install php-pgsql php-intl php-cli
-# rpm -ivh --nodeps pg_stats_reporter-3.2.0-1.el6.noarch.rpm
+# rpm -ivh --nodeps pg_stats_reporter-3.3.0-1.el7.noarch.rpm
 </pre>
 <h5>yumを使用しない場合のインストール手順</h5>
 <pre>
-# rpm -ivh php-common-5.3.3-38.el6.x86_64.rpm \
-           php-pdo-5.3.3-38.el6.x86_64.rpm \
-           php-pgsql-5.3.3-38.el6.x86_64.rpm \
-           php-intl-5.3.3-38.el6.x86_64.rpm \
-           php-cli-5.3.3-38.el6.x86_64.rpm
-# rpm -ivh --nodeps pg_stats_reporter-3.2.0-1.el6.noarch.rpm
+# rpm -ivh php-common-5.4.16-42.el7.x86_64.rpm \
+           php-pdo-5.4.16-42.el7.x86_64.rpm \
+           php-pgsql-5.4.16-42.el7.x86_64.rpm \
+           php-intl-5.4.16-42.el7.x86_64.rpm \
+           php-cli-5.4.16-42.el7.x86_64.rpm
+# rpm -ivh --nodeps pg_stats_reporter-3.3.0-1.el7.noarch.rpm
 </pre>
 
 <p>
-※php-intl のRPMファイルは、インストールディスク2枚目の「Packages/php-intl-5.3.3-38.el6.x86_64.rpm」に格納されています。<br/>
+※php-intl のRPMパッケージの入手は、Red Hat カスタマーポータルのサブスクリプション管理サービスを用いる必要があります。<br/>
 ※php-intl が未インストールの状態でも動作しますが、表示言語の自動設定が機能しなくなります。
 </p>
 
@@ -387,7 +387,7 @@ http://&lt;<I>ホスト名</I>&gt;/pg_stats_reporter/pg_stats_reporter.php
 なお、アンインストールにより設定ファイル(/etc/pg_stats_reporter.ini)は削除されません。設定ファイルを削除したい場合は手動で削除してください。</p>
 <pre>
 $ su
-# rpm -e pg_stats_reporter-3.2.0-1.el6.noarch
+# rpm -e pg_stats_reporter-3.3.0-1.el7.noarch
 </pre>
 <p>ソースセットからインストールした場合のアンインストール手順は、ソースセットに同梱されている INSTALL.ja ファイルを参照してください。</p>
 
@@ -522,7 +522,7 @@ $ su
 <ol type="a">
   <li>項目または設定値を省略した場合の挙動は、libpqの接続文字列のパラメータと同じです。詳しくは <a href="http://www.postgresql.jp/document/current/html/libpq-connect.html#LIBPQ-PARAMKEYWORDS">こちら</a> を参照してください。</li>
   <li>ディストリビューションによっては、HTTP Server のドキュメントルートのデフォルトが実行ユーザのホームディレクトリになっている場合があります。そのため、PostgreSQL の接続パスワードで .pgpass を使用する場合には、外部から参照されないように注意して配置してください。</li>
-  <li>php-intl が未インストールの状態で auto が設定されている場合は強制的に英語で表示されます。</li>
+  <li>php-intl が未インストールの状態状態では、表示言語の自動設定は動作せず、en となります。<font color="red">languageの説明を英語版とあわせて個々は削除した方がよいかもしれません</font></li>
   <li>各種レポート項目は、<a href="files/pg_stats_reporter.ini.sample">pg_stats_reporter.iniファイルのサンプル</a>を参照してください。</li>
 </ol>
 </p>
@@ -535,8 +535,7 @@ $ su
   <li>Linux環境では "/" が、Windowsのエクスプローラでは "\ / : * ? &lt; &gt; |" の8種類の文字がファイル名の制約となるため、セクション名で使用できません。そのため、Linux と Windows の両方の環境にてpg_stats_reporter を使用する場合は正常に動作しない可能性があります。</li>
   <li>グローバルな設定項目用のセクション名として利用しているため、リポジトリDB設定のセクション名として "global_setting" を設定しないでください。</li>
   <li>監視対象となっているPostgreSQLサーバ上で、監視対象DB以外において大量のSQLクエリが実行された場合、当ツールが作成するレポートの Query Activity に、監視対象DBで実行されたSQLクエリの情報が表示されないことがあります。これは、pg_statsinfo は pg_stat_statements を利用してクエリの実行情報を収集しており、監視対象DB以外に total_time が長いクエリが多数ある場合に、監視対象DBに対するクエリの実行情報が押し出されてしまうためです。同様に、監視対象DB上で、レポート作成期間外に total_time が長いクエリが多数ある場合、レポート作成期間内に実行されたクエリが表示されなくなることがあります。</li>
-  <li>pg_statsinfo で監視対象とするデータベースは <a href="http://pgstatsinfo.sourceforge.net/documents/statsinfo3.2/pg_statsinfo-ja.html">excluded_dbnames</a> で制限することができるようになっています。しかし現在の実装ではロングトランザクション情報など一部の情報で、これらの制限されたデータベースの情報を表示するものがあります。</li>
-  <li>監視対象DBが複数の同期スタンバイサーバを持つ構成の場合、Replication Delaysのグラフの中では、そのうちの1つのみが同期として表示されます。各サーバの同期、非同期の確認は、Overviewの表のsync stateの項目で行ってください。</font></li>
+  <li>pg_statsinfo で監視対象とするデータベースは <a href="http://pgstatsinfo.sourceforge.net/documents/statsinfo3.3/pg_statsinfo-ja.html">excluded_dbnames</a> で制限することができるようになっています。しかし現在の実装ではロングトランザクション情報など一部の情報で、これらの制限されたデータベースの情報を表示するものがあります。</li>
 </ul>
 
 <h2 id="faq">よくあるQ&amp;A</h2>
@@ -570,18 +569,21 @@ ls -dZ /var/www/pg_stats_reporter_lib/{cache,compiled}
 
 <h4>Q5. リポジトリDB選択メニューに現在未使用の監視対象DBが表示されます。</h4>
 <p>A5. リポジトリDBから現在未使用の監視対象DBのインスタンス情報を削除してください。
-インスタンス情報の削除方法は、pg_statsinfoマニュアルの「<a href="http://pgstatsinfo.sourceforge.net/documents/statsinfo3.2/pg_statsinfo-ja.html#user-operations">運用上必要となる作業</a>」を参照してください。</p>
+インスタンス情報の削除方法は、pg_statsinfoマニュアルの「<a href="http://pgstatsinfo.sourceforge.net/documents/statsinfo3.3/pg_statsinfo-ja.html#user-operations">運用上必要となる作業</a>」を参照してください。</p>
 
-<h2 id="change">pg_stats_reporter 3.1 からの変更点</h2>
-<p>pg_stats_reporter 3.1 からの変更点は以下の通りです。</p>
+<h2 id="change">pg_stats_reporter 3.2 からの変更点</h2>
+<p>pg_stats_reporter 3.2 からの変更点は以下の通りです。</p>
 <ul>
-  <li>pg_statsinfo 3.2に対応</li>
-  <li>pg_statsinfo 2.5がサポート対象外になりました</li>
+  <li>レポート項目にバックグラウンドライタの活動情報を追加</li>
+  <li>Replication Overviewにreplay delayの最大と平均を 追加</li>
+  <li>Replication Delaysの複数同期レプリケーション表示対応</li>
+  <li>pg_statsinfo 3.3に対応</li>
+  <li>pg_statsinfo 3.0がサポート対象外になりました</li>
 </ul>
 <br/>
 
 <h2 id="seealso">関連項目</h2>
-<a href="http://pgstatsinfo.sourceforge.net/documents/statsinfo3.2/pg_statsinfo-ja.html">pg_statsinfo 3.2</a> 
+<a href="http://pgstatsinfo.sourceforge.net/documents/statsinfo3.3/pg_statsinfo-ja.html">pg_statsinfo 3.3</a> 
 <br/><br/>
 <h2 id="acknowledgment">謝辞</h2>
 <p>pg_stats_reporter では、以下のライブラリを活用させていただいております。感謝いたします。<br/>
@@ -591,15 +593,15 @@ ls -dZ /var/www/pg_stats_reporter_lib/{cache,compiled}
 <li>jquery-ui-timepicker-addon : <a href="http://trentrichardson.com/examples/timepicker/">http://trentrichardson.com/examples/timepicker/</a></li>
 <li>dygraphs JavaScript Visualization Library : <a href="http://dygraphs.com/">http://dygraphs.com/</a></li>
 <li>jqPlot : <a href="http://www.jqplot.com/">http://www.jqplot.com/</a></li>
-<li>tablesorter : <a href="http://plugins.jquery.com/tablesorter/">http://plugins.jquery.com/tablesorter/</a></li>
-<li>Superfish : <a href="http://users.tpg.com.au/j_birch/plugins/superfish/">http://users.tpg.com.au/j_birch/plugins/superfish/</a></li>
+<li>tablesorter : <a href="https://github.com/Mottie/tablesorter">https://github.com/Mottie/tablesorter</a></li>
+<li>Superfish : <a href="https://superfish.joelbirch.co/">https://superfish.joelbirch.co/</a></li>
 <li>Smarty : <a href="http://www.smarty.net/">http://www.smarty.net/</a></li>
 </ul>
 <br/><br/>
 <hr/>
 <div class="navigation">
   <a href="http://pgstatsinfo.sourceforge.net/index_ja.html">Top</a> &gt;
-  <a href="http://pgstatsinfo.sourceforge.net/documents/reporter3.2/html/pg_stats_reporter-ja.html">pg_stats_reporter</a>
+  <a href="http://pgstatsinfo.sourceforge.net/documents/reporter3.3/html/pg_stats_reporter-ja.html">pg_stats_reporter</a>
 </div>
 <p class="footer">Copyright (c) 2012-2017, NIPPON TELEGRAPH AND TELEPHONE CORPORATION</p>
 

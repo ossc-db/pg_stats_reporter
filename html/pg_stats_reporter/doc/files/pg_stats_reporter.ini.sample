@@ -52,6 +52,7 @@ recovery_conflicts = true           ; Recovery Conflicts
 write_ahead_logs = true             ; Write Ahead Logs
 backend_states_overview = true      ; Backend States Overview
 backend_states = true               ; Backend States
+bgwriter_statistics = true          ; bgwriter Statistics
 
 ; --- OS Resources ---
 

@@ -2,7 +2,7 @@
 
 <html lang="en"><head>
 
-<title>pg_stats_reporter</title>
+<title>pg_stats_reporter 3.3</title>
 <link rel="home" title="pg_stats_reporter" href="index.html">
 <link rel="stylesheet" type="text/css" href="style.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -30,14 +30,14 @@
   <li><a href="#configuration">Configuration</a></li>
   <li><a href="#restrictions">Cautions and Restrictions</a></li>
   <li><a href="#faq">FAQ</a></li>
-  <li><a href="#change">Changes from pg_stats_reporter 3.1</a></li>
+  <li><a href="#change">Changes from pg_stats_reporter 3.2</a></li>
   <li><a href="#seealso">See also</a></li>
   <li><a href="#acknowledgment">Acknowledgments</a></li>
 </ol>
 </div>
-<h1 id="pg_stats_reporter">pg_stats_reporter 3.2</h1>
+<h1 id="pg_stats_reporter">pg_stats_reporter 3.3</h1>
 <h2 id="name">What is pg_stats_reporter?</h2>
-<p>pg_stats_reporter is a graphical report generator for <a href="http://pgstatsinfo.sourceforge.net/documents/statsinfo3.2/pg_statsinfo.html">pg_statsinfo</a>. It offers you various statistical information collected by pg_statsinfo in a graphical and interactive representation. pg_stats_reporter 3.1 is compatible with pg_statsinfo 2.5 or later but some features are not available for the versions earlier than 3.1. You can see an example report <a href="files/report_sample.html">here</a>. </p>
+<p>pg_stats_reporter is a graphical report generator for <a href="http://pgstatsinfo.sourceforge.net/documents/statsinfo3.3/pg_statsinfo.html">pg_statsinfo</a>. It offers you various statistical information collected by pg_statsinfo in a graphical and interactive representation. pg_stats_reporter 3.3 is compatible with pg_statsinfo 3.1 or later but some features are not available for the versions earlier than 3.3. You can see an example report <a href="files/report_sample.html">here</a>. </p>
 
 <h2 id="synopsis">Online and Offline Reports</h2>
 <p>pg_stats_reporter runs in two ways.  It runs as a CGI script and connects to repository server of pg_statsinfo in common usage but it also provides a command-line interface to generate off-line reports, which is portable form of the graphical report. 
@@ -51,14 +51,14 @@ pg_stats_reporter is tested on the following environment.
 
 <dl>
   <dt>pg_statsinfo</dt>
-  <dd>version 3.0, 3.1, 3.2</dd>
+  <dd>version 3.1, 3.2, 3.3</dd>
   <dt>PHP</dt>
   <dd>version 5.3.3 (bundled with RHEL6)</dd>
   <dd>version 5.4.16 (bundled with RHEL7)</dd>
   <dt>OS</dt>
-  <dd>RHEL 6.7, RHEL 7.1</dd>
+  <dd>RHEL 6.9, RHEL 7.3</dd>
   <dt>Web browser</dt>
-  <dd>Firefox : 42.0</dd>
+  <dd>Firefox : 53.0</dd>
   <dd>Internet Explorer : 11</dd>
   <dt>HTTP Server</dt>
   <dd>Apache HTTP Server : 2.2.15 (bundled with RHEL6)</dd>
@@ -85,20 +85,20 @@ pg_stats_reporter is tested on the following environment.
 <p>The required packages are are installed by the steps like following using yum.</p>
 <pre>$ su
 # yum install httpd php php-pgsql php-intl php-cli
-# rpm -ivh pg_stats_reporter-3.2.0-1.el6.noarch.rpm
+# rpm -ivh pg_stats_reporter-3.3.0-1.el7.noarch.rpm
 </pre>
 
 <h5>Installing using RPM</h5>
 <p>The following steps shows how to install all required packages using rpm command.</p>
 <pre>$ su
-# rpm -ivh httpd-2.2.15-39.el6.x86_64.rpm \
-           php-common-5.3.3-38.el6.x86_64.rpm \
-           php-5.3.3-38.el6.x86_64.rpm \
-           php-pdo-5.3.3-38.el6.x86_64.rpm \
-           php-pgsql-5.3.3-38.el6.x86_64.rpm \
-           php-intl-5.3.3-38.el6.x86_64.rpm \
-           php-cli-5.3.3-38.el6.x86_64.rpm \
-           pg_stats_reporter-3.2.0-1.el6.noarch.rpm
+# rpm -ivh httpd-2.4.6-45.el7.x86_64.rpm \
+           php-common-5.4.16-42.el7.x86_64.rpm \
+           php-5.4.16-42.el7.x86_64.rpm \
+           php-pdo-5.4.16-42.el7.x86_64.rpm \
+           php-pgsql-5.4.16-42.el7.x86_64.rpm \
+           php-intl-5.4.16-42.el7.x86_64.rpm \
+           php-cli-5.4.16-42.el7.x86_64.rpm \
+           pg_stats_reporter-3.3.0-1.el7.noarch.rpm
 </pre>
 
 <h4>Installing for offline reports only</h4>
@@ -107,24 +107,25 @@ pg_stats_reporter is tested on the following environment.
 <p>Required packages for offline reports are installed by the steps like following. pg_stats_reporter package depends on php so --nodeps needed for this case.</p>
 <pre>$ su
 # yum install php-pgsql php-intl php-cli
-# rpm -ivh --nodeps pg_stats_reporter-3.2.0-1.el6.noarch.rpm
+# rpm -ivh --nodeps pg_stats_reporter-3.3.0-1.el7.noarch.rpm
 </pre>
 
 <h5>Installing using RPM</h5>
 <p>The fewer packages are required. --nodeps is required for
 pg_stats_reporter.</p>
-<pre># rpm -ivh php-common-5.3.3-38.el6.x86_64.rpm \
-           php-pdo-5.3.3-38.el6.x86_64.rpm \
-           php-pgsql-5.3.3-38.el6.x86_64.rpm \
-           php-intl-5.3.3-38.el6.x86_64.rpm \
-           php-cli-5.3.3-38.el6.x86_64.rpm
-# rpm -ivh --nodeps pg_stats_reporter-3.2.0-1.el6.noarch.rpm
+<pre># rpm -ivh php-common-5.4.16-42.el7.x86_64.rpm \
+           php-pdo-5.4.16-42.el7.x86_64.rpm \
+           php-pgsql-5.4.16-42.el7.x86_64.rpm \
+           php-intl-5.4.16-42.el7.x86_64.rpm \
+           php-cli-5.4.16-42.el7.x86_64.rpm
+# rpm -ivh --nodeps pg_stats_reporter-3.3.0-1.el7.noarch.rpm
 </pre>
 
-<p>* You will find the "php-intl" package in the following directory on the installation disc No. 2 of RHEL.</p>
-<p>  "Packages/php-intl-5.3.3-38.el6.x86_64.rpm"</p>
-<p>* The package "php-intl" is not required if you don't want automatic language detection for online report to work.</p>
-<br/>
+<p>* The php-intl RPM package for Red Hat Enterprise Linux is
+available via the subscription management services provided at Red Hat
+customer portal. It is required to activate automatic language
+selection (only instant help messages between ja/en) of an online
+graphical report.</p>  <br/>
 
 <h3 id="initialize">Initial Setup</h3>
 <p>This section explains about required setups to run pg_stats_reporter.</p>
@@ -352,7 +353,7 @@ display the content correctly.</p>
 <h2 id="uninstall">Uninstallation</h2>
 <p>pg_stats_reporter installed by RPM package is uninstalled by the following steps. The configuration file ('/etc/pg_stats_repoter.ini') is left alone by the steps, so you should delete it manually if it is not necessary. </p>
 <pre>$ su
-# rpm -e pg_stats_reporter-3.2.0-1.el6.noarch
+# rpm -e pg_stats_reporter-3.3.0-1.el7.noarch
 </pre>
 <p>
 You will see the instructions to uninstall manually in INSTALL.en in the top source directory.
@@ -507,13 +508,9 @@ file.
   can push away the queries on observed databases.</li>
 	<li>Although pg_statsinfo is designed to exlclude databases
 	specified by the
-	parameter <a href="http://pgstatsinfo.sourceforge.net/documents/statsinfo3.2/pg_statsinfo.html">excluded_dbnames</a>
+	parameter <a href="http://pgstatsinfo.sourceforge.net/documents/statsinfo3.3/pg_statsinfo.html">excluded_dbnames</a>
 	from snapshots, it fails for some report items such as "long
 	transactions".</li>
-	<li>Since PostgreSQL 9.6, two or more standbys are allowed to be synchronous.
-	pg_stats_reporter shows one of them as synchronous for the case. The
-	"sync state" field in the Overview table offers the true status of
-	each standby.</li>
 </ul>
 
 <h2 id="faq">FAQ</h2>
@@ -548,18 +545,23 @@ then restart the http server.</li>
 
 <h4>Q5. I see the name of a no-longer-monitored database in the repository bar.</h4>
 <p>A5. It is brought about by the data for such instances left in the repository. You can remove such items by manually deleting the
-corresponding data in repository. See details <a href="http://pgstatsinfo.sourceforge.net/documents/statsinfo3.2/pg_statsinfo.html#instance-deletion">here</a>.</p>
+corresponding data in repository. See details <a href="http://pgstatsinfo.sourceforge.net/documents/statsinfo3.3/pg_statsinfo.html#instance-deletion">here</a>.</p>
 
-<h2 id="change">Changes from pg_stats_reporter 3.1</h2>
-<p>Changes from pg_stats_reporter 3.1 are shown below.</p>
+<h2 id="change">Changes from pg_stats_reporter 3.2</h2>
+<p>Changes from pg_stats_reporter 3.2 are shown below.</p>
 <ul>
-  <li>Supports pg_statsinfo 3.2</li>
-  <li>Dropped support for pg_statsinfo 2.5.</li>
+  <li>New section about background writer activities is added</li>
+  <li>New items maximum and average replay delay are added in
+  Replication Overview</li>
+  <li>Properly handles multiple synchronous replication standbys in
+  Replication Delays</li>
+  <li>Supports pg_statsinfo 3.3.</li>
+  <li>Dropped support for pg_statsinfo 3.0.</li>
 </ul>
 <br/>
 
 <h2 id="seealso">See also</h2>
-<a href="http://pgstatsinfo.sourceforge.net/documents/statsinfo3.2/pg_statsinfo.html">pg_statsinfo 3.2</a> 
+<a href="http://pgstatsinfo.sourceforge.net/documents/statsinfo3.3/pg_statsinfo.html">pg_statsinfo 3.3</a> 
 <br/><br/>
 <h2 id="acknowledgment">Acknowledgments</h2>
 <p>Pg_stats_reporter uses many libraries. We are deeply grateful to the developers of these libraries.<br/>
@@ -569,15 +571,15 @@ corresponding data in repository. See details <a href="http://pgstatsinfo.source
 <li>jquery-ui-timepicker-addon : <a href="http://trentrichardson.com/examples/timepicker/">http://trentrichardson.com/examples/timepicker/</a></li>
 <li>dygraphs JavaScript Visualization Library : <a href="http://dygraphs.com/">http://dygraphs.com/</a></li>
 <li>jqPlot : <a href="http://www.jqplot.com/">http://www.jqplot.com/</a></li>
-<li>tablesorter : <a href="http://plugins.jquery.com/tablesorter/">http://plugins.jquery.com/tablesorter/</a></li>
-<li>Superfish : <a href="http://users.tpg.com.au/j_birch/plugins/superfish/">http://users.tpg.com.au/j_birch/plugins/superfish/</a></li>
+<li>tablesorter : <a href="https://github.com/Mottie/tablesorter">https://github.com/Mottie/tablesorter</a></li>
+<li>Superfish : <a href="https://superfish.joelbirch.co/">https://superfish.joelbirch.co/</a></li>
 <li>Smarty : <a href="http://www.smarty.net/">http://www.smarty.net/</a></li>
 </ul>
 <br/><br/>
 <hr>
 <div class="navigation">
   <a href="http://pgstatsinfo.sourceforge.net/index.html">Top</a> &gt;
-  <a href="http://pgstatsinfo.sourceforge.net/documents/reporter3.2/html/pg_stats_reporter.html">pg_stats_reporter</a>
+  <a href="http://pgstatsinfo.sourceforge.net/documents/reporter3.3/html/pg_stats_reporter.html">pg_stats_reporter</a>
 </div>
 <p class="footer">Copyright (c) 2012-2017, NIPPON TELEGRAPH AND TELEPHONE CORPORATION</p>
 
