@@ -204,7 +204,7 @@ EOD;
 			if ($targetList['backend_states'])
 				$html_string .= "<li><a href=\"#backend_states\">Backend States</a></li>\n";
             if ($targetList['bgwriter_statistics'])
-                $html_string .= "<li><a href=\"#bgwriter_statistics\">Background writer Statistics</a></li>\n";
+                $html_string .= "<li><a href=\"#bgwriter_statistics\">Background Writer Statistics</a></li>\n";
 
 			$html_string .= "</ul></li>\n";
 		}
@@ -470,7 +470,7 @@ function makePlainHeaderMenu()
     <li><a>Write Ahead Logs</a></li>
     <li><a>Backend States Overview</a></li>
     <li><a>Backend States</a></li>
-    <li><a>Background writer Statistics</a></li>
+    <li><a>Background Writer Statistics</a></li>
   </ul></li>
 </ul></li>
 <li><a>OS</a><ul>
@@ -1040,7 +1040,7 @@ EOD;
             $htmlString .=
 <<< EOD
 <div id="bgwriter_statistics" class="jump_margin"></div>
-<h3>Background writer Statistics</h3>
+<h3>Background Writer Statistics</h3>
 <div align="right" class="jquery_ui_button_info_h3">
   <div><button class="help_button" dialog="#bgwriter_statistics_dialog"></button></div>
 </div>
@@ -2604,9 +2604,9 @@ EOD;
     hideOverlayOnMouseOut: false,
     legend: 'always',
     xlabel: 'Time',
-	title: 'Background writer Statistics',
-	ylabel: 'Average of buffers (buffers/s)',
-	y2label: 'Average of times (count/s)',
+	title: 'Background Writer Statistics',
+	ylabel: 'Buffer rate (buffers/s)',
+	y2label: 'Frequency (s<sup>-1</sup>)',
 	animatedZooms: true,
     axes: {
 		  y: {axisLabelWidth: 70},

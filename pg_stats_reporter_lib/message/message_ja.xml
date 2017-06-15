@@ -4,7 +4,7 @@
 <help>
 <div id="overview_dialog" class="help_dialog"
   title="The Report Overview Table">
-<h4>Summary テーブルはこのレポートの概要を示します</h4>
+<h4>Summary 表はこのレポートの概要を示します</h4>
 <ul>
 <li><em>Database system identifier</em>: データベースクラスタ固有ID</li>
 <li><em>Host name</em>: レポート対象のインスタンスがあるサーバーのホスト名</li>
@@ -21,7 +21,7 @@
 
 <div id="databases_statistics_dialog" class="help_dialog"
   title="The Database Statistics Table">
-<h4>このテーブルではデータベース毎の統計の概要を示します。</h4>
+<h4>この表ではデータベース毎の統計の概要を示します。</h4>
 <ul>
 <li><em>Database</em>: データベース名 </li>
 <li><em>MiB</em>: レポート期間中最後のスナップショットでのデータベースサイズ (MiB)</li>
@@ -67,7 +67,7 @@
 
 <div id="recovery_conflicts_dialog" class="help_dialog"
   title="The Recovery Conflicts Table">
-<h4>このテーブルはこのレポート期間中にレプリケーションマスタの動作が原因でキャンセルされた問い合わせの数をデータベースごとに示します。このテーブルにはこのインスタンスがスタンバイサーバである場合にだけ情報が表示されます。</h4>
+<h4>この表はこのレポート期間中にレプリケーションマスタの動作が原因でキャンセルされた問い合わせの数をデータベースごとに示します。この表にはこのインスタンスがスタンバイサーバである場合にだけ情報が表示されます。</h4>
 <ul>
 <li><em>Database</em>: データベース名</li>
 <li><em>On tablespaces</em>: テーブルスペースが削除されたことでキャンセルされたクエリの数</li>
@@ -80,7 +80,7 @@
 
 <div id="write_ahead_logs_dialog" class="help_dialog"
   title="The Write Ahead Logs Table and The WAL Write Rate Graph">
-<h4>このテーブルは先行書き込みログ(WAL)の概要を示します。</h4>
+<h4>この表は先行書き込みログ(WAL)の概要を示します。</h4>
 <ul>
 <li><em>Total size</em>: レポート期間中に出力された先行書き込みログ(WAL または XLOG)の合計サイズ (MiB)</li>
 <li><em>Average output rate</em>: WALの出力速度のレポート期間中の平均 (MiB/秒)</li>
@@ -133,29 +133,29 @@
 <p>このグラフの値は設定パラメータ pg_statsinfo.sampling_interval で指定した時間(デフォルト値は5秒)ごとに収集したデータをスナップショットごとに平均したものです。</p></div>
 
 <div id="bgwriter_statistics_dialog" class="help_dialog"
-  title="The Background writer Statistics Table and Graph">
-<h4>このテーブルは、バックグラウンドライタプロセスの活動状況に関する統計情報の概要を示します。</h4>
+  title="The Background Writer Statistics Table and Graph">
+<h4>この表は、バックグラウンドライタプロセスの活動状況に関する統計情報の概要を示します。</h4>
 <ul>
-<li><em>Written buffers by bgwriter</em>: バックグラウンドライタにより書き出されたバッファ数</li>
-<li><em>Written buffers by backend</em>: バックエンドにより直接書き出されたバッファ数</li>
-<li><em>bgwriter stopped scanning</em>: バックグラウンドライタが書き出したバッファ数が多過ぎたために、整理用スキャンを停止した回数</li>
-<li><em>Backend executed fsync</em>: バックエンドが独自にfsync呼び出しを実行しなければならなかった回数</li>
-<li><em>Allocated buffers</em>: 割当られたバッファ数</li>
+<li><em>Written buffers by bgwriter</em>: バックグラウンドライタにより書き出されたバッファ数の一秒あたりの平均値</li>
+<li><em>Written buffers by backends</em>: バックエンドにより直接書き出されたバッファ数の一秒あたりの平均値</li>
+<li><em>bgwriter scans quitted earlier</em>: 書き出したバッファ数が多過ぎたために、バックグラウンドライタによるバッファ回収のスキャンを途中で終了した回数の一秒あたりの平均値</li>
+<li><em>fsyncs executed on backends</em>: チェックポインタでの処理が間に合わずバックエンドが自身で実行することになった fsync 呼び出しの回数の一秒あたりの平均値</li>
+<li><em>Allocated buffers</em>: 割当られたバッファ数の一秒あたりの平均値</li>
 </ul>
 <h4>このグラフは、バックグラウンドライタプロセスの活動状況の推移を示します。</h4>
 <h4>軸の説明</h4>
 <ul>
 <li><em>横軸</em>: 時刻</li>
-<li><em>縦軸(左側)</em>: バッファ数の平均値</li>
-<li><em>縦軸(右側)</em>: 回数の平均値</li>
+<li><em>縦軸(左側)</em>: バッファ数の一秒あたりの平均値</li>
+<li><em>縦軸(右側)</em>: 回数の一秒あたりの平均値</li>
 </ul>
 <h4>凡例</h4>
 <ul>
-<li><em>Written buffers by bgwriter</em>: バックグラウンドライタにより書き出されたバッファ数</li>
-<li><em>Written buffers by backend</em>: バックエンドにより直接書き出されたバッファ数</li>
-<li><em>bgwriter stopped scanning</em>: バックグラウンドライタが書き出したバッファ数が多過ぎたために、整理用スキャンを停止した回数</li>
-<li><em>Backend executed fsync</em>: バックエンドが独自にfsync呼び出しを実行しなければならなかった回数</li>
-<li><em>Allocated buffers</em>: 割当られたバッファ数</li>
+<li><em>Written buffers by bgwriter(L)</em>: バックグラウンドライタにより書き出されたバッファ数</li>
+<li><em>Written buffers by backends(L)</em>: バックエンドにより直接書き出されたバッファ数</li>
+<li><em>Allocated buffers(L)</em>: 割当られたバッファ数の一秒あたりの平均値</li>
+<li><em>bgwriter scans quitted earlier(R)</em>: 書き出したバッファ数が多過ぎたために、バックグラウンドライタによるバッファ回収のスキャンを途中で終了した回数の一秒あたりの平均値</li>
+<li><em>fsyncs executed on backends(R)</em>: チェックポインタでの処理が間に合わずバックエンドが自身で実行することになった fsync 呼び出しの回数の一秒あたりの平均値</li>
 </ul>
 </div>
 
@@ -196,7 +196,7 @@
 <div id="io_usage_dialog" class="help_dialog"
   title="The I/O Usage Section">
 <h4>このセクションには1つの概要を示す表と3つの推移を示すグラフがあります。グラフは初期状態では隠されていて、リンクをクリックすることで表示されます。</h4>
-<h4>I/O Usageテーブルはレポート期間を通したI/O使用量の概要を示します。デバイス毎に1行表示されます。</h4>
+<h4>I/O Usage表はレポート期間を通したI/O使用量の概要を示します。デバイス毎に1行表示されます。</h4>
 <ul>
 <li><em>Device name</em>: デバイスの名前</li>
 <li><em>Containing table spaces</em>: このデバイスに置かれているテーブルスペース</li>
@@ -355,7 +355,7 @@
 
 <div id="functions_dialog" class="help_dialog"
   title="The Functions Table">
-<h4>このテーブルの各行は関数毎の使用統計を示します。初期状態では "Time/call" の降順に並べられています。</h4>
+<h4>この表の各行は関数毎の使用統計を示します。初期状態では "Time/call" の降順に並べられています。</h4>
 <ul>
 <li><em>Database</em>: この関数があるデータベースの名前</li>
 <li><em>Schema</em>: この関数が属するスキーマの名前</li>
@@ -369,7 +369,7 @@
 
 <div id="statements_dialog" class="help_dialog"
   title="The Statements Table">
-<h4>このテーブルの各行は問い合わせ毎の実行統計を示します。異なるユーザ、異なるデータベースでの実行は異なる問い合わせとして扱われます。この機能を利用するには pg_stat_statements をインストールする必要があります。</h4>
+<h4>この表の各行は問い合わせ毎の実行統計を示します。異なるユーザ、異なるデータベースでの実行は異なる問い合わせとして扱われます。この機能を利用するには pg_stat_statements をインストールする必要があります。</h4>
 <ul>
 <li><em>User</em>: この問い合わせを実行したユーザの名前</li>
 <li><em>Database</em>: この問い合わせが実行されたデータベースの名前</li>
@@ -614,7 +614,7 @@
 
 <div id="alerts_dialog" class="help_dialog"
   title="The Alerts Table">
-<h4>このテーブルはこのレポート期間中のアラートの一覧を示します</h4>
+<h4>この表はこのレポート期間中のアラートの一覧を示します</h4>
 <h4>軸の説明</h4>
 <ul>
 <li><em>Time</em>: アラート発生日時</li>

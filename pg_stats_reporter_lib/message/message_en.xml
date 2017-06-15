@@ -96,8 +96,8 @@ the another shows the amount divided by the snapshot interval.</h4>
 <h4>Axes</h4>
 <ul>
 <li><em>Horizontal axis</em>: Time</li>
-<li><em>Vertial axis1 (left)</em>: Axis for Bytes/snapshot shown below.</li>
-<li><em>Vertial axis2 (right)</em>: Axis for write rate shown below.</li>
+<li><em>Left side vertial axis</em>: Axis for Bytes/snapshot shown below.</li>
+<li><em>Right side vertial axis</em>: Axis for write rate shown below.</li>
 </ul>
 <h4>Legend</h4>
 <ul>
@@ -137,29 +137,30 @@ the another shows the amount divided by the snapshot interval.</h4>
 </div>
 
 <div id="bgwriter_statistics_dialog" class="help_dialog"
-  title="The Background writer Statistics Table and Graph">
+  title="The Background Writer Statistics Table and Graph">
 <h4>This table shows the overview of the background writer process's activity.</h4>
 <ul>
-<li><em>Written buffers by bgwriter</em>: Number of buffers written by the background writer.</li>
-<li><em>Written buffers by backend</em>: Number of buffers written directly by a backend.</li>
-<li><em>bgwriter stopped scanning</em>: Number of times the background writer stopped a cleaning scan because it had written too many buffers.</li>
-<li><em>Backend executed fsync</em>: Number of times a backend had to execute its own fsync call.</li>
-<li><em>Allocated buffers</em>: Number of buffers allocated.</li>
+<li><em>Written buffers by bgwriter</em>: Average number of buffers per second written by the background writer.</li>
+<li><em>Written buffers by backends</em>: Average number of buffers per second written directly by backends.</li>
+<li><em>bgwriter scans quitted earlier</em>: Average number of times per second the background writer stopped a cleaning scan because it had written too many buffers.</li>
+<li><em>fsyncs executed on backends</em>: Average number of times per second a backend had to execute its own fsync call because the checkpointer could not keep room for the fsync request.</li>
+<li><em>Allocated buffers</em>: Average number of buffers allocated per second.</li>
 </ul>
 <h4>This graph shows the trend of the background writer process's activity.</h4>
 <h4>Axes</h4>
 <ul>
 <li><em>Horizontal axis</em>: Time</li>
-<li><em>Vertial axis1</em>: Average of buffers</li>
-<li><em>Vertial axis2</em>: Average of times</li>
+<li><em>Left side vertial axis</em>: Buffers per second</li>
+<li><em>Right side vertial axis</em>: Frequency per second</li>
 </ul>
 <h4>Legend</h4>
 <ul>
-<li><em>Written buffers by bgwriter</em>: Number of buffers written by the background writer.</li>
-<li><em>Written buffers by backend</em>: Number of buffers written directly by a backend.</li>
-<li><em>bgwriter stopped scanning</em>: Number of times the background writer stopped a cleaning scan because it had written too many buffers.</li>
-<li><em>Backend executed fsync</em>: Number of times a backend had to execute its own fsync call.</li>
-<li><em>Allocated buffers</em>: Number of buffers allocated.</li>
+
+<li><em>Written buffers by bgwriter(L)</em>: Average number of buffers per second written by the background writer.</li>
+<li><em>Written buffers by backends(L)</em>: Average number of buffers per second written directly by a backend.</li>
+<li><em>Allocated buffers(L)</em>: Average number of buffers allocated per second.</li>
+<li><em>bgwriter scans quitted earlier(R)</em>: Average number of times per second the background writer stopped a cleaning scan because it had written too many buffers.</li>
+<li><em>fsyncs executed on backends(R)</em>: Average number of times per second a backend had to execute its own fsync call because the checkpointer could not keep room for the fsync request.</li>
 </ul>
 </div>
 

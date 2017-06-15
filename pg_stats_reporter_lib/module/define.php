@@ -198,10 +198,10 @@ $query_string = array(
   "SELECT replace(\"timestamp\", '-', '/'), avg(idle) AS idle, avg(idle_in_xact) AS \"idle in xact\", avg(waiting) AS waiting, avg(running) AS running FROM statsrepo.get_proc_tendency_report($1, $2) GROUP BY 1 ORDER BY 1",
 
   "bgwriter_statistics_overview" =>
-  "SELECT bgwriter_write_avg AS \"Written buffers by bgwriter\", backend_write_avg AS \"Written buffers by backend\", bgwriter_stopscan_avg AS \"bgwriter stopped scanning\", backend_fsync_avg AS \"Backend executed fsync\", buffer_alloc_avg AS \"Allocated buffers\" FROM statsrepo.get_bgwriter_stats($1, $2)",
+  "SELECT bgwriter_write_avg AS \"Written buffers by bgwriter\", backend_write_avg AS \"Written buffers by backends\", bgwriter_stopscan_avg AS \"bgwriter scans quitted earlier\", backend_fsync_avg AS \"fsyncs executed on backends\", buffer_alloc_avg AS \"Allocated buffers\" FROM statsrepo.get_bgwriter_stats($1, $2)",
 
   "bgwriter_statistics" =>
-  "SELECT replace(\"timestamp\", '-', '/'), bgwriter_write_tps AS \"Written buffers by bgwriter\", backend_write_tps AS \"Written buffers by backend\", buffer_alloc_tps AS \"Allocated buffers\", bgwriter_stopscan_tps AS \"bgwriter stopped scanning\", backend_fsync_tps AS \"Backend executed fsync\" FROM statsrepo.get_bgwriter_tendency($1, $2)",
+  "SELECT replace(\"timestamp\", '-', '/'), bgwriter_write_tps AS \"Written buffers by bgwriter(L)\", backend_write_tps AS \"Written buffers by backends(L)\", buffer_alloc_tps AS \"Allocated buffers(L)\", bgwriter_stopscan_tps AS \"bgwriter scans quitted earlier(R)\", backend_fsync_tps AS \"fsyncs executed on backends(R)\" FROM statsrepo.get_bgwriter_tendency($1, $2)",
 
   /* OS Resources */
   // CPU and Memory
