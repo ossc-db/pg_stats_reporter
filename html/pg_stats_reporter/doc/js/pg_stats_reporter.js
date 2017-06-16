@@ -103,6 +103,13 @@ $(function(){
     })
   );
 
+  // bgwriter Statistics
+  $("#bgwriter_statistics_table").tablesorter(
+    $.extend({}, tablesorterDefaultOptions, {
+      widgets: [ ]
+    })
+  );
+
   // IO Usage
   $("#io_usage_table").tablesorter(
     $.extend({}, tablesorterDefaultOptions, {
