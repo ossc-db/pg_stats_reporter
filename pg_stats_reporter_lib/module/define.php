@@ -280,7 +280,7 @@ $query_string = array(
 
   // Long Transaction
   "long_transactions" =>
-  "SELECT pid AS \"PID\", client AS \"Client address\", start AS \"Begin at\", duration AS \"Duration (sec)\", query AS \"Last query\" FROM statsrepo.get_long_transactions($1, $2)",
+  "SELECT pid AS \"PID\", client AS \"Client address\", start AS \"Xact Start\", duration AS \"Duration (sec)\", query AS \"Last query\" FROM statsrepo.get_long_transactions($1, $2)",
 
   // Lock Conflicts
   "lock_conflicts" =>

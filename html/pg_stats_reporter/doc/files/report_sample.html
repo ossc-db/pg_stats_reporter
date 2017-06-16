@@ -4597,12 +4597,12 @@ creation and the entries of the same transaction over snapshots are
 merged on generating report then the merged transactions are shown in
 this table, in descending order of their duration at
 first. Transactions are identified by the set of "PID", "Client
-address" and "Began at". pg_statsinfo.long_transaction_max specifies
+address" and "Xact Start". pg_statsinfo.long_transaction_max specifies
 how many long transactions every snapshot records.</h4>
 <ul>
 <li><em>PID</em>: PID of the backend process where the transaction running on</li>
 <li><em>Client address</em>: Client IP address connected to the backend process</li>
-<li><em>Began at</em>: Time when the transaction has started</li>
+<li><em>Xact Start</em>: Time when the transaction has started</li>
 <li><em>Duration</em>: Time elapsed since the transaction started</li>
 <li><em>Last query</em>: Query string that last executed in the transaction</li>
 </ul>

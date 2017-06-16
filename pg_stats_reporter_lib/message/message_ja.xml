@@ -414,7 +414,7 @@
 <ul>
 <li><em>PID</em>: このトランザクションが実行されているバックエンドプロセスのプロセスID</li>
 <li><em>Client address</em>: このバックエンドに接続しているクライアントの IP アドレス</li>
-<li><em>Began at</em>: このトランザクションが開始された時刻</li>
+<li><em>Xact Start</em>: このトランザクションが開始された時刻</li>
 <li><em>Duration</em>: このトランザクションが開始されたからの経過時間</li>
 <li><em>Last query</em>: このトランザクションで最後に実行された問い合わせ</li>
 </ul>
