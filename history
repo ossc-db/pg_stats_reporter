@@ -1,0 +1,94 @@
+[3.3.0 (2017/06/22)]
+* Supports pg_statsinfo 3.3
+* New report item "BGWriter Statistics" is added.
+* Added maximum and average values of replay delay are added to
+  Replication Overview.
+* Replication Delays supports multiple synchronous standbys.
+* Properly rejects unsupported repository versions rather than
+  resulting to an erroneous output.
+* Use non-obsolete parameter of Dygraphs.
+
+[3.2.2 (2017/01/25)]
+
+* Properly handle text values containing &gt or &lt. For example a
+  value "<idle> in transaction" broke the surrounding description in
+  the generated HTML report.
+* Fix graph scaling of WAL Write Rate to fit its area.
+* Revised the manuals.
+
+[3.2.1 (2016/02/18)]
+
+* Revised the manuals.
+
+[3.2.0 (2015/11/18)]
+
+* Supports pg_statsinfo 3.2.
+
+* Fixed a typo in a help dialog.
+
+[3.1.0 (2015/06/10)]
+
+* Added execution plan information in Query Activity.
+* Added autoanalyze cancellation information.
+* Added the number of modified rows after the previous analyze.
+* Added WAL archive information.
+* Added peak values of read/write rate on disk I/O.
+* Added the graph for the peak values of disk I/O.
+* Revised titles of some sections/items.
+* Made the I/O usage graph hidable.
+* Allow the full text of a long query to be displayed.
+
+[3.0.0 (2014/07/24)]
+* Added log viewer for repository-accumulated log entries.
+* Added alert information issued by the alert function of pg_statsinfo.
+* Added autoanalyze information.
+* Added autovacuum cancellation information.
+* Removed row size from Schema Information (Table).
+* Added row number to Schema Information (Table).
+* Revised the labels and category names.
+* Changed the pre-filled times in the "Create new report" dialog.
+* Now you can find the explicit marker at the end of a report.
+* Error dialogs now have OK buttons.
+* No longer caches the configuration file.
+* Supports PHP 5.5.
+* Fixed a bug that an error raised on reloading after changing
+  repository names in the configuration file.
+* Fixed incompatibility with some locales.
+* Fixed a bug that the focus doesn't move properly to dialogs.
+
+
+[2.0.0 (2013/10/25)]
+
+* Added the command line reporting feature.
+* Added checkpoint highlighting in several graphs.
+* Unit in GUC setting table is no longer sortable.
+* Augmented the help for GUC settings table with a description on the
+  column Unit.
+* Widening or narrowing graphs became animated.
+* Corrected the units on time/call in Query Activity(Statements) from
+  ms to sec. The corresponding description in the help dialog is also
+  fixed.
+* The configuration file has been relocated.
+* Redesigned the directory hierarchy.
+* Updated bundled libraries.
+* Allow absence of php-intl.
+* Avoid a race condition of the config cache file access.
+* Make sure to clean up of the config cache file on error.
+
+[1.0.1 (2013/02/01)]
+* Long lines are folded in accordions in the left side bar.
+* Fixed the corruption of Replication Activity with multiple standbys.
+* Provided English version of INSTALL.en.
+* Provided English version of the manual.
+* Shrink the size of auxiliary libraries.
+* Made the default of display configuration of Profiles to false.
+* Corrected the unit of the vertical axis of I/O Size graph and the
+  help dialog. (Kib -> KiB/s)
+* Fix the client encoding of the connection to the repository to UTF-8.
+* Sanitize some meta characters in the query result.
+* Added a sample report to the manual.
+* Fixed the all-zero representation of circle graphs.
+* Changed report cache validity time from 5 seconds to 5 minutes.
+* Show minor version of pg_stats_reporter in the title of a HTML report.
+* Avoid duplicate generation of a cached report.
+* Invalidate report cache on config reload.
