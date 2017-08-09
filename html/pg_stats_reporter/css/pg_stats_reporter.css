@@ -369,7 +369,12 @@ li em {
   margin: 5px 0px;
 }
 
+pre.query_dialog {
+  font-size: 100%;
+}
+
 pre {
   margin-top: 0px;
   margin-bottom: 0px;
 }
+

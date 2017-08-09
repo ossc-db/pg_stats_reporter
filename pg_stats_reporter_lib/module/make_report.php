@@ -2880,7 +2880,7 @@ function makeFullstringDialog($header, $qstr, $isQuery)
 
 		$fullquery_string[$dialogid] .= " id=\"".$dialogid."\" class=\"query_string_dialog\"><font size=\"-1\">";
 		if (substr_count($qstr, "\n")) {
-			$fullquery_string[$dialogid] .= "<pre>".htmlspecialchars($qstr, ENT_QUOTES)."</pre>";
+			$fullquery_string[$dialogid] .= "<pre class=\"query_dialog\">".htmlspecialchars($qstr, ENT_QUOTES)."</pre>";
 		} else {
 			$fullquery_string[$dialogid] .= "<font style=\"font-family: monospace;\">".htmlspecialchars($qstr, ENT_QUOTES)."</font>";
 		}
