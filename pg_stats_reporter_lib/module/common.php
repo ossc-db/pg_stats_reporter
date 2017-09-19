@@ -162,9 +162,7 @@ function readConfigFile(&$err_msg)
 				for ($i = 0 ; $i < pg_num_rows($result) ; $i++ ) {
 					$row_array = pg_fetch_array($result, NULL, PGSQL_NUM);
 					$cache_contents[] = "monitor[".$row_array[0]."] = \"".$row_array[1].":".$row_array[2]."\"\n";
-					$ver_array = explode(".", $row_array[3]);
-					$ver = $ver_array[0]*10000 + $ver_array[1]*100 + $ver_array[2];
-					$cache_contents[] = "pg_version[".$row_array[0]."] = ".$ver."\n";
+					$cache_contents[] = "pg_version[".$row_array[0]."] = ".convertPGVersionNum($row_array[3])."\n";
 				}
 				pg_free_result($result);
 			}
@@ -389,6 +387,33 @@ function deleteCacheFile(&$smarty)
 {
 	@unlink(CONFIG_CACHE_FILE);
 	$smarty->clearAllCache();
+}
+
+/* convert the version string of PostgreSQL to version number */
+function convertPGVersionNum($version_str)
+{
+	$vmaj = 0;
+	$vmin = 0;
+	$vrev = 0;
+
+	$ver_array = explode(".", $version_str);
+	$ver_array_size = count($ver_array);
+
+	if ($ver_array_size == 3) {
+		$vmaj = $ver_array[0];
+		$vmin = $ver_array[1];
+		$vrev = $ver_array[2];
+	} else if ($ver_array_size == 2) {
+		$vmaj = $ver_array[0];
+		if ($vmaj >= 10) {
+			$vrev = $ver_array[1];
+		} else {
+			$vmin = preg_replace('/^([0-9]+).*/', '\1', $ver_array[1]);
+		}
+	} else {
+		$vmaj = preg_replace('/^([0-9]+).*/', '\1', $ver_array[0]);
+	}
+	return ($vmaj * 100 + $vmin) * 100 + $vrev;
 }
 
 ?>
