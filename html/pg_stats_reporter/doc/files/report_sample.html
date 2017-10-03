@@ -3503,13 +3503,13 @@ $("#replication_delays_line").button().click( function() {
 
 <!-- full query string dialog -->
 <div title="Query String" id="dialog_statements00000" class="query_string_dialog"><font size="-1"><font style="font-family: monospace;">SELECT 	c.oid AS relid, 	c.relnamespace, 	c.reltablespace, 	c.relname, 	c.reltoastrelid, 	x.indexrelid AS reltoastidxid, 	c.relkind, 	c.relpages, 	c.reltuples, 	c.reloptions, 	pg_relation_size(c.oid), 	pg_stat_get_numscans(c.oid) AS seq_scan, 	pg_stat_get_tuples_returned(c.oid) AS seq_tup_read, 	sum(pg_stat_get_numscans(i.indexrelid))::bigint AS idx_scan, 	sum(pg_stat_get_tuples_fetched(i.indexrelid))::bigint + 		pg_stat_get_tuples_fetched(c.oid) AS idx_tup_fetch, 	pg_stat_get_tuples_inserted(c.oid) AS n_tup_ins, 	pg_stat_get_tuples_updated(c.oid) AS n_tup_upd, 	pg_stat_get_tuples_deleted(c.oid) AS n_tup_del, 	pg_stat_get_tuples_hot_updated(c.oid) AS n_tup_hot_upd, 	pg_stat_get_live_tuples(c.oid) AS n_live_tup, 	pg_stat_get_dead_tuples(c.oid) AS n_dead_tup, 	pg_stat_get_mod_since_analyze(c.oid) AS n_mod_since_analyze, 	pg_stat_get_blocks_fetched(c.oid) - 		pg_stat_get_blocks_hit(c.oid) AS heap_blks_read, 	pg_stat_get_blocks_hit(c.oid) AS heap_blks_hit, 	sum(pg_stat_get_blocks_fetched(i.indexrelid) - 		pg_stat_get_blocks_hit(i.indexrelid))::bigint AS idx_blks_read, 	sum(pg_stat_get_blocks_hit(i.indexrelid))::bigint AS idx_blks_hit, 	pg_stat_get_blocks_fetched(t.oid) - 		pg_stat_get_blocks_hit(t.oid) AS toast_blks_read, 	pg_stat_get_blocks_hit(t.oid) AS toast_blks_hit, 	pg_stat_get_blocks_fetched(x.indexrelid) - 		pg_stat_get_blocks_hit(x.indexrelid) AS tidx_blks_read, 	pg_stat_get_blocks_hit(x.indexrelid) AS tidx_blks_hit, 	pg_stat_get_last_vacuum_time(c.oid) as last_vacuum, 	pg_stat_get_last_autovacuum_time(c.oid) as last_autovacuum, 	pg_stat_get_last_analyze_time(c.oid) as last_analyze, 	pg_stat_get_last_autoanalyze_time(c.oid) as last_autoanalyze FROM 	pg_class c LEFT JOIN 	pg_index i ON c.oid = i.indrelid LEFT JOIN 	pg_class t ON c.reltoastrelid = t.oid LEFT JOIN 	pg_index x ON c.reltoastrelid = x.indrelid LEFT JOIN 	pg_namespace n ON c.relnamespace = n.oid WHERE 	c.relkind IN (?, ?) AND 	n.nspname &lt;&gt; ALL ((? || $1 || ?)::text[]) GROUP BY 	c.oid, 	c.relnamespace, 	c.reltablespace, 	c.relname, 	c.reltoastrelid, 	c.relkind, 	c.relpages, 	c.reltuples, 	c.reloptions, 	t.oid, 	x.indexrelid</font></font></div>
-<div title="Query String" id="dialog_statements00001" class="query_string_dialog"><font size="-1"><pre>
+<div title="Query String" id="dialog_statements00001" class="query_string_dialog"><font size="-1"><pre class="query_dialog">
 SELECT EXTRACT(? FROM TRANSACTION_TIMESTAMP()), datname, numbackends,
        xact_commit, xact_rollback, blks_read, blks_hit, tup_returned,
        tup_fetched, tup_inserted, tup_updated, tup_deleted
 FROM pg_stat_database
 ;</pre></font></div>
-<div title="Query String" id="dialog_statements00002" class="query_string_dialog"><font size="-1"><pre>
+<div title="Query String" id="dialog_statements00002" class="query_string_dialog"><font size="-1"><pre class="query_dialog">
 SELECT EXTRACT(? FROM TRANSACTION_TIMESTAMP()), a.schemaname, a.relname,
        seq_scan, seq_tup_read, idx_scan, idx_tup_fetch, n_tup_ins, n_tup_upd,
        n_tup_del, n_tup_hot_upd, n_live_tup, n_dead_tup, heap_blks_read,
@@ -3518,20 +3518,20 @@ SELECT EXTRACT(? FROM TRANSACTION_TIMESTAMP()), a.schemaname, a.relname,
 FROM pg_statio_all_tables a, pg_stat_all_tables b
 WHERE a.relid = b.relid
 ; </pre></font></div>
-<div title="Query String" id="dialog_statements00003" class="query_string_dialog"><font size="-1"><pre>
+<div title="Query String" id="dialog_statements00003" class="query_string_dialog"><font size="-1"><pre class="query_dialog">
 SELECT EXTRACT(? FROM TRANSACTION_TIMESTAMP()), a.schemaname, a.relname,
        a.indexrelname, idx_scan, idx_tup_read, idx_tup_fetch, idx_blks_read,
        idx_blks_hit
 FROM pg_stat_all_indexes a, pg_statio_all_indexes b
 WHERE a.indexrelid = b.indexrelid
 ; </pre></font></div>
-<div title="Query String" id="dialog_statements00004" class="query_string_dialog"><font size="-1"><pre>
+<div title="Query String" id="dialog_statements00004" class="query_string_dialog"><font size="-1"><pre class="query_dialog">
 SELECT EXTRACT(? FROM TRANSACTION_TIMESTAMP()), relname, pid, mode, granted
 FROM pg_locks, pg_class
 WHERE relfilenode = relation
 ORDER BY relname;
 ;</pre></font></div>
-<div title="Query String" id="dialog_statements00005" class="query_string_dialog"><font size="-1"><pre>
+<div title="Query String" id="dialog_statements00005" class="query_string_dialog"><font size="-1"><pre class="query_dialog">
 SELECT EXTRACT(? FROM TRANSACTION_TIMESTAMP()), datname, pid, usesysid,
        usename, application_name, client_addr, client_port, backend_start,
        xact_start, query_start, waiting, query
@@ -3541,7 +3541,7 @@ FROM pg_stat_activity
 <div title="Query String" id="dialog_statements00007" class="query_string_dialog"><font size="-1"><font style="font-family: monospace;">SELECT     i.oid AS indexrelid,     c.oid AS relid,     i.reltablespace,     i.relname AS indexrelname, 	i.relam,     i.relpages,     i.reltuples,     i.reloptions,     x.indisunique,     x.indisprimary,     x.indisclustered,     x.indisvalid, 	x.indkey,     pg_get_indexdef(i.oid),     pg_relation_size(i.oid),     pg_stat_get_numscans(i.oid) AS idx_scan,     pg_stat_get_tuples_returned(i.oid) AS idx_tup_read,     pg_stat_get_tuples_fetched(i.oid) AS idx_tup_fetch,     pg_stat_get_blocks_fetched(i.oid) -         pg_stat_get_blocks_hit(i.oid) AS idx_blks_read,     pg_stat_get_blocks_hit(i.oid) AS idx_blks_hit FROM     pg_class c JOIN     pg_index x ON c.oid = x.indrelid JOIN     pg_class i ON i.oid = x.indexrelid JOIN     pg_namespace n ON n.oid = c.relnamespace WHERE 	c.relkind IN (?, ?) AND 	n.nspname &lt;&gt; ALL ((? || $1 || ?)::text[])</font></font></div>
 <div title="Query String" id="dialog_statements00008" class="query_string_dialog"><font size="-1"><font style="font-family: monospace;">SELECT 	s.funcid, 	n.oid AS nspid, 	s.funcname, 	pg_get_function_arguments(funcid) AS argtypes, 	s.calls, 	s.total_time, 	s.self_time FROM 	pg_stat_user_functions s JOIN 	pg_namespace n ON s.schemaname = n.nspname WHERE 	n.nspname &lt;&gt; ALL ((? || $1 || ?)::text[])</font></font></div>
 <div title="Query String" id="dialog_statements00009" class="query_string_dialog"><font size="-1"><font style="font-family: monospace;">DECLARE mycursor CURSOR FOR SELECT new_order(8, 10, 2479, 1, 10, make_new_order_info(7934, 8, 10), make_new_order_info(69590, 8, 8), make_new_order_info(40368, 8, 6), make_new_order_info(1920, 8, 10), make_new_order_info(81844, 8, 7), make_new_order_info(49076, 8, 1), make_new_order_info(48636, 8, 8), make_new_order_info(32344, 8, 1), make_new_order_info(48557, 8, 6), make_new_order_info(15104, 8, 5), make_new_order_info(0, 0, 0), make_new_order_info(0, 0, 0), make_new_order_info(0, 0, 0), make_new_order_info(0, 0, 0), make_new_order_info(0, 0, 0) )</font></font></div>
-<div title="Plan String" id="dialog_plans00010" class="query_string_dialog"><font size="-1"><pre>Nested Loop  (cost=1.15..2.69 rows=1 width=261)
+<div title="Plan String" id="dialog_plans00010" class="query_string_dialog"><font size="-1"><pre class="query_dialog">Nested Loop  (cost=1.15..2.69 rows=1 width=261)
   -&gt;  Hash Join  (cost=1.02..2.41 rows=1 width=201)
         Hash Cond: (s.usesysid = u.oid)
         -&gt;  Function Scan on pg_stat_get_activity s  (cost=0.00..1.00 rows=100 width=137)
@@ -3550,19 +3550,19 @@ FROM pg_stat_activity
               -&gt;  Seq Scan on pg_authid u  (cost=0.00..1.01 rows=1 width=68)
   -&gt;  Index Scan using pg_database_oid_index on pg_database d  (cost=0.13..0.27 rows=1 width=68)
         Index Cond: (oid = s.datid)</pre></font></div>
-<div title="Query String" id="dialog_plans00011" class="query_string_dialog"><font size="-1"><pre>
+<div title="Query String" id="dialog_plans00011" class="query_string_dialog"><font size="-1"><pre class="query_dialog">
 SELECT EXTRACT(? FROM TRANSACTION_TIMESTAMP()), datname, pid, usesysid,
        usename, application_name, client_addr, client_port, backend_start,
        xact_start, query_start, waiting, query
 FROM pg_stat_activity
 ;</pre></font></div>
-<div title="Query String" id="dialog_plans00012" class="query_string_dialog"><font size="-1"><pre>
+<div title="Query String" id="dialog_plans00012" class="query_string_dialog"><font size="-1"><pre class="query_dialog">
 SELECT EXTRACT(? FROM TRANSACTION_TIMESTAMP()), datname, numbackends,
        xact_commit, xact_rollback, blks_read, blks_hit, tup_returned,
        tup_fetched, tup_inserted, tup_updated, tup_deleted
 FROM pg_stat_database
 ;</pre></font></div>
-<div title="Plan String" id="dialog_plans00013" class="query_string_dialog"><font size="-1"><pre>Nested Loop Left  (cost=29.18..50.96 rows=6 width=200)
+<div title="Plan String" id="dialog_plans00013" class="query_string_dialog"><font size="-1"><pre class="query_dialog">Nested Loop Left  (cost=29.18..50.96 rows=6 width=200)
   Join Filter: (n.oid = c.relnamespace)
   -&gt;  Nested Loop  (cost=29.18..49.21 rows=6 width=140)
         Join Filter: (x.indexrelid = i.oid)
@@ -3591,14 +3591,14 @@ FROM pg_stat_database
               Index Cond: (oid = i_1.oid)
   -&gt;  Materialize  (cost=0.00..1.09 rows=6 width=68)
         -&gt;  Seq Scan on pg_namespace n  (cost=0.00..1.06 rows=6 width=68)</pre></font></div>
-<div title="Query String" id="dialog_plans00014" class="query_string_dialog"><font size="-1"><pre>
+<div title="Query String" id="dialog_plans00014" class="query_string_dialog"><font size="-1"><pre class="query_dialog">
 SELECT EXTRACT(? FROM TRANSACTION_TIMESTAMP()), a.schemaname, a.relname,
        a.indexrelname, idx_scan, idx_tup_read, idx_tup_fetch, idx_blks_read,
        idx_blks_hit
 FROM pg_stat_all_indexes a, pg_statio_all_indexes b
 WHERE a.indexrelid = b.indexrelid
 ; </pre></font></div>
-<div title="Plan String" id="dialog_plans00015" class="query_string_dialog"><font size="-1"><pre>Sort  (cost=150.59..153.46 rows=1149 width=101)
+<div title="Plan String" id="dialog_plans00015" class="query_string_dialog"><font size="-1"><pre class="query_dialog">Sort  (cost=150.59..153.46 rows=1149 width=101)
   Sort Key: pg_class.relname
   -&gt;  Hash Join  (cost=22.50..92.19 rows=1149 width=101)
         Hash Cond: (pg_class.relfilenode = l.relation)
@@ -3606,13 +3606,13 @@ WHERE a.indexrelid = b.indexrelid
         -&gt;  Hash  (cost=10.00..10.00 rows=1000 width=41)
               Buckets: 1024  Batches: 1  Memory Usage: 6kB
               -&gt;  Function Scan on pg_lock_status l  (cost=0.00..10.00 rows=1000 width=41)</pre></font></div>
-<div title="Query String" id="dialog_plans00016" class="query_string_dialog"><font size="-1"><pre>
+<div title="Query String" id="dialog_plans00016" class="query_string_dialog"><font size="-1"><pre class="query_dialog">
 SELECT EXTRACT(? FROM TRANSACTION_TIMESTAMP()), relname, pid, mode, granted
 FROM pg_locks, pg_class
 WHERE relfilenode = relation
 ORDER BY relname;
 ;</pre></font></div>
-<div title="Plan String" id="dialog_plans00017" class="query_string_dialog"><font size="-1"><pre>Hash Join  (cost=2.33..112.39 rows=54 width=72)
+<div title="Plan String" id="dialog_plans00017" class="query_string_dialog"><font size="-1"><pre class="query_dialog">Hash Join  (cost=2.33..112.39 rows=54 width=72)
   Hash Cond: (p.pronamespace = n_1.oid)
   -&gt;  Seq Scan on pg_proc p  (cost=0.00..108.37 rows=162 width=72)
         Filter: ((prolang &lt;&gt; 12::oid) AND (pg_stat_get_function_calls(oid) IS NOT NULL))
@@ -3626,7 +3626,7 @@ ORDER BY relname;
                     -&gt;  Seq Scan on pg_namespace n  (cost=0.00..1.18 rows=2 width=68)
                           Filter: ((nspname)::text &lt;&gt; ALL ((&#039;{pg_catalog, pg_toast, information_schema, statsinfo}&#039;::cstring)::text[]))</pre></font></div>
 <div title="Query String" id="dialog_plans00018" class="query_string_dialog"><font size="-1"><font style="font-family: monospace;">SELECT 	s.funcid, 	n.oid AS nspid, 	s.funcname, 	pg_get_function_arguments(funcid) AS argtypes, 	s.calls, 	s.total_time, 	s.self_time FROM 	pg_stat_user_functions s JOIN 	pg_namespace n ON s.schemaname = n.nspname WHERE 	n.nspname &lt;&gt; ALL ((? || $1 || ?)::text[])</font></font></div>
-<div title="Plan String" id="dialog_plans00019" class="query_string_dialog"><font size="-1"><pre>HashAggregate  (cost=40.88..43.68 rows=28 width=133)
+<div title="Plan String" id="dialog_plans00019" class="query_string_dialog"><font size="-1"><pre class="query_dialog">HashAggregate  (cost=40.88..43.68 rows=28 width=133)
   Group Key: c.oid, c.relnamespace, c.reltablespace, c.relname, c.reltoastrelid, c.relkind, c.relpages, c.reltuples, c.reloptions, t.oid, x.indexrelid
   -&gt;  Hash Left Join  (cost=25.11..39.41 rows=28 width=133)
         Hash Cond: (c.reltoastrelid = x.indrelid)
@@ -3650,7 +3650,7 @@ ORDER BY relname;
               Buckets: 1024  Batches: 1  Memory Usage: 5kB
               -&gt;  Seq Scan on pg_index x  (cost=0.00..5.64 rows=164 width=8)</pre></font></div>
 <div title="Query String" id="dialog_plans00020" class="query_string_dialog"><font size="-1"><font style="font-family: monospace;">SELECT 	c.oid AS relid, 	c.relnamespace, 	c.reltablespace, 	c.relname, 	c.reltoastrelid, 	x.indexrelid AS reltoastidxid, 	c.relkind, 	c.relpages, 	c.reltuples, 	c.reloptions, 	pg_relation_size(c.oid), 	pg_stat_get_numscans(c.oid) AS seq_scan, 	pg_stat_get_tuples_returned(c.oid) AS seq_tup_read, 	sum(pg_stat_get_numscans(i.indexrelid))::bigint AS idx_scan, 	sum(pg_stat_get_tuples_fetched(i.indexrelid))::bigint + 		pg_stat_get_tuples_fetched(c.oid) AS idx_tup_fetch, 	pg_stat_get_tuples_inserted(c.oid) AS n_tup_ins, 	pg_stat_get_tuples_updated(c.oid) AS n_tup_upd, 	pg_stat_get_tuples_deleted(c.oid) AS n_tup_del, 	pg_stat_get_tuples_hot_updated(c.oid) AS n_tup_hot_upd, 	pg_stat_get_live_tuples(c.oid) AS n_live_tup, 	pg_stat_get_dead_tuples(c.oid) AS n_dead_tup, 	pg_stat_get_mod_since_analyze(c.oid) AS n_mod_since_analyze, 	pg_stat_get_blocks_fetched(c.oid) - 		pg_stat_get_blocks_hit(c.oid) AS heap_blks_read, 	pg_stat_get_blocks_hit(c.oid) AS heap_blks_hit, 	sum(pg_stat_get_blocks_fetched(i.indexrelid) - 		pg_stat_get_blocks_hit(i.indexrelid))::bigint AS idx_blks_read, 	sum(pg_stat_get_blocks_hit(i.indexrelid))::bigint AS idx_blks_hit, 	pg_stat_get_blocks_fetched(t.oid) - 		pg_stat_get_blocks_hit(t.oid) AS toast_blks_read, 	pg_stat_get_blocks_hit(t.oid) AS toast_blks_hit, 	pg_stat_get_blocks_fetched(x.indexrelid) - 		pg_stat_get_blocks_hit(x.indexrelid) AS tidx_blks_read, 	pg_stat_get_blocks_hit(x.indexrelid) AS tidx_blks_hit, 	pg_stat_get_last_vacuum_time(c.oid) as last_vacuum, 	pg_stat_get_last_autovacuum_time(c.oid) as last_autovacuum, 	pg_stat_get_last_analyze_time(c.oid) as last_analyze, 	pg_stat_get_last_autoanalyze_time(c.oid) as last_autoanalyze FROM 	pg_class c LEFT JOIN 	pg_index i ON c.oid = i.indrelid LEFT JOIN 	pg_class t ON c.reltoastrelid = t.oid LEFT JOIN 	pg_index x ON c.reltoastrelid = x.indrelid LEFT JOIN 	pg_namespace n ON c.relnamespace = n.oid WHERE 	c.relkind IN (?, ?) AND 	n.nspname &lt;&gt; ALL ((? || $1 || ?)::text[]) GROUP BY 	c.oid, 	c.relnamespace, 	c.reltablespace, 	c.relname, 	c.reltoastrelid, 	c.relkind, 	c.relpages, 	c.reltuples, 	c.reloptions, 	t.oid, 	x.indexrelid</font></font></div>
-<div title="Plan String" id="dialog_plans00021" class="query_string_dialog"><font size="-1"><pre>Hash Join  (cost=82.90..90.99 rows=84 width=272)
+<div title="Plan String" id="dialog_plans00021" class="query_string_dialog"><font size="-1"><pre class="query_dialog">Hash Join  (cost=82.90..90.99 rows=84 width=272)
   Hash Cond: (c.oid = a.relid)
   -&gt;  HashAggregate  (cost=24.85..30.52 rows=84 width=136)
         Group Key: c.oid, n.nspname, c.relname
@@ -3693,7 +3693,7 @@ ORDER BY relname;
                           -&gt;  Hash  (cost=1.06..1.06 rows=6 width=68)
                                 Buckets: 1024  Batches: 1  Memory Usage: 1kB
                                 -&gt;  Seq Scan on pg_namespace n_1  (cost=0.00..1.06 rows=6 width=68)</pre></font></div>
-<div title="Query String" id="dialog_plans00022" class="query_string_dialog"><font size="-1"><pre>
+<div title="Query String" id="dialog_plans00022" class="query_string_dialog"><font size="-1"><pre class="query_dialog">
 SELECT EXTRACT(? FROM TRANSACTION_TIMESTAMP()), a.schemaname, a.relname,
        seq_scan, seq_tup_read, idx_scan, idx_tup_fetch, n_tup_ins, n_tup_upd,
        n_tup_del, n_tup_hot_upd, n_live_tup, n_dead_tup, heap_blks_read,
@@ -3702,7 +3702,7 @@ SELECT EXTRACT(? FROM TRANSACTION_TIMESTAMP()), a.schemaname, a.relname,
 FROM pg_statio_all_tables a, pg_stat_all_tables b
 WHERE a.relid = b.relid
 ; </pre></font></div>
-<div title="Plan String" id="dialog_plans00023" class="query_string_dialog"><font size="-1"><pre>Nested Loop  (cost=15.25..28.53 rows=15 width=151)
+<div title="Plan String" id="dialog_plans00023" class="query_string_dialog"><font size="-1"><pre class="query_dialog">Nested Loop  (cost=15.25..28.53 rows=15 width=151)
   -&gt;  Hash Join  (cost=15.10..21.51 rows=15 width=39)
         Hash Cond: (x.indrelid = c.oid)
         -&gt;  Seq Scan on pg_index x  (cost=0.00..5.64 rows=164 width=39)
@@ -3719,7 +3719,7 @@ WHERE a.relid = b.relid
   -&gt;  Index Scan using pg_class_oid_index on pg_class i  (cost=0.15..0.44 rows=1 width=116)
         Index Cond: (oid = x.indexrelid)</pre></font></div>
 <div title="Query String" id="dialog_plans00024" class="query_string_dialog"><font size="-1"><font style="font-family: monospace;">SELECT     i.oid AS indexrelid,     c.oid AS relid,     i.reltablespace,     i.relname AS indexrelname, 	i.relam,     i.relpages,     i.reltuples,     i.reloptions,     x.indisunique,     x.indisprimary,     x.indisclustered,     x.indisvalid, 	x.indkey,     pg_get_indexdef(i.oid),     pg_relation_size(i.oid),     pg_stat_get_numscans(i.oid) AS idx_scan,     pg_stat_get_tuples_returned(i.oid) AS idx_tup_read,     pg_stat_get_tuples_fetched(i.oid) AS idx_tup_fetch,     pg_stat_get_blocks_fetched(i.oid) -         pg_stat_get_blocks_hit(i.oid) AS idx_blks_read,     pg_stat_get_blocks_hit(i.oid) AS idx_blks_hit FROM     pg_class c JOIN     pg_index x ON c.oid = x.indrelid JOIN     pg_class i ON i.oid = x.indexrelid JOIN     pg_namespace n ON n.oid = c.relnamespace WHERE 	c.relkind IN (?, ?) AND 	n.nspname &lt;&gt; ALL ((? || $1 || ?)::text[])</font></font></div>
-<div title="Plan String" id="dialog_plans00025" class="query_string_dialog"><font size="-1"><pre>Hash Right Join  (cost=106.06..155.68 rows=173 width=229)
+<div title="Plan String" id="dialog_plans00025" class="query_string_dialog"><font size="-1"><pre class="query_dialog">Hash Right Join  (cost=106.06..155.68 rows=173 width=229)
   Hash Cond: ((s.staattnum = a.attnum) AND (s.starelid = a.attrelid))
   -&gt;  Seq Scan on pg_statistic s  (cost=0.00..41.91 rows=246 width=150)
         Filter: (NOT stainherit)
@@ -3754,7 +3754,7 @@ WHERE a.relid = b.relid
 <div title="Query String" id="dialog_long_transactions00038" class="query_string_dialog"><font size="-1"><font style="font-family: monospace;">DECLARE mycursor CURSOR FOR SELECT new_order(2, 3, 956, 1, 8, make_new_order_info(24576, 2, 6), make_new_order_info(15224, 2, 3), make_new_order_info(79784, 2, 1), make_new_order_info(32112, 2, 10), make_new_order_info(49980, 2, 9), make_new_order_info(81888, 2, 4), make_new_order_info(37526, 2, 3), make_new_order_info(57151, 2, 4), make_new_order_info(0, 0, 0), make_new_order_info(0, 0, 0), make_new_order_info(0, 0, 0), make_new_order_info(0, 0, 0), make_new_order_info(0, 0, 0), make_new_order_info(0, 0, 0), make_new_order_info(0, 0, 0) )</font></font></div>
 <div title="Query String" id="dialog_long_transactions00039" class="query_string_dialog"><font size="-1"><font style="font-family: monospace;">DECLARE mycursor CURSOR FOR SELECT new_order(5, 3, 2944, 1, 9, make_new_order_info(92960, 5, 6), make_new_order_info(71166, 5, 1), make_new_order_info(39888, 5, 4), make_new_order_info(63484, 5, 5), make_new_order_info(15074, 5, 10), make_new_order_info(81918, 5, 8), make_new_order_info(73696, 5, 9), make_new_order_info(11775, 5, 8), make_new_order_info(89968, 5, 9), make_new_order_info(0, 0, 0), make_new_order_info(0, 0, 0), make_new_order_info(0, 0, 0), make_new_order_info(0, 0, 0), make_new_order_info(0, 0, 0), make_new_order_info(0, 0, 0) )</font></font></div>
 <div title="Query String" id="dialog_long_transactions00040" class="query_string_dialog"><font size="-1"><font style="font-family: monospace;">DECLARE mycursor CURSOR FOR SELECT new_order(8, 2, 1536, 1, 12, make_new_order_info(49146, 8, 10), make_new_order_info(65248, 8, 5), make_new_order_info(72348, 8, 1), make_new_order_info(59231, 8, 10), make_new_order_info(72679, 8, 9), make_new_order_info(89824, 8, 9), make_new_order_info(18928, 8, 3), make_new_order_info(7680, 8, 4), make_new_order_info(6101, 8, 2), make_new_order_info(89764, 8, 4), make_new_order_info(97208, 8, 10), make_new_order_info(3420, 8, 8), make_new_order_info(0, 0, 0), make_new_order_info(0, 0, 0), make_new_order_info(0, 0, 0) )</font></font></div>
-<div title="Query String" id="dialog_lock_conflicts00041" class="query_string_dialog"><font size="-1"><pre>DECLARE mycursor CURSOR FOR SELECT new_order(7, 10, 1017, 1, 12, make_new_order_info(83968, 7, 2...;SELECT w_tax
+<div title="Query String" id="dialog_lock_conflicts00041" class="query_string_dialog"><font size="-1"><pre class="query_dialog">DECLARE mycursor CURSOR FOR SELECT new_order(7, 10, 1017, 1, 12, make_new_order_info(83968, 7, 2...;SELECT w_tax
 FROM warehouse
 WHERE w_id = $1;SELECT d_tax, d_next_o_id
 FROM district 
@@ -3782,7 +3782,7 @@ WHERE s_i_id = $2
 FROM item
 WHERE i_id = $1;SELECT s_quantity, $1, s_data
 FROM sto...;</pre></font></div>
-<div title="Query String" id="dialog_lock_conflicts00042" class="query_string_dialog"><font size="-1"><pre>SELECT payment(8, 3, 0, 8, 3, &#039;CALLYBARABLE&#039;, 2287.110000);SELECT w_name, w_street_1, w_street_2, w_city, w_state, w_zip
+<div title="Query String" id="dialog_lock_conflicts00042" class="query_string_dialog"><font size="-1"><pre class="query_dialog">SELECT payment(8, 3, 0, 8, 3, &#039;CALLYBARABLE&#039;, 2287.110000);SELECT w_name, w_street_1, w_street_2, w_city, w_state, w_zip
 FROM warehouse
 WHERE w_id = $1;UPDATE warehouse
 SET w_ytd = w_ytd + $1
@@ -3798,7 +3798,7 @@ WHERE c_w_id = $1
   AND c_d_id = $2
   AND c_last = $3
 ORDER BY c_first ASC;</pre></font></div>
-<div title="Query String" id="dialog_lock_conflicts00043" class="query_string_dialog"><font size="-1"><pre>SELECT payment(7, 4, 0, 6, 1, &#039;ESEOUGHTOUGHT&#039;, 3180.460000);SELECT w_name, w_street_1, w_street_2, w_city, w_state, w_zip
+<div title="Query String" id="dialog_lock_conflicts00043" class="query_string_dialog"><font size="-1"><pre class="query_dialog">SELECT payment(7, 4, 0, 6, 1, &#039;ESEOUGHTOUGHT&#039;, 3180.460000);SELECT w_name, w_street_1, w_street_2, w_city, w_state, w_zip
 FROM warehouse
 WHERE w_id = $1;UPDATE warehouse
 SET w_ytd = w_ytd + $1
@@ -3818,7 +3818,7 @@ ORDER BY c_first ASC;SELECT c_first, c_middle, c_last, c_street_1, c_street_2, c
 SET c_balance = c_balance - $1,
     c_ytd_payment = c_ytd_payment + 1
 WHERE c_id...;</pre></font></div>
-<div title="Query String" id="dialog_lock_conflicts00044" class="query_string_dialog"><font size="-1"><pre>DECLARE mycursor CURSOR FOR SELECT new_order(2, 3, 71, 1, 10, make_new_order_info(89856, 2, 4), ...;SELECT w_tax
+<div title="Query String" id="dialog_lock_conflicts00044" class="query_string_dialog"><font size="-1"><pre class="query_dialog">DECLARE mycursor CURSOR FOR SELECT new_order(2, 3, 71, 1, 10, make_new_order_info(89856, 2, 4), ...;SELECT w_tax
 FROM warehouse
 WHERE w_id = $1;SELECT d_tax, d_next_o_id
 FROM district 
@@ -3846,7 +3846,7 @@ WHERE s_i_id = $2
 FROM item
 WHERE i_id = $1;SELECT s_quantity, $1, s_data
 FROM sto...;</pre></font></div>
-<div title="Query String" id="dialog_lock_conflicts00045" class="query_string_dialog"><font size="-1"><pre>SELECT payment(1, 10, 1982, 1, 10, &#039;&#039;, 1534.610000);SELECT w_name, w_street_1, w_street_2, w_city, w_state, w_zip
+<div title="Query String" id="dialog_lock_conflicts00045" class="query_string_dialog"><font size="-1"><pre class="query_dialog">SELECT payment(1, 10, 1982, 1, 10, &#039;&#039;, 1534.610000);SELECT w_name, w_street_1, w_street_2, w_city, w_state, w_zip
 FROM warehouse
 WHERE w_id = $1;UPDATE warehouse
 SET w_ytd = w_ytd + $1
@@ -3858,7 +3858,7 @@ SET d_ytd = d_ytd + $1
 WHERE d_id = $2
   AND d_w_id = $3;SELECT c_first, c_middle, c_last, c_street_1, c_street_2, c_city,
        c_state, c_zip, c_phone...;</pre></font></div>
-<div title="Query String" id="dialog_lock_conflicts00046" class="query_string_dialog"><font size="-1"><pre>DECLARE mycursor CURSOR FOR SELECT new_order(9, 6, 1776, 1, 15, make_new_order_info(30711, 9, 8)...;SELECT w_tax
+<div title="Query String" id="dialog_lock_conflicts00046" class="query_string_dialog"><font size="-1"><pre class="query_dialog">DECLARE mycursor CURSOR FOR SELECT new_order(9, 6, 1776, 1, 15, make_new_order_info(30711, 9, 8)...;SELECT w_tax
 FROM warehouse
 WHERE w_id = $1;SELECT d_tax, d_next_o_id
 FROM district 
@@ -3886,7 +3886,7 @@ WHERE s_i_id = $2
 FROM item
 WHERE i_id = $1;SELECT s_quantity, $1, s_data
 FROM sto...;</pre></font></div>
-<div title="Query String" id="dialog_lock_conflicts00047" class="query_string_dialog"><font size="-1"><pre>DECLARE mycursor CURSOR FOR SELECT new_order(10, 8, 2223, 1, 15, make_new_order_info(14302, 10, ...;SELECT w_tax
+<div title="Query String" id="dialog_lock_conflicts00047" class="query_string_dialog"><font size="-1"><pre class="query_dialog">DECLARE mycursor CURSOR FOR SELECT new_order(10, 8, 2223, 1, 15, make_new_order_info(14302, 10, ...;SELECT w_tax
 FROM warehouse
 WHERE w_id = $1;SELECT d_tax, d_next_o_id
 FROM district 
@@ -3914,7 +3914,7 @@ WHERE s_i_id = $2
 FROM item
 WHERE i_id = $1;SELECT s_quantity, $1, s_data
 FROM sto...;</pre></font></div>
-<div title="Query String" id="dialog_lock_conflicts00048" class="query_string_dialog"><font size="-1"><pre>SELECT payment(5, 6, 686, 5, 6, &#039;&#039;, 3196.450000);SELECT w_name, w_street_1, w_street_2, w_city, w_state, w_zip
+<div title="Query String" id="dialog_lock_conflicts00048" class="query_string_dialog"><font size="-1"><pre class="query_dialog">SELECT payment(5, 6, 686, 5, 6, &#039;&#039;, 3196.450000);SELECT w_name, w_street_1, w_street_2, w_city, w_state, w_zip
 FROM warehouse
 WHERE w_id = $1;UPDATE warehouse
 SET w_ytd = w_ytd + $1
@@ -3930,7 +3930,7 @@ SET c_balance = c_balance - $1,
     c_ytd_payment = c_ytd_payment + 1
 WHERE c_id...;INSERT INTO history (h_c_id, h_c_d_id, h_c_w_id, h_d_id, h_w_id,
 		     h_date, h_amount, h_data...;</pre></font></div>
-<div title="Query String" id="dialog_lock_conflicts00049" class="query_string_dialog"><font size="-1"><pre>SELECT payment(7, 5, 0, 7, 5, &#039;EINGABLEBAR&#039;, 2012.920000);SELECT w_name, w_street_1, w_street_2, w_city, w_state, w_zip
+<div title="Query String" id="dialog_lock_conflicts00049" class="query_string_dialog"><font size="-1"><pre class="query_dialog">SELECT payment(7, 5, 0, 7, 5, &#039;EINGABLEBAR&#039;, 2012.920000);SELECT w_name, w_street_1, w_street_2, w_city, w_state, w_zip
 FROM warehouse
 WHERE w_id = $1;UPDATE warehouse
 SET w_ytd = w_ytd + $1
@@ -3951,7 +3951,7 @@ SET c_balance = c_balance - $1,
     c_ytd_payment = c_ytd_payment + 1
 WHERE c_id...;INSERT INTO history (h_c_id, h_c_d_id, h_c_w_id, h_d_id, h_w_id,
 		     h_date, h_amount, h_data...;</pre></font></div>
-<div title="Query String" id="dialog_lock_conflicts00050" class="query_string_dialog"><font size="-1"><pre>SELECT delivery(2, 3);SELECT no_o_id
+<div title="Query String" id="dialog_lock_conflicts00050" class="query_string_dialog"><font size="-1"><pre class="query_dialog">SELECT delivery(2, 3);SELECT no_o_id
 FROM new_order
 WHERE no_w_id = $1
   AND no_d_id = $2ORDER BY no_o_id LIMIT 1;DELETE FROM new_order
@@ -3991,7 +3991,7 @@ SET o_carrier_id = $1
 WHERE o_id = $2
   AND o_w_id = $3
   AND o_d_id = $4;</pre></font></div>
-<div title="Query String" id="dialog_lock_conflicts00051" class="query_string_dialog"><font size="-1"><pre>SELECT payment(6, 2, 0, 6, 2, &#039;BAROUGHTOUGHT&#039;, 2532.660000);SELECT w_name, w_street_1, w_street_2, w_city, w_state, w_zip
+<div title="Query String" id="dialog_lock_conflicts00051" class="query_string_dialog"><font size="-1"><pre class="query_dialog">SELECT payment(6, 2, 0, 6, 2, &#039;BAROUGHTOUGHT&#039;, 2532.660000);SELECT w_name, w_street_1, w_street_2, w_city, w_state, w_zip
 FROM warehouse
 WHERE w_id = $1;UPDATE warehouse
 SET w_ytd = w_ytd + $1
@@ -4007,7 +4007,7 @@ WHERE c_w_id = $1
   AND c_d_id = $2
   AND c_last = $3
 ORDER BY c_first ASC;</pre></font></div>
-<div title="Query String" id="dialog_lock_conflicts00052" class="query_string_dialog"><font size="-1"><pre>DECLARE mycursor CURSOR FOR SELECT new_order(3, 2, 736, 1, 11, make_new_order_info(49102, 3, 2),...;SELECT w_tax
+<div title="Query String" id="dialog_lock_conflicts00052" class="query_string_dialog"><font size="-1"><pre class="query_dialog">DECLARE mycursor CURSOR FOR SELECT new_order(3, 2, 736, 1, 11, make_new_order_info(49102, 3, 2),...;SELECT w_tax
 FROM warehouse
 WHERE w_id = $1;SELECT d_tax, d_next_o_id
 FROM district 
@@ -4035,7 +4035,7 @@ WHERE s_i_id = $2
 FROM item
 WHERE i_id = $1;SELECT s_quantity, $1, s_data
 FROM sto...;</pre></font></div>
-<div title="Query String" id="dialog_lock_conflicts00053" class="query_string_dialog"><font size="-1"><pre>DECLARE mycursor CURSOR FOR SELECT new_order(3, 6, 2034, 1, 14, make_new_order_info(88702, 3, 9)...;SELECT w_tax
+<div title="Query String" id="dialog_lock_conflicts00053" class="query_string_dialog"><font size="-1"><pre class="query_dialog">DECLARE mycursor CURSOR FOR SELECT new_order(3, 6, 2034, 1, 14, make_new_order_info(88702, 3, 9)...;SELECT w_tax
 FROM warehouse
 WHERE w_id = $1;SELECT d_tax, d_next_o_id
 FROM district 
@@ -4063,7 +4063,7 @@ WHERE s_i_id = $2
 FROM item
 WHERE i_id = $1;SELECT s_quantity, $1, s_data
 FROM sto...;</pre></font></div>
-<div title="Query String" id="dialog_lock_conflicts00054" class="query_string_dialog"><font size="-1"><pre>SELECT payment(1, 9, 924, 1, 9, &#039;&#039;, 690.670000);SELECT w_name, w_street_1, w_street_2, w_city, w_state, w_zip
+<div title="Query String" id="dialog_lock_conflicts00054" class="query_string_dialog"><font size="-1"><pre class="query_dialog">SELECT payment(1, 9, 924, 1, 9, &#039;&#039;, 690.670000);SELECT w_name, w_street_1, w_street_2, w_city, w_state, w_zip
 FROM warehouse
 WHERE w_id = $1;UPDATE warehouse
 SET w_ytd = w_ytd + $1
@@ -4079,7 +4079,7 @@ SET c_balance = c_balance - $1,
     c_ytd_payment = c_ytd_payment + 1,
     c_dat...;INSERT INTO history (h_c_id, h_c_d_id, h_c_w_id, h_d_id, h_w_id,
 		     h_date, h_amount, h_data...;</pre></font></div>
-<div title="Query String" id="dialog_lock_conflicts00055" class="query_string_dialog"><font size="-1"><pre>SELECT payment(3, 5, 0, 3, 5, &#039;BARANTIPRI&#039;, 1983.660000);SELECT w_name, w_street_1, w_street_2, w_city, w_state, w_zip
+<div title="Query String" id="dialog_lock_conflicts00055" class="query_string_dialog"><font size="-1"><pre class="query_dialog">SELECT payment(3, 5, 0, 3, 5, &#039;BARANTIPRI&#039;, 1983.660000);SELECT w_name, w_street_1, w_street_2, w_city, w_state, w_zip
 FROM warehouse
 WHERE w_id = $1;UPDATE warehouse
 SET w_ytd = w_ytd + $1
@@ -4095,7 +4095,7 @@ WHERE c_w_id = $1
   AND c_d_id = $2
   AND c_last = $3
 ORDER BY c_first ASC;</pre></font></div>
-<div title="Query String" id="dialog_lock_conflicts00056" class="query_string_dialog"><font size="-1"><pre>SELECT payment(7, 1, 0, 7, 1, &#039;ABLEOUGHTESE&#039;, 4318.190000);SELECT w_name, w_street_1, w_street_2, w_city, w_state, w_zip
+<div title="Query String" id="dialog_lock_conflicts00056" class="query_string_dialog"><font size="-1"><pre class="query_dialog">SELECT payment(7, 1, 0, 7, 1, &#039;ABLEOUGHTESE&#039;, 4318.190000);SELECT w_name, w_street_1, w_street_2, w_city, w_state, w_zip
 FROM warehouse
 WHERE w_id = $1;UPDATE warehouse
 SET w_ytd = w_ytd + $1
@@ -4111,7 +4111,7 @@ WHERE c_w_id = $1
   AND c_d_id = $2
   AND c_last = $3
 ORDER BY c_first ASC;</pre></font></div>
-<div title="Query String" id="dialog_lock_conflicts00057" class="query_string_dialog"><font size="-1"><pre>DECLARE mycursor CURSOR FOR SELECT new_order(8, 6, 8, 1, 9, make_new_order_info(8020, 8, 5), mak...;SELECT w_tax
+<div title="Query String" id="dialog_lock_conflicts00057" class="query_string_dialog"><font size="-1"><pre class="query_dialog">DECLARE mycursor CURSOR FOR SELECT new_order(8, 6, 8, 1, 9, make_new_order_info(8020, 8, 5), mak...;SELECT w_tax
 FROM warehouse
 WHERE w_id = $1;SELECT d_tax, d_next_o_id
 FROM district 
@@ -4139,7 +4139,7 @@ WHERE s_i_id = $2
 FROM item
 WHERE i_id = $1;SELECT s_quantity, $1, s_data
 FROM sto...;</pre></font></div>
-<div title="Query String" id="dialog_lock_conflicts00058" class="query_string_dialog"><font size="-1"><pre>SELECT payment(8, 10, 902, 8, 10, &#039;&#039;, 4936.950000);SELECT w_name, w_street_1, w_street_2, w_city, w_state, w_zip
+<div title="Query String" id="dialog_lock_conflicts00058" class="query_string_dialog"><font size="-1"><pre class="query_dialog">SELECT payment(8, 10, 902, 8, 10, &#039;&#039;, 4936.950000);SELECT w_name, w_street_1, w_street_2, w_city, w_state, w_zip
 FROM warehouse
 WHERE w_id = $1;UPDATE warehouse
 SET w_ytd = w_ytd + $1
@@ -4155,7 +4155,7 @@ SET c_balance = c_balance - $1,
     c_ytd_payment = c_ytd_payment + 1
 WHERE c_id...;INSERT INTO history (h_c_id, h_c_d_id, h_c_w_id, h_d_id, h_w_id,
 		     h_date, h_amount, h_data...;</pre></font></div>
-<div title="Query String" id="dialog_cancellations00059" class="query_string_dialog"><font size="-1"><pre>SELECT payment(7, 4, 0, 6, 1, &#039;ESEOUGHTOUGHT&#039;, 3180.460000);SELECT w_name, w_street_1, w_street_2, w_city, w_state, w_zip\
+<div title="Query String" id="dialog_cancellations00059" class="query_string_dialog"><font size="-1"><pre class="query_dialog">SELECT payment(7, 4, 0, 6, 1, &#039;ESEOUGHTOUGHT&#039;, 3180.460000);SELECT w_name, w_street_1, w_street_2, w_city, w_state, w_zip\
 FROM warehouse\
 WHERE w_id = $1;UPDATE warehouse\
 SET w_ytd = w_ytd + $1\
@@ -4171,7 +4171,7 @@ WHERE c_w_id = $1\
   AND c_d_id = $2\
   AND c_last = $3\
 ORDER BY c_first ASC;\</pre></font></div>
-<div title="Query String" id="dialog_cancellations00060" class="query_string_dialog"><font size="-1"><pre>SELECT payment(7, 4, 0, 6, 1, &#039;ESEOUGHTOUGHT&#039;, 3180.460000);SELECT w_name, w_street_1, w_street_2, w_city, w_state, w_zip\
+<div title="Query String" id="dialog_cancellations00060" class="query_string_dialog"><font size="-1"><pre class="query_dialog">SELECT payment(7, 4, 0, 6, 1, &#039;ESEOUGHTOUGHT&#039;, 3180.460000);SELECT w_name, w_street_1, w_street_2, w_city, w_state, w_zip\
 FROM warehouse\
 WHERE w_id = $1;UPDATE warehouse\
 SET w_ytd = w_ytd + $1\
@@ -4191,7 +4191,7 @@ ORDER BY c_first ASC;SELECT c_first, c_middle, c_last, c_street_1, c_street_2, c
 SET c_balance = c_balance - $1,\
     c_ytd_payment = c_ytd_payment + 1\
 WHERE c_id...;</pre></font></div>
-<div title="Query String" id="dialog_cancellations00061" class="query_string_dialog"><font size="-1"><pre>SELECT payment(8, 3, 0, 8, 3, &#039;CALLYBARABLE&#039;, 2287.110000);SELECT w_name, w_street_1, w_street_2, w_city, w_state, w_zip\
+<div title="Query String" id="dialog_cancellations00061" class="query_string_dialog"><font size="-1"><pre class="query_dialog">SELECT payment(8, 3, 0, 8, 3, &#039;CALLYBARABLE&#039;, 2287.110000);SELECT w_name, w_street_1, w_street_2, w_city, w_state, w_zip\
 FROM warehouse\
 WHERE w_id = $1;UPDATE warehouse\
 SET w_ytd = w_ytd + $1\
@@ -4207,7 +4207,7 @@ WHERE c_w_id = $1\
   AND c_d_id = $2\
   AND c_last = $3\
 ORDER BY c_first ASC;</pre></font></div>
-<div title="Query String" id="dialog_cancellations00062" class="query_string_dialog"><font size="-1"><pre>SELECT payment(8, 3, 0, 8, 3, &#039;CALLYBARABLE&#039;, 2287.110000);SELECT w_name, w_street_1, w_street_2, w_city, w_state, w_zip\
+<div title="Query String" id="dialog_cancellations00062" class="query_string_dialog"><font size="-1"><pre class="query_dialog">SELECT payment(8, 3, 0, 8, 3, &#039;CALLYBARABLE&#039;, 2287.110000);SELECT w_name, w_street_1, w_street_2, w_city, w_state, w_zip\
 FROM warehouse\
 WHERE w_id = $1;UPDATE warehouse\
 SET w_ytd = w_ytd + $1\
