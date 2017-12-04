@@ -1929,7 +1929,9 @@ EOD;
 
 EOD;
 		$qstr = "";
-		if ($target['repo_version'] >= V33) {
+		if ($target['repo_version'] >= V10) {
+			$qstr = $query_string['replication_overview10'];
+		} else if ($target['repo_version'] >= V33) {
 			$qstr = $query_string['replication_overview33'];
 		} else {
 			$qstr = $query_string['replication_overview'];

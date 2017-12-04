@@ -577,6 +577,7 @@ available. Less logging reduces the completeness this table.</div>
 of reporting period. One column is shown for one replication
 session.</h4>
 <ul>
+<li><em>snapshot time</em>: </li>
 <li><em>Session user</em>: Name of the user logged into this WAL sender process</li>
 <li><em>Application name</em>: Application name that is connected to this WAL sender</li>
 <li><em>Client address</em>: IP address of the client connected to this WAL sender</li>
@@ -606,8 +607,8 @@ session.</h4>
 </ul>
 <h4>Legend</h4>
 <ul>
-<li><em>[address]: [port-number] flush</em>: Delay amount of flush on standby server.<br/>* Synchronous standby is prefixed by [sync] and drawn by thick line.</li>
-<li><em>[address]: [port-number] replay</em>: Delay amount of replay on standby server.<br/>* Synchronous standby is prefixed by [sync] and drawn by thick line</li></ul>
+<li><em>[address]: [name of standby server] flush</em>: Delay amount of flush on standby server.<br/>* Synchronous standby is prefixed by [sync] and drawn by thick line.</li>
+<li><em>[address]: [name of standby server] replay</em>: Delay amount of replay on standby server.<br/>* Synchronous standby is prefixed by [sync] and drawn by thick line</li></ul>
 </div>
 
 <div id="tables_dialog" class="help_dialog"
