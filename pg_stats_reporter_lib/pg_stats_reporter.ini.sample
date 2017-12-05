@@ -72,7 +72,7 @@ io_usage = true                     ; I/O Usage
 heavily_updated_tables = true       ; Heavily Updated Tables
 heavily_accessed_tables = true      ; Heavily Accessed Tables
 low_density_tables = true           ; Low Density Tables
-table_fragmentations = true         ; Table Fragmentations
+correlation = true                  ; Correlation
 
 ; -- Query Activity --
 functions = true                    ; Functions

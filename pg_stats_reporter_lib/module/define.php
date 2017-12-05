@@ -95,7 +95,7 @@ $report_default = array(
   'heavily_updated_tables'    => true,
   'heavily_accessed_tables'   => true,
   'low_density_tables'        => true,
-  'table_fragmentations'      => true,
+  'correlation'               => true,
   'functions'                 => true,
   'statements'                => true,
   'plans'					  => true,
@@ -136,7 +136,7 @@ $help_list = array(
   'heavily_updated_tables'    => 'heavily_updated_tables_dialog',
   'heavily_accessed_tables'   => 'heavily_accessed_tables_dialog',
   'low_density_tables'        => 'low_density_tables_dialog',
-  'table_fragmentations'      => 'table_fragmentations_dialog',
+  'correlation         '      => 'correlation_dialog',
   'functions'                 => 'functions_dialog',
   'statements'                => 'statements_dialog',
   'plans'                     => 'plans_dialog',
@@ -257,7 +257,7 @@ $query_string = array(
   "low_density_tables" =>
   "SELECT datname AS \"Database\", nspname AS \"Schema\", relname AS \"Table\", n_live_tup AS \"Tuples\", logical_pages AS \"Logical pages\", physical_pages AS \"Physical pages\", tratio AS \"L/P ratio (%)\" FROM statsrepo.get_low_density_tables($1, $2) ORDER BY tratio",
 
-  "table_fragmentations" =>
+  "correlation" =>
   "SELECT datname AS \"Database\", nspname AS \"Schema\", relname AS \"Table\", attname AS \"Column\", correlation AS \"Correlation\"FROM statsrepo.get_flagmented_tables($1, $2)",
 
   // Query Acitvity

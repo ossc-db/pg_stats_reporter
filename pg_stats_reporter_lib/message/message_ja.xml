@@ -341,9 +341,9 @@
 </ul>
 </div>
 
-<div id="table_fragmentations_dialog" class="help_dialog"
-  title="The Table Fragmentations Table">
-<h4>この表の各行はカラムごとのフラグメンテーション(論理的な並びと物理的な並びの相関係数)を示します。相関係数は0に近いほどフラグメンテーションが強いことを示します。初期状態では Correlation(相関)欄の降順に並んでいます。</h4>
+<div id="correlation_dialog" class="help_dialog"
+  title="The Correlation Table">
+<h4>この表の各行は、カラムごとの論理的な並びと物理的な並びの相関係数を示します。相関係数は0に近いほど相関が弱いことを示します。初期状態では Correlation(相関係数)欄の降順に並んでいます。</h4>
 <ul>
 <li><em>Database</em>: このカラムを含むテーブルがあるデータベースの名前</li>
 <li><em>Schema</em>: このカラムを含むテーブルが属するスキーマの名前</li>

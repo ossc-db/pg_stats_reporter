@@ -263,7 +263,7 @@ EOD;
 	if ($targetList['heavily_updated_tables']
 		|| $targetList['heavily_accessed_tables']
 		|| $targetList['low_density_tables']
-		|| $targetList['table_fragmentations']
+		|| $targetList['correlation']
 		|| $targetList['functions']
 		|| $targetList['statements']
 		|| $targetList['long_transactions']
@@ -275,7 +275,7 @@ EOD;
 		if ($targetList['heavily_updated_tables']
 			|| $targetList['heavily_accessed_tables']
 			|| $targetList['low_density_tables']
-			|| $targetList['table_fragmentations']) {
+			|| $targetList['correlation']) {
 
 			$html_string .= "<li><a href=\"#notable_tables\">Notable Tables</a><ul>\n";
 
@@ -285,8 +285,8 @@ EOD;
 				$html_string .= "<li><a href=\"#heavily_accessed_tables\">Heavily Accessed Tables</a></li>\n";
 			if ($targetList['low_density_tables'])
 				$html_string .= "<li><a href=\"#low_density_tables\">Low Density Tables</a></li>\n";
-			if ($targetList['table_fragmentations'])
-				$html_string .= "<li><a href=\"#table_fragmentations\">Table Fragmentations</a></li>\n";
+			if ($targetList['correlation'])
+				$html_string .= "<li><a href=\"#correlation\">Correlation</a></li>\n";
 
 			$html_string .= "</ul></li>\n";
 		}
@@ -490,7 +490,7 @@ function makePlainHeaderMenu()
     <li><a>Heavily Updated Tables</a></li>
     <li><a>Heavily Accessed Tables</a></li>
     <li><a>Low Density Tables</a></li>
-    <li><a>Table Fragmentations</a></li>
+    <li><a>Correlation</a></li>
   </ul></li>
   <li><a>Query Activity</a><ul>
     <li><a>Functions</a></li>
@@ -1404,7 +1404,7 @@ function makeSQLReport($conn, $target, $snapids, $errorMsg)
 	if (!$target['heavily_updated_tables']
 		&& !$target['heavily_accessed_tables']
 		&& !$target['low_density_tables']
-		&& !$target['table_fragmentations']
+		&& !$target['correlation']
 		&& !$target['functions']
 		&& !$target['statements']
 		&& !$target['plans']
@@ -1423,7 +1423,7 @@ EOD;
 	if ($target['heavily_updated_tables']
 		|| $target['heavily_accessed_tables']
 		|| $target['low_density_tables']
-		|| $target['table_fragmentations']) {
+		|| $target['correlation']) {
 
 		$htmlString .=
 <<< EOD
@@ -1505,18 +1505,18 @@ EOD;
 			pg_free_result($result);
 		}
 
-		if ($target['table_fragmentations']) {
+		if ($target['correlation']) {
 			$htmlString .=
 <<< EOD
-<div id="table_fragmentations" class="jump_margin"></div>
-<h3>Table Fragmentations</h3>
+<div id="correlation" class="jump_margin"></div>
+<h3>Correlation</h3>
 <div align="right" class="jquery_ui_button_info_h3">
-  <div><button class="help_button" dialog="#table_fragmentations_dialog"></button></div>
+  <div><button class="help_button" dialog="#correlation_dialog"></button></div>
 </div>
 
 EOD;
 
-			$result = pg_query_params($conn, $query_string['table_fragmentations'], $snapids);
+			$result = pg_query_params($conn, $query_string['correlation'], $snapids);
 			if (!$result) {
 				return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 			}
@@ -1524,7 +1524,7 @@ EOD;
 			if (pg_num_rows($result) == 0) {
 				$htmlString .= makeErrorTag($errorMsg['no_result']);
 			} else {
-				$htmlString .= makeTablePagerHTML($result, "table_fragmentations", 10, true);
+				$htmlString .= makeTablePagerHTML($result, "correlation", 10, true);
 			}
 			pg_free_result($result);
 		}

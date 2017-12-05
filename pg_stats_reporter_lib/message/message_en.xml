@@ -356,11 +356,12 @@ first.</h4>
 </ul>
 </div>
 
-<div id="table_fragmentations_dialog" class="help_dialog"
-  title="The Table Fragmentations Table">
-<h4>Each row in this table shows the fragmentation (correlation
-between physical and logical ordering) of one column. The correlation
-factor closer to zero means the stronger fragmentation of column. The rows are shown in descending order of the "Correlation" field at first.</h4>
+<div id="correlation_dialog" class="help_dialog"
+  title="The Correlation Table">
+<h4>Each row in this table shows the correlation coefficient between physical
+ and logical orders of one column. The <em>correlation</em> closer to zero
+means weeker correlation between these orders.
+The rows are shown in descending order of the "Correlation" field at first.</h4>
 <ul>
 <li><em>Database</em>: Name of the database that the table containig this column resides in</li>
 <li><em>Schema</em>: Name of the schema that the table containing this columns belongs to</li>

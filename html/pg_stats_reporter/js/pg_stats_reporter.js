@@ -240,8 +240,8 @@ $(function(){
     })
   );
 
-  // Fragmented Tables
-  $("#table_fragmentations_table").tablesorter(
+  // Correlation
+  $("#correlation_table").tablesorter(
     $.extend({}, tablesorterDefaultOptions, {
       sortList: [[4,1]],
       headers: {
@@ -251,7 +251,7 @@ $(function(){
   )
   .tablesorterPager(
     $.extend({}, pagerDefaultOptions, {
-      container: $('#pager_table_fragmentations'),
+      container: $('#pager_correlation'),
       size: 10
     })
   );
