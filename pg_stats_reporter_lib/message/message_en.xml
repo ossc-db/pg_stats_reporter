@@ -367,7 +367,7 @@ The rows are shown in descending order of the "Correlation" field at first.</h4>
 <li><em>Schema</em>: Name of the schema that the table containing this columns belongs to</li>
 <li><em>Table</em>: Name of the table this column belongs to</li>
 <li><em>Column</em>: Name of this column</li>
-<li><em>Correlation</em>: Correlation factor of the values of this column</li>
+<li><em>Correlation</em>: Statistical correlation between physical row ordering and logical ordering of the column values</li>
 </ul>
 </div>
 
