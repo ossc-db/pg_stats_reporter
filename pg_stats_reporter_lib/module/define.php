@@ -6,7 +6,7 @@
  */
 
 // pg_stats_reporter's version
-define("PROGRAM_VERSION", "3.3.0");
+define("PROGRAM_VERSION", "10.0");
 
 // Image File
 define("IMAGE_FILE", "pgsql_banner01.png");
@@ -23,12 +23,6 @@ define("DYGRAPHS_PATH", "package/dygraphs-2.0.0/");
 
 // pg_statsinfo's version
 define("V23", 20300);
-define("V24", 20400);
-define("V25", 20500);
-define("V30", 30000);
-define("V31", 30100);
-define("V32", 30200);
-define("V33", 30300);
 define("V10", 100000);
 
 // Smarty cache, compile, template directory
@@ -187,9 +181,6 @@ $query_string = array(
   "SELECT replace(\"timestamp\", '-', '/') AS \"timestamp\", avg(write_size*1024*1024) AS \"Bytes/snapshot (Bytes)\", avg(write_size_per_sec*1024*1024) As \"Write rate (Bytes/s)\" FROM statsrepo.get_xlog_tendency($1, $2) GROUP BY 1 ORDER BY 1",
 
   "write_ahead_logs_stats" =>
-  "SELECT write_total AS \"Total size (MiB)\", write_speed AS \"Average output rate (MiB/s)\" FROM statsrepo.get_xlog_stats($1, $2)",
-
-  "write_ahead_logs_stats31" =>
   "SELECT write_total AS \"Total size (MiB)\", write_speed AS \"Average output rate (MiB/s)\", archive_total AS \"Number of archived files\", archive_failed AS \"Number of archiving errors\", last_wal_file AS \"Latest WAL file\", last_archive_file AS \"Last archived file\" FROM statsrepo.get_xlog_stats($1, $2)",
 
   "backend_states_overview" =>
@@ -229,11 +220,8 @@ $query_string = array(
   "SELECT e.database || '.' || e.schema || '.' || e.table, statsrepo.sub(e.heap_blks_read, b.heap_blks_read) + statsrepo.sub(e.idx_blks_read, b.idx_blks_read) + statsrepo.sub(e.toast_blks_read, b.toast_blks_read) + statsrepo.sub(e.tidx_blks_read, b.tidx_blks_read) FROM statsrepo.tables e LEFT JOIN statsrepo.table b ON e.tbl = b.tbl AND e.nsp = b.nsp AND e.dbid = b.dbid AND b.snapid = $1 WHERE e.snapid = $2 ORDER BY 2 DESC limit 15",
 
   /* Activities */
-  "io_usage31" =>
-  "SELECT device_name AS \"Device name\", device_tblspaces AS \"Containing table spaces\", total_read AS \"total read (MiB)\", read_size_tps_peak AS \"peak read\", total_read_time AS \"total read time (ms)\", total_write AS \"total write (MiB)\", write_size_tps_peak AS \"peak write\", total_write_time AS \"total write time (ms)\", io_queue AS \"Average I/O queue\", total_io_time AS \"Total I/O time (ms)\" FROM statsrepo.get_io_usage($1, $2)",
-
   "io_usage" =>
-  "SELECT device_name AS \"Device name\", device_tblspaces AS \"Containing table spaces\", total_read AS \"total read (MiB)\", total_write AS \"total write (MiB)\", total_read_time AS \"total read time (ms)\", total_write_time AS \"total write time (ms)\", io_queue AS \"Average I/O queue\", total_io_time AS \"Total I/O time (ms)\" FROM statsrepo.get_io_usage($1, $2)",
+  "SELECT device_name AS \"Device name\", device_tblspaces AS \"Containing table spaces\", total_read AS \"total read (MiB)\", read_size_tps_peak AS \"peak read\", total_read_time AS \"total read time (ms)\", total_write AS \"total write (MiB)\", write_size_tps_peak AS \"peak write\", total_write_time AS \"total write time (ms)\", io_queue AS \"Average I/O queue\", total_io_time AS \"Total I/O time (ms)\" FROM statsrepo.get_io_usage($1, $2)",
 
   "io_size" =>
   "SELECT replace(\"timestamp\", '-', '/'), device_name, avg(read_size_tps*1024) AS read, avg(write_size_tps*1024) AS write FROM statsrepo.get_io_usage_tendency_report($1, $2) GROUP BY 1,2 ORDER BY 1,2",
@@ -241,11 +229,8 @@ $query_string = array(
   "io_size_peak" =>
   "SELECT replace(\"timestamp\", '-', '/'), device_name, avg(read_size_tps_peak*1024) AS read, avg(write_size_tps_peak*1024) AS write FROM statsrepo.get_io_usage_tendency_report($1, $2) GROUP BY 1,2 ORDER BY 1,2",
 
-  "io_time31" =>
+  "io_time" =>
   "SELECT replace(\"timestamp\", '-', '/'), device_name, avg(read_time_rate) AS \"avg read time\", avg(write_time_rate) AS \"avg write time\" FROM statsrepo.get_io_usage_tendency_report($1, $2) GROUP BY 1,2 ORDER BY 1,2",
-
-  "io_time" => // temporary (ms/s to s/s -> ms/s to percent)
-  "SELECT replace(\"timestamp\", '-', '/'), device_name, avg(read_time_tps)/10 AS \"avg read time\", avg(write_time_tps)/10 AS \"avg write time\" FROM statsrepo.get_io_usage_tendency_report($1, $2) GROUP BY 1,2 ORDER BY 1,2",
 
   // Notable Tables
   "heavily_updated_tables" =>
@@ -293,31 +278,16 @@ $query_string = array(
   "SELECT ckpt_total AS \"Number of checkpoints\", ckpt_time AS \"Caused by timeout\", ckpt_xlog AS \"Caused by xlogs\", avg_write_buff AS \"Average written buffers\", max_write_buff AS \"Maximum written buffers\", avg_duration AS \"Average checkpoint duration\", max_duration AS \"Maximum checkpoint duration\" FROM statsrepo.get_checkpoint_activity($1, $2)",
 
   // Autovacuums
-  "autovacuum_overview25" =>
-  "SELECT datname AS \"Database\", nspname AS \"Schema\", relname AS \"Table\", \"count\" AS \"Count\", avg_index_scans AS \"Avg index scans\", avg_tup_removed AS \"Avg removed rows\", avg_tup_remain AS \"Avg remain rows\", avg_duration AS \"Avg duration (sec)\", max_duration AS \"Max duration (sec)\" FROM statsrepo.get_autovacuum_activity($1, $2)", 
-
-  "autovacuum_overview30" =>
-  "SELECT datname AS \"Database\", nspname AS \"Schema\", relname AS \"Table\", \"count\" AS \"Count\", avg_index_scans AS \"Avg index scans\", avg_tup_removed AS \"Avg removed rows\", avg_tup_remain AS \"Avg remain rows\", avg_duration AS \"Avg duration (sec)\", max_duration AS \"Max duration (sec)\", cancel AS \"Cancels\" FROM statsrepo.get_autovacuum_activity($1, $2)", 
-
-  "autovacuum_overview31" =>
+  "autovacuum_overview" =>
   "SELECT datname AS \"Database\", nspname AS \"Schema\", relname AS \"Table\", \"count\" AS \"Count\", avg_index_scans AS \"Avg index scans\", avg_tup_removed AS \"Avg removed rows\", avg_tup_remain AS \"Avg remain rows\", avg_tup_dead AS \"Avg remain dead\", avg_duration AS \"Avg duration (sec)\", max_duration AS \"Max duration (sec)\", cancel AS \"Cancels\" FROM statsrepo.get_autovacuum_activity($1, $2)", 
 
   "cancellations" =>
-  "SELECT timestamp::timestamp(0) AS \"Time\", database AS \"Database\", schema AS \"Schema\", \"table\" AS \"Table\", query AS \"Cause query\" FROM statsrepo.autovacuum_cancel WHERE timestamp BETWEEN (SELECT min(time) AS time FROM statsrepo.snapshot WHERE snapid >= $1) AND (SELECT max(time) AS time FROM statsrepo.snapshot WHERE snapid <= $2) AND instid = (SELECT instid FROM statsrepo.snapshot WHERE snapid = $2) ORDER By \"Time\"",
-
-  "cancellations31" =>
   "SELECT timestamp::timestamp(0) AS \"Time\", database AS \"Database\", schema AS \"Schema\", \"table\" AS \"Table\", 'VACUUM' AS \"Activity\", query AS \"Causal query\" FROM statsrepo.autovacuum_cancel v WHERE timestamp BETWEEN (SELECT min(time) AS time FROM statsrepo.snapshot WHERE snapid >= $1) AND (SELECT max(time) AS time FROM statsrepo.snapshot WHERE snapid <= $2) AND instid = (SELECT instid FROM statsrepo.snapshot WHERE snapid = $2) UNION ALL SELECT timestamp::timestamp(0) AS \"Time\", database AS \"Database\", schema AS \"Schema\", \"table\" AS \"Table\", 'ANALYZE' AS \"Activity\", query AS \"Causal query\" FROM statsrepo.autoanalyze_cancel v WHERE timestamp BETWEEN (SELECT min(time) AS time FROM statsrepo.snapshot WHERE snapid >= $1) AND (SELECT max(time) AS time FROM statsrepo.snapshot WHERE snapid <= $2) AND instid = (SELECT instid FROM statsrepo.snapshot WHERE snapid = $2) ORDER By \"Time\"",
 
   "autovacuum_io_summary" =>
   "SELECT datname AS \"Database\", nspname AS \"Schema\", relname AS \"Table\", avg_page_hit AS \"Avg page hit\", avg_page_miss AS \"Avg page miss\", avg_page_dirty AS \"Avg page dirtied\", avg_read_rate AS \"Avg read rate\", avg_write_rate AS \"Avg write rate\" FROM statsrepo.get_autovacuum_activity2($1, $2)", 
 
-  "analyze_overview25" =>
-  "SELECT datname AS \"Database\", nspname AS \"Schema\", relname AS \"Table\", \"count\" AS \"Count\", total_duration AS \"Total duration (sec)\", avg_duration AS \"Avg duration (sec)\", max_duration AS \"Max duration (sec)\" FROM statsrepo.get_autoanalyze_stats($1, $2)", 
-
-  "analyze_overview30" =>
-  "SELECT datname AS \"Database\", nspname AS \"Schema\", relname AS \"Table\", \"count\" AS \"Count\", total_duration AS \"Total duration (sec)\", avg_duration AS \"Avg duration (sec)\", max_duration AS \"Max duration (sec)\", last_analyze AS \"Last analyzed\" FROM statsrepo.get_autoanalyze_stats($1, $2)", 
-
-  "analyze_overview31" =>
+  "analyze_overview" =>
   "SELECT datname AS \"Database\", nspname AS \"Schema\", relname AS \"Table\", \"count\" AS \"Count\", total_duration AS \"Total duration (sec)\", avg_duration AS \"Avg duration (sec)\", max_duration AS \"Max duration (sec)\", last_analyze AS \"Last analyzed\", cancels AS \"Cancels\", mod_rows_max AS \"Max modified rows\" FROM statsrepo.get_autoanalyze_stats($1, $2)", 
 
   "modified_rows" =>
@@ -325,12 +295,6 @@ $query_string = array(
 
   // Replication
   "replication_overview" =>
-  "SELECT usename AS \"Session user\", application_name AS \"Application name\", client_addr AS \"Client address\", client_hostname AS \"Client host\", client_port AS \"Client port\", backend_start AS \"Started at\", state AS \"State\", current_location AS \"Current location\", sent_location AS \"Sent location\", write_location AS \"Write location\", flush_location AS \"Flush location\", replay_location AS \"Replay location\", sync_priority AS \"Sync priority\", sync_state AS \"Sync state\" FROM statsrepo.get_replication_activity($1, $2)",
-
-  "replication_overview33" =>
-  "SELECT usename AS \"Session user\", application_name AS \"Application name\", client_addr AS \"Client address\", client_hostname AS \"Client host\", client_port AS \"Client port\", backend_start AS \"Started at\", state AS \"State\", current_location AS \"Current location\", sent_location AS \"Sent location\", write_location AS \"Write location\", flush_location AS \"Flush location\", replay_location AS \"Replay location\", pg_size_pretty(replay_delay_avg::bigint) AS \"Average replay delay\", pg_size_pretty(replay_delay_peak::bigint) AS \"Peak replay delay\", sync_priority AS \"Sync priority\", sync_state AS \"Sync state\" FROM statsrepo.get_replication_activity($1, $2)",
-
-  "replication_overview10" =>
   "SELECT snapshot_time AS \"snapshot time\", usename AS \"Session user\", application_name AS \"Application name\", client_addr AS \"Client address\", client_hostname AS \"Client host\", client_port AS \"Client port\", backend_start AS \"Started at\", state AS \"State\", current_location AS \"Current location\", sent_location AS \"Sent location\", write_location AS \"Write location\", flush_location AS \"Flush location\", replay_location AS \"Replay location\", pg_size_pretty(replay_delay_avg::bigint) AS \"Average replay delay\", pg_size_pretty(replay_delay_peak::bigint) AS \"Peak replay delay\", sync_priority AS \"Sync priority\", sync_state AS \"Sync state\" FROM statsrepo.get_replication_activity($1, $2)",
 
   "replication_delays" =>
@@ -338,10 +302,7 @@ $query_string = array(
 
   /* Miscellaneous */
   // Tables and Indexes
-  "tables25" =>
-  "SELECT datname AS \"Database\", nspname AS \"Schema\", relname AS \"Table\", attnum AS \"Columns\", size AS \"MiB\", size_incr AS \"+MiB\", seq_scan AS \"Table scans\", idx_scan AS \"Index scans\" FROM statsrepo.get_schema_info_tables($1, $2)",
-
-  "tables30" =>
+  "tables" =>
   "SELECT datname AS \"Database\", nspname AS \"Schema\", relname AS \"Table\", attnum AS \"Columns\", tuples AS \"Rows\", size AS \"MiB\", size_incr AS \"+MiB\", seq_scan AS \"Table scans\", idx_scan AS \"Index scans\" FROM statsrepo.get_schema_info_tables($1, $2)",
 
   "indexes" =>
@@ -349,9 +310,6 @@ $query_string = array(
 
   // Settings
   "runtime_params" =>
-  "SELECT name AS \"Name\", setting AS \"Setting\", source AS \"Source\" FROM statsrepo.get_setting_parameters($1, $2)",
-
-  "runtime_params2" =>
   "SELECT name AS \"Name\", setting AS \"Setting\", unit AS \"Unit\", source AS \"Source\" FROM statsrepo.get_setting_parameters($1, $2)",
 
   // Alerts

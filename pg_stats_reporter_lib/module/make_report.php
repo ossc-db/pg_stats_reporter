@@ -21,6 +21,12 @@ function makeReport($conn, $config, $url_param, &$err_msg)
 	$html_string = array();
 	$err_msg = null;
 
+	/* check repository version */
+	if ($config[$url_param['repodb']]['repo_version'] < V10) {
+		$err_msg = sprintf($error_message['st_version'], "10.x");
+		return null;
+	}
+
 	/* make header menu html */
 	$html_string["header_menu"] = makeHeaderMenu($config, $url_param);
 	
@@ -57,8 +63,8 @@ function makeLogReport($conn, $config, $url_param, &$err_msg)
 	$t_conf = $config[$url_param['repodb']];
 
 	/* check repository version */
-	if ($t_conf['repo_version'] < V30) {
-		$err_msg = sprintf($error_message['st_version'], "3.0.0");
+	if ($t_conf['repo_version'] < V10) {
+		$err_msg = sprintf($error_message['st_version'], "10.x");
 		return null;
 	}
 
@@ -116,6 +122,11 @@ function makeLogReport($conn, $config, $url_param, &$err_msg)
 function makeReportForCommandline($conn, $infoData, $target_info, $snapids)
 {
 	$html_string = array();
+
+	/* check repository version */
+	if ($infoData[$target_info['repodb']]['repo_version'] < V10) {
+		return null;
+	}
 
 	/* make header menu html */
 	$html_string["header_menu"] = makeHeaderMenu($infoData, $target_info);
@@ -767,21 +778,17 @@ EOD;
 </div>
 
 EOD;
-		if ($target['repo_version'] >= V30) {
-			$result = pg_query_params($conn, $query_string['alerts'], $snapids);
-			if (!$result) {
-				return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
-			}
+		$result = pg_query_params($conn, $query_string['alerts'], $snapids);
+        if (!$result) {
+            return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
+        }
 	
-			if (pg_num_rows($result) == 0) {
-				$htmlString .= makeErrorTag($errorMsg['no_result']);
-			} else {
-				$htmlString .= makeTablePagerHTML($result, "alerts", 10, true);
-			}
-			pg_free_result($result);
-		} else {
-			$htmlString .= makeErrorTag($errorMsg['st_version'], "3.0.0");
-		}
+        if (pg_num_rows($result) == 0) {
+            $htmlString .= makeErrorTag($errorMsg['no_result']);
+        } else {
+            $htmlString .= makeTablePagerHTML($result, "alerts", 10, true);
+        }
+        pg_free_result($result);
 	}
 
 	return $htmlString;
@@ -951,38 +958,29 @@ EOD;
 </div>
 
 EOD;
-			if ($target['repo_version'] >= V24) {
-				if ($target['repo_version'] >= V31) {
-					$result = pg_query_params($conn, $query_string['write_ahead_logs_stats31'], $snapids);
-				} else {
-					$result = pg_query_params($conn, $query_string['write_ahead_logs_stats'], $snapids);
-				}
-				if (!$result) {
-					return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
-				}
-				// データがない場合、カラムにはNULLが入っている
-				if (is_null(pg_fetch_result($result,0,0)) == 1) {
-					$htmlString .= makeErrorTag($errorMsg['no_result']);
-				} else {
-					// $htmlString .= makeTablePagerHTML($result, "write_ahead_logs_stats", 5, false);
-					$htmlString .= makeTableHTML($result, "write_ahead_logs_stats");
-				}
-				pg_free_result($result);
+			$result = pg_query_params($conn, $query_string['write_ahead_logs_stats'], $snapids);
+            if (!$result) {
+                return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
+            }
+            // データがない場合、カラムにはNULLが入っている
+            if (is_null(pg_fetch_result($result,0,0)) == 1) {
+                $htmlString .= makeErrorTag($errorMsg['no_result']);
+            } else {
+                $htmlString .= makeTableHTML($result, "write_ahead_logs_stats");
+            }
+            pg_free_result($result);
 
-				$result = pg_query_params($conn, $query_string['write_ahead_logs'], $snapids);
-				if (!$result) {
-					return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
-				}
+            $result = pg_query_params($conn, $query_string['write_ahead_logs'], $snapids);
+            if (!$result) {
+                return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
+            }
 
-				if (pg_num_rows($result) == 0) {
-					$htmlString .= makeErrorTag($errorMsg['no_result']);
-				} else {
-					$htmlString .= makeWALStatisticsGraphHTML($result);
-				}
-				pg_free_result($result);
-			} else {
-				$htmlString .= makeErrorTag($errorMsg['st_version'], "2.4.0");
-			}
+            if (pg_num_rows($result) == 0) {
+                $htmlString .= makeErrorTag($errorMsg['no_result']);
+            } else {
+                $htmlString .= makeWALStatisticsGraphHTML($result);
+            }
+            pg_free_result($result);
 		}
 
 		if ($target['backend_states_overview']) {
@@ -1047,28 +1045,23 @@ EOD;
 
 
 EOD;
-			if ($target['repo_version'] >= V33) {
-                $result = pg_query_params($conn, $query_string['bgwriter_statistics_overview'], $snapids);
-				if (!$result) {
-					return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
-				}
-                $htmlString .= makeTableHTML($result, "bgwriter_statistics");
-                pg_free_result($result);
-
-                $result = pg_query_params($conn, $query_string['bgwriter_statistics'], $snapids);
-				if (!$result) {
-					return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
-				}
-                if (pg_num_rows($result) == 0) {
-					$htmlString .= makeErrorTag($errorMsg['no_result']);
-				} else {
-                    $htmlString .= makebgwriterStatisticsGraphHTML($result);
-				}
-				pg_free_result($result);
-
-            } else {
-				$htmlString .= makeErrorTag($errorMsg['st_version'], "3.3.0");
+            $result = pg_query_params($conn, $query_string['bgwriter_statistics_overview'], $snapids);
+            if (!$result) {
+                return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
             }
+            $htmlString .= makeTableHTML($result, "bgwriter_statistics");
+            pg_free_result($result);
+
+            $result = pg_query_params($conn, $query_string['bgwriter_statistics'], $snapids);
+            if (!$result) {
+                return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
+            }
+            if (pg_num_rows($result) == 0) {
+                $htmlString .= makeErrorTag($errorMsg['no_result']);
+            } else {
+                $htmlString .= makebgwriterStatisticsGraphHTML($result);
+            }
+            pg_free_result($result);
         }
 	}
 
@@ -1144,24 +1137,20 @@ EOD;
 </div>
 
 EOD;
-			if ($target['repo_version'] >= V24) {
-				$result = pg_query_params($conn, $query_string['load_average'], $snapids);
-				if (!$result) {
-					return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
-				}
+			$result = pg_query_params($conn, $query_string['load_average'], $snapids);
+            if (!$result) {
+                return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
+            }
 
-				if (pg_num_rows($result) == 0) {
-					$htmlString .= makeErrorTag($errorMsg['no_result']);
-				} else {
-					$opt = array();
-					array_push($opt, "title: 'Load Average'");
-					array_push($opt, "ylabel: 'Load Average'");
-					$htmlString .= makeSimpleLineGraphHTML($result, "load_average", $opt, false, false);
-				}
-				pg_free_result($result);
-			} else {
-				$htmlString .= makeErrorTag($errorMsg['st_version'], "2.4.0");
-			}
+            if (pg_num_rows($result) == 0) {
+                $htmlString .= makeErrorTag($errorMsg['no_result']);
+            } else {
+                $opt = array();
+                array_push($opt, "title: 'Load Average'");
+                array_push($opt, "ylabel: 'Load Average'");
+                $htmlString .= makeSimpleLineGraphHTML($result, "load_average", $opt, false, false);
+            }
+            pg_free_result($result);
 		}
 
 		if ($target['memory_usage']) {
@@ -1174,25 +1163,21 @@ EOD;
 </div>
 
 EOD;
-			if ($target['repo_version'] >= V24) {
-				$result = pg_query_params($conn, $query_string['memory_usage'], $snapids);
-				if (!$result) {
-					return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
-				}
+			$result = pg_query_params($conn, $query_string['memory_usage'], $snapids);
+            if (!$result) {
+                return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
+            }
 
-				if (pg_num_rows($result) == 0) {
-					$htmlString .= makeErrorTag($errorMsg['no_result']);
-				} else {
-					$opt = array();
-					array_push($opt, "title: 'Memory Usage (Linear Scale)'");
-					array_push($opt, "ylabel: 'Bytes'");
-					array_push($opt, "labelsKMG2: true");
-					$htmlString .= makeSimpleLineGraphHTML($result, "memory_usage", $opt, false, true);
-				}
-				pg_free_result($result);
-			} else {
-				$htmlString .= makeErrorTag($errorMsg['st_version'], "2.4.0");
-			}
+            if (pg_num_rows($result) == 0) {
+                $htmlString .= makeErrorTag($errorMsg['no_result']);
+            } else {
+                $opt = array();
+                array_push($opt, "title: 'Memory Usage (Linear Scale)'");
+                array_push($opt, "ylabel: 'Bytes'");
+                array_push($opt, "labelsKMG2: true");
+                $htmlString .= makeSimpleLineGraphHTML($result, "memory_usage", $opt, false, true);
+            }
+            pg_free_result($result);
 		}
 	}
 
@@ -1304,11 +1289,7 @@ EOD;
 
 			// I/O Usage
 			$qstr = "";
-			if ($target['repo_version'] >= V31) {
-				$qstr = $query_string['io_usage31'];
-			} else {
-				$qstr = $query_string['io_usage'];
-			}
+			$qstr = $query_string['io_usage'];
 
 			$result = pg_query_params($conn, $qstr, $snapids);
 			if (!$result) {
@@ -1345,34 +1326,28 @@ EOD;
 			$htmlString .= "<br/>\n";
 
 			// I/O Peak Rate
-			if ($target['repo_version'] >= V31) {
-				$result = pg_query_params($conn, $query_string['io_size_peak'], $snapids);
-				if (!$result) {
-					return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
-				}
+			$result = pg_query_params($conn, $query_string['io_size_peak'], $snapids);
+            if (!$result) {
+                return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
+            }
 
-				if (pg_num_rows($result) == 0) {
-					$htmlString .= makeErrorTag($errorMsg['no_result']);
-				} else {
-					makeTupleListForDygraphs($result, $name, $value);
-					$opt = array();
-					array_push($opt, "title: 'I/O Peak Rate per Snapshot Interval'");
-					array_push($opt, "ylabel: 'I/O Peak Rate (Bytes/s)'");
-					array_push($opt, "labelsKMG2: true");
-					$htmlString .= makeLineGraphHTML_childrow($name, $value, "io_size_peak", "I/O Peak Rate", $opt);
-				}
-				pg_free_result($result);
+            if (pg_num_rows($result) == 0) {
+                $htmlString .= makeErrorTag($errorMsg['no_result']);
+            } else {
+                makeTupleListForDygraphs($result, $name, $value);
+                $opt = array();
+                array_push($opt, "title: 'I/O Peak Rate per Snapshot Interval'");
+                array_push($opt, "ylabel: 'I/O Peak Rate (Bytes/s)'");
+                array_push($opt, "labelsKMG2: true");
+                $htmlString .= makeLineGraphHTML_childrow($name, $value, "io_size_peak", "I/O Peak Rate", $opt);
+            }
+            pg_free_result($result);
 
-				$htmlString .= "<br/>\n";
-			}
+            $htmlString .= "<br/>\n";
 
 			// I/O Time
 			$qstr = "";
-			if ($target['repo_version'] >= V31) {
-				$qstr = $query_string['io_time31'];
-			} else {
-				$qstr = $query_string['io_time'];
-			}
+			$qstr = $query_string['io_time'];
 
 			$result = pg_query_params($conn, $qstr, $snapids);
 			if (!$result) {
@@ -1605,11 +1580,7 @@ EOD;
 
 EOD;
 
-			if ($target['repo_version'] >= V31) {
-				$htmlString .= makePlansString($conn, $query_string, $snapids, $errorMsg);
-			} else {
-				$htmlString .= makeErrorTag($errorMsg['st_version'], "3.1.0");
-			}
+			$htmlString .= makePlansString($conn, $query_string, $snapids, $errorMsg);
 		}
 	}
 
@@ -1739,13 +1710,7 @@ EOD;
 </div>
 
 EOD;
-			if ($target['repo_version'] >= V31) {
-				$result = pg_query_params($conn, $query_string['autovacuum_overview31'], $snapids);
-			} else if($target['repo_version'] >= V30) {
-				$result = pg_query_params($conn, $query_string['autovacuum_overview30'], $snapids);
-			} else {
-				$result = pg_query_params($conn, $query_string['autovacuum_overview25'], $snapids);
-			}
+			$result = pg_query_params($conn, $query_string['autovacuum_overview'], $snapids);
 
 			if (!$result) {
 				return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
@@ -1771,21 +1736,17 @@ EOD;
 
 
 EOD;
-			if ($target['repo_version'] >= V24) {
-				$result = pg_query_params($conn, $query_string['autovacuum_io_summary'], $snapids);
-				if (!$result) {
-					return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
-				}
+			$result = pg_query_params($conn, $query_string['autovacuum_io_summary'], $snapids);
+			if (!$result) {
+                return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
+            }
 
-				if (pg_num_rows($result) == 0) {
-					$htmlString .= makeErrorTag($errorMsg['no_result']);
-				} else {
-					$htmlString .= makeTablePagerHTML($result, "autovacuum_io_summary", 10, true);
-				}
-				pg_free_result($result);
-			} else {
-				$htmlString .= makeErrorTag($errorMsg['st_version'], "2.4.0");
-			}
+            if (pg_num_rows($result) == 0) {
+                $htmlString .= makeErrorTag($errorMsg['no_result']);
+            } else {
+                $htmlString .= makeTablePagerHTML($result, "autovacuum_io_summary", 10, true);
+            }
+            pg_free_result($result);
 		}
 
 		if ($target['analyze_overview']) {
@@ -1799,31 +1760,21 @@ EOD;
 
 
 EOD;
-			if ($target['repo_version'] >= V25) {
-				// if repository database version >= 3.0, add last analyze time
-				$qstr = "";
-                if ($target['repo_version'] >= V31) {
-					$qstr = $query_string['analyze_overview31'];
-                } else if ($target['repo_version'] >= V30) {
-					$qstr = $query_string['analyze_overview30'];
-                } else {
-					$qstr = $query_string['analyze_overview25'];
-                }
+			// if repository database version >= 3.0, add last analyze time
+			$qstr = "";
+            $qstr = $query_string['analyze_overview'];
 
-				$result = pg_query_params($conn, $qstr, $snapids);
-				if (!$result) {
-					return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
-				}
+            $result = pg_query_params($conn, $qstr, $snapids);
+            if (!$result) {
+                return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
+            }
 
-				if (pg_num_rows($result) == 0) {
-					$htmlString .= makeErrorTag($errorMsg['no_result']);
-				} else {
-					$htmlString .= makeTablePagerHTML($result, "analyze_overview", 10, true);
-				}
-				pg_free_result($result);
-			} else {
-				$htmlString .= makeErrorTag($errorMsg['st_version'], "2.5.0");
-			}
+            if (pg_num_rows($result) == 0) {
+                $htmlString .= makeErrorTag($errorMsg['no_result']);
+            } else {
+                $htmlString .= makeTablePagerHTML($result, "analyze_overview", 10, true);
+            }
+            pg_free_result($result);
 		}
 
 		if ($target['modified_rows']) {
@@ -1837,27 +1788,23 @@ EOD;
 
 
 EOD;
-			if ($target['repo_version'] >= V31) {
 
-				$qstr = $query_string['modified_rows'];
-				$result = pg_query_params($conn, $qstr, array_merge($snapids, (array)PRINT_MODIFIED_ROWS_TABLES));
-				if (!$result) {
-					return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
-				}
+			$qstr = $query_string['modified_rows'];
+            $result = pg_query_params($conn, $qstr, array_merge($snapids, (array)PRINT_MODIFIED_ROWS_TABLES));
+            if (!$result) {
+                return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
+            }
 
-				if (pg_num_rows($result) == 0) {
-					$htmlString .= makeErrorTag($errorMsg['no_result']);
-				} else {
-					makeTupleListForDygraphs($result, $name, $value);
-					$opt = array();
-					array_push($opt, "title: 'Modified Rows'");
-					array_push($opt, "ylabel: 'Modified rows (%)'");
-					$htmlString .= makeLineGraphHTML($name, $value, "modified_rows", $opt);
-				}
-				pg_free_result($result);
-			} else {
-				$htmlString .= makeErrorTag($errorMsg['st_version'], "3.1.0");
-			}
+            if (pg_num_rows($result) == 0) {
+                $htmlString .= makeErrorTag($errorMsg['no_result']);
+            } else {
+                makeTupleListForDygraphs($result, $name, $value);
+                $opt = array();
+                array_push($opt, "title: 'Modified Rows'");
+                array_push($opt, "ylabel: 'Modified rows (%)'");
+                $htmlString .= makeLineGraphHTML($name, $value, "modified_rows", $opt);
+            }
+            pg_free_result($result);
 		}
 
 		if ($target['cancellations']) {
@@ -1872,40 +1819,21 @@ EOD;
 
 EOD;
 
-			if ($target['repo_version'] >= V31) {
-				$result = pg_query_params($conn, $query_string['cancellations31'], $snapids);
+			$result = pg_query_params($conn, $query_string['cancellations'], $snapids);
 
-				if (!$result) {
-					return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
-				}
+            if (!$result) {
+                return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
+            }
 
-				if (pg_num_rows($result) == 0) {
-					$htmlString .= makeErrorTag($errorMsg['no_result']);
-				} else {
-					$qarray = array_fill(0, pg_num_fields($result), false);
-					$qarray[5] = true;
-					$htmlString .= makeTablePagerHTML_impl($result, "cancellations", 10, true, $qarray);
-				}
-				pg_free_result($result);
-			} else if ($target['repo_version'] >= V30) {
-				$result = pg_query_params($conn, $query_string['cancellations'], $snapids);
-
-				if (!$result) {
-					return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
-				}
-
-				if (pg_num_rows($result) == 0) {
-					$htmlString .= makeErrorTag($errorMsg['no_result']);
-				} else {
-					$htmlString .= makeErrorTag($errorMsg['cancel_version']);
-					$htmlString .= makeTablePagerHTML($result, "cancellations", 10, true);
-				}
-				pg_free_result($result);
-			} else {
-				$htmlString .= makeErrorTag($errorMsg['st_version'], "3.0.0");
-			}
+            if (pg_num_rows($result) == 0) {
+                $htmlString .= makeErrorTag($errorMsg['no_result']);
+            } else {
+                $qarray = array_fill(0, pg_num_fields($result), false);
+                $qarray[5] = true;
+                $htmlString .= makeTablePagerHTML_impl($result, "cancellations", 10, true, $qarray);
+            }
+            pg_free_result($result);
 		}
-
 	}
 
 	/* Replication */
@@ -1929,13 +1857,7 @@ EOD;
 
 EOD;
 		$qstr = "";
-		if ($target['repo_version'] >= V10) {
-			$qstr = $query_string['replication_overview10'];
-		} else if ($target['repo_version'] >= V33) {
-			$qstr = $query_string['replication_overview33'];
-		} else {
-			$qstr = $query_string['replication_overview'];
-		}
+		$qstr = $query_string['replication_overview'];
 		$result = pg_query_params($conn, $qstr, $snapids);
 		if (!$result) {
 			return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
@@ -1960,38 +1882,33 @@ EOD;
 </div>
 
 EOD;
-		if ($target['repo_version'] >= V25) {
-			$result = pg_query_params($conn, $query_string['replication_delays'], $snapids);
-				if (!$result) {
-					if ($result)
-						pg_free_result($result);
-				return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
-				}
-				if (pg_num_rows($result) == 0) {
-					$htmlString .= makeErrorTag($errorMsg['no_result']);
-				} else {
-					makeTupleListForDygraphs_delays($result, $name, $value, $sync);
-					$opt = array();
-					array_push($opt, "title: 'Replication Delays'");
-					array_push($opt, "ylabel: 'Delay (Bytes)'");
-					array_push($opt, "labelsKMG2: true");
+		$result = pg_query_params($conn, $query_string['replication_delays'], $snapids);
+        if (!$result) {
+            if ($result)
+                pg_free_result($result);
+            return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
+        }
+        if (pg_num_rows($result) == 0) {
+            $htmlString .= makeErrorTag($errorMsg['no_result']);
+        } else {
+            makeTupleListForDygraphs_delays($result, $name, $value, $sync);
+            $opt = array();
+            array_push($opt, "title: 'Replication Delays'");
+            array_push($opt, "ylabel: 'Delay (Bytes)'");
+            array_push($opt, "labelsKMG2: true");
 
-					for ($i = 0 ; $i < count($sync) ; $i++) {
-						$key = array_search($sync[$i], $name);
-						if ($key != false) {
-							$name[$key] = "[sync]".$name[$key];
-							array_push($opt, "'".$name[$key]."': {strokeWidth: 3, highlightCircleSize: 5}");
-						}
+            for ($i = 0 ; $i < count($sync) ; $i++) {
+                $key = array_search($sync[$i], $name);
+                if ($key != false) {
+                    $name[$key] = "[sync]".$name[$key];
+                    array_push($opt, "'".$name[$key]."': {strokeWidth: 3, highlightCircleSize: 5}");
+                }
+            }
 
-					}
-
-					$htmlString .= makeLineGraphHTML($name, $value, "replication_delays", $opt);
-				}
-				pg_free_result($result);
-			} else {
-				$htmlString .= makeErrorTag($errorMsg['st_version'], "2.5.0");
-			}
-		}
+            $htmlString .= makeLineGraphHTML($name, $value, "replication_delays", $opt);
+        }
+        pg_free_result($result);
+    }
 
 	return $htmlString;
 }
@@ -2034,10 +1951,7 @@ EOD;
 </div>
 
 EOD;
-			if ($target['repo_version'] >= V30)
-				$result = pg_query_params($conn, $query_string['tables30'], $ids);
-			else
-				$result = pg_query_params($conn, $query_string['tables25'], $ids);
+			$result = pg_query_params($conn, $query_string['tables'], $ids);
 			if (!$result) {
 				return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 			}
@@ -2089,11 +2003,7 @@ EOD;
 </div>
 
 EOD;
-		if ($target['repo_version'] >= V25) {
-			$result = pg_query_params($conn, $query_string['runtime_params2'], $ids);
-		} else { 
-			$result = pg_query_params($conn, $query_string['runtime_params'], $ids);
-		}
+		$result = pg_query_params($conn, $query_string['runtime_params'], $ids);
 		if (!$result) {
 			return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 		}
@@ -2261,29 +2171,17 @@ function makeIOUsageTablePagerHTML($result, $id, $default, $pagerOn, $statsinfo_
 	// Be careful if you add more the number of display items
 	$htmlString .= "<th rowspan=\"2\">".htmlspecialchars(pg_field_name($result, 0), ENT_QUOTES)."</th>";
 	$htmlString .= "<th rowspan=\"2\">".htmlspecialchars(pg_field_name($result, 1), ENT_QUOTES)."</th>";
-	if ($statsinfo_version >= V31) {
-		$htmlString .= "<th colspan=\"3\" align=\"center\">Read</th>";
-		$htmlString .= "<th colspan=\"3\" align=\"center\">Write</th>";
-		$htmlString .= "<th rowspan=\"2\">".htmlspecialchars(pg_field_name($result, 8), ENT_QUOTES)."</th>";
-		$htmlString .= "<th rowspan=\"2\">".htmlspecialchars(pg_field_name($result, 9), ENT_QUOTES)."</th>";
-		$htmlString .= "\n</tr><tr>\n";
-		$htmlString .= "<th>Total bytes (MiB)</th>";
-		$htmlString .= "<th>Peak rate (KiB/s)</th>";
-		$htmlString .= "<th>Total time (ms)</th>";
-		$htmlString .= "<th>Total bytes (MiB)</th>";
-		$htmlString .= "<th>Peak rate (KiB/s)</th>";
-		$htmlString .= "<th>Total time (ms)</th>";
-	} else {
-		$htmlString .= "<th colspan=\"2\" align=\"center\">Read</th>";
-		$htmlString .= "<th colspan=\"2\" align=\"center\">Write</th>";
-		$htmlString .= "<th rowspan=\"2\">".htmlspecialchars(pg_field_name($result, 6), ENT_QUOTES)."</th>";
-		$htmlString .= "<th rowspan=\"2\">".htmlspecialchars(pg_field_name($result, 7), ENT_QUOTES)."</th>";
-		$htmlString .= "\n</tr><tr>\n";
-		$htmlString .= "<th>Total bytes (MiB)</th>";
-		$htmlString .= "<th>Total time (ms)</th>";
-		$htmlString .= "<th>Total bytes (MiB)</th>";
-		$htmlString .= "<th>Total time (ms)</th>";
-	}
+	$htmlString .= "<th colspan=\"3\" align=\"center\">Read</th>";
+    $htmlString .= "<th colspan=\"3\" align=\"center\">Write</th>";
+    $htmlString .= "<th rowspan=\"2\">".htmlspecialchars(pg_field_name($result, 8), ENT_QUOTES)."</th>";
+    $htmlString .= "<th rowspan=\"2\">".htmlspecialchars(pg_field_name($result, 9), ENT_QUOTES)."</th>";
+    $htmlString .= "\n</tr><tr>\n";
+    $htmlString .= "<th>Total bytes (MiB)</th>";
+    $htmlString .= "<th>Peak rate (KiB/s)</th>";
+    $htmlString .= "<th>Total time (ms)</th>";
+    $htmlString .= "<th>Total bytes (MiB)</th>";
+    $htmlString .= "<th>Peak rate (KiB/s)</th>";
+    $htmlString .= "<th>Total time (ms)</th>";
 
 	$htmlString .= "\n</tr></thead>\n<tbody>\n";
 

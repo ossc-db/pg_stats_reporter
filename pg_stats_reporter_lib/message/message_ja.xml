@@ -682,7 +682,7 @@ UPDATE statsrepo.alert SET rollback_tps = 3000 WHERE instid = 1;
 <error>
 <p id="query_error">SQL の実行に失敗しました。&lt;br/&gt;%s</p>
 <p id="no_result">表示するデータがありません。</p>
-<p id="st_version">pg_statsinfo のバージョンが異なるため表示できません。&lt;br/&gt;レポート結果を表示させたい場合は、pg_statsinfo %s 以降を使用してください。</p>
+<p id="st_version">pg_statsinfo のバージョンが異なるため表示できません。&lt;br/&gt;レポート結果を表示させたい場合は、pg_statsinfo %s を使用してください。</p>
 <p id="pg_version">PostgreSQL のバージョンが異なるため表示できません。</p>
 <p id="no_info">情報をスナップショットで取得していません。</p>
 <p id="short_snapshots">指定した期間にはスナップショットが0件または、1件しかないため、レポートを表示できません。</p>

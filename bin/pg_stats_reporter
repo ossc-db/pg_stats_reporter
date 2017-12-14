@@ -380,11 +380,17 @@ if ($optionInfo["list"]) {
 
 			// make report
 			$html_string = makeReportForCommandline($conn, $infoData, $target_data, $snapids);
+			pg_query("COMMIT");
+
+            if ($html_string == null) {
+                elog(ERROR, "This version of pg_statsinfo not supported. Please use %s.", "10.x");
+            }
+
+
 			$smarty->assign("header_menu", $html_string["header_menu"]);
 			$smarty->assign("left_menu", $html_string["left_menu"]);
 			$smarty->assign("contents", $html_string["contents"]);
 
-			pg_query("COMMIT");
 
 			// make report filename
 			$client = explode(":", $monitorstr);
