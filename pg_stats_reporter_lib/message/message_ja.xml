@@ -532,7 +532,7 @@
   title="The Replication Activity Overview Table">
 <h4>この表はレポート期間の終わりの時点でのレプリケーションの状況の概要を示します。起動した 一つのレプリケーション接続につき一つのカラムが表示されます。</h4>
 <ul>
-<li><em>shapshot time</em>: 最後にレプリケーション接続が確認された日時</li>
+<li><em>snapshot time</em>: 最後にレプリケーション接続が確認された日時</li>
 <li><em>Session user</em>: この walsender プロセスに接続しているユーザの名前</li>
 <li><em>Application name</em>: この walsender プロセスに接続しているアプリケーションの名前</li>
 <li><em>Client address</em>: この walsender に接続しているクライアントのIPアドレス</li>
@@ -545,8 +545,11 @@
 <li><em>Write location</em>: このスタンバイサーバでディスクに書き込まれた最後のトランザクションログの位置とWALセグメントファイル名</li>
 <li><em>Flush location</em>: このスタンバイサーバでディスクにフラッシュされた最後のトランザクションログの位置とWALセグメントファイル名</li>
 <li><em>Replay location</em>: このスタンバイサーバでデータベースにリプレイされた最後のトランザクションログの位置とWALセグメントファイル名</li>
-<li><em>Average replay delay</em>: スタンバイでのリカバリ遅延量の平均値</li>
-<li><em>Peak replay delay</em>: スタンバイでのリカバリ遅延量のピーク値</li>
+<li><em>Write lag time</em>: ローカルにWALがフラッシュされてから、それがこのスタンバイサーバのWALに書き込まれたという通知を受け取るまでの経過時間</li>
+<li><em>Flush lag time</em>: ローカルにWALがフラッシュされてから、それがこのスタンバイサーバのWALにフラッシュされたという通知を受け取るまでの経過時間</li>
+<li><em>Replay lag time</em>: ローカルにWALがフラッシュされてから、それがこのスタンバイサーバのWALにリプレイされたという通知を受け取るまでの経過時間</li>
+<li><em>Average replay delay</em>: このスタンバイサーバでのリカバリ遅延量の平均値</li>
+<li><em>Peak replay delay</em>: このスタンバイサーバでのリカバリ遅延量のピーク値</li>
 <li><em>Sync priority</em>: このスタンバイサーバが同期サーバに選択される優先度</li>
 <li><em>Sync state</em>: このスタンバイサーバの同期状態</li>
 </ul>

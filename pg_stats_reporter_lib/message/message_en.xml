@@ -578,7 +578,7 @@ available. Less logging reduces the completeness this table.</div>
 of reporting period. One column is shown for one replication
 session.</h4>
 <ul>
-<li><em>snapshot time</em>: </li>
+<li><em>snapshot time</em>: Timestamp of the last replication connection in snapshot</li>
 <li><em>Session user</em>: Name of the user logged into this WAL sender process</li>
 <li><em>Application name</em>: Application name that is connected to this WAL sender</li>
 <li><em>Client address</em>: IP address of the client connected to this WAL sender</li>
@@ -591,6 +591,10 @@ session.</h4>
 <li><em>Write location</em>: Last transaction log position and WAL segment name written to disk by this standby server</li>
 <li><em>Flush location</em>: Last transaction log position and WAL segment name flushed to disk by this standby server</li>
 <li><em>Replay location</em>: Last transaction log position and WAL segment name replayed into the database on this standby server</li>
+<li><em>Write lag time</em>: Time elapsed between flushing recent WAL locally and receiving notification that this standby server has written it</li>
+<li><em>Flush lag time</em>: Time elapsed between flushing recent WAL locally and receiving notification that this standby server has written and flushed it</li>
+<li><em>Replay lag time</em>: Time elapsed between flushing recent WAL locally and receiving notification that this standby server has written, flushed and applied it</li>
+
 <li><em>Average replay delay</em>: Average delay amount of replay on standby server</li>
 <li><em>Peak replay delay</em>: Peak delay amount of replay on standby server</li>
 <li><em>Sync priority</em>: Priority of the standby server for being chosen as the synchronous standby</li>
