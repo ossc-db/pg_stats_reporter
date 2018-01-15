@@ -16,10 +16,10 @@ define("SMARTY_PATH", "package/Smarty-3.1.30/libs/");
 define("JQUERY_PATH", "package/jquery-3.2.1.min.js");
 define("JQUERYUI_PATH", "package/jquery-ui-1.12.1.custom/");
 define("TIMEPICKER_PATH", "package/jquery-ui-timepicker-addon-1.6.3/");
-define("TABLESORTER_PATH", "package/tablesorter-2.28.10/");
+define("TABLESORTER_PATH", "package/tablesorter-2.29.3/");
 define("SUPERFISH_PATH", "package/superfish-1.7.9/dist/");
 define("JQPLOT_PATH", "package/jqPlot-1.0.8r1250/");
-define("DYGRAPHS_PATH", "package/dygraphs-2.0.0/");
+define("DYGRAPHS_PATH", "package/dygraphs-2.1.0/");
 
 // pg_statsinfo's version
 define("V23", 20300);
