@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>pg_stats_reporter 3.3.0</title>
+<title>pg_stats_reporter 10.0</title>
 
 <!-- javascripts -->
 <script type="text/javascript" src="../../package/jquery-3.2.1.min.js"></script>
@@ -12,9 +12,9 @@
 <script type="text/javascript" src="../../package/superfish-1.7.9/dist/js/hoverIntent.js"></script>
 <script type="text/javascript" src="../../package/superfish-1.7.9/dist/js/superfish.js"></script>
 <script type="text/javascript" src="../../package/superfish-1.7.9/dist/js/supersubs.js"></script>
-<script type="text/javascript" src="../../package/tablesorter-2.28.10/js/jquery.tablesorter.js"></script>
-<script type="text/javascript" src="../../package/tablesorter-2.28.10/js/jquery.tablesorter.widgets.js"></script>
-<script type="text/javascript" src="../../package/tablesorter-2.28.10/js/widgets/widget-columnSelector.js"></script>
+<script type="text/javascript" src="../../package/tablesorter-2.29.3/js/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../../package/tablesorter-2.29.3/js/jquery.tablesorter.widgets.js"></script>
+<script type="text/javascript" src="../../package/tablesorter-2.29.3/js/widgets/widget-columnSelector.js"></script>
 <!-- pg_stats_reporter's javascript -->
 <script type="text/javascript" src="../js/common.js"></script>
 <script type="text/javascript" src="../js/log_viewer.js"></script>
@@ -25,7 +25,7 @@
 <link rel="stylesheet" type="text/css" href="../../package/jquery-ui-1.12.1.custom/jquery-ui.theme.min.css"/>
 <link rel="stylesheet" type="text/css" href="../../package/jquery-ui-1.12.1.custom/jquery-ui.min.css"/>
 <link rel="stylesheet" type="text/css" href="../../package/jquery-ui-timepicker-addon-1.6.3/jquery-ui-timepicker-addon.css"/>
-<link rel="stylesheet" type="text/css" href="../../package/tablesorter-2.28.10/css/theme.blue.css"/>
+<link rel="stylesheet" type="text/css" href="../../package/tablesorter-2.29.3/css/theme.blue.css"/>
 <!-- pg_stats_reporter's stylesheets -->
 <link rel="stylesheet" type="text/css" href="../../css/pg_stats_reporter.css"/>
 </head>
@@ -67,7 +67,7 @@
 <li><a href="report_sample.html#heavily_updated_tables">Heavily Updated Tables</a></li>
 <li><a href="report_sample.html#heavily_accessed_tables">Heavily Accessed Tables</a></li>
 <li><a href="report_sample.html#low_density_tables">Low Density Tables</a></li>
-<li><a href="report_sample.html#table_fragmentations">Table Fragmentations</a></li>
+<li><a href="report_sample.html#correlation">Correlation</a></li>
 </ul></li>
 <li><a href="report_sample.html#query_activity">Query Activity</a><ul>
 <li><a href="report_sample.html#qa_functions">Functions</a></li>
@@ -120,13 +120,13 @@
 <div id="left_menu" class="scrollbox">
 <img width="100%" src="pgsql_banner01.png"/>
 <p class="report_data">
-[<span id="target_repodb">repository1</span>]<br/><span id="target_name">dbserver01:5432</span><br/>begin:<br/><span id="target_begin">2015-03-10 00:00</span><br/>end:<br/><span id="target_end">2015-03-11 00:00</span><br/><span id="target_instid" style="display: none">1</span></p>
+[<span id="target_repodb">repository1</span>]<br/><span id="target_name">dbserver01:5432</span><br/>begin:<br/><span id="target_begin">2018-01-10 00:00</span><br/>end:<br/><span id="target_end">2018-01-11 00:00</span><br/><span id="target_instid" style="display: none">1</span></p>
 <div id="report_range_dialog" title="Create new report">
   <p align="center">
     <label for="begin_date">begin:</label>
-    <input type="text" id="begin_date" name="begin_date" value="2017-06-14 00:00"/>
+    <input type="text" id="begin_date" name="begin_date" value="2018-01-14 00:00"/>
 	<label for="end_date">end:</label>
-    <input type="text" id="end_date" name="end_date" value="2017-06-15 11:32"/>
+    <input type="text" id="end_date" name="end_date" value="2018-01-15 16:12"/>
   </p>
 </div><br/>
 <div align="center">
