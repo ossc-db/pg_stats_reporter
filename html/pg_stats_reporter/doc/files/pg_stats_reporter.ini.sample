@@ -118,104 +118,104 @@ runtime_params = true               ; Run-time parameters
 profiles = false                    ; Profiles
 
 
-;-------------------------------------
-; repository2
-;-------------------------------------
-
+;;-------------------------------------
+;; repository2
+;;-------------------------------------
+;
 ;[repository2]
-
-;-------------------------------------
-; database connection
-;-------------------------------------
-
+;
+;;-------------------------------------
+;; database connection
+;;-------------------------------------
+;
 ;host = dbserver02
 ;port = 5432
 ;dbname = postgres
 ;username = postgres
 ;password =
-
-;-------------------------------------
-; report setting
-;-------------------------------------
-
-; --- Language Setting ---
+;
+;;-------------------------------------
+;; report setting
+;;-------------------------------------
+;
+;; --- Language Setting ---
 ;language = auto
-
-; --- Report Overview ---
+;
+;; --- Report Overview ---
 ;overview = true                     ; Report Overview
-
-; -- Alerts --
+;
+;; -- Alerts --
 ;alerts = true                       ; Alerts
-
-; --- Statistics ---
-
-; -- Databases Statistics --
+;
+;; --- Statistics ---
+;
+;; -- Databases Statistics --
 ;databases_statistics = true         ; Databases Statistics
 ;transactions = true                 ; Transactions
 ;database_size = true                ; Database Size
 ;recovery_conflicts = true           ; Recovery Conflicts
-
-; -- Instance Statistics --
+;
+;; -- Instance Statistics --
 ;write_ahead_logs = true             ; Write Ahead Logs
 ;backend_states_overview = true      ; Backend States Overview
 ;backend_states = true               ; Backend States
 ;bgwriter_statistics = true          ; bgwriter Statistics
-
-; --- OS Resources ---
-
-; -- CPU and Memory --
+;
+;; --- OS Resources ---
+;
+;; -- CPU and Memory --
 ;cpu_usage = true                    ; CPU Usage
 ;load_average = true                 ; Load Average
 ;memory_usage = true                 ; Memory Usage
-
-; -- Disks --
+;
+;; -- Disks --
 ;disk_usage_per_tablespace = true    ; Disk Usage per Tablespace
 ;disk_usage_per_table = true         ; Disk Usage per Table
 ;io_usage = true                     ; I/O Usage
-
-; --- Activities ---
-
-; -- Notable Tables --
+;
+;; --- Activities ---
+;
+;; -- Notable Tables --
 ;heavily_updated_tables = true       ; Heavily Updated Tables
 ;heavily_accessed_tables = true      ; Heavily Accessed Tables
 ;low_density_tables = true           ; Low Density Tables
 ;correlation = true                  ; Correlation
-
-; -- Query Activity --
+;
+;; -- Query Activity --
 ;functions = true                    ; Functions
 ;statements = true                   ; Statements
 ;plans = true                        ; Plans
-
-; -- Long Transactions --
+;
+;; -- Long Transactions --
 ;long_transactions = true            ; Long Transactions
-
-; -- Lock Conflicts --
+;
+;; -- Lock Conflicts --
 ;lock_conflicts = true               ; Lock Conflicts
-
-; --- Maintenance ---
-
-; -- Checkpoints --
+;
+;; --- Maintenance ---
+;
+;; -- Checkpoints --
 ;checkpoints = true                  ; Checkpoints
-
-; -- Autovacuums --
+;
+;; -- Autovacuums --
 ;autovacuum_overview = true          ; Overview
 ;autovacuum_io_summary = true        ; I/O Summary
 ;analyze_overview = true             ; Analyze Overview
 ;modified_rows = true                ; Modified Rows
 ;cancellations = true                ; Cancellations
-
-; -- Replication --
+;
+;; -- Replication --
 ;replication_overview = true         ; Overview
 ;replication_delays = true           ; Delays
-
-; --- Miscellaneous ---
-
-; -- Tables and Indexes --
+;
+;; --- Miscellaneous ---
+;
+;; -- Tables and Indexes --
 ;tables = true                       ; Tables
 ;indexes = true                      ; Indexes
-
-; -- Settings --
+;
+;; -- Settings --
 ;runtime_params = true               ; Run-time parameters
-
-; -- Profiles --
+;
+;; -- Profiles --
 ;profiles = false                    ; Profiles
