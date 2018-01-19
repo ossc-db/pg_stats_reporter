@@ -2,7 +2,7 @@
 /*
  * common
  *
- * Copyright (c) 2012-2017, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
+ * Copyright (c) 2012-2018, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
  */
 
 /* load setting from configuration file */

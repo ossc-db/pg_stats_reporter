@@ -2,7 +2,7 @@
 /*
  * define
  *
- * Copyright (c) 2012-2017, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
+ * Copyright (c) 2012-2018, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
  */
 
 // pg_stats_reporter's version
