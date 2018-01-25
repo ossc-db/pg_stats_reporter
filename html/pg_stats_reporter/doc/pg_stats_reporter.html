@@ -37,7 +37,7 @@
 </div>
 <h1 id="pg_stats_reporter">pg_stats_reporter 10</h1>
 <h2 id="name">What is pg_stats_reporter?</h2>
-<p>pg_stats_reporter is a graphical report generator for <a href="http://pgstatsinfo.sourceforge.net/documents/statsinfo10/pg_statsinfo.html">pg_statsinfo</a>. It offers you various statistical information collected by pg_statsinfo in a graphical and interactive representation. pg_stats_reporter 10 is compatible only with pg_statsinfo10. You can see an example report <a href="files/report_sample.html">here</a>. </p>
+<p>pg_stats_reporter is a graphical report generator for <a href="http://pgstatsinfo.sourceforge.net/documents/statsinfo10/pg_statsinfo.html">pg_statsinfo</a>. It offers you various statistical information collected by pg_statsinfo in a graphical and interactive representation. pg_stats_reporter 10 is compatible only with pg_statsinfo 10. You can see an example report <a href="files/report_sample.html">here</a>. </p>
 
 <h2 id="synopsis">Online and Offline Reports</h2>
 <p>pg_stats_reporter runs in two ways.  It runs as a CGI script and connects to repository server of pg_statsinfo in common usage but it also provides a command-line interface to generate off-line reports, which is portable form of the graphical report. 
@@ -53,24 +53,22 @@ pg_stats_reporter is tested on the following environment.
   <dt>pg_statsinfo</dt>
   <dd>version 10</dd>
   <dt>PHP</dt>
-  <dd>version 5.3.3 (bundled with RHEL6)</dd>
   <dd>version 5.4.16 (bundled with RHEL7)</dd>
   <dt>OS</dt>
-  <dd>RHEL 6.9, RHEL 7.4</dd>
+  <dd>RHEL 7.4</dd>
   <dt>Web browser</dt>
   <dd>Firefox : 57.0</dd>
   <dd>Internet Explorer : 11</dd>
   <dt>HTTP Server</dt>
-  <dd>Apache HTTP Server : 2.2.15 (bundled with RHEL6)</dd>
   <dd>Apache HTTP Server : 2.4.6 (bundled with RHEL7)</dd>
   <dt>libraries (These packages are included in the package of pg_stats_reporter)</dt>
   <dd><ul>
     <li>jQuery : 3.2.1</li>
     <li>jQuery UI : 1.12.1</li>
     <li>jquery-ui-timepicker-addon : 1.6.3</li>
-    <li>dygraphs JavaScript Visualization Library : 2.0.0</li>
+    <li>dygraphs JavaScript Visualization Library : 2.1.0</li>
     <li>jqPlot : 1.0.8 r1250</li>
-    <li>tablesorter : 2.28.10</li>
+    <li>tablesorter : 2.29.3</li>
     <li>Superfish : 1.7.9</li>
     <li>Smarty : 3.1.30</li>
   </ul></dd>
@@ -360,7 +358,7 @@ You will see the instructions to uninstall manually in INSTALL.en in the top sou
 </p>
 
 <h2 id="configuration">Configuration File</h2>
-<p>All settings for pg_stats_reporter are described in the configuration file "pg_stats_reporter.ini" in /etc directory, which is composed of two main sections, global settings and per-repository database settings.<br/>Multiple repositories can be specified in the configuration file. You can choose one of them in the sidebar.</p>
+<p>All settings for pg_stats_reporter are described in the configuration file "pg_stats_reporter.ini" in /etc directory, which is composed of two main sections, global settings and per-repository database settings.<br/>Multiple repositories can be defined in the configuration file. You can choose one of them in the sidebar.</p>
 
 <h3>Global settings</h3>
 <p>The section marker "[global_setting]" indicates the beginning of
@@ -547,12 +545,14 @@ then restart the http server.</li>
 <p>A5. It is brought about by the data for such instances left in the repository. You can remove such items by manually deleting the
 corresponding data in repository. See details <a href="http://pgstatsinfo.sourceforge.net/documents/statsinfo10/pg_statsinfo.html#instance-deletion">here</a>.</p>
 
+<h4>Q6. Report seems displayed in somewhat broken format.</h4>
+<p>A6. Your browser may hold old JavaScript libraries in cache. Try clearing them.</p>
+
 <h2 id="change">Changes from pg_stats_reporter 3.3</h2>
 <p>Changes from pg_stats_reporter 3.3 are shown below.</p>
 <ul>
 
-  <li>Show information of standbys that had a disconnection during the
-  report period.</li>
+  <li>Now Replication Overview and Delays show all standbys that had a connection time during a reporting period.</li>
   <li>Fixed an issue that the content of a "full query string" dialog in Statements section is shown in smaller font when it contains a line feed.</li>
   <li>Added replication delay time to Replication Overview section.</li>
   <li>pg_stats_reporter no longer supports multiple versions of pg_statsinfo. pg_stats_reporter 10 supports only pg_statsinfo 10.</li>

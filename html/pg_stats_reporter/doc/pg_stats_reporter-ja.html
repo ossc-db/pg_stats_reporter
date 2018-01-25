@@ -70,24 +70,22 @@ WEBサーバにブラウザを利用してアクセスすることで、ブラ�
   <dt>pg_statsinfo</dt>
   <dd>バージョン 10</dd>
   <dt>動作確認済みPHP</dt>
-  <dd>バージョン 5.3.3 (RHEL 6.9 同梱のもの)</dd>
   <dd>バージョン 5.4.16 (RHEL 7.4 同梱のもの)</dd>
   <dt>動作確認済みOS</dt>
-  <dd>RHEL 6.9, RHEL 7.4</dd>
+  <dd>RHEL 7.4</dd>
   <dt>動作確認済みブラウザ</dt>
   <dd>Firefox : 57.0</dd>
   <dd>Internet Explorer : 11</dd>
   <dt>動作確認済みHTTP Server</dt>
-  <dd>Apache HTTP Server : 2.2.15 (RHEL 6.9 同梱のもの)</dd>
   <dd>Apache HTTP Server : 2.4.6 (RHEL 7.4 同梱のもの)</dd>
   <dt>利用ライブラリ (pg_stats_reporter のインストールパッケージに同梱)</dt>
   <dd><ul>
     <li>jQuery : 3.2.1</li>
     <li>jQuery UI : 1.12.1</li>
     <li>jquery-ui-timepicker-addon : 1.6.3</li>
-    <li>dygraphs JavaScript Visualization Library : 2.0.0</li>
+    <li>dygraphs JavaScript Visualization Library : 2.1.0</li>
     <li>jqPlot : 1.0.8 r1250</li>
-    <li>tablesorter : 2.28.10</li>
+    <li>tablesorter : 2.29.3</li>
     <li>Superfish : 1.7.9</li>
     <li>Smarty : 3.1.30</li>
   </ul></dd>
@@ -393,7 +391,7 @@ $ su
 
 <h2 id="configuration">設定ファイル</h2>
 <p>設定ファイルは、"/etc" に "pg_stats_reporter.ini" という名称で配置されています。<br/>
-設定ファイルの内容は、グローバル設定とリポジトリDB設定の2種類のセクションで構成されています。<br/>リポジトリDB設定を複数記述することで、複数のレポートをサイドバーでの選択で切り替えて表示することができます。</p>
+設定ファイルの内容は、グローバル設定とリポジトリDB設定の2種類のセクションで構成されています。<br/>リポジトリDB設定を複数記述することで、複数のレポートをサイドバーで選択することで、切り替えて表示することができます。</p>
 
 <h3>グローバル設定</h3>
 <p>グローバル設定は、セクション名 "[global_setting]" のセクションの設定項目です。</p>
@@ -522,7 +520,7 @@ $ su
 <ol type="a">
   <li>項目または設定値を省略した場合の挙動は、libpqの接続文字列のパラメータと同じです。詳しくは <a href="http://www.postgresql.jp/document/current/html/libpq-connect.html#LIBPQ-PARAMKEYWORDS">こちら</a> を参照してください。</li>
   <li>ディストリビューションによっては、HTTP Server のドキュメントルートのデフォルトが実行ユーザのホームディレクトリになっている場合があります。そのため、PostgreSQL の接続パスワードで .pgpass を使用する場合には、外部から参照されないように注意して配置してください。</li>
-  <li>php-intl が未インストールの状態状態では、表示言語の自動設定は動作せず、en となります。<font color="red">languageの説明を英語版とあわせて個々は削除した方がよいかもしれません</font></li>
+  <li>php-intl が未インストールの状態状態では、表示言語の自動設定は動作せず、en となります。</li>
   <li>各種レポート項目は、<a href="files/pg_stats_reporter.ini.sample">pg_stats_reporter.iniファイルのサンプル</a>を参照してください。</li>
 </ol>
 </p>
@@ -571,13 +569,16 @@ ls -dZ /var/www/pg_stats_reporter_lib/{cache,compiled}
 <p>A5. リポジトリDBから現在未使用の監視対象DBのインスタンス情報を削除してください。
 インスタンス情報の削除方法は、pg_statsinfoマニュアルの「<a href="http://pgstatsinfo.sourceforge.net/documents/statsinfo10/pg_statsinfo-ja.html#user-operations">運用上必要となる作業</a>」を参照してください。</p>
 
+<h4>Q6. レポートの表が正しく表示されません。</h4>
+<p>A6. ブラウザ内にJavaScriptのキャッシュが残っているために、正しく表示されていない可能性があります。ブラウザのキャッシュの削除を試してみてください。</p>
+
 <h2 id="change">pg_stats_reporter 3.3 からの変更点</h2>
 <p>pg_stats_reporter 3.3 からの変更点は以下の通りです。</p>
 <ul>
-  <li>レポート期間内で、途中で接続が切れたStandbyの情報を表示するように修正</li>
+  <li>Replication Overview、Delays の表示を、レポート期間内に接続のあった全てのスタンバイの情報を表示するように修正</li>
   <li>ステートメント情報のクエリ全文表示ダイアログにおいて, 表示される内容が改行を含む場合にフォントサイズが小さくなる問題を修正</li>
-  <li>Replication Overviewにレプリケーション遅延時間を追加</li>
-  <li>本バージョンより pg_stats_reporter は pg_statsinfo の複数バージョンサポートを廃止します。 pg_stats_repoter 10 は pg_statsinfo 10 のみに対応します</li>
+  <li>Replication Overview にレプリケーション遅延時間を追加</li>
+  <li>本バージョンから pg_stats_reporter は pg_statsinfo の複数バージョンサポートを廃止します。 pg_stats_repoter 10 は pg_statsinfo 10 のみに対応します</li>
 </ul>
 <br/>
 
