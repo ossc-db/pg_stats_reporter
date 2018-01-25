@@ -1,3 +1,18 @@
+[10.0 (2018/01/25)]
+* Now Replication Overview and Delays show all standbys that had
+  a connection time during a reporting period.
+* Fixed an issue that the content of a "full query string" dialog in
+  Statements section is shown in smaller font when it contains a line feed.
+* Added replication delay time to Replication Overview section.
+* pg_stats_reporter no longer supports multiple versions of pg_statsinfo.
+  pg_stats_reporter 10 supports only pg_statsinfo 10.
+
+[3.3.1 (2017/09/12)]
+* Fixed a problem that the font size becomes smaller when the contents
+  displayed in the Query String dialog include line feeds.
+* Fixed a problem that some tables are not displayed correctly when
+  there are multiple execution plans for one query.
+
 [3.3.0 (2017/06/22)]
 * Supports pg_statsinfo 3.3
 * New report item "BGWriter Statistics" is added.
@@ -9,7 +24,6 @@
 * Use non-obsolete parameter of Dygraphs.
 
 [3.2.2 (2017/01/25)]
-
 * Properly handle text values containing &gt or &lt. For example a
   value "<idle> in transaction" broke the surrounding description in
   the generated HTML report.
@@ -17,17 +31,13 @@
 * Revised the manuals.
 
 [3.2.1 (2016/02/18)]
-
 * Revised the manuals.
 
 [3.2.0 (2015/11/18)]
-
 * Supports pg_statsinfo 3.2.
-
 * Fixed a typo in a help dialog.
 
 [3.1.0 (2015/06/10)]
-
 * Added execution plan information in Query Activity.
 * Added autoanalyze cancellation information.
 * Added the number of modified rows after the previous analyze.
@@ -56,9 +66,7 @@
 * Fixed incompatibility with some locales.
 * Fixed a bug that the focus doesn't move properly to dialogs.
 
-
 [2.0.0 (2013/10/25)]
-
 * Added the command line reporting feature.
 * Added checkpoint highlighting in several graphs.
 * Unit in GUC setting table is no longer sortable.
