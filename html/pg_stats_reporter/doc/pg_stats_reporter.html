@@ -2,7 +2,7 @@
 
 <html lang="en"><head>
 
-<title>pg_stats_reporter 10</title>
+<title>pg_stats_reporter 11</title>
 <link rel="home" title="pg_stats_reporter" href="index.html">
 <link rel="stylesheet" type="text/css" href="style.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -30,14 +30,14 @@
   <li><a href="#configuration">Configuration</a></li>
   <li><a href="#restrictions">Cautions and Restrictions</a></li>
   <li><a href="#faq">FAQ</a></li>
-  <li><a href="#change">Changes from pg_stats_reporter 3.3</a></li>
+  <li><a href="#change">Changes from pg_stats_reporter 10</a></li>
   <li><a href="#seealso">See also</a></li>
   <li><a href="#acknowledgment">Acknowledgments</a></li>
 </ol>
 </div>
-<h1 id="pg_stats_reporter">pg_stats_reporter 10</h1>
+<h1 id="pg_stats_reporter">pg_stats_reporter 11</h1>
 <h2 id="name">What is pg_stats_reporter?</h2>
-<p>pg_stats_reporter is a graphical report generator for <a href="http://pgstatsinfo.sourceforge.net/documents/statsinfo10/pg_statsinfo.html">pg_statsinfo</a>. It offers you various statistical information collected by pg_statsinfo in a graphical and interactive representation. pg_stats_reporter 10 is compatible only with pg_statsinfo 10. You can see an example report <a href="files/report_sample.html">here</a>. </p>
+<p>pg_stats_reporter is a graphical report generator for <a href="http://pgstatsinfo.sourceforge.net/documents/statsinfo11/pg_statsinfo.html">pg_statsinfo</a>. It offers you various statistical information collected by pg_statsinfo in a graphical and interactive representation. pg_stats_reporter 11 is compatible only with pg_statsinfo 11. You can see an example report <a href="files/report_sample.html">here</a>. </p>
 
 <h2 id="synopsis">Online and Offline Reports</h2>
 <p>pg_stats_reporter runs in two ways.  It runs as a CGI script and connects to repository server of pg_statsinfo in common usage but it also provides a command-line interface to generate off-line reports, which is portable form of the graphical report. 
@@ -51,7 +51,7 @@ pg_stats_reporter is tested on the following environment.
 
 <dl>
   <dt>pg_statsinfo</dt>
-  <dd>version 10</dd>
+  <dd>version 11</dd>
   <dt>PHP</dt>
   <dd>version 5.4.16 (bundled with RHEL7)</dd>
   <dt>OS</dt>
@@ -83,7 +83,7 @@ pg_stats_reporter is tested on the following environment.
 <p>The required packages are are installed by the steps like following using yum.</p>
 <pre>$ su
 # yum install httpd php php-pgsql php-intl php-cli
-# rpm -ivh pg_stats_reporter-10.0-1.el7.noarch.rpm
+# rpm -ivh pg_stats_reporter-11.0.el7.noarch.rpm
 </pre>
 
 <h5>Installing using RPM</h5>
@@ -96,7 +96,7 @@ pg_stats_reporter is tested on the following environment.
            php-pgsql-5.4.16-43.el7.x86_64.rpm \
            php-intl-5.4.16-43.el7.x86_64.rpm \
            php-cli-5.4.16-43.el7.x86_64.rpm \
-           pg_stats_reporter-10.0-1.el7.noarch.rpm
+           pg_stats_reporter-11.0.el7.noarch.rpm
 </pre>
 
 <h4>Installing for offline reports only</h4>
@@ -105,7 +105,7 @@ pg_stats_reporter is tested on the following environment.
 <p>Required packages for offline reports are installed by the steps like following. pg_stats_reporter package depends on php so --nodeps needed for this case.</p>
 <pre>$ su
 # yum install php-pgsql php-intl php-cli
-# rpm -ivh --nodeps pg_stats_reporter-10.0-1.el7.noarch.rpm
+# rpm -ivh --nodeps pg_stats_reporter-11.0.el7.noarch.rpm
 </pre>
 
 <h5>Installing using RPM</h5>
@@ -116,7 +116,7 @@ pg_stats_reporter.</p>
            php-pgsql-5.4.16-43.el7.x86_64.rpm \
            php-intl-5.4.16-43.el7.x86_64.rpm \
            php-cli-5.4.16-43.el7.x86_64.rpm
-# rpm -ivh --nodeps pg_stats_reporter-10.0-1.el7.noarch.rpm
+# rpm -ivh --nodeps pg_stats_reporter-11.0.el7.noarch.rpm
 </pre>
 
 <p>* The php-intl RPM package for Red Hat Enterprise Linux is
@@ -212,7 +212,7 @@ widget to select date and time.</dd>
 <li>ELEVEL: Message level</li>
 <li>USERNAME: User name</li>
 <li>DATABASE: Database name</li>
-<li>MESSAGE: Regular expression that <a href="http://www.postgresql.org/docs/current/static/functions-matching.html"> PostgreSQL defines for SIMILAR TO</a>.</li>
+<li>MESSAGE: Regular expression that <a href="http://www.postgresql.org/docs/11/static/functions-matching.html"> PostgreSQL defines for SIMILAR TO</a>.</li>
 </ul></dd>
 <dt>&#9314; : Search button</dt>
 <dd>Start searching the repository for the filtered logs.</dd>
@@ -351,7 +351,7 @@ display the content correctly.</p>
 <h2 id="uninstall">Uninstallation</h2>
 <p>pg_stats_reporter installed by RPM package is uninstalled by the following steps. The configuration file ('/etc/pg_stats_repoter.ini') is left alone by the steps, so you should delete it manually if it is not necessary. </p>
 <pre>$ su
-# rpm -e pg_stats_reporter-10.0-1.el7.noarch
+# rpm -e pg_stats_reporter-11.0.el7.noarch
 </pre>
 <p>
 You will see the instructions to uninstall manually in INSTALL.en in the top source directory.
@@ -483,7 +483,7 @@ file.
 <br/>
 <p>
 </p><ol type="a">
-<li> These settings follow <a href="http://www.postgresql.org/docs/current/static/libpq-connect.html#LIBPQ-PARAMKEYWORDS">PostgreSQL settings</a> as default.</li>
+<li> These settings follow <a href="http://www.postgresql.org/docs/11/static/libpq-connect.html#LIBPQ-PARAMKEYWORDS">PostgreSQL settings</a> as default.</li>
 </ol>
 <p></p>
 
@@ -506,7 +506,7 @@ file.
   can push away the queries on observed databases.</li>
 	<li>Although pg_statsinfo is designed to exlclude databases
 	specified by the
-	parameter <a href="http://pgstatsinfo.sourceforge.net/documents/statsinfo10/pg_statsinfo.html">excluded_dbnames</a>
+	parameter <a href="http://pgstatsinfo.sourceforge.net/documents/statsinfo11/pg_statsinfo.html">excluded_dbnames</a>
 	from snapshots, it fails for some report items such as "long
 	transactions".</li>
 </ul>
@@ -543,24 +543,20 @@ then restart the http server.</li>
 
 <h4>Q5. I see the name of a no-longer-monitored database in the repository bar.</h4>
 <p>A5. It is brought about by the data for such instances left in the repository. You can remove such items by manually deleting the
-corresponding data in repository. See details <a href="http://pgstatsinfo.sourceforge.net/documents/statsinfo10/pg_statsinfo.html#instance-deletion">here</a>.</p>
+corresponding data in repository. See details <a href="http://pgstatsinfo.sourceforge.net/documents/statsinfo11/pg_statsinfo.html#instance-deletion">here</a>.</p>
 
 <h4>Q6. Report seems displayed in somewhat broken format.</h4>
 <p>A6. Your browser may hold old JavaScript libraries in cache. Try clearing them.</p>
 
-<h2 id="change">Changes from pg_stats_reporter 3.3</h2>
-<p>Changes from pg_stats_reporter 3.3 are shown below.</p>
+<h2 id="change">Changes from pg_stats_reporter 10</h2>
+<p>Changes from pg_stats_reporter 10 are shown below.</p>
 <ul>
-
-  <li>Now Replication Overview and Delays show all standbys that had a connection time during a reporting period.</li>
-  <li>Fixed an issue that the content of a "full query string" dialog in Statements section is shown in smaller font when it contains a line feed.</li>
-  <li>Added replication delay time to Replication Overview section.</li>
-  <li>pg_stats_reporter no longer supports multiple versions of pg_statsinfo. pg_stats_reporter 10 supports only pg_statsinfo 10.</li>
+  <li>Supports pg_statsinfo 11 (pg_stats_repoter 11 supports only pg_statsinfo 11).</li>
 </ul>
 <br/>
 
 <h2 id="seealso">See also</h2>
-<a href="http://pgstatsinfo.sourceforge.net/documents/statsinfo10/pg_statsinfo.html">pg_statsinfo 10</a> 
+<a href="http://pgstatsinfo.sourceforge.net/documents/statsinfo11/pg_statsinfo.html">pg_statsinfo 11</a> 
 <br/><br/>
 <h2 id="acknowledgment">Acknowledgments</h2>
 <p>Pg_stats_reporter uses many libraries. We are deeply grateful to the developers of these libraries.<br/>
@@ -578,7 +574,7 @@ corresponding data in repository. See details <a href="http://pgstatsinfo.source
 <hr>
 <div class="navigation">
   <a href="http://pgstatsinfo.sourceforge.net/index.html">Top</a> &gt;
-  <a href="http://pgstatsinfo.sourceforge.net/documents/reporter10/html/pg_stats_reporter.html">pg_stats_reporter</a>
+  <a href="http://pgstatsinfo.sourceforge.net/documents/reporter11/html/pg_stats_reporter.html">pg_stats_reporter</a>
 </div>
 <p class="footer">Copyright (c) 2012-2018, NIPPON TELEGRAPH AND TELEPHONE CORPORATION</p>
 

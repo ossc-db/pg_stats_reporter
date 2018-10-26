@@ -6,7 +6,7 @@
  */
 
 // pg_stats_reporter's version
-define("PROGRAM_VERSION", "10.0");
+define("PROGRAM_VERSION", "11.0");
 
 // Image File
 define("IMAGE_FILE", "pgsql_banner01.png");
@@ -23,7 +23,7 @@ define("DYGRAPHS_PATH", "package/dygraphs-2.1.0/");
 
 // pg_statsinfo's version
 define("V23", 20300);
-define("V10", 100000);
+define("V11", 110000);
 
 // Smarty cache, compile, template directory
 define("CACHE_DIR", "../../pg_stats_reporter_lib/cache");
