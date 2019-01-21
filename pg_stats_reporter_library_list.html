@@ -14,6 +14,7 @@
 <li><a href="#change">変更履歴</a></li>
 <li><a href="#now">2018/01/12時点最新版</a></li>
 <li><a href="#trunk">pg_stats_reporter trunk</a></li>
+<li><a href="#100">pg_stats_reporter 10</a></li>
 <li><a href="#33">pg_stats_reporter 3.3</a></li>
 <li><a href="#32">pg_stats_reporter 3.2</a></li>
 <li><a href="#31">pg_stats_reporter 3.1</a></li>
@@ -35,6 +36,11 @@
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>第1.11版</td>
+<td>2019/01/18</td>
+<td>pg_stats_reporter 11向け最新化</td>
+</tr>
 <tr>
 <td>第1.10版</td>
 <td>2018/01/12</td>
@@ -60,7 +66,7 @@
 
 <br/><hr/>
 
-<h2 id="now">【2018/01/12時点最新版】</h2>
+<h2 id="now">【2019/01/18時点最新版】</h2>
 
 <table border="1">
 <thead>
@@ -74,10 +80,10 @@
 </thead>
 <tbody>
 <tr>
-<td rowspan="34">PHP</td>
+<td rowspan="35">PHP</td>
 <td rowspan="10">5.3.3</td>
 <td bgcolor="white">php-5.3.3-49.el6</td>
-<td rowspan="5" bgcolor="white">CentOS 6.9<br/>yum updateした最新版</td>
+<td rowspan="5" bgcolor="cyan">CentOS 6.10<br/>yum updateした最新版</td>
 </tr>
 <tr>
 <td bgcolor="white">php-cli-5.3.3-49.el6</td>
@@ -111,85 +117,88 @@
 
 <tr>
 <td rowspan="10">5.4.16</td>
-<td bgcolor="cyan">php-5.4.16-43.el7</td>
-<td rowspan="5" bgcolor="cyan">CentOS 7 1708(7.4)<br/>yum updateした最新版</td>
+<td bgcolor="cyan">php-5.4.16-46.el7</td>
+<td rowspan="5" bgcolor="cyan">CentOS 7 1810(7.6)<br/>yum updateした最新版</td>
 </tr>
 <tr>
-<td bgcolor="cyan">php-cli-5.4.16-43.el7</td>
+<td bgcolor="cyan">php-cli-5.4.16-46.el7</td>
 </tr>
 <tr>
-<td bgcolor="cyan">php-common-5.4.16-43.el7</td>
+<td bgcolor="cyan">php-common-5.4.16-46.el7</td>
 </tr>
 <tr>
-<td bgcolor="cyan">php-pgsql-5.4.16-43.el7</td>
+<td bgcolor="cyan">php-pgsql-5.4.16-46.el7</td>
 </tr>
 <tr>
-<td bgcolor="cyan">php-intl-5.4.16-43.el7</td>
-</tr>
-
-<tr>
-<td bgcolor="white">php-5.4.16-42.el7</td>
-<td rowspan="5" bgcolor="cyan">CentOS 7 1708(7.4)<br/>インストール媒体版</td>
-</tr>
-<tr>
-<td bgcolor="white">php-cli-5.4.16-42.el7</td>
-</tr>
-<tr>
-<td bgcolor="white">php-common-5.4.16-42.el7</td>
-</tr>
-<tr>
-<td bgcolor="white">php-pgsql-5.4.16-42.el7</td>
-</tr>
-<tr>
-<td bgcolor="white">php-intl-5.4.16-42.el7</td>
+<td bgcolor="cyan">php-intl-5.4.16-46.el7</td>
 </tr>
 
 <tr>
-<td rowspan="5" bgcolor="white">5.5.24</td>
-<td bgcolor="white">php-5.5.24-1.el6</td>
-<td rowspan="5" bgcolor="white">最新版未確認<br/>epel, remiリポジトリを追加して、yum updateした最新版<br/>phpはremi-php55を使用</td>
+<td bgcolor="cyan">php-5.4.16-46.el7</td>
+<td rowspan="5" bgcolor="cyan">CentOS 7 1810(7.6)<br/>インストール媒体版</td>
 </tr>
 <tr>
-<td bgcolor="white">php-cli-5.5.24-1.el6</td>
+<td bgcolor="cyan">php-cli-5.4.16-46.el7</td>
 </tr>
 <tr>
-<td bgcolor="white">php-common-5.5.24-1.el6</td>
+<td bgcolor="cyan">php-common-5.4.16-46.el7</td>
 </tr>
 <tr>
-<td bgcolor="white">php-pgsql-5.5.24-1.el6</td>
+<td bgcolor="cyan">php-pgsql-5.4.16-46.el7</td>
 </tr>
 <tr>
-<td bgcolor="white">php-intl-5.5.24-1.el6</td>
+<td bgcolor="cyan">php-intl-5.4.16-46.el7</td>
 </tr>
 
 <tr>
-<td rowspan="5" bgcolor="white">5.6.8</td>
-<td bgcolor="white">php-5.6.8-1.el6</td>
-<td rowspan="5" bgcolor="white">最新版未確認<br/>epel, remiリポジトリを追加して、yum updateした最新版<br/>phpはremi-php56を使用<br/>pg_stats_reporter動作未確認</td>
+<td rowspan="5" bgcolor="cyan">5.5.38</td>
+<td bgcolor="cyan">php-5.5.38-11.el7</td>
+<td rowspan="5" bgcolor="cyan">epel, remiリポジトリを追加して、yum updateした最新版<br/>phpはremi-php55を使用<br/>pg_stats_reporter動作未確認</td>
 </tr>
 <tr>
-<td bgcolor="white">php-cli-5.6.8-1.el6</td>
+<td bgcolor="cyan">php-cli-5.5.38-11.el7</td>
 </tr>
 <tr>
-<td bgcolor="white">php-common-5.6.8-1.el6</td>
+<td bgcolor="cyan">php-common-5.5.38-11.el7</td>
 </tr>
 <tr>
-<td bgcolor="white">php-pgsql-5.6.8-1.el6</td>
+<td bgcolor="cyan">php-pgsql-5.5.38-11.el7</td>
 </tr>
 <tr>
-<td bgcolor="white">php-intl-5.6.8-1.el6</td>
+<td bgcolor="cyan">php-intl-5.5.38-11.el7</td>
+</tr>
+
+<tr>
+<td rowspan="5" bgcolor="cyan">5.6.40</td>
+<td bgcolor="cyan">php-5.6.40-1.el7</td>
+<td rowspan="5" bgcolor="cyan"><br/>epel, remiリポジトリを追加して、yum updateした最新版<br/>phpはremi-php56を使用<br/>pg_stats_reporter動作未確認</td>
 </tr>
 <tr>
-<td bgcolor="cyan">7.2.1</td><td rowspan="4" colspan="2">コミュニティ(http://php.net/)がリリースしている最新版</td>
+<td bgcolor="cyan">php-cli-5.6.40-1.el7</td>
 </tr>
 <tr>
-<td bgcolor="cyan">7.1.13</td>
+<td bgcolor="cyan">php-common-5.6.40-1.el7</td>
 </tr>
 <tr>
-<td bgcolor="cyan">7.0.27</td>
+<td bgcolor="cyan">php-pgsql-5.6.40-1.el7</td>
 </tr>
 <tr>
-<td bgcolor="cyan">5.6.33</td>
+<td bgcolor="cyan">php-intl-5.6.40-1.el7</td>
+</tr>
+<tr>
+<td bgcolor="cyan">7.3.1</td><td rowspan="5" colspan="2">コミュニティ(http://php.net/)がリリースしている最新版</td>
+</tr>
+<tr>
+<td bgcolor="cyan">7.2.14</td>
+</tr>
+<tr>
+<td bgcolor="cyan">7.1.26</td>
+</tr>
+<tr>
+<td bgcolor="cyan">7.0.33</td>
+</tr>
+<tr>
+<td bgcolor="cyan">5.6.40</td>
 </tr>
 </tbody>
 <tfoot><tr><td colspan="4">
@@ -211,7 +220,7 @@
 <tbody>
 <tr>
 <td>jQuery</td>
-<td bgcolor="white">3.2.1</td>
+<td bgcolor="cyan">3.3.1</td>
 <td><a href="http://jquery.com/">http://jquery.com/</a></td>
 <td></td>
 </tr>
@@ -223,19 +232,19 @@
 </tr>
 <tr>
 <td>Smarty</td>
-<td bgcolor="white">3.1.30</td>
+<td bgcolor="cyan">3.1.33</td>
 <td><a href="http://www.smarty.net/">http://www.smarty.net/</a></td>
 <td></td>
 </tr>
 <tr>
 <td>tablesorter</td>
-<td bgcolor="cyan">2.29.3</td>
+<td bgcolor="cyan">2.31.1</td>
 <td bgcolor="white"><a href="https://github.com/Mottie/tablesorter">https://github.com/Mottie/tablesorter</a></li>
 <td bgcolor="white">PagerおよびPagerで使用するアイコンはaddonsに含まれています</td>
 </tr>
 <tr>
 <td>dygraphs</td>
-<td bgcolor="cyan">2.1.0</td>
+<td bgcolor="white">2.1.0</td>
 <td><a href="http://dygraphs.com/">http://dygraphs.com/</a></td>
 <td bgcolor="white">リリースはバラバラに3つのファイル(dygraph.js, dygraph.min.js, dygraph.css)となっている</td>
 </tr>
@@ -253,7 +262,7 @@
 </tr>
 <tr>
 <td>Superfish</td>
-<td bgcolor="white">1.7.9</td>
+<td bgcolor="cyan">1.7.10</td>
 <td bgcolor="white"><a href="https://superfish.joelbirch.co/">https://superfish.joelbirch.co/</a></td>
 <td></td>
 </tr>
@@ -280,61 +289,176 @@
 <tbody>
 <tr>
 <td rowspan="30">PHP</td>
-<td rowspan="10">5.3.3</td>
-<td bgcolor="white">php-5.3.3-49.el6</td>
-<td rowspan="5" bgcolor="white">CentOS 6.9<br/>yum updateした最新版</td>
-</tr>
-<tr>
-<td bgcolor="white">php-cli-5.3.3-49.el6</td>
-</tr>
-<tr>
-<td bgcolor="white">php-common-5.3.3-49.el6</td>
-</tr>
-<tr>
-<td bgcolor="white">php-pgsql-5.3.3-49.el6</td>
-</tr>
-<tr>
-<td bgcolor="white">php-intl-5.3.3-49.el6</td>
-</tr>
-
-<tr>
-<td>php-5.3.3-49.el6</td>
-<td rowspan="5">最新版未確認<br/>CentOS 6.9<br/>インストール媒体版</td>
-</tr>
-<tr>
-<td>php-cli-5.3.3-49.el6</td>
-</tr>
-<tr>
-<td>php-common-5.3.3-49.el6</td>
-</tr>
-<tr>
-<td>php-pgsql-5.3.3-49.el6</td>
-</tr>
-<tr>
-<td>php-intl-5.3.3-49.el6</td>
-</tr>
-
-<tr>
 <td rowspan="10">5.4.16</td>
-<td bgcolor="cyan">php-5.4.16-43.el7</td>
-<td rowspan="5" bgcolor="cyan">CentOS 7 1708(7.4)<br/>yum updateした最新版</td>
+<td bgcolor="white">php-5.4.16-46.el7</td>
+<td rowspan="5" bgcolor="white">CentOS 7 1804(7.5)<br/>yum updateした最新版</td>
 </tr>
 <tr>
-<td bgcolor="cyan">php-cli-5.4.16-43.el7</td>
+<td bgcolor="white">php-cli-5.4.16-46.el7</td>
 </tr>
 <tr>
-<td bgcolor="cyan">php-common-5.4.16-43.el7</td>
+<td bgcolor="white">php-common-5.4.16-46.el7</td>
 </tr>
 <tr>
-<td bgcolor="cyan">php-pgsql-5.4.16-43.el7</td>
+<td bgcolor="white">php-pgsql-5.4.16-46.el7</td>
 </tr>
 <tr>
-<td bgcolor="cyan">php-intl-5.4.16-43.el7</td>
+<td bgcolor="white">php-intl-5.4.16-46.el7</td>
+</tr>
+
+<tr>
+<td bgcolor="white">php-5.4.16-45.el7</td>
+<td rowspan="5" bgcolor="white">CentOS 7 1804(7.5)<br/>インストール媒体版</td>
+</tr>
+<tr>
+<td bgcolor="white">php-cli-5.4.16-45.el7</td>
+</tr>
+<tr>
+<td bgcolor="white">php-common-5.4.16-45.el7</td>
+</tr>
+<tr>
+<td bgcolor="white">php-pgsql-5.4.16-45.el7</td>
+</tr>
+<tr>
+<td bgcolor="white">php-intl-5.4.16-45.el7</td>
+</tr>
+
+<tr>
+<td rowspan="5" bgcolor="white">5.5.22</td>
+<td bgcolor="white">php-5.5.22-1.el6</td>
+<td rowspan="5" bgcolor="white">最新版未確認<br/>CentOS 6.5<br/>epel, remiリポジトリを追加して、yum updateした最新版<br/>phpはremi-php55を使用</td>
+</tr>
+<tr>
+<td bgcolor="white">php-cli-5.5.22-1.el6</td>
+</tr>
+<tr>
+<td bgcolor="white">php-common-5.5.22-1.el6</td>
+</tr>
+<tr>
+<td bgcolor="white">php-pgsql-5.5.22-1.el6</td>
+</tr>
+<tr>
+<td bgcolor="white">php-intl-5.5.22-1.el6</td>
+</tr>
+
+</tbody>
+<tfoot><tr><td colspan="4">
+※ CentOS 7では、php-intlはEverything側にしか含まれていないので注意
+</td></tr></tfoot>
+</table>
+<br/>
+
+<table border="1">
+<thead>
+<tr><th align="left" colspan="5">使用ライブラリ</th></tr>
+<tr>
+<th>ライブラリ</th>
+<th>バージョン</th>
+<th>URL</th>
+<th>パッケージ</th>
+<th>備考</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>jQuery</td>
+<td bgcolor="cyan">3.3.1</td>
+<td><a href="http://jquery.com/">http://jquery.com/</a></td>
+<td bgcolor="white">jquery-3.3.1.min.js</td>
+<td></td>
+</tr>
+<tr>
+<td>jqPlot</td>
+<td bgcolor="cyan">1.0.9.d96a669</td>
+<td><a href="http://www.jqplot.com/">http://www.jqplot.com/</a></td>
+<td>jquery.jqplot.1.0.9.d96a669.zip</td>
+<td></td>
+</tr>
+<tr>
+<td>Smarty</td>
+<td bgcolor="cyan">3.1.33</td>
+<td><a href="http://www.smarty.net/">http://www.smarty.net/</a></td>
+<td bgcolor="white">smarty-3.1.33.tar.gz</td>
+<td></td>
+</tr>
+<tr>
+<td>tablesorter</td>
+<td bgcolor="cyan">2.31.1</td>
+<td bgcolor="white"><a href="https://github.com/Mottie/tablesorter">https://github.com/Mottie/tablesorter</a></li>
+<td bgcolor="white">tablesorter-2.31.1.tar.gz</td>
+<td>PagerおよびPagerで使用するアイコンはaddonsに含まれています<br/>カラム選択リストが利用可能な版を使用する</td>
+</tr>
+<tr>
+<td>dygraphs JavaScript Visualization Library</td>
+<td bgcolor="white">2.1.0</td>
+<td><a href="http://dygraphs.com/">http://dygraphs.com/</a></td>
+<td bgcolor="white">dygraph.js, dygraph.min.js, dygraph.css</td>
+<td>ファイル名にバージョン情報が付いていないので注意</td>
+</tr>
+<tr>
+<td>jQuery UI</td>
+<td bgcolor="white">1.12.1</td>
+<td><a href="http://jqueryui.com/">http://jqueryui.com/</a></td>
+<td bgcolor="white">jquery-ui-1.12.1.custom.zip</td>
+<td></td>
+</tr>
+<tr>
+<td>jquery-ui-timepicker-addon.js</td>
+<td bgcolor="white">1.6.3</td>
+<td><a href="http://trentrichardson.com/examples/timepicker/">http://trentrichardson.com/examples/timepicker/</a></td>
+<td bgcolor="white">jquery-ui-timepicker-addon.js, jquery-ui-timepicker-addon.css</td>
+<td>ファイル名にバージョン情報が付いていないので注意</td>
+</tr>
+<tr>
+<td>Superfish</td>
+<td bgcolor="cyan">1.7.10</td>
+<td bgcolor="white"><a href="https://superfish.joelbirch.co/">https://superfish.joelbirch.co/</a></td>
+<td>superfish-master.zip</td>
+<td>ファイル名にバージョン情報が付いていないので注意</td>
+</tr>
+</tbody>
+<tfoot><tr><td colspan="5">
+※ 前リビジョンの資料からバージョンが更新されたものはバージョンのバックグランドカラーをcyanとしています
+</td></tr></tfoot>
+</table>
+
+<br/><hr/>
+
+<h2 id="100">【pg_stats_reporter 10】</h2>
+
+<table border="1">
+<thead>
+<tr><th align="left" colspan="4">使用言語</th></tr>
+<tr>
+<th>言語</th>
+<th>バージョン</th>
+<th>試験時使用パッケージ</th>
+<th>備考</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td rowspan="30">PHP</td>
+<td rowspan="10">5.4.16</td>
+<td bgcolor="white">php-5.4.16-43.el7</td>
+<td rowspan="5" bgcolor="white">CentOS 7 1708(7.4)<br/>yum updateした最新版</td>
+</tr>
+<tr>
+<td bgcolor="white">php-cli-5.4.16-43.el7</td>
+</tr>
+<tr>
+<td bgcolor="white">php-common-5.4.16-43.el7</td>
+</tr>
+<tr>
+<td bgcolor="white">php-pgsql-5.4.16-43.el7</td>
+</tr>
+<tr>
+<td bgcolor="white">php-intl-5.4.16-43.el7</td>
 </tr>
 
 <tr>
 <td bgcolor="white">php-5.4.16-42.el7</td>
-<td rowspan="5" bgcolor="cyan">CentOS 7 1708(7.4)<br/>インストール媒体版</td>
+<td rowspan="5" bgcolor="white">CentOS 7 1708(7.4)<br/>インストール媒体版</td>
 </tr>
 <tr>
 <td bgcolor="white">php-cli-5.4.16-42.el7</td>
@@ -369,7 +493,7 @@
 
 </tbody>
 <tfoot><tr><td colspan="4">
-※ CentOS 6では、php-intlはインストールディスクの2にあるため注意<br/>※ CentOS 7では、php-intlはEverything側にしか含まれていないので注意
+※ CentOS 7では、php-intlはEverything側にしか含まれていないので注意
 </td></tr></tfoot>
 </table>
 <br/>
@@ -409,14 +533,14 @@
 </tr>
 <tr>
 <td>tablesorter</td>
-<td bgcolor="cyan">2.29.3</td>
+<td bgcolor="white">2.29.3</td>
 <td bgcolor="white"><a href="https://github.com/Mottie/tablesorter">https://github.com/Mottie/tablesorter</a></li>
 <td bgcolor="white">tablesorter-2.28.10.tar.gz</td>
 <td>PagerおよびPagerで使用するアイコンはaddonsに含まれています<br/>カラム選択リストが利用可能な版を使用する</td>
 </tr>
 <tr>
 <td>dygraphs JavaScript Visualization Library</td>
-<td bgcolor="cyan">2.1.0</td>
+<td bgcolor="white">2.1.0</td>
 <td><a href="http://dygraphs.com/">http://dygraphs.com/</a></td>
 <td bgcolor="white">dygraph.js, dygraph.min.js, dygraph.css</td>
 <td>ファイル名にバージョン情報が付いていないので注意</td>
