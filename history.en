@@ -1,4 +1,4 @@
-[11.0 (2018/10/23)]
+[11.0 (2019/01/22)]
 * Supports pg_statsinfo 11 (pg_stats_reporter 11 supports only pg_statsinfo 11).
 
 [10.0 (2018/01/25)]
