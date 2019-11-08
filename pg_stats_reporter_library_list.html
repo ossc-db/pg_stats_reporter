@@ -12,7 +12,7 @@
 <h2>目次</h2>
 <ul>
 <li><a href="#change">変更履歴</a></li>
-<li><a href="#now">2019/10/07時点最新版</a></li>
+<li><a href="#now">2019/11/08時点最新版</a></li>
 <li><a href="#trunk">pg_stats_reporter trunk</a></li>
 <li><a href="#110">pg_stats_reporter 11</a></li>
 <li><a href="#100">pg_stats_reporter 10</a></li>
@@ -34,6 +34,11 @@
 </thead>
 <tbody>
 <tr>
+<td>第1.16版</td>
+<td>2019/11/08</td>
+<td>trunkの使用ライブラリを最新に更新</td>
+</tr>
+<tr>
 <td>第1.15版</td>
 <td>2019/10/07</td>
 <td>2019/10/07最新版に更新</td>
@@ -53,17 +58,12 @@
 <td>2019/02/05</td>
 <td>最新版の表からPHP 5.5.38とPHP 5.6.40を削除</td>
 </tr>
-<tr>
-<td>第1.11版</td>
-<td>2019/01/18</td>
-<td>pg_stats_reporter 11向け最新化</td>
-</tr>
 </tbody>
 </table>
 
 <br/><hr/>
 
-<h2 id="now">【2019/10/07時点最新版】</h2>
+<h2 id="now">【2019/11/08時点最新版】</h2>
 
 <table border="1">
 <thead>
@@ -124,10 +124,10 @@
 <td bgcolor="white">php-common-7.2.11-1.module_el8.0.0</td>
 </tr>
 <tr>
-<td bgcolor="">php-pgsql-7.2.11-1.module_el8.0.0</td>
+<td bgcolor="white">php-pgsql-7.2.11-1.module_el8.0.0</td>
 </tr>
 <tr>
-<td bgcolor="cyan">php-xml-7.2.11-1.module_el8.0.0</td>
+<td bgcolor="white">php-xml-7.2.11-1.module_el8.0.0</td>
 </tr>
 <tr>
 <td bgcolor="white">php-intl-7.2.11-1.module_el8.0.0</td>
@@ -147,7 +147,7 @@
 <td bgcolor="white">php-pgsql-7.2.11-1.module_el8.0.0</td>
 </tr>
 <tr>
-<td bgcolor="cyan">php-xml-7.2.11-1.module_el8.0.0</td>
+<td bgcolor="white">php-xml-7.2.11-1.module_el8.0.0</td>
 </tr>
 <tr>
 <td bgcolor="white">php-intl-7.2.11-1.module_el8.0.0</td>
@@ -185,7 +185,7 @@
 <tbody>
 <tr>
 <td>jQuery</td>
-<td bgcolor="cyan">3.4.1</td>
+<td bgcolor="white">3.4.1</td>
 <td><a href="http://jquery.com/">http://jquery.com/</a></td>
 <td></td>
 </tr>
@@ -256,7 +256,7 @@
 <td rowspan="22">PHP</td>
 <td rowspan="10">5.4.16</td>
 <td bgcolor="white">php-5.4.16-46.el7</td>
-<td rowspan="5" bgcolor="cyan">CentOS 7 1908(7.7)<br/>yum updateした最新版</td>
+<td rowspan="5" bgcolor="white">CentOS 7 1908(7.7)<br/>yum updateした最新版</td>
 </tr>
 <tr>
 <td bgcolor="white">php-cli-5.4.16-46.el7</td>
@@ -273,7 +273,7 @@
 
 <tr>
 <td bgcolor="white">php-5.4.16-45.el7</td>
-<td rowspan="5" bgcolor="cyan">CentOS 7 1908(7.7)<br/>インストール媒体版</td>
+<td rowspan="5" bgcolor="white">CentOS 7 1908(7.7)<br/>インストール媒体版</td>
 </tr>
 <tr>
 <td bgcolor="white">php-cli-5.4.16-45.el7</td>
@@ -289,44 +289,44 @@
 </tr>
 
 <tr>
-<td rowspan="12" bgcolor="cyan">7.2.11</td>
-<td bgcolor="cyan">php-7.2.11-1.module_el8.0.0</td>
-<td rowspan="6" bgcolor="cyan">CentOS 8.0<br/>yum updateした最新版</td>
+<td rowspan="12" bgcolor="white">7.2.11</td>
+<td bgcolor="white">php-7.2.11-1.module_el8.0.0</td>
+<td rowspan="6" bgcolor="white">CentOS 8.0<br/>yum updateした最新版</td>
 </tr>
 <tr>
-<td bgcolor="cyan">php-cli-7.2.11-1.module_el8.0.0</td>
+<td bgcolor="white">php-cli-7.2.11-1.module_el8.0.0</td>
 </tr>
 <tr>
-<td bgcolor="cyan">php-common-7.2.11-1.module_el8.0.0</td>
+<td bgcolor="white">php-common-7.2.11-1.module_el8.0.0</td>
 </tr>
 <tr>
-<td bgcolor="cyan">php-pgsql-7.2.11-1.module_el8.0.0</td>
+<td bgcolor="white">php-pgsql-7.2.11-1.module_el8.0.0</td>
 </tr>
 <tr>
-<td bgcolor="cyan">php-xml-7.2.11-1.module_el8.0.0</td>
+<td bgcolor="white">php-xml-7.2.11-1.module_el8.0.0</td>
 </tr>
 <tr>
-<td bgcolor="cyan">php-intl-7.2.11-1.module_el8.0.0</td>
+<td bgcolor="white">php-intl-7.2.11-1.module_el8.0.0</td>
 </tr>
 
 <tr>
-<td bgcolor="cyan">php-7.2.11-1_module_el8.0.0</td>
-<td rowspan="6" bgcolor="cyan">CentOS 8.0<br/>インストール媒体版</td>
+<td bgcolor="white">php-7.2.11-1_module_el8.0.0</td>
+<td rowspan="6" bgcolor="white">CentOS 8.0<br/>インストール媒体版</td>
 </tr>
 <tr>
-<td bgcolor="cyan">php-cli-7.2.11-1.module_el8.0.0</td>
+<td bgcolor="white">php-cli-7.2.11-1.module_el8.0.0</td>
 </tr>
 <tr>
-<td bgcolor="cyan">php-common-7.2.11-1.module_el8.0.0</td>
+<td bgcolor="white">php-common-7.2.11-1.module_el8.0.0</td>
 </tr>
 <tr>
-<td bgcolor="cyan">php-pgsql-7.2.11-1.module_el8.0.0</td>
+<td bgcolor="white">php-pgsql-7.2.11-1.module_el8.0.0</td>
 </tr>
 <tr>
-<td bgcolor="cyan">php-xml-7.2.11-1.module_el8.0.0</td>
+<td bgcolor="white">php-xml-7.2.11-1.module_el8.0.0</td>
 </tr>
 <tr>
-<td bgcolor="cyan">php-intl-7.2.11-1.module_el8.0.0</td>
+<td bgcolor="white">php-intl-7.2.11-1.module_el8.0.0</td>
 </tr>
 
 
@@ -351,9 +351,9 @@
 <tbody>
 <tr>
 <td>jQuery</td>
-<td bgcolor="white">3.3.1</td>
+<td bgcolor="cyan">3.4.1</td>
 <td><a href="http://jquery.com/">http://jquery.com/</a></td>
-<td bgcolor="white">jquery-3.3.1.min.js</td>
+<td bgcolor="cyan">jquery-3.4.1.min.js</td>
 <td></td>
 </tr>
 <tr>
