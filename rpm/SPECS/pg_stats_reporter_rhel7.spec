@@ -1,5 +1,5 @@
 Name:			pg_stats_reporter
-Version:		11.0
+Version:		12.0
 Release:		1%{?dist}
 Summary:		Graphical viewer for pg_statsinfo
 Summary(ja):	pg_statsinfo 用グラフィカルビューア
@@ -66,6 +66,8 @@ if [ $1 = 1 ] ; then
 fi
 
 %changelog
+* Fri Nov   8 2019 - NTT OSS Center 12.0-1
+- pg_stats_reporter 12.0 released
 * Tue Jan  22 2019 - NTT OSS Center 11.0-1
 - pg_stats_reporter 11.0 released
 * Thu Jan  25 2018 - NTT OSS Center 10.0-1

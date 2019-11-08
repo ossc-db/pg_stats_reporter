@@ -6,7 +6,7 @@
  */
 
 // pg_stats_reporter's version
-define("PROGRAM_VERSION", "11.0");
+define("PROGRAM_VERSION", "12.0");
 
 // Image File
 define("IMAGE_FILE", "pgsql_banner01.png");
@@ -23,7 +23,7 @@ define("DYGRAPHS_PATH", "package/dygraphs-2.1.0/");
 
 // pg_statsinfo's version
 define("V23", 20300);
-define("V11", 110000);
+define("V12", 120000);
 
 // Smarty cache, compile, template directory
 define("CACHE_DIR", "../../pg_stats_reporter_lib/cache");
@@ -178,10 +178,10 @@ $query_string = array(
 
   // Instance Statistics
   "write_ahead_logs" =>
-  "SELECT replace(\"timestamp\", '-', '/') AS \"timestamp\", avg(write_size*1024*1024) AS \"Bytes/snapshot (Bytes)\", avg(write_size_per_sec*1024*1024) As \"Write rate (Bytes/s)\" FROM statsrepo.get_xlog_tendency($1, $2) GROUP BY 1 ORDER BY 1",
+  "SELECT replace(\"timestamp\", '-', '/') AS \"timestamp\", avg(write_size*1024*1024) AS \"Bytes/snapshot (Bytes)\", avg(write_size_per_sec*1024*1024) As \"Write rate (Bytes/s)\" FROM statsrepo.get_wal_tendency($1, $2) GROUP BY 1 ORDER BY 1",
 
   "write_ahead_logs_stats" =>
-  "SELECT write_total AS \"Total size (MiB)\", write_speed AS \"Average output rate (MiB/s)\", archive_total AS \"Number of archived files\", archive_failed AS \"Number of archiving errors\", last_wal_file AS \"Latest WAL file\", last_archive_file AS \"Last archived file\" FROM statsrepo.get_xlog_stats($1, $2)",
+  "SELECT write_total AS \"Total size (MiB)\", write_speed AS \"Average output rate (MiB/s)\", archive_total AS \"Number of archived files\", archive_failed AS \"Number of archiving errors\", last_wal_file AS \"Latest WAL file\", last_archive_file AS \"Last archived file\" FROM statsrepo.get_wal_stats($1, $2)",
 
   "backend_states_overview" =>
   "SELECT idle AS \"idle (%)\", idle_in_xact AS \"idle in xact (%)\", waiting AS \"waiting (%)\", running AS \"running (%)\" FROM statsrepo.get_proc_ratio($1, $2)",
@@ -275,7 +275,7 @@ $query_string = array(
   /* Maintenance */
   // Checkpoints
   "checkpoints" =>
-  "SELECT ckpt_total AS \"Number of checkpoints\", ckpt_time AS \"Caused by timeout\", ckpt_xlog AS \"Caused by xlogs\", avg_write_buff AS \"Average written buffers\", max_write_buff AS \"Maximum written buffers\", avg_duration AS \"Average checkpoint duration\", max_duration AS \"Maximum checkpoint duration\" FROM statsrepo.get_checkpoint_activity($1, $2)",
+  "SELECT ckpt_total AS \"Number of checkpoints\", ckpt_time AS \"Caused by timeout\", ckpt_wal AS \"Caused by WALs\", avg_write_buff AS \"Average written buffers\", max_write_buff AS \"Maximum written buffers\", avg_duration AS \"Average checkpoint duration\", max_duration AS \"Maximum checkpoint duration\" FROM statsrepo.get_checkpoint_activity($1, $2)",
 
   // Autovacuums
   "autovacuum_overview" =>
