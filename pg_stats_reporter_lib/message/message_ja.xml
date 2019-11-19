@@ -442,7 +442,7 @@
 <ul>
 <li><em>Number of checkpoints</em>: レポート期間中に完了したチェックポイントの回数</li>
 <li><em>Caused by timeout</em>: タイムアウト契機で開始した回数</li>
-<li><em>Caused by xlogs</em>: WALの進行契機で開始した回数</li>
+<li><em>Caused by WALs</em>: WALの進行契機で開始した回数</li>
 <li><em>Average written buffers</em>: チェックポイント毎に書き出されたバッファの数のレポート期間を通した平均値</li>
 <li><em>Maximum written buffers</em>: チェックポイント毎に書き出されたバッファの数のレポート期間中の最大値</li>
 <li><em>Average checkpoint duration</em>: チェックポイントの所要時間のレポート期間を通じた平均値 (秒)</li>

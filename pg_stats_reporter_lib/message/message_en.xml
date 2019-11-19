@@ -475,7 +475,7 @@ how many long transactions every snapshot records.</h4>
 <ul>
 <li><em>Number of checkpoints</em>: Number of checkpoints completed during this report period</li>
 <li><em>Caused by timeout</em>: Number of checkpoints started by chckpoint timeout</li>
-<li><em>Caused by xlogs</em>: Number of checkpoints started by XLOG growth</li>
+<li><em>Caused by WALs</em>: Number of checkpoints started by WAL growth</li>
 <li><em>Average written buffers</em>: Average number of the written buffers by each checkpoint throughout this report period</li>
 <li><em>Maximum written buffers</em>: Number of the buffers written by the checkpoint that have written largest number of buffers throughout this report period</li>
 <li><em>Average checkpoint duration</em>: Average duration of checkpoints cmopleted during this report period, in seconds</li>
