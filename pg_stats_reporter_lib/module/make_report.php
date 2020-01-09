@@ -2,7 +2,7 @@
 /*
  * make_report
  *
- * Copyright (c) 2012-2019, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
+ * Copyright (c) 2012-2020, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
  */
 
 /* make error tag */
