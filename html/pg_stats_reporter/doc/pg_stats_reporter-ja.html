@@ -72,10 +72,10 @@ WEBサーバにブラウザを利用してアクセスすることで、ブラ�
   <dt>動作確認済みPHP</dt>
   <dd>バージョン 5.4.16 (RHEL 7.7 同梱のもの)、7.2.11 (RHEL 8.0 同梱のもの)</dd>
   <dt>動作確認済みOS</dt>
-  <dd>RHEL 7.5、8.0</dd>
+  <dd>RHEL 7.7、8.0</dd>
   <dt>動作確認済みブラウザ</dt>
-  <dd>Firefox : 60esr、69</dd>
-  <dd>Internet Explorer : 11</dd>
+  <dd>Firefox : 68.3.0esr、72.0.1</dd>
+  <dd>Microsoft Edge : 42.17134.1.0</dd>
   <dt>動作確認済みHTTP Server</dt>
   <dd>Apache HTTP Server : 2.4</dd>
   <dt>利用ライブラリ (pg_stats_reporter のインストールパッケージに同梱)</dt>
@@ -94,90 +94,41 @@ WEBサーバにブラウザを利用してアクセスすることで、ブラ�
 </dl>
 
 <h3 id="pg_stats_reporter_install">パッケージのインストール</h3>
+
+<p>全ての機能を使用する場合は「フルインストール」の手順を、コマンドライン機能のみを使用する場合は「コマンドライン機能のみ」の手順を、ルートユーザで実行してください。<br/>
+php-intl が未インストールの状態でも動作しますが、表示言語の自動設定が機能しなくなります。<br/>
+※ソースセットからインストールする場合の手順は、ソースセットに同梱されている INSTALL.ja ファイルを参照してください。</br>
+※RHEL 7でのphp-intl のRPMパッケージの入手は、Red Hat カスタマーポータルのサブスクリプション管理サービスを用いる必要があります。<br/>
+</p>
+
 <h4>フルインストール</h4>
-<p>全ての機能を使用する場合は、ルートユーザで以下のいずれかの手順を実行してください。</p>
 
-<h5>yumを使用する場合のインストール手順</h5>
+<h5>RHEL 7の場合</h5>
 <pre>
-# yum install httpd php php-pgsql php-intl php-cli
-# rpm -ivh pg_stats_reporter-12.0-1.el7.noarch.rpm
-</pre>
-<h5>yumを使用しない場合のインストール手順</h5>
-<pre>
-# rpm -ivh httpd-2.4.6-90.el7.x86_64.rpm \
-           php-common-5.4.16-46.el6.x86_64.rpm \
-           php-5.4.16-46.el7.x86_64.rpm \
-           php-pdo-5.4.16-46.el7.x86_64.rpm \
-           php-pgsql-5.4.16-46.el7.x86_64.rpm \
-           php-intl-5.4.16-46.el7.x86_64.rpm \
-           php-cli-5.4.16-46.el7.x86_64.rpm \
-           pg_stats_reporter-12.0-1.el7.noarch.rpm
+# yum install pg_stats_reporter-12.0-1.el7.noarch.rpm php-intl
 </pre>
 
-<h4>フルインストール(RHEL8)</h4>
-
-<h5>dnfを使用する場合のインストール手順</h5>
+<h5>RHEL 8の場合</h5>
 <pre>
-# dnf install httpd php php-pgsql php-intl php-cli php-xml
-# rpm -ivh pg_stats_reporter-12.0-1.el8.noarch.rpm
-</pre>
-<h5>dnfを使用しない場合のインストール手順</h5>
-<pre>
-# rpm -ivh httpd-2.4.37-11.module_el8.0.0+172+85fc1f40.x86_64.rpm \
-           php-common-7.2.11-1.module_el8.0.0+56+d1ca79aa.x86_64.rpm \
-           php-7.2.11-1.module_el8.0.0+56+d1ca79aa.x86_64.rpm \
-           php-pdo-7.2.11-1.module_el8.0.0+56+d1ca79aa.x86_64.rpm \
-           php-pgsql-7.2.11-1.module_el8.0.0+56+d1ca79aa.x86_64.rpm \
-           php-intl-7.2.11-1.module_el8.0.0+56+d1ca79aa.x86_64.rpm \
-           php-cli-7.2.11-1.module_el8.0.0+56+d1ca79aa.x86_64.rpm \
-           pg_stats_reporter-12.0-1.el8.noarch.rpm
+# dnf install pg_stats_reporter-12.0-1.el8.noarch.rpm php-intl
 </pre>
 
 <h4>コマンドライン機能のみ</h4>
-<p>コマンドライン機能のみを使用する場合は、ルートユーザで以下のいずれかの手順を実行してください。</p>
+<p>pg_stats_reporterのrpmは、依存関係にhttpdが含まれています。そのためインストールする際は、--nodepsを指定してrpmコマンドを実行します。</p>
 
-<h5>yumを使用する場合のインストール手順</h5>
+<h5>RHEL 7の場合</h5>
 <pre>
 # yum install php-pgsql php-intl php-cli
 # rpm -ivh --nodeps pg_stats_reporter-12.0-1.el7.noarch.rpm
 </pre>
-<h5>yumを使用しない場合のインストール手順</h5>
-<pre>
-# rpm -ivh php-common-5.4.16-46.el7.x86_64.rpm \
-           php-pdo-5.4.16-46.el7.x86_64.rpm \
-           php-pgsql-5.4.16-46.el7.x86_64.rpm \
-           php-intl-5.4.16-46.el7.x86_64.rpm \
-           php-cli-5.4.16-46.el7.x86_64.rpm
-# rpm -ivh --nodeps pg_stats_reporter-12.0-1.el7.noarch.rpm
-</pre>
 
-<p>
-※php-intl のRPMパッケージの入手は、Red Hat カスタマーポータルのサブスクリプション管理サービスを用いる必要があります。<br/>
-※php-intl が未インストールの状態でも動作しますが、表示言語の自動設定が機能しなくなります。
-</p>
+<h5>RHEL 8の場合</h5>
 
-<h4>コマンドライン機能のみ(RHEL8)</h4>
-
-<h5>dnfを使用する場合のインストール手順</h5>
 <pre>
 # dnf install php-pgsql php-intl php-cli php-xml
 # rpm -ivh --nodeps pg_stats_reporter-12.0-1.el8.noarch.rpm
 </pre>
-<h5>dnfを使用しない場合のインストール手順</h5>
-<pre>
-# rpm -ivh php-common-7.2.11-1.module_el8.0.0+56+d1ca79aa.x86_64.rpm \
-           php-pdo-7.2.11-1.module_el8.0.0+56+d1ca79aa.x86_64.rpm \
-           php-pgsql-7.2.11-1.module_el8.0.0+56+d1ca79aa.x86_64.rpm \
-           php-intl-7.2.11-1.module_el8.0.0+56+d1ca79aa.x86_64.rpm \
-           php-cli-7.2.11-1.module_el8.0.0+56+d1ca79aa.x86_64.rpm \
-# rpm -ivh --nodeps pg_stats_reporter-12.0-1.el8.noarch.rpm
-</pre>
 
-<p>
-※php-intl のRPMパッケージの入手は、Red Hat カスタマーポータルのサブスクリプション管理サービスを用いる必要があります。<br/>
-<B>↑(要確認)CentOS8では、インストールDVD(片面2層)に含まれている</B><br/>
-※php-intl が未インストールの状態でも動作しますが、表示言語の自動設定が機能しなくなります。
-</p>
 
 <h3 id="initialize">初期設定</h3>
 <h4>リポジトリDBの起動</h4>
@@ -415,18 +366,18 @@ http://&lt;<I>ホスト名</I>&gt;/pg_stats_reporter/pg_stats_reporter.php
 </dl>
 
 <h2 id="uninstall">アンインストール</h2>
-<p>rpm コマンドでアンインストールします。<br/>
-なお、アンインストールにより設定ファイル(/etc/pg_stats_reporter.ini)は削除されません。設定ファイルを削除したい場合は手動で削除してください。</p>
-<pre>
-$ su
-# rpm -e pg_stats_reporter-12.0-1.el7.noarch
-</pre>
-<p>ソースセットからインストールした場合のアンインストール手順は、ソースセットに同梱されている INSTALL.ja ファイルを参照してください。</p>
+<p>アンインストールは、以下の手順をルートユーザで実行してください。<br/>
+なお、アンインストールにより設定ファイル(/etc/pg_stats_reporter.ini)は削除されません。設定ファイルを削除したい場合は手動で削除してください。</br>
+※ソースセットからインストールした場合のアンインストール手順は、ソースセットに同梱されている INSTALL.ja ファイルを参照してください。</p>
 
-<h2>アンインストール(RHEL8)</h2>
+<h3>RHEL 7の場合</h2>
 <pre>
-$ su
-# rpm -e pg_stats_reporter-12.0-1.el8.noarch
+# yum remove pg_stats_reporter-12.0-1.el7.noarch
+</pre>
+
+<h3>RHEL 8の場合</h2>
+<pre>
+# dnf remove pg_stats_reporter-12.0-1.el8.noarch
 </pre>
 
 <h2 id="configuration">設定ファイル</h2>
@@ -616,6 +567,7 @@ ls -dZ /var/www/pg_stats_reporter_lib/{cache,compiled}
 <p>pg_stats_reporter 11 からの変更点は以下の通りです。</p>
 <ul>
   <li>pg_statsinfo 12に対応 (pg_stats_reporter 12は pg_statsinfo 12のみをサポートします)</li>
+  <li>レポート表示でxlogと表示されていたものをWALに修正</li>
 </ul>
 <br/>
 
