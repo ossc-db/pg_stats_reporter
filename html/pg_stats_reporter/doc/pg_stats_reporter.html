@@ -2,7 +2,7 @@
 
 <html lang="en"><head>
 
-<title>pg_stats_reporter 11</title>
+<title>pg_stats_reporter 12</title>
 <link rel="home" title="pg_stats_reporter" href="index.html">
 <link rel="stylesheet" type="text/css" href="style.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -35,9 +35,9 @@
   <li><a href="#acknowledgment">Acknowledgments</a></li>
 </ol>
 </div>
-<h1 id="pg_stats_reporter">pg_stats_reporter 11</h1>
+<h1 id="pg_stats_reporter">pg_stats_reporter 12</h1>
 <h2 id="name">What is pg_stats_reporter?</h2>
-<p>pg_stats_reporter is a graphical report generator for <a href="http://pgstatsinfo.sourceforge.net/documents/statsinfo11/pg_statsinfo.html">pg_statsinfo</a>. It offers you various statistical information collected by pg_statsinfo in a graphical and interactive representation. pg_stats_reporter 11 is compatible only with pg_statsinfo 11. You can see an example report <a href="files/report_sample.html">here</a>. </p>
+<p>pg_stats_reporter is a graphical report generator for <a href="http://pgstatsinfo.sourceforge.net/documents/statsinfo12/pg_statsinfo.html">pg_statsinfo</a>. It offers you various statistical information collected by pg_statsinfo in a graphical and interactive representation. pg_stats_reporter 12 is compatible only with pg_statsinfo 12. You can see an example report <a href="files/report_sample.html">here</a>. </p>
 
 <h2 id="synopsis">Online and Offline Reports</h2>
 <p>pg_stats_reporter runs in two ways.  It runs as a CGI script and connects to repository server of pg_statsinfo in common usage but it also provides a command-line interface to generate off-line reports, which is portable form of the graphical report. 
@@ -51,79 +51,66 @@ pg_stats_reporter is tested on the following environment.
 
 <dl>
   <dt>pg_statsinfo</dt>
-  <dd>version 11</dd>
+  <dd>version 12</dd>
   <dt>PHP</dt>
-  <dd>version 5.4.16 (bundled with RHEL7)</dd>
+  <dd>version 5.4.16 (bundled with RHEL7), 7.2.11 (bundoled with RHEL8)</dd>
   <dt>OS</dt>
-  <dd>RHEL 7.5</dd>
+  <dd>RHEL 7.7, 8.0</dd>
   <dt>Web browser</dt>
-  <dd>Firefox : 64.0</dd>
-  <dd>Internet Explorer : 11</dd>
+  <dd>Firefox : 68esr, 72</dd>
+  <dd>Microsoft Edge : 42.17134.1.0</dd>
   <dt>HTTP Server</dt>
-  <dd>Apache HTTP Server : 2.4.6 (bundled with RHEL7)</dd>
+  <dd>Apache HTTP Server : 2.4</dd>
   <dt>libraries (These packages are included in the package of pg_stats_reporter)</dt>
   <dd><ul>
-    <li>jQuery : 3.3.1</li>
+    <li>jQuery : 3.4.1</li>
     <li>jQuery UI : 1.12.1</li>
     <li>jquery-ui-timepicker-addon : 1.6.3</li>
     <li>dygraphs JavaScript Visualization Library : 2.1.0</li>
     <li>jqPlot : 1.0.9 d96a669</li>
-    <li>tablesorter : 2.31.1</li>
+    <li>tablesorter : 2.31.2</li>
     <li>Superfish : 1.7.10</li>
-    <li>Smarty : 3.1.33</li>
+    <li>Smarty : 3.1.34</li>
   </ul></dd>
   <dt>Minimum display resolution</dt>
   <dd>1024x786(SXGA)</dd>
 </dl>
 
 <h3 id="pg_stats_reporter_install">Installing pg_stats_reporter</h3>
-<h4>Full Installation </h4>
 <p> If you would like to use both of online and offline reports. You should install all files required by both of CGI and command line part of pg_stats_reporter. Following the steps below as a superuser will do that. pg_stas_reporter is distributed as an RPM package but subsidiary packages can be installed using yum.</p>
-<h5>Installing using yum </h5>
+<h4>Full Installation </h4>
 <p>The required packages are are installed by the steps like following using yum.</p>
+<h5>for RHEL7</h5>
 <pre>$ su
-# yum install httpd php php-pgsql php-intl php-cli
-# rpm -ivh pg_stats_reporter-11.0.el7.noarch.rpm
+# yum install pg_stats_reporter-12.0-1.el7.noarch.rpm php-intl
 </pre>
 
-<h5>Installing using RPM</h5>
-<p>The following steps shows how to install all required packages using rpm command.</p>
+<h5>for RHEL8</h5>
 <pre>$ su
-# rpm -ivh httpd-2.4.6-67.el7.x86_64.rpm \
-           php-common-5.4.16-43.el7.x86_64.rpm \
-           php-5.4.16-43.el7.x86_64.rpm \
-           php-pdo-5.4.16-43.el7.x86_64.rpm \
-           php-pgsql-5.4.16-43.el7.x86_64.rpm \
-           php-intl-5.4.16-43.el7.x86_64.rpm \
-           php-cli-5.4.16-43.el7.x86_64.rpm \
-           pg_stats_reporter-11.0.el7.noarch.rpm
+# dnf install pg_stats_reporter-12.0-1.el8.noarch.rpm php-intl
 </pre>
 
 <h4>Installing for offline reports only</h4>
-<p> If you don't need online reports, some of the packages are not required.</p>
-<h5>Installing using yum</h5>
-<p>Required packages for offline reports are installed by the steps like following. pg_stats_reporter package depends on php so --nodeps needed for this case.</p>
-<pre>$ su
-# yum install php-pgsql php-intl php-cli
-# rpm -ivh --nodeps pg_stats_reporter-11.0.el7.noarch.rpm
-</pre>
-
-<h5>Installing using RPM</h5>
-<p>The fewer packages are required. --nodeps is required for
-pg_stats_reporter.</p>
-<pre># rpm -ivh php-common-5.4.16-43.el7.x86_64.rpm \
-           php-pdo-5.4.16-43.el7.x86_64.rpm \
-           php-pgsql-5.4.16-43.el7.x86_64.rpm \
-           php-intl-5.4.16-43.el7.x86_64.rpm \
-           php-cli-5.4.16-43.el7.x86_64.rpm
-# rpm -ivh --nodeps pg_stats_reporter-11.0.el7.noarch.rpm
-</pre>
+<p> If you don't need online reports, some of the packages are not required.
+Required packages for offline reports are installed by the steps like following. pg_stats_reporter package depends on php so --nodeps needed for this case.</p>
 
 <p>* The php-intl RPM package for Red Hat Enterprise Linux is
 available via the subscription management services provided at Red Hat
 customer portal. It is required to activate automatic language
 selection (only instant help messages between ja/en) of an online
-graphical report.</p>  <br/>
+graphical report.</p>
+
+<h5>for RHEL7</h5>
+<pre>$ su
+# yum install php-pgsql php-intl php-cli
+# rpm -ivh --nodeps pg_stats_reporter-12.0.el7.noarch.rpm
+</pre>
+
+<h5>for RHEL8</h5>
+<pre>$ su
+# dnf install php-pgsql php-intl php-cli php-xml
+# rpm -ivh --nodeps pg_stats_reporter-12.0.el8.noarch.rpm
+</pre>
 
 <h3 id="initialize">Initial Setup</h3>
 <p>This section explains about required setups to run pg_stats_reporter.</p>
@@ -131,13 +118,9 @@ graphical report.</p>  <br/>
 <p>Edit some fields in the configuration file so as to connect the repository database. Configuration parameters are described <a href="#configuration">later</a>. <a href="files/pg_stats_reporter.ini.sample">Sample configuration set up</a> to connect to repository on local server is included in package.</p>
 <h4>Start HTTP Service</h4>
 <p>Start the HTTP Service when you use online reporting. You may also have to set up firewall and SELinux properly to allow pg_stats_reporter to work.</p>
-<pre># service httpd start</pre>
-<p>On RHEL7 do the following instead.</p>
 <pre># systemctl start httpd.service</pre>
 <p>If you would like to run HTTP server at the next time you boot the
 system, run the command below.<p>
-<pre># chkconfig httpd on</pre>
-<p>On RHEL7, </p>
 <pre># systemctl enable httpd.service</pre>
 <br/>
 
@@ -212,7 +195,7 @@ widget to select date and time.</dd>
 <li>ELEVEL: Message level</li>
 <li>USERNAME: User name</li>
 <li>DATABASE: Database name</li>
-<li>MESSAGE: Regular expression that <a href="http://www.postgresql.org/docs/11/static/functions-matching.html"> PostgreSQL defines for SIMILAR TO</a>.</li>
+<li>MESSAGE: Regular expression that <a href="http://www.postgresql.org/docs/12/static/functions-matching.html"> PostgreSQL defines for SIMILAR TO</a>.</li>
 </ul></dd>
 <dt>&#9314; : Search button</dt>
 <dd>Start searching the repository for the filtered logs.</dd>
@@ -349,13 +332,18 @@ display the content correctly.</p>
 </dl>
 
 <h2 id="uninstall">Uninstallation</h2>
-<p>pg_stats_reporter installed by RPM package is uninstalled by the following steps. The configuration file ('/etc/pg_stats_repoter.ini') is left alone by the steps, so you should delete it manually if it is not necessary. </p>
-<pre>$ su
-# rpm -e pg_stats_reporter-11.0.el7.noarch
-</pre>
-<p>
-You will see the instructions to uninstall manually in INSTALL.en in the top source directory.
+<p>pg_stats_reporter installed by RPM package is uninstalled by the following steps. The configuration file ('/etc/pg_stats_repoter.ini') is left alone by the steps, so you should delete it manually if it is not necessary. <br/>
+* You will see the instructions to uninstall manually in INSTALL.en in the top source directory.
 </p>
+<h3>for RHEL7</h3>
+<pre>$ su
+# yum remove pg_stats_reporter-12.0-1.el7.noarch
+</pre>
+
+<h3>for RHEL8</h3>
+<pre>$ su
+# yum remove pg_stats_reporter-12.0-1.el8.noarch
+</pre>
 
 <h2 id="configuration">Configuration File</h2>
 <p>All settings for pg_stats_reporter are described in the configuration file "pg_stats_reporter.ini" in /etc directory, which is composed of two main sections, global settings and per-repository database settings.<br/>Multiple repositories can be defined in the configuration file. You can choose one of them in the sidebar.</p>
@@ -483,7 +471,7 @@ file.
 <br/>
 <p>
 </p><ol type="a">
-<li> These settings follow <a href="http://www.postgresql.org/docs/11/static/libpq-connect.html#LIBPQ-PARAMKEYWORDS">PostgreSQL settings</a> as default.</li>
+<li> These settings follow <a href="http://www.postgresql.org/docs/12/static/libpq-connect.html#LIBPQ-PARAMKEYWORDS">PostgreSQL settings</a> as default.</li>
 </ol>
 <p></p>
 
@@ -506,7 +494,7 @@ file.
   can push away the queries on observed databases.</li>
 	<li>Although pg_statsinfo is designed to exlclude databases
 	specified by the
-	parameter <a href="http://pgstatsinfo.sourceforge.net/documents/statsinfo11/pg_statsinfo.html">excluded_dbnames</a>
+	parameter <a href="http://pgstatsinfo.sourceforge.net/documents/statsinfo12/pg_statsinfo.html">excluded_dbnames</a>
 	from snapshots, it fails for some report items such as "long
 	transactions".</li>
 </ul>
@@ -543,20 +531,21 @@ then restart the http server.</li>
 
 <h4>Q5. I see the name of a no-longer-monitored database in the repository bar.</h4>
 <p>A5. It is brought about by the data for such instances left in the repository. You can remove such items by manually deleting the
-corresponding data in repository. See details <a href="http://pgstatsinfo.sourceforge.net/documents/statsinfo11/pg_statsinfo.html#instance-deletion">here</a>.</p>
+corresponding data in repository. See details <a href="http://pgstatsinfo.sourceforge.net/documents/statsinfo12/pg_statsinfo.html#instance-deletion">here</a>.</p>
 
 <h4>Q6. Report seems displayed in somewhat broken format.</h4>
 <p>A6. Your browser may hold old JavaScript libraries in cache. Try clearing them.</p>
 
-<h2 id="change">Changes from pg_stats_reporter 10</h2>
-<p>Changes from pg_stats_reporter 10 are shown below.</p>
+<h2 id="change">Changes from pg_stats_reporter 11</h2>
+<p>Changes from pg_stats_reporter 11 are shown below.</p>
 <ul>
-  <li>Supports pg_statsinfo 11 (pg_stats_repoter 11 supports only pg_statsinfo 11).</li>
+  <li>Supports pg_statsinfo 12 (pg_stats_repoter 12 supports only pg_statsinfo 12).</li>
+  <li>Rename names that reference "xlog" to "WAL".</li>
 </ul>
 <br/>
 
 <h2 id="seealso">See also</h2>
-<a href="http://pgstatsinfo.sourceforge.net/documents/statsinfo11/pg_statsinfo.html">pg_statsinfo 11</a> 
+<a href="http://pgstatsinfo.sourceforge.net/documents/statsinfo12/pg_statsinfo.html">pg_statsinfo 12</a> 
 <br/><br/>
 <h2 id="acknowledgment">Acknowledgments</h2>
 <p>Pg_stats_reporter uses many libraries. We are deeply grateful to the developers of these libraries.<br/>
@@ -574,7 +563,7 @@ corresponding data in repository. See details <a href="http://pgstatsinfo.source
 <hr>
 <div class="navigation">
   <a href="http://pgstatsinfo.sourceforge.net/index.html">Top</a> &gt;
-  <a href="http://pgstatsinfo.sourceforge.net/documents/reporter11/html/pg_stats_reporter.html">pg_stats_reporter</a>
+  <a href="http://pgstatsinfo.sourceforge.net/documents/reporter12/html/pg_stats_reporter.html">pg_stats_reporter</a>
 </div>
 <p class="footer">Copyright (c) 2012-2020, NIPPON TELEGRAPH AND TELEPHONE CORPORATION</p>
 
