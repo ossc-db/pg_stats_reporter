@@ -10,8 +10,8 @@ Packager:		NIPPON TELEGRAPH AND TELEPHONE CORPORATION
 Source0:		%{name}-%{version}.tar.gz
 BuildRoot:		%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:		noarch
-Requires:		php >= 5.4.16, php-pgsql >= 5.4.16
-Requires:		php-common >= 5.4.16
+Requires:		php >= 7.2.11, php-pgsql >= 7.2.11
+Requires:		php-common >= 7.2.11, php-xml >= 7.2.11
 Requires:		httpd >= 2.4
 AutoReqProv: 0
 
