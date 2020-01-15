@@ -80,12 +80,12 @@ pg_stats_reporter is tested on the following environment.
 <p> If you would like to use both of online and offline reports. You should install all files required by both of CGI and command line part of pg_stats_reporter. Following the steps below as a superuser will do that. pg_stas_reporter is distributed as an RPM package but subsidiary packages can be installed using yum.</p>
 <h4>Full Installation </h4>
 <p>The required packages are are installed by the steps like following using yum.</p>
-<h5>for RHEL7</h5>
+<h5>RHEL7</h5>
 <pre>$ su
 # yum install pg_stats_reporter-12.0-1.el7.noarch.rpm php-intl
 </pre>
 
-<h5>for RHEL8</h5>
+<h5>RHEL8</h5>
 <pre>$ su
 # dnf install pg_stats_reporter-12.0-1.el8.noarch.rpm php-intl
 </pre>
@@ -100,13 +100,13 @@ customer portal. It is required to activate automatic language
 selection (only instant help messages between ja/en) of an online
 graphical report.</p>
 
-<h5>for RHEL7</h5>
+<h5>RHEL7</h5>
 <pre>$ su
 # yum install php-pgsql php-intl php-cli
 # rpm -ivh --nodeps pg_stats_reporter-12.0.el7.noarch.rpm
 </pre>
 
-<h5>for RHEL8</h5>
+<h5>RHEL8</h5>
 <pre>$ su
 # dnf install php-pgsql php-intl php-cli php-xml
 # rpm -ivh --nodeps pg_stats_reporter-12.0.el8.noarch.rpm
@@ -335,12 +335,12 @@ display the content correctly.</p>
 <p>pg_stats_reporter installed by RPM package is uninstalled by the following steps. The configuration file ('/etc/pg_stats_repoter.ini') is left alone by the steps, so you should delete it manually if it is not necessary. <br/>
 * You will see the instructions to uninstall manually in INSTALL.en in the top source directory.
 </p>
-<h3>for RHEL7</h3>
+<h3>RHEL7</h3>
 <pre>$ su
 # yum remove pg_stats_reporter-12.0-1.el7.noarch
 </pre>
 
-<h3>for RHEL8</h3>
+<h3>RHEL8</h3>
 <pre>$ su
 # yum remove pg_stats_reporter-12.0-1.el8.noarch
 </pre>

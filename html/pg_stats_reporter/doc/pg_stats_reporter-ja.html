@@ -103,12 +103,12 @@ php-intl が未インストールの状態でも動作しますが、表示言�
 
 <h4>フルインストール</h4>
 
-<h5>RHEL 7の場合</h5>
+<h5>RHEL 7</h5>
 <pre>
 # yum install pg_stats_reporter-12.0-1.el7.noarch.rpm php-intl
 </pre>
 
-<h5>RHEL 8の場合</h5>
+<h5>RHEL 8</h5>
 <pre>
 # dnf install pg_stats_reporter-12.0-1.el8.noarch.rpm php-intl
 </pre>
@@ -116,13 +116,13 @@ php-intl が未インストールの状態でも動作しますが、表示言�
 <h4>コマンドライン機能のみ</h4>
 <p>pg_stats_reporterのrpmは、依存関係にhttpdが含まれています。そのためインストールする際は、--nodepsを指定してrpmコマンドを実行します。</p>
 
-<h5>RHEL 7の場合</h5>
+<h5>RHEL 7</h5>
 <pre>
 # yum install php-pgsql php-intl php-cli
 # rpm -ivh --nodeps pg_stats_reporter-12.0-1.el7.noarch.rpm
 </pre>
 
-<h5>RHEL 8の場合</h5>
+<h5>RHEL 8</h5>
 
 <pre>
 # dnf install php-pgsql php-intl php-cli php-xml
@@ -370,12 +370,12 @@ http://&lt;<I>ホスト名</I>&gt;/pg_stats_reporter/pg_stats_reporter.php
 なお、アンインストールにより設定ファイル(/etc/pg_stats_reporter.ini)は削除されません。設定ファイルを削除したい場合は手動で削除してください。</br>
 ※ソースセットからインストールした場合のアンインストール手順は、ソースセットに同梱されている INSTALL.ja ファイルを参照してください。</p>
 
-<h3>RHEL 7の場合</h3>
+<h3>RHEL 7</h3>
 <pre>
 # yum remove pg_stats_reporter-12.0-1.el7.noarch
 </pre>
 
-<h3>RHEL 8の場合</h3>
+<h3>RHEL 8</h3>
 <pre>
 # dnf remove pg_stats_reporter-12.0-1.el8.noarch
 </pre>
