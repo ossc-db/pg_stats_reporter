@@ -191,8 +191,12 @@ EOD;
 
 function createPlanRow(&$htmlString, $childHtmlString, $rowData)
 {
+	$qid_short = $rowData['qid'];
+	if (strlen($rowData['qid']) > 10)
+	    $qid_short = substr($rowData['qid'], 0, 7)."...";
+	
 	/* create row */
-	$htmlString .= "<tr><td rowspan=\"3\" class=\"num\"><a href=\"#\" class=\"toggle\">".$rowData['qid']."</a></td>";
+	$htmlString .= "<tr><td rowspan=\"3\" class=\"num\"><a href=\"#\" class=\"toggle\"><span class=\"remark\">".$rowData['qid']."</span>".$qid_short."</a></td>";
 	$htmlString .="<td class=\"str\">".htmlspecialchars($rowData['uname'], ENT_QUOTES)."</td>";
 	$htmlString .="<td class=\"str\">".htmlspecialchars($rowData['dname'], ENT_QUOTES)."</td>";
 	$htmlString .="<td class=\"num\">".htmlspecialchars($rowData['pcount'], ENT_QUOTES)."</td>";

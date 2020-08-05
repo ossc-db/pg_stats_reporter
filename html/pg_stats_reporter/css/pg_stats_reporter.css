@@ -206,6 +206,17 @@ div.graph_button {
 }
 
 /* tablesorter */
+.tablesorter span.remark {
+	display: none;
+}
+.tablesorter a:hover span.remark {
+	background: #FFFFF0;
+	border: 1px solid #CCCCCC;
+	color: #000000;
+	display: block;
+	line-height: 1.2em;
+	position: absolute;
+}
 .tablesorter tbody td.num {
   text-align: right;
   white-space: nowrap;
