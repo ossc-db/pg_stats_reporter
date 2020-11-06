@@ -144,6 +144,7 @@
         <th>user_query_pos</th>
         <th>location</th>
         <th>application_name</th>
+        <th>backend_type</th>
       </tr>
     </thead>
     <tbody></tbody>

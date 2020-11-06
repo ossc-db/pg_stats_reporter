@@ -22,8 +22,8 @@ function makeReport($conn, $config, $url_param, &$err_msg)
 	$err_msg = null;
 
 	/* check repository version */
-	if ($config[$url_param['repodb']]['repo_version'] < V12) {
-		$err_msg = sprintf($error_message['st_version'], "12.x");
+	if ($config[$url_param['repodb']]['repo_version'] < V13) {
+		$err_msg = sprintf($error_message['st_version'], "13.x");
 		return null;
 	}
 
@@ -63,8 +63,8 @@ function makeLogReport($conn, $config, $url_param, &$err_msg)
 	$t_conf = $config[$url_param['repodb']];
 
 	/* check repository version */
-	if ($t_conf['repo_version'] < V12) {
-		$err_msg = sprintf($error_message['st_version'], "12.x");
+	if ($t_conf['repo_version'] < V13) {
+		$err_msg = sprintf($error_message['st_version'], "13.x");
 		return null;
 	}
 
@@ -124,7 +124,7 @@ function makeReportForCommandline($conn, $infoData, $target_info, $snapids)
 	$html_string = array();
 
 	/* check repository version */
-	if ($infoData[$target_info['repodb']]['repo_version'] < V12) {
+	if ($infoData[$target_info['repodb']]['repo_version'] < V13) {
 		return null;
 	}
 

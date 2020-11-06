@@ -6,7 +6,7 @@
  */
 
 // pg_stats_reporter's version
-define("PROGRAM_VERSION", "12.0");
+define("PROGRAM_VERSION", "13.0");
 
 // Image File
 define("IMAGE_FILE", "pgsql_banner01.png");
@@ -23,7 +23,7 @@ define("DYGRAPHS_PATH", "package/dygraphs-2.1.0/");
 
 // pg_statsinfo's version
 define("V23", 20300);
-define("V12", 120000);
+define("V13", 130000);
 
 // Smarty cache, compile, template directory
 define("CACHE_DIR", "../../pg_stats_reporter_lib/cache");
@@ -250,7 +250,7 @@ $query_string = array(
   "SELECT datname AS \"Database\", nspname AS \"Schema\", proname AS \"Function\", calls AS \"Calls\", total_time AS \"Total time (ms)\", self_time AS \"Self time (ms)\", time_per_call AS \"Time/call (ms)\" FROM statsrepo.get_query_activity_functions($1, $2)",
 
   "statements" =>
-  "SELECT rolname AS \"User\", datname AS \"Database\", query AS \"Query\", calls AS \"Calls\", total_time AS \"Total time (sec)\", time_per_call AS \"Time/call (sec)\" FROM statsrepo.get_query_activity_statements($1, $2)",
+  "SELECT rolname AS \"User\", datname AS \"Database\", query AS \"Query\", calls AS \"Calls\", total_exec_time AS \"Total Execute time (sec)\", time_per_call AS \"Execute time/call (sec)\", plans AS \"Plans\", total_plan_time AS \"Total Plan time (sec)\",  time_per_plan AS \"Plan time/Plan (sec)\" FROM statsrepo.get_query_activity_statements($1, $2)",
 
   "plans" =>
   "SELECT * FROM statsrepo.get_query_activity_plans_report($1,$2) ORDER BY queryid, rolname, datname",
@@ -333,7 +333,7 @@ $query_string = array(
   "SELECT count(*) FROM statsrepo.log WHERE instid = $1 AND timestamp BETWEEN $2 AND $3",
 
   "log" =>
-  "SELECT to_char(timestamp, 'YYYY-MM-DD HH24:MI:SS.MS') AS timestamp, username, database, pid, client_addr, session_id, session_line_num, ps_display, to_char(session_start, 'YYYY-MM-DD HH24:MI:SS.MS') AS session_start, vxid, xid, elevel, sqlstate, message, detail, hint, query, query_pos, context, user_query, user_query_pos, location, application_name FROM statsrepo.log WHERE instid = $1 AND timestamp BETWEEN $2 AND $3"
+  "SELECT to_char(timestamp, 'YYYY-MM-DD HH24:MI:SS.MS') AS timestamp, username, database, pid, client_addr, session_id, session_line_num, ps_display, to_char(session_start, 'YYYY-MM-DD HH24:MI:SS.MS') AS session_start, vxid, xid, elevel, sqlstate, message, detail, hint, query, query_pos, context, user_query, user_query_pos, location, application_name, backend_type FROM statsrepo.log WHERE instid = $1 AND timestamp BETWEEN $2 AND $3"
 );
 
 ?>
