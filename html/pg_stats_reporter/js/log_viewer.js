@@ -74,7 +74,9 @@ $(function(){
 				2: true,   // database
 				4: true,   // client_addr
 				11: true,  // elevel
-				12: true   // sqlstate
+				12: true,  // sqlstate
+				22: true,  // application_name
+				23: true   // backend_type
 			},
 			// columnSelector options
 			columnSelector_container: $('#columnSelector'),
