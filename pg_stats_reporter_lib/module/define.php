@@ -250,7 +250,7 @@ $query_string = array(
   "SELECT datname AS \"Database\", nspname AS \"Schema\", proname AS \"Function\", calls AS \"Calls\", total_time AS \"Total time (ms)\", self_time AS \"Self time (ms)\", time_per_call AS \"Time/call (ms)\" FROM statsrepo.get_query_activity_functions($1, $2)",
 
   "statements" =>
-  "SELECT rolname AS \"User\", datname AS \"Database\", query AS \"Query\", calls AS \"Calls\", total_exec_time AS \"Total Execute time (sec)\", time_per_call AS \"Execute time/call (sec)\", plans AS \"Plans\", total_plan_time AS \"Total Plan time (sec)\",  time_per_plan AS \"Plan time/Plan (sec)\" FROM statsrepo.get_query_activity_statements($1, $2)",
+  "SELECT rolname AS \"User\", datname AS \"Database\", query AS \"Query\", calls AS \"Calls\", total_exec_time AS \"Total execution time (sec)\", time_per_call AS \"Average execution time (sec)\", plans AS \"Plans\", total_plan_time AS \"Total planning time (sec)\",  time_per_plan AS \"Average planning time (sec)\" FROM statsrepo.get_query_activity_statements($1, $2)",
 
   "plans" =>
   "SELECT * FROM statsrepo.get_query_activity_plans_report($1,$2) ORDER BY queryid, rolname, datname",

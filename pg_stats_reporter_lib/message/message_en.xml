@@ -395,9 +395,12 @@ pg_stat_statsments to be installed.</h4>
 <li><em>User</em>: Name of the user who executed this statement</li>
 <li><em>Database</em>: Name of the database in which this statement was executed</li>
 <li><em>Query</em>: Text of a representative statement</li>
-<li><em>Calls</em>: Number of times this statement executed during this report period</li>
-<li><em>Total time</em>: Total time spent in this statement during this report period in seconds</li>
-<li><em>Time/call</em>: Average total time per call throughout this report period in seconds</li>
+<li><em>Calls</em>: Number of times this statement was executed during this report period</li>
+<li><em>Total execution time</em>: Total time spent executing in this statement during this report period in seconds</li>
+<li><em>Average execution time</em>: Average total time per call throughout this report period in seconds</li>
+<li><em>Plans</em>: Number of times this statement was planned during this report period</li>
+<li><em>Total planning time</em>: Total time spent planning in this statement during this report period in seconds</li>
+<li><em>Average planning time</em>: Average total time per plan throughout this report period in seconds</li>
 </ul>
 </div>
 
@@ -726,6 +729,7 @@ UPDATE statsrepo.alert SET rollback_tps = 3000 WHERE instid = 1;
 <li><em>user_query_pos</em>: Character count of the error position therein</li>
 <li><em>location</em>: Location of the error in the PostgreSQL source code</li>
 <li><em>application_name</em>: Application name</li>
+<li><em>backend_type</em>: Backend type</li>
 </ul>
 </div>
 </help>

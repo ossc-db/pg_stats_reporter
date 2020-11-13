@@ -375,8 +375,11 @@
 <li><em>Database</em>: この問い合わせが実行されたデータベースの名前</li>
 <li><em>Query</em>: 問い合わせ文</li>
 <li><em>Calls</em>: この問い合わせが実行された回数</li>
-<li><em>Total time</em>: この問い合わせの実行に要した時間のレポート期間中の合計 (秒)</li>
-<li><em>Time/call</em>: この問い合わせの1回あたりの実行所要時間のレポート期間中の平均値 (秒)</li>
+<li><em>Total execution time</em>: この問い合わせの実行に要した時間のレポート期間中の合計 (秒)</li>
+<li><em>Average execution time</em>: この問い合わせの1回あたりの実行所要時間のレポート期間中の平均値 (秒)</li>
+<li><em>Plans</em>: この問い合わせの実行計画が作成された回数</li>
+<li><em>Total planning time</em>: この問い合わせで実行計画の作成に要した時間のレポート期間中の合計(秒)</li>
+<li><em>Average planning time</em>:この問い合わせの1回あたりの実行計画作成時間のレポート期間中の平均値(秒)</li>
 </ul>
 </div>
 
@@ -678,6 +681,7 @@ UPDATE statsrepo.alert SET rollback_tps = 3000 WHERE instid = 1;
 <li><em>user_query_pos</em>: ユーザのクエリにおけるエラー位置の文字数</li>
 <li><em>location</em>: PostgreSQLソースコード上のエラー発生場所</li>
 <li><em>application_name</em>: アプリケーション名</li>
+<li><em>backend_type</em>: バックエンドの種別</li>
 </ul>
 </div>
 </help>
