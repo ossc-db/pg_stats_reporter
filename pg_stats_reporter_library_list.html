@@ -12,7 +12,7 @@
 <h2>目次</h2>
 <ul>
 <li><a href="#change">変更履歴</a></li>
-<li><a href="#now">2020/07/28時点最新版</a></li>
+<li><a href="#now">2020/12/03時点最新版</a></li>
 <li><a href="#trunk">pg_stats_reporter trunk</a></li>
 <li><a href="#120">pg_stats_reporter 12</a></li>
 <li><a href="#110">pg_stats_reporter 11</a></li>
@@ -35,6 +35,11 @@
 </thead>
 <tbody>
 <tr>
+<td>第1.21版</td>
+<td>2020/12/03</td>
+<td>2020/12/03最新版およびtrunk更新</td>
+</tr>
+<tr>
 <td>第1.20版</td>
 <td>2020/07/28</td>
 <td>2020/07/28最新版に更新</td>
@@ -54,17 +59,12 @@
 <td>2020/01/07</td>
 <td>2020/01/07最新版に更新</td>
 </tr>
-<tr>
-<td>第1.16版</td>
-<td>2019/11/08</td>
-<td>trunkの使用ライブラリを最新に更新</td>
-</tr>
 </tbody>
 </table>
 
 <br/><hr/>
 
-<h2 id="now">【2020/07/28時点最新版】</h2>
+<h2 id="now">【2020/12/03時点最新版】</h2>
 
 <table border="1">
 <thead>
@@ -81,7 +81,7 @@
 <td rowspan="37">PHP</td>
 <td rowspan="10">5.4.16</td>
 <td bgcolor="white">php-5.4.16-48.el7</td>
-<td rowspan="5" bgcolor="white">CentOS 7 2003(7.8)<br/>yum updateした最新版</td>
+<td rowspan="5" bgcolor="cyan">CentOS 7 2009(7.9)<br/>yum updateした最新版</td>
 </tr>
 <tr>
 <td bgcolor="white">php-cli-5.4.16-48.el7</td>
@@ -114,24 +114,24 @@
 </tr>
 
 <tr>
-<td rowspan="6" bgcolor="cyan">7.2.24</td>
-<td bgcolor="cyan">php-7.2.24-1.module_el8.2.0</td>
-<td rowspan="6" bgcolor="cyan">CentOS 8 2004(8.2)<br/>yum updateした最新版</td>
+<td rowspan="6" bgcolor="white">7.2.24</td>
+<td bgcolor="white">php-7.2.24-1.module_el8.2.0</td>
+<td rowspan="6" bgcolor="white">CentOS 8 2004(8.2)<br/>yum updateした最新版</td>
 </tr>
 <tr>
-<td bgcolor="cyan">php-cli-7.2.24-1.module_el8.2.0</td>
+<td bgcolor="white">php-cli-7.2.24-1.module_el8.2.0</td>
 </tr>
 <tr>
-<td bgcolor="cyan">php-common-7.2.24-1.module_el8.2.0</td>
+<td bgcolor="white">php-common-7.2.24-1.module_el8.2.0</td>
 </tr>
 <tr>
-<td bgcolor="cyan">php-pgsql-7.2.24-1.module_el8.2.0</td>
+<td bgcolor="white">php-pgsql-7.2.24-1.module_el8.2.0</td>
 </tr>
 <tr>
-<td bgcolor="cyan">php-xml-7.2.24-1.module_el8.2.0</td>
+<td bgcolor="white">php-xml-7.2.24-1.module_el8.2.0</td>
 </tr>
 <tr>
-<td bgcolor="cyan">php-intl-7.2.24-1.module_el8.2.0</td>
+<td bgcolor="white">php-intl-7.2.24-1.module_el8.2.0</td>
 </tr>
 
 <tr>
@@ -156,13 +156,13 @@
 </tr>
 
 <tr>
-<td bgcolor="cyan">7.4.8</td><td rowspan="3" colspan="2">コミュニティ(http://php.net/)がリリースしている最新版</td>
+<td bgcolor="cyan">8.0.0</td><td rowspan="3" colspan="2">コミュニティ(http://php.net/)がリリースしている最新版</td>
 </tr>
 <tr>
-<td bgcolor="cyan">7.3.20</td>
+<td bgcolor="cyan">7.4.13</td>
 </tr>
 <tr>
-<td bgcolor="cyan">7.2.32</td>
+<td bgcolor="cyan">7.3.25</td>
 </tr>
 </tbody>
 <tfoot><tr><td colspan="4">
@@ -196,7 +196,7 @@
 </tr>
 <tr>
 <td>Smarty</td>
-<td bgcolor="cyan">3.1.35</td>
+<td bgcolor="white">3.1.35</td>
 <td><a href="http://www.smarty.net/">http://www.smarty.net/</a></td>
 <td></td>
 </tr>
@@ -227,11 +227,8 @@
 <tr>
 <td>Superfish</td>
 <td bgcolor="white">1.7.10</td>
-<td bgcolor="white"><a href="https://superfish.joelbirch.co/">https://superfish.joelbirch.co/</a></td>
-<td bgcolor="white">サイトがなくなってる<br/>
-  <a href="https://superfish.joelbirch.design/">https://superfish.joelbirch.design/</a><br/>
-  <a href="https://github.com/joeldbirch/superfish">https://github.com/joeldbirch/superfish</a><br/>
-で確認した範囲では、左記のバージョンが最新</td>
+<td bgcolor="cyan"><a href="https://superfish.joelbirch.design/">https://superfish.joelbirch.design/</a></td>
+<td bgcolor="cyan">https://superfish.joelbirch.co サイトがなくなってるため変更</td>
 </tr>
 </tbody>
 <tfoot><tr><td colspan="4">
@@ -258,7 +255,7 @@
 <td rowspan="22">PHP</td>
 <td rowspan="10">5.4.16</td>
 <td bgcolor="white">php-5.4.16-48.el7</td>
-<td rowspan="5" bgcolor="white">CentOS 7 2003(7.8)<br/>yum updateした最新版</td>
+<td rowspan="5" bgcolor="cyan">CentOS 7 2009(7.9)<br/>yum updateした最新版</td>
 </tr>
 <tr>
 <td bgcolor="white">php-cli-5.4.16-48.el7</td>
@@ -291,24 +288,24 @@
 </tr>
 
 <tr>
-<td rowspan="6" bgcolor="cyan">7.2.24</td>
-<td bgcolor="cyan">php-7.2.24-1.module_el8.2.0</td>
-<td rowspan="6" bgcolor="cyan">CentOS 8 2004(8.2)<br/>yum updateした最新版</td>
+<td rowspan="6" bgcolor="white">7.2.24</td>
+<td bgcolor="white">php-7.2.24-1.module_el8.2.0</td>
+<td rowspan="6" bgcolor="white">CentOS 8 2004(8.2)<br/>yum updateした最新版</td>
 </tr>
 <tr>
-<td bgcolor="cyan">php-cli-7.2.24-1.module_el8.2.0</td>
+<td bgcolor="white">php-cli-7.2.24-1.module_el8.2.0</td>
 </tr>
 <tr>
-<td bgcolor="cyan">php-common-7.2.24-1.module_el8.2.0</td>
+<td bgcolor="white">php-common-7.2.24-1.module_el8.2.0</td>
 </tr>
 <tr>
-<td bgcolor="cyan">php-pgsql-7.2.24-1.module_el8.2.0</td>
+<td bgcolor="white">php-pgsql-7.2.24-1.module_el8.2.0</td>
 </tr>
 <tr>
-<td bgcolor="cyan">php-xml-7.2.24-1.module_el8.2.0</td>
+<td bgcolor="white">php-xml-7.2.24-1.module_el8.2.0</td>
 </tr>
 <tr>
-<td bgcolor="cyan">php-intl-7.2.24-1.module_el8.2.0</td>
+<td bgcolor="white">php-intl-7.2.24-1.module_el8.2.0</td>
 </tr>
 
 <tr>
@@ -354,9 +351,9 @@
 <tbody>
 <tr>
 <td>jQuery</td>
-<td bgcolor="white">3.4.1</td>
+<td bgcolor="cyan">3.5.1</td>
 <td><a href="http://jquery.com/">http://jquery.com/</a></td>
-<td bgcolor="white">jquery-3.4.1.min.js</td>
+<td bgcolor="cyan">jquery-3.5.1.min.js</td>
 <td></td>
 </tr>
 <tr>
@@ -368,16 +365,16 @@
 </tr>
 <tr>
 <td>Smarty</td>
-<td bgcolor="white">3.1.34</td>
+<td bgcolor="cyan">3.1.35</td>
 <td><a href="http://www.smarty.net/">http://www.smarty.net/</a></td>
-<td bgcolor="white">smarty-3.1.34.tar.gz</td>
+<td bgcolor="cyan">smarty-3.1.35.tar.gz</td>
 <td></td>
 </tr>
 <tr>
 <td>tablesorter</td>
-<td bgcolor="white">2.31.2</td>
+<td bgcolor="cyan">2.31.3</td>
 <td bgcolor="white"><a href="https://github.com/Mottie/tablesorter">https://github.com/Mottie/tablesorter</a></li>
-<td bgcolor="white">tablesorter-2.31.2.tar.gz</td>
+<td bgcolor="cyan">tablesorter-2.31.3.tar.gz</td>
 <td>PagerおよびPagerで使用するアイコンはaddonsに含まれています<br/>カラム選択リストが利用可能な版を使用する</td>
 </tr>
 <tr>
@@ -404,7 +401,7 @@
 <tr>
 <td>Superfish</td>
 <td bgcolor="white">1.7.10</td>
-<td bgcolor="white"><a href="https://superfish.joelbirch.co/">https://superfish.joelbirch.co/</a></td>
+<td bgcolor="cyan"><a href="https://superfish.joelbirch.design/">https://superfish.joelbirch.design/</a></td>
 <td>superfish-master.zip</td>
 <td>ファイル名にバージョン情報が付いていないので注意</td>
 </tr>
