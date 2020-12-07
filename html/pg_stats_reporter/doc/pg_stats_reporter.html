@@ -2,7 +2,7 @@
 
 <html lang="en"><head>
 
-<title>pg_stats_reporter 12</title>
+<title>pg_stats_reporter 13</title>
 <link rel="home" title="pg_stats_reporter" href="index.html">
 <link rel="stylesheet" type="text/css" href="style.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -30,14 +30,14 @@
   <li><a href="#configuration">Configuration</a></li>
   <li><a href="#restrictions">Cautions and Restrictions</a></li>
   <li><a href="#faq">FAQ</a></li>
-  <li><a href="#change">Changes from pg_stats_reporter 10</a></li>
+  <li><a href="#change">Changes from pg_stats_reporter 12</a></li>
   <li><a href="#seealso">See also</a></li>
   <li><a href="#acknowledgment">Acknowledgments</a></li>
 </ol>
 </div>
-<h1 id="pg_stats_reporter">pg_stats_reporter 12</h1>
+<h1 id="pg_stats_reporter">pg_stats_reporter 13</h1>
 <h2 id="name">What is pg_stats_reporter?</h2>
-<p>pg_stats_reporter is a graphical report generator for <a href="http://pgstatsinfo.sourceforge.net/documents/statsinfo12/pg_statsinfo.html">pg_statsinfo</a>. It offers you various statistical information collected by pg_statsinfo in a graphical and interactive representation. pg_stats_reporter 12 is compatible only with pg_statsinfo 12. You can see an example report <a href="files/report_sample.html">here</a>. </p>
+<p>pg_stats_reporter is a graphical report generator for <a href="http://pgstatsinfo.sourceforge.net/documents/statsinfo13/pg_statsinfo.html">pg_statsinfo</a>. It offers you various statistical information collected by pg_statsinfo in a graphical and interactive representation. pg_stats_reporter 13 is compatible only with pg_statsinfo 13. You can see an example report <a href="files/report_sample.html">here</a>. </p>
 
 <h2 id="synopsis">Online and Offline Reports</h2>
 <p>pg_stats_reporter runs in two ways.  It runs as a CGI script and connects to repository server of pg_statsinfo in common usage but it also provides a command-line interface to generate off-line reports, which is portable form of the graphical report. 
@@ -51,29 +51,27 @@ pg_stats_reporter is tested on the following environment.
 
 <dl>
   <dt>pg_statsinfo</dt>
-  <dd>version 12</dd>
+  <dd>version 13</dd>
   <dt>PHP</dt>
-  <dd>version 5.4.16 (bundled with RHEL7), 7.2.11 (bundoled with RHEL8)</dd>
+  <dd>version 5.4.16 (bundled with RHEL7), 7.2.24 (bundoled with RHEL8)</dd>
   <dt>OS</dt>
-  <dd>RHEL 7.7, 8.0</dd>
+  <dd>RHEL 7.9, 8.2</dd>
   <dt>Web browser</dt>
-  <dd>Firefox : 68esr, 72</dd>
-  <dd>Microsoft Edge : 42.17134.1.0</dd>
+  <dd>Firefox : 78esr, 83</dd>
+  <dd>Microsoft Edge : 44.18362.449.0</dd>
   <dt>HTTP Server</dt>
   <dd>Apache HTTP Server : 2.4</dd>
   <dt>libraries (These packages are included in the package of pg_stats_reporter)</dt>
   <dd><ul>
-    <li>jQuery : 3.4.1</li>
+    <li>jQuery : 3.5.1</li>
     <li>jQuery UI : 1.12.1</li>
     <li>jquery-ui-timepicker-addon : 1.6.3</li>
     <li>dygraphs JavaScript Visualization Library : 2.1.0</li>
     <li>jqPlot : 1.0.9 d96a669</li>
-    <li>tablesorter : 2.31.2</li>
+    <li>tablesorter : 2.31.3</li>
     <li>Superfish : 1.7.10</li>
-    <li>Smarty : 3.1.34</li>
+    <li>Smarty : 3.1.35</li>
   </ul></dd>
-  <dt>Minimum display resolution</dt>
-  <dd>1024x786(SXGA)</dd>
 </dl>
 
 <h3 id="pg_stats_reporter_install">Installing pg_stats_reporter</h3>
@@ -82,12 +80,12 @@ pg_stats_reporter is tested on the following environment.
 <p>The required packages are are installed by the steps like following using yum.</p>
 <h5>RHEL7</h5>
 <pre>$ su
-# yum install pg_stats_reporter-12.0-1.el7.noarch.rpm php-intl
+# yum install pg_stats_reporter-13.0-1.el7.noarch.rpm php-intl
 </pre>
 
 <h5>RHEL8</h5>
 <pre>$ su
-# dnf install pg_stats_reporter-12.0-1.el8.noarch.rpm php-intl
+# dnf install pg_stats_reporter-13.0-1.el8.noarch.rpm php-intl
 </pre>
 
 <h4>Installing for offline reports only</h4>
@@ -103,13 +101,13 @@ graphical report.</p>
 <h5>RHEL7</h5>
 <pre>$ su
 # yum install php-pgsql php-intl php-cli
-# rpm -ivh --nodeps pg_stats_reporter-12.0.el7.noarch.rpm
+# rpm -ivh --nodeps pg_stats_reporter-13.0.el7.noarch.rpm
 </pre>
 
 <h5>RHEL8</h5>
 <pre>$ su
 # dnf install php-pgsql php-intl php-cli php-xml
-# rpm -ivh --nodeps pg_stats_reporter-12.0.el8.noarch.rpm
+# rpm -ivh --nodeps pg_stats_reporter-13.0.el8.noarch.rpm
 </pre>
 
 <h3 id="initialize">Initial Setup</h3>
@@ -195,7 +193,7 @@ widget to select date and time.</dd>
 <li>ELEVEL: Message level</li>
 <li>USERNAME: User name</li>
 <li>DATABASE: Database name</li>
-<li>MESSAGE: Regular expression that <a href="http://www.postgresql.org/docs/12/static/functions-matching.html"> PostgreSQL defines for SIMILAR TO</a>.</li>
+<li>MESSAGE: Regular expression that <a href="http://www.postgresql.org/docs/13/static/functions-matching.html"> PostgreSQL defines for SIMILAR TO</a>.</li>
 </ul></dd>
 <dt>&#9314; : Search button</dt>
 <dd>Start searching the repository for the filtered logs.</dd>
@@ -337,12 +335,12 @@ display the content correctly.</p>
 </p>
 <h3>RHEL7</h3>
 <pre>$ su
-# yum remove pg_stats_reporter-12.0-1.el7.noarch
+# yum remove pg_stats_reporter-13.0-1.el7.noarch
 </pre>
 
 <h3>RHEL8</h3>
 <pre>$ su
-# yum remove pg_stats_reporter-12.0-1.el8.noarch
+# yum remove pg_stats_reporter-13.0-1.el8.noarch
 </pre>
 
 <h2 id="configuration">Configuration File</h2>
@@ -471,7 +469,7 @@ file.
 <br/>
 <p>
 </p><ol type="a">
-<li> These settings follow <a href="http://www.postgresql.org/docs/12/static/libpq-connect.html#LIBPQ-PARAMKEYWORDS">PostgreSQL settings</a> as default.</li>
+<li> These settings follow <a href="http://www.postgresql.org/docs/13/static/libpq-connect.html#LIBPQ-PARAMKEYWORDS">PostgreSQL settings</a> as default.</li>
 </ol>
 <p></p>
 
@@ -494,7 +492,7 @@ file.
   can push away the queries on observed databases.</li>
 	<li>Although pg_statsinfo is designed to exlclude databases
 	specified by the
-	parameter <a href="http://pgstatsinfo.sourceforge.net/documents/statsinfo12/pg_statsinfo.html">excluded_dbnames</a>
+	parameter <a href="http://pgstatsinfo.sourceforge.net/documents/statsinfo13/pg_statsinfo.html">excluded_dbnames</a>
 	from snapshots, it fails for some report items such as "long
 	transactions".</li>
 </ul>
@@ -531,21 +529,20 @@ then restart the http server.</li>
 
 <h4>Q5. I see the name of a no-longer-monitored database in the repository bar.</h4>
 <p>A5. It is brought about by the data for such instances left in the repository. You can remove such items by manually deleting the
-corresponding data in repository. See details <a href="http://pgstatsinfo.sourceforge.net/documents/statsinfo12/pg_statsinfo.html#instance-deletion">here</a>.</p>
+corresponding data in repository. See details <a href="http://pgstatsinfo.sourceforge.net/documents/statsinfo13/pg_statsinfo.html#instance-deletion">here</a>.</p>
 
 <h4>Q6. Report seems displayed in somewhat broken format.</h4>
 <p>A6. Your browser may hold old JavaScript libraries in cache. Try clearing them.</p>
 
-<h2 id="change">Changes from pg_stats_reporter 11</h2>
-<p>Changes from pg_stats_reporter 11 are shown below.</p>
+<h2 id="change">Changes from pg_stats_reporter 12</h2>
+<p>Changes from pg_stats_reporter 12 are shown below.</p>
 <ul>
-  <li>Supports pg_statsinfo 12 (pg_stats_repoter 12 supports only pg_statsinfo 12).</li>
-  <li>Rename names that reference "xlog" to "WAL".</li>
+  <li>Supports pg_statsinfo 13 (pg_stats_repoter 13 supports only pg_statsinfo 13).</li>
 </ul>
 <br/>
 
 <h2 id="seealso">See also</h2>
-<a href="http://pgstatsinfo.sourceforge.net/documents/statsinfo12/pg_statsinfo.html">pg_statsinfo 12</a> 
+<a href="http://pgstatsinfo.sourceforge.net/documents/statsinfo13/pg_statsinfo.html">pg_statsinfo 13</a> 
 <br/><br/>
 <h2 id="acknowledgment">Acknowledgments</h2>
 <p>Pg_stats_reporter uses many libraries. We are deeply grateful to the developers of these libraries.<br/>
@@ -556,14 +553,14 @@ corresponding data in repository. See details <a href="http://pgstatsinfo.source
 <li>dygraphs JavaScript Visualization Library : <a href="http://dygraphs.com/">http://dygraphs.com/</a></li>
 <li>jqPlot : <a href="http://www.jqplot.com/">http://www.jqplot.com/</a></li>
 <li>tablesorter : <a href="https://github.com/Mottie/tablesorter">https://github.com/Mottie/tablesorter</a></li>
-<li>Superfish : <a href="https://superfish.joelbirch.co/">https://superfish.joelbirch.co/</a></li>
+<li>Superfish : <a href="https://superfish.joelbirch.design/">https://superfish.joelbirch.design/</a></li>
 <li>Smarty : <a href="http://www.smarty.net/">http://www.smarty.net/</a></li>
 </ul>
 <br/><br/>
 <hr>
 <div class="navigation">
   <a href="http://pgstatsinfo.sourceforge.net/index.html">Top</a> &gt;
-  <a href="http://pgstatsinfo.sourceforge.net/documents/reporter12/html/pg_stats_reporter.html">pg_stats_reporter</a>
+  <a href="http://pgstatsinfo.sourceforge.net/documents/reporter13/html/pg_stats_reporter.html">pg_stats_reporter</a>
 </div>
 <p class="footer">Copyright (c) 2012-2020, NIPPON TELEGRAPH AND TELEPHONE CORPORATION</p>
 

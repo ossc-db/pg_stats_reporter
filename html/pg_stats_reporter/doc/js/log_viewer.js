@@ -37,7 +37,8 @@ $(function(){
 			19: { sorter: 'text' },  // user_query
 			20: { sorter: 'digit' }, // user_query_pos
 			21: { sorter: 'text' },  // location
-			22: { sorter: 'text' }   // application_name
+			22: { sorter: 'text' },  // application_name
+			23: { sorter: 'text' }   // backend_type
 		},
 		sortList: [[0,0]],
 		widgets: [ 'zebra', 'filter', 'columnSelector' ],
@@ -58,7 +59,9 @@ $(function(){
 				2: true,   // database
 				4: true,   // client_addr
 				11: true,  // elevel
-				12: true   // sqlstate
+				12: true,  // sqlstate
+				22: true,  // application_name
+				23: true   // backend_type
 			},
 			// columnSelector options
 			columnSelector_container: $('#columnSelector'),
@@ -78,7 +81,8 @@ $(function(){
 				19: false,  // user_query
 				20: false,  // user_query_pos
 				21: false,  // location
-				22: false   // application_name
+				22: false,  // application_name
+				23: false   // backend_type
 			},
 			columnSelector_saveColumns: false,
 			columnSelector_layout: '<label><input type="checkbox">{name}</label>',

@@ -3,18 +3,18 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>pg_stats_reporter 12.0</title>
+<title>pg_stats_reporter 13.0</title>
 
 <!-- javascripts -->
-<script type="text/javascript" src="../../package/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="../../package/jquery-3.5.1.min.js"></script>
 <script type="text/javascript" src="../../package/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
 <script type="text/javascript" src="../../package/jquery-ui-timepicker-addon-1.6.3/jquery-ui-timepicker-addon.js"></script>
 <script type="text/javascript" src="../../package/superfish-1.7.10/dist/js/hoverIntent.js"></script>
 <script type="text/javascript" src="../../package/superfish-1.7.10/dist/js/superfish.js"></script>
 <script type="text/javascript" src="../../package/superfish-1.7.10/dist/js/supersubs.js"></script>
-<script type="text/javascript" src="../../package/tablesorter-2.31.2/js/jquery.tablesorter.js"></script>
-<script type="text/javascript" src="../../package/tablesorter-2.31.2/js/jquery.tablesorter.widgets.js"></script>
-<script type="text/javascript" src="../../package/tablesorter-2.31.2/js/widgets/widget-columnSelector.js"></script>
+<script type="text/javascript" src="../../package/tablesorter-2.31.3/js/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../../package/tablesorter-2.31.3/js/jquery.tablesorter.widgets.js"></script>
+<script type="text/javascript" src="../../package/tablesorter-2.31.3/js/widgets/widget-columnSelector.js"></script>
 <!-- pg_stats_reporter's javascript -->
 <script type="text/javascript" src="../js/common.js"></script>
 <script type="text/javascript" src="../js/log_viewer.js"></script>
@@ -25,7 +25,7 @@
 <link rel="stylesheet" type="text/css" href="../../package/jquery-ui-1.12.1.custom/jquery-ui.theme.min.css"/>
 <link rel="stylesheet" type="text/css" href="../../package/jquery-ui-1.12.1.custom/jquery-ui.min.css"/>
 <link rel="stylesheet" type="text/css" href="../../package/jquery-ui-timepicker-addon-1.6.3/jquery-ui-timepicker-addon.css"/>
-<link rel="stylesheet" type="text/css" href="../../package/tablesorter-2.31.2/css/theme.blue.css"/>
+<link rel="stylesheet" type="text/css" href="../../package/tablesorter-2.31.3/css/theme.blue.css"/>
 <!-- pg_stats_reporter's stylesheets -->
 <link rel="stylesheet" type="text/css" href="../../css/pg_stats_reporter.css"/>
 </head>
@@ -120,13 +120,13 @@
 <div id="left_menu" class="scrollbox">
 <img width="100%" src="pgsql_banner01.png"/>
 <p class="report_data">
-[<span id="target_repodb">repository1</span>]<br/><span id="target_name">dbserver01:5432</span><br/>begin:<br/><span id="target_begin">2020-01-10 00:00</span><br/>end:<br/><span id="target_end">2020-01-11 00:00</span><br/><span id="target_instid" style="display: none">1</span></p>
+[<span id="target_repodb">repository1</span>]<br/><span id="target_name">dbserver01:5432</span><br/>begin:<br/><span id="target_begin">2020-12-02 00:00</span><br/>end:<br/><span id="target_end">2020-12-03 00:00</span><br/><span id="target_instid" style="display: none">1</span></p>
 <div id="report_range_dialog" title="Create new report">
   <p align="center">
     <label for="begin_date">begin:</label>
-    <input type="text" id="begin_date" name="begin_date" value="2020-01-07 00:00"/>
+    <input type="text" id="begin_date" name="begin_date" value="2020-12-06 00:00"/>
 	<label for="end_date">end:</label>
-    <input type="text" id="end_date" name="end_date" value="2020-01-08 10:26"/>
+    <input type="text" id="end_date" name="end_date" value="2020-12-07 08:01"/>
   </p>
 </div><br/>
 <div align="center">
@@ -159,7 +159,7 @@
     <button class="help_button" dialog="#log_viewer_dialog"></button>
   </div>
 
-  <input id="page_total" type="hidden" value="3">
+  <input id="page_total" type="hidden" value="4">
 
   <div id="func_menu">
     <button id="search_option">Search Option</button>
@@ -256,6 +256,7 @@
         <th>user_query_pos</th>
         <th>location</th>
         <th>application_name</th>
+        <th>backend_type</th>
       </tr>
     </thead>
     <tbody></tbody>
@@ -305,6 +306,7 @@
 <li><em>user_query_pos</em>: Character count of the error position therein</li>
 <li><em>location</em>: Location of the error in the PostgreSQL source code</li>
 <li><em>application_name</em>: Application name</li>
+<li><em>backend_type</em>: Backend type</li>
 </ul>
 </div>
 
