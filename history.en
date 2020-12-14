@@ -1,3 +1,6 @@
+[13.0 (2020/12/14)]
+* Supports pg_statsinfo 13 (pg_stats_reporter 13 supports only pg_statsinfo 13).
+
 [12.0 (2020/01/24)]
 * Supports pg_statsinfo 12 (pg_stats_reporter 12 supports only pg_statsinfo 12).
 

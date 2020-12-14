@@ -1,3 +1,6 @@
+[13.0 (2020/12/14)]
+・ pg_statsinfo 13に対応した。(pg_stats_reporter 13は pg_statsinfo 13のみをサポートする)
+
 [12.0 (2020/01/24)]
 ・ pg_statsinfo 12に対応した。(pg_stats_reporter 12は pg_statsinfo 12のみをサポートする)
 
