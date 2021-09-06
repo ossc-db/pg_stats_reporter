@@ -619,6 +619,14 @@ session.</h4>
 <li><em>[address]: [name of standby server] replay</em>: Delay amount of replay on standby server.<br/>* Synchronous standby is prefixed by [sync] and drawn by thick line</li></ul>
 </div>
 
+<div id="replication_slots_dialog" class="help_dialog"
+  title="The Replication Slots Statistics Table">
+<h4></h4>
+<ul>
+<li><em></em>: </li>
+</ul>
+</div>
+
 <div id="tables_dialog" class="help_dialog"
   title="The Tables Table">
 <h4>Each rows in this table shows the overview of a database table.</h4>

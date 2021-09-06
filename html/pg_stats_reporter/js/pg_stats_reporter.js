@@ -466,6 +466,29 @@ $(function(){
     })
   );
 
+  // Replication slots statistics
+  $("#replication_slots_table").tablesorter(
+    $.extend({}, tablesorterDefaultOptions, {
+      sortList: [[10,1]],
+      headers: {
+        3: { sorter: "digit" },
+        4: { sorter: "digit" },
+        5: { sorter: "digit" },
+        6: { sorter: "digit" },
+        7: { sorter: "digit" },
+        8: { sorter: "digit" },
+        9: { sorter: "digit" },
+        10: { sorter: "digit" }
+      }
+    })
+  )
+  .tablesorterPager(
+    $.extend({}, pagerDefaultOptions, {
+      container: $('#pager_replication_slots'),
+      size: 10
+    })
+  );
+
   // Table (Schema Information)
   $("#tables_table").tablesorter(
     $.extend({}, tablesorterDefaultOptions, {

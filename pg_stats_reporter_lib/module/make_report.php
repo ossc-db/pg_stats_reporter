@@ -337,7 +337,8 @@ EOD;
 		|| $targetList['modified_rows']
 		|| $targetList['cancellations']
 		|| $targetList['replication_overview']
-		|| $targetList['replication_delays']) {
+		|| $targetList['replication_delays']
+		|| $targetList['replication_slots']) {
 
 		$html_string .= "<li><a href=\"#activities\">Maintenance</a><ul>\n";
 
@@ -370,7 +371,8 @@ EOD;
 
 		/* Replication */
 		if ($targetList['replication_overview']
-			|| $targetList['replication_delays'])
+			|| $targetList['replication_delays']
+			|| $targetList['replication_slots'])
 
 			$html_string .= "<li><a href=\"#replication_activity\">Replication</a><ul>\n";
 
@@ -378,6 +380,9 @@ EOD;
 				$html_string .= "<li><a href=\"#replication_overview\">Overview</a></li>\n";
 			if($targetList['replication_delays'])
 				$html_string .= "<li><a href=\"#replication_delays\">Delays</a></li>\n";
+			if($targetList['replication_slots'])
+				$html_string .= "<li><a href=\"#replication_slots\">Replication slots statistics</a></li>\n";
+
 
 			$html_string .= "</ul></li>\n";
 
@@ -1838,6 +1843,7 @@ EOD;
 
 	/* Replication */
 	if ($target['replication_overview']
+	    || $target['replication_slots']
 		|| $target['replication_delays'])
                 	$htmlString .=
 <<< EOD
@@ -1909,6 +1915,33 @@ EOD;
         }
         pg_free_result($result);
     }
+
+	/* Replication slots */
+	if ($target['replication_slots']) {
+	   $htmlString .=
+<<< EOD
+<div id="replication_slots" class="jump_margin"></div>
+<h3>Replication slots statistics</h3>
+<div align="right" class="jquery_ui_button_info_h3">
+  <div><button class="help_button" dialog="#replication_slots_dialog"></button></div>
+</div>
+
+EOD;
+
+		$qstr = "";
+		$qstr = $query_string['replication_slots'];
+		$result = pg_query_params($conn, $qstr, $snapids);
+		if (!$result) {
+			return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
+		}
+
+        if (pg_num_rows($result) == 0) {
+            $htmlString .= makeErrorTag($errorMsg['no_result']);
+        } else {
+            $htmlString .= makeTablePagerHTML($result, "replication_slots", 10, true);
+        }
+        pg_free_result($result);
+	}
 
 	return $htmlString;
 }
