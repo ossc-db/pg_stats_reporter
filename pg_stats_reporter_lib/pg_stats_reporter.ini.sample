@@ -104,7 +104,7 @@ cancellations = true                ; Cancellations
 ; -- Replication --
 replication_overview = true         ; Overview
 replication_delays = true           ; Delays
-replication_slots = false           ; Replication slots statitics
+replication_slots = false           ; Replication slots statistics
 
 ; --- Miscellaneous ---
 
@@ -208,7 +208,7 @@ profiles = false                    ; Profiles
 ;; -- Replication --
 ;replication_overview = true         ; Overview
 ;replication_delays = true           ; Delays
-;replication_slots = false           ; Replication slots statitics
+;replication_slots = false           ; Replication slots statistics
 ;
 ;; --- Miscellaneous ---
 ;
