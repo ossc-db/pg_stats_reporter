@@ -103,6 +103,7 @@ $report_default = array(
   'cancellations'             => true,
   'replication_overview'      => true,
   'replication_delays'        => true,
+  'replication_slots'         => false,
   'tables'                    => true,
   'indexes'                   => true,
   'runtime_params'            => true,
@@ -144,6 +145,7 @@ $help_list = array(
   'cancellations'             => 'cancellations_dialog',
   'replication_overview'      => 'replication_overview_dialog',
   'replication_delays'        => 'replication_delays_dialog',
+  'replication_slots'         => 'replication_slots_dialog',
   'tables'                    => 'tables_dialog',
   'indexes'                   => 'indexes_dialog',
   'runtime_params'            => 'runtime_params_dialog',
@@ -300,6 +302,9 @@ $query_string = array(
   "replication_delays" =>
   "SELECT replace(\"timestamp\", '-', '/'), client , flush_delay_size AS \"flush\", replay_delay_size AS \"replay\", sync_state FROM statsrepo.get_replication_delays($1, $2)",
 
+  "replication_slots" =>
+  "SELECT slot_name AS \"Slot name\", slot_type AS \"Slot type\", slot_datname AS \"Slot database\", spill_txns AS \"Spill txns\", spill_count AS \"Spill count\", spill_bytes AS \"Spill bytes\", stream_txns AS \"Stream txns\", stream_count AS \"Stream count\", stream_bytes AS \"Stream bytes\", total_txns AS \"Total txns\", total_bytes AS \"Total bytes\", stats_reset AS \"Replication slots reset\" FROM statsrepo.get_stat_replication_slots_report($1, $2)",
+  
   /* Miscellaneous */
   // Tables and Indexes
   "tables" =>

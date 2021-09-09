@@ -572,6 +572,14 @@
 <li><em>[アドレス]:[スタンバイサーバの名称] replay</em>: スタンバイでのリカバリ遅延量<br/>※同期モードのスタンバイには先頭に[sync]が表示されます</li></ul>
 </div>
 
+<div id="replication_slots_dialog" class="help_dialog"
+  title="The Replication Slots Statistics Table">
+<h4></h4>
+<ul>
+<li><em></em>: </li>
+</ul>
+</div>
+
 <div id="tables_dialog" class="help_dialog"
   title="The Tables Table">
 <h4>この表の各行はデータベースのひとつの表の概要を示します。</h4>
