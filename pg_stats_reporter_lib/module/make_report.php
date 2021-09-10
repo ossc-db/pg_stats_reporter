@@ -528,6 +528,7 @@ function makePlainHeaderMenu()
   <li><a>Replication</a><ul>
     <li><a>Overview</a></li>
     <li><a>Delays</a></li>
+    <li><a>Replication slots statistics</a></li>
   </ul></li>
 </ul></li>
 <li><a>Misc</a><ul>
@@ -1658,7 +1659,8 @@ function makeActivitiesReport($conn, $target, $snapids, $errorMsg)
 		&& !$target['analyze_overview']
 		&& !$target['cancellations']
 		&& !$target['replication_overview']
-		&& !$target['replication_delays'])
+		&& !$target['replication_delays']
+		&& !$target['replication_slots'])
 		return "";
 
 	$htmlString =
