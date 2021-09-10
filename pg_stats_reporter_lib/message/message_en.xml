@@ -106,6 +106,14 @@ the another shows the amount divided by the snapshot interval.</h4>
 </ul>
 </div>
 
+<div id="wal_statistics_dialog" class="help_dialog"
+  title="The WAL Statistics Graph">
+<h4></h4>
+<ul>
+<li><em></em>: </li>
+</ul>
+</div>
+
 <div id="backend_states_overview_dialog" class="help_dialog"
   title="The Backend States Overview Table">
 <h4>This table shows the average percentage of time the backends spend in different state throughout this report period.</h4>

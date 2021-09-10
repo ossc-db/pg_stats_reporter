@@ -103,6 +103,14 @@
 </ul>
 </div>
 
+<div id="wal_statistics_dialog" class="help_dialog"
+  title="The WAL Statistics Graph">
+<h4></h4>
+<ul>
+<li><em></em>: </li>
+</ul>
+</div>
+
 <div id="backend_states_overview_dialog" class="help_dialog"
   title="The Backend States Overview Table">
 <h4>この表はバックエンドプロセスの状態毎の比率のレポート期間中の平均値を示します。</h4>

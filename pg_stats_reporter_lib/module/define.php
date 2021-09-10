@@ -77,6 +77,7 @@ $report_default = array(
   'database_size'             => true,
   'recovery_conflicts'        => true,
   'write_ahead_logs'          => true,
+  'wal_statistics'            => true,
   'backend_states_overview'   => true,
   'backend_states'            => true,
   'bgwriter_statistics'       => true,
@@ -119,6 +120,7 @@ $help_list = array(
   'database_size'             => 'database_size_dialog',
   'recovery_conflicts'        => 'recovery_conflicts_dialog',
   'write_ahead_logs'          => 'write_ahead_logs_dialog',
+  'wal_statistics'            => 'wal_statistics_dialog',
   'backend_states_overview'   => 'backend_states_overview_dialog',
   'backend_states'            => 'backend_states_dialog',
   'bgwriter_statistics'       => 'bgwriter_statistics_dialog',
@@ -184,6 +186,9 @@ $query_string = array(
 
   "write_ahead_logs_stats" =>
   "SELECT write_total AS \"Total size (MiB)\", write_speed AS \"Average output rate (MiB/s)\", archive_total AS \"Number of archived files\", archive_failed AS \"Number of archiving errors\", last_wal_file AS \"Latest WAL file\", last_archive_file AS \"Last archived file\" FROM statsrepo.get_wal_stats($1, $2)",
+
+  "wal_statistics" =>
+  "SELECT replace(\"time\"::text, '-', '/') AS \"timestamp\", wal_fpi AS \"WAL full page images\", wal_bytes AS \"WAL bytes\", wal_buffers_full AS \"WAL buffers full\", wal_write AS \"WAL write\", wal_sync AS \"WAL sync\", wal_write_time AS \"WAL write time\", wal_sync_time AS \"WAL sync time\" FROM statsrepo.get_stat_wal2($1, $2)",
 
   "backend_states_overview" =>
   "SELECT idle AS \"idle (%)\", idle_in_xact AS \"idle in xact (%)\", waiting AS \"waiting (%)\", running AS \"running (%)\" FROM statsrepo.get_proc_ratio($1, $2)",
