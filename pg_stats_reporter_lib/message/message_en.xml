@@ -539,6 +539,22 @@ corresponds to one table reported in autovacuum logs. This feature is available 
 </ul>
 </div>
 
+<div id="vacuum_wal_statistics_dialog" class="help_dialog"
+  title="The Vacuum WAL Statistics Graph">
+<h4></h4>
+<ul>
+<li><em></em>: </li>
+</ul>
+</div>
+
+<div id="vacuum_index_statistics_dialog" class="help_dialog"
+  title="The Vacuum Index Statistics Table">
+<h4></h4>
+<ul>
+<li><em></em>: </li>
+</ul>
+</div>
+
 <div id="analyze_overview_dialog" class="help_dialog"
   title="The Analyze Overview Table">
 <h4>This table shows the overview of autoanalyze activities. Each row
@@ -558,6 +574,14 @@ corresponds to one table reported in autoanalyze logs.</h4>
 <div>This feature requires autovanalyze logs so set
 log_autovacuum_min_duration to 0 to make this feature fully
 available. Less logging reduces the completeness this table.</div>
+</div>
+
+<div id="analyze_io_summary_dialog" class="help_dialog"
+  title="The Analyze I/O Summary Table">
+<h4></h4>
+<ul>
+<li><em></em>: </li>
+</ul>
 </div>
 
 <div id="modified_rows_dialog" class="help_dialog"
