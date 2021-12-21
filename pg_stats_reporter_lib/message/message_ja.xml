@@ -103,6 +103,54 @@
 </ul>
 </div>
 
+<div id="wal_statistics_dialog" class="help_dialog"
+  title="The WAL Statistics Graph">
+<h4>WAL sizeグラフはWAL出力の推移を示します。一方の線はスナップショット期間ごとに出力されたフルページイメージの数を示し、もう一方はスナップショット期間ごとに出力された量を示します。</h4>
+<h4>軸の説明</h4>
+<ul>
+<li><em>横軸</em>: 時刻</li>
+<li><em>縦軸(左側)</em>: スナップショット期間ごとのフルページイメージ数</li>
+<li><em>縦軸(右側)</em>: スナップショット期間ごとのWAL出力量(Bytes)</li>
+</ul>
+<h4>凡例</h4>
+<ul>
+<li><em>WAL full page images</em>: 出力されたフルページイメージの数</li>
+<li><em>WAL bytes</em>: WAL出力量</li>
+</ul>
+<h4>Buffer fullグラフはWALバッファあふれによるWALデータの書き込み回数の推移を示します。</h4>
+<h4>軸の説明</h4>
+<ul>
+<li><em>横軸</em>: 時刻</li>
+<li><em>縦軸</em>: スナップショット期間ごとのWALバッファあふれの回数</li>
+</ul>
+<h4>凡例</h4>
+<ul>
+<li><em>WAL buffers full</em>: WALバッファあふれの回数</li>
+</ul>
+<h4>WAL I/O requestグラフはスナップショット期間ごとのWAL I/Oリクエスト数の推移を示します。</h4>
+<h4>軸の説明</h4>
+<ul>
+<li><em>横軸</em>: 時刻</li>
+<li><em>縦軸</em>: スナップショット期間ごとのI/Oリクエスト数</li>
+</ul>
+<h4>凡例</h4>
+<ul>
+<li><em>WAL write</em>: WAL出力リクエスト数</li>
+<li><em>WAL sync</em>: WAL同期リクエスト数</li>
+</ul>
+<h4>WAL I/O timeグラフはスナップショット期間ごとのI/O時間の合計の推移を示します。</h4>
+<h4>軸の説明</h4>
+<ul>
+<li><em>横軸</em>: 時刻</li>
+<li><em>縦軸</em>: スナップショット期間ごとの合計I/O時間(ミリ秒)</li>
+</ul>
+<h4>凡例</h4>
+<ul>
+<li><em>WAL write time</em>: WAL出力時間</li>
+<li><em>WAL sync time</em>: WAL同期時間</li>
+</ul>
+</div>
+
 <div id="backend_states_overview_dialog" class="help_dialog"
   title="The Backend States Overview Table">
 <h4>この表はバックエンドプロセスの状態毎の比率のレポート期間中の平均値を示します。</h4>
@@ -574,9 +622,20 @@
 
 <div id="replication_slots_dialog" class="help_dialog"
   title="The Replication Slots Statistics Table">
-<h4></h4>
+<h4>この表の各行は論理レプリケーションスロットの使用状況に関する統計を示します。</h4>
 <ul>
-<li><em></em>: </li>
+<li><em>Slot name</em>: レプリケーションスロットのクラスター全体で一意の識別子</li>
+<li><em>Slot type</em>: レプリケーションスロットのタイプ</li>
+<li><em>Slot database</em>: レプリケーションスロットが関連付けられているデータベース</li>
+<li><em>Spill txns</em>: WALからデコード変換するための論理デコードによって使用されるメモリがlogical_decoding_work_memを超えて、ディスクにスピルされたトランザクションの数</li>
+<li><em>Spill count</em>: このスロットのWALからデコード変換しているときに、トランザクションがディスクにスピルされた回数</li>
+<li><em>Spill bytes</em>: このスロットのWALからデコード変換しているときに、ディスクにスピルされたデコードされたトランザクションのデータ量</li>
+<li><em>Stream txns</em>: このスロットのWALからデコード変換するための論理デコードによって使用されるメモリがlogical_decoding_work_memを超えた後、デコード出力プラグインにストリーミングされる進行中のトランザクションの数</li>
+<li><em>Stream count</em>: このスロットのWALからデコード変換しているときに、進行中のトランザクションがデコード出力プラグインにストリーミングされた回数</li>
+<li><em>Stream bytes</em>: このスロットのWALからデコード変換する際に、進行中のトランザクションをデコード出力プラグインにストリーミングするためにデコードされたトランザクションデータの量</li>
+<li><em>Total txns</em>: このスロットのデコード出力プラグインに送信されたデコードされたトランザクションの数</li>
+<li><em>Total bytes</em>: このスロットのWALからデコード変換するときに、デコード出力プラグインにトランザクションを送信するためにデコードされたトランザクションデータの量</li>
+<li><em>Replication slots reset</em>: 統計が最後にリセットされた時刻</li>
 </ul>
 </div>
 

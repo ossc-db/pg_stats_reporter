@@ -54,6 +54,7 @@ recovery_conflicts = true           ; Recovery Conflicts
 
 ; -- Instance Statistics --
 write_ahead_logs = true             ; Write Ahead Logs
+wal_statistics = true               ; WAL statistics
 backend_states_overview = true      ; Backend States Overview
 backend_states = true               ; Backend States
 bgwriter_statistics = true          ; bgwriter Statistics
@@ -158,6 +159,7 @@ profiles = false                    ; Profiles
 ;
 ;; -- Instance Statistics --
 ;write_ahead_logs = true             ; Write Ahead Logs
+;wal_statistics = true               ; WAL statistics
 ;backend_states_overview = true      ; Backend States Overview
 ;backend_states = true               ; Backend States
 ;bgwriter_statistics = true          ; bgwriter Statistics

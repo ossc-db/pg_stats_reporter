@@ -176,6 +176,7 @@ EOD;
 		|| $targetList['database_size']
 		|| $targetList['recovery_conflicts']
 		|| $targetList['write_ahead_logs']
+		|| $targetList['wal_statistics']
 		|| $targetList['backend_states_overview']
 		|| $targetList['backend_states']
     	|| $targetList['bgwriter_statistics']) {
@@ -202,6 +203,7 @@ EOD;
 
 		/* Instance Statistics */
 		if ($targetList['write_ahead_logs']
+		    || $targetList['wal_statistics']
 			|| $targetList['backend_states_overview']
 			|| $targetList['backend_states']
         	|| $targetList['bgwriter_statistics']) {
@@ -210,6 +212,8 @@ EOD;
 
 			if ($targetList['write_ahead_logs'])
 				$html_string .= "<li><a href=\"#write_ahead_logs\">Write Ahead Logs</a></li>\n";
+			if ($targetList['wal_statistics'])
+				$html_string .= "<li><a href=\"#wal_statistics\">WAL statistics</a></li>\n";
 			if ($targetList['backend_states_overview'])
 				$html_string .= "<li><a href=\"#backend_states_overview\">Backend States Overview</a></li>\n";
 			if ($targetList['backend_states'])
@@ -484,6 +488,7 @@ function makePlainHeaderMenu()
   </ul></li>
   <li><a>Instance Statistics</a><ul>
     <li><a>Write Ahead Logs</a></li>
+    <li><a>WAL statistics</a></li>
     <li><a>Backend States Overview</a></li>
     <li><a>Backend States</a></li>
     <li><a>Background Writer Statistics</a></li>
@@ -809,6 +814,7 @@ function makeDatabaseSystemReport($conn, $target, $snapids, $errorMsg)
 		&& !$target['database_size']
 		&& !$target['recovery_conflicts']
 		&& !$target['write_ahead_logs']
+		&& !$target['wal_statistics']
 		&& !$target['backend_states_overview']
 		&& !$target['backend_states']
     	&& !$target['bgwriter_statistics'])
@@ -943,6 +949,7 @@ EOD;
 
 	/* Instance Statistics */
 	if ($target['write_ahead_logs']
+		|| $target['wal_statistics']
 		|| $target['backend_states_overview']
 		|| $target['backend_states']
     	|| $target['bgwriter_statistics']) {
@@ -987,6 +994,30 @@ EOD;
             }
             pg_free_result($result);
 		}
+
+		if ($target['wal_statistics']) {
+			$htmlString .=
+<<< EOD
+<div id="wal_statistics" class="jump_margin"></div>
+<h3>WAL statistics</h3>
+<div align="right" class="jquery_ui_button_info_h3">
+  <div><button class="help_button" dialog="#wal_statistics_dialog"></button></div>
+</div>
+
+EOD;
+			$result = pg_query_params($conn, $query_string['wal_statistics'], $snapids);
+            if (!$result) {
+                return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
+            }
+
+            if (pg_num_rows($result) == 0) {
+                $htmlString .= makeErrorTag($errorMsg['no_result']);
+            } else {
+                $htmlString .= makeStatWALGraphHTML($result);
+            }
+            pg_free_result($result);
+		}
+
 
 		if ($target['backend_states_overview']) {
 			$htmlString .=
@@ -2432,6 +2463,219 @@ EOD;
 	return $htmlString.makeCheckpointSetting($id)."</script>\n";
 }
 
+// WAL Statistics (pg_stat_wal) Graph
+function makeStatWALGraphHTML($results)
+{
+
+	// make Graph Datalist
+	$data1 = ""; // WAL size
+	$data2 = ""; // Buffer full
+	$data3 = ""; // WAL I/O request
+	$data4 = ""; // WAL I/O time
+	
+	$row = pg_fetch_array($results, NULL, PGSQL_NUM);
+	for($i = 1 ; $i < pg_num_rows($results) ; $i++) {
+		$row = pg_fetch_array($results, NULL, PGSQL_NUM);
+		$data1 .= "    [new Date('".$row[0]."'), ".$row[1].", ".$row[2]."],\n";
+		$data2 .= "    [new Date('".$row[0]."'), ".$row[3]."],\n";
+		$data3 .= "    [new Date('".$row[0]."'), ".$row[4].", ".$row[5]."],\n";
+		$data4 .= "    [new Date('".$row[0]."'), ".$row[6].", ".$row[7]."],\n";
+	}
+
+	// make WAL size Graph
+	$htmlString = 
+<<< EOD
+<table><tr><td rowspan="2">
+<div id="wal_size_graph" class="linegraph"></div>
+</td><td>
+<div id="wal_size_status" class="labels"></div>
+</td></tr>
+<tr><td><div class="graph_button">
+<button id="wal_size_line">toggle checkpoint highlight</button>
+</div></td></tr>
+</table>
+<script type="text/javascript">
+var wal_size_highlight = false;
+var wal_size = new Dygraph(document.getElementById('wal_size_graph'),[
+
+EOD;
+	$htmlString .= $data1;
+	$htmlString .= "  ],\n";
+
+	/* Dygraphs options */
+	$htmlString .=
+<<< EOD
+  {
+    labelsDivStyles: { border: '1px solid black' },
+    labelsDiv: document.getElementById('wal_size_status'),
+    labelsSeparateLines: true,
+    hideOverlayOnMouseOut: false,
+    legend: 'always',
+    xlabel: 'Time',
+	title: 'WAL size',
+	ylabel: 'Full page images',
+	y2label: 'WAL bytes',
+	animatedZooms: true,
+    axes: {
+		  y: {axisLabelWidth: 70},
+	  	 y2: {labelsKMG2: true, axisLabelWidth: 80}
+	   },
+
+EOD;
+
+    $htmlString .= "    series : {\n";
+	$htmlString .= "      '".pg_field_name($results, 2)."': {axis: 'y2' },\n";
+    $htmlString .= "    },\n";
+	$htmlString .= "    labels: [ ";
+	$htmlString .= "\"".pg_field_name($results, 0)."\",";
+	$htmlString .= "\"".pg_field_name($results, 1)."\",";
+	$htmlString .= "\"".pg_field_name($results, 2)."\",";
+	$htmlString .= " ],\n".makeCheckpointSetting("wal_size");
+	$htmlString .= "</script>\n\n";
+
+	// make Buffers full Graph
+	$htmlString .= 
+<<< EOD
+<table><tr><td rowspan="2">
+<div id="buffers_full_graph" class="linegraph"></div>
+</td><td>
+<div id="buffers_full_status" class="labels"></div>
+</td></tr>
+<tr><td><div class="graph_button">
+<button id="buffers_full_line">toggle checkpoint highlight</button>
+</div></td></tr>
+</table>
+<script type="text/javascript">
+var buffers_full_highlight = false;
+var buffers_full = new Dygraph(document.getElementById('buffers_full_graph'),[
+
+EOD;
+	$htmlString .= $data2;
+	$htmlString .= "  ],\n";
+
+	/* Dygraphs options */
+	$htmlString .=
+<<< EOD
+  {
+    labelsDivStyles: { border: '1px solid black' },
+    labelsDiv: document.getElementById('buffers_full_status'),
+    labelsSeparateLines: true,
+    hideOverlayOnMouseOut: false,
+    legend: 'always',
+    xlabel: 'Time',
+	title: 'Buffers full',
+	ylabel: 'WAL buffers full',
+	animatedZooms: true,
+    axes: {
+		  y: {axisLabelWidth: 70},
+	   },
+
+EOD;
+
+	$htmlString .= "    labels: [ ";
+	$htmlString .= "\"".pg_field_name($results, 0)."\",";
+	$htmlString .= "\"".pg_field_name($results, 3)."\",";
+	$htmlString .= " ],\n".makeCheckpointSetting("buffers_full");
+	$htmlString .= "</script>\n\n";
+
+
+	// make WAL I/O request Graph
+	$htmlString .= 
+<<< EOD
+<table><tr><td rowspan="2">
+<div id="wal_io_request_graph" class="linegraph"></div>
+</td><td>
+<div id="wal_io_request_status" class="labels"></div>
+</td></tr>
+<tr><td><div class="graph_button">
+<button id="wal_io_request_line">toggle checkpoint highlight</button>
+</div></td></tr>
+</table>
+<script type="text/javascript">
+var wal_io_request_highlight = false;
+var wal_io_request = new Dygraph(document.getElementById('wal_io_request_graph'),[
+
+EOD;
+	$htmlString .= $data3;
+	$htmlString .= "  ],\n";
+
+	/* Dygraphs options */
+	$htmlString .=
+<<< EOD
+  {
+    labelsDivStyles: { border: '1px solid black' },
+    labelsDiv: document.getElementById('wal_io_request_status'),
+    labelsSeparateLines: true,
+    hideOverlayOnMouseOut: false,
+    legend: 'always',
+    xlabel: 'Time',
+	title: 'WAL I/O request',
+	ylabel: 'I/O request',
+	animatedZooms: true,
+    axes: {
+		  y: {axisLabelWidth: 70},
+	   },
+
+EOD;
+
+	$htmlString .= "    labels: [ ";
+	$htmlString .= "\"".pg_field_name($results, 0)."\",";
+	$htmlString .= "\"".pg_field_name($results, 4)."\",";
+	$htmlString .= "\"".pg_field_name($results, 5)."\",";
+	$htmlString .= " ],\n".makeCheckpointSetting("wal_io_request");
+	$htmlString .= "</script>\n\n";
+
+
+	// make WAL I/O time Graph
+	$htmlString .= 
+<<< EOD
+<table><tr><td rowspan="2">
+<div id="wal_io_time_graph" class="linegraph"></div>
+</td><td>
+<div id="wal_io_time_status" class="labels"></div>
+</td></tr>
+<tr><td><div class="graph_button">
+<button id="wal_io_time_line">toggle checkpoint highlight</button>
+</div></td></tr>
+</table>
+<script type="text/javascript">
+var wal_io_time_highlight = false;
+var wal_io_time = new Dygraph(document.getElementById('wal_io_time_graph'),[
+
+EOD;
+	$htmlString .= $data4;
+	$htmlString .= "  ],\n";
+
+	/* Dygraphs options */
+	$htmlString .=
+<<< EOD
+  {
+    labelsDivStyles: { border: '1px solid black' },
+    labelsDiv: document.getElementById('wal_io_time_status'),
+    labelsSeparateLines: true,
+    hideOverlayOnMouseOut: false,
+    legend: 'always',
+    xlabel: 'Time',
+	title: 'WAL I/O time',
+	ylabel: 'I/O time',
+	animatedZooms: true,
+    axes: {
+		  y: {axisLabelWidth: 70},
+	   },
+
+EOD;
+
+	$htmlString .= "    labels: [ ";
+	$htmlString .= "\"".pg_field_name($results, 0)."\",";
+	$htmlString .= "\"".pg_field_name($results, 6)."\",";
+	$htmlString .= "\"".pg_field_name($results, 7)."\",";
+	$htmlString .= " ],\n".makeCheckpointSetting("wal_io_time");
+	$htmlString .= "</script>\n\n";
+
+	return $htmlString;
+
+}
+
 // WAL Statistics 2-Axes Line Graph
 function makeWALStatisticsGraphHTML($results)
 {
@@ -2495,6 +2739,7 @@ EOD;
 	return $htmlString."</script>\n";
 
 }
+
 
 // bgwriter Statistics 2-Axes Line Graph
 function makebgwriterStatisticsGraphHTML($results)

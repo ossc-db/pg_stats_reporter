@@ -106,6 +106,54 @@ the another shows the amount divided by the snapshot interval.</h4>
 </ul>
 </div>
 
+<div id="wal_statistics_dialog" class="help_dialog"
+  title="The WAL Statistics Graph">
+<h4>This graph shows the trend of the WAL generated. One of the lines shows number of WAl full page images generated during every snapshot interval and the another shows the amount of WAL generated in bytes during every snapshot interval.</h4>
+<h4>Axes</h4>
+<ul>
+<li><em>Horizontal axis</em>: time</li>
+<li><em>Left side vertical axis</em>: Number of WAL full page images generated.</li>
+<li><em>Right side vertical axis</em>: Amount of WAL generated in bytes.</li>
+</ul>
+<h4>Legend</h4>
+<ul>
+<li><em>WAL full page images</em>: WAL full page images generated.</li>
+<li><em>WAL bytes</em>: Amount of WAL generated.</li>
+</ul>
+<h4>This graph shows the trend of number of times WAL data was written to disk because WAL buffers became full during every shapshot interval.</h4>
+<h4>Axes</h4>
+<ul>
+<li><em>Horizontal axis</em>: time</li>
+<li><em>Vertical axis</em>: Number of times WAL buffers full.</li>
+</ul>
+<h4>Legend</h4>
+<ul>
+<li><em>WAL buffers full</em>: Number of times WAL buffers full.</li>
+</ul>
+<h4>This graph shows the trend of I/O request during every snapshot interval.</h4>
+<h4>Axes</h4>
+<ul>
+<li><em>Horizontal axis</em>: time</li>
+<li><em>Vertical axis</em>: Number of times I/O request.</li>
+</ul>
+<h4>Legend</h4>
+<ul>
+<li><em>WAL write</em>: Number of WAL write request.</li>
+<li><em>WAL sync</em>: Number of WAL sync request.</li>
+</ul>
+<h4>This graph shows the trend of total amount of I/O time during every snapshot interval.</h4>
+<h4>Axes</h4>
+<ul>
+<li><em>Horizontal axis</em>: time</li>
+<li><em>Vertical axis</em>: Amount of I/O time (ms)</li>
+</ul>
+<h4>Legend</h4>
+<ul>
+<li><em>WAL write time</em>: Total amount of time spent writing WAL.</li>
+<li><em>WAL sync time</em>: Total amount of time spent syncing WAL.</li>
+</ul>
+</div>
+
 <div id="backend_states_overview_dialog" class="help_dialog"
   title="The Backend States Overview Table">
 <h4>This table shows the average percentage of time the backends spend in different state throughout this report period.</h4>
@@ -621,9 +669,20 @@ session.</h4>
 
 <div id="replication_slots_dialog" class="help_dialog"
   title="The Replication Slots Statistics Table">
-<h4></h4>
+<h4>Each rows in this table shows logical replication slot statistics about its usage.</h4>
 <ul>
-<li><em></em>: </li>
+<li><em>Slot name</em>: A unique, cluster-wide identifier for the replication slot</li>
+<li><em>Slot type</em>: The slot type</li>
+<li><em>Slot database</em>: The database this replication slot is associated with</li>
+<li><em>Spill txns</em>: Number of transactions spilled to disk once the memory used by logical decoding to decode changes from WAL has exceeded logical_decoding_work_mem</li>
+<li><em>Spill count</em>: Number of times transactions were spilled to disk while decoding changes from WAL for this slot</li>
+<li><em>Spill bytes</em>: Amount of decoded transaction data spilled to disk while performing decoding of changes from WAL for this slot</li>
+<li><em>Stream txns</em>: Number of in-progress transactions streamed to the decoding output plugin after the memory used by logical decoding to decode changes from WAL for this slot has exceeded logical_decoding_work_mem</li>
+<li><em>Stream count</em>: Number of times in-progress transactions were streamed to the decoding output plugin while decoding changes from WAL for this slot</li>
+<li><em>Stream bytes</em>: Amount of transaction data decoded for streaming in-progress transactions to the decoding output plugin while decoding changes from WAL for this slot</li>
+<li><em>Total txns</em>: Number of decoded transactions sent to the decoding output plugin for this slot</li>
+<li><em>Total bytes</em>: Amount of transaction data decoded for sending transactions to the decoding output plugin while decoding changes from WAL for this slot</li>
+<li><em>Replication slots reset</em>: Time at which these statistics were last reset</li>
 </ul>
 </div>
 
