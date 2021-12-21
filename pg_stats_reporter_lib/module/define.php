@@ -99,7 +99,10 @@ $report_default = array(
   'checkpoints'               => true,
   'autovacuum_overview'       => true,
   'autovacuum_io_summary'     => true,
+  'vacuum_wal_statistics'     => true,
+  'vacuum_index_statistics'   => true,
   'analyze_overview'          => true,
+  'analyze_io_summary'        => true,
   'modified_rows'             => true,
   'cancellations'             => true,
   'replication_overview'      => true,
@@ -142,7 +145,10 @@ $help_list = array(
   'checkpoints'               => 'checkpoints_dialog',
   'autovacuum_overview'       => 'autovacuum_overview_dialog',
   'autovacuum_io_summary'     => 'autovacuum_io_summary_dialog',
+  'vacuum_wal_statistics'     => 'vacuum_wal_statistics_dialog',
+  'vacuum_index_statistics'   => 'vacuum_index_statistics_dialog',
   'analyze_overview'          => 'analyze_overview_dialog',
+  'analyze_io_summary'        => 'analyze_io_summary_dialog',
   'modified_rows'             => 'modified_rows_dialog',
   'cancellations'             => 'cancellations_dialog',
   'replication_overview'      => 'replication_overview_dialog',
@@ -286,16 +292,25 @@ $query_string = array(
 
   // Autovacuums
   "autovacuum_overview" =>
-  "SELECT datname AS \"Database\", nspname AS \"Schema\", relname AS \"Table\", \"count\" AS \"Count\", avg_index_scans AS \"Avg index scans\", avg_tup_removed AS \"Avg removed rows\", avg_tup_remain AS \"Avg remain rows\", avg_tup_dead AS \"Avg remain dead\", avg_duration AS \"Avg duration (sec)\", max_duration AS \"Max duration (sec)\", cancel AS \"Cancels\" FROM statsrepo.get_autovacuum_activity($1, $2)", 
+  "SELECT datname AS \"Database\", nspname AS \"Schema\", relname AS \"Table\", \"count\" AS \"Count\", index_scanned AS \"Index scanned\", index_skipped AS \"Index skipped\", avg_tup_removed AS \"Avg removed rows\", avg_tup_remain AS \"Avg remain rows\", avg_tup_dead AS \"Avg remain dead\", scan_pages AS \"Scan pages\", scan_pages_ratio AS \"Scan pages raito\", removed_lp AS \"Removed line pointer\", dead_lp AS \"Dead line pointer\", avg_duration AS \"Avg duration (sec)\", max_duration AS \"Max duration (sec)\", cancel AS \"Cancels\" FROM statsrepo.get_autovacuum_activity($1, $2)", 
 
   "cancellations" =>
   "SELECT timestamp::timestamp(0) AS \"Time\", database AS \"Database\", schema AS \"Schema\", \"table\" AS \"Table\", 'VACUUM' AS \"Activity\", query AS \"Causal query\" FROM statsrepo.autovacuum_cancel v WHERE timestamp BETWEEN (SELECT min(time) AS time FROM statsrepo.snapshot WHERE snapid >= $1) AND (SELECT max(time) AS time FROM statsrepo.snapshot WHERE snapid <= $2) AND instid = (SELECT instid FROM statsrepo.snapshot WHERE snapid = $2) UNION ALL SELECT timestamp::timestamp(0) AS \"Time\", database AS \"Database\", schema AS \"Schema\", \"table\" AS \"Table\", 'ANALYZE' AS \"Activity\", query AS \"Causal query\" FROM statsrepo.autoanalyze_cancel v WHERE timestamp BETWEEN (SELECT min(time) AS time FROM statsrepo.snapshot WHERE snapid >= $1) AND (SELECT max(time) AS time FROM statsrepo.snapshot WHERE snapid <= $2) AND instid = (SELECT instid FROM statsrepo.snapshot WHERE snapid = $2) ORDER By \"Time\"",
 
   "autovacuum_io_summary" =>
-  "SELECT datname AS \"Database\", nspname AS \"Schema\", relname AS \"Table\", avg_page_hit AS \"Avg page hit\", avg_page_miss AS \"Avg page miss\", avg_page_dirty AS \"Avg page dirtied\", avg_read_rate AS \"Avg read rate\", avg_write_rate AS \"Avg write rate\" FROM statsrepo.get_autovacuum_activity2($1, $2)", 
+  "SELECT datname AS \"Database\", nspname AS \"Schema\", relname AS \"Table\", avg_page_hit AS \"Avg page hit\", avg_page_miss AS \"Avg page miss\", avg_page_dirty AS \"Avg page dirtied\", avg_read_rate AS \"Avg read rate\", avg_write_rate AS \"Avg write rate\", avg_read_duration AS \"Avg read duration\", avg_write_duration AS \"Avg write duration\" FROM statsrepo.get_autovacuum_activity2($1, $2)", 
+
+  "vacuum_wal_statistics" =>
+  "SELECT replace(\"timestamp\", '-', '/') AS timestamp, wal_fpi AS \"WAL full page image\", wal_bytes AS \"WAL bytes\" FROM statsrepo.get_autovacuum_wal_activity_tendency($1, $2)",
+
+  "vacuum_index_statistics" =>
+  "SELECT datname AS \"Database\", nspname AS \"Schema\", relname AS \"Table\", index_name AS \"Index\", \"count\" AS \"Count\", page_total AS \" Avg page total\", page_new_del AS \"Avg page new delete\", page_cur_del AS \"Avg page current delete\", page_reuse AS \"Avg page reuse\" FROM statsrepo.get_autovacuum_index_activity($1, $2)",
 
   "analyze_overview" =>
   "SELECT datname AS \"Database\", nspname AS \"Schema\", relname AS \"Table\", \"count\" AS \"Count\", total_duration AS \"Total duration (sec)\", avg_duration AS \"Avg duration (sec)\", max_duration AS \"Max duration (sec)\", last_analyze AS \"Last analyzed\", cancels AS \"Cancels\", mod_rows_max AS \"Max modified rows\" FROM statsrepo.get_autoanalyze_stats($1, $2)", 
+
+  "analyze_io_summary" =>
+  "SELECT datname AS \"Database\", nspname AS \"Schema\", relname AS \"Table\", avg_page_hit AS \"Avg page hit\", avg_page_miss AS \"Avg page miss\", avg_page_dirty AS \"avg page dirtied\", avg_read_rate AS \"Avg read rate\", avg_write_rate AS \"Avg write rate\", avg_read_duration AS \"Avg read duration\", avg_write_duration AS \"Avg write duration\" FROM statsrepo.get_autoanalyze_activity2($1, $2)",
 
   "modified_rows" =>
   "SELECT replace(\"timestamp\", '-', '/') AS timestamp, datname||'.'||nspname||'.'||relname, ratio FROM statsrepo.get_modified_row_ratio($1, $2, $3)",

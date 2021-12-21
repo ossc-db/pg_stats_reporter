@@ -545,10 +545,16 @@ period.</h4>
 <li><em>Schema</em>: Name of the schema this table belongs to</li>
 <li><em>Table</em>: Name of this table</li>
 <li><em>Count</em>: Number of autovacuum executed on this table</li>
+<li><em>Index scanned</em>: Number of times index scans by autovacuum on this table</li>
+<li><em>Index skipped</em>: Number of times index scans were skipped by autovacuum on this table</li>
 <li><em>Avg index scans</em>: Average number of indexes involved in  each vacuum on table</li>
 <li><em>Avg removed rows</em>: Avarage number of rows that each autovacuum removed throughout this report period</li>
 <li><em>Avg remain rows</em>: Average number of rows that each autovacuum had not removed throughout this report period. This includes "Avg remain dead".</li>
 <li><em>Avg remain dead</em>: Average number of dead rows that each autovacuum cannot be removed. Available for pg_statsinfo 3.1 or higher and PostgreSQL 9.4 or later</li>
+<li><em>Scan pages</em>: Average number of pages scanned throughout this report period</li>
+<li><em>Scan pages ratio</em>: Average ratio of pages scanned throughout this report period</li>
+<li><em>Removed line pointer</em>: Average number of dead line pointer throughout this report period when index scans by autovacuum on this table</li>
+<li><em>Dead line pointer</em>: Average number of dead line pointer throughout this report period when index scans were skipped by autovacuum on this table</li>
 <li><em>Avg duration</em>: Average time each autovacuum during this report period took, in seconds</li>
 <li><em>Max duration</em>: Maximum duration among all autovacuums executed during this report period, in secods</li>
 <li><em>Cancels</em>: Number of cancelled autovacuum trial during this report period. Available on pg_statsinfo 3.0 or later and PostgresQL 9.3 and later</li>
@@ -584,6 +590,47 @@ corresponds to one table reported in autovacuum logs. This feature is available 
 <li><em>Avg page dirtied</em>: Average number of buffers that each autovacuum has dirtied throughout this report period</li>
 <li><em>Avg read rate</em>: Average time that each autovacuum spent to read disks throughout this report period in MB/s</li>
 <li><em>Avg write rate</em>: Average time that each autovacuum spent to write disks throughout this report period in MB/s</li>
+<li><em>Avg read duration</em>: Average time that each autovacuum spent to read disks throughout this report period in ms</li>
+<li><em>Avg write duration</em>: Average time that each autovacuum spent to write disks throughout this report period in ms</li>
+</ul>
+</div>
+
+<div id="vacuum_wal_statistics_dialog" class="help_dialog"
+  title="The Vacuum WAL Statistics Graph">
+<h4>This graph shows the trend of number of times WAL data was written to disk because WAL buffers became full during every snapshot interval.</h4>
+<h4>Axes</h4>
+<ul>
+<li><em>Horizontal axis</em>: Time </li>
+<li><em>Vertical axis</em>: Number of WAL data was written of full page images</li>
+</ul>
+<h4>Legend</h4>
+<ul>
+<li><em>WAL full page image</em>: Number of WAL data was written of full page images</li>
+</ul>
+<h4>This graph shows the trend of amount of WAL data was written to disk by vacuum during every snapshot interval.</h4>
+<h4>Axes</h4>
+<ul>
+<li><em>Horizontal axis</em>: Time </li>
+<li><em>Vertical axis</em>: Amount of WAL data in bytes</li>
+</ul>
+<h4>Legend</h4>
+<ul>
+<li><em>WAL bytes</em>: Amount of WAL data in bytes</li>
+</ul>
+</div>
+
+<div id="vacuum_index_statistics_dialog" class="help_dialog"
+  title="The Vacuum Index Statistics Table">
+<h4>This table shows the overview of autovacuum activities. Each row corresponds to one index on which logged that autovacuums are done. This shows only indexes that autovacuum has been done at least once in this report period.</h4>
+<ul>
+<li><em>Database</em>: Name of the database this index resides in</li>
+<li><em>Schema</em>: Name of the schema this index belongs to</li>
+<li><em>Table</em>: Name of the table this index belongs to</li>
+<li><em>Index</em>: Name of the index</li>
+<li><em>Count</em>: Number of autovacuum executed on this index</li>
+<li><em>Avg page total</em>: Average number of index pages that each autovacuum vacuumed throughout this report period.</li>
+<li><em>Avg page new delete</em>: Average number of index pages that each autovacuum removed throughout this report period.</li>
+<li><em>Avg page reuse</em>: Average number of index pages that each autovacuum make available for reuse throughout this report period.</li>
 </ul>
 </div>
 
@@ -606,6 +653,23 @@ corresponds to one table reported in autoanalyze logs.</h4>
 <div>This feature requires autovanalyze logs so set
 log_autovacuum_min_duration to 0 to make this feature fully
 available. Less logging reduces the completeness this table.</div>
+</div>
+
+<div id="analyze_io_summary_dialog" class="help_dialog"
+  title="The Analyze I/O Summary Table">
+<h4>This table shows the I/O statistics for autoanalyzes. Each row corresponds to one table reported in autoanalyze logs. This feature is available on PostgreSQL 9.2 or later.</h4>
+<ul>
+<li><em>Database</em>: Name of the database this table resides in</li>
+<li><em>Schema</em>: Name of the schema this table belongs to</li>
+<li><em>Table</em>: Name of the table</li>
+<li><em>Avg page hit</em>: Average number of buffers that each autoanalyze read from shared buffers throughout this report period</li>
+<li><em>Avg page miss</em>: Average number of buffers that each autoanalyze read from disks throughout this report period</li>
+<li><em>Avg page dirtied</em>: Average number of buffers that each autoanalyze has dirtied throughout this report period</li>
+<li><em>Avg read rate</em>: Average time that each autoanalyze spent to read disks throughout this report period in MB/s</li>
+<li><em>Avg write rate</em>: Average time that each autoanalyze spent to write disks throughout this report period in MB/s</li>
+<li><em>Avg read duration</em>: Average time that each autoanalyze spent to read disks throughout this report period in ms</li>
+<li><em>Avg write duration</em>: Average time that each autoanalyze spent to write disks throughout this report period in ms</li>
+</ul>
 </div>
 
 <div id="modified_rows_dialog" class="help_dialog"

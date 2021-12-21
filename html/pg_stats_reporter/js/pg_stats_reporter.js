@@ -396,7 +396,13 @@ $(function(){
         6: { sorter: "digit" },
         7: { sorter: "digit" },
         8: { sorter: "digit" },
-        9: { sorter: "digit" }
+        9: { sorter: "digit" },
+        10: { sorter: "digit" },
+        11: { sorter: "digit" },
+        12: { sorter: "digit" },
+        13: { sorter: "digit" },
+        14: { sorter: "digit" },
+        15: { sorter: "digit" }
       }
     })
   )
@@ -429,13 +435,35 @@ $(function(){
         4: { sorter: "digit" },
         5: { sorter: "digit" },
         6: { sorter: "digit" },
-        7: { sorter: "digit" }
+        7: { sorter: "digit" },
+        8: { sorter: "digit" },
+        9: { sorter: "digit" }
       }
     })
   )
   .tablesorterPager(
     $.extend({}, pagerDefaultOptions, {
       container: $('#pager_autovacuum_io_summary'),
+      size: 10
+    })
+  );
+
+  // Vacuum Index Statistics
+  $("#vacuum_index_statistics_table").tablesorter(
+    $.extend({}, tablesorterDefaultOptions, {
+      sortList: [[5,1]],
+      headers: {
+        4: { sorter: "digit" },
+        5: { sorter: "digit" },
+        6: { sorter: "digit" },
+        7: { sorter: "digit" },
+        8: { sorter: "digit" }
+      }
+    })
+  )
+  .tablesorterPager(
+    $.extend({}, pagerDefaultOptions, {
+      container: $('#pager_vacuum_index_statistics'),
       size: 10
     })
   );
@@ -455,6 +483,28 @@ $(function(){
   .tablesorterPager(
     $.extend({}, pagerDefaultOptions, {
       container: $('#pager_analyze_overview'),
+      size: 10
+    })
+  );
+
+  // Analyze I/O Summary
+  $("#analyze_io_summary_table").tablesorter(
+    $.extend({}, tablesorterDefaultOptions, {
+      sortList: [[4,1]],
+      headers: {
+        3: { sorter: "digit" },
+        4: { sorter: "digit" },
+        5: { sorter: "digit" },
+        6: { sorter: "digit" },
+        7: { sorter: "digit" },
+        8: { sorter: "digit" },
+        9: { sorter: "digit" }
+      }
+    })
+  )
+  .tablesorterPager(
+    $.extend({}, pagerDefaultOptions, {
+      container: $('#pager_analyze_io_summary'),
       size: 10
     })
   );

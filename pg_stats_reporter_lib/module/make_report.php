@@ -337,7 +337,10 @@ EOD;
 	if ($targetList['checkpoints']
 		|| $targetList['autovacuum_overview']
 		|| $targetList['autovacuum_io_summary']
+		|| $targetList['vacuum_wal_statistics']
+		|| $targetList['vacuum_index_statistics']
 		|| $targetList['analyze_overview']
+		|| $targetList['analyze_io_summary']
 		|| $targetList['modified_rows']
 		|| $targetList['cancellations']
 		|| $targetList['replication_overview']
@@ -353,7 +356,10 @@ EOD;
 		/* Autovacuums */
 		if ($targetList['autovacuum_overview']
 			|| $targetList['autovacuum_io_summary']
+			|| $targetList['vacuum_wal_statistics']
+			|| $targetList['vacuum_index_statistics']
 			|| $targetList['analyze_overview']
+			|| $targetList['analyze_io_summary']
 			|| $targetList['modified_rows']
 			|| $targetList['cancellations']) {
 
@@ -363,8 +369,14 @@ EOD;
 				$html_string .= "<li><a href=\"#autovacuum_overview\">Overview</a></li>\n";
 			if ($targetList['autovacuum_io_summary'])
 				$html_string .= "<li><a href=\"#autovacuum_io_summary\">I/O Summary</a></li>\n";
+			if ($targetList['vacuum_wal_statistics'])
+				$html_string .= "<li><a href=\"#vacuum_wal_statistics\">Vacuum WAL Statistics</a></li>\n";
+			if ($targetList['vacuum_index_statistics'])
+				$html_string .= "<li><a href=\"#vacuum_index_statistics\">Vacuum Index Statistics</a></li>\n";
 			if ($targetList['analyze_overview'])
 				$html_string .= "<li><a href=\"#analyze_overview\">Analyze Overview</a></li>\n";
+			if ($targetList['analyze_io_summary'])
+				$html_string .= "<li><a href=\"#analyze_io_summary\">Analyze I/O Summary</a></li>\n";
 			if ($targetList['modified_rows'])
 				$html_string .= "<li><a href=\"#modified_rows\">Modified Rows</a></li>\n";
 			if ($targetList['cancellations'])
@@ -526,7 +538,10 @@ function makePlainHeaderMenu()
   <li><a>Autovacuums</a><ul>
     <li><a>Overview</a></li>
     <li><a>I/O Summary</a></li>
+    <li><a>Vacuum WAL Statistics</a></li>
+    <li><a>Vacuum Index Statistics</a></li>
     <li><a>Analyze Overview</a></li>
+    <li><a>Analyze I/O Summary</a></li>
     <li><a>Modified Rows</a></li>
     <li><a>Cancellations</a></li>
   </ul></li>
@@ -1687,7 +1702,10 @@ function makeActivitiesReport($conn, $target, $snapids, $errorMsg)
 	if (!$target['checkpoints']
 		&& !$target['autovacuum_overview']
 		&& !$target['autovacuum_io_summary']
+		&& !$target['vacuum_wal_statistics']
+		&& !$target['vacuum_index_statistics']
 		&& !$target['analyze_overview']
+		&& !$target['analyze_io_summary']
 		&& !$target['cancellations']
 		&& !$target['replication_overview']
 		&& !$target['replication_delays']
@@ -1729,7 +1747,11 @@ EOD;
 	/* Autovacuums */
 	if ($target['autovacuum_overview']
 		|| $target['autovacuum_io_summary']
-		|| $target['analyze_overview']) {
+		|| $targetList['vacuum_wal_statistics']
+		|| $targetList['analyze_overview']
+		|| $targetList['analyze_io_summary']
+		|| $targetList['modified_rows']
+		|| $targetList['cancellations']) {
 
 		$htmlString .=
 <<< EOD
@@ -1787,6 +1809,55 @@ EOD;
             pg_free_result($result);
 		}
 
+        if ($target['vacuum_wal_statistics']) {
+            $htmlString .=
+<<< EOD
+<div id="vacuum_wal_statistics" class="jump_margin"></div>
+<h3>Vacuum WAL Statistics</h3>
+<div align="right" class="jquery_ui_button_info_h3">
+  <div><button class="help_button" dialog="#vacuum_wal_statistics_dialog"></button></div>
+</div>
+
+
+EOD;
+            $result = pg_query_params($conn, $query_string['vacuum_wal_statistics'], $snapids);
+            if (!$result) {
+                return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
+            }
+
+            if (pg_num_rows($result) == 0) {
+			    $htmlString .= makeErrorTag($errorMsg['no_result']);
+            } else {
+			    $htmlString .= makeVacuumWalStatGraphHTML($result);
+			}
+			pg_free_result($result);
+        }
+
+		if ($target['vacuum_index_statistics']) {
+		    $htmlString .=
+<<< EOD
+<div id="vacuum_index_statistics" class="jump_margin"></div>
+<h3>Vacuum Index Statistics</h3>
+<div align="right" class="jquery_ui_button_info_h3">
+  <div><button class="help_button" dialog="#vacuum_index_statistics_dialog"></button></div>
+</div>
+
+
+EOD;
+			$result = pg_query_params($conn, $query_string['vacuum_index_statistics'], $snapids);
+			if (!$result) {
+                return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
+            }
+
+            if (pg_num_rows($result) == 0) {
+                $htmlString .= makeErrorTag($errorMsg['no_result']);
+            } else {
+                $htmlString .= makeTablePagerHTML($result, "vacuum_index_statistics", 10, true);
+            }
+            pg_free_result($result);
+		}
+
+
 		if ($target['analyze_overview']) {
 			$htmlString .=
 <<< EOD
@@ -1814,6 +1885,31 @@ EOD;
             }
             pg_free_result($result);
 		}
+
+		if ($target['analyze_io_summary']) {
+		    $htmlString .=
+<<< EOD
+<div id="analyze_io_summary" class="jump_margin"></div>
+<h3>Analyze I/O Summary</h3>
+<div align="right" class="jquery_ui_button_info_h3">
+  <div><button class="help_button" dialog="#analyze_io_summary_dialog"></button></div>
+</div>
+
+
+EOD;
+			$result = pg_query_params($conn, $query_string['analyze_io_summary'], $snapids);
+			if (!$result) {
+                return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
+            }
+
+            if (pg_num_rows($result) == 0) {
+                $htmlString .= makeErrorTag($errorMsg['no_result']);
+            } else {
+                $htmlString .= makeTablePagerHTML($result, "analyze_io_summary", 10, true);
+            }
+            pg_free_result($result);
+		}
+
 
 		if ($target['modified_rows']) {
 			$htmlString .=
@@ -2806,6 +2902,110 @@ EOD;
 
 	return $htmlString."</script>\n";
 
+}
+
+// Vacuum WAL Statistics Graph
+function makeVacuumWalStatGraphHTML($results)
+{
+
+	// make Graph Datalist
+	$data1 = ""; // wal_fpi
+	$data2 = ""; // wal_bytes
+
+    for($i = 0; $i < pg_num_rows($results); $i++) {
+	    $row = pg_fetch_array($results, NULL, PGSQL_NUM);
+		$data1 .= "    [new Date('".$row[0]."'), ".$row[1]."],\n";
+		$data2 .= "    [new Date('".$row[0]."'), ".$row[2]."],\n";
+	}
+
+	// make "WAL full page image" Graph
+	$htmlString =
+<<< EOD
+<table><tr><td rowspan="2">
+<div id="vacuum_wal_fpi_graph" class="linegraph"></div>
+</td><td>
+<div id="vacuum_wal_fpi_status" class="labels"></div>
+</td></tr>
+<tr><td><div class="graph_button">
+<button id="vacuum_wal_fpi_line">toggle checkpoint highlight</button>
+</div></td></tr>
+</table>
+<script type="text/javascript">
+var vacuum_wal_fpi_highlight = false;
+var vacuum_wal_fpi = new Dygraph(document.getElementById('vacuum_wal_fpi_graph'),[
+
+EOD;
+	$htmlString .= $data1;
+	$htmlString .= "  ],\n\n";
+
+    $htmlString .=
+<<< EOD
+  {
+    labelsDivStyles: { border: '1px solid black' },
+    labelsDiv: document.getElementById('vacuum_wal_fpi_status'),
+    labelsSeparateLines: true,
+    hideOverlayOnMouseOut: false,
+    legend: 'always',
+    xlabel: 'Time',
+	title: 'Full Page Image',
+	ylabel: 'full page image',
+	animatedZooms: true,
+    axes: {
+		  y: {axisLabelWidth: 70},
+	   },
+EOD;
+
+	$htmlString .= "    labels: [ ";
+	$htmlString .= "\"".pg_field_name($results, 0)."\",";
+	$htmlString .= "\"".pg_field_name($results, 1)."\",";
+	$htmlString .= " ],\n".makeCheckpointSetting("vacuum_wal_fpi");
+	$htmlString .= "</script>\n\n";
+
+	// make "WAL bytes" Graph
+	$htmlString .=
+<<< EOD
+<table><tr><td rowspan="2">
+<div id="vacuum_wal_bytes_graph" class="linegraph"></div>
+</td><td>
+<div id="vacuum_wal_bytes_status" class="labels"></div>
+</td></tr>
+<tr><td><div class="graph_button">
+<button id="vacuum_wal_bytes_line">toggle checkpoint highlight</button>
+</div></td></tr>
+</table>
+<script type="text/javascript">
+var vacuum_wal_bytes_highlight = false;
+var vacuum_wal_bytes = new Dygraph(document.getElementById('vacuum_wal_bytes_graph'),[
+
+EOD;
+	$htmlString .= $data2;
+	$htmlString .= "  ],\n\n";
+
+    $htmlString .=
+<<< EOD
+  {
+    labelsDivStyles: { border: '1px solid black' },
+    labelsDiv: document.getElementById('vacuum_wal_bytes_status'),
+    labelsSeparateLines: true,
+    hideOverlayOnMouseOut: false,
+    legend: 'always',
+    xlabel: 'Time',
+	title: 'WAL Bytes',
+	ylabel: 'WAL bytes',
+	animatedZooms: true,
+    axes: {
+		  y: {labelsKMG2: true, axisLabelWidth: 70},
+	   },
+EOD;
+
+	$htmlString .= "    labels: [ ";
+	$htmlString .= "\"".pg_field_name($results, 0)."\",";
+	$htmlString .= "\"".pg_field_name($results, 2)."\",";
+	$htmlString .= " ],\n".makeCheckpointSetting("vacuum_wal_bytes");
+	$htmlString .= "</script>\n\n";
+
+
+    return $htmlString;
 }
 
 function makePieGraphHTML($value, $id, $title)

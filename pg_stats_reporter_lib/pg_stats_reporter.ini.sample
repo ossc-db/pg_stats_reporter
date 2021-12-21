@@ -98,7 +98,10 @@ checkpoints = true                  ; Checkpoints
 ; -- Autovacuums --
 autovacuum_overview = true          ; Overview
 autovacuum_io_summary = true        ; I/O Summary
+vacuum_wal_statistics = true        ; Vacuum WAL Statistics
+vacuum_index_statistics = true      ; Vacuum Index Statistics
 analyze_overview = true             ; Analyze Overview
+analyze_io_summary = true           ; Analyze I/O Summary
 modified_rows = true                ; Modified Rows
 cancellations = true                ; Cancellations
 
@@ -203,7 +206,10 @@ profiles = false                    ; Profiles
 ;; -- Autovacuums --
 ;autovacuum_overview = true          ; Overview
 ;autovacuum_io_summary = true        ; I/O Summary
+;vacuum_wal_statistics = true        ; Vacuum WAL Statistics
+;vacuum_index_statistics = true      ; Vacuum Index Statistics
 ;analyze_overview = true             ; Analyze Overview
+;analyze_io_summary = true           ; Analyze I/O Summary
 ;modified_rows = true                ; Modified Rows
 ;cancellations = true                ; Cancellations
 ;

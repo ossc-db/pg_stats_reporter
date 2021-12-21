@@ -509,10 +509,16 @@
 <li><em>Schema</em>: このテーブルが属するスキーマの名前</li>
 <li><em>Table</em>: このテーブルの名前</li>
 <li><em>Count</em>: このテーブルに対して自動Vacuumが実行された回数</li>
+<li><em>Index scanned</em>: このテーブルに対する自動Vacuumでインデックススキャンが実行された回数</li>
+<li><em>Index skipped</em>: このテーブルに対する自動Vacuumでインデックススキャンがスキップされた回数</li>
 <li><em>Avg index scans</em>: 1つのテーブルに付随してスキャンしたインデックスの平均の数</li>
 <li><em>Avg removed rows</em>: 1回の自動Vacuumで削除された行のレポート期間を通した平均値</li>
 <li><em>Avg remain rows</em>: 1回の自動Vacuumの実行後に残った行のレポート期間を通じた平均値。この値は削除されなかったデットタプルの数を含みます</li>
 <li><em>Avg remain dead</em>: 1回の自動Vacuumの実行時に削除できなったデッドタプルの数のレポート期間を通じた平均値。pg_statsinfo 3.1以降かつ PostgreSQL 9.4以降でのみ有効</li>
+<li><em>Scan pages</em>: 1回の自動Vacuumの実行時にスキャンしたページのレポート期間を通した平均値</li>
+<li><em>Scan pages ratio</em>: 1回の自動Vacuumの実行時にスキャンしたページ割合のレポート期間を通した平均値</li>
+<li><em>Removed line pointer</em>: このテーブルに対する自動Vacuumでインデックススキャンが実行された場合の不要ラインポインタ数のレポート期間を通した平均値</li>
+<li><em>Dead line pointer</em>: このテーブルに対する自動Vacuumでインデックススキャンがスキップされた場合の不要ラインポインタ数のレポート期間を通した平均値</li>
 <li><em>Avg duration</em>: 自動Vacuumの1回あたりの所要時間のレポート期間を通した平均値 (秒)</li>
 <li><em>Max duration</em>: 自動Vacuumの所要時間のレポート期間中の最大値 (秒)</li>
 <li><em>Cancels</em>: レポート期間中にキャンセルされた自動Vacuumの回数。pg_statsinfo 3.1以降かつ PostgreSQL 9.4以降でのみ有効</li>
@@ -544,6 +550,47 @@
 <li><em>Avg page dirtied</em>: 1回の自動Vacuum毎に内容を変更したページ数のレポート期間中の平均値</li>
 <li><em>Avg read rate</em>: 自動Vacuum中のディスク読み込み速度のレポート期間中の平均値 (MB/s)</li>
 <li><em>Avg write rate</em>: 自動Vacuum中のディスク書き込み速度のレポート期間中の平均値 (MB/s)</li>
+<li><em>Avg read duration</em>: 自動Vacuum中の読み込み時間の平均値(ms)</li>
+<li><em>Avg write duration</em>: 自動Vacuum中の書き込み時間の平均値(ms)</li>
+</ul>
+</div>
+
+<div id="vacuum_wal_statistics_dialog" class="help_dialog"
+  title="The Vacuum WAL Statistics Graph">
+<h4>Full Page ImageグラフはVACUUMで発生したフルページイメージのWAL書き出し数の推移を示します。</h4>
+<h4>軸の説明</h4>
+<ul>
+<li><em>横軸</em>: 時刻</li>
+<li><em>縦軸</em>: フルページイメージのWAL書き出しページ数</li>
+</ul>
+<h4>凡例</h4>
+<ul>
+<li><em>WAL full page image</em>: フルページイメージのWAL書き出しページ数</li>
+</ul>
+<h4>WAL BytesグラフはVACUUMで出力したWAL量の推移を示します。</h4>
+<h4>軸の説明</h4>
+<ul>
+<li><em>横軸</em>: 時刻</li>
+<li><em>縦軸</em>: 出力したWAL量(bytes)</li>
+</ul>
+<h4>凡例</h4>
+<ul>
+<li><em>WAL bytes</em>: 出力したWAL量</li>
+</ul>
+</div>
+
+<div id="vacuum_index_statistics_dialog" class="help_dialog"
+  title="The Vacuum Index Statistics Table">
+<h4>この表は自動Vacuum の活動を示します。各行は自動Vacuumが行われたことがログに出力されているインデックスひとつに対応しています。</h4>
+<ul>
+<li><em>Database</em>: このインデックスがあるデータベースの名前</li>
+<li><em>Schema</em>: このインデックスが属するスキーマの名前</li>
+<li><em>Table</em>: このインデックスが属するテーブルの名前</li>
+<li><em>Index</em>: このインデックスの名前</li>
+<li><em>Count</em>: このインデックスに対して自動Vacuumが実行された回数</li>
+<li><em>Avg page total</em>: 1回の自動Vacuumでバキュームの対象となったインデックスページ数のレポート期間を通した平均値</li>
+<li><em>Avg page new delete</em>: 1回の自動Vacuumで削除されたインデックスページ数のレポート期間を通した平均値</li>
+<li><em>Avg page reuse</em>: 1回の自動Vacuumで再利用可能となったインデックスページ数のレポート期間を通した平均値</li>
 </ul>
 </div>
 
@@ -561,6 +608,23 @@
 <li><em>Last analyzed</em>: このテーブルに対して行われた直近の自動Analyzeの時刻。pg_statsinfo 3.0以降でのみ有効</li>
 <li><em>Cancels</em>: このテーブルに対する自動Analyzeがレポート期間中にキャンセルされた回数。pg_statsinfo 3.1以降でのみ有効</li>
 <li><em>Max modified rows</em>: 自動Vacuum の実行間隔に更新された行数の最大値。pg_statsinfo 3.1以降かつ PostgreSQL 9.4以降で有効</li>
+</ul>
+</div>
+
+<div id="analyze_io_summary_dialog" class="help_dialog"
+  title="The Analyze I/O Summary Table">
+<h4>この表は自動AnalyzeのI/O統計を示します。各行は自動Analyzeのログで示されるテーブルひとつに対応しています。</h4>
+<ul>
+<li><em>Database</em>: このテーブルがあるデータベースの名前</li>
+<li><em>Schema</em>: このテーブルが属するスキーマの名前</li>
+<li><em>Table</em>: このテーブルの名前</li>
+<li><em>Avg page hit</em>: 1回の自動Analyze毎に共有バッファから読み込んだページ数のレポート期間中の平均値</li>
+<li><em>Avg page miss</em>: 1回の自動Analyze毎にディスクから読み込んだページ数のレポート期間中の平均値</li>
+<li><em>Avg page dirtied</em>: 1回の自動Analyze毎に内容を変更したページ数のレポート期間中の平均値</li>
+<li><em>Avg read rate</em>: 自動Analyze中のディスク読み込み速度のレポート期間中の平均値 (MB/s)</li>
+<li><em>Avg write rate</em>: 自動Analyze中のディスク書き込み速度のレポート期間中の平均値 (MB/s)</li>
+<li><em>Avg read duration</em>: 自動Analyze中の読み込み時間の平均値(ms)</li>
+<li><em>Avg write duration</em>: 自動Analyze中の書き込み時間の平均値(ms)</li>
 </ul>
 </div>
 
