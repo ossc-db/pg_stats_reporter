@@ -1080,7 +1080,7 @@ EOD;
 			} else {
 				$opt = array();
 				array_push($opt, "title: 'Backend States'");
-				array_push($opt, "ylabel: 'Percent'");
+				array_push($opt, "ylabel: 'Backends'");
 				$htmlString .= makeSimpleLineGraphHTML($result, "backend_states", $opt, true, false);
 			}
 			pg_free_result($result);

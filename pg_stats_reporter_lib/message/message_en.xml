@@ -172,14 +172,14 @@ the another shows the amount divided by the snapshot interval.</h4>
 <h4>Axes</h4>
 <ul>
 <li><em>Horizontal axis</em>: Time</li>
-<li><em>Vertial axis</em>: Percentage</li>
+<li><em>Vertial axis</em>: Number of backend</li>
 </ul>
 <h4>Legend</h4>
 <ul>
-<li><em>idle</em>: Percentage of time spent by the backends waiting a new client command</li>
-<li><em>idle in xact</em>: Percentage of time spent by the backends waiting a command in a transaction</li>
-<li><em>waiting</em>: Percentage of time spent by the backends waiting on a lock</li>
-<li><em>running</em>: Percentage of time spent by the backends executing a query</li>
+<li><em>idle</em>: Number of the backends waiting a new client command</li>
+<li><em>idle in xact</em>: Number of the backends waiting a command in a transaction</li>
+<li><em>waiting</em>: Number of the backends waiting on a lock</li>
+<li><em>running</em>: Number of the backends executing a query</li>
 </ul>
 <p>This graph shows average for every snapshot interval of the percentage of states collected by the interval specified with the configuration parameter pg_statsinfo.sampling_interval (5 seconds by default).</p>
 </div>
