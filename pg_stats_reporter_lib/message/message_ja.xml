@@ -84,10 +84,10 @@
 <ul>
 <li><em>Total size</em>: レポート期間中に出力された先行書き込みログ(WAL または XLOG)の合計サイズ (MiB)</li>
 <li><em>Average output rate</em>: WALの出力速度のレポート期間中の平均 (MiB/秒)</li>
-<li><em>Number of archived files</em>: レポート期間中にアーカイブに成功したWALファイルの数。 pg_statsinfo 3.1以降かつ PostgreSQL 9.4 以降でのみ有効</li>
-<li><em>Number of arching errors</em>: レポート期間中にアーカイブに失敗した回数。 pg_statsinfo 3.1以降かつ PostgreSQL 9.4 以降でのみ有効</li>
-<li><em>Latest WAL file</em>: 現在書き込み中のWALセグメントファイル名。 pg_statsinfo 3.1以降のみで有効</li>
-<li><em>Last archived file</em>: 最後にアーカイブされたWALセグメントファイル名。 pg_statsinfo 3.1以降かつ PostgreSQL 9.4 以降でのみ有効</li>
+<li><em>Number of archived files</em>: レポート期間中にアーカイブに成功したWALファイルの数</li>
+<li><em>Number of arching errors</em>: レポート期間中にアーカイブに失敗した回数</li>
+<li><em>Latest WAL file</em>: 現在書き込み中のWALセグメントファイル名</li>
+<li><em>Last archived file</em>: 最後にアーカイブされたWALセグメントファイル名</li>
 </ul>
 <h4>このグラフはWAL出力速度の推移を示します。一方の線はスナップショット期間ごとに出力された量を示し、もう一方はそれをスナップショット期間で割った値を示します。</h4>
 <h4>軸の説明</h4>
@@ -250,12 +250,12 @@
 <li><em>Containing table spaces</em>: このデバイスに置かれているテーブルスペース</li>
 <li><em>Read</em>: 読み込み統計<ul>
 <li><em>Total bytes (MiB)</em>: レポート期間内に読み込んだ総バイト数</li>
-<li><em>Peak rate (KiB/s)</em>: 読み込み速度の最大値 (KiB/秒) pg_statsinfo 3.1以降でのみ有効</li>
+<li><em>Peak rate (KiB/s)</em>: 読み込み速度の最大値 (KiB/秒)</li>
 <li><em>Total time (ms)</em>: 読み込みの所要時間のレポート期間での合計 (ミリ秒)</li>
 </ul></li>
 <li><em>Write</em>: 書き込み統計<ul>
 <li><em>Total bytes (MiB)</em>: レポート期間内に書き込んだ総バイト数 (MiB)</li>
-<li><em>Peak rate (KiB/s)</em>: 書き込み速度の最大値 (KiB/秒) pg_statsinfo 3.1以降でのみ有効</li>
+<li><em>Peak rate (KiB/s)</em>: 書き込み速度の最大値 (KiB/秒)</li>
 <li><em>Total time (ms)</em>: 書き込みの所要時間の合計 (ミリ秒)</li>
 </ul></li>
 <li><em>Average I/O queue</em>: I/Oキューの長さのレポート期間での平均値</li>
@@ -273,7 +273,7 @@
 <li><em>[デバイス名] read</em>: 読み込み速度 (Bytes/秒)</li>
 <li><em>[デバイス名] write</em>: 書き込み速度 (Bytes/秒)</li>
 </ul>
-<h4>I/O Peak Rate グラフはスナップショット毎の読書速度の最大値の推移を示します。値はスナップショット期間内の最大値です。pg_statsinfo 3.1以降でのみ有効です。</h4>
+<h4>I/O Peak Rate グラフはスナップショット毎の読書速度の最大値の推移を示します。値はスナップショット期間内の最大値です。</h4>
 <h4>軸の説明</h4>
 <ul>
 <li><em>横軸</em>: 時刻</li>
@@ -435,23 +435,23 @@
   title="The Plans Table">
 <h4>この表の各行は実行計画毎の実行統計を示します。"QueryID"の値をクリックすると実行計画毎の統計が表示されます。この機能を利用するには pg_stat_statements と pg_store_plans をインストールする必要があります。</h4>
 <ul>
-<li><em>Query ID</em>: この問い合わせ文のハッシュ値. PostgreSQL 9.4以降では pg_stat_statements が算出した値、それ以外では pg_store_plans 自身が算出した値となります。 そのため、PostgreSQLの古いバージョンでの問い合わせ文の同定は pg_stat_statement と異なる場合があります。</li>
+<li><em>Query ID</em>: この問い合わせ文のハッシュ値</li>
 <li><em>User</em>: この問い合わせを実行したユーザの名前</li>
 <li><em>Database</em>: この問い合わせが実行されたデータベースの名前</li>
 <li><em>Plan count</em>: この問い合わせに関して実行された実行計画の数</li>
 <li><em>Calls</em>: この問い合わせのレポート期間中の実行回数</li>
-<li><em>Total time</em>: この問い合わせの実行に要した時間のレポート期間中の合計 (秒)</li>
-<li><em>Time/call</em>: この問い合わせの実行1回あたりに要した時間のレポート期間中の平均値 (秒)</li>
-<li><em>Block read time</em>: この問い合わせの実行に際してブロック読み込みに要した時間のレポート期間中の合計 (秒)。この項目と次の項目の取得には track_io_timing を有効にしておく必要があります。</li>
-<li><em>Block write time</em>: この問い合わせの実行に際してブロック書き込みに要した時間のレポート期間中の合計 (秒)</li>
+<li><em>Total time (s)</em>: この問い合わせの実行に要した時間のレポート期間中の合計 (秒)</li>
+<li><em>Time/call (s)</em>: この問い合わせの実行1回あたりに要した時間のレポート期間中の平均値 (秒)</li>
+<li><em>Block read time (ms)</em>: この問い合わせの実行に際してブロック読み込みに要した時間のレポート期間中の合計 (ミリ秒)。この項目と次の項目の取得には track_io_timing を有効にしておく必要があります。</li>
+<li><em>Block write time (ms)</em>: この問い合わせの実行に際してブロック書き込みに要した時間のレポート期間中の合計 (ミリ秒)</li>
 <li><em>Query</em>: 実行計画の一覧に対応する問い合わせ文 Query ID をクリックすると現れます</li>
 <li><em>Plan details</em>: 実行計画毎の実行統計。 Query ID をクリックすると現れます<ul>
   <li><em>Plan ID</em>: この実行計画のハッシュ値</li>
   <li><em>Calls</em>: この実行計画がレポート期間中に実行された回数</li>
-  <li><em>Total time</em>: この実行計画の実行に要した時間のレポート期間中の合計 (秒)</li>
-  <li><em>Time/call</em>: この実行計画の実行1回あたりに要した時間のレポート期間中の平均値 (秒)</li>
-  <li><em>Block read time</em>: この実行計画の実行に際してブロック読み込みに要した時間のレポート期間中の合計 (秒)。この項目と次の項目の取得には track_io_timing を有効にしておく必要があります。</li>
-  <li><em>Block write time</em>: この実行計画の実行に際してブロック書き込みに要した時間のレポート期間中の合計 (秒)</li>
+  <li><em>Total time (s)</em>: この実行計画の実行に要した時間のレポート期間中の合計 (秒)</li>
+  <li><em>Time/call (s)</em>: この実行計画の実行1回あたりに要した時間のレポート期間中の平均値 (秒)</li>
+  <li><em>Block read time (ms)</em>: この実行計画の実行に際してブロック読み込みに要した時間のレポート期間中の合計 (ミリ秒)。この項目と次の項目の取得には track_io_timing を有効にしておく必要があります。</li>
+  <li><em>Block write time (ms)</em>: この実行計画の実行に際してブロック書き込みに要した時間のレポート期間中の合計 (ミリ秒)</li>
   <li><em>First call</em>: この実行計画が最初に実行された時刻</li>
   <li><em>Last call</em>: この実行計画が最後に実行された時刻</li>
   <li><em>Plan</em>: 実行計画。実行計画中の値は最後に実行された際のものが表示されます。</li>
@@ -478,7 +478,7 @@
   <li><em>Database</em>: 　この衝突が発生したデータベースの名前</li>
   <li><em>Schema</em>: 　この衝突が発生したテーブルの属するスキーマの名前。テーブル以外で生している場合は空白になります。</li>
 <li><em>Relation</em>: この衝突が発生したテーブルの名前。テーブル以外で発生している場合は空白になります。</li>
-<li><em>Duration</em>: このロックを待っていた時間 (秒)</li>
+<li><em>Duration</em>: このロックを待っていた時間</li>
 <li><em>Blockee PID</em>: ブロックされているバックエンドのプロセスID</li>
 <li><em>Blocker PID</em>: ブロックしているバックエンドのプロセスID</li>
 <li><em>Blocker GID</em>: ブロックしているバックエンドのグループID</li>
@@ -514,14 +514,14 @@
 <li><em>Avg index scans</em>: 1つのテーブルに付随してスキャンしたインデックスの平均の数</li>
 <li><em>Avg removed rows</em>: 1回の自動Vacuumで削除された行のレポート期間を通した平均値</li>
 <li><em>Avg remain rows</em>: 1回の自動Vacuumの実行後に残った行のレポート期間を通じた平均値。この値は削除されなかったデットタプルの数を含みます</li>
-<li><em>Avg remain dead</em>: 1回の自動Vacuumの実行時に削除できなったデッドタプルの数のレポート期間を通じた平均値。pg_statsinfo 3.1以降かつ PostgreSQL 9.4以降でのみ有効</li>
+<li><em>Avg remain dead</em>: 1回の自動Vacuumの実行時に削除できなったデッドタプルの数のレポート期間を通じた平均値</li>
 <li><em>Scan pages</em>: 1回の自動Vacuumの実行時にスキャンしたページのレポート期間を通した平均値</li>
 <li><em>Scan pages ratio</em>: 1回の自動Vacuumの実行時にスキャンしたページ割合のレポート期間を通した平均値</li>
 <li><em>Removed line pointer</em>: このテーブルに対する自動Vacuumでインデックススキャンが実行された場合の不要ラインポインタ数のレポート期間を通した平均値</li>
 <li><em>Dead line pointer</em>: このテーブルに対する自動Vacuumでインデックススキャンがスキップされた場合の不要ラインポインタ数のレポート期間を通した平均値</li>
 <li><em>Avg duration</em>: 自動Vacuumの1回あたりの所要時間のレポート期間を通した平均値 (秒)</li>
 <li><em>Max duration</em>: 自動Vacuumの所要時間のレポート期間中の最大値 (秒)</li>
-<li><em>Cancels</em>: レポート期間中にキャンセルされた自動Vacuumの回数。pg_statsinfo 3.1以降かつ PostgreSQL 9.4以降でのみ有効</li>
+<li><em>Cancels</em>: レポート期間中にキャンセルされた自動Vacuumの回数</li>
 </ul>
 <div>この機能は自動Vacuumのログが必要です。log_autovacuum_min_duration を 0 に設定することで完全な情報を得られ、ログ出力を減らすと完全度は下がっていきます。</div></div>
 
@@ -605,9 +605,9 @@
 <li><em>Total duration</em>: このテーブルに対してレポート期間中に行われた自動Analyzeの所要時間の合計 (秒)</li>
 <li><em>Avg duration</em>: このテーブルに対して行われた自動Analyzeの1回あたりの所要時間のレポート期間を通した平均値 (秒)</li>
 <li><em>Max duration</em>: このテーブルに対してレポート期間中に行われた自動Analyzeのうちもっとも時間がかかったものの所要時間 (秒)</li>
-<li><em>Last analyzed</em>: このテーブルに対して行われた直近の自動Analyzeの時刻。pg_statsinfo 3.0以降でのみ有効</li>
-<li><em>Cancels</em>: このテーブルに対する自動Analyzeがレポート期間中にキャンセルされた回数。pg_statsinfo 3.1以降でのみ有効</li>
-<li><em>Max modified rows</em>: 自動Vacuum の実行間隔に更新された行数の最大値。pg_statsinfo 3.1以降かつ PostgreSQL 9.4以降で有効</li>
+<li><em>Last analyzed</em>: このテーブルに対して行われた直近の自動Analyzeの時刻</li>
+<li><em>Cancels</em>: このテーブルに対する自動Analyzeがレポート期間中にキャンセルされた回数</li>
+<li><em>Max modified rows</em>: 自動Vacuum の実行間隔に更新された行数の最大値</li>
 </ul>
 </div>
 
@@ -711,7 +711,7 @@
 <li><em>Schema</em>: このテーブルが属するスキーマの名前</li>
 <li><em>Table</em>: このテーブルの名前</li>
 <li><em>Columns</em>: このテーブルにあるユーザカラムの数</li>
-<li><em>Rows</em>: このテーブルに格納されている行の数。pg_statsinfo 3.0以降でのみ有効</li>
+<li><em>Rows</em>: このテーブルに格納されている行の数</li>
 <li><em>MiB</em>: レポート時間の終わり時点でのこのテーブルのサイズ (MiB)</li>
 <li><em>+MiB</em>: レポート期間中のこのテーブルのサイズの増減 (MiB)</li>
 <li><em>Table scans</em>: レポート期間中にこのテーブルに対して行われたシーケンシャルスキャの回数</li>
