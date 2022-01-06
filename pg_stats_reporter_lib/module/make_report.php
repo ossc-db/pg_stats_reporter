@@ -213,7 +213,7 @@ EOD;
 			if ($targetList['write_ahead_logs'])
 				$html_string .= "<li><a href=\"#write_ahead_logs\">Write Ahead Logs</a></li>\n";
 			if ($targetList['wal_statistics'])
-				$html_string .= "<li><a href=\"#wal_statistics\">WAL statistics</a></li>\n";
+				$html_string .= "<li><a href=\"#wal_statistics\">WAL Statistics</a></li>\n";
 			if ($targetList['backend_states_overview'])
 				$html_string .= "<li><a href=\"#backend_states_overview\">Backend States Overview</a></li>\n";
 			if ($targetList['backend_states'])
@@ -333,7 +333,7 @@ EOD;
 		$html_string .= "</ul></li>\n";
 	}
 
-	/* Maintenance */
+	/* Maintenances */
 	if ($targetList['checkpoints']
 		|| $targetList['autovacuum_overview']
 		|| $targetList['autovacuum_io_summary']
@@ -347,7 +347,7 @@ EOD;
 		|| $targetList['replication_delays']
 		|| $targetList['replication_slots']) {
 
-		$html_string .= "<li><a href=\"#activities\">Maintenance</a><ul>\n";
+		$html_string .= "<li><a href=\"#activities\">Maintenances</a><ul>\n";
 
 		/* Checkpoints */
 		if ($targetList['checkpoints'])
@@ -397,7 +397,7 @@ EOD;
 			if($targetList['replication_delays'])
 				$html_string .= "<li><a href=\"#replication_delays\">Delays</a></li>\n";
 			if($targetList['replication_slots'])
-				$html_string .= "<li><a href=\"#replication_slots\">Replication slots statistics</a></li>\n";
+				$html_string .= "<li><a href=\"#replication_slots\">Replication Slots Statistics</a></li>\n";
 
 
 			$html_string .= "</ul></li>\n";
@@ -432,7 +432,7 @@ EOD;
 
 			$html_string .= "<li><a href=\"#setting_parameters\">Settings</a><ul>\n";
 
-			$html_string .= "<li><a href=\"#runtime_params\">Run-time paramters</a></li>\n";
+			$html_string .= "<li><a href=\"#runtime_params\">Run-time Paramters</a></li>\n";
 
 			$html_string .= "</ul></li>\n";
 		}
@@ -500,7 +500,7 @@ function makePlainHeaderMenu()
   </ul></li>
   <li><a>Instance Statistics</a><ul>
     <li><a>Write Ahead Logs</a></li>
-    <li><a>WAL statistics</a></li>
+    <li><a>WAL Statistics</a></li>
     <li><a>Backend States Overview</a></li>
     <li><a>Backend States</a></li>
     <li><a>Background Writer Statistics</a></li>
@@ -533,7 +533,7 @@ function makePlainHeaderMenu()
   <li><a>Long Transactions</a></li>
   <li><a>Lock Conflicts</a></li>
 </ul></li>
-<li><a>Maintenance</a><ul>
+<li><a>Maintenances</a><ul>
   <li><a>Checkpoints</a></li>
   <li><a>Autovacuums</a><ul>
     <li><a>Overview</a></li>
@@ -548,7 +548,7 @@ function makePlainHeaderMenu()
   <li><a>Replication</a><ul>
     <li><a>Overview</a></li>
     <li><a>Delays</a></li>
-    <li><a>Replication slots statistics</a></li>
+    <li><a>Replication Slots Statistics</a></li>
   </ul></li>
 </ul></li>
 <li><a>Misc</a><ul>
@@ -723,7 +723,7 @@ EOD;
 	/* Activities */
 	$html_string .= makeSQLReport($conn, $targetData, $snapids, $error_message);
 
-	/* Maintenance */
+	/* Maintenances */
 	$html_string .= makeActivitiesReport($conn, $targetData, $snapids, $error_message);
 
 	/* Miscellaneous */
@@ -902,7 +902,7 @@ EOD;
 				makeTupleListForDygraphs($result, $name, $value);
 				$opt = array();
 				array_push($opt, "title: 'Transactions'");
-				array_push($opt, "ylabel: 'Transactions per second'");
+				array_push($opt, "ylabel: 'Transactions (tps)'");
 				array_push($opt, "labelsKMB: true");
 				$htmlString .= makeLineGraphHTML($name, $value, "transactions", $opt);
 			}
@@ -1015,7 +1015,7 @@ EOD;
 			$htmlString .=
 <<< EOD
 <div id="wal_statistics" class="jump_margin"></div>
-<h3>WAL statistics</h3>
+<h3>WAL Statistics</h3>
 <div align="right" class="jquery_ui_button_info_h3">
   <div><button class="help_button" dialog="#wal_statistics_dialog"></button></div>
 </div>
@@ -1694,7 +1694,7 @@ EOD;
 	return $htmlString;
 }
 
-/* Maintenance */
+/* Maintenances */
 function makeActivitiesReport($conn, $target, $snapids, $errorMsg)
 {
 	global $query_string;
@@ -1935,7 +1935,7 @@ EOD;
                 makeTupleListForDygraphs($result, $name, $value);
                 $opt = array();
                 array_push($opt, "title: 'Modified Rows'");
-                array_push($opt, "ylabel: 'Modified rows (%)'");
+                array_push($opt, "ylabel: 'Modified Rows (%)'");
                 $htmlString .= makeLineGraphHTML($name, $value, "modified_rows", $opt);
             }
             pg_free_result($result);
@@ -2050,7 +2050,7 @@ EOD;
 	   $htmlString .=
 <<< EOD
 <div id="replication_slots" class="jump_margin"></div>
-<h3>Replication slots statistics</h3>
+<h3>Replication Slots Statistics</h3>
 <div align="right" class="jquery_ui_button_info_h3">
   <div><button class="help_button" dialog="#replication_slots_dialog"></button></div>
 </div>
@@ -2159,7 +2159,7 @@ EOD;
 <div id="setting_parameters" class="jump_margin"></div>
 <h2>Settings</h2>
 <div id="runtime_params" class="jump_margin"></div>
-<h3>Run-time parameters</h3>
+<h3>Run-time Parameters</h3>
 <div align="right" class="jquery_ui_button_info_h3">
   <div><button class="help_button" dialog="#runtime_params_dialog"></button></div>
 </div>
@@ -2566,7 +2566,7 @@ function makeStatWALGraphHTML($results)
 {
 
 	// make Graph Datalist
-	$data1 = ""; // WAL size
+	$data1 = ""; // WAL Size
 	$data2 = ""; // Buffer full
 	$data3 = ""; // WAL I/O request
 	$data4 = ""; // WAL I/O time
@@ -2580,7 +2580,7 @@ function makeStatWALGraphHTML($results)
 		$data4 .= "    [new Date('".$row[0]."'), ".$row[6].", ".$row[7]."],\n";
 	}
 
-	// make WAL size Graph
+	// make WAL Size Graph
 	$htmlString = 
 <<< EOD
 <table><tr><td rowspan="2">
@@ -2610,9 +2610,9 @@ EOD;
     hideOverlayOnMouseOut: false,
     legend: 'always',
     xlabel: 'Time',
-	title: 'WAL size',
-	ylabel: 'Full page images',
-	y2label: 'WAL bytes',
+	title: 'WAL Size',
+	ylabel: 'Full Page Images',
+	y2label: 'WAL Bytes',
 	animatedZooms: true,
     axes: {
 		  y: {axisLabelWidth: 70},
@@ -2631,7 +2631,7 @@ EOD;
 	$htmlString .= " ],\n".makeCheckpointSetting("wal_size");
 	$htmlString .= "</script>\n\n";
 
-	// make Buffers full Graph
+	// make Buffers Full Graph
 	$htmlString .= 
 <<< EOD
 <table><tr><td rowspan="2">
@@ -2661,8 +2661,8 @@ EOD;
     hideOverlayOnMouseOut: false,
     legend: 'always',
     xlabel: 'Time',
-	title: 'Buffers full',
-	ylabel: 'WAL buffers full',
+	title: 'Buffers Full',
+	ylabel: 'WAL Buffers Full',
 	animatedZooms: true,
     axes: {
 		  y: {axisLabelWidth: 70},
@@ -2677,7 +2677,7 @@ EOD;
 	$htmlString .= "</script>\n\n";
 
 
-	// make WAL I/O request Graph
+	// make WAL I/O Request Graph
 	$htmlString .= 
 <<< EOD
 <table><tr><td rowspan="2">
@@ -2707,8 +2707,8 @@ EOD;
     hideOverlayOnMouseOut: false,
     legend: 'always',
     xlabel: 'Time',
-	title: 'WAL I/O request',
-	ylabel: 'I/O request',
+	title: 'WAL I/O Request',
+	ylabel: 'I/O Request',
 	animatedZooms: true,
     axes: {
 		  y: {axisLabelWidth: 70},
@@ -2724,7 +2724,7 @@ EOD;
 	$htmlString .= "</script>\n\n";
 
 
-	// make WAL I/O time Graph
+	// make WAL I/O Time Graph
 	$htmlString .= 
 <<< EOD
 <table><tr><td rowspan="2">
@@ -2754,8 +2754,8 @@ EOD;
     hideOverlayOnMouseOut: false,
     legend: 'always',
     xlabel: 'Time',
-	title: 'WAL I/O time',
-	ylabel: 'I/O time',
+	title: 'WAL I/O Time',
+	ylabel: 'I/O Time',
 	animatedZooms: true,
     axes: {
 		  y: {axisLabelWidth: 70},
@@ -2816,8 +2816,8 @@ EOD;
     legend: 'always',
     xlabel: 'Time',
 	title: 'WAL Write Rate',
-	ylabel: 'Bytes per snapshot',
-	y2label: 'Write rate (Bytes/s)',
+	ylabel: 'Bytes per Snapshot',
+	y2label: 'Write Rate (Bytes/s)',
 	animatedZooms: true,
     axes: {
 		  y: {labelsKMG2: true, axisLabelWidth: 70},
@@ -2881,7 +2881,7 @@ EOD;
     legend: 'always',
     xlabel: 'Time',
 	title: 'Background Writer Statistics',
-	ylabel: 'Buffer rate (buffers/s)',
+	ylabel: 'Buffer Rate (buffers/s)',
 	y2label: 'Frequency (s<sup>-1</sup>)',
 	animatedZooms: true,
     axes: {
@@ -2948,7 +2948,7 @@ EOD;
     legend: 'always',
     xlabel: 'Time',
 	title: 'Full Page Image',
-	ylabel: 'full page image',
+	ylabel: 'Full Page Image',
 	animatedZooms: true,
     axes: {
 		  y: {axisLabelWidth: 70},
@@ -2991,7 +2991,7 @@ EOD;
     legend: 'always',
     xlabel: 'Time',
 	title: 'WAL Bytes',
-	ylabel: 'WAL bytes',
+	ylabel: 'WAL Bytes',
 	animatedZooms: true,
     axes: {
 		  y: {labelsKMG2: true, axisLabelWidth: 70},

@@ -74,8 +74,8 @@ function makePlansTablePagerHTML($conn, $result, $snapids, $errorMsg) {
   <th>Database</th>
   <th>Plan count</th>
   <th>Calls</th>
-  <th>Total time (sec)</th>
-  <th>Time/call (sec)</th>
+  <th>Total time (s)</th>
+  <th>Time/call (s)</th>
   <th>Block read time (ms)</th>
   <th>Block write time (ms)</th>
 </tr>
@@ -213,7 +213,7 @@ function createPlanRow(&$htmlString, $childHtmlString, $rowData)
 
 	/* plan data (child row) */
 	$htmlString .= "<tr class=\"tablesorter-childRow\">\n";
-	$htmlString .= "<td colspan=\"8\"><table style=\"table-layout:fixed\" class=\"tablesorter childRowTable\"><thead><tr><th rowspan=\"2\">Plan ID</th><th>Calls</th><th>Total time (sec)</th><th>Time/call (sec)</th><th>Block read time (ms)</th><th>Block write time (ms)</th><th>First call</th><th>Last call</th></tr><tr><th colspan=\"7\">Plan (child row)</th></tr></thead><tbody>\n";
+	$htmlString .= "<td colspan=\"8\"><table style=\"table-layout:fixed\" class=\"tablesorter childRowTable\"><thead><tr><th rowspan=\"2\">Plan ID</th><th>Calls</th><th>Total time (s)</th><th>Time/call (s)</th><th>Block read time (ms)</th><th>Block write time (ms)</th><th>First call</th><th>Last call</th></tr><tr><th colspan=\"7\">Plan (child row)</th></tr></thead><tbody>\n";
 	$htmlString .= $childHtmlString;
 	$htmlString .= "</tbody></table></td>\n";
 	$htmlString .= "</tr>\n\n";

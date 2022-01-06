@@ -82,8 +82,8 @@
   title="The Write Ahead Logs Table and The WAL Write Rate Graph">
 <h4>この表は先行書き込みログ(WAL)の概要を示します。</h4>
 <ul>
-<li><em>Total size</em>: レポート期間中に出力された先行書き込みログ(WAL または XLOG)の合計サイズ (MiB)</li>
-<li><em>Average output rate</em>: WALの出力速度のレポート期間中の平均 (MiB/秒)</li>
+<li><em>Total size (MiB)</em>: レポート期間中に出力された先行書き込みログ(WAL または XLOG)の合計サイズ (MiB)</li>
+<li><em>Average output rate (MiB/s)</em>: WALの出力速度のレポート期間中の平均 (MiB/秒)</li>
 <li><em>Number of archived files</em>: レポート期間中にアーカイブに成功したWALファイルの数</li>
 <li><em>Number of arching errors</em>: レポート期間中にアーカイブに失敗した回数</li>
 <li><em>Latest WAL file</em>: 現在書き込み中のWALセグメントファイル名</li>
@@ -105,7 +105,7 @@
 
 <div id="wal_statistics_dialog" class="help_dialog"
   title="The WAL Statistics Graph">
-<h4>WAL sizeグラフはWAL出力の推移を示します。一方の線はスナップショット期間ごとに出力されたフルページイメージの数を示し、もう一方はスナップショット期間ごとに出力された量を示します。</h4>
+<h4>WAL SizeグラフはWAL出力の推移を示します。一方の線はスナップショット期間ごとに出力されたフルページイメージの数を示し、もう一方はスナップショット期間ごとに出力された量を示します。</h4>
 <h4>軸の説明</h4>
 <ul>
 <li><em>横軸</em>: 時刻</li>
@@ -117,7 +117,7 @@
 <li><em>WAL full page images</em>: 出力されたフルページイメージの数</li>
 <li><em>WAL bytes</em>: WAL出力量</li>
 </ul>
-<h4>Buffer fullグラフはWALバッファあふれによるWALデータの書き込み回数の推移を示します。</h4>
+<h4>Buffer FullグラフはWALバッファあふれによるWALデータの書き込み回数の推移を示します。</h4>
 <h4>軸の説明</h4>
 <ul>
 <li><em>横軸</em>: 時刻</li>
@@ -127,7 +127,7 @@
 <ul>
 <li><em>WAL buffers full</em>: WALバッファあふれの回数</li>
 </ul>
-<h4>WAL I/O requestグラフはスナップショット期間ごとのWAL I/Oリクエスト数の推移を示します。</h4>
+<h4>WAL I/O Requestグラフはスナップショット期間ごとのWAL I/Oリクエスト数の推移を示します。</h4>
 <h4>軸の説明</h4>
 <ul>
 <li><em>横軸</em>: 時刻</li>
@@ -138,7 +138,7 @@
 <li><em>WAL write</em>: WAL出力リクエスト数</li>
 <li><em>WAL sync</em>: WAL同期リクエスト数</li>
 </ul>
-<h4>WAL I/O timeグラフはスナップショット期間ごとのI/O時間の合計の推移を示します。</h4>
+<h4>WAL I/O Timeグラフはスナップショット期間ごとのI/O時間の合計の推移を示します。</h4>
 <h4>軸の説明</h4>
 <ul>
 <li><em>横軸</em>: 時刻</li>
@@ -186,8 +186,8 @@
 <ul>
 <li><em>Written buffers by bgwriter</em>: バックグラウンドライタにより書き出されたバッファ数の一秒あたりの平均値</li>
 <li><em>Written buffers by backends</em>: バックエンドにより直接書き出されたバッファ数の一秒あたりの平均値</li>
-<li><em>bgwriter scans quitted earlier</em>: 書き出したバッファ数が多過ぎたために、バックグラウンドライタによるバッファ回収のスキャンを途中で終了した回数の一秒あたりの平均値</li>
-<li><em>fsyncs executed on backends</em>: チェックポインタでの処理が間に合わずバックエンドが自身で実行することになった fsync 呼び出しの回数の一秒あたりの平均値</li>
+<li><em>Bgwriter scans quitted earlier</em>: 書き出したバッファ数が多過ぎたために、バックグラウンドライタによるバッファ回収のスキャンを途中で終了した回数の一秒あたりの平均値</li>
+<li><em>Fsyncs executed on backends</em>: チェックポインタでの処理が間に合わずバックエンドが自身で実行することになった fsync 呼び出しの回数の一秒あたりの平均値</li>
 <li><em>Allocated buffers</em>: 割当られたバッファ数の一秒あたりの平均値</li>
 </ul>
 <h4>このグラフは、バックグラウンドライタプロセスの活動状況の推移を示します。</h4>
@@ -322,9 +322,9 @@
 <li><em>Tablespace</em>: テーブルスペース名</li>
 <li><em>Location</em>: テーブルスペースを格納しているディレクトリパス</li>
 <li><em>Device</em>: デバイスのメジャー/マイナー番号</li>
-<li><em>Used</em>: デバイス内で使用中のディスク容量 (MiB)</li>
-<li><em>Avail</em>: 利用可能なディスク容量 (MiB)</li>
-<li><em>Remain</em>: デバイスの総容量に対する利用可能な領域の割合 (%)</li>
+<li><em>Used (MiB)</em>: デバイス内で使用中のディスク容量 (MiB)</li>
+<li><em>Avail (MiB)</em>: 利用可能なディスク容量 (MiB)</li>
+<li><em>Remain (%)</em>: デバイスの総容量に対する利用可能な領域の割合 (%)</li>
 </ul>
 ※小さな値は切り捨てにより0と表示される場合があります
 </div>
@@ -336,7 +336,7 @@
 <li><em>Database</em>: このテーブルが含まれるデータベースの名前</li>
 <li><em>Schema</em>: このテーブルが属するスキーマの名前</li>
 <li><em>Table</em>: このテーブルの名前</li>
-<li><em>Size</em>: このテーブルのサイズ (MiB)</li>
+<li><em>Size (MiB)</em>: このテーブルのサイズ (MiB)</li>
 <li><em>Table reads</em>: このテーブルのアクセスの際にディスクから読み込んだPostgreSQLディスクブロック数</li>
 <li><em>Index reads</em>: このテーブルのすべてのインデックスへのアクセスの際にディスクから読み込んだPostgreSQLブロック数</li>
 <li><em>Toast reads</em>: このテーブルのTOASTテーブル(もしあれば)のアクセスの際にディスクから読み込んだPostgreSQLブロック数</li>
@@ -409,9 +409,9 @@
 <li><em>Schema</em>: この関数が属するスキーマの名前</li>
 <li><em>Function</em>: この関数の名前</li>
 <li><em>Calls</em>: この関数がレポート期間中に呼ばれた回数</li>
-<li><em>Total time</em>: この関数とこの関数が呼び出した他の関数全体でのレポート期間を通した累積の消費時間 (ミリ秒)</li>
-<li><em>Self time</em>: この関数自身のレポート期間を通した累積消費時間 (ミリ秒)</li>
-<li><em>Time/call</em>: この関数の1実行当たりの消費時間のレポート期間中の平均値 (ミリ秒)</li>
+<li><em>Total time (ms)</em>: この関数とこの関数が呼び出した他の関数全体でのレポート期間を通した累積の消費時間 (ミリ秒)</li>
+<li><em>Self time (ms)</em>: この関数自身のレポート期間を通した累積消費時間 (ミリ秒)</li>
+<li><em>Time/call (ms)</em>: この関数の1実行当たりの消費時間のレポート期間中の平均値 (ミリ秒)</li>
 </ul>
 </div>
 
@@ -423,11 +423,11 @@
 <li><em>Database</em>: この問い合わせが実行されたデータベースの名前</li>
 <li><em>Query</em>: 問い合わせ文</li>
 <li><em>Calls</em>: この問い合わせが実行された回数</li>
-<li><em>Total execution time</em>: この問い合わせの実行に要した時間の合計 (秒)</li>
-<li><em>Average execution time</em>: この問い合わせの実行に要した時間の平均 (秒)</li>
+<li><em>Total execution time (s)</em>: この問い合わせの実行に要した時間の合計 (秒)</li>
+<li><em>Average execution time (s)</em>: この問い合わせの実行に要した時間の平均 (秒)</li>
 <li><em>Plans</em>: この問い合わせの実行計画が作成された回数</li>
-<li><em>Total planning time</em>: この問い合わせで実行計画の作成に要した時間の合計 (秒)</li>
-<li><em>Average planning time</em>:この問い合わせで実行計画の作成に要した時間の平均 (秒)</li>
+<li><em>Total planning time (s)</em>: この問い合わせで実行計画の作成に要した時間の合計 (秒)</li>
+<li><em>Average planning time (s)</em>:この問い合わせで実行計画の作成に要した時間の平均 (秒)</li>
 </ul>
 </div>
 
@@ -496,8 +496,8 @@
 <li><em>Caused by WALs</em>: WALの進行契機で開始した回数</li>
 <li><em>Average written buffers</em>: チェックポイント毎に書き出されたバッファの数のレポート期間を通した平均値</li>
 <li><em>Maximum written buffers</em>: チェックポイント毎に書き出されたバッファの数のレポート期間中の最大値</li>
-<li><em>Average checkpoint duration</em>: チェックポイントの所要時間のレポート期間を通じた平均値 (秒)</li>
-<li><em>Maximum checkpoint duration</em>: チェックポイントの所要時間のレポート期間中の最大値 (秒)</li>
+<li><em>Average checkpoint duration (s)</em>: チェックポイントの所要時間のレポート期間を通じた平均値 (秒)</li>
+<li><em>Maximum checkpoint duration (s)</em>: チェックポイントの所要時間のレポート期間中の最大値 (秒)</li>
 </ul>
 </div>
 
@@ -519,8 +519,8 @@
 <li><em>Scan pages ratio</em>: 1回の自動Vacuumの実行時にスキャンしたページ割合のレポート期間を通した平均値</li>
 <li><em>Removed line pointer</em>: このテーブルに対する自動Vacuumでインデックススキャンが実行された場合の不要ラインポインタ数のレポート期間を通した平均値</li>
 <li><em>Dead line pointer</em>: このテーブルに対する自動Vacuumでインデックススキャンがスキップされた場合の不要ラインポインタ数のレポート期間を通した平均値</li>
-<li><em>Avg duration</em>: 自動Vacuumの1回あたりの所要時間のレポート期間を通した平均値 (秒)</li>
-<li><em>Max duration</em>: 自動Vacuumの所要時間のレポート期間中の最大値 (秒)</li>
+<li><em>Avg duration (s)</em>: 自動Vacuumの1回あたりの所要時間のレポート期間を通した平均値 (秒)</li>
+<li><em>Max duration (s)</em>: 自動Vacuumの所要時間のレポート期間中の最大値 (秒)</li>
 <li><em>Cancels</em>: レポート期間中にキャンセルされた自動Vacuumの回数</li>
 </ul>
 <div>この機能は自動Vacuumのログが必要です。log_autovacuum_min_duration を 0 に設定することで完全な情報を得られ、ログ出力を減らすと完全度は下がっていきます。</div></div>
@@ -540,18 +540,18 @@
 
 <div id="autovacuum_io_summary_dialog" class="help_dialog"
   title="The Autovacuum I/O Summary Table">
-<h4>この表は自動VacuumのI/O統計を示します。各行は自動Vacuumのログで示されるテーブルひとつに対応しています。PostgreSQL 9.2 以降でのみ有効です。</h4>
+<h4>この表は自動VacuumのI/O統計を示します。各行は自動Vacuumのログで示されるテーブルひとつに対応しています。</h4>
 <ul>
 <li><em>Database</em>: このテーブルがあるデータベースの名前</li>
 <li><em>Schema</em>: このテーブルが属するスキーマの名前</li>
 <li><em>Table</em>: このテーブルの名前</li>
-<li><em>Avg page hit</em>: 1回の自動Vacuum毎に共有バッファから読み込んだページ数のレポート期間中の平均値</li>
-<li><em>Avg page miss</em>: 1回の自動Vacuum毎にディスクから読み込んだページ数のレポート期間中の平均値</li>
-<li><em>Avg page dirtied</em>: 1回の自動Vacuum毎に内容を変更したページ数のレポート期間中の平均値</li>
-<li><em>Avg read rate</em>: 自動Vacuum中のディスク読み込み速度のレポート期間中の平均値 (MB/s)</li>
-<li><em>Avg write rate</em>: 自動Vacuum中のディスク書き込み速度のレポート期間中の平均値 (MB/s)</li>
-<li><em>Avg read duration</em>: 自動Vacuum中の読み込み時間の平均値(ms)</li>
-<li><em>Avg write duration</em>: 自動Vacuum中の書き込み時間の平均値(ms)</li>
+<li><em>Page hit</em>: 1回の自動Vacuum毎に共有バッファから読み込んだページ数のレポート期間中の平均値</li>
+<li><em>Page miss</em>: 1回の自動Vacuum毎にディスクから読み込んだページ数のレポート期間中の平均値</li>
+<li><em>Page dirtied</em>: 1回の自動Vacuum毎に内容を変更したページ数のレポート期間中の平均値</li>
+<li><em>Read rate (MiB/s)</em>: 自動Vacuum中のディスク読み込み速度のレポート期間中の平均値 (MiB/s)</li>
+<li><em>Write rate (MiB/s)</em>: 自動Vacuum中のディスク書き込み速度のレポート期間中の平均値 (MiB/s)</li>
+<li><em>Read duration (ms)</em>: 自動Vacuum中の読み込み時間の平均値(ms)</li>
+<li><em>Write duration (ms)</em>: 自動Vacuum中の書き込み時間の平均値(ms)</li>
 </ul>
 </div>
 
@@ -602,9 +602,9 @@
 <li><em>Schema</em>: このテーブルが属するスキーマの名前</li>
 <li><em>Table</em>: このテーブルの名前</li>
 <li><em>Count</em>: このテーブルに対してレポート期間中に実行された自動anaoyzeの回数</li>
-<li><em>Total duration</em>: このテーブルに対してレポート期間中に行われた自動Analyzeの所要時間の合計 (秒)</li>
-<li><em>Avg duration</em>: このテーブルに対して行われた自動Analyzeの1回あたりの所要時間のレポート期間を通した平均値 (秒)</li>
-<li><em>Max duration</em>: このテーブルに対してレポート期間中に行われた自動Analyzeのうちもっとも時間がかかったものの所要時間 (秒)</li>
+<li><em>Total duration (s)</em>: このテーブルに対してレポート期間中に行われた自動Analyzeの所要時間の合計 (秒)</li>
+<li><em>Avg duration (s)</em>: このテーブルに対して行われた自動Analyzeの1回あたりの所要時間のレポート期間を通した平均値 (秒)</li>
+<li><em>Max duration (s)</em>: このテーブルに対してレポート期間中に行われた自動Analyzeのうちもっとも時間がかかったものの所要時間 (秒)</li>
 <li><em>Last analyzed</em>: このテーブルに対して行われた直近の自動Analyzeの時刻</li>
 <li><em>Cancels</em>: このテーブルに対する自動Analyzeがレポート期間中にキャンセルされた回数</li>
 <li><em>Max modified rows</em>: 自動Vacuum の実行間隔に更新された行数の最大値</li>
@@ -618,13 +618,13 @@
 <li><em>Database</em>: このテーブルがあるデータベースの名前</li>
 <li><em>Schema</em>: このテーブルが属するスキーマの名前</li>
 <li><em>Table</em>: このテーブルの名前</li>
-<li><em>Avg page hit</em>: 1回の自動Analyze毎に共有バッファから読み込んだページ数のレポート期間中の平均値</li>
-<li><em>Avg page miss</em>: 1回の自動Analyze毎にディスクから読み込んだページ数のレポート期間中の平均値</li>
-<li><em>Avg page dirtied</em>: 1回の自動Analyze毎に内容を変更したページ数のレポート期間中の平均値</li>
-<li><em>Avg read rate</em>: 自動Analyze中のディスク読み込み速度のレポート期間中の平均値 (MB/s)</li>
-<li><em>Avg write rate</em>: 自動Analyze中のディスク書き込み速度のレポート期間中の平均値 (MB/s)</li>
-<li><em>Avg read duration</em>: 自動Analyze中の読み込み時間の平均値(ms)</li>
-<li><em>Avg write duration</em>: 自動Analyze中の書き込み時間の平均値(ms)</li>
+<li><em>Page hit</em>: 1回の自動Analyze毎に共有バッファから読み込んだページ数のレポート期間中の平均値</li>
+<li><em>Page miss</em>: 1回の自動Analyze毎にディスクから読み込んだページ数のレポート期間中の平均値</li>
+<li><em>Page dirtied</em>: 1回の自動Analyze毎に内容を変更したページ数のレポート期間中の平均値</li>
+<li><em>Read rate (MiB/s)</em>: 自動Analyze中のディスク読み込み速度のレポート期間中の平均値 (MiB/s)</li>
+<li><em>Write rate (MiB/s)</em>: 自動Analyze中のディスク書き込み速度のレポート期間中の平均値 (MiB/s)</li>
+<li><em>Read duration (ms)</em>: 自動Analyze中の読み込み時間の平均値(ms)</li>
+<li><em>Write duration (ms)</em>: 自動Analyze中の書き込み時間の平均値(ms)</li>
 </ul>
 </div>
 
@@ -647,7 +647,7 @@
   title="The Replication Activity Overview Table">
 <h4>この表はレポート期間の終わりの時点でのレプリケーションの状況の概要を示します。起動した 一つのレプリケーション接続につき一つのカラムが表示されます。</h4>
 <ul>
-<li><em>snapshot time</em>: 最後にレプリケーション接続が確認された日時</li>
+<li><em>Snapshot time</em>: 最後にレプリケーション接続が確認された日時</li>
 <li><em>Session user</em>: この walsender プロセスに接続しているユーザの名前</li>
 <li><em>Application name</em>: この walsender プロセスに接続しているアプリケーションの名前</li>
 <li><em>Client address</em>: この walsender に接続しているクライアントのIPアドレス</li>

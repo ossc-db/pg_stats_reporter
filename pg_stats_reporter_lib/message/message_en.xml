@@ -42,7 +42,7 @@
 <h4>Axes</h4>
 <ul>
 <li><em>Horizontal axis </em>: Time</li>
-<li><em>Vertical axis </em>: Transactions per second (xact/s)</li>
+<li><em>Vertical axis </em>: Transactions (tps)</li>
 </ul>
 <h4>Legend</h4>
 <ul>
@@ -82,9 +82,9 @@
   title="The Write Ahead Logs Table and The WAL Write Rate Graph">
 <h4>This table shows the overview of Write Ahead Logs.</h4>
 <ul>
-<li><em>Total size</em>: Total size of write ahead log (WAL or XLOG, stands on
+<li><em>Total size (MiB)</em>: Total size of write ahead log (WAL or XLOG, stands on
 transactions log) written out during this report period in MiB</li>
-<li><em>Average output rate</em>: Average output rate of WAL throughout this report period in MiB/s</li>
+<li><em>Average output rate (MiB/s)</em>: Average output rate of WAL throughout this report period in MiB/s</li>
 <li><em>Number of archived files</em>: Number of successfully archived WAL segment files during this report period</li>
 <li><em>Number of archiving errors</em>: Number of WAL archiving errors occurred during this report period</li>
 <li><em>Latest WAL file</em>: File name of the WAL segment file currently written to</li>
@@ -190,8 +190,8 @@ the another shows the amount divided by the snapshot interval.</h4>
 <ul>
 <li><em>Written buffers by bgwriter</em>: Average number of buffers per second written by the background writer.</li>
 <li><em>Written buffers by backends</em>: Average number of buffers per second written directly by backends.</li>
-<li><em>bgwriter scans quitted earlier</em>: Average number of times per second the background writer stopped a cleaning scan because it had written too many buffers.</li>
-<li><em>fsyncs executed on backends</em>: Average number of times per second a backend had to execute its own fsync call because the checkpointer could not keep room for the fsync request.</li>
+<li><em>Bgwriter scans quitted earlier</em>: Average number of times per second the background writer stopped a cleaning scan because it had written too many buffers.</li>
+<li><em>Fsyncs executed on backends</em>: Average number of times per second a backend had to execute its own fsync call because the checkpointer could not keep room for the fsync request.</li>
 <li><em>Allocated buffers</em>: Average number of buffers allocated per second.</li>
 </ul>
 <h4>This graph shows the trend of the background writer process's activity.</h4>
@@ -332,9 +332,9 @@ running so they may go above 100 % for certain load.</h4>
 <li><em>Tablespace</em>: Name of tablespace</li>
 <li><em>Location</em>: Path in the file system that this tablespace is located in</li>
 <li><em>Device</em>: Major and minor device numbers</li>
-<li><em>Used</em>: The amount of disk space used in the device in Mebibytes</li>
-<li><em>Avail</em>: The amount of available disk space in Mebibytes</li>
-<li><em>Remain</em>: Percentage of available space against the whole device</li>
+<li><em>Used (MiB)</em>: The amount of disk space used in the device in Mebibytes</li>
+<li><em>Avail (MiB)</em>: The amount of available disk space in Mebibytes</li>
+<li><em>Remain (%)</em>: Percentage of available space against the whole device</li>
 </ul>
 * Small values may be shown as zero by round off.
 </div>
@@ -348,7 +348,7 @@ overview of one table.</h4>
 <li><em>Database</em>: Name of the database this table resides in</li>
 <li><em>Schema</em>: Name of the schema this table belongs to</li>
 <li><em>Table</em>: Name of this table</li>
-<li><em>Size</em>: Size of this table in Mebibytes</li>
+<li><em>Size (MiB)</em>: Size of this table in Mebibytes</li>
 <li><em>Table reads</em>: Number of PostgreSQL disk blocks read from disk accessing this table</li>
 <li><em>Index reads</em>: Number of PostgresQL disk blocks read from disk accessing all indexes on this table</li>
 <li><em>Toast reads</em>: Number of disk blocks read from disk reading this table's TOAST table and its index (if any)</li>
@@ -427,9 +427,9 @@ The rows are shown in descending order of the "Correlation" field at first.</h4>
 <li><em>Schema</em>: Name of the schema this function belongs to</li>
 <li><em>Function</em>: Name of this function</li>
 <li><em>Calls</em>: Number of times this function has been called during this report period</li>
-<li><em>Total time</em>: Total time spent in this function and all other functions called by it during this report period in milliseconds</li>
-<li><em>Self time</em>: Total time spent in this function itself during this report period in milliseconds</li>
-<li><em>Time/call</em>: Average total time per one call throughout this report period in milliseconds</li>
+<li><em>Total time (ms)</em>: Total time spent in this function and all other functions called by it during this report period in milliseconds</li>
+<li><em>Self time (ms)</em>: Total time spent in this function itself during this report period in milliseconds</li>
+<li><em>Time/call (ms)</em>: Average total time per one call throughout this report period in milliseconds</li>
 </ul>
 </div>
 
@@ -444,11 +444,11 @@ pg_stat_statsments to be installed.</h4>
 <li><em>Database</em>: Name of the database in which this statement was executed</li>
 <li><em>Query</em>: Text of a representative statement</li>
 <li><em>Calls</em>: Number of times this statement was executed</li>
-<li><em>Total execution time</em>: Total time spent executing this statement, in seconds</li>
-<li><em>Average execution time</em>: Average time spent executing this statement per call, in seconds</li>
+<li><em>Total execution time (s)</em>: Total time spent executing this statement, in seconds</li>
+<li><em>Average execution time (s)</em>: Average time spent executing this statement per call, in seconds</li>
 <li><em>Plans</em>: Number of times this statement was planned</li>
-<li><em>Total planning time</em>: Total time spent planning this statement, in seconds</li>
-<li><em>Average planning time</em>: Average time spent planning this statement per call, in seconds</li>
+<li><em>Total planning time (s)</em>: Total time spent planning this statement, in seconds</li>
+<li><em>Average planning time (s)</em>: Average time spent planning this statement per call, in seconds</li>
 </ul>
 </div>
 
@@ -525,8 +525,8 @@ how many long transactions every snapshot records.</h4>
 <li><em>Caused by WALs</em>: Number of checkpoints started by WAL growth</li>
 <li><em>Average written buffers</em>: Average number of the written buffers by each checkpoint throughout this report period</li>
 <li><em>Maximum written buffers</em>: Number of the buffers written by the checkpoint that have written largest number of buffers throughout this report period</li>
-<li><em>Average checkpoint duration</em>: Average duration of checkpoints cmopleted during this report period, in seconds</li>
-<li><em>Maximum checkpoint duration</em>: Duration of the checkpoint with the longest completion time in this report period, in seconds</li>
+<li><em>Average checkpoint duration (s)</em>: Average duration of checkpoints cmopleted during this report period, in seconds</li>
+<li><em>Maximum checkpoint duration (s)</em>: Duration of the checkpoint with the longest completion time in this report period, in seconds</li>
 </ul>
 </div>
 
@@ -551,8 +551,8 @@ period.</h4>
 <li><em>Scan pages ratio</em>: Average ratio of pages scanned throughout this report period</li>
 <li><em>Removed line pointer</em>: Average number of dead line pointer throughout this report period when index scans by autovacuum on this table</li>
 <li><em>Dead line pointer</em>: Average number of dead line pointer throughout this report period when index scans were skipped by autovacuum on this table</li>
-<li><em>Avg duration</em>: Average time each autovacuum during this report period took, in seconds</li>
-<li><em>Max duration</em>: Maximum duration among all autovacuums executed during this report period, in secods</li>
+<li><em>Avg duration (s)</em>: Average time each autovacuum during this report period took, in seconds</li>
+<li><em>Max duration (s)</em>: Maximum duration among all autovacuums executed during this report period, in secods</li>
 <li><em>Cancels</em>: Number of cancelled autovacuum trial during this report period</li>
 o</ul>
 <div>This feature reuiqres autovacuum logs so set
@@ -576,18 +576,18 @@ available. Less logging reduces the completeness this table.</div>
 <div id="autovacuum_io_summary_dialog" class="help_dialog"
   title="The Autovacuum I/O Summary Table">
 <h4>This table shows the I/O statistics for autovacuums. Each row
-corresponds to one table reported in autovacuum logs. This feature is available on PostgreSQL 9.2 or later.</h4>
+corresponds to one table reported in autovacuum logs.</h4>
 <ul>
 <li><em>Database</em>: Name of the database this table resides in</li>
 <li><em>Schema</em>: Name of the schema this table belongs to</li>
 <li><em>Table</em>: Name of the table</li>
-<li><em>Avg page hit</em>: Average number of buffers that each autovacuum read from shared buffers throughout this report period</li>
-<li><em>Avg page miss</em>: Average number of buffers that each autovacuum read from disks throughout this report period</li>
-<li><em>Avg page dirtied</em>: Average number of buffers that each autovacuum has dirtied throughout this report period</li>
-<li><em>Avg read rate</em>: Average time that each autovacuum spent to read disks throughout this report period in MB/s</li>
-<li><em>Avg write rate</em>: Average time that each autovacuum spent to write disks throughout this report period in MB/s</li>
-<li><em>Avg read duration</em>: Average time that each autovacuum spent to read disks throughout this report period in ms</li>
-<li><em>Avg write duration</em>: Average time that each autovacuum spent to write disks throughout this report period in ms</li>
+<li><em>Page hit</em>: Average number of buffers that each autovacuum read from shared buffers throughout this report period</li>
+<li><em>Page miss</em>: Average number of buffers that each autovacuum read from disks throughout this report period</li>
+<li><em>Page dirtied</em>: Average number of buffers that each autovacuum has dirtied throughout this report period</li>
+<li><em>Read rate (MiB/s)</em>: Average time that each autovacuum spent to read disks throughout this report period in MiB/s</li>
+<li><em>Write rate (MiB/s)</em>: Average time that each autovacuum spent to write disks throughout this report period in MiB/s</li>
+<li><em>Read duration (ms)</em>: Average time that each autovacuum spent to read disks throughout this report period in ms</li>
+<li><em>Write duration (ms)</em>: Average time that each autovacuum spent to write disks throughout this report period in ms</li>
 </ul>
 </div>
 
@@ -639,9 +639,9 @@ corresponds to one table reported in autoanalyze logs.</h4>
 <li><em>Schema</em>: Name of the schema this table belongs to</li>
 <li><em>Table</em>: Name of this table</li>
 <li><em>Count</em>: Number of autoanalyze executed on this table during this report period</li>
-<li><em>Total duration</em>: Total time of each autoanalyze execution on this table during this report period</li>
-<li><em>Avg duration</em>: Average time of each autoanalyze execution on this table throughout this report period</li>
-<li><em>Max duration</em>: Execution time of autoanalyze on this table which took longest, in seconds</li>
+<li><em>Total duration (s)</em>: Total time of each autoanalyze execution on this table during this report period</li>
+<li><em>Avg duration (s)</em>: Average time of each autoanalyze execution on this table throughout this report period</li>
+<li><em>Max duration (s)</em>: Execution time of autoanalyze on this table which took longest, in seconds</li>
 <li><em>Last analyzed</em>: Time when the last autoanalyze ran on this table</li>
 <li><em>Cancels</em>: Number of autoanalyze cancellation occurred on this table</li>
 <li><em>Max modified rows</em>: Maximum number of rows modified during autovacuum intervals throughout this report period</li>
@@ -653,18 +653,18 @@ available. Less logging reduces the completeness this table.</div>
 
 <div id="analyze_io_summary_dialog" class="help_dialog"
   title="The Analyze I/O Summary Table">
-<h4>This table shows the I/O statistics for autoanalyzes. Each row corresponds to one table reported in autoanalyze logs. This feature is available on PostgreSQL 9.2 or later.</h4>
+<h4>This table shows the I/O statistics for autoanalyzes. Each row corresponds to one table reported in autoanalyze logs.</h4>
 <ul>
 <li><em>Database</em>: Name of the database this table resides in</li>
 <li><em>Schema</em>: Name of the schema this table belongs to</li>
 <li><em>Table</em>: Name of the table</li>
-<li><em>Avg page hit</em>: Average number of buffers that each autoanalyze read from shared buffers throughout this report period</li>
-<li><em>Avg page miss</em>: Average number of buffers that each autoanalyze read from disks throughout this report period</li>
-<li><em>Avg page dirtied</em>: Average number of buffers that each autoanalyze has dirtied throughout this report period</li>
-<li><em>Avg read rate</em>: Average time that each autoanalyze spent to read disks throughout this report period in MB/s</li>
-<li><em>Avg write rate</em>: Average time that each autoanalyze spent to write disks throughout this report period in MB/s</li>
-<li><em>Avg read duration</em>: Average time that each autoanalyze spent to read disks throughout this report period in ms</li>
-<li><em>Avg write duration</em>: Average time that each autoanalyze spent to write disks throughout this report period in ms</li>
+<li><em>Page hit</em>: Average number of buffers that each autoanalyze read from shared buffers throughout this report period</li>
+<li><em>Page miss</em>: Average number of buffers that each autoanalyze read from disks throughout this report period</li>
+<li><em>Page dirtied</em>: Average number of buffers that each autoanalyze has dirtied throughout this report period</li>
+<li><em>Read rate (MiB/s)</em>: Average time that each autoanalyze spent to read disks throughout this report period in MiB/s</li>
+<li><em>Write rate (MiB/s)</em>: Average time that each autoanalyze spent to write disks throughout this report period in MiB/s</li>
+<li><em>Read duration (ms)</em>: Average time that each autoanalyze spent to read disks throughout this report period in ms</li>
+<li><em>Write duration (ms)</em>: Average time that each autoanalyze spent to write disks throughout this report period in ms</li>
 </ul>
 </div>
 
@@ -689,7 +689,7 @@ available. Less logging reduces the completeness this table.</div>
 of reporting period. One column is shown for one replication
 session.</h4>
 <ul>
-<li><em>snapshot time</em>: Timestamp of the last replication connection in snapshot</li>
+<li><em>Snapshot time</em>: Timestamp of the last replication connection in snapshot</li>
 <li><em>Session user</em>: Name of the user logged into this WAL sender process</li>
 <li><em>Application name</em>: Application name that is connected to this WAL sender</li>
 <li><em>Client address</em>: IP address of the client connected to this WAL sender</li>
