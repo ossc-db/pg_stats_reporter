@@ -6,7 +6,7 @@
  */
 
 // pg_stats_reporter's version
-define("PROGRAM_VERSION", "13.0");
+define("PROGRAM_VERSION", "14.0");
 
 // Image File
 define("IMAGE_FILE", "pgsql_banner01.png");
@@ -23,7 +23,7 @@ define("DYGRAPHS_PATH", "package/dygraphs-2.1.0/");
 
 // pg_statsinfo's version
 define("V23", 20300);
-define("V13", 130000);
+define("V14", 140000);
 
 // Smarty cache, compile, template directory
 define("CACHE_DIR", "../../pg_stats_reporter_lib/cache");
@@ -203,10 +203,10 @@ $query_string = array(
   "SELECT replace(\"timestamp\", '-', '/'), avg(idle) AS idle, avg(idle_in_xact) AS \"idle in xact\", avg(waiting) AS waiting, avg(running) AS running FROM statsrepo.get_proc_tendency_report($1, $2) GROUP BY 1 ORDER BY 1",
 
   "bgwriter_statistics_overview" =>
-  "SELECT bgwriter_write_avg AS \"Written buffers by bgwriter\", backend_write_avg AS \"Written buffers by backends\", bgwriter_stopscan_avg AS \"bgwriter scans quitted earlier\", backend_fsync_avg AS \"fsyncs executed on backends\", buffer_alloc_avg AS \"Allocated buffers\" FROM statsrepo.get_bgwriter_stats($1, $2)",
+  "SELECT bgwriter_write_avg AS \"Written buffers by bgwriter\", backend_write_avg AS \"Written buffers by backends\", bgwriter_stopscan_avg AS \"Bgwriter scans quitted earlier\", backend_fsync_avg AS \"Fsyncs executed on backends\", buffer_alloc_avg AS \"Allocated buffers\" FROM statsrepo.get_bgwriter_stats($1, $2)",
 
   "bgwriter_statistics" =>
-  "SELECT replace(\"timestamp\", '-', '/'), bgwriter_write_tps AS \"Written buffers by bgwriter(L)\", backend_write_tps AS \"Written buffers by backends(L)\", buffer_alloc_tps AS \"Allocated buffers(L)\", bgwriter_stopscan_tps AS \"bgwriter scans quitted earlier(R)\", backend_fsync_tps AS \"fsyncs executed on backends(R)\" FROM statsrepo.get_bgwriter_tendency($1, $2)",
+  "SELECT replace(\"timestamp\", '-', '/'), bgwriter_write_tps AS \"Written buffers by bgwriter(L)\", backend_write_tps AS \"Written buffers by backends(L)\", buffer_alloc_tps AS \"Allocated buffers(L)\", bgwriter_stopscan_tps AS \"Bgwriter scans quitted earlier(R)\", backend_fsync_tps AS \"Fsyncs executed on backends(R)\" FROM statsrepo.get_bgwriter_tendency($1, $2)",
 
   /* OS Resources */
   // CPU and Memory
@@ -263,7 +263,7 @@ $query_string = array(
   "SELECT datname AS \"Database\", nspname AS \"Schema\", proname AS \"Function\", calls AS \"Calls\", total_time AS \"Total time (ms)\", self_time AS \"Self time (ms)\", time_per_call AS \"Time/call (ms)\" FROM statsrepo.get_query_activity_functions($1, $2)",
 
   "statements" =>
-  "SELECT rolname AS \"User\", datname AS \"Database\", query AS \"Query\", calls AS \"Calls\", total_exec_time AS \"Total execution time (sec)\", time_per_call AS \"Average execution time (sec)\", plans AS \"Plans\", total_plan_time AS \"Total planning time (sec)\",  time_per_plan AS \"Average planning time (sec)\" FROM statsrepo.get_query_activity_statements($1, $2)",
+  "SELECT rolname AS \"User\", datname AS \"Database\", query AS \"Query\", calls AS \"Calls\", total_exec_time AS \"Total execution time (s)\", time_per_call AS \"Average execution time (s)\", plans AS \"Plans\", total_plan_time AS \"Total planning time (s)\",  time_per_plan AS \"Average planning time (s)\" FROM statsrepo.get_query_activity_statements($1, $2)",
 
   "plans" =>
   "SELECT * FROM statsrepo.get_query_activity_plans_report($1,$2) ORDER BY queryid, rolname, datname",
@@ -279,7 +279,7 @@ $query_string = array(
 
   // Long Transaction
   "long_transactions" =>
-  "SELECT pid AS \"PID\", client AS \"Client address\", start AS \"Xact Start\", duration AS \"Duration (sec)\", query AS \"Last query\" FROM statsrepo.get_long_transactions($1, $2)",
+  "SELECT pid AS \"PID\", client AS \"Client address\", start AS \"Xact Start\", duration AS \"Duration (s)\", query AS \"Last query\" FROM statsrepo.get_long_transactions($1, $2)",
 
   // Lock Conflicts
   "lock_conflicts" =>
@@ -288,17 +288,17 @@ $query_string = array(
   /* Maintenance */
   // Checkpoints
   "checkpoints" =>
-  "SELECT ckpt_total AS \"Number of checkpoints\", ckpt_time AS \"Caused by timeout\", ckpt_wal AS \"Caused by WALs\", avg_write_buff AS \"Average written buffers\", max_write_buff AS \"Maximum written buffers\", avg_duration AS \"Average checkpoint duration\", max_duration AS \"Maximum checkpoint duration\" FROM statsrepo.get_checkpoint_activity($1, $2)",
+  "SELECT ckpt_total AS \"Number of checkpoints\", ckpt_time AS \"Caused by timeout\", ckpt_wal AS \"Caused by WALs\", avg_write_buff AS \"Average written buffers\", max_write_buff AS \"Maximum written buffers\", avg_duration AS \"Average checkpoint duration (s)\", max_duration AS \"Maximum checkpoint duration (s)\" FROM statsrepo.get_checkpoint_activity($1, $2)",
 
   // Autovacuums
   "autovacuum_overview" =>
-  "SELECT datname AS \"Database\", nspname AS \"Schema\", relname AS \"Table\", \"count\" AS \"Count\", index_scanned AS \"Index scanned\", index_skipped AS \"Index skipped\", avg_tup_removed AS \"Avg removed rows\", avg_tup_remain AS \"Avg remain rows\", avg_tup_dead AS \"Avg remain dead\", scan_pages AS \"Scan pages\", scan_pages_ratio AS \"Scan pages raito\", removed_lp AS \"Removed line pointer\", dead_lp AS \"Dead line pointer\", avg_duration AS \"Avg duration (sec)\", max_duration AS \"Max duration (sec)\", cancel AS \"Cancels\" FROM statsrepo.get_autovacuum_activity($1, $2)", 
+  "SELECT datname AS \"Database\", nspname AS \"Schema\", relname AS \"Table\", \"count\" AS \"Count\", index_scanned AS \"Index scanned\", index_skipped AS \"Index skipped\", avg_tup_removed AS \"Avg removed rows\", avg_tup_remain AS \"Avg remain rows\", avg_tup_dead AS \"Avg remain dead\", scan_pages AS \"Scan pages\", scan_pages_ratio AS \"Scan pages ratio\", removed_lp AS \"Removed line pointer\", dead_lp AS \"Dead line pointer\", avg_duration AS \"Avg duration (s)\", max_duration AS \"Max duration (s)\", cancel AS \"Cancels\" FROM statsrepo.get_autovacuum_activity($1, $2)", 
 
   "cancellations" =>
   "SELECT timestamp::timestamp(0) AS \"Time\", database AS \"Database\", schema AS \"Schema\", \"table\" AS \"Table\", 'VACUUM' AS \"Activity\", query AS \"Causal query\" FROM statsrepo.autovacuum_cancel v WHERE timestamp BETWEEN (SELECT min(time) AS time FROM statsrepo.snapshot WHERE snapid >= $1) AND (SELECT max(time) AS time FROM statsrepo.snapshot WHERE snapid <= $2) AND instid = (SELECT instid FROM statsrepo.snapshot WHERE snapid = $2) UNION ALL SELECT timestamp::timestamp(0) AS \"Time\", database AS \"Database\", schema AS \"Schema\", \"table\" AS \"Table\", 'ANALYZE' AS \"Activity\", query AS \"Causal query\" FROM statsrepo.autoanalyze_cancel v WHERE timestamp BETWEEN (SELECT min(time) AS time FROM statsrepo.snapshot WHERE snapid >= $1) AND (SELECT max(time) AS time FROM statsrepo.snapshot WHERE snapid <= $2) AND instid = (SELECT instid FROM statsrepo.snapshot WHERE snapid = $2) ORDER By \"Time\"",
 
   "autovacuum_io_summary" =>
-  "SELECT datname AS \"Database\", nspname AS \"Schema\", relname AS \"Table\", avg_page_hit AS \"Avg page hit\", avg_page_miss AS \"Avg page miss\", avg_page_dirty AS \"Avg page dirtied\", avg_read_rate AS \"Avg read rate\", avg_write_rate AS \"Avg write rate\", avg_read_duration AS \"Avg read duration\", avg_write_duration AS \"Avg write duration\" FROM statsrepo.get_autovacuum_activity2($1, $2)", 
+  "SELECT datname AS \"Database\", nspname AS \"Schema\", relname AS \"Table\", avg_page_hit AS \"Page hit\", avg_page_miss AS \"Page miss\", avg_page_dirty AS \"Page dirtied\", avg_read_rate AS \"Read rate (MiB/s)\", avg_write_rate AS \"Write rate (MiB/s)\", avg_read_duration AS \"Read duration (ms)\", avg_write_duration AS \"Write duration (ms)\" FROM statsrepo.get_autovacuum_activity2($1, $2)", 
 
   "vacuum_wal_statistics" =>
   "SELECT replace(\"timestamp\", '-', '/') AS timestamp, wal_fpi AS \"WAL full page image\", wal_bytes AS \"WAL bytes\" FROM statsrepo.get_autovacuum_wal_activity_tendency($1, $2)",
@@ -307,17 +307,17 @@ $query_string = array(
   "SELECT datname AS \"Database\", nspname AS \"Schema\", relname AS \"Table\", index_name AS \"Index\", \"count\" AS \"Count\", page_total AS \" Avg page total\", page_new_del AS \"Avg page new delete\", page_cur_del AS \"Avg page current delete\", page_reuse AS \"Avg page reuse\" FROM statsrepo.get_autovacuum_index_activity($1, $2)",
 
   "analyze_overview" =>
-  "SELECT datname AS \"Database\", nspname AS \"Schema\", relname AS \"Table\", \"count\" AS \"Count\", total_duration AS \"Total duration (sec)\", avg_duration AS \"Avg duration (sec)\", max_duration AS \"Max duration (sec)\", last_analyze AS \"Last analyzed\", cancels AS \"Cancels\", mod_rows_max AS \"Max modified rows\" FROM statsrepo.get_autoanalyze_stats($1, $2)", 
+  "SELECT datname AS \"Database\", nspname AS \"Schema\", relname AS \"Table\", \"count\" AS \"Count\", total_duration AS \"Total duration (s)\", avg_duration AS \"Avg duration (s)\", max_duration AS \"Max duration (s)\", last_analyze AS \"Last analyzed\", cancels AS \"Cancels\", mod_rows_max AS \"Max modified rows\" FROM statsrepo.get_autoanalyze_stats($1, $2)", 
 
   "analyze_io_summary" =>
-  "SELECT datname AS \"Database\", nspname AS \"Schema\", relname AS \"Table\", avg_page_hit AS \"Avg page hit\", avg_page_miss AS \"Avg page miss\", avg_page_dirty AS \"avg page dirtied\", avg_read_rate AS \"Avg read rate\", avg_write_rate AS \"Avg write rate\", avg_read_duration AS \"Avg read duration\", avg_write_duration AS \"Avg write duration\" FROM statsrepo.get_autoanalyze_activity2($1, $2)",
+  "SELECT datname AS \"Database\", nspname AS \"Schema\", relname AS \"Table\", avg_page_hit AS \"Page hit\", avg_page_miss AS \"Page miss\", avg_page_dirty AS \"Page dirtied\", avg_read_rate AS \"Read rate (MiB/s)\", avg_write_rate AS \"Write rate (MiB/s)\", avg_read_duration AS \"Read duration (ms)\", avg_write_duration AS \"Write duration (ms)\" FROM statsrepo.get_autoanalyze_activity2($1, $2)",
 
   "modified_rows" =>
   "SELECT replace(\"timestamp\", '-', '/') AS timestamp, datname||'.'||nspname||'.'||relname, ratio FROM statsrepo.get_modified_row_ratio($1, $2, $3)",
 
   // Replication
   "replication_overview" =>
-  "SELECT snapshot_time AS \"snapshot time\", usename AS \"Session user\", application_name AS \"Application name\", client_addr AS \"Client address\", client_hostname AS \"Client host\", client_port AS \"Client port\", backend_start AS \"Started at\", state AS \"State\", current_location AS \"Current location\", sent_location AS \"Sent location\", write_location AS \"Write location\", flush_location AS \"Flush location\", replay_location AS \"Replay location\", to_char(write_lag_time, 'HH24:MI:SS.US') AS \"Write lag time\", to_char(flush_lag_time, 'HH24:MI:SS.US') AS \"Flush lag time\", to_char(replay_lag_time, 'HH24:MI:SS.US') AS \"Replay lag time\", pg_size_pretty(replay_delay_avg::bigint) AS \"Average replay delay\", pg_size_pretty(replay_delay_peak::bigint) AS \"Peak replay delay\", sync_priority AS \"Sync priority\", sync_state AS \"Sync state\" FROM statsrepo.get_replication_activity($1, $2)",
+  "SELECT snapshot_time AS \"Snapshot time\", usename AS \"Session user\", application_name AS \"Application name\", client_addr AS \"Client address\", client_hostname AS \"Client host\", client_port AS \"Client port\", backend_start AS \"Started at\", state AS \"State\", current_location AS \"Current location\", sent_location AS \"Sent location\", write_location AS \"Write location\", flush_location AS \"Flush location\", replay_location AS \"Replay location\", to_char(write_lag_time, 'HH24:MI:SS.US') AS \"Write lag time\", to_char(flush_lag_time, 'HH24:MI:SS.US') AS \"Flush lag time\", to_char(replay_lag_time, 'HH24:MI:SS.US') AS \"Replay lag time\", pg_size_pretty(replay_delay_avg::bigint) AS \"Average replay delay\", pg_size_pretty(replay_delay_peak::bigint) AS \"Peak replay delay\", sync_priority AS \"Sync priority\", sync_state AS \"Sync state\" FROM statsrepo.get_replication_activity($1, $2)",
 
   "replication_delays" =>
   "SELECT replace(\"timestamp\", '-', '/'), client , flush_delay_size AS \"flush\", replay_delay_size AS \"replay\", sync_state FROM statsrepo.get_replication_delays($1, $2)",

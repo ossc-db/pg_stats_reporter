@@ -42,7 +42,7 @@
 <h4>Axes</h4>
 <ul>
 <li><em>Horizontal axis </em>: Time</li>
-<li><em>Vertical axis </em>: Transactions per second (xact/s)</li>
+<li><em>Vertical axis </em>: Transactions (tps)</li>
 </ul>
 <h4>Legend</h4>
 <ul>
@@ -57,7 +57,7 @@
 <h4>Axes</h4>
 <ul>
 <li><em>Horizontal axis</em>: Time.</li>
-<li><em>Vertial axis</em>: Size of database in bytes.</li>
+<li><em>Vertical axis</em>: Size of database in bytes.</li>
 </ul>
 <h4>Legend</h4>
 <ul>
@@ -82,13 +82,13 @@
   title="The Write Ahead Logs Table and The WAL Write Rate Graph">
 <h4>This table shows the overview of Write Ahead Logs.</h4>
 <ul>
-<li><em>Total size</em>: Total size of write ahead log (WAL or XLOG, stands on
+<li><em>Total size (MiB)</em>: Total size of write ahead log (WAL or XLOG, stands on
 transactions log) written out during this report period in MiB</li>
-<li><em>Average output rate</em>: Average output rate of WAL throughout this report period in MiB/s</li>
-<li><em>Number of archived files</em>: Number of successfully archived WAL segment files during this report period. Available on pg_statsinfo 3.1 or later and PostgreSQL 9.4 or later</li>
-<li><em>Number of archiving errors</em>: Number of WAL archiving errors occurred during this report period. Available on pg_statsinfo 3.1 or later and PostgreSQL 9.4 or later</li>
-<li><em>Latest WAL file</em>: File name of the WAL segment file currently written to. Available on pg_statsinfo 3.1 or later</li>
-<li><em>Last archived file</em>: File name of the WAL segment file most recently archived. Available on pg_statsinfo 3.1 or later and PostgreSQL 9.4 and later</li>
+<li><em>Average output rate (MiB/s)</em>: Average output rate of WAL throughout this report period in MiB/s</li>
+<li><em>Number of archived files</em>: Number of successfully archived WAL segment files during this report period</li>
+<li><em>Number of archiving errors</em>: Number of WAL archiving errors occurred during this report period</li>
+<li><em>Latest WAL file</em>: File name of the WAL segment file currently written to</li>
+<li><em>Last archived file</em>: File name of the WAL segment file most recently archived</li>
 </ul>
 <h4>This graph shows the trend of the rate of WAL output. One of the
 lines shows amount of WAL written during every snapshot interval and
@@ -96,8 +96,8 @@ the another shows the amount divided by the snapshot interval.</h4>
 <h4>Axes</h4>
 <ul>
 <li><em>Horizontal axis</em>: Time</li>
-<li><em>Left side vertial axis</em>: Axis for Bytes/snapshot shown below.</li>
-<li><em>Right side vertial axis</em>: Axis for write rate shown below.</li>
+<li><em>Left side vertical axis</em>: Axis for Bytes/snapshot shown below.</li>
+<li><em>Right side vertical axis</em>: Axis for write rate shown below.</li>
 </ul>
 <h4>Legend</h4>
 <ul>
@@ -172,14 +172,14 @@ the another shows the amount divided by the snapshot interval.</h4>
 <h4>Axes</h4>
 <ul>
 <li><em>Horizontal axis</em>: Time</li>
-<li><em>Vertial axis</em>: Percentage</li>
+<li><em>Vertical axis</em>: Number of backend</li>
 </ul>
 <h4>Legend</h4>
 <ul>
-<li><em>idle</em>: Percentage of time spent by the backends waiting a new client command</li>
-<li><em>idle in xact</em>: Percentage of time spent by the backends waiting a command in a transaction</li>
-<li><em>waiting</em>: Percentage of time spent by the backends waiting on a lock</li>
-<li><em>running</em>: Percentage of time spent by the backends executing a query</li>
+<li><em>idle</em>: Number of the backends waiting a new client command</li>
+<li><em>idle in xact</em>: Number of the backends waiting a command in a transaction</li>
+<li><em>waiting</em>: Number of the backends waiting on a lock</li>
+<li><em>running</em>: Number of the backends executing a query</li>
 </ul>
 <p>This graph shows average for every snapshot interval of the percentage of states collected by the interval specified with the configuration parameter pg_statsinfo.sampling_interval (5 seconds by default).</p>
 </div>
@@ -190,16 +190,16 @@ the another shows the amount divided by the snapshot interval.</h4>
 <ul>
 <li><em>Written buffers by bgwriter</em>: Average number of buffers per second written by the background writer.</li>
 <li><em>Written buffers by backends</em>: Average number of buffers per second written directly by backends.</li>
-<li><em>bgwriter scans quitted earlier</em>: Average number of times per second the background writer stopped a cleaning scan because it had written too many buffers.</li>
-<li><em>fsyncs executed on backends</em>: Average number of times per second a backend had to execute its own fsync call because the checkpointer could not keep room for the fsync request.</li>
+<li><em>Bgwriter scans quitted earlier</em>: Average number of times per second the background writer stopped a cleaning scan because it had written too many buffers.</li>
+<li><em>Fsyncs executed on backends</em>: Average number of times per second a backend had to execute its own fsync call because the checkpointer could not keep room for the fsync request.</li>
 <li><em>Allocated buffers</em>: Average number of buffers allocated per second.</li>
 </ul>
 <h4>This graph shows the trend of the background writer process's activity.</h4>
 <h4>Axes</h4>
 <ul>
 <li><em>Horizontal axis</em>: Time</li>
-<li><em>Left side vertial axis</em>: Buffers per second</li>
-<li><em>Right side vertial axis</em>: Frequency per second</li>
+<li><em>Left side vertical axis</em>: Buffers per second</li>
+<li><em>Right side vertical axis</em>: Frequency per second</li>
 </ul>
 <h4>Legend</h4>
 <ul>
@@ -218,7 +218,7 @@ the another shows the amount divided by the snapshot interval.</h4>
 <h4>Legend</h4>
 <ul>
 <li><em>Horizontal axis</em>: Time </li>
-<li><em>Vertial axis</em>: Percentage</li>
+<li><em>Vertical axis</em>: Percentage</li>
 </ul>
 <h4>Legend</h4>
 <ul>
@@ -236,7 +236,7 @@ the another shows the amount divided by the snapshot interval.</h4>
 <h4>Axes</h4>
 <ul>
 <li><em>Horizontal axis</em>: Time</li>
-<li><em>Vertial axis</em>: Load average</li>
+<li><em>Vertical axis</em>: Load average</li>
 </ul>
 <h4>Legend</h4>
 <ul>
@@ -257,12 +257,12 @@ corresponding links.</h4>
 <li><em>Containing table spaces</em>: List of table spaces located in the device</li>
 <li><em>Read</em>: Device read statistics<ul>
 <li><em>Total bytes (MiB)</em>: Read bytes throughout the report period in Mebibytes</li>
-<li><em>Peak rate (KiB/s)</em>: Maximum read rate during the report period in Kibibytes per seconds. Available on pg_statsinfo 3.1 or later</li>
+<li><em>Peak rate (KiB/s)</em>: Maximum read rate during the report period in Kibibytes per seconds</li>
 <li><em>Total time (ms)</em>: Sum of the time spent to read this device in milliseconds throughout this report period</li>
 </ul></li>
 <li><em>Write</em>: Device write statistics<ul>
 <li><em>Total bytes (MiB)</em>: Write bytes throughout the report period in Mebibytes</li>
-<li><em>Peak rate (KiB/s)</em>: maximum write rate during the report period in Kibibytes. Available on pg_statsinfo 3.1 or later</li>
+<li><em>Peak rate (KiB/s)</em>: maximum write rate during the report period in Kibibytes</li>
 <li><em>Total time (ms)</em>: Sum of the time spent to write to this device in milliseconds</li>
 </ul></li>
 <li><em>Average I/O queue</em>: Average length of I/O queue throughout this report period</li>
@@ -273,18 +273,18 @@ corresponding links.</h4>
 <h4>Axes</h4>
 <ul>
 <li><em>Horizontal axis</em>: Time </li>
-<li><em>Vertial axis</em>: I/O rate in bytes per seconds</li>
+<li><em>Vertical axis</em>: I/O rate in bytes per seconds</li>
 </ul>
 <h4>Legend</h4>
 <ul>
 <li><em>[device] read</em>: Read I/O rate</li>
 <li><em>[device] write</em>: Write I/O rate</li>
 </ul>
-<h4>The I/O Peak Rate Graph shows the read/write peak rate over snapshots. The values are the maximum within a snapshot. Available on pg_statsinfo 3.1 or later.</h4>
+<h4>The I/O Peak Rate Graph shows the read/write peak rate over snapshots. The values are the maximum within a snapshot.</h4>
 <h4>Axes</h4>
 <ul>
 <li><em>Horizontal axis</em>: Time </li>
-<li><em>Vertial axis</em>: I/O peak rate in every snapshot in bytes per seconeds</li>
+<li><em>Vertical axis</em>: I/O peak rate in every snapshot in bytes per seconeds</li>
 </ul>
 <h4>Legend</h4>
 <ul>
@@ -298,7 +298,7 @@ running so they may go above 100 % for certain load.</h4>
 <h4>Axes</h4>
 <ul>
 <li><em>Horizontal axis</em>: Time</li>
-<li><em>Vertial axis</em>: Percentage of I/O Time against real time</li>
+<li><em>Vertical axis</em>: Percentage of I/O Time against real time</li>
 </ul>
 <h4>Legend</h4>
 <ul>
@@ -313,7 +313,7 @@ running so they may go above 100 % for certain load.</h4>
 <h4>Axes</h4>
 <ul>
 <li><em>Horizontal axis</em>: Time </li>
-<li><em>Vertial axis</em>: Memory usage in bytes. Alters by clicking "change scale" button between linear scale and log scale.</li>
+<li><em>Vertical axis</em>: Memory usage in bytes. Alters by clicking "change scale" button between linear scale and log scale.</li>
 </ul>
 <h4>Legend</h4>
 <ul>
@@ -332,9 +332,9 @@ running so they may go above 100 % for certain load.</h4>
 <li><em>Tablespace</em>: Name of tablespace</li>
 <li><em>Location</em>: Path in the file system that this tablespace is located in</li>
 <li><em>Device</em>: Major and minor device numbers</li>
-<li><em>Used</em>: The amount of disk space used in the device in Mebibytes</li>
-<li><em>Avail</em>: The amount of available disk space in Mebibytes</li>
-<li><em>Remain</em>: Percentage of available space against the whole device</li>
+<li><em>Used (MiB)</em>: The amount of disk space used in the device in Mebibytes</li>
+<li><em>Avail (MiB)</em>: The amount of available disk space in Mebibytes</li>
+<li><em>Remain (%)</em>: Percentage of available space against the whole device</li>
 </ul>
 * Small values may be shown as zero by round off.
 </div>
@@ -348,7 +348,7 @@ overview of one table.</h4>
 <li><em>Database</em>: Name of the database this table resides in</li>
 <li><em>Schema</em>: Name of the schema this table belongs to</li>
 <li><em>Table</em>: Name of this table</li>
-<li><em>Size</em>: Size of this table in Mebibytes</li>
+<li><em>Size (MiB)</em>: Size of this table in Mebibytes</li>
 <li><em>Table reads</em>: Number of PostgreSQL disk blocks read from disk accessing this table</li>
 <li><em>Index reads</em>: Number of PostgresQL disk blocks read from disk accessing all indexes on this table</li>
 <li><em>Toast reads</em>: Number of disk blocks read from disk reading this table's TOAST table and its index (if any)</li>
@@ -427,9 +427,9 @@ The rows are shown in descending order of the "Correlation" field at first.</h4>
 <li><em>Schema</em>: Name of the schema this function belongs to</li>
 <li><em>Function</em>: Name of this function</li>
 <li><em>Calls</em>: Number of times this function has been called during this report period</li>
-<li><em>Total time</em>: Total time spent in this function and all other functions called by it during this report period in milliseconds</li>
-<li><em>Self time</em>: Total time spent in this function itself during this report period in milliseconds</li>
-<li><em>Time/call</em>: Average total time per one call throughout this report period in milliseconds</li>
+<li><em>Total time (ms)</em>: Total time spent in this function and all other functions called by it during this report period in milliseconds</li>
+<li><em>Self time (ms)</em>: Total time spent in this function itself during this report period in milliseconds</li>
+<li><em>Time/call (ms)</em>: Average total time per one call throughout this report period in milliseconds</li>
 </ul>
 </div>
 
@@ -444,11 +444,11 @@ pg_stat_statsments to be installed.</h4>
 <li><em>Database</em>: Name of the database in which this statement was executed</li>
 <li><em>Query</em>: Text of a representative statement</li>
 <li><em>Calls</em>: Number of times this statement was executed</li>
-<li><em>Total execution time</em>: Total time spent executing this statement, in seconds</li>
-<li><em>Average execution time</em>: Average time spent executing this statement per call, in seconds</li>
+<li><em>Total execution time (s)</em>: Total time spent executing this statement, in seconds</li>
+<li><em>Average execution time (s)</em>: Average time spent executing this statement per call, in seconds</li>
 <li><em>Plans</em>: Number of times this statement was planned</li>
-<li><em>Total planning time</em>: Total time spent planning this statement, in seconds</li>
-<li><em>Average planning time</em>: Average time spent planning this statement per call, in seconds</li>
+<li><em>Total planning time (s)</em>: Total time spent planning this statement, in seconds</li>
+<li><em>Average planning time (s)</em>: Average time spent planning this statement per call, in seconds</li>
 </ul>
 </div>
 
@@ -456,27 +456,23 @@ pg_stat_statsments to be installed.</h4>
   title="The Plans Table">
 <h4>Each row in this table shows execution statistics itemized by execution plan. Clicking Query ID opens the itemized execution plan statistics. This feature requires pg_stat_statements and pg_store_plans to be installed. </h4>
 <ul>
-<li><em>Query ID</em>: Hash code of this query. This field is calculated by
-pg_stat_statements on PostgreSQL 9.4 or later and is of
-pg_store_plans' own calculation otherwise. So query identification may
-be different from pg_stat_statement in some cases for the older
-versions of PosgreSQL.</li>
+<li><em>Query ID</em>: Hash code of this query</li>
 <li><em>User</em>: Name of the user who executed this statement</li>
 <li><em>Database</em>: Name of the database in which the statement was executed</li>
 <li><em>Plan count</em>: Number of plans executed for the statemnet</li>
 <li><em>Calls</em>: Number of times this statement executed</li>
-<li><em>Total time</em>: Total time spent in this statment during this report period in seconds</li>
-<li><em>Time/call</em>: Average time per execution of this query throughout thie report period in seconds</li>
-<li><em>Block read time</em>: Total time this query spent to read blocks during this report time in milliseconds. This and the next field requires track_io_timing to be enabled.</li>
-<li><em>Block write time</em>: Total time this query spent to write blocks during this report time in milliseconds.</li>
+<li><em>Total time (s)</em>: Total time spent in this statment during this report period in seconds</li>
+<li><em>Time/call (s)</em>: Average time per execution of this query throughout thie report period in seconds</li>
+<li><em>Block read time (ms)</em>: Total time this query spent to read blocks during this report time in milliseconds. This and the next field requires track_io_timing to be enabled.</li>
+<li><em>Block write time (ms)</em>: Total time this query spent to write blocks during this report time in milliseconds.</li>
 <li><em>Query</em>: Query string corresponding the plans listed. Shown by clicking Query ID</li>
 <li><em>Plan details</em>: Execution summaries of individual plans. Shown by clicking Query ID<ul>
   <li><em>Plan ID</em>: Hash code which identifies plans. </li>
   <li><em>Calls</em>: Number of times this plan exected during this report period</li>
-  <li><em>Total time</em>: Total time spent in single execution throughout this report period in seconds</li>
-  <li><em>Time/call</em>: Average time per execution of this plan throughout this report period in seconds</li>
-  <li><em>Block read time</em>: Total time this plan spent to read blocks during this report period in milliseconds. This field and the next field requires track_io_timing to be enabled.</li>
-  <li><em>Block write time</em>: Total time this plan spent to write blocks during this report period in millisecond</li>
+  <li><em>Total time (s)</em>: Total time spent in single execution throughout this report period in seconds</li>
+  <li><em>Time/call (s)</em>: Average time per execution of this plan throughout this report period in seconds</li>
+  <li><em>Block read time (ms)</em>: Total time this plan spent to read blocks during this report period in milliseconds. This field and the next field requires track_io_timing to be enabled.</li>
+  <li><em>Block write time (ms)</em>: Total time this plan spent to write blocks during this report period in millisecond</li>
   <li><em>First call</em>: Time when this plan first executed</li>
   <li><em>Last call</em>: Time when this plan last executed</li>
   <li><em>Plan</em>: Plan string. This string holds numbers in last execution, which are omitted in calculating plan IDs.</li>
@@ -529,8 +525,8 @@ how many long transactions every snapshot records.</h4>
 <li><em>Caused by WALs</em>: Number of checkpoints started by WAL growth</li>
 <li><em>Average written buffers</em>: Average number of the written buffers by each checkpoint throughout this report period</li>
 <li><em>Maximum written buffers</em>: Number of the buffers written by the checkpoint that have written largest number of buffers throughout this report period</li>
-<li><em>Average checkpoint duration</em>: Average duration of checkpoints cmopleted during this report period, in seconds</li>
-<li><em>Maximum checkpoint duration</em>: Duration of the checkpoint with the longest completion time in this report period, in seconds</li>
+<li><em>Average checkpoint duration (s)</em>: Average duration of checkpoints cmopleted during this report period, in seconds</li>
+<li><em>Maximum checkpoint duration (s)</em>: Duration of the checkpoint with the longest completion time in this report period, in seconds</li>
 </ul>
 </div>
 
@@ -550,14 +546,14 @@ period.</h4>
 <li><em>Avg index scans</em>: Average number of indexes involved in  each vacuum on table</li>
 <li><em>Avg removed rows</em>: Avarage number of rows that each autovacuum removed throughout this report period</li>
 <li><em>Avg remain rows</em>: Average number of rows that each autovacuum had not removed throughout this report period. This includes "Avg remain dead".</li>
-<li><em>Avg remain dead</em>: Average number of dead rows that each autovacuum cannot be removed. Available for pg_statsinfo 3.1 or higher and PostgreSQL 9.4 or later</li>
+<li><em>Avg remain dead</em>: Average number of dead rows that each autovacuum cannot be removed</li>
 <li><em>Scan pages</em>: Average number of pages scanned throughout this report period</li>
 <li><em>Scan pages ratio</em>: Average ratio of pages scanned throughout this report period</li>
 <li><em>Removed line pointer</em>: Average number of dead line pointer throughout this report period when index scans by autovacuum on this table</li>
 <li><em>Dead line pointer</em>: Average number of dead line pointer throughout this report period when index scans were skipped by autovacuum on this table</li>
-<li><em>Avg duration</em>: Average time each autovacuum during this report period took, in seconds</li>
-<li><em>Max duration</em>: Maximum duration among all autovacuums executed during this report period, in secods</li>
-<li><em>Cancels</em>: Number of cancelled autovacuum trial during this report period. Available on pg_statsinfo 3.0 or later and PostgresQL 9.3 and later</li>
+<li><em>Avg duration (s)</em>: Average time each autovacuum during this report period took, in seconds</li>
+<li><em>Max duration (s)</em>: Maximum duration among all autovacuums executed during this report period, in secods</li>
+<li><em>Cancels</em>: Number of cancelled autovacuum trial during this report period</li>
 o</ul>
 <div>This feature reuiqres autovacuum logs so set
 log_autovacuum_min_duration to 0 to make this feature fully
@@ -580,18 +576,18 @@ available. Less logging reduces the completeness this table.</div>
 <div id="autovacuum_io_summary_dialog" class="help_dialog"
   title="The Autovacuum I/O Summary Table">
 <h4>This table shows the I/O statistics for autovacuums. Each row
-corresponds to one table reported in autovacuum logs. This feature is available on PostgreSQL 9.2 or later.</h4>
+corresponds to one table reported in autovacuum logs.</h4>
 <ul>
 <li><em>Database</em>: Name of the database this table resides in</li>
 <li><em>Schema</em>: Name of the schema this table belongs to</li>
 <li><em>Table</em>: Name of the table</li>
-<li><em>Avg page hit</em>: Average number of buffers that each autovacuum read from shared buffers throughout this report period</li>
-<li><em>Avg page miss</em>: Average number of buffers that each autovacuum read from disks throughout this report period</li>
-<li><em>Avg page dirtied</em>: Average number of buffers that each autovacuum has dirtied throughout this report period</li>
-<li><em>Avg read rate</em>: Average time that each autovacuum spent to read disks throughout this report period in MB/s</li>
-<li><em>Avg write rate</em>: Average time that each autovacuum spent to write disks throughout this report period in MB/s</li>
-<li><em>Avg read duration</em>: Average time that each autovacuum spent to read disks throughout this report period in ms</li>
-<li><em>Avg write duration</em>: Average time that each autovacuum spent to write disks throughout this report period in ms</li>
+<li><em>Page hit</em>: Average number of buffers that each autovacuum read from shared buffers throughout this report period</li>
+<li><em>Page miss</em>: Average number of buffers that each autovacuum read from disks throughout this report period</li>
+<li><em>Page dirtied</em>: Average number of buffers that each autovacuum has dirtied throughout this report period</li>
+<li><em>Read rate (MiB/s)</em>: Average time that each autovacuum spent to read disks throughout this report period in MiB/s</li>
+<li><em>Write rate (MiB/s)</em>: Average time that each autovacuum spent to write disks throughout this report period in MiB/s</li>
+<li><em>Read duration (ms)</em>: Average time that each autovacuum spent to read disks throughout this report period in ms</li>
+<li><em>Write duration (ms)</em>: Average time that each autovacuum spent to write disks throughout this report period in ms</li>
 </ul>
 </div>
 
@@ -643,12 +639,12 @@ corresponds to one table reported in autoanalyze logs.</h4>
 <li><em>Schema</em>: Name of the schema this table belongs to</li>
 <li><em>Table</em>: Name of this table</li>
 <li><em>Count</em>: Number of autoanalyze executed on this table during this report period</li>
-<li><em>Total duration</em>: Total time of each autoanalyze execution on this table during this report period</li>
-<li><em>Avg duration</em>: Average time of each autoanalyze execution on this table throughout this report period</li>
-<li><em>Max duration</em>: Execution time of autoanalyze on this table which took longest, in seconds</li>
-<li><em>Last analyzed</em>: Time when the last autoanalyze ran on this table. Available on pg_statsinfo 3.0</li>
-<li><em>Cancels</em>: Number of autoanalyze cancellation occurred on this table. Available on pg_statsinfo 3.1 or later</li>
-<li><em>Max modified rows</em>: Maximum number of rows modified during autovacuum intervals throughout this report period. Available on pg_statsinfo 3.1 or later and PostgreSQL 9.4 and later.</li>
+<li><em>Total duration (s)</em>: Total time of each autoanalyze execution on this table during this report period</li>
+<li><em>Avg duration (s)</em>: Average time of each autoanalyze execution on this table throughout this report period</li>
+<li><em>Max duration (s)</em>: Execution time of autoanalyze on this table which took longest, in seconds</li>
+<li><em>Last analyzed</em>: Time when the last autoanalyze ran on this table</li>
+<li><em>Cancels</em>: Number of autoanalyze cancellation occurred on this table</li>
+<li><em>Max modified rows</em>: Maximum number of rows modified during autovacuum intervals throughout this report period</li>
 </ul>
 <div>This feature requires autovanalyze logs so set
 log_autovacuum_min_duration to 0 to make this feature fully
@@ -657,18 +653,18 @@ available. Less logging reduces the completeness this table.</div>
 
 <div id="analyze_io_summary_dialog" class="help_dialog"
   title="The Analyze I/O Summary Table">
-<h4>This table shows the I/O statistics for autoanalyzes. Each row corresponds to one table reported in autoanalyze logs. This feature is available on PostgreSQL 9.2 or later.</h4>
+<h4>This table shows the I/O statistics for autoanalyzes. Each row corresponds to one table reported in autoanalyze logs.</h4>
 <ul>
 <li><em>Database</em>: Name of the database this table resides in</li>
 <li><em>Schema</em>: Name of the schema this table belongs to</li>
 <li><em>Table</em>: Name of the table</li>
-<li><em>Avg page hit</em>: Average number of buffers that each autoanalyze read from shared buffers throughout this report period</li>
-<li><em>Avg page miss</em>: Average number of buffers that each autoanalyze read from disks throughout this report period</li>
-<li><em>Avg page dirtied</em>: Average number of buffers that each autoanalyze has dirtied throughout this report period</li>
-<li><em>Avg read rate</em>: Average time that each autoanalyze spent to read disks throughout this report period in MB/s</li>
-<li><em>Avg write rate</em>: Average time that each autoanalyze spent to write disks throughout this report period in MB/s</li>
-<li><em>Avg read duration</em>: Average time that each autoanalyze spent to read disks throughout this report period in ms</li>
-<li><em>Avg write duration</em>: Average time that each autoanalyze spent to write disks throughout this report period in ms</li>
+<li><em>Page hit</em>: Average number of buffers that each autoanalyze read from shared buffers throughout this report period</li>
+<li><em>Page miss</em>: Average number of buffers that each autoanalyze read from disks throughout this report period</li>
+<li><em>Page dirtied</em>: Average number of buffers that each autoanalyze has dirtied throughout this report period</li>
+<li><em>Read rate (MiB/s)</em>: Average time that each autoanalyze spent to read disks throughout this report period in MiB/s</li>
+<li><em>Write rate (MiB/s)</em>: Average time that each autoanalyze spent to write disks throughout this report period in MiB/s</li>
+<li><em>Read duration (ms)</em>: Average time that each autoanalyze spent to read disks throughout this report period in ms</li>
+<li><em>Write duration (ms)</em>: Average time that each autoanalyze spent to write disks throughout this report period in ms</li>
 </ul>
 </div>
 
@@ -678,7 +674,7 @@ available. Less logging reduces the completeness this table.</div>
 <h4>Axes</h4>
 <ul>
 <li><em>Horizontal axis</em>: Time</li>
-<li><em>Vertial axis</em>: Percentage of modified rows against all rows including dead tuples stored in the table</li>
+<li><em>Vertical axis</em>: Percentage of modified rows against all rows including dead tuples stored in the table</li>
 </ul>
 <h4>Legend</h4>
 <ul>
@@ -693,7 +689,7 @@ available. Less logging reduces the completeness this table.</div>
 of reporting period. One column is shown for one replication
 session.</h4>
 <ul>
-<li><em>snapshot time</em>: Timestamp of the last replication connection in snapshot</li>
+<li><em>Snapshot time</em>: Timestamp of the last replication connection in snapshot</li>
 <li><em>Session user</em>: Name of the user logged into this WAL sender process</li>
 <li><em>Application name</em>: Application name that is connected to this WAL sender</li>
 <li><em>Client address</em>: IP address of the client connected to this WAL sender</li>
@@ -758,7 +754,7 @@ session.</h4>
 <li><em>Schema</em>: Name of the schema this table belongs to</li>
 <li><em>Table</em>: Name of this table</li>
 <li><em>Columns</em>: Number of user columns in this table</li>
-<li><em>Rows</em>: Number of rows in this table. Available only on pg_statsinfo 3.0 or later</li>
+<li><em>Rows</em>: Number of rows in this table</li>
 <li><em>MiB</em>: Size of this table at the end of this report period in Mebibytes</li>
 <li><em>+MiB</em>: Increase or decrease in size of this table during this report period in Mebibytes</li>
 <li><em>Table scans</em>: Number of sequential scans executed during this report period</li>
