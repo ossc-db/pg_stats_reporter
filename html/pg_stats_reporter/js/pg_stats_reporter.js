@@ -96,6 +96,19 @@ $(function(){
     })
   );
 
+  // Wait Sampling per Database
+  $("#wait_sampling_by_dbid_table").tablesorter(
+    $.extend({}, tablesorterDefaultOptions, {
+      widgets: [ ]
+    })
+  )
+  .tablesorterPager(
+    $.extend({}, pagerDefaultOptions, {
+      container: $('#pager_wait_sampling_by_dbid'),
+      size: 10
+    })
+  );
+
   // WAL Statistics
   $("#write_ahead_logs_stats_table").tablesorter(
     $.extend({}, tablesorterDefaultOptions, {
@@ -119,6 +132,19 @@ $(function(){
   $("#bgwriter_statistics_table").tablesorter(
     $.extend({}, tablesorterDefaultOptions, {
       widgets: [ ]
+    })
+  );
+
+  // Wait Sampling (Instance)
+  $("#wait_sampling_by_instid_table").tablesorter(
+    $.extend({}, tablesorterDefaultOptions, {
+      widgets: [ ]
+    })
+  )
+  .tablesorterPager(
+    $.extend({}, pagerDefaultOptions, {
+      container: $('#pager_wait_sampling_by_instid'),
+      size: 10
     })
   );
 
@@ -341,6 +367,19 @@ $(function(){
   });
 
   $('.tablesorter-childRow td').hide();
+
+  // Wait Sampling
+  $("#wait_sampling_table").tablesorter(
+    $.extend({}, tablesorterDefaultOptions, {
+      widgets: [ ]
+    })
+  )
+  .tablesorterPager(
+    $.extend({}, pagerDefaultOptions, {
+      container: $('#pager_wait_sampling'),
+      size: 10
+    })
+  );
 
   // Long Transaction
   $("#long_transactions_table").tablesorter(
