@@ -22,8 +22,8 @@ function makeReport($conn, $config, $url_param, &$err_msg)
 	$err_msg = null;
 
 	/* check repository version */
-	if ($config[$url_param['repodb']]['repo_version'] < V13) {
-		$err_msg = sprintf($error_message['st_version'], "13.x");
+	if ($config[$url_param['repodb']]['repo_version'] < V14) {
+		$err_msg = sprintf($error_message['st_version'], "14.x");
 		return null;
 	}
 
@@ -63,8 +63,8 @@ function makeLogReport($conn, $config, $url_param, &$err_msg)
 	$t_conf = $config[$url_param['repodb']];
 
 	/* check repository version */
-	if ($t_conf['repo_version'] < V13) {
-		$err_msg = sprintf($error_message['st_version'], "13.x");
+	if ($t_conf['repo_version'] < V14) {
+		$err_msg = sprintf($error_message['st_version'], "14.x");
 		return null;
 	}
 
@@ -124,7 +124,7 @@ function makeReportForCommandline($conn, $infoData, $target_info, $snapids)
 	$html_string = array();
 
 	/* check repository version */
-	if ($infoData[$target_info['repodb']]['repo_version'] < V13) {
+	if ($infoData[$target_info['repodb']]['repo_version'] < V14) {
 		return null;
 	}
 
@@ -175,13 +175,11 @@ EOD;
 		|| $targetList['transactions']
 		|| $targetList['database_size']
 		|| $targetList['recovery_conflicts']
-		|| $targetList['wait_sampling_by_dbid']
 		|| $targetList['write_ahead_logs']
 		|| $targetList['wal_statistics']
 		|| $targetList['backend_states_overview']
 		|| $targetList['backend_states']
-    	|| $targetList['bgwriter_statistics']
-    	|| $targetList['wait_sampling_by_instid']) {
+    	|| $targetList['bgwriter_statistics']) {
 
 		$html_string .= "<li><a href=\"#statistics\">Statistics</a><ul>\n";
 
@@ -189,8 +187,7 @@ EOD;
 		if ($targetList['databases_statistics']
 			|| $targetList['transactions']
 			|| $targetList['database_size']
-			|| $targetList['recovery_conflicts']
-			|| $targetList['wait_sampling_by_dbid']) {
+			|| $targetList['recovery_conflicts']) {
 
 			$html_string .= "<li><a href=\"#databases_statistics\">Databases Statistics</a><ul>\n";
 
@@ -200,8 +197,6 @@ EOD;
 				$html_string .= "<li><a href=\"#database_size\">Database Size</a></li>\n";
 			if ($targetList['recovery_conflicts'])
 				$html_string .= "<li><a href=\"#recovery_conflicts\">Recovery Conflicts</a></li>\n";
-			if ($targetList['wait_sampling_by_dbid'])
-				$html_string .= "<li><a href=\"#wait_sampling_by_dbid\">Wait Sampling per Database</a></li>\n";
 
 			$html_string .= "</ul></li>\n";
 		}
@@ -211,23 +206,20 @@ EOD;
 		    || $targetList['wal_statistics']
 			|| $targetList['backend_states_overview']
 			|| $targetList['backend_states']
-        	|| $targetList['bgwriter_statistics']
-        	|| $targetList['wait_sampling_by_instid']) {
+        	|| $targetList['bgwriter_statistics']) {
 
 			$html_string .= "<li><a href=\"#instance_activity\">Instance Statistics</a><ul>\n";
 
 			if ($targetList['write_ahead_logs'])
 				$html_string .= "<li><a href=\"#write_ahead_logs\">Write Ahead Logs</a></li>\n";
 			if ($targetList['wal_statistics'])
-				$html_string .= "<li><a href=\"#wal_statistics\">WAL statistics</a></li>\n";
+				$html_string .= "<li><a href=\"#wal_statistics\">WAL Statistics</a></li>\n";
 			if ($targetList['backend_states_overview'])
 				$html_string .= "<li><a href=\"#backend_states_overview\">Backend States Overview</a></li>\n";
 			if ($targetList['backend_states'])
 				$html_string .= "<li><a href=\"#backend_states\">Backend States</a></li>\n";
             if ($targetList['bgwriter_statistics'])
                 $html_string .= "<li><a href=\"#bgwriter_statistics\">Background Writer Statistics</a></li>\n";
-            if ($targetList['wait_sampling_by_instid'])
-                $html_string .= "<li><a href=\"#wait_sampling_by_instid\">Wait Sampling (Instance)</a></li>\n";
 
 			$html_string .= "</ul></li>\n";
 		}
@@ -289,7 +281,6 @@ EOD;
 		|| $targetList['correlation']
 		|| $targetList['functions']
 		|| $targetList['statements']
-		|| $targetList['wait_sampling']
 		|| $targetList['long_transactions']
 		|| $targetList['lock_conflicts']) {
 
@@ -318,8 +309,7 @@ EOD;
 		/* Query Activity */
 		if ($targetList['functions']
 			|| $targetList['statements']
-			|| $targetList['plans']
-			|| $targetList['wait_sampling']) {
+			|| $targetList['plans']) {
 			$html_string .= "<li><a href=\"#query_activity\">Query Activity</a><ul>\n";
 
 			if ($targetList['functions'])
@@ -328,8 +318,6 @@ EOD;
 				$html_string .= "<li><a href=\"#qa_statements\">Statements</a></li>\n";
 			if ($targetList['plans'])
 				$html_string .= "<li><a href=\"#qa_plans\">Plans</a></li>\n";
-			if ($targetList['wait_sampling'])
-				$html_string .= "<li><a href=\"#qa_wait_sampling\">Wait Sampling</a></li>\n";
 
 			$html_string .= "</ul></li>\n";
 		}
@@ -345,7 +333,7 @@ EOD;
 		$html_string .= "</ul></li>\n";
 	}
 
-	/* Maintenance */
+	/* Maintenances */
 	if ($targetList['checkpoints']
 		|| $targetList['autovacuum_overview']
 		|| $targetList['autovacuum_io_summary']
@@ -359,7 +347,7 @@ EOD;
 		|| $targetList['replication_delays']
 		|| $targetList['replication_slots']) {
 
-		$html_string .= "<li><a href=\"#activities\">Maintenance</a><ul>\n";
+		$html_string .= "<li><a href=\"#activities\">Maintenances</a><ul>\n";
 
 		/* Checkpoints */
 		if ($targetList['checkpoints'])
@@ -409,7 +397,7 @@ EOD;
 			if($targetList['replication_delays'])
 				$html_string .= "<li><a href=\"#replication_delays\">Delays</a></li>\n";
 			if($targetList['replication_slots'])
-				$html_string .= "<li><a href=\"#replication_slots\">Replication slots statistics</a></li>\n";
+				$html_string .= "<li><a href=\"#replication_slots\">Replication Slots Statistics</a></li>\n";
 
 
 			$html_string .= "</ul></li>\n";
@@ -444,7 +432,7 @@ EOD;
 
 			$html_string .= "<li><a href=\"#setting_parameters\">Settings</a><ul>\n";
 
-			$html_string .= "<li><a href=\"#runtime_params\">Run-time paramters</a></li>\n";
+			$html_string .= "<li><a href=\"#runtime_params\">Run-time Paramters</a></li>\n";
 
 			$html_string .= "</ul></li>\n";
 		}
@@ -509,15 +497,13 @@ function makePlainHeaderMenu()
     <li><a>Transactions</a></li>
     <li><a>Database Size</a></li>
     <li><a>Recovery Conflicts</a></li>
-    <li><a>Wait Sampling per Database</a></li>
   </ul></li>
   <li><a>Instance Statistics</a><ul>
     <li><a>Write Ahead Logs</a></li>
-    <li><a>WAL statistics</a></li>
+    <li><a>WAL Statistics</a></li>
     <li><a>Backend States Overview</a></li>
     <li><a>Backend States</a></li>
     <li><a>Background Writer Statistics</a></li>
-    <li><a>Wait Sampling (Instance)</a></li>
   </ul></li>
 </ul></li>
 <li><a>OS</a><ul>
@@ -543,12 +529,11 @@ function makePlainHeaderMenu()
     <li><a>Functions</a></li>
     <li><a>Statements</a></li>
     <li><a>Plans</a></li>
-    <li><a>Wait Sampling</a></li>
   </ul></li>
   <li><a>Long Transactions</a></li>
   <li><a>Lock Conflicts</a></li>
 </ul></li>
-<li><a>Maintenance</a><ul>
+<li><a>Maintenances</a><ul>
   <li><a>Checkpoints</a></li>
   <li><a>Autovacuums</a><ul>
     <li><a>Overview</a></li>
@@ -563,7 +548,7 @@ function makePlainHeaderMenu()
   <li><a>Replication</a><ul>
     <li><a>Overview</a></li>
     <li><a>Delays</a></li>
-    <li><a>Replication slots statistics</a></li>
+    <li><a>Replication Slots Statistics</a></li>
   </ul></li>
 </ul></li>
 <li><a>Misc</a><ul>
@@ -738,7 +723,7 @@ EOD;
 	/* Activities */
 	$html_string .= makeSQLReport($conn, $targetData, $snapids, $error_message);
 
-	/* Maintenance */
+	/* Maintenances */
 	$html_string .= makeActivitiesReport($conn, $targetData, $snapids, $error_message);
 
 	/* Miscellaneous */
@@ -863,8 +848,7 @@ EOD;
 	if ($target['databases_statistics']
 		|| $target['transactions']
 		|| $target['database_size']
-		|| $target['recovery_conflicts']
-		|| $target['wait_sampling_by_dbid']) {
+		|| $target['recovery_conflicts']) {
 
 		$htmlString .=
 <<< EOD
@@ -918,7 +902,7 @@ EOD;
 				makeTupleListForDygraphs($result, $name, $value);
 				$opt = array();
 				array_push($opt, "title: 'Transactions'");
-				array_push($opt, "ylabel: 'Transactions per second'");
+				array_push($opt, "ylabel: 'Transactions (tps)'");
 				array_push($opt, "labelsKMB: true");
 				$htmlString .= makeLineGraphHTML($name, $value, "transactions", $opt);
 			}
@@ -977,28 +961,6 @@ EOD;
 			}
 			pg_free_result($result);
 		}
-
-		if ($target['wait_sampling_by_dbid']) {
-			$htmlString .=
-<<< EOD
-<div id="wait_sampling_by_dbid" class="jump_margin"></div>
-<h3>Wait Sampling per Database</h3>
-<div align="right" class="jquery_ui_button_info_h3">
-  <div><button class="help_button" dialog="#wait_sampling_by_dbid_dialog"></button></div>
-</div>
-
-EOD;
-			$result = pg_query_params($conn, $query_string['wait_sampling_by_dbid'], $snapids);
-			if (!$result) {
-				return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
-			}
-			if (pg_num_rows($result) == 0) {
-				$htmlString .= makeErrorTag($errorMsg['no_result']);
-			} else {
-				$htmlString .= makeTablePagerHTML($result, "wait_sampling_by_dbid", 10, true);
-			}
-			pg_free_result($result);
-		}
 	}
 
 	/* Instance Statistics */
@@ -1006,8 +968,7 @@ EOD;
 		|| $target['wal_statistics']
 		|| $target['backend_states_overview']
 		|| $target['backend_states']
-    	|| $target['bgwriter_statistics']
-    	|| $target['wait_sampling_by_instid']) {
+    	|| $target['bgwriter_statistics']) {
 		$htmlString .=
 <<< EOD
 <div id="instance_activity" class="jump_margin"></div>
@@ -1054,7 +1015,7 @@ EOD;
 			$htmlString .=
 <<< EOD
 <div id="wal_statistics" class="jump_margin"></div>
-<h3>WAL statistics</h3>
+<h3>WAL Statistics</h3>
 <div align="right" class="jquery_ui_button_info_h3">
   <div><button class="help_button" dialog="#wal_statistics_dialog"></button></div>
 </div>
@@ -1119,7 +1080,7 @@ EOD;
 			} else {
 				$opt = array();
 				array_push($opt, "title: 'Backend States'");
-				array_push($opt, "ylabel: 'Percent'");
+				array_push($opt, "ylabel: 'Backends'");
 				$htmlString .= makeSimpleLineGraphHTML($result, "backend_states", $opt, true, false);
 			}
 			pg_free_result($result);
@@ -1151,29 +1112,6 @@ EOD;
                 $htmlString .= makeErrorTag($errorMsg['no_result']);
             } else {
                 $htmlString .= makebgwriterStatisticsGraphHTML($result);
-            }
-            pg_free_result($result);
-        }
-
-        if ($target['wait_sampling_by_instid']) {
-            $htmlString .=
-<<< EOD
-<div id="wait_sampling_by_instid" class="jump_margin"></div>
-<h3>Wait Sampling (Instance)</h3>
-<div align="right" class="jquery_ui_button_info_h3">
-  <div><button class="help_button" dialog="#wait_sampling_by_instid_dialog"></button></div>
-</div>
-
-
-EOD;
-            $result = pg_query_params($conn, $query_string['wait_sampling_by_instid'], $snapids);
-            if (!$result) {
-                return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
-            }
-            if (pg_num_rows($result) == 0) {
-                $htmlString .= makeErrorTag($errorMsg['no_result']);
-            } else {
-                $htmlString .= makeTablePagerHTML($result, "wait_sampling_by_instid", 10, true);
             }
             pg_free_result($result);
         }
@@ -1622,8 +1560,7 @@ EOD;
 	/* Query Activity */
 	if ($target['functions']
 		|| $target['statements']
-		|| $target['plans']
-		|| $target['wait_sampling']) {
+		|| $target['plans']) {
 
 		$htmlString .=
 <<< EOD
@@ -1697,29 +1634,6 @@ EOD;
 
 			$htmlString .= makePlansString($conn, $query_string, $snapids, $errorMsg);
 		}
-
-        if ($target['wait_sampling']) {
-            $htmlString .=
-<<< EOD
-<div id="qa_wait_sampling" class="jump_margin"></div>
-<h3>Wait Sampling</h3>
-<div align="right" class="jquery_ui_button_info_h3">
-  <div><button class="help_button" dialog="#wait_sampling_dialog"></button></div>
-</div>
-
-
-EOD;
-            $result = pg_query_params($conn, $query_string['wait_sampling'], $snapids);
-            if (!$result) {
-                return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
-            }
-            if (pg_num_rows($result) == 0) {
-                $htmlString .= makeErrorTag($errorMsg['no_result']);
-            } else {
-                $htmlString .= makeTablePagerHTML($result, "wait_sampling", 10, true);
-            }
-            pg_free_result($result);
-        }
 	}
 
 	/* Long Transactions */
@@ -1780,7 +1694,7 @@ EOD;
 	return $htmlString;
 }
 
-/* Maintenance */
+/* Maintenances */
 function makeActivitiesReport($conn, $target, $snapids, $errorMsg)
 {
 	global $query_string;
@@ -2021,7 +1935,7 @@ EOD;
                 makeTupleListForDygraphs($result, $name, $value);
                 $opt = array();
                 array_push($opt, "title: 'Modified Rows'");
-                array_push($opt, "ylabel: 'Modified rows (%)'");
+                array_push($opt, "ylabel: 'Modified Rows (%)'");
                 $htmlString .= makeLineGraphHTML($name, $value, "modified_rows", $opt);
             }
             pg_free_result($result);
@@ -2136,7 +2050,7 @@ EOD;
 	   $htmlString .=
 <<< EOD
 <div id="replication_slots" class="jump_margin"></div>
-<h3>Replication slots statistics</h3>
+<h3>Replication Slots Statistics</h3>
 <div align="right" class="jquery_ui_button_info_h3">
   <div><button class="help_button" dialog="#replication_slots_dialog"></button></div>
 </div>
@@ -2245,7 +2159,7 @@ EOD;
 <div id="setting_parameters" class="jump_margin"></div>
 <h2>Settings</h2>
 <div id="runtime_params" class="jump_margin"></div>
-<h3>Run-time parameters</h3>
+<h3>Run-time Parameters</h3>
 <div align="right" class="jquery_ui_button_info_h3">
   <div><button class="help_button" dialog="#runtime_params_dialog"></button></div>
 </div>
@@ -2652,7 +2566,7 @@ function makeStatWALGraphHTML($results)
 {
 
 	// make Graph Datalist
-	$data1 = ""; // WAL size
+	$data1 = ""; // WAL Size
 	$data2 = ""; // Buffer full
 	$data3 = ""; // WAL I/O request
 	$data4 = ""; // WAL I/O time
@@ -2666,7 +2580,7 @@ function makeStatWALGraphHTML($results)
 		$data4 .= "    [new Date('".$row[0]."'), ".$row[6].", ".$row[7]."],\n";
 	}
 
-	// make WAL size Graph
+	// make WAL Size Graph
 	$htmlString = 
 <<< EOD
 <table><tr><td rowspan="2">
@@ -2696,9 +2610,9 @@ EOD;
     hideOverlayOnMouseOut: false,
     legend: 'always',
     xlabel: 'Time',
-	title: 'WAL size',
-	ylabel: 'Full page images',
-	y2label: 'WAL bytes',
+	title: 'WAL Size',
+	ylabel: 'Full Page Images',
+	y2label: 'WAL Bytes',
 	animatedZooms: true,
     axes: {
 		  y: {axisLabelWidth: 70},
@@ -2717,7 +2631,7 @@ EOD;
 	$htmlString .= " ],\n".makeCheckpointSetting("wal_size");
 	$htmlString .= "</script>\n\n";
 
-	// make Buffers full Graph
+	// make Buffers Full Graph
 	$htmlString .= 
 <<< EOD
 <table><tr><td rowspan="2">
@@ -2747,8 +2661,8 @@ EOD;
     hideOverlayOnMouseOut: false,
     legend: 'always',
     xlabel: 'Time',
-	title: 'Buffers full',
-	ylabel: 'WAL buffers full',
+	title: 'Buffers Full',
+	ylabel: 'WAL Buffers Full',
 	animatedZooms: true,
     axes: {
 		  y: {axisLabelWidth: 70},
@@ -2763,7 +2677,7 @@ EOD;
 	$htmlString .= "</script>\n\n";
 
 
-	// make WAL I/O request Graph
+	// make WAL I/O Request Graph
 	$htmlString .= 
 <<< EOD
 <table><tr><td rowspan="2">
@@ -2793,8 +2707,8 @@ EOD;
     hideOverlayOnMouseOut: false,
     legend: 'always',
     xlabel: 'Time',
-	title: 'WAL I/O request',
-	ylabel: 'I/O request',
+	title: 'WAL I/O Request',
+	ylabel: 'I/O Request',
 	animatedZooms: true,
     axes: {
 		  y: {axisLabelWidth: 70},
@@ -2810,7 +2724,7 @@ EOD;
 	$htmlString .= "</script>\n\n";
 
 
-	// make WAL I/O time Graph
+	// make WAL I/O Time Graph
 	$htmlString .= 
 <<< EOD
 <table><tr><td rowspan="2">
@@ -2840,8 +2754,8 @@ EOD;
     hideOverlayOnMouseOut: false,
     legend: 'always',
     xlabel: 'Time',
-	title: 'WAL I/O time',
-	ylabel: 'I/O time',
+	title: 'WAL I/O Time',
+	ylabel: 'I/O Time',
 	animatedZooms: true,
     axes: {
 		  y: {axisLabelWidth: 70},
@@ -2902,8 +2816,8 @@ EOD;
     legend: 'always',
     xlabel: 'Time',
 	title: 'WAL Write Rate',
-	ylabel: 'Bytes per snapshot',
-	y2label: 'Write rate (Bytes/s)',
+	ylabel: 'Bytes per Snapshot',
+	y2label: 'Write Rate (Bytes/s)',
 	animatedZooms: true,
     axes: {
 		  y: {labelsKMG2: true, axisLabelWidth: 70},
@@ -2967,7 +2881,7 @@ EOD;
     legend: 'always',
     xlabel: 'Time',
 	title: 'Background Writer Statistics',
-	ylabel: 'Buffer rate (buffers/s)',
+	ylabel: 'Buffer Rate (buffers/s)',
 	y2label: 'Frequency (s<sup>-1</sup>)',
 	animatedZooms: true,
     axes: {
@@ -3034,7 +2948,7 @@ EOD;
     legend: 'always',
     xlabel: 'Time',
 	title: 'Full Page Image',
-	ylabel: 'full page image',
+	ylabel: 'Full Page Image',
 	animatedZooms: true,
     axes: {
 		  y: {axisLabelWidth: 70},
@@ -3077,7 +2991,7 @@ EOD;
     legend: 'always',
     xlabel: 'Time',
 	title: 'WAL Bytes',
-	ylabel: 'WAL bytes',
+	ylabel: 'WAL Bytes',
 	animatedZooms: true,
     axes: {
 		  y: {labelsKMG2: true, axisLabelWidth: 70},
