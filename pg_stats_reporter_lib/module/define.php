@@ -76,11 +76,13 @@ $report_default = array(
   'transactions'              => true,
   'database_size'             => true,
   'recovery_conflicts'        => true,
+  'wait_sampling_by_dbid'     => true,
   'write_ahead_logs'          => true,
   'wal_statistics'            => true,
   'backend_states_overview'   => true,
   'backend_states'            => true,
   'bgwriter_statistics'       => true,
+  'wait_sampling_by_instid'   => true,
   'cpu_usage'                 => true,
   'load_average'              => true,
   'memory_usage'              => true,
@@ -94,6 +96,7 @@ $report_default = array(
   'functions'                 => true,
   'statements'                => true,
   'plans'					  => true,
+  'wait_sampling'			  => true,
   'long_transactions'         => true,
   'lock_conflicts'            => true,
   'checkpoints'               => true,
@@ -122,11 +125,13 @@ $help_list = array(
   'transactions'              => 'transactions_dialog',
   'database_size'             => 'database_size_dialog',
   'recovery_conflicts'        => 'recovery_conflicts_dialog',
+  'wait_sampling_by_dbid'     => 'wait_sampling_by_dbid_dialog',
   'write_ahead_logs'          => 'write_ahead_logs_dialog',
   'wal_statistics'            => 'wal_statistics_dialog',
   'backend_states_overview'   => 'backend_states_overview_dialog',
   'backend_states'            => 'backend_states_dialog',
   'bgwriter_statistics'       => 'bgwriter_statistics_dialog',
+  'wait_sampling_by_instid'   => 'wait_sampling_by_instid_dialog',
   'cpu_usage'                 => 'cpu_usage_dialog',
   'load_average'              => 'load_average_dialog',
   'memory_usage'              => 'memory_usage_dialog',
@@ -140,6 +145,7 @@ $help_list = array(
   'functions'                 => 'functions_dialog',
   'statements'                => 'statements_dialog',
   'plans'                     => 'plans_dialog',
+  'wait_sampling'             => 'wait_sampling_dialog',
   'long_transactions'         => 'long_transactions_dialog',
   'lock_conflicts'            => 'lock_conflicts_dialog',
   'checkpoints'               => 'checkpoints_dialog',
@@ -186,6 +192,9 @@ $query_string = array(
   "recovery_conflicts" =>
   "SELECT datname AS \"Database\", confl_tablespace AS \"On tablespaces\", confl_lock AS \"On locks\", confl_snapshot AS \"On snapshots\", confl_bufferpin AS \"On bufferpins\", confl_deadlock AS \"On deadlocks\" FROM statsrepo.get_recovery_conflicts($1, $2)",
 
+  "wait_sampling_by_dbid" =>
+  "SELECT dbid, \"database\", event_type, event, \"count\", ratio, row_number FROM statsrepo.get_wait_sampling_by_dbid($1, $2)",
+
   // Instance Statistics
   "write_ahead_logs" =>
   "SELECT replace(\"timestamp\", '-', '/') AS \"timestamp\", avg(write_size*1024*1024) AS \"Bytes/snapshot (Bytes)\", avg(write_size_per_sec*1024*1024) As \"Write rate (Bytes/s)\" FROM statsrepo.get_wal_tendency($1, $2) GROUP BY 1 ORDER BY 1",
@@ -207,6 +216,9 @@ $query_string = array(
 
   "bgwriter_statistics" =>
   "SELECT replace(\"timestamp\", '-', '/'), bgwriter_write_tps AS \"Written buffers by bgwriter(L)\", backend_write_tps AS \"Written buffers by backends(L)\", buffer_alloc_tps AS \"Allocated buffers(L)\", bgwriter_stopscan_tps AS \"Bgwriter scans quitted earlier(R)\", backend_fsync_tps AS \"Fsyncs executed on backends(R)\" FROM statsrepo.get_bgwriter_tendency($1, $2)",
+
+  "wait_sampling_by_instid" =>
+  "SELECT event_type, event, \"count\", ratio, row_number FROM statsrepo.get_wait_sampling_by_instid($1, $2)",
 
   /* OS Resources */
   // CPU and Memory
@@ -277,6 +289,8 @@ $query_string = array(
   "plans_get_plan_does_not_exist" =>
   "SELECT plan FROM statsrepo.plan WHERE snapid=$1 AND dbid=$2 AND userid=$3 AND planid=$4",
 
+  "wait_sampling" =>
+  "SELECT queryid, dbid, userid, \"database\", role, backend_type, event_type, event, \"count\", ratio, query, row_number FROM statsrepo.get_wait_sampling($1, $2)",
   // Long Transaction
   "long_transactions" =>
   "SELECT pid AS \"PID\", client AS \"Client address\", start AS \"Xact Start\", duration AS \"Duration (s)\", query AS \"Last query\" FROM statsrepo.get_long_transactions($1, $2)",

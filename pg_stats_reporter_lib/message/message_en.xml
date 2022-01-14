@@ -78,6 +78,20 @@
 </ul>
 </div>
 
+<div id="wait_sampling_by_dbid_dialog" class="help_dialog"
+  title="How to see a Wait Sampling per Database table">
+<h4>How to see a Wait Sampling per Database table.</h4>
+<ul>
+<li>Dbid : Identifier of database.</li>
+<li>Database : Name of the database this backend is connected to.</li>
+<li>Event_type : The type of event for which the backend is waiting.</li>
+<li>Event : Wait event name if backend is currently waiting.</li>
+<li>Count : The number of samples.</li>
+<li>Ratio : Ratio within each database.</li>
+<li>Row_number : Row number within each database.(Top 10)</li>
+</ul>
+</div>
+
 <div id="write_ahead_logs_dialog" class="help_dialog"
   title="The Write Ahead Logs Table and The WAL Write Rate Graph">
 <h4>This table shows the overview of Write Ahead Logs.</h4>
@@ -209,6 +223,18 @@ the another shows the amount divided by the snapshot interval.</h4>
 <li><em>Allocated buffers(L)</em>: Average number of buffers allocated per second.</li>
 <li><em>bgwriter scans quitted earlier(R)</em>: Average number of times per second the background writer stopped a cleaning scan because it had written too many buffers.</li>
 <li><em>fsyncs executed on backends(R)</em>: Average number of times per second a backend had to execute its own fsync call because the checkpointer could not keep room for the fsync request.</li>
+</ul>
+</div>
+
+<div id="wait_sampling_by_instid_dialog" class="help_dialog"
+  title="How to see a Wait Sampling (Instance) table">
+<h4>How to see a Wait Sampling (Instance) table.</h4>
+<ul>
+<li>Event_type : The type of event for which the backend is waiting. </li>
+<li>Event : Wait event name if backend is currently waiting.</li>
+<li>Count : The number of samples.</li>
+<li>Ratio : Ratio within each instance.</li>
+<li>Row_number : Row number within each instance.(Top 10)</li>
 </ul>
 </div>
 
@@ -477,6 +503,25 @@ pg_stat_statsments to be installed.</h4>
   <li><em>Last call</em>: Time when this plan last executed</li>
   <li><em>Plan</em>: Plan string. This string holds numbers in last execution, which are omitted in calculating plan IDs.</li>
 </ul></li>
+</ul>
+</div>
+
+<div id="wait_sampling_dialog" class="help_dialog"
+  title="How to see a Wait Sampling table">
+<h4>How to see a Wait Sampling table.</h4>
+<ul>
+<li>Queryid : Hash code to identify identical normalized queries.</li>
+<li>Dbid : Identifier of database.</li>
+<li>Userid : Identifier of user.</li>
+<li>Database : Name of the database this backend is connected to.</li>
+<li>Role : Name of the user logged into this backend.</li>
+<li>Backend_type : Type of current backend. Possible types are autovacuum launcher, autovacuum worker, logical replication launcher, logical replication worker, parallel worker, background writer, client backend, checkpointer, archiver, startup, walreceiver, walsender and walwriter. In addition, background workers registered by extensions may have additional types.</li>
+<li>Event_type : The type of event for which the backend is waiting. </li>
+<li>Event : Wait event name if backend is currently waiting.</li>
+<li>Count : The number of samples.</li>
+<li>Ratio : Ratio within each query.</li>
+<li>Query : Query string.</li>
+<li>Row_number : Row number within each query.(Top 10)</li>
 </ul>
 </div>
 

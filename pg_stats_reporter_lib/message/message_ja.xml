@@ -78,6 +78,18 @@
 </ul>
 </div>
 
+<div id="wait_sampling_by_instid_dialog" class="help_dialog"
+  title="How to see a Wait Sampling (Instance) table">
+<h4>この表はインスタンス毎の待機イベントを示します。</h4>
+<ul>
+<li>Event_type : バックエンドが待つイベントのタイプ</li>
+<li>Event : バックエンドが待つイベント名</li>
+<li>Count : サンプル数</li>
+<li>Ratio : インスタンス内の比率</li>
+<li>Row_number : インスタンス内の行番号（上位10件）</li>
+</ul>
+</div>
+
 <div id="write_ahead_logs_dialog" class="help_dialog"
   title="The Write Ahead Logs Table and The WAL Write Rate Graph">
 <h4>この表は先行書き込みログ(WAL)の概要を示します。</h4>
@@ -204,6 +216,20 @@
 <li><em>Allocated buffers(L)</em>: 割当られたバッファ数の一秒あたりの平均値</li>
 <li><em>bgwriter scans quitted earlier(R)</em>: 書き出したバッファ数が多過ぎたために、バックグラウンドライタによるバッファ回収のスキャンを途中で終了した回数の一秒あたりの平均値</li>
 <li><em>fsyncs executed on backends(R)</em>: チェックポインタでの処理が間に合わずバックエンドが自身で実行することになった fsync 呼び出しの回数の一秒あたりの平均値</li>
+</ul>
+</div>
+
+<div id="wait_sampling_by_dbid_dialog" class="help_dialog"
+  title="How to see a Wait Sampling per Database table">
+<h4>この表はデータベース毎の待機イベントを示します。</h4>
+<ul>
+<li>Dbid : データベース識別子</li>
+<li>Database : 当該バックエンドが接続するデータベース名</li>
+<li>Event_type : バックエンドが待つイベントのタイプ</li>
+<li>Event : バックエンドが待つイベント名</li>
+<li>Count : サンプル数</li>
+<li>Ratio : データベース内の比率</li>
+<li>Row_number : データベース内の行番号（上位10件）</li>
 </ul>
 </div>
 
@@ -456,6 +482,25 @@
   <li><em>Last call</em>: この実行計画が最後に実行された時刻</li>
   <li><em>Plan</em>: 実行計画。実行計画中の値は最後に実行された際のものが表示されます。</li>
 </ul></li>
+</ul>
+</div>
+
+<div id="wait_sampling_dialog" class="help_dialog"
+  title="How to see a Wait Sampling table">
+<h4>この表は待機イベントを示します。</h4>
+<ul>
+<li>Queryid : 正規化されたクエリ文字列を特定するハッシュ</li>
+<li>Dbid : データベース識別子</li>
+<li>Userid : ユーザ識別子</li>
+<li>Database : 当該バックエンドが接続するデータベース名</li>
+<li>Role : 当該バックエンドにログインしているユーザ名</li>
+<li>Backend_type : 現在のバックエンドのタイプ。可能なタイプは、autovacuum launcher, autovacuum worker, logical replication launcher, logical replication worker, parallel worker, background writer, client backend, checkpointer, archiver, startup, walreceiver, walsender, walwriter. 加えて、拡張により登録されたバックグラウンドワーカが付加的なタイプとなることがあります。</li>
+<li>Event_type : バックエンドが待つイベントのタイプ </li>
+<li>Event : バックエンドが待つイベント名</li>
+<li>Count : サンプル数</li>
+<li>Ratio : クエリ内の比率</li>
+<li>Query : クエリ文字列</li>
+<li>Row_number : クエリ内の行番号（上位10件）</li>
 </ul>
 </div>
 

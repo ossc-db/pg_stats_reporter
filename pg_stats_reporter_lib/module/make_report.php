@@ -175,11 +175,13 @@ EOD;
 		|| $targetList['transactions']
 		|| $targetList['database_size']
 		|| $targetList['recovery_conflicts']
+		|| $targetList['wait_sampling_by_dbid']
 		|| $targetList['write_ahead_logs']
 		|| $targetList['wal_statistics']
 		|| $targetList['backend_states_overview']
 		|| $targetList['backend_states']
-    	|| $targetList['bgwriter_statistics']) {
+    	|| $targetList['bgwriter_statistics']
+    	|| $targetList['wait_sampling_by_instid']) {
 
 		$html_string .= "<li><a href=\"#statistics\">Statistics</a><ul>\n";
 
@@ -187,7 +189,8 @@ EOD;
 		if ($targetList['databases_statistics']
 			|| $targetList['transactions']
 			|| $targetList['database_size']
-			|| $targetList['recovery_conflicts']) {
+			|| $targetList['recovery_conflicts']
+			|| $targetList['wait_sampling_by_dbid']) {
 
 			$html_string .= "<li><a href=\"#databases_statistics\">Databases Statistics</a><ul>\n";
 
@@ -197,6 +200,8 @@ EOD;
 				$html_string .= "<li><a href=\"#database_size\">Database Size</a></li>\n";
 			if ($targetList['recovery_conflicts'])
 				$html_string .= "<li><a href=\"#recovery_conflicts\">Recovery Conflicts</a></li>\n";
+			if ($targetList['wait_sampling_by_dbid'])
+				$html_string .= "<li><a href=\"#wait_sampling_by_dbid\">Wait Sampling per Database</a></li>\n";
 
 			$html_string .= "</ul></li>\n";
 		}
@@ -206,7 +211,8 @@ EOD;
 		    || $targetList['wal_statistics']
 			|| $targetList['backend_states_overview']
 			|| $targetList['backend_states']
-        	|| $targetList['bgwriter_statistics']) {
+        	|| $targetList['bgwriter_statistics']
+        	|| $targetList['wait_sampling_by_instid']) {
 
 			$html_string .= "<li><a href=\"#instance_activity\">Instance Statistics</a><ul>\n";
 
@@ -220,6 +226,8 @@ EOD;
 				$html_string .= "<li><a href=\"#backend_states\">Backend States</a></li>\n";
             if ($targetList['bgwriter_statistics'])
                 $html_string .= "<li><a href=\"#bgwriter_statistics\">Background Writer Statistics</a></li>\n";
+            if ($targetList['wait_sampling_by_instid'])
+                $html_string .= "<li><a href=\"#wait_sampling_by_instid\">Wait Sampling (Instance)</a></li>\n";
 
 			$html_string .= "</ul></li>\n";
 		}
@@ -281,6 +289,7 @@ EOD;
 		|| $targetList['correlation']
 		|| $targetList['functions']
 		|| $targetList['statements']
+		|| $targetList['wait_sampling']
 		|| $targetList['long_transactions']
 		|| $targetList['lock_conflicts']) {
 
@@ -309,7 +318,8 @@ EOD;
 		/* Query Activity */
 		if ($targetList['functions']
 			|| $targetList['statements']
-			|| $targetList['plans']) {
+			|| $targetList['plans']
+			|| $targetList['wait_sampling']) {
 			$html_string .= "<li><a href=\"#query_activity\">Query Activity</a><ul>\n";
 
 			if ($targetList['functions'])
@@ -318,6 +328,8 @@ EOD;
 				$html_string .= "<li><a href=\"#qa_statements\">Statements</a></li>\n";
 			if ($targetList['plans'])
 				$html_string .= "<li><a href=\"#qa_plans\">Plans</a></li>\n";
+			if ($targetList['wait_sampling'])
+				$html_string .= "<li><a href=\"#qa_wait_sampling\">Wait Sampling</a></li>\n";
 
 			$html_string .= "</ul></li>\n";
 		}
@@ -497,6 +509,7 @@ function makePlainHeaderMenu()
     <li><a>Transactions</a></li>
     <li><a>Database Size</a></li>
     <li><a>Recovery Conflicts</a></li>
+    <li><a>Wait Sampling per Database</a></li>
   </ul></li>
   <li><a>Instance Statistics</a><ul>
     <li><a>Write Ahead Logs</a></li>
@@ -504,6 +517,7 @@ function makePlainHeaderMenu()
     <li><a>Backend States Overview</a></li>
     <li><a>Backend States</a></li>
     <li><a>Background Writer Statistics</a></li>
+    <li><a>Wait Sampling (Instance)</a></li>
   </ul></li>
 </ul></li>
 <li><a>OS</a><ul>
@@ -529,6 +543,7 @@ function makePlainHeaderMenu()
     <li><a>Functions</a></li>
     <li><a>Statements</a></li>
     <li><a>Plans</a></li>
+    <li><a>Wait Sampling</a></li>
   </ul></li>
   <li><a>Long Transactions</a></li>
   <li><a>Lock Conflicts</a></li>
@@ -848,7 +863,8 @@ EOD;
 	if ($target['databases_statistics']
 		|| $target['transactions']
 		|| $target['database_size']
-		|| $target['recovery_conflicts']) {
+		|| $target['recovery_conflicts']
+		|| $target['wait_sampling_by_dbid']) {
 
 		$htmlString .=
 <<< EOD
@@ -961,6 +977,28 @@ EOD;
 			}
 			pg_free_result($result);
 		}
+
+		if ($target['wait_sampling_by_dbid']) {
+			$htmlString .=
+<<< EOD
+<div id="wait_sampling_by_dbid" class="jump_margin"></div>
+<h3>Wait Sampling per Database</h3>
+<div align="right" class="jquery_ui_button_info_h3">
+  <div><button class="help_button" dialog="#wait_sampling_by_dbid_dialog"></button></div>
+</div>
+
+EOD;
+			$result = pg_query_params($conn, $query_string['wait_sampling_by_dbid'], $snapids);
+			if (!$result) {
+				return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
+			}
+			if (pg_num_rows($result) == 0) {
+				$htmlString .= makeErrorTag($errorMsg['no_result']);
+			} else {
+				$htmlString .= makeTablePagerHTML($result, "wait_sampling_by_dbid", 10, true);
+			}
+			pg_free_result($result);
+		}
 	}
 
 	/* Instance Statistics */
@@ -968,7 +1006,8 @@ EOD;
 		|| $target['wal_statistics']
 		|| $target['backend_states_overview']
 		|| $target['backend_states']
-    	|| $target['bgwriter_statistics']) {
+    	|| $target['bgwriter_statistics']
+    	|| $target['wait_sampling_by_instid']) {
 		$htmlString .=
 <<< EOD
 <div id="instance_activity" class="jump_margin"></div>
@@ -1112,6 +1151,29 @@ EOD;
                 $htmlString .= makeErrorTag($errorMsg['no_result']);
             } else {
                 $htmlString .= makebgwriterStatisticsGraphHTML($result);
+            }
+            pg_free_result($result);
+        }
+
+        if ($target['wait_sampling_by_instid']) {
+            $htmlString .=
+<<< EOD
+<div id="wait_sampling_by_instid" class="jump_margin"></div>
+<h3>Wait Sampling (Instance)</h3>
+<div align="right" class="jquery_ui_button_info_h3">
+  <div><button class="help_button" dialog="#wait_sampling_by_instid_dialog"></button></div>
+</div>
+
+
+EOD;
+            $result = pg_query_params($conn, $query_string['wait_sampling_by_instid'], $snapids);
+            if (!$result) {
+                return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
+            }
+            if (pg_num_rows($result) == 0) {
+                $htmlString .= makeErrorTag($errorMsg['no_result']);
+            } else {
+                $htmlString .= makeTablePagerHTML($result, "wait_sampling_by_instid", 10, true);
             }
             pg_free_result($result);
         }
@@ -1560,7 +1622,8 @@ EOD;
 	/* Query Activity */
 	if ($target['functions']
 		|| $target['statements']
-		|| $target['plans']) {
+		|| $target['plans']
+		|| $target['wait_sampling']) {
 
 		$htmlString .=
 <<< EOD
@@ -1634,6 +1697,29 @@ EOD;
 
 			$htmlString .= makePlansString($conn, $query_string, $snapids, $errorMsg);
 		}
+
+        if ($target['wait_sampling']) {
+            $htmlString .=
+<<< EOD
+<div id="qa_wait_sampling" class="jump_margin"></div>
+<h3>Wait Sampling</h3>
+<div align="right" class="jquery_ui_button_info_h3">
+  <div><button class="help_button" dialog="#wait_sampling_dialog"></button></div>
+</div>
+
+
+EOD;
+            $result = pg_query_params($conn, $query_string['wait_sampling'], $snapids);
+            if (!$result) {
+                return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
+            }
+            if (pg_num_rows($result) == 0) {
+                $htmlString .= makeErrorTag($errorMsg['no_result']);
+            } else {
+                $htmlString .= makeTablePagerHTML($result, "wait_sampling", 10, true);
+            }
+            pg_free_result($result);
+        }
 	}
 
 	/* Long Transactions */
