@@ -16,18 +16,17 @@
 6.  [設定ファイル](#configuration)
 7.  [使用上の注意と制約](#restrictions)
 8.  [よくあるQ\&A](#faq)
-9.  [pg\_stats\_reporter 12
-からの変更点](#change)
+9.  [pg\_stats\_reporter 13からの変更点](#change)
 10. [関連項目](#seealso)
 11. [謝辞](#acknowledgment)
 
 </div>
 
-# pg\_stats\_reporter 13
+# pg\_stats\_reporter 14
 
 ## pg\_stats\_reporter とは?
 
-[pg\_statsinfo 13](http://pgstatsinfo.sourceforge.net/documents/statsinfo13/pg_statsinfo-ja.html)が収集した統計情報を元に、PostgreSQL
+[pg\_statsinfo 14](http://pgstatsinfo.sourceforge.net/documents/statsinfo14/pg_statsinfo-ja.html)が収集した統計情報を元に、PostgreSQL
 サーバの利用統計情報をHTML形式のグラフィカルなレポートで出力します。
 
 当ツールで作成したレポートの例は[こちら](files/report_sample.html)をご覧ください。
@@ -66,33 +65,32 @@ pg\_stats\_reporter
 ### 動作確認環境
 
   - pg\_statsinfo  
-    バージョン 13
+    バージョン 14
 
   - 動作確認済みPHP  
-    バージョン 5.4.16 (RHEL 7.9 同梱のもの)、7.2.24 (RHEL 8.2 同梱のもの)
+    バージョン 5.4.16 (RHEL 7.9 同梱のもの)、7.2.24 (RHEL 8.5 同梱のもの)
 
   - 動作確認済みOS  
-    RHEL 7.9、8.2
+    RHEL 7.9、8.5
 
   - 動作確認済みブラウザ  
-    Firefox : 78.4.1esr、83.0
+    Firefox : 91.4.0esr、96.0
     
-    Microsoft Edge : 44.18362.449.0
+    Microsoft Edge : 97.0.1072.55
 
   - 動作確認済みHTTP Server  
     Apache HTTP Server : 2.4
 
   - 利用ライブラリ (pg\_stats\_reporter のインストールパッケージに同梱)
     
-      - jQuery : 3.5.1
-      - jQuery UI : 1.12.1
+      - jQuery : 3.6.0
+      - jQuery UI : 1.13.0
       - jquery-ui-timepicker-addon : 1.6.3
       - dygraphs JavaScript Visualization Library : 2.1.0
       - jqPlot : 1.0.9 d96a669
       - tablesorter : 2.31.3
       - Superfish : 1.7.10
-      - Smarty :
-3.1.35
+      - Smarty : 3.1.43
 
 ### パッケージのインストール
 
@@ -106,11 +104,11 @@ php-intl が未インストールの状態でも動作しますが、表示言�
 
 ##### RHEL 7
 
-    # yum install pg_stats_reporter-13.0-1.el7.noarch.rpm php-intl
+    # yum install pg_stats_reporter-14.0-1.el7.noarch.rpm php-intl
 
 ##### RHEL 8
 
-    # dnf install pg_stats_reporter-13.0-1.el8.noarch.rpm php-intl
+    # dnf install pg_stats_reporter-14.0-1.el8.noarch.rpm php-intl
 
 #### コマンドライン機能のみ
 
@@ -119,12 +117,12 @@ pg\_stats\_reporterのrpmは、依存関係にhttpdが含まれています。�
 ##### RHEL 7
 
     # yum install php-pgsql php-intl php-cli
-    # rpm -ivh --nodeps pg_stats_reporter-13.0-1.el7.noarch.rpm
+    # rpm -ivh --nodeps pg_stats_reporter-14.0-1.el7.noarch.rpm
 
 ##### RHEL 8
 
     # dnf install php-pgsql php-intl php-cli php-xml
-    # rpm -ivh --nodeps pg_stats_reporter-13.0-1.el8.noarch.rpm
+    # rpm -ivh --nodeps pg_stats_reporter-14.0-1.el8.noarch.rpm
 
 ### 初期設定
 
@@ -226,7 +224,7 @@ URLのホスト名は pg\_stats\_reporter の実行環境にあわせて変更�
       - USERNAME: DBユーザ名
       - DATABASE: データベース名
       - MESSAGE: メッセージ本文
-        ([PostgreSQLの正規表現](http://www.postgresql.jp/document/13/html/functions-matching.html#FUNCTIONS-POSIX-REGEXP)で指定してください)
+        ([PostgreSQLの正規表現](http://www.postgresql.jp/document/14/html/functions-matching.html#FUNCTIONS-POSIX-REGEXP)で指定してください)
   - ③ : 検索ボタン  
     ②に入力されている条件で検索を実行します。
   - ④ : 検索条件のリセットボタン  
@@ -367,11 +365,11 @@ URLのホスト名は pg\_stats\_reporter の実行環境にあわせて変更�
 
 ### RHEL 7
 
-    # yum remove pg_stats_reporter-13.0-1.el7.noarch
+    # yum remove pg_stats_reporter-14.0-1.el7.noarch
 
 ### RHEL 8
 
-    # dnf remove pg_stats_reporter-13.0-1.el8.noarch
+    # dnf remove pg_stats_reporter-14.0-1.el8.noarch
 
 ## 設定ファイル
 
@@ -473,7 +471,7 @@ URLのホスト名は pg\_stats\_reporter の実行環境にあわせて変更�
 </table>
 
 1.  項目または設定値を省略した場合の挙動は、libpqの接続文字列のパラメータと同じです。詳しくは
-    [こちら](http://www.postgresql.jp/document/13/html/libpq-connect.html#LIBPQ-PARAMKEYWORDS)
+    [こちら](http://www.postgresql.jp/document/14/html/libpq-connect.html#LIBPQ-PARAMKEYWORDS)
     を参照してください。
 2.  ディストリビューションによっては、HTTP Server
     のドキュメントルートのデフォルトが実行ユーザのホームディレクトリになっている場合があります。そのため、PostgreSQL
@@ -544,25 +542,25 @@ A4. PHP の仕様のため、worker モードでの使用は推奨されませ�
 #### Q5. リポジトリDB選択メニューに現在未使用の監視対象DBが表示されます。
 
 A5. リポジトリDBから現在未使用の監視対象DBのインスタンス情報を削除してください。
-インスタンス情報の削除方法は、pg\_statsinfoマニュアルの「[運用上必要となる作業](http://pgstatsinfo.sourceforge.net/documents/statsinfo13/pg_statsinfo-ja.html#user-operations)」を参照してください。
+インスタンス情報の削除方法は、pg\_statsinfoマニュアルの「[運用上必要となる作業](http://pgstatsinfo.sourceforge.net/documents/statsinfo14/pg_statsinfo-ja.html#user-operations)」を参照してください。
 
 #### Q6. レポートの表が正しく表示されません。
 
 A6.
 ブラウザ内にJavaScriptのキャッシュが残っているために、正しく表示されていない可能性があります。ブラウザのキャッシュの削除を試してみてください。
 
-## pg\_stats\_reporter 12 からの変更点
+## pg\_stats\_reporter 13 からの変更点
 
-pg\_stats\_reporter 12 からの変更点は以下の通りです。
+pg\_stats\_reporter 13 からの変更点は以下の通りです。
 
-  - pg\_statsinfo 13に対応 (pg\_stats\_reporter 13は pg\_statsinfo
-    13のみをサポートします)
+  - pg\_statsinfo 14に対応 (pg\_stats\_reporter 14は pg\_statsinfo
+    14のみをサポートします)
 
   
 
 ## 関連項目
 
-[pg\_statsinfo 13](http://pgstatsinfo.sourceforge.net/documents/statsinfo13/pg_statsinfo-ja.html)  
+[pg\_statsinfo 14](http://pgstatsinfo.sourceforge.net/documents/statsinfo14/pg_statsinfo-ja.html)
   
 
 ## 謝辞
@@ -587,8 +585,8 @@ pg\_stats\_reporter では、以下のライブラリを活用させていただ
 <div class="navigation">
 
 [Top](http://pgstatsinfo.sourceforge.net/index_ja.html) \>
-[pg\_stats\_reporter](http://pgstatsinfo.sourceforge.net/documents/reporter13/html/pg_stats_reporter-ja.html)
+[pg\_stats\_reporter](http://pgstatsinfo.sourceforge.net/documents/reporter14/html/pg_stats_reporter-ja.html)
 
 </div>
 
-Copyright (c) 2012-2020, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
+Copyright (c) 2012-2022, NIPPON TELEGRAPH AND TELEPHONE CORPORATION

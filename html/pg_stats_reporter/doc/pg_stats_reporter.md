@@ -14,21 +14,21 @@
 6.  [Configuration](#configuration)
 7.  [Cautions and Restrictions](#restrictions)
 8.  [FAQ](#faq)
-9.  [Changes from pg\_stats\_reporter 12](#change)
+9.  [Changes from pg\_stats\_reporter 13](#change)
 10. [See also](#seealso)
 11. [Acknowledgments](#acknowledgment)
 
 </div>
 
-# pg\_stats\_reporter 13
+# pg\_stats\_reporter 14
 
 ## What is pg\_stats\_reporter?
 
 pg\_stats\_reporter is a graphical report generator for
-[pg\_statsinfo](http://pgstatsinfo.sourceforge.net/documents/statsinfo13/pg_statsinfo.html).
+[pg\_statsinfo](http://pgstatsinfo.sourceforge.net/documents/statsinfo14/pg_statsinfo.html).
 It offers you various statistical information collected by pg\_statsinfo
-in a graphical and interactive representation. pg\_stats\_reporter 13 is
-compatible only with pg\_statsinfo 13. You can see an example report
+in a graphical and interactive representation. pg\_stats\_reporter 14 is
+compatible only with pg\_statsinfo 14. You can see an example report
 [here](files/report_sample.html).
 
 ## Online and Offline Reports
@@ -50,18 +50,18 @@ INSTALL.en file in the top of source tree.
 pg\_stats\_reporter is tested on the following environment.
 
   - pg\_statsinfo  
-    version 13
+    version 14
 
   - PHP  
     version 5.4.16 (bundled with RHEL7), 7.2.24 (bundoled with RHEL8)
 
   - OS  
-    RHEL 7.9, 8.2
+    RHEL 7.9, 8.5
 
   - Web browser  
-    Firefox : 78esr, 83
+    Firefox : 91.4.0esr, 96.0
     
-    Microsoft Edge : 44.18362.449.0
+    Microsoft Edge : 97.0.1072.55
 
   - HTTP Server  
     Apache HTTP Server : 2.4
@@ -69,14 +69,14 @@ pg\_stats\_reporter is tested on the following environment.
   - libraries (These packages are included in the package of
     pg\_stats\_reporter)
     
-      - jQuery : 3.5.1
-      - jQuery UI : 1.12.1
+      - jQuery : 3.6.0
+      - jQuery UI : 1.13.0
       - jquery-ui-timepicker-addon : 1.6.3
       - dygraphs JavaScript Visualization Library : 2.1.0
       - jqPlot : 1.0.9 d96a669
       - tablesorter : 2.31.3
       - Superfish : 1.7.10
-      - Smarty : 3.1.35
+      - Smarty : 3.1.43
 
 ### Installing pg\_stats\_reporter
 
@@ -94,12 +94,12 @@ using yum.
 ##### RHEL7
 
     $ su
-    # yum install pg_stats_reporter-13.0-1.el7.noarch.rpm php-intl
+    # yum install pg_stats_reporter-14.0-1.el7.noarch.rpm php-intl
 
 ##### RHEL8
 
     $ su
-    # dnf install pg_stats_reporter-13.0-1.el8.noarch.rpm php-intl
+    # dnf install pg_stats_reporter-14.0-1.el8.noarch.rpm php-intl
 
 #### Installing for offline reports only
 
@@ -117,13 +117,13 @@ instant help messages between ja/en) of an online graphical report.
 
     $ su
     # yum install php-pgsql php-intl php-cli
-    # rpm -ivh --nodeps pg_stats_reporter-13.0.el7.noarch.rpm
+    # rpm -ivh --nodeps pg_stats_reporter-14.0.el7.noarch.rpm
 
 ##### RHEL8
 
     $ su
     # dnf install php-pgsql php-intl php-cli php-xml
-    # rpm -ivh --nodeps pg_stats_reporter-13.0.el8.noarch.rpm
+    # rpm -ivh --nodeps pg_stats_reporter-14.0.el8.noarch.rpm
 
 ### Initial Setup
 
@@ -253,7 +253,7 @@ these fields and click the "Search" button below.
   - USERNAME: User name
   - DATABASE: Database name
   - MESSAGE: Regular expression that [PostgreSQL defines for SIMILAR
-    TO](http://www.postgresql.org/docs/13/static/functions-matching.html).
+    TO](http://www.postgresql.org/docs/14/static/functions-matching.html).
 
 ③ : Search button
 
@@ -427,12 +427,12 @@ the top source directory.
 ### RHEL7
 
     $ su
-    # yum remove pg_stats_reporter-13.0-1.el7.noarch
+    # yum remove pg_stats_reporter-14.0-1.el7.noarch
 
 ### RHEL8
 
     $ su
-    # yum remove pg_stats_reporter-13.0-1.el8.noarch
+    # yum remove pg_stats_reporter-14.0-1.el8.noarch
 
 ## Configuration File
 
@@ -477,7 +477,7 @@ below.
   
 
 1.  These settings follow [PostgreSQL
-    settings](http://www.postgresql.org/docs/13/static/libpq-connect.html#LIBPQ-PARAMKEYWORDS)
+    settings](http://www.postgresql.org/docs/14/static/libpq-connect.html#LIBPQ-PARAMKEYWORDS)
     as default.
 
 ## Cautions and Restrictions
@@ -550,26 +550,26 @@ mode.
 A5. It is brought about by the data for such instances left in the
 repository. You can remove such items by manually deleting the
 corresponding data in repository. See details
-[here](http://pgstatsinfo.sourceforge.net/documents/statsinfo13/pg_statsinfo.html#instance-deletion).
+[here](http://pgstatsinfo.sourceforge.net/documents/statsinfo14/pg_statsinfo.html#instance-deletion).
 
 #### Q6. Report seems displayed in somewhat broken format.
 
 A6. Your browser may hold old JavaScript libraries in cache. Try
 clearing them.
 
-## Changes from pg\_stats\_reporter 12
+## Changes from pg\_stats\_reporter 13
 
-Changes from pg\_stats\_reporter 12 are shown below.
+Changes from pg\_stats\_reporter 13 are shown below.
 
-  - Supports pg\_statsinfo 13 (pg\_stats\_repoter 13 supports only
+  - Supports pg\_statsinfo 14 (pg\_stats\_repoter 14 supports only
     pg\_statsinfo
-13).
+14).
 
   
 
 ## See also
 
-[pg\_statsinfo 13](http://pgstatsinfo.sourceforge.net/documents/statsinfo13/pg_statsinfo.html)  
+[pg\_statsinfo 14](http://pgstatsinfo.sourceforge.net/documents/statsinfo14/pg_statsinfo.html)
   
 
 ## Acknowledgments
@@ -595,8 +595,8 @@ developers of these libraries.
 <div class="navigation">
 
 [Top](http://pgstatsinfo.sourceforge.net/index.html) \>
-[pg\_stats\_reporter](http://pgstatsinfo.sourceforge.net/documents/reporter13/html/pg_stats_reporter.html)
+[pg\_stats\_reporter](http://pgstatsinfo.sourceforge.net/documents/reporter14/html/pg_stats_reporter.html)
 
 </div>
 
-Copyright (c) 2012-2020, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
+Copyright (c) 2012-2022, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
