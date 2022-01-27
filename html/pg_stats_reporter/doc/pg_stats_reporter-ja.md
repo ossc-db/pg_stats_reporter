@@ -500,7 +500,7 @@ pg\_stats\_reporter を使用する際には、以下の使用上の注意と制
     が長いクエリが多数ある場合に、監視対象DBに対するクエリの実行情報が押し出されてしまうためです。同様に、監視対象DB上で、レポート作成期間外に
     total\_time が長いクエリが多数ある場合、レポート作成期間内に実行されたクエリが表示されなくなることがあります。
   - pg\_statsinfo で監視対象とするデータベースは
-    [excluded\_dbnames](http://pgstatsinfo.sourceforge.net/documents/statsinfo13/pg_statsinfo-ja.html)
+    [excluded\_dbnames](http://pgstatsinfo.sourceforge.net/documents/statsinfo14/pg_statsinfo-ja.html)
     で制限することができるようになっています。しかし現在の実装ではロングトランザクション情報など一部の情報で、これらの制限されたデータベースの情報を表示するものがあります。
 
 ## よくあるQ\&A
@@ -555,7 +555,10 @@ pg\_stats\_reporter 13 からの変更点は以下の通りです。
 
   - pg\_statsinfo 14に対応 (pg\_stats\_reporter 14は pg\_statsinfo
     14のみをサポートします)
-
+  - レポートする性能情報が増えました。
+    - pg_stat_walのレポートを追加しました。WALの読み書きの量、読み書きに要した時間などをレポートします。
+	- VACUUM時に書き込まれたWALの量やインデックスのVACUUM時にスキャンしたページ数や削除・回収したページ数のレポートを追加しました。
+	- pg_stat_replication_slotsのレポートを追加しました。ロジカルレプリケーションを利用している場合に伝搬されたデータ量やwal_senderが一時的に消費したディスクI/O量をレポートします。
   
 
 ## 関連項目

@@ -504,7 +504,7 @@ before use.
     push away the queries on observed databases.
   - Although pg\_statsinfo is designed to exlclude databases specified
     by the parameter
-    [excluded\_dbnames](http://pgstatsinfo.sourceforge.net/documents/statsinfo13/pg_statsinfo.html)
+    [excluded\_dbnames](http://pgstatsinfo.sourceforge.net/documents/statsinfo14/pg_statsinfo.html)
     from snapshots, it fails for some report items such as "long
     transactions".
 
@@ -564,8 +564,14 @@ Changes from pg\_stats\_reporter 13 are shown below.
   - Supports pg\_statsinfo 14 (pg\_stats\_repoter 14 supports only
     pg\_statsinfo
 14).
-
-  
+  - There is now more performance informatin to report.
+    - Added report of pg_stat_wal. Report the amount of WAL read/write,
+	  required time to read/write, and so on.
+	- Added report the amount of WAL write while vacuuming, the number of
+	  scanned, removed, and recycled pages while vacuuming on indexes.
+    - Added report of pg_stat_replication_slots.
+      Report the amount of transfered data when logical replication is used
+      and disk I/O which wal_sender consume temporalily.
 
 ## See also
 
