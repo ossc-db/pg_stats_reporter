@@ -2,7 +2,7 @@
 /*
  * log_viewer
  *
- * Copyright (c) 2012-2020, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
+ * Copyright (c) 2012-2022, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
  */
 
 // include sub module
