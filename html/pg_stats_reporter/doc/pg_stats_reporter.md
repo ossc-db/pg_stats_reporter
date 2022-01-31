@@ -133,7 +133,7 @@ This section explains about required setups to run pg_stats_reporter.
 
 Edit some fields in the configuration file so as to connect the
 repository database. Configuration parameters are described
-[later](#configuration). [Sample configuration set
+[later](#Configuration-File). [Sample configuration set
 up](files/pg_stats_reporter.ini.sample) to connect to repository on
 local server is included in package.
 
