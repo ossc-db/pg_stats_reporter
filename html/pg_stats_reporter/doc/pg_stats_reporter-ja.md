@@ -1,47 +1,46 @@
 <div class="index">
 
-1.  [pg\_stats\_reporter とは？](#name)
-2.  [機能概要](#synopsis)
-    1.  [Webレポート機能](#synopsis_server)
-    2.  [コマンドライン機能](#synopsis_command)
-3.  [インストール](#install)
-    1.  [動作確認環境](#requirement)
-    2.  [パッケージのインストール](#pg_stats_reporter_install)
-    3.  [初期設定](#initialize)
-    4.  [動作確認](#execute_test)
-4.  [操作方法](#execute)
-    1.  [Webレポート機能の操作方法](#execute_server)
-    2.  [コマンドライン機能の操作方法](#execute_command)
-5.  [アンインストール](#uninstall)
-6.  [設定ファイル](#configuration)
-7.  [使用上の注意と制約](#restrictions)
-8.  [よくあるQ\&A](#faq)
-9.  [pg\_stats\_reporter 12
-からの変更点](#change)
-10. [関連項目](#seealso)
-11. [謝辞](#acknowledgment)
+1.  [pg_stats_reporterとは](#pg_stats_reporterとは)
+2.  [機能概要](#機能概要)
+    1.  [Webレポート機能](#Webレポート機能)
+    2.  [コマンドライン機能](#コマンドライン機能)
+3.  [インストール](#インストール)
+    1.  [動作確認環境](#動作確認環境)
+    2.  [パッケージのインストール](#パッケージのインストール)
+    3.  [初期設定](#初期設定)
+    4.  [動作確認](#動作確認)
+4.  [操作方法](#操作方法)
+    1.  [Webレポート機能の操作方法](#Webレポート機能の操作方法)
+    2.  [コマンドライン機能の操作方法](#コマンドライン機能の操作方法)
+5.  [アンインストール](#アンインストール)
+6.  [設定ファイル](#設定ファイル)
+7.  [使用上の注意と制約](#使用上の注意と制約)
+8.  [よくあるQ\&A](#よくあるqa)
+9.  [pg_stats_reporter13からの変更点](#pg_stats_reporter13 からの変更点)
+10. [関連項目](#関連項目)
+11. [謝辞](#謝辞)
 
 </div>
 
-# pg\_stats\_reporter 13
+# pg_stats_reporter 14
 
-## pg\_stats\_reporter とは?
+## pg_stats_reporterとは
 
-[pg\_statsinfo 13](http://pgstatsinfo.sourceforge.net/documents/statsinfo13/pg_statsinfo-ja.html)が収集した統計情報を元に、PostgreSQL
+[pg_statsinfo 14](https://github.com/ossc-db/pg_statsinfo/)が収集した統計情報を元に、PostgreSQL
 サーバの利用統計情報をHTML形式のグラフィカルなレポートで出力します。
 
-当ツールで作成したレポートの例は[こちら](files/report_sample.html)をご覧ください。
+当ツールで作成したレポートの例は[こちら](http://pgstatsinfo.sourceforge.net/documents/reporter14/html/files/report_sample.html)をご覧ください。
 
 ## 機能概要
 
-pg\_stats\_reporter は pg\_statsinfo
+pg_stats_reporter は pg_statsinfo
 が統計情報(以降、スナップショットと呼びます)を蓄積しているデータベース(以降、リポジトリDBと呼びます)からレポート作成に必要な情報を取得し、HTML形式のグラフィカルなレポートを作成します。
 
-pg\_stats\_reporter を利用する際には、以下の２つのレポート作成機能があります。
+pg_stats_reporter を利用する際には、以下の２つのレポート作成機能があります。
 
 ### Webレポート機能
 
-Webレポート機能では、Apache HTTP Server と連携して pg\_stats\_reporter が動作します。  
+Webレポート機能では、Apache HTTP Server と連携して pg_stats_reporter が動作します。
 WEBサーバにブラウザを利用してアクセスすることで、ブラウザ上での操作によりレポートを作成することが可能です。
 
 Webレポート機能が作成するレポートの種類を以下に示します。
@@ -49,7 +48,7 @@ Webレポート機能が作成するレポートの種類を以下に示しま�
   - 性能レポート  
     データベースの性能に関する統計情報やOSリソースの使用状況などが表示されます。
   - ログレポート  
-    データベースのログおよび pg\_statsinfo で検出したアラートが表示されます。また、特定のログを検索することができます。
+    データベースのログおよび pg_statsinfo で検出したアラートが表示されます。また、特定のログを検索することができます。
 
 ### コマンドライン機能
 
@@ -59,72 +58,70 @@ Serverを実行出来ない場合や、crond等で一定期間のレポートを
 
 ## インストール
 
-pg\_stats\_reporter
-のインストールについて説明します。インストールパッケージは[こちら](http://sourceforge.net/projects/pgstatsinfo/files/pg_stats_reporter/)からダウンロードしてください。  
+pg_stats_reporter
+のインストールについて説明します。インストールパッケージは[こちら](https://github.com/ossc-db/pg_stats_reporter/)からダウンロードしてください。
 ソースセットからインストールする場合は、ソースセットに同梱されている INSTALL.ja ファイルを参照してください。
 
 ### 動作確認環境
 
-  - pg\_statsinfo  
-    バージョン 13
+  - pg_statsinfo
+    バージョン 14
 
   - 動作確認済みPHP  
-    バージョン 5.4.16 (RHEL 7.9 同梱のもの)、7.2.24 (RHEL 8.2 同梱のもの)
+    バージョン 5.4.16 (RHEL 7.9 同梱のもの)、7.2.24 (RHEL 8.5 同梱のもの)
 
   - 動作確認済みOS  
-    RHEL 7.9、8.2
+    RHEL 7.9、8.5
 
   - 動作確認済みブラウザ  
-    Firefox : 78.4.1esr、83.0
+    Firefox : 91.4.0esr、96.0
     
-    Microsoft Edge : 44.18362.449.0
+    Microsoft Edge : 97.0.1072.55
 
   - 動作確認済みHTTP Server  
     Apache HTTP Server : 2.4
 
-  - 利用ライブラリ (pg\_stats\_reporter のインストールパッケージに同梱)
+  - 利用ライブラリ (pg_stats_reporter のインストールパッケージに同梱)
     
-      - jQuery : 3.5.1
-      - jQuery UI : 1.12.1
+      - jQuery : 3.6.0
+      - jQuery UI : 1.13.0
       - jquery-ui-timepicker-addon : 1.6.3
       - dygraphs JavaScript Visualization Library : 2.1.0
       - jqPlot : 1.0.9 d96a669
       - tablesorter : 2.31.3
       - Superfish : 1.7.10
-      - Smarty :
-3.1.35
+      - Smarty : 3.1.43
 
 ### パッケージのインストール
 
 全ての機能を使用する場合は「フルインストール」の手順を、コマンドライン機能のみを使用する場合は「コマンドライン機能のみ」の手順を、ルートユーザで実行してください。  
 php-intl が未インストールの状態でも動作しますが、表示言語の自動設定が機能しなくなります。  
-※ソースセットからインストールする場合の手順は、ソースセットに同梱されている INSTALL.ja ファイルを参照してください。 ※RHEL
-7でのphp-intl のRPMパッケージの入手は、Red Hat
-カスタマーポータルのサブスクリプション管理サービスを用いる必要があります。  
+※ソースセットからインストールする場合の手順は、ソースセットに同梱されている INSTALL.ja ファイルを参照してください。
+※RHEL 7でのphp-intl のRPMパッケージの入手は、Red Hatカスタマーポータルのサブスクリプション管理サービスを用いる必要があります。
 
 #### フルインストール
 
 ##### RHEL 7
 
-    # yum install pg_stats_reporter-13.0-1.el7.noarch.rpm php-intl
+    # yum install pg_stats_reporter-14.0-1.el7.noarch.rpm php-intl
 
 ##### RHEL 8
 
-    # dnf install pg_stats_reporter-13.0-1.el8.noarch.rpm php-intl
+    # dnf install pg_stats_reporter-14.0-1.el8.noarch.rpm php-intl
 
 #### コマンドライン機能のみ
 
-pg\_stats\_reporterのrpmは、依存関係にhttpdが含まれています。そのためインストールする際は、--nodepsを指定してrpmコマンドを実行します。
+pg_stats_reporterのrpmは、依存関係にhttpdが含まれています。そのためインストールする際は、--nodepsを指定してrpmコマンドを実行します。
 
 ##### RHEL 7
 
     # yum install php-pgsql php-intl php-cli
-    # rpm -ivh --nodeps pg_stats_reporter-13.0-1.el7.noarch.rpm
+    # rpm -ivh --nodeps pg_stats_reporter-14.0-1.el7.noarch.rpm
 
 ##### RHEL 8
 
     # dnf install php-pgsql php-intl php-cli php-xml
-    # rpm -ivh --nodeps pg_stats_reporter-13.0-1.el8.noarch.rpm
+    # rpm -ivh --nodeps pg_stats_reporter-14.0-1.el8.noarch.rpm
 
 ### 初期設定
 
@@ -134,7 +131,7 @@ pg\_stats\_reporterのrpmは、依存関係にhttpdが含まれています。�
 
 #### リポジトリDBの設定
 
-設定ファイルを編集し、リポジトリDBへの接続情報を設定します。設定ファイルの説明は[こちら](#configuration)を参照してください。  
+設定ファイルを編集し、リポジトリDBへの接続情報を設定します。設定ファイルの説明は[こちら](#設定ファイル)を参照してください。
 設定例は[こちら](files/pg_stats_reporter.ini.sample)を参照してください。
 
 #### HTTP Serverの起動
@@ -151,21 +148,21 @@ OS 起動時に HTTP Server を自動的に起動させる場合は以下のコ�
 
 #### Webレポート機能の動作確認
 
-[Webレポート機能の操作方法](#execute_server)の手順に従い HTTP Server
+[Webレポート機能の操作方法](#Webレポート機能の操作方法)の手順に従い HTTP Server
 にアクセスし、レポート画面が表示されることを確認してください。
 
 #### コマンドライン機能の動作確認
 
-[コマンドライン機能の操作方法](#execute_command)の手順に従いスナップショット一覧表示を実行し、スナップショット一覧が表示されることを確認してください。
+[コマンドライン機能の操作方法](#コマンドライン機能の操作方法)の手順に従いスナップショット一覧表示を実行し、スナップショット一覧が表示されることを確認してください。
 
 ## 操作方法
 
-ここでは、pg\_stats\_reporter の操作方法を説明します。
+ここでは、pg_stats_reporter の操作方法を説明します。
 
 ### Webレポート機能の操作方法
 
 ブラウザから下記のURLにアクセスします。  
-URLのホスト名は pg\_stats\_reporter の実行環境にあわせて変更してください。  
+URLのホスト名は pg_stats_reporter の実行環境にあわせて変更してください。
 
     http://<ホスト名>/pg_stats_reporter/pg_stats_reporter.php
 
@@ -182,7 +179,7 @@ URLのホスト名は pg\_stats\_reporter の実行環境にあわせて変更�
 ![](image/report_sample.png)  
 
   - ① : Create new report ボタン  
-    レポート作成期間を変更します。詳細は[レポート作成期間指定ダイアログ](#dialog)を参照してください。
+    レポート作成期間を変更します。詳細は[レポート作成期間指定ダイアログ](#レポート作成期間指定ダイアログ)を参照してください。
   - ② : リポジトリDB選択メニューのリポジトリ選択  
     選択すると、アコーディオン形式でリポジトリDBで管理している監視対象DBの情報を表示/非表示します。
   - ③ : リポジトリDB選択メニューの監視対象DB  
@@ -198,8 +195,6 @@ URLのホスト名は pg\_stats\_reporter の実行環境にあわせて変更�
     ボタンを押すごとに、左側のメニューの表示/非表示が切り替わります。
   - ⑧ : ヘルプボタン  
     表やグラフの簡単な説明が表示されます。
-
-  
 
 #### レポート作成期間指定ダイアログ
 
@@ -226,7 +221,7 @@ URLのホスト名は pg\_stats\_reporter の実行環境にあわせて変更�
       - USERNAME: DBユーザ名
       - DATABASE: データベース名
       - MESSAGE: メッセージ本文
-        ([PostgreSQLの正規表現](http://www.postgresql.jp/document/13/html/functions-matching.html#FUNCTIONS-POSIX-REGEXP)で指定してください)
+        ([PostgreSQLの正規表現](http://www.postgresql.jp/document/14/html/functions-matching.html#FUNCTIONS-POSIX-REGEXP)で指定してください)
   - ③ : 検索ボタン  
     ②に入力されている条件で検索を実行します。
   - ④ : 検索条件のリセットボタン  
@@ -362,34 +357,35 @@ URLのホスト名は pg\_stats\_reporter の実行環境にあわせて変更�
 ## アンインストール
 
 アンインストールは、以下の手順をルートユーザで実行してください。  
-なお、アンインストールにより設定ファイル(/etc/pg\_stats\_reporter.ini)は削除されません。設定ファイルを削除したい場合は手動で削除してください。
+なお、アンインストールにより設定ファイル(/etc/pg_stats_reporter.ini)は削除されません。設定ファイルを削除したい場合は手動で削除してください。
+
 ※ソースセットからインストールした場合のアンインストール手順は、ソースセットに同梱されている INSTALL.ja ファイルを参照してください。
 
 ### RHEL 7
 
-    # yum remove pg_stats_reporter-13.0-1.el7.noarch
+    # yum remove pg_stats_reporter-14.0-1.el7.noarch
 
 ### RHEL 8
 
-    # dnf remove pg_stats_reporter-13.0-1.el8.noarch
+    # dnf remove pg_stats_reporter-14.0-1.el8.noarch
 
 ## 設定ファイル
 
-設定ファイルは、"/etc" に "pg\_stats\_reporter.ini" という名称で配置されています。  
+設定ファイルは、"/etc" に "pg_stats_reporter.ini" という名称で配置されています。
 設定ファイルの内容は、グローバル設定とリポジトリDB設定の2種類のセクションで構成されています。  
 リポジトリDB設定を複数記述することで、複数のレポートをサイドバーで選択することで、切り替えて表示することができます。
 
 ### グローバル設定
 
-グローバル設定は、セクション名 "\[global\_setting\]"
+グローバル設定は、セクション名 "\[global_setting\]"
 のセクションの設定項目です。
 
 グローバル設定のセクションの設定項目を以下に示します。
 
 | 設定項目               | 設定可能な値   | デフォルト | 設定例                           | 説明                            |
 | ------------------ | -------- | ----- | ----------------------------- | ----------------------------- |
-| install\_directory | 文字列      | 省略不可  | install\_directory = /var/www | 当ツールのインストールディレクトリを指定します。(\*a) |
-| log\_page\_size    | 1 - 1000 | 1000  | log\_page\_size = 1000        | ログレポート画面の表のページ毎の最大表示件数を指定します。 |
+| install_directory | 文字列      | 省略不可  | install_directory = /var/www | 当ツールのインストールディレクトリを指定します。(\*a) |
+| log_page_size    | 1 - 1000 | 1000  | log_page_size = 1000        | ログレポート画面の表のページ毎の最大表示件数を指定します。 |
 
 1.  RPMパッケージからインストールした場合は変更する必要はありません。ソースセットからインストールした場合のみ変更してください。
 
@@ -473,18 +469,18 @@ URLのホスト名は pg\_stats\_reporter の実行環境にあわせて変更�
 </table>
 
 1.  項目または設定値を省略した場合の挙動は、libpqの接続文字列のパラメータと同じです。詳しくは
-    [こちら](http://www.postgresql.jp/document/13/html/libpq-connect.html#LIBPQ-PARAMKEYWORDS)
+    [こちら](http://www.postgresql.jp/document/14/html/libpq-connect.html#LIBPQ-PARAMKEYWORDS)
     を参照してください。
 2.  ディストリビューションによっては、HTTP Server
     のドキュメントルートのデフォルトが実行ユーザのホームディレクトリになっている場合があります。そのため、PostgreSQL
     の接続パスワードで .pgpass を使用する場合には、外部から参照されないように注意して配置してください。
 3.  php-intl が未インストールの状態状態では、表示言語の自動設定は動作せず、en
     となります。
-4.  各種レポート項目は、[pg\_stats\_reporter.iniファイルのサンプル](files/pg_stats_reporter.ini.sample)を参照してください。
+4.  各種レポート項目は、[pg_stats_reporter.iniファイルのサンプル](files/pg_stats_reporter.ini.sample)を参照してください。
 
 ## 使用上の注意と制約
 
-pg\_stats\_reporter を使用する際には、以下の使用上の注意と制約があります。
+pg_stats_reporter を使用する際には、以下の使用上の注意と制約があります。
 
   - PHP の設定ファイル (php.ini)
     にデフォルトのタイムゾーンが設定されていない場合、実行環境のロケールによっては正しく動作しない可能性があります。php.ini
@@ -492,43 +488,43 @@ pg\_stats\_reporter を使用する際には、以下の使用上の注意と制
   - データサイズなどを示す一部の項目の値は、単位換算での数値の切り捨てによりゼロと表示される可能性があります。
   - Linux環境では "/" が、Windowsのエクスプローラでは "\\ / : \* ? \< \> |"
     の8種類の文字がファイル名の制約となるため、セクション名で使用できません。そのため、Linux
-    と Windows の両方の環境にてpg\_stats\_reporter を使用する場合は正常に動作しない可能性があります。
-  - グローバルな設定項目用のセクション名として利用しているため、リポジトリDB設定のセクション名として "global\_setting"
+    と Windows の両方の環境にてpg_stats_reporter を使用する場合は正常に動作しない可能性があります。
+  - グローバルな設定項目用のセクション名として利用しているため、リポジトリDB設定のセクション名として "global_setting"
     を設定しないでください。
   - 監視対象となっているPostgreSQLサーバ上で、監視対象DB以外において大量のSQLクエリが実行された場合、当ツールが作成するレポートの
     Query Activity
-    に、監視対象DBで実行されたSQLクエリの情報が表示されないことがあります。これは、pg\_statsinfo
-    は pg\_stat\_statements を利用してクエリの実行情報を収集しており、監視対象DB以外に total\_time
+    に、監視対象DBで実行されたSQLクエリの情報が表示されないことがあります。これは、pg_statsinfo
+    は pg_stat_statements を利用してクエリの実行情報を収集しており、監視対象DB以外に total_time
     が長いクエリが多数ある場合に、監視対象DBに対するクエリの実行情報が押し出されてしまうためです。同様に、監視対象DB上で、レポート作成期間外に
-    total\_time が長いクエリが多数ある場合、レポート作成期間内に実行されたクエリが表示されなくなることがあります。
-  - pg\_statsinfo で監視対象とするデータベースは
-    [excluded\_dbnames](http://pgstatsinfo.sourceforge.net/documents/statsinfo13/pg_statsinfo-ja.html)
+    total_time が長いクエリが多数ある場合、レポート作成期間内に実行されたクエリが表示されなくなることがあります。
+  - pg_statsinfo で監視対象とするデータベースは
+    [excluded_dbnames](https://github.com/ossc-db/pg_statsinfo/)
     で制限することができるようになっています。しかし現在の実装ではロングトランザクション情報など一部の情報で、これらの制限されたデータベースの情報を表示するものがあります。
 
 ## よくあるQ\&A
 
-#### Q1. pg\_stats\_reporter の画面が表示されません。
+#### Q1. pg_stats_reporter の画面が表示されません。
 
 A1. ファイアウォール、SELinuxの設定、および PHP のメモリ使用上限設定を必要に応じて変更してください。
 
   - ファイアウォールでは、httpd のポートへのアクセスを許可する必要があります。
 
-  - SELinux については、httpd\_can\_network\_connect\_db の設定が on に、また
-    pg\_stats\_reporter が書き込みを行うディレクトリの SELinuxファイルタイプが
-    httpd\_sys\_rw\_context\_t になっている必要があります. 現在の設定は以下のようにして確認できます。
+  - SELinux については、httpd_can_network_connect_db の設定が on に、また
+    pg_stats_reporter が書き込みを行うディレクトリの SELinuxファイルタイプが
+    httpd_sys_rw_context_t になっている必要があります. 現在の設定は以下のようにして確認できます。
     
         getsebool httpd_can_network_connect_db
         ls -dZ /var/www/pg_stats_reporter_lib/{cache,compiled}
 
-  - PHP のメモリ使用上限は、/etc/php.ini の memory\_limit で設定します。 変更後は httpd
+  - PHP のメモリ使用上限は、/etc/php.ini の memory_limit で設定します。 変更後は httpd
     を再起動してください。
 
-#### Q2. データベース接続失敗のエラーが表示されて、pg\_stats\_reporter の画面が表示されません。
+#### Q2. データベース接続失敗のエラーが表示されて、pg_stats_reporter の画面が表示されません。
 
 A2. 以下の2点を確認してください。
 
-  - pg\_stats\_reporter.ini に記述されている「database connection」の情報
-  - 接続先の PostgreSQL の設定 (postgresql.conf, pg\_hba.conf)
+  - pg_stats_reporter.ini に記述されている「database connection」の情報
+  - 接続先の PostgreSQL の設定 (postgresql.conf, pg_hba.conf)
 
 #### Q3. ブラウザに Internet Explorer を使用してレポートを表示したところ、正しく表示されません。
 
@@ -544,30 +540,33 @@ A4. PHP の仕様のため、worker モードでの使用は推奨されませ�
 #### Q5. リポジトリDB選択メニューに現在未使用の監視対象DBが表示されます。
 
 A5. リポジトリDBから現在未使用の監視対象DBのインスタンス情報を削除してください。
-インスタンス情報の削除方法は、pg\_statsinfoマニュアルの「[運用上必要となる作業](http://pgstatsinfo.sourceforge.net/documents/statsinfo13/pg_statsinfo-ja.html#user-operations)」を参照してください。
+インスタンス情報の削除方法は、pg_statsinfoマニュアルの「[運用上必要となる作業](https://github.com/ossc-db/pg_statsinfo/)」を参照してください。
 
 #### Q6. レポートの表が正しく表示されません。
 
 A6.
 ブラウザ内にJavaScriptのキャッシュが残っているために、正しく表示されていない可能性があります。ブラウザのキャッシュの削除を試してみてください。
 
-## pg\_stats\_reporter 12 からの変更点
+## pg_stats_reporter13 からの変更点
 
-pg\_stats\_reporter 12 からの変更点は以下の通りです。
+pg_stats_reporter 13 からの変更点は以下の通りです。
 
-  - pg\_statsinfo 13に対応 (pg\_stats\_reporter 13は pg\_statsinfo
-    13のみをサポートします)
-
+  - pg_statsinfo 14に対応 (pg_stats_reporter 14は pg_statsinfo
+    14のみをサポートします)
+  - レポートする性能情報が増えました。
+    - pg_stat_walのレポートを追加しました。WALの読み書きの量、読み書きに要した時間などをレポートします。
+	- VACUUM時に書き込まれたWALの量やインデックスのVACUUM時にスキャンしたページ数や削除・回収したページ数のレポートを追加しました。
+	- pg_stat_replication_slotsのレポートを追加しました。ロジカルレプリケーションを利用している場合に伝搬されたデータ量やwal_senderが一時的に消費したディスクI/O量をレポートします。
   
 
 ## 関連項目
 
-[pg\_statsinfo 13](http://pgstatsinfo.sourceforge.net/documents/statsinfo13/pg_statsinfo-ja.html)  
+[pg_statsinfo 14](https://github.com/ossc-db/pg_statsinfo/)
   
 
 ## 謝辞
 
-pg\_stats\_reporter では、以下のライブラリを活用させていただいております。感謝いたします。  
+pg_stats_reporter では、以下のライブラリを活用させていただいております。感謝いたします。
 
   - jQuery : <http://jquery.com/>
   - jQuery UI : <http://jqueryui.com/>
@@ -586,9 +585,9 @@ pg\_stats\_reporter では、以下のライブラリを活用させていただ
 
 <div class="navigation">
 
-[Top](http://pgstatsinfo.sourceforge.net/index_ja.html) \>
-[pg\_stats\_reporter](http://pgstatsinfo.sourceforge.net/documents/reporter13/html/pg_stats_reporter-ja.html)
+[Top](https://github.com/ossc-db/) \>
+[pg_stats_reporter](https://github.com/ossc-db/pg_stats_reporter/)
 
 </div>
 
-Copyright (c) 2012-2020, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
+Copyright (c) 2012-2022, NIPPON TELEGRAPH AND TELEPHONE CORPORATION

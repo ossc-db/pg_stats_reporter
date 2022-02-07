@@ -54,6 +54,7 @@ recovery_conflicts = true           ; Recovery Conflicts
 
 ; -- Instance Statistics --
 write_ahead_logs = true             ; Write Ahead Logs
+wal_statistics = true               ; WAL statistics
 backend_states_overview = true      ; Backend States Overview
 backend_states = true               ; Backend States
 bgwriter_statistics = true          ; bgwriter Statistics
@@ -97,13 +98,17 @@ checkpoints = true                  ; Checkpoints
 ; -- Autovacuums --
 autovacuum_overview = true          ; Overview
 autovacuum_io_summary = true        ; I/O Summary
+vacuum_wal_statistics = true        ; Vacuum WAL Statistics
+vacuum_index_statistics = true      ; Vacuum Index Statistics
 analyze_overview = true             ; Analyze Overview
+analyze_io_summary = true           ; Analyze I/O Summary
 modified_rows = true                ; Modified Rows
 cancellations = true                ; Cancellations
 
 ; -- Replication --
 replication_overview = true         ; Overview
 replication_delays = true           ; Delays
+replication_slots = false           ; Replication slots statistics
 
 ; --- Miscellaneous ---
 
@@ -157,6 +162,7 @@ profiles = false                    ; Profiles
 ;
 ;; -- Instance Statistics --
 ;write_ahead_logs = true             ; Write Ahead Logs
+;wal_statistics = true               ; WAL statistics
 ;backend_states_overview = true      ; Backend States Overview
 ;backend_states = true               ; Backend States
 ;bgwriter_statistics = true          ; bgwriter Statistics
@@ -200,13 +206,17 @@ profiles = false                    ; Profiles
 ;; -- Autovacuums --
 ;autovacuum_overview = true          ; Overview
 ;autovacuum_io_summary = true        ; I/O Summary
+;vacuum_wal_statistics = true        ; Vacuum WAL Statistics
+;vacuum_index_statistics = true      ; Vacuum Index Statistics
 ;analyze_overview = true             ; Analyze Overview
+;analyze_io_summary = true           ; Analyze I/O Summary
 ;modified_rows = true                ; Modified Rows
 ;cancellations = true                ; Cancellations
 ;
 ;; -- Replication --
 ;replication_overview = true         ; Overview
 ;replication_delays = true           ; Delays
+;replication_slots = false           ; Replication slots statistics
 ;
 ;; --- Miscellaneous ---
 ;
