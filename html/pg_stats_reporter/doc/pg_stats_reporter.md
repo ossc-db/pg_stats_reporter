@@ -31,6 +31,8 @@ in a graphical and interactive representation. pg_stats_reporter 14 is
 compatible only with pg_statsinfo 14. You can see an example report
 [here](http://pgstatsinfo.sourceforge.net/documents/reporter14/html/files/report_sample.html).
 
+pg_stats_reporter 14 and later are available on GitHub. pg_stats_reporter 13 and earlier can be found at [SourceForge](http://pgstatsinfo.sourceforge.net/index.html).
+
 ## Online and Offline Reports
 
 pg_stats_reporter runs in two ways. It runs as a CGI script and
@@ -41,7 +43,7 @@ which is portable form of the graphical report.
 ## Installation
 
 RPM package is available
-[here](https://github.com/ossc-db/pg_stats_reporter/).
+[here](https://github.com/ossc-db/pg_stats_reporter/releases).
 If you would like to install from source, you will see instructions in
 INSTALL.en file in the top of source tree.
 
