@@ -2,7 +2,7 @@
 
 1.  [pg_stats_reporterとは](#pg_stats_reporterとは)
 2.  [機能概要](#機能概要)
-    1.  [Webレポート機能](#Webレポート機能)
+    1.  [Webレポート機能](#webレポート機能)
     2.  [コマンドライン機能](#コマンドライン機能)
 3.  [インストール](#インストール)
     1.  [動作確認環境](#動作確認環境)
@@ -10,13 +10,13 @@
     3.  [初期設定](#初期設定)
     4.  [動作確認](#動作確認)
 4.  [操作方法](#操作方法)
-    1.  [Webレポート機能の操作方法](#Webレポート機能の操作方法)
+    1.  [Webレポート機能の操作方法](#webレポート機能の操作方法)
     2.  [コマンドライン機能の操作方法](#コマンドライン機能の操作方法)
 5.  [アンインストール](#アンインストール)
 6.  [設定ファイル](#設定ファイル)
 7.  [使用上の注意と制約](#使用上の注意と制約)
 8.  [よくあるQ\&A](#よくあるqa)
-9.  [pg_stats_reporter13からの変更点](#pg_stats_reporter13 からの変更点)
+9.  [pg_stats_reporter13からの変更点](#pg_stats_reporter13からの変更点)
 10. [関連項目](#関連項目)
 11. [謝辞](#謝辞)
 
@@ -31,6 +31,8 @@
 
 当ツールで作成したレポートの例は[こちら](http://pgstatsinfo.sourceforge.net/documents/reporter14/html/files/report_sample.html)をご覧ください。
 
+pg_statsinfo 14 および pg_stats_reporter 14 以降は GitHub にて公開しています。pg_stats_reporter 13 以前の情報については、[SourceForge](http://pgstatsinfo.sourceforge.net/index_ja.html)をご覧ください。
+
 ## 機能概要
 
 pg_stats_reporter は pg_statsinfo
@@ -38,7 +40,7 @@ pg_stats_reporter は pg_statsinfo
 
 pg_stats_reporter を利用する際には、以下の２つのレポート作成機能があります。
 
-### Webレポート機能
+### webレポート機能
 
 Webレポート機能では、Apache HTTP Server と連携して pg_stats_reporter が動作します。
 WEBサーバにブラウザを利用してアクセスすることで、ブラウザ上での操作によりレポートを作成することが可能です。
@@ -59,7 +61,7 @@ Serverを実行出来ない場合や、crond等で一定期間のレポートを
 ## インストール
 
 pg_stats_reporter
-のインストールについて説明します。インストールパッケージは[こちら](https://github.com/ossc-db/pg_stats_reporter/)からダウンロードしてください。
+のインストールについて説明します。インストールパッケージは[こちら](https://github.com/ossc-db/pg_stats_reporter/releases)からダウンロードしてください。
 ソースセットからインストールする場合は、ソースセットに同梱されている INSTALL.ja ファイルを参照してください。
 
 ### 動作確認環境
@@ -146,7 +148,7 @@ OS 起動時に HTTP Server を自動的に起動させる場合は以下のコ�
 
 ### 動作確認
 
-#### Webレポート機能の動作確認
+#### webレポート機能の動作確認
 
 [Webレポート機能の操作方法](#Webレポート機能の操作方法)の手順に従い HTTP Server
 にアクセスし、レポート画面が表示されることを確認してください。
@@ -547,7 +549,7 @@ A5. リポジトリDBから現在未使用の監視対象DBのインスタンス
 A6.
 ブラウザ内にJavaScriptのキャッシュが残っているために、正しく表示されていない可能性があります。ブラウザのキャッシュの削除を試してみてください。
 
-## pg_stats_reporter13 からの変更点
+## pg_stats_reporter13からの変更点
 
 pg_stats_reporter 13 からの変更点は以下の通りです。
 
