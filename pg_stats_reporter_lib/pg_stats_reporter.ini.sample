@@ -51,6 +51,7 @@ databases_statistics = true         ; Databases Statistics
 transactions = true                 ; Transactions
 database_size = true                ; Database Size
 recovery_conflicts = true           ; Recovery Conflicts
+wait_sampling_by_dbid               ; Wait Sampling per Database
 
 ; -- Instance Statistics --
 write_ahead_logs = true             ; Write Ahead Logs
@@ -58,6 +59,7 @@ wal_statistics = true               ; WAL statistics
 backend_states_overview = true      ; Backend States Overview
 backend_states = true               ; Backend States
 bgwriter_statistics = true          ; bgwriter Statistics
+wait_sampling_by_instid = true      ; Wait Sampling (Instance)
 
 ; --- OS Resources ---
 
@@ -83,6 +85,7 @@ correlation = true                  ; Correlation
 functions = true                    ; Functions
 statements = true                   ; Statements
 plans = true                        ; Plans
+wait_sampling = true                ; Wait Sampling
 
 ; -- Long Transactions --
 long_transactions = true            ; Long Transactions
@@ -159,6 +162,7 @@ profiles = false                    ; Profiles
 ;transactions = true                 ; Transactions
 ;database_size = true                ; Database Size
 ;recovery_conflicts = true           ; Recovery Conflicts
+;wait_sampling_by_dbid               ; Wait Sampling per Database
 ;
 ;; -- Instance Statistics --
 ;write_ahead_logs = true             ; Write Ahead Logs
@@ -166,6 +170,7 @@ profiles = false                    ; Profiles
 ;backend_states_overview = true      ; Backend States Overview
 ;backend_states = true               ; Backend States
 ;bgwriter_statistics = true          ; bgwriter Statistics
+;wait_sampling_by_instid = true      ; Wait Sampling (Instance)
 ;
 ;; --- OS Resources ---
 ;
@@ -191,6 +196,7 @@ profiles = false                    ; Profiles
 ;functions = true                    ; Functions
 ;statements = true                   ; Statements
 ;plans = true                        ; Plans
+;wait_sampling = true                ; Wait Sampling
 ;
 ;; -- Long Transactions --
 ;long_transactions = true            ; Long Transactions
