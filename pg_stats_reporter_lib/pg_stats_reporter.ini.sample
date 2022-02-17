@@ -51,7 +51,7 @@ databases_statistics = true         ; Databases Statistics
 transactions = true                 ; Transactions
 database_size = true                ; Database Size
 recovery_conflicts = true           ; Recovery Conflicts
-wait_sampling_by_dbid               ; Wait Sampling per Database
+wait_sampling_by_dbid = true        ; Wait Sampling per Database
 
 ; -- Instance Statistics --
 write_ahead_logs = true             ; Write Ahead Logs
@@ -162,7 +162,7 @@ profiles = false                    ; Profiles
 ;transactions = true                 ; Transactions
 ;database_size = true                ; Database Size
 ;recovery_conflicts = true           ; Recovery Conflicts
-;wait_sampling_by_dbid               ; Wait Sampling per Database
+;wait_sampling_by_dbid = true        ; Wait Sampling per Database
 ;
 ;; -- Instance Statistics --
 ;write_ahead_logs = true             ; Write Ahead Logs
