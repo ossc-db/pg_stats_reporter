@@ -82,11 +82,11 @@
   title="How to see a Wait Sampling (Instance) table">
 <h4>この表はインスタンス毎の待機イベントを示します。</h4>
 <ul>
-<li>Event_type : バックエンドが待つイベントのタイプ</li>
+<li>Event type : バックエンドが待つイベントのタイプ</li>
 <li>Event : バックエンドが待つイベント名</li>
 <li>Count : サンプル数</li>
 <li>Ratio : インスタンス内の比率</li>
-<li>Row_number : インスタンス内の行番号（上位10件）</li>
+<li>Row number : インスタンス内の行番号（上位10件）</li>
 </ul>
 </div>
 
@@ -225,11 +225,11 @@
 <ul>
 <li>Dbid : データベース識別子</li>
 <li>Database : 当該バックエンドが接続するデータベース名</li>
-<li>Event_type : バックエンドが待つイベントのタイプ</li>
+<li>Event type : バックエンドが待つイベントのタイプ</li>
 <li>Event : バックエンドが待つイベント名</li>
 <li>Count : サンプル数</li>
 <li>Ratio : データベース内の比率</li>
-<li>Row_number : データベース内の行番号（上位10件）</li>
+<li>Row number : データベース内の行番号（上位10件）</li>
 </ul>
 </div>
 
@@ -494,13 +494,13 @@
 <li>Userid : ユーザ識別子</li>
 <li>Database : 当該バックエンドが接続するデータベース名</li>
 <li>Role : 当該バックエンドにログインしているユーザ名</li>
-<li>Backend_type : 現在のバックエンドのタイプ。可能なタイプは、autovacuum launcher, autovacuum worker, logical replication launcher, logical replication worker, parallel worker, background writer, client backend, checkpointer, archiver, startup, walreceiver, walsender, walwriter. 加えて、拡張により登録されたバックグラウンドワーカが付加的なタイプとなることがあります。</li>
-<li>Event_type : バックエンドが待つイベントのタイプ </li>
+<li>Backend type : 現在のバックエンドのタイプ。可能なタイプは、autovacuum launcher, autovacuum worker, logical replication launcher, logical replication worker, parallel worker, background writer, client backend, checkpointer, archiver, startup, walreceiver, walsender, walwriter. 加えて、拡張により登録されたバックグラウンドワーカが付加的なタイプとなることがあります。</li>
+<li>Event type : バックエンドが待つイベントのタイプ </li>
 <li>Event : バックエンドが待つイベント名</li>
 <li>Count : サンプル数</li>
 <li>Ratio : クエリ内の比率</li>
 <li>Query : クエリ文字列</li>
-<li>Row_number : クエリ内の行番号（上位10件）</li>
+<li>Row number : クエリ内の行番号（上位10件）</li>
 </ul>
 </div>
 
