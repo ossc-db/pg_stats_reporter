@@ -82,7 +82,6 @@
   title="How to see a Wait Sampling per Database table">
 <h4>How to see a Wait Sampling per Database table.</h4>
 <ul>
-<li>Dbid : Identifier of database.</li>
 <li>Database : Name of the database this backend is connected to.</li>
 <li>Event type : The type of event for which the backend is waiting.</li>
 <li>Event : Wait event name if backend is currently waiting.</li>
@@ -511,8 +510,6 @@ pg_stat_statsments to be installed.</h4>
 <h4>How to see a Wait Sampling table.</h4>
 <ul>
 <li>Queryid : Hash code to identify identical normalized queries.</li>
-<li>Dbid : Identifier of database.</li>
-<li>Userid : Identifier of user.</li>
 <li>Database : Name of the database this backend is connected to.</li>
 <li>Role : Name of the user logged into this backend.</li>
 <li>Backend type : Type of current backend. Possible types are autovacuum launcher, autovacuum worker, logical replication launcher, logical replication worker, parallel worker, background writer, client backend, checkpointer, archiver, startup, walreceiver, walsender and walwriter. In addition, background workers registered by extensions may have additional types.</li>

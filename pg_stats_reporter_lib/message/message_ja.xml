@@ -223,7 +223,6 @@
   title="How to see a Wait Sampling per Database table">
 <h4>この表はデータベース毎の待機イベントを示します。</h4>
 <ul>
-<li>Dbid : データベース識別子</li>
 <li>Database : 当該バックエンドが接続するデータベース名</li>
 <li>Event type : バックエンドが待つイベントのタイプ</li>
 <li>Event : バックエンドが待つイベント名</li>
@@ -490,8 +489,6 @@
 <h4>この表は待機イベントを示します。</h4>
 <ul>
 <li>Queryid : 正規化されたクエリ文字列を特定するハッシュ</li>
-<li>Dbid : データベース識別子</li>
-<li>Userid : ユーザ識別子</li>
 <li>Database : 当該バックエンドが接続するデータベース名</li>
 <li>Role : 当該バックエンドにログインしているユーザ名</li>
 <li>Backend type : 現在のバックエンドのタイプ。可能なタイプは、autovacuum launcher, autovacuum worker, logical replication launcher, logical replication worker, parallel worker, background writer, client backend, checkpointer, archiver, startup, walreceiver, walsender, walwriter. 加えて、拡張により登録されたバックグラウンドワーカが付加的なタイプとなることがあります。</li>

@@ -193,7 +193,7 @@ $query_string = array(
   "SELECT datname AS \"Database\", confl_tablespace AS \"On tablespaces\", confl_lock AS \"On locks\", confl_snapshot AS \"On snapshots\", confl_bufferpin AS \"On bufferpins\", confl_deadlock AS \"On deadlocks\" FROM statsrepo.get_recovery_conflicts($1, $2)",
 
   "wait_sampling_by_dbid" =>
-  "SELECT dbid AS \"Dbid\", \"database\" AS \"Database\", event_type AS \"Event type\", event AS \"Event\", \"count\" AS \"Count\", ratio AS \"Ratio\", row_number AS \"Row number\" FROM statsrepo.get_wait_sampling_by_dbid($1, $2)",
+  "SELECT \"database\" AS \"Database\", event_type AS \"Event type\", event AS \"Event\", \"count\" AS \"Count\", ratio AS \"Ratio\", row_number AS \"Row number\" FROM statsrepo.get_wait_sampling_by_dbid($1, $2)",
 
   // Instance Statistics
   "write_ahead_logs" =>
@@ -290,7 +290,7 @@ $query_string = array(
   "SELECT plan FROM statsrepo.plan WHERE snapid=$1 AND dbid=$2 AND userid=$3 AND planid=$4",
 
   "wait_sampling" =>
-  "SELECT queryid AS \"Queryid\", dbid AS \"Dbid\", userid AS \"Userid\", \"database\" \"Database\", role AS \"Role\", backend_type AS \"Backend type\", event_type AS \"Event type\", event AS \"Event\", \"count\" AS \"Count\", ratio AS \"Ratio\", query AS \"Query\", row_number AS \"Row number\" FROM statsrepo.get_wait_sampling($1, $2)",
+  "SELECT queryid AS \"Queryid\", \"database\" \"Database\", role AS \"Role\", backend_type AS \"Backend type\", event_type AS \"Event type\", event AS \"Event\", \"count\" AS \"Count\", ratio AS \"Ratio\", query AS \"Query\", row_number AS \"Row number\" FROM statsrepo.get_wait_sampling($1, $2)",
   // Long Transaction
   "long_transactions" =>
   "SELECT pid AS \"PID\", client AS \"Client address\", start AS \"Xact Start\", duration AS \"Duration (s)\", query AS \"Last query\" FROM statsrepo.get_long_transactions($1, $2)",
