@@ -1716,7 +1716,9 @@ EOD;
             if (pg_num_rows($result) == 0) {
                 $htmlString .= makeErrorTag($errorMsg['no_result']);
             } else {
-                $htmlString .= makeTablePagerHTML($result, "wait_sampling", 10, true);
+				$qarray = array_fill(0, pg_num_fields($result), false);
+				$qarray[8] = true;
+                $htmlString .= makeTablePagerHTML_impl($result, "wait_sampling", 10, true, $qarray);
             }
             pg_free_result($result);
         }
