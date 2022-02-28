@@ -1,0 +1,391 @@
+/*
+ * pg_stats_reporter: Cascading Style Sheets
+ *
+ * Copyright (c) 2012-2022, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
+ */
+body {
+  font-size: 70%;
+}
+
+h1 {
+  border: solid #4297d7;
+  padding-left: 0.2em;
+}
+
+h2 {
+  border-top: solid #4297d7;
+  border-left: solid #4297d7;
+  padding-top: 0.2em;
+  padding-left: 0.2em;
+}
+
+h3 {
+  border-bottom: solid #4297d7;
+  font-size: medium;
+}
+
+#header_menu {
+  position: fixed;
+  background-color: #BDD2FF;
+  left: 15%;
+  top: 0;
+  width: 85%;
+  min-width: 800px;
+  height: 35px;
+  z-index: 2;
+  font-size: 115%;
+}
+
+#header_menu_commandline {
+  position: fixed;
+  background-color: #BDD2FF;
+  left: 0.5%;
+  top: 0;
+  width: 99.9%;
+  min-width: 800px;
+  height: 35px;
+  z-index: 2;
+  font-size: 115%;
+}
+
+#left_menu {
+  position: fixed;
+  background-color: #4297d7;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 15%;
+  padding-top: 0px;
+  z-index: 3;
+}
+
+#contents {
+  position: absolute;
+  left: 15.5%;
+  width: 84.5%;
+  z-index: 1;
+}
+
+#contents_commandline {
+  position: absolute;
+  left: 0.5;
+  width: 99.0%;
+  z-index: 1;
+}
+
+.scrollbox{
+background-color:#80bfff;
+text-align:left;
+height:100%;
+word-wrap: break-word;
+overflow:auto;
+scrollbar-3dlight-color:#ffeaff;
+scrollbar-arrow-color:#ffeaff;
+scrollbar-darkshadow-color:#ffffff;
+scrollbar-face-color:#ffffff;
+scrollbar-highlight-color:#ffffff;
+scrollbar-shadow-color:#ffeaff;
+scrollbar-track-color:#ffffff;
+}
+
+.menu a {
+  color: #222222;
+}
+
+.menu a:visited {
+  color: #222222;
+}
+
+.table {
+  max-width: 600px;
+}
+
+/* for navigation bar */
+.sf-menu {
+	line-height:    1.0;
+}
+
+/* for tagjump */
+div.jump_margin {
+  height: 30px;
+  visibility: hidden;
+  margin-top: -35px;
+}
+
+/* only for most top tagjump */
+div.top_jump_margin {
+  height: 30px;
+  visibility: hidden;
+}
+
+/* dygraph labels */
+div.labels {
+  border-color:#000000;
+  border-width:1px;
+  border-style:solid;
+  margin-left: 20px;
+  padding: 10px;
+  font-size: 14px;
+}
+
+/* dygraph class */
+div.linegraph {
+  border: 1px solid #4297d7;
+  min-width: 600px;
+}
+
+/* jqplot class */
+div.piegraph {
+  width: 320px;
+  height: 320px;
+  margin-top: 10px;
+  margin-left: 10px;
+  position: relative;
+}
+
+/* initial report page */
+p.initial_page {
+  font-size: x-large;
+}
+
+/* report page data */
+p.report_data {
+	margin-left: 5px;
+	color: #ffffff;
+}
+
+/* error messages */
+p.error {
+  font-weight: bold;
+  font-style: italic;
+  font-size: small;
+}
+
+/* jQuery UI button  */
+div.jquery_ui_button_max {
+  font-size: 18px;
+  margin-top: 9px;
+  margin-right: 8px;
+  float: right;
+}
+
+div.jquery_ui_button_top {
+  font-size: 18px;
+  margin-top: 9px;
+  margin-right: 8px;
+  float: right;
+}
+
+div.jquery_ui_button_info_h1 {
+  font-size: 18px;
+  margin-top: -41px;
+  position: relative;
+  left: -8px;
+  float: right;
+}
+
+div.jquery_ui_button_info_h2 {
+  font-size: 18px;
+  margin-top: -32px;
+  position: relative;
+  left: -8px;
+  float: right;
+}
+
+div.jquery_ui_button_info_h3 {
+  font-size: 18px;
+  margin-top: -41px;
+  position: relative;
+  left: -8px;
+  float: right;
+}
+
+div.graph_button {
+  font-size: 10px;
+  margin-left: 10px;
+}
+
+/* tablesorter */
+.tablesorter span.remark {
+	display: none;
+}
+.tablesorter a:hover span.remark {
+	background: #FFFFF0;
+	border: 1px solid #CCCCCC;
+	color: #000000;
+	display: block;
+	line-height: 1.2em;
+	position: absolute;
+}
+.tablesorter tbody td.num {
+  text-align: right;
+  white-space: nowrap;
+}
+.tablesorter tbody td.str {
+  text-align: left;
+  white-space: normal;
+  max-width: 50%;
+}
+.tablesorter caption { text-align:left; }
+.tablesorter tbody th {
+  text-align:left;
+  background-color: #e6eeee;
+  width: 50%;
+  font-size: 120%;
+}
+.tablesorter thead tr th {
+  font-size: 120%;
+}
+.tablesorter tbody td {
+  font-size: 120%;
+}
+
+.childRowTable thead tr th {
+  background-color: #c5d3e1;
+  font-size: 90%;
+}
+
+.childRowTable tbody td {
+  font-size: 100%;
+}
+
+/* log viewer */
+#dropdown2 li {
+  background: #CCFFCC;
+}
+
+#func_menu {
+  border-bottom: 2px groove #EFEFEF;
+  padding-bottom: 5px;
+}
+
+#t-navi {
+  margin-top: 10px;
+  margin-bottom: 5px;
+  overflow: hidden;
+}
+
+#f-navi {
+  margin-top: 5px;
+  overflow: hidden;
+}
+
+#search_menu {
+  border: 1px solid #B6B6B6;
+  box-shadow: 0px 1px #EFEFEF;
+  padding: 4px 0px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  overflow: hidden;
+}
+
+#search_menu table {
+  margin: 5px;
+}
+
+#search_menu table td {
+  padding-bottom: 5px;
+}
+
+#search_menu table .form_label {
+  text-align: right;
+}
+
+#search_menu table .form_input {
+  text-align: left;
+  padding-right: 8px;
+}
+
+#search_submit {
+  margin-left: 2px;
+  float: left;
+  clear:both;
+}
+
+#search_clear {
+  margin-left: 2px;
+  float: left;
+}
+
+.columnSelectorWrapper {
+  margin-right: 3px;
+  float: left;
+}
+
+.columnSelector, .hidden {
+  display: none;
+}
+
+.columnSelector {
+  position: absolute;
+  margin-top: 2px;
+  background: #fff;
+  border: #99bfe6 1px solid;
+  border-radius: 5px;
+  z-index : 1;
+}
+
+.columnSelector label {
+  display: block;
+}
+
+.columnSelector .disabled {
+  color: #ddd;
+}
+
+#colSelect:checked + label {
+  background: #5797d7;
+  border-color: #555;
+}
+
+#colSelect:checked ~ #columnSelector {
+  display: block;
+}
+
+#filter_reset {
+  margin-right: 3px;
+  float: left;
+}
+
+.pagerWrapper {
+  overflow: hidden;
+  float: right;
+}
+
+.pager {
+  float: right;
+}
+
+.page_info {
+  font-size: 100%;
+  margin-top: 6px;
+  margin-right: 5px;
+  padding: 3px 8px;
+  border: 1px solid #B6B6B6;
+  box-shadow: 0px 1px #EFEFEF;
+  float: left;
+}
+
+/* help dialog */
+li em {
+  font-style: normal;
+  font-weight: bold;
+}
+
+/* message dialog */
+#message_dialog {
+  font-weight: bold;
+  font-style: italic;
+  font-size: small;
+  margin: 5px 0px;
+}
+
+pre.query_dialog {
+  font-size: 100%;
+}
+
+pre {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+

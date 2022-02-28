@@ -1,0 +1,94 @@
+pg_stats_reporter ライブラリ差し替え手順
+
+
+1. 任意の場所に pg_stats_reporter ソースパッケージを用意する
+
+2. 差し替えたいライブラリをダウンロードして、1.で用意した
+   ソースパッケージ内のライブラリと差し替える
+   例1) jquery を差し替える場合
+       a) jquery の公式サイト(http://jquery.com/)にアクセスして
+          Minified 版をダウンロードする
+          (jquery-<バージョン名>.min.js ファイルを作成し公式サイトの
+           最新のjquery の内容をコピーする)
+       b) a)で作成したファイルと1.で用意したソースパッケージ内の package
+          ディレクトリ直下にあるものを置き換える
+       ※ jqueryのみを差し替える場合は、必要なファイルのみの差し替えになるため、
+          手順3.と4.を行う必要はない
+       ※ 他のライブラリでも削除対象のファイルがない場合は、手順3.と4.を行う必要はない
+   例2) jquery-ui を差し替える場合
+       a) jquery-ui の公式サイト(http://jqueryui.com/)にアクセスして
+          DOWNLOAD タブをクリックする
+       b) Theme に "start"を選択して download ボタンをクリックする
+       c) ダウンロードしたライブラリパッケージと1.で用意したソースパッケージ内の
+          package ディレクトリ直下にあるものを置き換える
+
+3. 1で用意したソースパッケージ内の以下の2つのファイル(*1)を
+   package ディレクトリ直下にコピーして、ライブラリ削除用のスクリプト
+   に実行権限を付与する
+     - remove_library_files.sh -> ライブラリ削除用のスクリプト
+     - remove_file_list.txt -> 削除ファイルリスト
+   (*1)ソースリポジトリの remove_library ディレクトリにて管理
+   例) jquery-ui を差し替える場合
+       a) 1.で用意したソースパッケージディレクトリに移動する
+       b) ライブラリ削除用のスクリプトと削除ファイルリストをコピーする
+          % cd remove_library
+          % cp remove_library_files.sh remove_file_list.txt ../html/pg_stats_reporter/package/
+       c) ライブラリ削除用のスクリプトに実行権限を付与する
+          % cd ../html/pg_stats_reporter/package/
+          % chmod a+x remove_library_files.sh
+
+4. package ディレクトリをカレントディレクトリとして、ライブラリ削除用の
+   スクリプトを実行する
+   ------
+   % ./remove_library_files.sh
+   ※オプションなし
+   ------
+   ※実行の際に WANING が出力された場合は、WANING の対象となった
+     ファイルについて以下を確認する
+     - ファイル名が変更されていないか
+       ⇒変更されている場合は、自分でファイルを tmp ディレクトリに移動して
+         削除ファイルリストを更新する
+     - 新しいライブラリのディレクトリ構成が変更されていないか
+       ⇒同上
+   
+   例) 以下のようなファイル名の変更があった場合のライブラリ削除用の
+       スクリプトの実行結果と修正方法
+       jquery-ui-1.9.1.custom/development-bundle/docs
+       ⇒jquery-ui-1.9.2.custom/development-bundle/documents
+         [実行結果]-----------------------------------
+         *** jquery-ui ***
+         `jquery-ui-1.9.2.custom/development-bundle/demos' -> `./tmp/jquery-ui/demos'
+         WARNING: jquery-ui-*.custom/development-bundle/docs does not existed.
+         `jquery-ui-1.9.2.custom/development-bundle/jquery-1.8.3.js' -> `./tmp/jquery-ui/jquery-1.8.3.js'
+         ※jquery-uiの結果のみ添付
+         ----------------------------------------------
+       上記の場合、差し替え後のディレクトリ名(development-bundle/documents)が
+       削除ファイルリストに記載されているものと異なるため警告が表示されている
+       
+       削除対象のディレクトリとファイルを手動で tmp ディレクトリに移動して、
+       削除ファイルリストの jquery-ui に関する記述を以下のように修正する
+         <修正前>
+           jquery-ui-*.custom/development-bundle/demos
+           jquery-ui-*.custom/development-bundle/docs
+           jquery-ui-*.custom/development-bundle/jquery-*.js
+         <修正前>
+           jquery-ui-*.custom/development-bundle/demos
+           jquery-ui-*.custom/development-bundle/documents
+           jquery-ui-*.custom/development-bundle/jquery-*.js
+
+5. 以下のファイルに記述されているライブラリのパスとファイル名を
+   差し替えたものにあわせて修正する
+     - template/pg_stats_reporter.tpl
+     - lib/define.php
+
+6. 動作確認を行う
+
+7. 6.で正常に動作することを確認した後、pakage ディレクトリ直下の
+   以下のディレクトリとファイルを削除する
+   - tmp ディレクトリ
+   - remove_library_files.sh
+   - remove_file_list.txt
+
+8. 以下のものをコミットする
+   - 不要なライブラリが削除された package ディレクトリ
+   - 4.で修正した削除ファイルリスト

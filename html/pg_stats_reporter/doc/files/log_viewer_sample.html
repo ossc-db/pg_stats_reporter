@@ -1,0 +1,320 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>pg_stats_reporter 14.0</title>
+
+<!-- javascripts -->
+<script type="text/javascript" src="../../package/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="../../package/jquery-ui-1.13.0.custom/jquery-ui.min.js"></script>
+<script type="text/javascript" src="../../package/jquery-ui-timepicker-addon-1.6.3/jquery-ui-timepicker-addon.js"></script>
+<script type="text/javascript" src="../../package/superfish-1.7.10/dist/js/hoverIntent.js"></script>
+<script type="text/javascript" src="../../package/superfish-1.7.10/dist/js/superfish.js"></script>
+<script type="text/javascript" src="../../package/superfish-1.7.10/dist/js/supersubs.js"></script>
+<script type="text/javascript" src="../../package/tablesorter-2.31.3/js/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../../package/tablesorter-2.31.3/js/jquery.tablesorter.widgets.js"></script>
+<script type="text/javascript" src="../../package/tablesorter-2.31.3/js/widgets/widget-columnSelector.js"></script>
+<!-- pg_stats_reporter's javascript -->
+<script type="text/javascript" src="../js/common.js"></script>
+<script type="text/javascript" src="../js/log_viewer.js"></script>
+<script type="text/javascript" src="../js/log_viewer_ajax.js"></script>
+
+<!-- stylesheets -->
+<link rel="stylesheet" type="text/css" href="../../package/superfish-1.7.10/dist/css/superfish.css"/>
+<link rel="stylesheet" type="text/css" href="../../package/jquery-ui-1.13.0.custom/jquery-ui.theme.min.css"/>
+<link rel="stylesheet" type="text/css" href="../../package/jquery-ui-1.13.0.custom/jquery-ui.min.css"/>
+<link rel="stylesheet" type="text/css" href="../../package/jquery-ui-timepicker-addon-1.6.3/jquery-ui-timepicker-addon.css"/>
+<link rel="stylesheet" type="text/css" href="../../package/tablesorter-2.31.3/css/theme.blue.css"/>
+<!-- pg_stats_reporter's stylesheets -->
+<link rel="stylesheet" type="text/css" href="../../css/pg_stats_reporter.css"/>
+</head>
+
+<body>
+<!-- header menu -->
+<div id="header_menu">
+<ul id="dropdown" class="sf-menu menu">
+<li><a href="report_sample.html#overview">Overview</a><ul>
+<li><a href="report_sample.html#alerts">Alerts</a></li>
+</ul></li>
+<li><a href="report_sample.html#statistics">Statistics</a><ul>
+<li><a href="report_sample.html#databases_statistics">Databases Statistics</a><ul>
+<li><a href="report_sample.html#transactions">Transactions</a></li>
+<li><a href="report_sample.html#database_size">Database Size</a></li>
+<li><a href="report_sample.html#recovery_conflicts">Recovery Conflicts</a></li>
+</ul></li>
+<li><a href="report_sample.html#instance_activity">Instance Statistics</a><ul>
+<li><a href="report_sample.html#write_ahead_logs">Write Ahead Logs</a></li>
+<li><a href="report_sample.html#wal_statistics">WAL Statistics</a></li>
+<li><a href="report_sample.html#backend_states_overview">Backend States Overview</a></li>
+<li><a href="report_sample.html#backend_states">Backend States</a></li>
+<li><a href="report_sample.html#bgwriter_statistics">Background Writer Statistics</a></li>
+</ul></li>
+</ul></li>
+<li><a href="report_sample.html#os">OS</a><ul>
+<li><a href="report_sample.html#os_resource_usage">CPU and Memory</a><ul>
+<li><a href="report_sample.html#cpu_usage">CPU Usage</a></li>
+<li><a href="report_sample.html#load_average">Load Average</a></li>
+<li><a href="report_sample.html#memory_usage">Memory Usage</a></li>
+</ul></li>
+<li><a href="report_sample.html#disk_usage">Disks</a><ul>
+<li><a href="report_sample.html#disk_usage_per_tablespace">Disk Usage per Tablespace</a></li>
+<li><a href="report_sample.html#disk_usage_per_table">Disk Usage per Table</a></li>
+<li><a href="report_sample.html#io_usage">I/O Usage</a></li>
+</ul></li>
+</ul></li>
+<li><a href="report_sample.html#sql">Activities</a><ul>
+<li><a href="report_sample.html#notable_tables">Notable Tables</a><ul>
+<li><a href="report_sample.html#heavily_updated_tables">Heavily Updated Tables</a></li>
+<li><a href="report_sample.html#heavily_accessed_tables">Heavily Accessed Tables</a></li>
+<li><a href="report_sample.html#low_density_tables">Low Density Tables</a></li>
+<li><a href="report_sample.html#correlation">Correlation</a></li>
+</ul></li>
+<li><a href="report_sample.html#query_activity">Query Activity</a><ul>
+<li><a href="report_sample.html#qa_functions">Functions</a></li>
+<li><a href="report_sample.html#qa_statements">Statements</a></li>
+<li><a href="report_sample.html#qa_plans">Plans</a></li>
+</ul></li>
+<li><a href="report_sample.html#long_transactions">Long Transactions</a></li>
+<li><a href="report_sample.html#lock_conflicts">Lock Conflicts</a></li>
+</ul></li>
+<li><a href="report_sample.html#activities">Maintenances</a><ul>
+<li><a href="report_sample.html#checkpoints">Checkpoints</a></li>
+<li><a href="report_sample.html#autovacuum_activity">Autovacuums</a><ul>
+<li><a href="report_sample.html#autovacuum_overview">Overview</a></li>
+<li><a href="report_sample.html#autovacuum_io_summary">I/O Summary</a></li>
+<li><a href="report_sample.html#vacuum_wal_statistics">Vacuum WAL Statistics</a></li>
+<li><a href="report_sample.html#vacuum_index_statistics">Vacuum Index Statistics</a></li>
+<li><a href="report_sample.html#analyze_overview">Analyze Overview</a></li>
+<li><a href="report_sample.html#analyze_io_summary">Analyze I/O Summary</a></li>
+<li><a href="report_sample.html#modified_rows">Modified Rows</a></li>
+<li><a href="report_sample.html#cancellations">Cancellations</a></li>
+</ul></li>
+<li><a href="report_sample.html#replication_activity">Replication</a><ul>
+<li><a href="report_sample.html#replication_overview">Overview</a></li>
+<li><a href="report_sample.html#replication_delays">Delays</a></li>
+<li><a href="report_sample.html#replication_slots">Replication Slots Statistics</a></li>
+</ul></li>
+</ul></li>
+<li><a href="report_sample.html#information">Misc</a><ul>
+<li><a href="report_sample.html#schema_information">Tables and Indexes</a><ul>
+<li><a href="report_sample.html#tables">Tables</a></li>
+<li><a href="report_sample.html#indexes">Indexes</a></li>
+</ul></li>
+<li><a href="report_sample.html#setting_parameters">Settings</a><ul>
+<li><a href="report_sample.html#runtime_params">Run-time Paramters</a></li>
+</ul></li>
+</ul></li>
+</ul>
+<!-- Log Viewer -->
+<ul id="dropdown2" class="sf-menu menu">
+<li><a href="#log_viewer">Log Viewer</a></li>
+</ul>
+<!-- hide left menu button  -->
+<div align="right" class="jquery_ui_button_max">
+  <div><button id="jquery_ui_button_arrowthick"></button></div>
+</div>
+<!-- top button -->
+<div align="right" class="jquery_ui_button_top">
+  <div><button id="jquery_ui_button_top"></button></div>
+</div>
+</div> <!-- header menu end -->
+
+
+<!-- left menu -->
+<div id="left_menu" class="scrollbox">
+<img width="100%" src="pgsql_banner01.png"/>
+<p class="report_data">
+[<span id="target_repodb">repository1</span>]<br/><span id="target_name">dbserver01:5432</span><br/>begin:<br/><span id="target_begin">2022-01-31 00:00</span><br/>end:<br/><span id="target_end">2022-02-01 00:00</span><br/><span id="target_instid" style="display: none">1</span></p>
+<div id="report_range_dialog" title="Create new report">
+  <p align="center">
+    <label for="begin_date">begin:</label>
+    <input type="text" id="begin_date" name="begin_date" value="2022-02-14 00:00"/>
+	<label for="end_date">end:</label>
+    <input type="text" id="end_date" name="end_date" value="2022-02-15 10:49"/>
+  </p>
+</div><br/>
+<div align="center">
+  <button id="report_range">Create new report</button>
+</div><br/>
+<div id="accordion">
+<h3>repository1</h3>
+<div>
+<a href="#">dbserver01:5432</a><br/>
+</div>
+<h3>repository2</h3>
+<div>
+<a href="#">dbserver02:5432</a><br/>
+</div>
+</div> <!-- accordion end -->
+<br/><br/>
+<div align="center">
+  <button id="reload_setting">Reload config</button>
+</div>
+</div> <!-- left menu end -->
+
+
+<!-- contents -->
+<div id="contents">
+  <div class="top_jump_margin"></div>
+
+  <div id="log_viewer" class="jump_margin"></div>
+  <h1>Log Viewer</h1>
+  <div align="right" class="jquery_ui_button_info_h1">
+    <button class="help_button" dialog="#log_viewer_dialog"></button>
+  </div>
+
+  <input id="page_total" type="hidden" value="4">
+
+  <div id="func_menu">
+    <button id="search_option">Search Option</button>
+    <div id="search">
+      <div id="search_menu">
+        <form id="search_form">
+          <table>
+            <tbody>
+              <tr>
+                <td class="form_label">
+                  <label for="elevel">ELEVEL:</label>
+                </td>
+                <td class="form_input">
+                  <select name="elevel">
+                    <option value=""></option>
+                    <option value="DEBUG">DEBUG</option>
+                    <option value="INFO">INFO</option>
+                    <option value="NOTICE">NOTICE</option>
+                    <option value="WARNING">WARNING</option>
+                    <option value="ERROR">ERROR</option>
+                    <option value="LOG">LOG</option>
+                    <option value="FATAL">FATAL</option>
+                    <option value="PANIC">PANIC</option>
+                  </select>
+                </td>
+                <td class="form_label">
+                  <label for="username">USERNAME:</label>
+                </td>
+                <td class="form_input">
+                  <input type="text" name="username" size="20" maxlength="64" autocomplete="off">
+                </td>
+                <td class="form_label">
+                  <label for="database">DATABASE:</label>
+                </td>
+                <td class="form_input">
+                  <input type="text" name="database" size="20" maxlength="64" autocomplete="off">
+                </td>
+              </tr>
+              <tr>
+                <td class="form_label">
+                  <label for="message">MESSAGE:</label>
+                </td>
+                <td class="form_input" colspan="5">
+                  <input type="text" name="message" size="80" maxlength="100" autocomplete="off">
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </form>
+        <button id="search_submit">Search</button>
+        <button id="search_clear">Clear</button>
+      </div>
+    </div>
+  </div>
+  <div id="t-navi">
+    <div class="columnSelectorWrapper">
+      <input id="colSelect" type="checkbox" class="hidden">
+      <label id="column_select" for="colSelect">Column</label>
+      <div id="columnSelector" class="columnSelector"></div>
+    </div>
+    <button id="filter_reset" class="filter_reset">Filter Reset</button>
+      
+    <div class="pagerWrapper">
+      <span class="page_info"></span>
+      <div class="pager">
+        <button class="page_prev">Prev</button>
+        <button class="page_next">Next</button>
+      </div>
+    </div>
+  </div>
+  <table id="log_viewer_table" class="tablesorter">
+    <thead>
+      <tr>
+        <th>timestamp</th>
+        <th class="filter-onlyAvail">username</th>
+        <th class="filter-onlyAvail">database</th>
+        <th>pid</th>
+        <th class="filter-onlyAvail">client_addr</th>
+        <th>session_id</th>
+        <th>session_line_num</th>
+        <th>ps_display</th>
+        <th>session_start</th>
+        <th>vxid</th>
+        <th>xid</th>
+        <th class="filter-onlyAvail">elevel</th>
+        <th class="filter-onlyAvail">sqlstate</th>
+        <th>message</th>
+        <th>detail</th>
+        <th>hint</th>
+        <th>query</th>
+        <th>query_pos</th>
+        <th>context</th>
+        <th>user_query</th>
+        <th>user_query_pos</th>
+        <th>location</th>
+        <th>application_name</th>
+        <th>backend_type</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+  <div id="f-navi">
+    <div class="pagerWrapper">
+      <span class="page_info"></span>
+      <div class="pager">
+        <button class="page_prev">Prev</button>
+        <button class="page_next">Next</button>
+      </div>
+    </div>
+  </div>
+<div id="log_viewer_dialog" class="help_dialog" title="The Log Viewer">
+<h4>Search Option の使い方</h4>
+検索条件を入力し、"Search"ボタンを押下することでログを絞り込みます。
+<ul>
+<li><em>ELEVEL</em>: メッセージレベルを選択します</li>
+<li><em>USERNAME</em>: ユーザ名を指定します</li>
+<li><em>DATABASE</em>: データベース名を指定します</li>
+<li><em>MESSAGE</em>: エラーメッセージを指定します (PostgreSQL の ~ 演算子で有効なPOSIX正規表現)</li>
+</ul>
+<h4>Log の見方</h4>
+<ul>
+<li><em>timestamp</em>: ログ出力日時</li>
+<li><em>username</em>: ユーザ名</li>
+<li><em>database</em>: データベース名</li>
+<li><em>pid</em>: プロセス識別子</li>
+<li><em>client_addr</em>: クライアントホスト：ポート番号</li>
+<li><em>session_id</em>: セッション識別子</li>
+<li><em>session_line_num</em>: セッション前行番号</li>
+<li><em>ps_display</em>: コマンドタグ</li>
+<li><em>session_start</em>: セッション開始日時</li>
+<li><em>vxid</em>: 仮想トランザクション識別子</li>
+<li><em>xid</em>: 通常トランザクション識別子</li>
+<li><em>elevel</em>: エラーレベル</li>
+<li><em>sqlstate</em>: SQLSTATEコード</li>
+<li><em>message</em>: エラーメッセージ</li>
+<li><em>detail</em>: エラーメッセージ(詳細)</li>
+<li><em>hint</em>: ヒント</li>
+<li><em>query</em>: エラーとなった内部的なクエリ</li>
+<li><em>query_pos</em>: 内部的なクエリにおけるエラー位置の文字数</li>
+<li><em>context</em>: エラーの文脈</li>
+<li><em>user_query</em>: エラーとなったユーザのクエリ</li>
+<li><em>user_query_pos</em>: ユーザのクエリにおけるエラー位置の文字数</li>
+<li><em>location</em>: PostgreSQLソースコード上のエラー発生場所</li>
+<li><em>application_name</em>: アプリケーション名</li>
+<li><em>backend_type</em>: バックエンドの種別</li>
+</ul>
+</div>
+
+</div>
+<!-- contents end -->
+
+</body>
+</html>

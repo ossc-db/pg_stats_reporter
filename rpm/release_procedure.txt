@@ -1,0 +1,81 @@
+pg_stats_reporter リリース手順書
+
+■ 更新履歴(更新日、更新箇所、更新概要)
+
+・2013/1/30、全体、新規作成
+・2017/1/16、全体、手順の見直し
+
+■ リリース手順
+
+1. SPECファイルの修正
+   branches/pg_stats_reporter_<メジャーバージョン>/rpm/pg_stats_reporter_rhel6.spec
+   branches/pg_stats_reporter_<メジャーバージョン>/rpm/pg_stats_reporter_rhel7.spec
+   [修正点]
+      - Version をリリースするバージョンに修正する
+        例)
+           Version: 1.0.0 -> Version: 1.0.1
+      - %chagelog の先頭にリリースするバージョンの変更点を追記する
+        例)
+           * Wed Jan  30 2013 - NTT OSS Center 1.0.1-1
+           - Fix some bugs
+
+2. history.ja にリリースするバージョンにおける
+   変更点(Subversionの変更履歴をリリース用に修正したもの)を追記
+   branches/pg_stats_reporter_<メジャーバージョン>/history.ja
+   例)
+      [1.0.1 (2013/01/30)]
+     ・ レフトメニューのアコーディオン内の文字列が折りかえるように修正
+     ・ スタンバイが複数ある場合にReplication Activityの表が崩れるのを修正
+     ・ 英語版インストール方法ファイル(INSTALL.en)を追加
+      (以下、省略)
+      
+3. 手順1,2で修正した以下のファイルをコミットし、release_revision.txt へ
+   リリースとリビジョンの対応を追記する
+   [コミットするファイル]
+     - branches/pg_stats_reporter_<メジャーバージョン>/rpm/pg_stats_reporter_rhel6.spec
+     - branches/pg_stats_reporter_<メジャーバージョン>/rpm/pg_stats_reporter_rhel7.spec
+     - branches/pg_stats_reporter_<メジャーバージョン>/history.ja
+
+4. Subversion からリリースするバージョンのソースツリー(最新リビジョン)を export する
+   ※以下、任意のユーザのホームディレクトリ直下で操作を行う
+   例)export 先のディレクトリ名を pg_stats_reporter に指定して export する
+   -----------------------------------------------------------------------------
+   $ svn export https://.../pg_statsinfo/branches/pg_stats_reporter_1_0 ~/pg_stats_reporter-1.0.1
+   -----------------------------------------------------------------------------
+
+5. ソースパッケージ作成に不要な以下のディレクトリ・ファイルを削除・退避する
+   - remove_library
+   - rpm (rpm は RPM 作成(手順7～9)で使用するため退避)
+   - pg_stats_reporter_library_list.html
+   -----------------------------------------------------------------------------
+   $ rm -fr pg_stats_reporter-1.0.1/remove_library
+   $ rm -f pg_stats_reporter-1.0.1/pg_stats_reporter_library_list.html
+   $ mv pg_stats_reporter-1.0.1/rpm ~
+   -----------------------------------------------------------------------------
+
+6. 手順5で不要なディレクトリ・ファイルを取り除いた pg_stats_reporter を
+   tar で固める
+   -----------------------------------------------------------------------------
+   $ tar cvfz pg_stats_reporter-1.0.1.tar.gz pg_stats_reporter-1.0.1
+   -----------------------------------------------------------------------------
+
+7. 手順6で作成した tar ファイルを手順5で待避したRPM作成用ディレクトリ(rpm)直下の
+   SOURCES にコピーする
+   -----------------------------------------------------------------------------
+   $ cp pg_stats_reporter-1.0.1.tar.gz ~/rpm/SOURCES
+   -----------------------------------------------------------------------------
+
+8. RPM 作成のための設定ファイル(.rpmmacros)をユーザのホームディレクトリ直下に
+   用意する
+   ※既に設定ファイルが存在する場合は設定内容が以下であるか確認する
+   [設定内容例(postgres ユーザで作業している場合)]
+   -----------------------------------------------------------------------------
+   $ echo "%_topdir %(echo $HOME)/rpm" > ~/.rpmmacros
+   -----------------------------------------------------------------------------
+
+9. RPM を作成する
+   -----------------------------------------------------------------------------
+   $ rpmbuild -ba ~/rpm/SPECS/pg_stats_reporter_rhel6.spec
+   -----------------------------------------------------------------------------
+
+- 以上 -
