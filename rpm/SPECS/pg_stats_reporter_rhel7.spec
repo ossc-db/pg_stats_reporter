@@ -27,7 +27,6 @@ AutoReqProv: 0
 /bin/cp -r pg_stats_reporter_lib %{buildroot}/var/www
 /bin/cp bin/pg_stats_reporter %{buildroot}/usr/local/bin
 /bin/cp LICENSE %{buildroot}/var/www/pg_stats_reporter_lib/
-/bin/cp history.ja %{buildroot}/var/www/pg_stats_reporter_lib/
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -40,7 +39,6 @@ rm -rf $RPM_BUILD_ROOT
 /var/www/pg_stats_reporter_lib/template/
 /var/www/pg_stats_reporter_lib/message/
 /var/www/pg_stats_reporter_lib/LICENSE
-/var/www/pg_stats_reporter_lib/history.ja
 
 %defattr(755,apache,apache,-)
 %dir /var/www/pg_stats_reporter_lib/cache
