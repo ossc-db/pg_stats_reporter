@@ -29,7 +29,7 @@
 [pg_statsinfo 14](https://github.com/ossc-db/pg_statsinfo/)が収集した統計情報を元に、PostgreSQL
 サーバの利用統計情報をHTML形式のグラフィカルなレポートで出力します。
 
-当ツールで作成したレポートの例は[こちら](http://pgstatsinfo.sourceforge.net/documents/reporter14/html/files/report_sample.html)をご覧ください。
+当ツールで作成したレポートの例は[こちら](http://pgstatsinfo.sourceforge.net/documents/reporter14/doc/files/report_sample.html)をご覧ください。
 
 pg_statsinfo 14 および pg_stats_reporter 14 以降は GitHub にて公開しています。pg_stats_reporter 13 以前の情報については、[SourceForge](http://pgstatsinfo.sourceforge.net/index_ja.html)をご覧ください。
 
