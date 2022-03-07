@@ -29,7 +29,7 @@ pg_stats_reporter is a graphical report generator for
 It offers you various statistical information collected by pg_statsinfo
 in a graphical and interactive representation. pg_stats_reporter 14 is
 compatible only with pg_statsinfo 14. You can see an example report
-[here](http://pgstatsinfo.sourceforge.net/documents/reporter14/html/files/report_sample.html).
+[here](http://pgstatsinfo.sourceforge.net/documents/reporter14/doc/files/report_sample.html).
 
 pg_stats_reporter 14 and later are available on GitHub. pg_stats_reporter 13 and earlier can be found at [SourceForge](http://pgstatsinfo.sourceforge.net/index.html).
 
