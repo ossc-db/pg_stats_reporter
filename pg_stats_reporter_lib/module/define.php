@@ -175,7 +175,7 @@ $query_string = array(
   /* Statistics */
   // Databases Statistics
   "databases_statistics" =>
-  "SELECT datname AS \"Database\", size AS \"MiB\", size_incr AS \"+MiB\", xact_commit_tps AS \"Commit/s\", xact_rollback_tps AS \"Rollback/s\", blks_hit_rate AS \"Hit%\", blks_hit_tps AS \"Gets/s\", blks_read_tps AS \"Reads/s\", tup_fetch_tps AS \"Rows/s\" FROM statsrepo.get_dbstats($1, $2)",
+  "SELECT datname AS \"Database\", size AS \"MiB\", size_incr AS \"+MiB\", xact_commit_tps AS \"Commit/s\", xact_rollback_tps AS \"Rollback/s\", blks_hit_rate AS \"Hit%\", blks_hit_tps AS \"Gets/s\", blks_read_tps AS \"Reads/s\", tup_fetch_tps AS \"Rows/s\", temp_files AS \"Temporary files\", temp_bytes AS \"Temporary bytes (MiB)\",  deadlocks AS \"Deadlocks\", blk_read_time AS \"Read time (ms)\", blk_write_time AS \"Write time (ms)\" FROM statsrepo.get_dbstats($1, $2)",
 
   "transactions" =>
   "SELECT replace(\"timestamp\", '-', '/') AS \"timestamp\", datname, avg(commit_tps) AS commit_tps, avg(rollback_tps) AS rollback_tps FROM statsrepo.get_xact_tendency_report($1, $2) GROUP BY 1,2 ORDER BY 1,2",

@@ -32,6 +32,11 @@
 <li><em>Gets/s</em>: Average number of blocks per second requested during this report period. </li>
 <li><em>Reads/s</em>: Average number of blocks per second read from disks during this report period.</li>
 <li><em>Rows/s</em>: Average number of rows per second fetched from tables and indexes during thie report period.</li>
+<li><em>Temporary files</em>: Number of temporary files created by queries in this database.</li>
+<li><em>Temporary bytes (MiB)</em>: Total amount of data written to temporary files by queries in this database.</li>
+<li><em>Deadlocks</em>: Number of deadlocks detected in this database.</li>
+<li><em>Read time (ms)</em>: Time spent reading data file blocks by backends in this database, in milliseconds.</li>
+<li><em>Write time (ms)</em>: Time spent writing data file blocks by backends in this database, in milliseconds.</li>
 </ul>
 * Small values may be shown as zero by round off.
 </div>
