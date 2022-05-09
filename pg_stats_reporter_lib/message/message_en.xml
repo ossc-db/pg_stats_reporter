@@ -793,6 +793,30 @@ session.</h4>
 </ul>
 </div>
 
+<div id="cpu_information_dialog" class="help_dialog"
+  title="The CPU Information Table">
+<h4>This table is CPU information.</h4>
+<ul>
+<li><em>Date time</em>: Date and time when the change in CPU information is detected.</li>
+<li><em>Vendor</em>: Vendor name of CPU.</li>
+<li><em>Model name</em>: CPU model name.</li>
+<li><em>CPU MHz</em>: CPU drive frequency.</li>
+<li><em>CPU</em>: Number of CPUs (logical processors).</li>
+<li><em>Threads/core</em>: Number of threads per core.</li>
+<li><em>Cores/socket</em>: Number of cores per socket.</li>
+<li><em>Socket</em>: Number of sockets (physical CPUs)</li>
+</ul>
+</div>
+
+<div id="memory_information_dialog" class="help_dialog"
+  title="The Memory Information Table">
+<h4>This table is memory information.</h4>
+<ul>
+<li><em>Date time</em>: Date and time when memory information changes are detected.</li>
+<li><em>System memory</em>: Size of memory available to the system.</li>
+</ul>
+</div>
+
 <div id="alerts_dialog" class="help_dialog"
   title="The Alerts Table">
 <h4>This table lists the alerts issued during this report period.</h4>

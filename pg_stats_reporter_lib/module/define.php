@@ -111,6 +111,8 @@ $report_default = array(
   'tables'                    => true,
   'indexes'                   => true,
   'runtime_params'            => true,
+  'cpu_information'           => true,
+  'memory_information'        => true,
   'alerts'                    => true,
   'profiles'                  => false
 );
@@ -157,6 +159,8 @@ $help_list = array(
   'tables'                    => 'tables_dialog',
   'indexes'                   => 'indexes_dialog',
   'runtime_params'            => 'runtime_params_dialog',
+  'cpu_information'           => 'cpu_information_dialog',
+  'memory_information'        => 'memory_information_dialog',
   'alerts'                    => 'alerts_dialog',
   'profiles'                  => 'profiles_dialog',
   'log_viewer'                => 'log_viewer_dialog'
@@ -337,6 +341,15 @@ $query_string = array(
   "runtime_params" =>
   "SELECT name AS \"Name\", setting AS \"Setting\", unit AS \"Unit\", source AS \"Source\" FROM statsrepo.get_setting_parameters($1, $2)",
 
+  // Hardware Information
+  // CPU Information
+  "cpu_information" =>
+  "SELECT replace( \"timestamp\", '-', '/') AS \"Date time\", vendor_id AS \"Vendor\", model_name AS \"Model name\", cpu_mhz AS \"CPU MHz\", processors AS \"CPU\", threads_per_core AS \"Threads/core\", cores_per_socket AS \"Cores/socket\", sockets AS \"Socket\" FROM statsrepo.get_cpuinfo($1, $2)",
+  
+  // Memory Information
+  "memory_information" =>
+  "SELECT replace( \"timestamp\", '-', '/') AS \"Date time\", mem_total AS \"System memory\" FROM statsrepo.get_meminfo($1, $2)",
+  
   // Alerts
   "alerts" =>
   "SELECT \"timestamp\" AS \"Time\", message AS \"Message\" FROM statsrepo.get_alert($1, $2)",
