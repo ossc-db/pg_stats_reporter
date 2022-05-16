@@ -754,7 +754,7 @@
   title="The CPU Information Table">
 <h4>この表はCPUのハードウェア情報です。</h4>
 <ul>
-<li><em>Date time</em>: CPU情報の変化を検知した日時</li>
+<li><em>Date time</em>: CPU情報取得日時</li>
 <li><em>Vendor</em>: CPUのベンダー名</li>
 <li><em>Model name</em>: CPUのモデル名</li>
 <li><em>CPU MHz</em>: CPUの駆動周波数</li>
@@ -769,7 +769,7 @@
   title="The Memory Information Table">
 <h4>この表はメモリのハードウェア情報です。</h4>
 <ul>
-<li><em>Date time</em>: メモリ情報の変化を検知した日時</li>
+<li><em>Date time</em>: メモリ情報取得日時</li>
 <li><em>System memory</em>: システムで利用可能なメモリサイズ</li>
 </ul>
 </div>

@@ -797,7 +797,7 @@ session.</h4>
   title="The CPU Information Table">
 <h4>This table is CPU information.</h4>
 <ul>
-<li><em>Date time</em>: Date and time when the change in CPU information is detected.</li>
+<li><em>Date time</em>: CPU information acquisition date and time.</li>
 <li><em>Vendor</em>: Vendor name of CPU.</li>
 <li><em>Model name</em>: CPU model name.</li>
 <li><em>CPU MHz</em>: CPU drive frequency.</li>
@@ -812,7 +812,7 @@ session.</h4>
   title="The Memory Information Table">
 <h4>This table is memory information.</h4>
 <ul>
-<li><em>Date time</em>: Date and time when memory information changes are detected.</li>
+<li><em>Date time</em>: Memory information acquisition date and time.</li>
 <li><em>System memory</em>: Size of memory available to the system.</li>
 </ul>
 </div>
