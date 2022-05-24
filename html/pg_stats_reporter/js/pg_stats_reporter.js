@@ -635,6 +635,20 @@ $(function(){
     })
   );
 
+  // CPU Information
+  $("#cpu_information_table").tablesorter(
+    $.extend({}, tablesorterDefaultOptions, {
+      widgets: [ ]
+    })
+  );
+		
+  // Memory Information
+  $("#memory_information_table").tablesorter(
+    $.extend({}, tablesorterDefaultOptions, {
+      widgets: [ ]
+    })
+  );
+		
   // Alert
   $("#alerts_table").tablesorter(
     $.extend({}, tablesorterDefaultOptions, {

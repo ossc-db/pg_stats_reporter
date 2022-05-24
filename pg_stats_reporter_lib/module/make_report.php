@@ -421,6 +421,8 @@ EOD;
 	if ($targetList['tables']
 		|| $targetList['indexes']
 		|| $targetList['runtime_params']
+		|| $targetList['cpu_information']
+		|| $targetList['memory_information']
 		|| $targetList['profiles']) {
 
 		$html_string .= "<li><a href=\"#information\">Misc</a><ul>\n";
@@ -449,6 +451,17 @@ EOD;
 			$html_string .= "</ul></li>\n";
 		}
 
+		/* Hardware Information */
+		if ($targetList['cpu_information']
+		   || $targetList['memory_information']) {
+			$html_string .= "<li><a href=\"#hardware_information\">Hardware Information</a><ul>\n";
+		   if ($targetList['cpu_information'])
+				$html_string .= "<li><a href=\"#cpu_information\">CPU Information</a></li>\n";
+		   if ($targetList['memory_information'])
+				$html_string .= "<li><a href=\"#memory_inforamtion\">Memory Information</a></li>\n";
+			$html_string .= "</ul></li>\n";
+        }
+		
 		/* Profiles */
 		if ($targetList['profiles'])
 			$html_string .= "<li><a href=\"#profiles\">Profiles</a></li>\n";
@@ -573,6 +586,10 @@ function makePlainHeaderMenu()
   </ul></li>
   <li><a>Settings</a><ul>
     <li><a>Run-time Parameters</a></li>
+  </ul></li>
+  <li><a>Hardware Information</a><ul>
+    <li><a>CPU Information</a></li>
+    <li><a>Memory Information</a></li>
   </ul></li>
   <li><a>Profiles</a></li>
 </ul></li>
@@ -2171,6 +2188,8 @@ function makeInformationReport($conn, $target, $ids, $errorMsg)
 	if (!$target['tables']
 		&& !$target['indexes']
 		&& !$target['runtime_params']
+		&& !$target['cpu_information']
+		&& !$target['memory_information']
 		&& !$target['profiles'])
 		return "";
 
@@ -2266,6 +2285,65 @@ EOD;
 		pg_free_result($result);
 	}
 
+	/* Hardware Information */
+	if ($target['cpu_information']
+	   || $target['memory_information']) {
+
+		$htmlString .=
+<<< EOD
+<div id="hardware_information" class="jump_margin"></div>
+<h2>Hardware Information</h2>
+
+EOD;
+
+		if ($target['cpu_information']) {
+			$htmlString .=
+<<< EOD
+<div id="cpu_information" class="jump_margin"></div>
+<h3>CPU Information</h3>
+<div align="right" class="jquery_ui_button_info_h3">
+  <div><button class="help_button" dialog="#cpu_information_dialog"></button></div>
+</div>
+
+EOD;
+		    $result = pg_query_params($conn, $query_string['cpu_information'], $ids);
+			if (!$result) {
+			    return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
+		    }
+	
+			if (pg_num_rows($result) == 0) {
+			    $htmlString .= makeErrorTag($errorMsg['no_result']);
+		    } else {
+			    $htmlString .= makeTableHTML($result, "cpu_information");
+		    }
+		    pg_free_result($result);
+        }
+
+		if ($target['memory_information']) {
+			$htmlString .=
+<<< EOD
+<div id="memory_information" class="jump_margin"></div>
+<h3>Memory Information</h3>
+<div align="right" class="jquery_ui_button_info_h3">
+  <div><button class="help_button" dialog="#memory_information_dialog"></button></div>
+</div>
+
+EOD;
+		    $result = pg_query_params($conn, $query_string['memory_information'], $ids);
+			if (!$result) {
+			    return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
+		    }
+	
+			if (pg_num_rows($result) == 0) {
+			    $htmlString .= makeErrorTag($errorMsg['no_result']);
+		    } else {
+			    $htmlString .= makeTableHTML($result, "memory_information");
+		    }
+		    pg_free_result($result);
+        }
+
+	}
+	
 	/* Profiles */
 	if ($target['profiles']) {
 		$htmlString .=

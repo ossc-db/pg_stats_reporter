@@ -797,6 +797,30 @@
 </ul>
 </div>
 
+<div id="cpu_information_dialog" class="help_dialog"
+  title="The CPU Information Table">
+<h4>この表はCPUのハードウェア情報です。</h4>
+<ul>
+<li><em>Date time</em>: CPU情報取得日時</li>
+<li><em>Vendor</em>: CPUのベンダー名</li>
+<li><em>Model name</em>: CPUのモデル名</li>
+<li><em>CPU MHz</em>: CPUの駆動周波数</li>
+<li><em>CPU</em>: CPU(論理プロセッサ)の数</li>
+<li><em>Threads/core</em>: 1コアあたりのスレッド数</li>
+<li><em>Cores/socket</em>: 1ソケットあたりのコア数</li>
+<li><em>Socket</em>: ソケット(物理CPU)数</li>
+</ul>
+</div>
+
+<div id="memory_information_dialog" class="help_dialog"
+  title="The Memory Information Table">
+<h4>この表はメモリのハードウェア情報です。</h4>
+<ul>
+<li><em>Date time</em>: メモリ情報取得日時</li>
+<li><em>System memory</em>: システムで利用可能なメモリサイズ</li>
+</ul>
+</div>
+
 <div id="alerts_dialog" class="help_dialog"
   title="The Alerts Table">
 <h4>この表はこのレポート期間中のアラートの一覧を示します</h4>
