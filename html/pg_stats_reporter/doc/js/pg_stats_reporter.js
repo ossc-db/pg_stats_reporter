@@ -1,10 +1,22 @@
 /*
  * pg_stats_reporter: Javascript
  *
- * Copyright (c) 2012-2020, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
+ * Copyright (c) 2012-2022, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
  */
 
 $(function(){
+  /*** header menu setting **/
+  $("#dropdown2 li a").each(function(){
+    var url_param = new Object;
+    url_param["repodb"] = $("#target_repodb").text();
+    url_param["instid"] = $("#target_instid").text();
+    url_param["begin"] = $("#target_begin").text();
+    url_param["end"] = $("#target_end").text();
+    if ($(this).attr('href'))
+      $(this).attr('href', "log_viewer.php?" + $.fn.createUrlString(url_param));
+  });
+
+
   /*** scale change button ***/
   $("#memory_usage_scale").
   button()
@@ -84,6 +96,19 @@ $(function(){
     })
   );
 
+  // Wait Sampling per Database
+  $("#wait_sampling_by_dbid_table").tablesorter(
+    $.extend({}, tablesorterDefaultOptions, {
+      widgets: [ ]
+    })
+  )
+  .tablesorterPager(
+    $.extend({}, pagerDefaultOptions, {
+      container: $('#pager_wait_sampling_by_dbid'),
+      size: 10
+    })
+  );
+
   // WAL Statistics
   $("#write_ahead_logs_stats_table").tablesorter(
     $.extend({}, tablesorterDefaultOptions, {
@@ -128,6 +153,19 @@ $(function(){
     $.extend({}, pagerDefaultOptions, {
       container: $('#pager_io_usage'),
       size: 5
+    })
+  );
+
+  // Wait Sampling (Instance)
+  $("#wait_sampling_by_instid_table").tablesorter(
+    $.extend({}, tablesorterDefaultOptions, {
+      widgets: [ ]
+    })
+  )
+  .tablesorterPager(
+    $.extend({}, pagerDefaultOptions, {
+      container: $('#pager_wait_sampling_by_instid'),
+      size: 10
     })
   );
 
@@ -330,6 +368,19 @@ $(function(){
 
   $('.tablesorter-childRow td').hide();
 
+  // Wait Sampling
+  $("#wait_sampling_table").tablesorter(
+    $.extend({}, tablesorterDefaultOptions, {
+      widgets: [ ]
+    })
+  )
+  .tablesorterPager(
+    $.extend({}, pagerDefaultOptions, {
+      container: $('#pager_wait_sampling'),
+      size: 10
+    })
+  );
+
   // Long Transaction
   $("#long_transactions_table").tablesorter(
     $.extend({}, tablesorterDefaultOptions, {
@@ -384,7 +435,13 @@ $(function(){
         6: { sorter: "digit" },
         7: { sorter: "digit" },
         8: { sorter: "digit" },
-        9: { sorter: "digit" }
+        9: { sorter: "digit" },
+        10: { sorter: "digit" },
+        11: { sorter: "digit" },
+        12: { sorter: "digit" },
+        13: { sorter: "digit" },
+        14: { sorter: "digit" },
+        15: { sorter: "digit" }
       }
     })
   )
@@ -417,13 +474,35 @@ $(function(){
         4: { sorter: "digit" },
         5: { sorter: "digit" },
         6: { sorter: "digit" },
-        7: { sorter: "digit" }
+        7: { sorter: "digit" },
+        8: { sorter: "digit" },
+        9: { sorter: "digit" }
       }
     })
   )
   .tablesorterPager(
     $.extend({}, pagerDefaultOptions, {
       container: $('#pager_autovacuum_io_summary'),
+      size: 10
+    })
+  );
+
+  // Vacuum Index Statistics
+  $("#vacuum_index_statistics_table").tablesorter(
+    $.extend({}, tablesorterDefaultOptions, {
+      sortList: [[5,1]],
+      headers: {
+        4: { sorter: "digit" },
+        5: { sorter: "digit" },
+        6: { sorter: "digit" },
+        7: { sorter: "digit" },
+        8: { sorter: "digit" }
+      }
+    })
+  )
+  .tablesorterPager(
+    $.extend({}, pagerDefaultOptions, {
+      container: $('#pager_vacuum_index_statistics'),
       size: 10
     })
   );
@@ -447,10 +526,55 @@ $(function(){
     })
   );
 
+  // Analyze I/O Summary
+  $("#analyze_io_summary_table").tablesorter(
+    $.extend({}, tablesorterDefaultOptions, {
+      sortList: [[4,1]],
+      headers: {
+        3: { sorter: "digit" },
+        4: { sorter: "digit" },
+        5: { sorter: "digit" },
+        6: { sorter: "digit" },
+        7: { sorter: "digit" },
+        8: { sorter: "digit" },
+        9: { sorter: "digit" }
+      }
+    })
+  )
+  .tablesorterPager(
+    $.extend({}, pagerDefaultOptions, {
+      container: $('#pager_analyze_io_summary'),
+      size: 10
+    })
+  );
+
   // Replication Activity
   $("#replication_overview_table").tablesorter(
     $.extend({}, tablesorterDefaultOptions, {
       widgets: [ ]
+    })
+  );
+
+  // Replication slots statistics
+  $("#replication_slots_table").tablesorter(
+    $.extend({}, tablesorterDefaultOptions, {
+      sortList: [[10,1]],
+      headers: {
+        3: { sorter: "digit" },
+        4: { sorter: "digit" },
+        5: { sorter: "digit" },
+        6: { sorter: "digit" },
+        7: { sorter: "digit" },
+        8: { sorter: "digit" },
+        9: { sorter: "digit" },
+        10: { sorter: "digit" }
+      }
+    })
+  )
+  .tablesorterPager(
+    $.extend({}, pagerDefaultOptions, {
+      container: $('#pager_replication_slots'),
+      size: 10
     })
   );
 
@@ -511,6 +635,20 @@ $(function(){
     })
   );
 
+  // CPU Information
+  $("#cpu_information_table").tablesorter(
+    $.extend({}, tablesorterDefaultOptions, {
+      widgets: [ ]
+    })
+  );
+		
+  // Memory Information
+  $("#memory_information_table").tablesorter(
+    $.extend({}, tablesorterDefaultOptions, {
+      widgets: [ ]
+    })
+  );
+		
   // Alert
   $("#alerts_table").tablesorter(
     $.extend({}, tablesorterDefaultOptions, {

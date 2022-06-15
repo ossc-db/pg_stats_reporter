@@ -126,8 +126,8 @@ runtime_params = true               ; Run-time parameters
 profiles = false                    ; Profiles
 
 ; -- Hardware Information --
-cpu_infromation = true              ; CPU Information
-memory_infromation = true           ; Memory Information
+cpu_information = true              ; CPU Information
+memory_information = true           ; Memory Information
 
 ;;-------------------------------------
 ;; repository2
@@ -240,5 +240,5 @@ memory_infromation = true           ; Memory Information
 ;profiles = false                    ; Profiles
 ;
 ;; -- Hardware Information --
-;cpu_infromation = true              ; CPU Information
-;memory_infromation = true           ; Memory Information
+;cpu_information = true              ; CPU Information
+;memory_information = true           ; Memory Information
