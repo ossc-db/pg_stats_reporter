@@ -75,6 +75,7 @@ $report_default = array(
   'databases_statistics'      => true,
   'transactions'              => true,
   'database_size'             => true,
+  'database_rusage'           => true,
   'recovery_conflicts'        => true,
   'wait_sampling_by_dbid'     => true,
   'write_ahead_logs'          => true,
@@ -95,6 +96,7 @@ $report_default = array(
   'correlation'               => true,
   'functions'                 => true,
   'statements'                => true,
+  'statements_rusage'         => true,
   'plans'					  => true,
   'wait_sampling'			  => true,
   'long_transactions'         => true,
@@ -126,6 +128,7 @@ $help_list = array(
   'databases_statistics'      => 'databases_statistics_dialog',
   'transactions'              => 'transactions_dialog',
   'database_size'             => 'database_size_dialog',
+  'database_rusage'           => 'database_rusage_dialog',
   'recovery_conflicts'        => 'recovery_conflicts_dialog',
   'wait_sampling_by_dbid'     => 'wait_sampling_by_dbid_dialog',
   'write_ahead_logs'          => 'write_ahead_logs_dialog',
@@ -146,6 +149,7 @@ $help_list = array(
   'correlation         '      => 'correlation_dialog',
   'functions'                 => 'functions_dialog',
   'statements'                => 'statements_dialog',
+  'statements_rusage'         => 'statements_rusage_dialog',
   'plans'                     => 'plans_dialog',
   'wait_sampling'             => 'wait_sampling_dialog',
   'long_transactions'         => 'long_transactions_dialog',
@@ -192,6 +196,9 @@ $query_string = array(
 
   "database_size" =>
   "SELECT replace(\"timestamp\", '-', '/') AS \"timestamp\", datname, avg(size*1024*1024) AS size FROM statsrepo.get_dbsize_tendency_report($1, $2) GROUP BY 1,2 ORDER BY 1,2",
+
+  "database_rusage" =>
+  "SELECT datname AS \"Database\", plan_reads AS \"Plan reads (Bytes)\", plan_writes AS \"Plan writes (Bytes)\", plan_utime AS \"Plan user time (ms)\", plan_stime AS \"Plan system time (ms)\", exec_reads AS \"Execute reads (Bytes)\", exec_writes AS \"Execute writes (Bytes)\", exec_utime AS \"Execute user time (ms)\", exec_stime AS \"Execute system time (ms)\" FROM statsrepo.get_db_rusage_report($1, $2)",
 
   "recovery_conflicts" =>
   "SELECT datname AS \"Database\", confl_tablespace AS \"On tablespaces\", confl_lock AS \"On locks\", confl_snapshot AS \"On snapshots\", confl_bufferpin AS \"On bufferpins\", confl_deadlock AS \"On deadlocks\" FROM statsrepo.get_recovery_conflicts($1, $2)",
@@ -280,6 +287,9 @@ $query_string = array(
 
   "statements" =>
   "SELECT rolname AS \"User\", datname AS \"Database\", query AS \"Query\", calls AS \"Calls\", total_exec_time AS \"Total execution time (s)\", time_per_call AS \"Average execution time (s)\", plans AS \"Plans\", total_plan_time AS \"Total planning time (s)\",  time_per_plan AS \"Average planning time (s)\" FROM statsrepo.get_query_activity_statements($1, $2)",
+
+  "statements_rusage" =>
+  "SELECT rolname AS \"User\", datname AS \"Database\", plan_reads AS \"Plan reads (Bytes)\", plan_writes AS \"Plan writes (Bytes)\", plan_user_times AS \"Plan user time (ms)\", plan_sys_times AS \"Plan system time (ms)\", exec_reads AS \"Execute reads (Bytes)\", exec_writes AS \"Execute writes (Bytes)\", exec_user_times AS \"Execute user time (ms)\", exec_sys_times AS \"Execute system time (ms)\", query AS \"Query\" FROM statsrepo.get_query_activity_statements_rusage($1, $2)",
 
   "plans" =>
   "SELECT * FROM statsrepo.get_query_activity_plans_report($1,$2) ORDER BY queryid, rolname, datname",

@@ -70,6 +70,27 @@
 </ul>
 </div>
 
+<div id="database_rusage_dialog" class="help_dialog"
+	 title="The Database Resource Usage Table">
+<h4>この表ではクエリの実行計画作成時、およびクエリ実行時のリソース情報のデータベース毎の概要を示します。</h4>
+<ul>
+<li><em>Database</em>: データベース名</li>
+<li><em>Plan</em>: 実行計画作成時のリソース情報<ul>
+<li><em>reads (Bytes)</em>: クエリの実行計画作成時に発生したディスクリード量 (Bytes)</li>
+<li><em>writes (Bytes)</em>: クエリの実行計画作成時に発生したディスクライト量 (Bytes)</li>
+<li><em>user time (ms)</em>: クエリの実行計画作成に要したCPU(user)時間 (ミリ秒)</li>
+<li><em>system time (ms)</em>: クエリの実行計画作成に要したCPU(system)時間 (ミリ秒)</li>
+</ul></li>
+<li><em>Execute</em>: クエリ実行時のリソース情報<ul>
+<li><em>reads (Bytes)</em>: クエリの実行時に発生したディスクリード量 (Bytes)</li>
+<li><em>writes (Bytes)</em>: クエリの実行時に発生したディスクライト量 (Bytes)</li>
+<li><em>user time (ms)</em>: クエリの実行に要したCPU(user)時間 (ミリ秒)</li>
+<li><em>system time (ms)</em>: クエリの実行に要したCPU(system)時間 (ミリ秒)</li>
+</ul></li>
+</ul>
+
+</div>
+
 <div id="recovery_conflicts_dialog" class="help_dialog"
   title="The Recovery Conflicts Table">
 <h4>この表はこのレポート期間中にレプリケーションマスタの動作が原因でキャンセルされた問い合わせの数をデータベースごとに示します。この表にはこのインスタンスがスタンバイサーバである場合にだけ情報が表示されます。</h4>
@@ -459,6 +480,30 @@
 <li><em>Total planning time (s)</em>: この問い合わせで実行計画の作成に要した時間の合計 (秒)</li>
 <li><em>Average planning time (s)</em>:この問い合わせで実行計画の作成に要した時間の平均 (秒)</li>
 </ul>
+</div>
+
+<div id="statements_rusage_dialog" class="help_dialog"
+	 title="The Statements Resource Usage Table">
+<h4>この表ではクエリの実行計画作成時、およびクエリ実行時のリソース情報のクエリ毎の概要を示します。</h4>
+<ul>
+<li><em>User</em>: ユーザ名</li>
+<li><em>Database</em>: データベース名</li>
+<li><em>Plan</em>:実行計画作成時のリソース情報<ul>
+<li><em>reads (Bytes)</em>: クエリの実行計画作成時に発生したディスクリード量 (Bytes)</li>
+<li><em>writes (Bytes)</em>: クエリの実行計画作成時に発生したディスクライト量 (Bytes)</li>
+<li><em>user time (ms)</em>: クエリの実行計画作成に要したCPU(user)時間 (ミリ秒)</li>
+<li><em>system time (ms)</em>: クエリの実行計画作成に要したCPU(system)時間 (ミリ秒)</li>
+</ul></li>
+<li><em>Execute</em>:クエリ実行時のリソース情報<ul>
+<li><em>reads (Bytes)</em>: クエリの実行時に発生したディスクリード量 (Bytes)</li>
+<li><em>writes (Bytes)</em>: クエリの実行時に発生したディスクライト量 (Bytes)</li>
+<li><em>user time (ms)</em>: クエリの実行に要したCPU(user)時間 (ミリ秒)</li>
+<li><em>system time (ms)</em>: クエリの実行に要したCPU(system)時間 (ミリ秒)</li>
+</ul></li>
+<li><em>Query</em>: クエリ</li>
+</ul>
+
+
 </div>
 
 <div id="plans_dialog" class="help_dialog"
