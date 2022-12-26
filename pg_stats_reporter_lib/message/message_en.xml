@@ -72,20 +72,20 @@
 
 <div id="database_rusage_dialog" class="help_dialog"
 	 title="The Database Resource Usage Table">
-<h4>This table provides a database-by-database summary of resource information at the time the query execution plan is created and at the time the query is executed.</h4>
+<h4>This table provides summarized information about resource consumption during query-planning and execution in per-database basis.</h4>
 <ul>
 <li><em>Database</em>: Database name</li>
-<li><em>Plan</em>: Plan resource usage<ul>
-<li><em>reads (Bytes)</em>: Amount of disk reads generated when creating the execution plan for the query. (Bytes)</li>
-<li><em>writes (Bytes)</em>: Amount of disk writes that occurred when creating the query execution plan. (Bytes)</li>
-<li><em>user time (ms)</em>: CPU(user) time spent to plan query execution. (ms)</li>
-<li><em>system time (ms)</em>: CPU(system) time spent to plan query execution. (ms)</li>
+<li><em>Plan</em>: Planning-time resource usage<ul>
+<li><em>reads (Bytes)</em>: Amount of data read from disk during query planning. (Bytes)</li>
+<li><em>writes (Bytes)</em>: Amount of data written to disk during query planning. (Bytes)</li>
+<li><em>user time (ms)</em>: User CPU time spent on query planning. (ms)</li>
+<li><em>system time (ms)</em>: System CPU time spent on query planning. (ms)</li>
 </ul></li>
-<li><em>Execute</em>: Execute resource usage<ul>
-<li><em>reads (Bytes)</em>: Disk reads generated during query execution. (Bytes)</li>
-<li><em>writes (Bytes)</em>: Disk writes generated during query execution. (Bytes)</li>
-<li><em>user time (ms)</em>: CPU(user) time taken to execute the query. (ms)</li>
-<li><em>system time (ms)</em>: CPU(system) time taken to execute the query. (ms)</li>
+<li><em>Execute</em>: Execution-time resource usage<ul>
+<li><em>reads (Bytes)</em>: Amount of data read from disk during query execution. (Bytes)</li>
+<li><em>writes (Bytes)</em>: Amount of data written to disk during query execution. (Bytes)</li>
+<li><em>user time (ms)</em>: User CPU time spent on query exeuction. (ms)</li>
+<li><em>system time (ms)</em>: System CPU time spent on query execution. (ms)</li>
 </ul></li>
 </ul>
 
@@ -509,17 +509,17 @@ pg_stat_statsments to be installed.</h4>
 <ul>
 <li><em>Database</em>: Database name</li>
 <li><em>User</em>: User name</li>
-<li><em>Plan</em>: Plan resource usage<ul>
-<li><em>reads (Bytes)</em>: Amount of disk reads generated when creating the execution plan for the query. (Bytes)</li>
-<li><em>writes (Bytes)</em>: Amount of disk writes that occurred when creating the query execution plan. (Bytes)</li>
-<li><em>user time (ms)</em>: CPU(user) time spent to plan query execution. (ms)</li>
-<li><em>system time (ms)</em>: CPU(system) time spent to plan query execution. (ms)</li>
+<li><em>Plan</em>: Planning-time resource usage<ul>
+<li><em>reads (Bytes)</em>: Amount of data read from disk during query planning. (Bytes)</li>
+<li><em>writes (Bytes)</em>: Amount of data written to disk during query planning. (Bytes)</li>
+<li><em>user time (ms)</em>: User CPU time spent on query planning. (ms)</li>
+<li><em>system time (ms)</em>: System CPU time spent on query planning. (ms)</li>
 </ul></li>
-<li><em>Execute</em>: Execute resource usage<ul>
-<li><em>reads (Bytes)</em>: Disk reads generated during query execution. (Bytes)</li>
-<li><em>writes (Bytes)</em>: Disk writes generated during query execution. (Bytes)</li>
-<li><em>user time (ms)</em>: CPU(user) time taken to execute the query. (ms)</li>
-<li><em>system time (ms)</em>: CPU(system) time taken to execute the query. (ms)</li>
+<li><em>Execute</em>: Execution-time resource usage<ul>
+<li><em>reads (Bytes)</em>: Amount of data read from disk during query execution. (Bytes)</li>
+<li><em>writes (Bytes)</em>: Amount of data written to disk during query execution. (Bytes)</li>
+<li><em>user time (ms)</em>: User CPU time spent on query exeuction. (ms)</li>
+<li><em>system time (ms)</em>: System CPU time spent on query execution. (ms)</li>
 </ul></li>
 <li><em>Query</em>: Query string.</li>
 </ul>
