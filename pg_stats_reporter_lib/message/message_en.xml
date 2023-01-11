@@ -70,6 +70,27 @@
 </ul>
 </div>
 
+<div id="database_rusage_dialog" class="help_dialog"
+	 title="The Database Resource Usage Table">
+<h4>This table provides summarized information about resource consumption during query-planning and execution in per-database basis.</h4>
+<ul>
+<li><em>Database</em>: Database name</li>
+<li><em>Plan</em>: Planning-time resource usage<ul>
+<li><em>reads (Bytes)</em>: Amount of data read from disk during query planning. (Bytes)</li>
+<li><em>writes (Bytes)</em>: Amount of data written to disk during query planning. (Bytes)</li>
+<li><em>user time (ms)</em>: User CPU time spent on query planning. (ms)</li>
+<li><em>system time (ms)</em>: System CPU time spent on query planning. (ms)</li>
+</ul></li>
+<li><em>Execute</em>: Execution-time resource usage<ul>
+<li><em>reads (Bytes)</em>: Amount of data read from disk during query execution. (Bytes)</li>
+<li><em>writes (Bytes)</em>: Amount of data written to disk during query execution. (Bytes)</li>
+<li><em>user time (ms)</em>: User CPU time spent on query exeuction. (ms)</li>
+<li><em>system time (ms)</em>: System CPU time spent on query execution. (ms)</li>
+</ul></li>
+</ul>
+
+</div>
+
 <div id="recovery_conflicts_dialog" class="help_dialog"
   title="The Recovery Conflicts Table">
 <h4>This table shows the number of canceled queries for every database due to conflict with some activities on master during this report period. This table have values only when the instance is a standby server.</h4>
@@ -479,6 +500,28 @@ pg_stat_statsments to be installed.</h4>
 <li><em>Plans</em>: Number of times this statement was planned</li>
 <li><em>Total planning time (s)</em>: Total time spent planning this statement, in seconds</li>
 <li><em>Average planning time (s)</em>: Average time spent planning this statement per call, in seconds</li>
+</ul>
+</div>
+
+<div id="statements_rusage_dialog" class="help_dialog"
+	 title="The Statements Resource Usage Table">
+<h4>This table provides a query-by-query summary of resource information at the time of query execution planning and at the time of query execution. of resource information at the time the query is planned and at the time the query is executed.</h4>
+<ul>
+<li><em>Database</em>: Database name</li>
+<li><em>User</em>: User name</li>
+<li><em>Plan</em>: Planning-time resource usage<ul>
+<li><em>reads (Bytes)</em>: Amount of data read from disk during query planning. (Bytes)</li>
+<li><em>writes (Bytes)</em>: Amount of data written to disk during query planning. (Bytes)</li>
+<li><em>user time (ms)</em>: User CPU time spent on query planning. (ms)</li>
+<li><em>system time (ms)</em>: System CPU time spent on query planning. (ms)</li>
+</ul></li>
+<li><em>Execute</em>: Execution-time resource usage<ul>
+<li><em>reads (Bytes)</em>: Amount of data read from disk during query execution. (Bytes)</li>
+<li><em>writes (Bytes)</em>: Amount of data written to disk during query execution. (Bytes)</li>
+<li><em>user time (ms)</em>: User CPU time spent on query exeuction. (ms)</li>
+<li><em>system time (ms)</em>: System CPU time spent on query execution. (ms)</li>
+</ul></li>
+<li><em>Query</em>: Query string.</li>
 </ul>
 </div>
 

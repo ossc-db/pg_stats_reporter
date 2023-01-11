@@ -174,6 +174,7 @@ EOD;
 	if ($targetList['databases_statistics']
 		|| $targetList['transactions']
 		|| $targetList['database_size']
+		|| $targetList['database_rusage']
 		|| $targetList['recovery_conflicts']
 		|| $targetList['wait_sampling_by_dbid']
 		|| $targetList['write_ahead_logs']
@@ -189,6 +190,7 @@ EOD;
 		if ($targetList['databases_statistics']
 			|| $targetList['transactions']
 			|| $targetList['database_size']
+			|| $targetList['database_rusage']
 			|| $targetList['recovery_conflicts']
 			|| $targetList['wait_sampling_by_dbid']) {
 
@@ -198,6 +200,8 @@ EOD;
 				$html_string .= "<li><a href=\"#transactions\">Transactions</a></li>\n";
 			if ($targetList['database_size'])
 				$html_string .= "<li><a href=\"#database_size\">Database Size</a></li>\n";
+			if ($targetList['database_rusage'])
+				$html_string .= "<li><a href=\"#database_rusage\">Database Resource Usage</a></li>\n";
 			if ($targetList['recovery_conflicts'])
 				$html_string .= "<li><a href=\"#recovery_conflicts\">Recovery Conflicts</a></li>\n";
 			if ($targetList['wait_sampling_by_dbid'])
@@ -289,6 +293,7 @@ EOD;
 		|| $targetList['correlation']
 		|| $targetList['functions']
 		|| $targetList['statements']
+		|| $targetList['statements_rusage']
 		|| $targetList['wait_sampling']
 		|| $targetList['long_transactions']
 		|| $targetList['lock_conflicts']) {
@@ -318,6 +323,7 @@ EOD;
 		/* Query Activity */
 		if ($targetList['functions']
 			|| $targetList['statements']
+			|| $targetList['statements_rusage']
 			|| $targetList['plans']
 			|| $targetList['wait_sampling']) {
 			$html_string .= "<li><a href=\"#query_activity\">Query Activity</a><ul>\n";
@@ -326,6 +332,8 @@ EOD;
 				$html_string .= "<li><a href=\"#qa_functions\">Functions</a></li>\n";
 			if ($targetList['statements'])
 				$html_string .= "<li><a href=\"#qa_statements\">Statements</a></li>\n";
+			if ($targetList['statements_rusage'])
+				$html_string .= "<li><a href=\"#qa_statements_rusage\">Statements Resource Usage</a></li>\n";
 			if ($targetList['plans'])
 				$html_string .= "<li><a href=\"#qa_plans\">Plans</a></li>\n";
 			if ($targetList['wait_sampling'])
@@ -521,6 +529,7 @@ function makePlainHeaderMenu()
   <li><a>Databases Statistics</a><ul>
     <li><a>Transactions</a></li>
     <li><a>Database Size</a></li>
+    <li><a>Database Resource Usage</a></li>
     <li><a>Recovery Conflicts</a></li>
     <li><a>Wait Sampling per Database</a></li>
   </ul></li>
@@ -555,6 +564,7 @@ function makePlainHeaderMenu()
   <li><a>Query Activity</a><ul>
     <li><a>Functions</a></li>
     <li><a>Statements</a></li>
+    <li><a>Statements Resource Usage</a></li>
     <li><a>Plans</a></li>
     <li><a>Wait Sampling</a></li>
   </ul></li>
@@ -860,6 +870,7 @@ function makeDatabaseSystemReport($conn, $target, $snapids, $errorMsg)
 	if (!$target['databases_statistics']
 		&& !$target['transactions']
 		&& !$target['database_size']
+		&& !$target['database_rusage']
 		&& !$target['recovery_conflicts']
 		&& !$target['write_ahead_logs']
 		&& !$target['wal_statistics']
@@ -880,6 +891,7 @@ EOD;
 	if ($target['databases_statistics']
 		|| $target['transactions']
 		|| $target['database_size']
+		|| $target['database_rusage']
 		|| $target['recovery_conflicts']
 		|| $target['wait_sampling_by_dbid']) {
 
@@ -967,6 +979,30 @@ EOD;
 				array_push($opt, "ylabel: 'Database Size (Bytes)'");
 				array_push($opt, "labelsKMG2: true");
 				$htmlString .= makeLineGraphHTML($name, $value, "database_size", $opt);
+			}
+			pg_free_result($result);
+
+		}
+
+		if ($target['database_rusage']) {
+			$htmlString .=
+<<< EOD
+<div id="database_rusage" class="jump_margin"></div>
+<h3>Database Resource Usage</h3>
+<div align="right" class="jquery_ui_button_info_h3">
+  <div><button class="help_button" dialog="#database_rusage_dialog"></button></div>
+</div>
+EOD;
+
+			$result = pg_query_params($conn, $query_string['database_rusage'], $snapids);
+			if (!$result) {
+				return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
+			}
+
+			if (pg_num_rows($result) == 0) {
+				$htmlString .= makeErrorTag($errorMsg['no_result']);
+			} else {
+				$htmlString .= makeDBRUsageTablePagerHTML($result, "databases_rusage", 5, true);
 			}
 			pg_free_result($result);
 
@@ -1513,6 +1549,7 @@ function makeSQLReport($conn, $target, $snapids, $errorMsg)
 		&& !$target['correlation']
 		&& !$target['functions']
 		&& !$target['statements']
+		&& !$target['statements_rusage']
 		&& !$target['plans']
 		&& !$target['long_transactions']
 		&& !$target['lock_conflicts'])
@@ -1639,6 +1676,7 @@ EOD;
 	/* Query Activity */
 	if ($target['functions']
 		|| $target['statements']
+		|| $target['statements_rusage']
 		|| $target['plans']
 		|| $target['wait_sampling']) {
 
@@ -1696,6 +1734,32 @@ EOD;
 				$qarray = array_fill(0, pg_num_fields($result), false);
 				$qarray[2] = true;
 				$htmlString .= makeTablePagerHTML_impl($result, "statements", 10, true, $qarray);
+			}
+			pg_free_result($result);
+		}
+
+		if ($target['statements_rusage']) {
+			$htmlString .=
+<<< EOD
+<div id="qa_statements_rusage" class="jump_margin"></div>
+<h3>Statements Resource Usage</h3>
+<div align="right" class="jquery_ui_button_info_h3">
+  <div><button class="help_button" dialog="#statements_rusage_dialog"></button></div>
+</div>
+
+EOD;
+
+			$result = pg_query_params($conn, $query_string['statements_rusage'], $snapids);
+			if (!$result) {
+				return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
+			}
+
+			if (pg_num_rows($result) == 0) {
+				$htmlString .= makeErrorTag($errorMsg['no_result']);
+			} else {
+				$qarray = array_fill(0, pg_num_fields($result), false);
+				$qarray[10] = true;
+				$htmlString .= makeStatementsRUsageTablePagerHTML($result, "statements_rusage", 10, true, $qarray);
 			}
 			pg_free_result($result);
 		}
@@ -2465,6 +2529,94 @@ function makeTablePagerHTML_impl($result, $id, $default, $pagerOn, $qarray)
 
 	$htmlString .= "\n</tr></thead>\n<tbody>\n";
 
+
+	for($i = 0 ; $i < pg_num_rows($result) ; $i++ ) {
+		$htmlString .= "<tr>";
+
+		for($j = 0 ; $j < pg_num_fields($result) ; $j++ ) {
+			$htmlString .= "<td class=\"".getDataTypeClass(pg_field_type($result, $j))."\">";
+			if ($qarray[$j] == true) {
+				$htmlString .= makeFullstringDialog($id, pg_fetch_result($result, $i, $j), true);
+			} else {
+				$htmlString .= htmlspecialchars(pg_fetch_result($result, $i, $j), ENT_QUOTES);
+			}
+			$htmlString .= "</td>";
+		}
+
+		$htmlString .= "</tr>\n";
+	}
+
+	$htmlString .= "</tbody>\n</table>\n";
+
+	if ($pagerOn)
+		$htmlString .= makePagerHTML($id, $default);
+
+	return $htmlString."</div>\n";
+
+}
+
+// Database Resource Usage table pager HTML
+function makeDBRUsageTablePagerHTML($result, $id, $default, $pagerOn)
+{
+	$htmlString = "<div><table id=\"".$id."_table\" class=\"tablesorter\">\n<thead><tr>\n";
+
+	// Be careful if you add more the number of display items
+	$htmlString .= "<th rowspan=\"2\">".htmlspecialchars(pg_field_name($result, 0), ENT_QUOTES)."</th>";
+	$htmlString .= "<th colspan=\"4\" align=\"center\">Plan</th>";
+    $htmlString .= "<th colspan=\"4\" align=\"center\">Execute</th>";
+    $htmlString .= "\n</tr><tr>\n";
+    $htmlString .= "<th>reads (Bytes)</th>";
+    $htmlString .= "<th>writes (Bytes)</th>";
+    $htmlString .= "<th>user time (ms)</th>";
+    $htmlString .= "<th>system time (ms)</th>";
+    $htmlString .= "<th>reads (Bytes)</th>";
+    $htmlString .= "<th>writes (Bytes)</th>";
+    $htmlString .= "<th>user time (ms)</th>";
+    $htmlString .= "<th>system time (ms)</th>";
+	$htmlString .= "\n</tr></thead>\n<tbody>\n";
+
+	for($i = 0 ; $i < pg_num_rows($result) ; $i++ ) {
+		$htmlString .= "<tr>";
+
+		for($j = 0 ; $j < pg_num_fields($result) ; $j++ ) {
+			$htmlString .= "<td class=\"".getDataTypeClass(pg_field_type($result, $j))."\">";
+			$htmlString .= htmlspecialchars(pg_fetch_result($result, $i, $j), ENT_QUOTES);
+			$htmlString .= "</td>";
+		}
+
+		$htmlString .= "</tr>\n";
+	}
+
+	$htmlString .= "</tbody>\n</table>\n";
+
+	if ($pagerOn)
+		$htmlString .= makePagerHTML($id, $default);
+
+	return $htmlString."</div>\n";
+
+}
+
+// Statements Resource Usage table pager HTML
+function makeStatementsRUsageTablePagerHTML($result, $id, $default, $pagerOn, $qarray)
+{
+	$htmlString = "<div><table id=\"".$id."_table\" class=\"tablesorter\">\n<thead><tr>\n";
+
+	// Be careful if you add more the number of display items
+	$htmlString .= "<th rowspan=\"2\">".htmlspecialchars(pg_field_name($result, 0), ENT_QUOTES)."</th>";
+	$htmlString .= "<th rowspan=\"2\">".htmlspecialchars(pg_field_name($result, 1), ENT_QUOTES)."</th>";
+	$htmlString .= "<th colspan=\"4\" align=\"center\">Plan</th>";
+    $htmlString .= "<th colspan=\"4\" align=\"center\">Execute</th>";
+	$htmlString .= "<th rowspan=\"2\">".htmlspecialchars(pg_field_name($result, 10), ENT_QUOTES)."</th>";
+    $htmlString .= "\n</tr><tr>\n";
+    $htmlString .= "<th>reads (Bytes)</th>";
+    $htmlString .= "<th>writes (Bytes)</th>";
+    $htmlString .= "<th>user time (ms)</th>";
+    $htmlString .= "<th>system time (ms)</th>";
+    $htmlString .= "<th>reads (Bytes)</th>";
+    $htmlString .= "<th>writes (Bytes)</th>";
+    $htmlString .= "<th>user time (ms)</th>";
+    $htmlString .= "<th>system time (ms)</th>";
+	$htmlString .= "\n</tr></thead>\n<tbody>\n";
 
 	for($i = 0 ; $i < pg_num_rows($result) ; $i++ ) {
 		$htmlString .= "<tr>";

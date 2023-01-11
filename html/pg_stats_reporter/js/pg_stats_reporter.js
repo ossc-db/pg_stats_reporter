@@ -76,6 +76,28 @@ $(function(){
     })
   );
 
+  // Database Resource Usage
+  $("#databases_rusage_table").tablesorter(
+    $.extend({}, tablesorterDefaultOptions, {
+      sortList: [[7,1]],
+      headers: {
+        1: { sorter: false },
+        2: { sorter: false },
+        4: { sorter: "digit" },
+        5: { sorter: "digit" },
+        6: { sorter: "digit" },
+        7: { sorter: "digit" },
+        8: { sorter: "digit" }
+      }
+    })
+  )
+  .tablesorterPager(
+    $.extend({}, pagerDefaultOptions, {
+      container: $('#pager_databases_rusage'),
+      size: 5
+    })
+  );
+
   // Recovery Conflicts
   $("#recovery_conflicts_table").tablesorter(
     $.extend({}, tablesorterDefaultOptions, {
@@ -99,7 +121,11 @@ $(function(){
   // Wait Sampling per Database
   $("#wait_sampling_by_dbid_table").tablesorter(
     $.extend({}, tablesorterDefaultOptions, {
-      widgets: [ ]
+      headers: {
+        3: { sorter: "digit" },
+        4: { sorter: "digit" },
+        5: { sorter: "digit" }
+      }
     })
   )
   .tablesorterPager(
@@ -159,7 +185,11 @@ $(function(){
   // Wait Sampling (Instance)
   $("#wait_sampling_by_instid_table").tablesorter(
     $.extend({}, tablesorterDefaultOptions, {
-      widgets: [ ]
+      headers: {
+        2: { sorter: "digit" },
+        3: { sorter: "digit" },
+        4: { sorter: "digit" }
+      }
     })
   )
   .tablesorterPager(
@@ -319,6 +349,28 @@ $(function(){
     })
   );
 
+  // Query Activity Statements Resource Usage
+  $("#statements_rusage_table").tablesorter(
+    $.extend({}, tablesorterDefaultOptions, {
+      sortList: [[8,1]],
+      headers: {
+        2: { sorter: false },
+        3: { sorter: false },
+        4: { sorter: "digit" },
+        5: { sorter: "digit" },
+        6: { sorter: "digit" },
+        7: { sorter: "digit" },
+        8: { sorter: "digit" }
+      }
+    })
+  )
+  .tablesorterPager(
+    $.extend({}, pagerDefaultOptions, {
+      container: $('#pager_statements_rusage'),
+      size: 10
+    })
+  );
+
   // Query Activity Plans
   $("#plans_table").tablesorter(
     $.extend({}, tablesorterDefaultOptions, {
@@ -371,7 +423,12 @@ $(function(){
   // Wait Sampling
   $("#wait_sampling_table").tablesorter(
     $.extend({}, tablesorterDefaultOptions, {
-      widgets: [ ]
+      headers: {
+        0: { sorter: "digit" },
+        6: { sorter: "digit" },
+		7: { sorter: "digit" },
+		9: { sorter: "digit" }
+      }
     })
   )
   .tablesorterPager(
