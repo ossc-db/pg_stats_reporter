@@ -16,20 +16,20 @@
 6.  [設定ファイル](#設定ファイル)
 7.  [使用上の注意と制約](#使用上の注意と制約)
 8.  [よくあるQ\&A](#よくあるqa)
-9.  [pg_stats_reporter13からの変更点](#pg_stats_reporter13からの変更点)
+9.  [pg_stats_reporter14からの変更点](#pg_stats_reporter14からの変更点)
 10. [関連項目](#関連項目)
 11. [謝辞](#謝辞)
 
 </div>
 
-# pg_stats_reporter 14
+# pg_stats_reporter 15
 
 ## pg_stats_reporterとは
 
-[pg_statsinfo 14](https://github.com/ossc-db/pg_statsinfo/)が収集した統計情報を元に、PostgreSQL
+[pg_statsinfo 15](https://github.com/ossc-db/pg_statsinfo/)が収集した統計情報を元に、PostgreSQL
 サーバの利用統計情報をHTML形式のグラフィカルなレポートで出力します。
 
-当ツールで作成したレポートの例は[こちら](http://pgstatsinfo.sourceforge.net/documents/reporter14/doc/files/report_sample.html)をご覧ください。
+当ツールで作成したレポートの例は[こちら](http://pgstatsinfo.sourceforge.net/documents/reporter15/doc/files/report_sample.html)をご覧ください。
 
 pg_statsinfo 14 および pg_stats_reporter 14 以降は GitHub にて公開しています。pg_stats_reporter 13 以前の情報については、[SourceForge](http://pgstatsinfo.sourceforge.net/index_ja.html)をご覧ください。
 
@@ -67,7 +67,7 @@ pg_stats_reporter
 ### 動作確認環境
 
   - pg_statsinfo
-    バージョン 14
+    バージョン 15
 
   - 動作確認済みPHP  
     バージョン 5.4.16 (RHEL 7.9 同梱のもの)、7.2.24 (RHEL 8.5 同梱のもの)
@@ -103,27 +103,18 @@ php-intl が未インストールの状態でも動作しますが、表示言�
 
 #### フルインストール
 
-##### RHEL 7
-
-    # yum install pg_stats_reporter-14.0-1.el7.noarch.rpm php-intl
-
 ##### RHEL 8
 
-    # dnf install pg_stats_reporter-14.0-1.el8.noarch.rpm php-intl
+    # dnf install pg_stats_reporter-15.0-1.el8.noarch.rpm php-intl
 
 #### コマンドライン機能のみ
 
 pg_stats_reporterのrpmは、依存関係にhttpdが含まれています。そのためインストールする際は、--nodepsを指定してrpmコマンドを実行します。
 
-##### RHEL 7
-
-    # yum install php-pgsql php-intl php-cli
-    # rpm -ivh --nodeps pg_stats_reporter-14.0-1.el7.noarch.rpm
-
 ##### RHEL 8
 
     # dnf install php-pgsql php-intl php-cli php-xml
-    # rpm -ivh --nodeps pg_stats_reporter-14.0-1.el8.noarch.rpm
+    # rpm -ivh --nodeps pg_stats_reporter-15.0-1.el8.noarch.rpm
 
 ### 初期設定
 
@@ -223,7 +214,7 @@ URLのホスト名は pg_stats_reporter の実行環境にあわせて変更し�
       - USERNAME: DBユーザ名
       - DATABASE: データベース名
       - MESSAGE: メッセージ本文
-        ([PostgreSQLの正規表現](http://www.postgresql.jp/document/14/html/functions-matching.html#FUNCTIONS-POSIX-REGEXP)で指定してください)
+        ([PostgreSQLの正規表現](http://www.postgresql.jp/document/15/html/functions-matching.html#FUNCTIONS-POSIX-REGEXP)で指定してください)
   - ③ : 検索ボタン  
     ②に入力されている条件で検索を実行します。
   - ④ : 検索条件のリセットボタン  
@@ -239,7 +230,7 @@ URLのホスト名は pg_stats_reporter の実行環境にあわせて変更し�
   - ⑧ : テーブルフィルタ  
     各フィールドに条件を入力することで、現在のページ内の条件に該当するレコードのみが表示されます。  
     条件には、tablesorter のパターンマッチ記述が使用できます。パターンマッチ記述の詳細は
-    [こちら](http://mottie.github.io/tablesorter/docs/example-widget-filter.html)
+    [こちら](https://github.com/Mottie/tablesorter/blob/master/docs/example-widget-filter.html)
     をご覧ください。
   - ⑨ :
     ヘルプボタン  
@@ -363,13 +354,9 @@ URLのホスト名は pg_stats_reporter の実行環境にあわせて変更し�
 
 ※ソースセットからインストールした場合のアンインストール手順は、ソースセットに同梱されている INSTALL.ja ファイルを参照してください。
 
-### RHEL 7
-
-    # yum remove pg_stats_reporter-14.0-1.el7.noarch
-
 ### RHEL 8
 
-    # dnf remove pg_stats_reporter-14.0-1.el8.noarch
+    # dnf remove pg_stats_reporter-15.0-1.el8.noarch
 
 ## 設定ファイル
 
@@ -471,7 +458,7 @@ URLのホスト名は pg_stats_reporter の実行環境にあわせて変更し�
 </table>
 
 1.  項目または設定値を省略した場合の挙動は、libpqの接続文字列のパラメータと同じです。詳しくは
-    [こちら](http://www.postgresql.jp/document/14/html/libpq-connect.html#LIBPQ-PARAMKEYWORDS)
+    [こちら](http://www.postgresql.jp/document/15/html/libpq-connect.html#LIBPQ-PARAMKEYWORDS)
     を参照してください。
 2.  ディストリビューションによっては、HTTP Server
     のドキュメントルートのデフォルトが実行ユーザのホームディレクトリになっている場合があります。そのため、PostgreSQL
@@ -549,11 +536,11 @@ A5. リポジトリDBから現在未使用の監視対象DBのインスタンス
 A6.
 ブラウザ内にJavaScriptのキャッシュが残っているために、正しく表示されていない可能性があります。ブラウザのキャッシュの削除を試してみてください。
 
-## pg_stats_reporter13からの変更点
+## pg_stats_reporter14からの変更点
 
-pg_stats_reporter 13 からの変更点は以下の通りです。
+pg_stats_reporter 14 からの変更点は以下の通りです。
 
-  - pg_statsinfo 14に対応 (pg_stats_reporter 14は pg_statsinfo
+  - pg_statsinfo 15に対応 (pg_stats_reporter 15は pg_statsinfo
     14のみをサポートします)
   - レポートする性能情報が増えました。
     - pg_stat_walのレポートを追加しました。WALの読み書きの量、読み書きに要した時間などをレポートします。
@@ -563,7 +550,7 @@ pg_stats_reporter 13 からの変更点は以下の通りです。
 
 ## 関連項目
 
-[pg_statsinfo 14](https://github.com/ossc-db/pg_statsinfo/)
+[pg_statsinfo 15](https://github.com/ossc-db/pg_statsinfo/)
   
 
 ## 謝辞
@@ -592,4 +579,4 @@ pg_stats_reporter では、以下のライブラリを活用させていただ�
 
 </div>
 
-Copyright (c) 2012-2022, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
+Copyright (c) 2012-2023, NIPPON TELEGRAPH AND TELEPHONE CORPORATION

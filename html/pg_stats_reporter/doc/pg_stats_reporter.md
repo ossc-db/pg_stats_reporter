@@ -14,22 +14,22 @@
 6.  [Configuration File](#Configuration-File)
 7.  [Cautions and Restrictions](#Cautions-and-Restrictions)
 8.  [FAQ](#FAQ)
-9.  [Changes from pg_stats_reporter13](#Changes-from-pg_stats_reporter13)
+9.  [Changes from pg_stats_reporter14](#Changes-from-pg_stats_reporter14)
 10. [See also](#See-also)
 11. [Acknowledgments](#Acknowledgments)
 
 </div>
 
-# pg_stats_reporter 14
+# pg_stats_reporter 15
 
 ## What is pg_stats_reporter
 
 pg_stats_reporter is a graphical report generator for
 [pg_statsinfo](https://github.com/ossc-db/pg_statsinfo/).
 It offers you various statistical information collected by pg_statsinfo
-in a graphical and interactive representation. pg_stats_reporter 14 is
-compatible only with pg_statsinfo 14. You can see an example report
-[here](http://pgstatsinfo.sourceforge.net/documents/reporter14/doc/files/report_sample.html).
+in a graphical and interactive representation. pg_stats_reporter 15 is
+compatible only with pg_statsinfo 15. You can see an example report
+[here](http://pgstatsinfo.sourceforge.net/documents/reporter15/doc/files/report_sample.html).
 
 pg_stats_reporter 14 and later are available on GitHub. pg_stats_reporter 13 and earlier can be found at [SourceForge](http://pgstatsinfo.sourceforge.net/index.html).
 
@@ -52,7 +52,7 @@ INSTALL.en file in the top of source tree.
 pg_stats_reporter is tested on the following environment.
 
   - pg_statsinfo
-    version 14
+    version 15
 
   - PHP  
     version 5.4.16 (bundled with RHEL7), 7.2.24 (bundoled with RHEL8)
@@ -93,15 +93,10 @@ packages can be installed using yum.
 The required packages are are installed by the steps like following
 using yum.
 
-##### RHEL7
-
-    $ su
-    # yum install pg_stats_reporter-14.0-1.el7.noarch.rpm php-intl
-
 ##### RHEL8
 
     $ su
-    # dnf install pg_stats_reporter-14.0-1.el8.noarch.rpm php-intl
+    # dnf install pg_stats_reporter-15.0-1.el8.noarch.rpm php-intl
 
 #### Installing for offline reports only
 
@@ -115,17 +110,11 @@ via the subscription management services provided at Red Hat customer
 portal. It is required to activate automatic language selection (only
 instant help messages between ja/en) of an online graphical report.
 
-##### RHEL7
-
-    $ su
-    # yum install php-pgsql php-intl php-cli
-    # rpm -ivh --nodeps pg_stats_reporter-14.0.el7.noarch.rpm
-
 ##### RHEL8
 
     $ su
     # dnf install php-pgsql php-intl php-cli php-xml
-    # rpm -ivh --nodeps pg_stats_reporter-14.0.el8.noarch.rpm
+    # rpm -ivh --nodeps pg_stats_reporter-15.0.el8.noarch.rpm
 
 ### Initial Setup
 
@@ -255,7 +244,7 @@ these fields and click the "Search" button below.
   - USERNAME: User name
   - DATABASE: Database name
   - MESSAGE: Regular expression that [PostgreSQL defines for SIMILAR
-    TO](http://www.postgresql.org/docs/14/static/functions-matching.html).
+    TO](http://www.postgresql.org/docs/15/static/functions-matching.html).
 
 ③ : Search button
 
@@ -281,7 +270,7 @@ Moves to the next or previous page.
 
 Quick filter for each column. Text fields accepts the [regular
 expressions for
-tablesorter](http://mottie.github.io/tablesorter/docs/example-widget-filter.html).
+tablesorter](https://github.com/Mottie/tablesorter/blob/master/docs/example-widget-filter.html)
 
 ⑨ : Help button
 
@@ -426,15 +415,10 @@ not necessary.
 \* You will see the instructions to uninstall manually in INSTALL.en in
 the top source directory.
 
-### RHEL7
-
-    $ su
-    # yum remove pg_stats_reporter-14.0-1.el7.noarch
-
 ### RHEL8
 
     $ su
-    # yum remove pg_stats_reporter-14.0-1.el8.noarch
+    # yum remove pg_stats_reporter-15.0-1.el8.noarch
 
 ## Configuration File
 
@@ -479,7 +463,7 @@ below.
   
 
 1.  These settings follow [PostgreSQL
-    settings](http://www.postgresql.org/docs/14/static/libpq-connect.html#LIBPQ-PARAMKEYWORDS)
+    settings](http://www.postgresql.org/docs/15/static/libpq-connect.html#LIBPQ-PARAMKEYWORDS)
     as default.
 
 ## Cautions and Restrictions
@@ -559,11 +543,11 @@ corresponding data in repository. See details
 A6. Your browser may hold old JavaScript libraries in cache. Try
 clearing them.
 
-## Changes from pg_stats_reporter13
+## Changes from pg_stats_reporter14
 
-Changes from pg_stats_reporter 13 are shown below.
+Changes from pg_stats_reporter 14 are shown below.
 
-  - Supports pg_statsinfo 14 (pg_stats_repoter 14 supports only
+  - Supports pg_statsinfo 15 (pg_stats_repoter 15 supports only
     pg_statsinfo
 14).
   - There is now more performance informatin to report.
@@ -577,7 +561,7 @@ Changes from pg_stats_reporter 13 are shown below.
 
 ## See also
 
-[pg_statsinfo 14](https://github.com/ossc-db/pg_statsinfo/)
+[pg_statsinfo 15](https://github.com/ossc-db/pg_statsinfo/)
   
 
 ## Acknowledgments
@@ -607,4 +591,4 @@ developers of these libraries.
 
 </div>
 
-Copyright (c) 2012-2022, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
+Copyright (c) 2012-2023, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
