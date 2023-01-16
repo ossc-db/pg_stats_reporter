@@ -85,14 +85,14 @@ pg_stats_reporter
 
   - 利用ライブラリ (pg_stats_reporter のインストールパッケージに同梱)
     
-      - jQuery : 3.6.0
-      - jQuery UI : 1.13.0
+      - jQuery : 3.6.3
+      - jQuery UI : 1.13.2
       - jquery-ui-timepicker-addon : 1.6.3
-      - dygraphs JavaScript Visualization Library : 2.1.0
+      - dygraphs JavaScript Visualization Library : 2.1.2
       - jqPlot : 1.0.9 d96a669
       - tablesorter : 2.31.3
       - Superfish : 1.7.10
-      - Smarty : 3.1.43
+      - Smarty : 4.3.0
 
 ### パッケージのインストール
 
