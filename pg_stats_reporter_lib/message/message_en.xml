@@ -1,5 +1,5 @@
 <document>
-<!-- Copyright (c) 2012-2022, NIPPON TELEGRAPH AND TELEPHONE CORPORATION -->
+<!-- Copyright (c) 2012-2023, NIPPON TELEGRAPH AND TELEPHONE CORPORATION -->
 
 <help>
 <div id="overview_dialog" class="help_dialog"
@@ -635,6 +635,7 @@ period.</h4>
 <li><em>Schema</em>: Name of the schema this table belongs to</li>
 <li><em>Table</em>: Name of this table</li>
 <li><em>Count</em>: Number of autovacuum executed on this table</li>
+<li><em>Index Scans</em>: Number of index scans involved in each vacuum on table</li>
 <li><em>Cancels</em>: Number of cancelled autovacuum trial during this report period</li>
 <li><em>Table scan pages</em>: Average number of table pages scanned throughout this report period</li>
 <li><em>Table scan pages ratio</em>: Average ratio of table pages scanned throughout this report period</li>
@@ -643,11 +644,10 @@ period.</h4>
 <li><em>Avg removed rows</em>: Avarage number of rows that each autovacuum removed throughout this report period</li>
 <li><em>Avg remain rows</em>: Average number of rows that each autovacuum had not removed throughout this report period. This includes "Avg remain dead".</li>
 <li><em>Avg remain dead</em>: Average number of dead rows that each autovacuum cannot be removed</li>
-<li><em>Index scanned</em>: Number of times index scans by autovacuum on this table</li>
-<li><em>Index skipped</em>: Number of times index scans were skipped by autovacuum on this table</li>
-<li><em>Index scan pages</em>: Average number of index pages scanned throughout this report period</li>
-<li><em>Index scan pages ratio</em>: Average ratio of index pages scanned throughout this report period</li>
-<li><em>Removed line pointer</em>: Average number of dead line pointer throughout this report period when index scans by autovacuum on this table</li>
+<li><em>Count of "Index scan needed"</em>: Number of times index scans by autovacuum on this table</li>
+<li><em>Count of "Index scan bypassed by failsafe"</em>: Number of times index scans bypassed by autovacuum on this table</li>
+<li><em>Avg dead tuple pages</em>: </li>
+<li><em>Avg dead tuple pages ratio</em>: </li>
 <li><em>Dead line pointer</em>: Average number of dead line pointer throughout this report period when index scans were skipped by autovacuum on this table</li>
 <li><em>Max removable cutoff xid</em>: </li>
 <li><em>Max new relation frozen xid</em>: </li>

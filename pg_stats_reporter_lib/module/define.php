@@ -2,7 +2,7 @@
 /*
  * define
  *
- * Copyright (c) 2012-2022, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
+ * Copyright (c) 2012-2023, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
  */
 
 // pg_stats_reporter's version
@@ -320,7 +320,7 @@ $query_string = array(
 
   // Autovacuums
   "autovacuum_overview" =>
-  "SELECT datname AS \"Database\", nspname AS \"Schema\", relname AS \"Table\", \"count\" AS \"Count\", cancel AS \"Cancels\", tbl_scan_pages AS \"Table scan pages\", tbl_scan_pages_ratio AS \"Table scan pages ratio\", max_duration AS \"Max duration (s)\", avg_duration AS \"Avg duration (s)\", avg_tup_removed AS \"Avg removed rows\", avg_tup_remain AS \"Avg remain rows\", avg_tup_dead AS \"Avg remain dead\", index_scanned AS \"Index scanned\", index_skipped AS \"Index skipped\", index_scan_pages AS \"Index scan pages\", index_scan_pages_ratio AS \"Index scan pages ratio\", removed_lp AS \"Removed line pointer\", dead_lp AS \"Dead line pointer\", max_cutoff_xid AS \"Max removable cutoff xid\", max_frozen_xid AS \"Max new relation frozen xid\", max_relmin_mxid AS \"Max new relation min mxid\", avg_tup_miss_dead AS \"Missed dead rows\", avg_tup_miss_dead_pages AS \"Pages left unclean\" FROM statsrepo.get_autovacuum_activity($1, $2)", 
+  "SELECT datname AS \"Database\", nspname AS \"Schema\", relname AS \"Table\", \"count\" AS \"Count\", sum_index_scans AS \"Index scans\", cancel AS \"Cancels\", tbl_scan_pages AS \"Table scan pages\", tbl_scan_pages_ratio AS \"Table scan pages ratio\", max_duration AS \"Max duration (s)\", avg_duration AS \"Avg duration (s)\", avg_tup_removed AS \"Avg removed rows\", avg_tup_remain AS \"Avg remain rows\", avg_tup_dead AS \"Avg remain dead\", index_scanned AS \"Count of \"\"Index scan needed\"\"\", index_skipped AS \"Count of \"\"Index scan bypassed by failsafe\"\"\", dead_lp_pages AS \"Avg dead tuple pages\", dead_lp_pages_ratio AS \"Avg dead tuple pages ratio\", dead_lp AS \"Avg dead line pointer\", max_cutoff_xid AS \"Max removable cutoff xid\", max_frozen_xid AS \"Max new relation frozen xid\", max_relmin_mxid AS \"Max new relation min mxid\", avg_tup_miss_dead AS \"Missed dead rows\", avg_tup_miss_dead_pages AS \"Pages left unclean\" FROM statsrepo.get_autovacuum_activity($1, $2)", 
 
   "cancellations" =>
   "SELECT timestamp::timestamp(0) AS \"Time\", database AS \"Database\", schema AS \"Schema\", \"table\" AS \"Table\", 'VACUUM' AS \"Activity\", query AS \"Causal query\" FROM statsrepo.autovacuum_cancel v WHERE timestamp BETWEEN (SELECT min(time) AS time FROM statsrepo.snapshot WHERE snapid >= $1) AND (SELECT max(time) AS time FROM statsrepo.snapshot WHERE snapid <= $2) AND instid = (SELECT instid FROM statsrepo.snapshot WHERE snapid = $2) UNION ALL SELECT timestamp::timestamp(0) AS \"Time\", database AS \"Database\", schema AS \"Schema\", \"table\" AS \"Table\", 'ANALYZE' AS \"Activity\", query AS \"Causal query\" FROM statsrepo.autoanalyze_cancel v WHERE timestamp BETWEEN (SELECT min(time) AS time FROM statsrepo.snapshot WHERE snapid >= $1) AND (SELECT max(time) AS time FROM statsrepo.snapshot WHERE snapid <= $2) AND instid = (SELECT instid FROM statsrepo.snapshot WHERE snapid = $2) ORDER By \"Time\"",

@@ -70,15 +70,15 @@ pg_stats_reporter
     バージョン 15
 
   - 動作確認済みPHP  
-    バージョン 5.4.16 (RHEL 7.9 同梱のもの)、7.2.24 (RHEL 8.5 同梱のもの)
+    7.2.24 (RHEL 8.6 同梱のもの)
 
   - 動作確認済みOS  
-    RHEL 7.9、8.5
+    RHEL 8.6
 
   - 動作確認済みブラウザ  
-    Firefox : 91.4.0esr、96.0
+    Firefox : 102.4.0esr、109.0
     
-    Microsoft Edge : 97.0.1072.55
+    Microsoft Edge : 109.0.1518.55
 
   - 動作確認済みHTTP Server  
     Apache HTTP Server : 2.4
@@ -99,7 +99,6 @@ pg_stats_reporter
 全ての機能を使用する場合は「フルインストール」の手順を、コマンドライン機能のみを使用する場合は「コマンドライン機能のみ」の手順を、ルートユーザで実行してください。  
 php-intl が未インストールの状態でも動作しますが、表示言語の自動設定が機能しなくなります。  
 ※ソースセットからインストールする場合の手順は、ソースセットに同梱されている INSTALL.ja ファイルを参照してください。
-※RHEL 7でのphp-intl のRPMパッケージの入手は、Red Hatカスタマーポータルのサブスクリプション管理サービスを用いる必要があります。
 
 #### フルインストール
 
@@ -230,7 +229,7 @@ URLのホスト名は pg_stats_reporter の実行環境にあわせて変更し�
   - ⑧ : テーブルフィルタ  
     各フィールドに条件を入力することで、現在のページ内の条件に該当するレコードのみが表示されます。  
     条件には、tablesorter のパターンマッチ記述が使用できます。パターンマッチ記述の詳細は
-    [こちら](https://github.com/Mottie/tablesorter/blob/master/docs/example-widget-filter.html)
+    [こちら](http://mottie.github.io/tablesorter/docs/example-widget-filter.html)
     をご覧ください。
   - ⑨ :
     ヘルプボタン  
@@ -515,25 +514,19 @@ A2. 以下の2点を確認してください。
   - pg_stats_reporter.ini に記述されている「database connection」の情報
   - 接続先の PostgreSQL の設定 (postgresql.conf, pg_hba.conf)
 
-#### Q3. ブラウザに Internet Explorer を使用してレポートを表示したところ、正しく表示されません。
+#### Q3. Apache HTTP Server の worker モードには対応していますか？
 
-A3. ブラウザに Internet Explorer を使用してレポートを作成した場合、Internet Explorer
-のバージョンによって正しく表示されない場合があります。ブラウザは Firefox
-を使用することを推奨します。
-
-#### Q4. Apache HTTP Server の worker モードには対応していますか？
-
-A4. PHP の仕様のため、worker モードでの使用は推奨されません。prefork
+A3. PHP の仕様のため、worker モードでの使用は推奨されません。prefork
 モードで使用するか、コマンドライン機能を使用してください。
 
-#### Q5. リポジトリDB選択メニューに現在未使用の監視対象DBが表示されます。
+#### Q4. リポジトリDB選択メニューに現在未使用の監視対象DBが表示されます。
 
-A5. リポジトリDBから現在未使用の監視対象DBのインスタンス情報を削除してください。
+A4. リポジトリDBから現在未使用の監視対象DBのインスタンス情報を削除してください。
 インスタンス情報の削除方法は、pg_statsinfoマニュアルの「[運用上必要となる作業](https://github.com/ossc-db/pg_statsinfo/)」を参照してください。
 
-#### Q6. レポートの表が正しく表示されません。
+#### Q5. レポートの表が正しく表示されません。
 
-A6.
+A5.
 ブラウザ内にJavaScriptのキャッシュが残っているために、正しく表示されていない可能性があります。ブラウザのキャッシュの削除を試してみてください。
 
 ## pg_stats_reporter14からの変更点
@@ -542,10 +535,10 @@ pg_stats_reporter 14 からの変更点は以下の通りです。
 
   - pg_statsinfo 15に対応 (pg_stats_reporter 15は pg_statsinfo
     14のみをサポートします)
+  - Smartyのバージョンアップに伴い、PHPのバージョンは7.1以降に対応
   - レポートする性能情報が増えました。
-    - pg_stat_walのレポートを追加しました。WALの読み書きの量、読み書きに要した時間などをレポートします。
-	- VACUUM時に書き込まれたWALの量やインデックスのVACUUM時にスキャンしたページ数や削除・回収したページ数のレポートを追加しました。
-	- pg_stat_replication_slotsのレポートを追加しました。ロジカルレプリケーションを利用している場合に伝搬されたデータ量やwal_senderが一時的に消費したディスクI/O量をレポートします。
+    - クエリ実行時のリソース情報(データベース単位およびクエリ単位)のレポートを追加しました。
+    - PlansおよびAutovacuums Overviewのレポートに項目を追加しました。
   
 
 ## 関連項目

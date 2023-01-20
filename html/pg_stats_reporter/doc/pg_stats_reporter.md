@@ -55,15 +55,15 @@ pg_stats_reporter is tested on the following environment.
     version 15
 
   - PHP  
-    version 5.4.16 (bundled with RHEL7), 7.2.24 (bundoled with RHEL8)
+    7.2.24 (bundoled with RHEL8)
 
   - OS  
-    RHEL 7.9, 8.5
+    RHEL 8.6
 
   - Web browser  
-    Firefox : 91.4.0esr, 96.0
+    Firefox : 102.4.0esr, 109.0
     
-    Microsoft Edge : 97.0.1072.55
+    Microsoft Edge : 109.0.1518.55
 
   - HTTP Server  
     Apache HTTP Server : 2.4
@@ -270,7 +270,7 @@ Moves to the next or previous page.
 
 Quick filter for each column. Text fields accepts the [regular
 expressions for
-tablesorter](https://github.com/Mottie/tablesorter/blob/master/docs/example-widget-filter.html)
+tablesorter](http://mottie.github.io/tablesorter/docs/example-widget-filter.html)
 
 ⑨ : Help button
 
@@ -521,26 +521,22 @@ A2. Repository connection settings in pg_stats_reporter.ini or access
 control setting of the repository database might be wrong. Make sure
 that they are correct.
 
-#### Q3. My Internext Explorer displays the report but it looks broken.
+#### Q3. Can I run pg_stats_reporter on worker mode of Apache?
 
-A3. Use Firefox or Chrome instead. Internet Explorer is not recommended.
-
-#### Q4. Can I run pg_stats_reporter on worker mode of Apache?
-
-A4. Unfortunately, PHP is not recommended to be used on multithreaded
+A3. Unfortunately, PHP is not recommended to be used on multithreaded
 MPM and we tested pg_stats_reporter only on prefork
 mode.
 
-#### Q5. I see the name of a no-longer-monitored database in the repository bar.
+#### Q4. I see the name of a no-longer-monitored database in the repository bar.
 
-A5. It is brought about by the data for such instances left in the
+A4. It is brought about by the data for such instances left in the
 repository. You can remove such items by manually deleting the
 corresponding data in repository. See details
 [here](https://github.com/ossc-db/pg_statsinfo/).
 
-#### Q6. Report seems displayed in somewhat broken format.
+#### Q5. Report seems displayed in somewhat broken format.
 
-A6. Your browser may hold old JavaScript libraries in cache. Try
+A5. Your browser may hold old JavaScript libraries in cache. Try
 clearing them.
 
 ## Changes from pg_stats_reporter14
@@ -550,14 +546,10 @@ Changes from pg_stats_reporter 14 are shown below.
   - Supports pg_statsinfo 15 (pg_stats_repoter 15 supports only
     pg_statsinfo
 14).
+  - With the version upgrade of Smarty, PHP version 7.1 or later is supported.
   - There is now more performance informatin to report.
-    - Added report of pg_stat_wal. Report the amount of WAL read/write,
-	  required time to read/write, and so on.
-	- Added report the amount of WAL write while vacuuming, the number of
-	  scanned, removed, and recycled pages while vacuuming on indexes.
-    - Added report of pg_stat_replication_slots.
-      Report the amount of transfered data when logical replication is used
-      and disk I/O which wal_sender consume temporalily.
+    - Added reporting of resource information (per database and per query) during query execution.
+	- Added items to the Plans and Autovacuum Overview reports.
 
 ## See also
 

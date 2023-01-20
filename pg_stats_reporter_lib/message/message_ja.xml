@@ -1,5 +1,5 @@
 <document>
-<!-- Copyright (c) 2012-2022, NIPPON TELEGRAPH AND TELEPHONE CORPORATION -->
+<!-- Copyright (c) 2012-2023, NIPPON TELEGRAPH AND TELEPHONE CORPORATION -->
 
 <help>
 <div id="overview_dialog" class="help_dialog"
@@ -605,20 +605,20 @@
 <li><em>Schema</em>: このテーブルが属するスキーマの名前</li>
 <li><em>Table</em>: このテーブルの名前</li>
 <li><em>Count</em>: このテーブルに対して自動Vacuumが実行された回数</li>
+<li><em>Index scans</em>: このテーブルに付随してインデックススキャンされた回数</li>
 <li><em>Cancels</em>: レポート期間中にキャンセルされた自動Vacuumの回数</li>
-<li><em>Table scan pages</em>: 1回の自動Vacuumの実行時にテーブルをスキャンしたページのレポート期間を通した平均値</li>
-<li><em>Table scan pages ratio</em>: 1回の自動Vacuumの実行時にテーブルをスキャンしたページ割合のレポート期間を通した平均値</li>
+<li><em>Table scan pages</em>: 1回の自動Vacuumの実行時にテーブルをスキャンされたページ数のレポート期間を通した平均値</li>
+<li><em>Table scan pages ratio</em>: 1回の自動Vacuumの実行時にテーブルをスキャンされたページ割合のレポート期間を通した平均値</li>
 <li><em>Max duration (s)</em>: 自動Vacuumの所要時間のレポート期間中の最大値 (秒)</li>
 <li><em>Avg duration (s)</em>: 自動Vacuumの1回あたりの所要時間のレポート期間を通した平均値 (秒)</li>
 <li><em>Avg removed rows</em>: 1回の自動Vacuumで削除された行のレポート期間を通した平均値</li>
 <li><em>Avg remain rows</em>: 1回の自動Vacuumの実行後に残った行のレポート期間を通じた平均値。この値は削除されなかったデットタプルの数を含みます</li>
 <li><em>Avg remain dead</em>: 1回の自動Vacuumの実行時に削除できなったデッドタプルの数のレポート期間を通じた平均値</li>
-<li><em>Index scanned</em>: このテーブルに対する自動Vacuumでインデックススキャンが実行された回数</li>
-<li><em>Index skipped</em>: このテーブルに対する自動Vacuumでインデックススキャンがスキップされた回数</li>
-<li><em>Index scan pages</em>: 1回の自動Vacuumの実行時にインデックスをスキャンしたページのレポート期間を通した平均値</li>
-<li><em>Index scan pages ratio</em>: 1回の自動Vacuumの実行時にインデックスをスキャンしたページ割合のレポート期間を通した平均値</li>
-<li><em>Removed line pointer</em>: このテーブルに対する自動Vacuumでインデックススキャンが実行された場合の不要ラインポインタ数のレポート期間を通した平均値</li>
-<li><em>Dead line pointer</em>: このテーブルに対する自動Vacuumでインデックススキャンがスキップされた場合の不要ラインポインタ数のレポート期間を通した平均値</li>
+<li><em>Count of "Index scan needed"</em>: このテーブルに対する自動Vacuumでインデックススキャンが実行された回数</li>
+<li><em>Count of "Index scan bypassed by failsafe"</em>: このテーブルに対する自動Vacuumでインデックススキャンがバイパスされた回数</li>
+<li><em>Avg dead tuple pages</em>: このテーブルに対する自動Vacuumで不要ラインポインタが見つかったページ数のレポート期間を通した平均値</li>
+<li><em>Avg dead tuple pages ratio</em>: このテーブルに対する自動Vacuumで不要ラインポインタが見つかったページ割合のレポート期間を通した平均値</li>
+<li><em>Avg dead line pointer</em>: このテーブルに対する自動Vacuumでインデックススキャンがスキップされた場合の不要ラインポインタ数のレポート期間を通した平均値</li>
 <li><em>Max removable cutoff xid</em>: このテーブルに対する自動Vacuumで使用するトランザクションIDベースのカットオフのレポート期間における最大値</li>
 <li><em>Max new relation frozen xid</em>: このテーブルの凍結されたトランザクションIDのレポート期間における最大値</li>
 <li><em>Max new relation min mxid</em>: このテーブルの最小マルチトランザクションIDのレポート期間における最大値</li>
