@@ -536,7 +536,7 @@ pg_stat_statsments to be installed.</h4>
 <li><em>Calls</em>: Number of times this statement executed</li>
 <li><em>Total time (s)</em>: Total time spent in this statment during this report period in seconds</li>
 <li><em>Time/call (s)</em>: Average time per execution of this query throughout thie report period in seconds</li>
-<li><em>Block read time (ms)</em>: Total time this query spent to read blocks during this report time in milliseconds. This requires track_io_timing to be enabled.</li>
+<li><em>Block read time (ms)</em>: Total time this query spent reading blocks throughout this report period in milliseconds. This requires track_io_timing to be enabled.</li>
 <li><em>Block write time (ms)</em>: Total time this query spent to write blocks during this report time in milliseconds. This requires track_io_timing to be enabled.</li>
 <li><em>Temp block read time (ms)</em>: Total time this query spent to read temporary file blocks during this report time in milliseconds. This requires track_io_timing to be enabled.</li>
 <li><em>Temp block write time (ms)</em>: Total time this query spent to write temporary file blocks during this report time in milliseconds. This requires track_io_timing to be enabled.</li>
@@ -646,18 +646,16 @@ period.</h4>
 <li><em>Avg remain dead</em>: Average number of dead rows that each autovacuum cannot be removed</li>
 <li><em>Count of "Index scan needed"</em>: Number of times index scans by autovacuum on this table</li>
 <li><em>Count of "Index scan bypassed by failsafe"</em>: Number of times index scans bypassed by autovacuum on this table</li>
-<li><em>Avg dead tuple pages</em>: </li>
-<li><em>Avg dead tuple pages ratio</em>: </li>
+<li><em>Avg dead tuple pages</em>: Average number of pages in which an autovacuum run found dead line pointers in this table throughout this report repiod.</li>
+<li><em>Avg dead tuple pages ratio</em>: Average ratio of pages in which an autovacuum run found dead line pointers in this table throughout this report repiod.</li>
 <li><em>Dead line pointer</em>: Average number of dead line pointer throughout this report period when index scans were skipped by autovacuum on this table</li>
-<li><em>Max removable cutoff xid</em>: </li>
-<li><em>Max new relation frozen xid</em>: </li>
-<li><em>Max new relation min mxid</em>: </li>
-<li><em>Missed dead rows</em>: </li>
-<li><em>Pages left unclean</em>: </li>
+<li><em>Max removable cutoff xid</em>: Maximum removable cutoff xid used by this autovacuum run in this table throughout this report repiod.</li>
+<li><em>Max new relation frozen xid</em>: Maximum newly frozen xid in this table throughout this report period.</li>
+<li><em>Max new relation min mxid</em>: Maximum of minimum mxids of this table throughout this report period.</li>
+<li><em>Missed dead rows</em>: Number of dead tuples in bypassed pages in this table caused by clean up lock failure throughout this report period.</li>
+<li><em>Pages left unclean</em>: Number of uncleaned pages in this table caused by clean up lock failure throughout this report period.</li>
 </ul>
-<div>This feature reuiqres autovacuum logs so set
-log_autovacuum_min_duration to 0 to make this feature fully
-available. Less logging reduces the completeness this table.</div>
+<div>This feature reuiqres log_autovacuum_min_duration set to 0,or this table may be incomplete.</div>
 </div>
 
 <div id="cancellations_dialog" class="help_dialog"
