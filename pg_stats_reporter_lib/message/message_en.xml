@@ -546,10 +546,10 @@ pg_stat_statsments to be installed.</h4>
   <li><em>Calls</em>: Number of times this plan exected during this report period</li>
   <li><em>Total time (s)</em>: Total time spent in single execution throughout this report period in seconds</li>
   <li><em>Time/call (s)</em>: Average time per execution of this plan throughout this report period in seconds</li>
-  <li><em>Block read time (ms)</em>: Total time this plan spent to read blocks during this report period in milliseconds. This field requires track_io_timing to be enabled.</li>
-  <li><em>Block write time (ms)</em>: Total time this plan spent to write blocks during this report period in millisecond. This field requires track_io_timing to be enabled.</li>
-  <li><em>Temp block read time (ms)</em>: Total time this plan spent to read temporary file blocks during this report period in milliseconds. This field requires track_io_timing to be enabled.</li>
-  <li><em>Temp block write time (ms)</em>: Total time this plan spent to write temporary file blocks during this report period in milliseconds. This field requires track_io_timing to be enabled.</li>
+  <li><em>Block read time (ms)</em>: Total time this plan spent to read blocks during this report period in milliseconds. This requires track_io_timing to be enabled.</li>
+  <li><em>Block write time (ms)</em>: Total time this plan spent to write blocks during this report period in millisecond. This requires track_io_timing to be enabled.</li>
+  <li><em>Temp block read time (ms)</em>: Total time this plan spent to read temporary file blocks during this report period in milliseconds. This requires track_io_timing to be enabled.</li>
+  <li><em>Temp block write time (ms)</em>: Total time this plan spent to write temporary file blocks during this report period in milliseconds. This requires track_io_timing to be enabled.</li>
   <li><em>First call</em>: Time when this plan first executed</li>
   <li><em>Last call</em>: Time when this plan last executed</li>
   <li><em>Plan</em>: Plan string. This string holds numbers in last execution, which are omitted in calculating plan IDs.</li>
