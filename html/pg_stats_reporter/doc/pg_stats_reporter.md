@@ -544,12 +544,11 @@ clearing them.
 Changes from pg_stats_reporter 14 are shown below.
 
   - Supports pg_statsinfo 15 (pg_stats_repoter 15 supports only
-    pg_statsinfo
-14).
+    pg_statsinfo 15).
   - With the version upgrade of Smarty, PHP version 7.1 or later is supported.
   - There is now more performance informatin to report.
     - Added reporting of resource information (per database and per query) during query execution.
-	- Added items to the Plans and Autovacuum Overview reports.
+	- Added items to the Plans and Autovacuums Overview reports.
 
 ## See also
 
