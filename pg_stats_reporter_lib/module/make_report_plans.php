@@ -2,7 +2,7 @@
 /*
  * make "Plans" report
  *
- * Copyright (c) 2012-2022, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
+ * Copyright (c) 2012-2023, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
  */
 
 function makePlansString($conn, $query_string, $snapids, $errorMsg) {
@@ -42,6 +42,8 @@ function makePlansTablePagerHTML($conn, $result, $snapids, $errorMsg) {
 		'tpcall',		// time per call (not used)
 		'bread',		// block read time
 		'bwrite',		// block write time
+		'tbread',		// temp block read time
+		'tbwrite',		// temp block write time
 		'fcall',		// first call (not used)
 		'lcall',		// last call (not used)
 		'qstr',			// query
@@ -78,29 +80,31 @@ function makePlansTablePagerHTML($conn, $result, $snapids, $errorMsg) {
   <th>Time/call (s)</th>
   <th>Block read time (ms)</th>
   <th>Block write time (ms)</th>
+  <th>Temp block read time (ms)</th>
+  <th>Temp block write time (ms)</th>
 </tr>
 <tr>
-  <th colspan="8">Query (child row)</th>
+  <th colspan="10">Query (child row)</th>
 </tr>
 <tr>
-  <th colspan="8">Plan details (child row)</th>
+  <th colspan="10">Plan details (child row)</th>
 </tr></thead>
 <tbody>
 
 EOD;
 
 	/* query information (first row) */
-	for ($k = 0 ; $k < 12 ; $k++ )
+	for ($k = 0 ; $k < 14 ; $k++ )
 		$rowData[$rowDataLabel[$k]] = pg_fetch_result($result, 0, $k);
-	$rowData[$rowDataLabel[12]] = array(pg_fetch_result($result, 0, 12), // snapid
-						 pg_fetch_result($result, 0, 13), // dbid
-						 pg_fetch_result($result, 0, 14), // userid
+	$rowData[$rowDataLabel[14]] = array(pg_fetch_result($result, 0, 14), // snapid
+						 pg_fetch_result($result, 0, 15), // dbid
+						 pg_fetch_result($result, 0, 16), // userid
 						 $rowData['planid']);
-	$rowData[$rowDataLabel[13]] = 1;
+	$rowData[$rowDataLabel[15]] = 1;
 
 	/* make child row string (first row) */
 	$childHtmlString = "<tr><td rowspan=\"2\" class=\"num\"><a href=\"#\" class=\"toggle\">".$rowData['planid']."</a></td>";
-	for ($j = 4 ; $j < 11 ; $j++ ) {
+	for ($j = 4 ; $j < 13 ; $j++ ) {
 		$childHtmlString .= "<td class=\"".getDataTypeClass(pg_field_type($result, $j))."\">".htmlspecialchars(pg_fetch_result($result, 0, $j), ENT_QUOTES)."</td>";
 	}
 
@@ -109,7 +113,7 @@ EOD;
 	if (!$result2) {
 		return makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 	}
-	$childHtmlString .= "</tr><tr class=\"tablesorter-childRow\"><td colspan=\"7\" class=\"str\">";
+	$childHtmlString .= "</tr><tr class=\"tablesorter-childRow\"><td colspan=\"9\" class=\"str\">";
 	$childHtmlString .= makeFullstringDialog('plans', pg_fetch_result($result2, 0, 0), false);
 	$childHtmlString .= "</td></tr>";
 	pg_free_result($result2);
@@ -128,15 +132,17 @@ EOD;
 			$rowData['ttime'] +=  pg_fetch_result($result, $i, 5); // add total time
 			$rowData['bread'] +=  pg_fetch_result($result, $i, 7); // add block read time
 			$rowData['bwrite'] +=  pg_fetch_result($result, $i, 8); // add block write time
-			$rowData['pparam'] = array(pg_fetch_result($result, $i, 12), // snapid
-									   pg_fetch_result($result, $i, 13), // dbid
-									   pg_fetch_result($result, $i, 14), // userid
+			$rowData['tbread'] +=  pg_fetch_result($result, $i, 9); // add temp block read time
+			$rowData['tbwrite'] +=  pg_fetch_result($result, $i, 10); // add temp block write time
+			$rowData['pparam'] = array(pg_fetch_result($result, $i, 14), // snapid
+									   pg_fetch_result($result, $i, 15), // dbid
+									   pg_fetch_result($result, $i, 16), // userid
 									   $rowData['planid']);
 			$rowData['pcount']++;
 
 			/* make child row string */
 			$childHtmlString .= "<tr><td rowspan=\"2\" class=\"num\"><a href=\"#\" class=\"toggle\">".$rowData['planid']."</a></td>";
-			for ($j = 4 ; $j < 11 ; $j++ ) {
+			for ($j = 4 ; $j < 13 ; $j++ ) {
 				$childHtmlString .= "<td class=\"".getDataTypeClass(pg_field_type($result, $j))."\">".htmlspecialchars(pg_fetch_result($result, $i, $j), ENT_QUOTES)."</td>";
 			}
 
@@ -145,7 +151,7 @@ EOD;
 			if (!$result2) {
 				return makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 			}
-			$childHtmlString .= "</tr><tr class=\"tablesorter-childRow\"><td colspan=\"7\" class=\"str\">";
+			$childHtmlString .= "</tr><tr class=\"tablesorter-childRow\"><td colspan=\"9\" class=\"str\">";
 			$childHtmlString .= makeFullstringDialog('plans', pg_fetch_result($result2, 0, 0), false);
 			$childHtmlString .= "</td></tr>";
 			pg_free_result($result2);
@@ -155,17 +161,17 @@ EOD;
 			createPlanRow($htmlString, $childHtmlString, $rowData);
 
 			/* data initialize */
-			for ($k = 0 ; $k < 12 ; $k++ )
+			for ($k = 0 ; $k < 14 ; $k++ )
 				$rowData[$rowDataLabel[$k]] = pg_fetch_result($result, $i, $k);
-			$rowData[$rowDataLabel[12]] = array(pg_fetch_result($result, $i, 12), // snapid
-												pg_fetch_result($result, $i, 13), // dbid
-												pg_fetch_result($result, $i, 14), // userid
+			$rowData[$rowDataLabel[14]] = array(pg_fetch_result($result, $i, 14), // snapid
+												pg_fetch_result($result, $i, 15), // dbid
+												pg_fetch_result($result, $i, 16), // userid
 												$rowData['planid']);
-			$rowData[$rowDataLabel[13]] = 1;
+			$rowData[$rowDataLabel[15]] = 1;
 
 			/* make child row string */
 			$childHtmlString = "<tr><td rowspan=\"2\" class=\"num\"><a href=\"#\" class=\"toggle\">".$rowData['planid']."</a></td>";
-			for ($j = 4 ; $j < 11 ; $j++ ) {
+			for ($j = 4 ; $j < 13 ; $j++ ) {
 				$childHtmlString .= "<td class=\"".getDataTypeClass(pg_field_type($result, $j))."\">".htmlspecialchars(pg_fetch_result($result, $i, $j), ENT_QUOTES)."</td>";
 			}
 			/* get plan string */
@@ -173,7 +179,7 @@ EOD;
 			if (!$result2) {
 				return makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
 			}
-			$childHtmlString .= "</tr><tr class=\"tablesorter-childRow\"><td colspan=\"7\" class=\"str\">";
+			$childHtmlString .= "</tr><tr class=\"tablesorter-childRow\"><td colspan=\"9\" class=\"str\">";
 			$childHtmlString .= makeFullstringDialog('plans', pg_fetch_result($result2, 0, 0), false);
 			$childHtmlString .= "</td></tr>";
 			pg_free_result($result2);
@@ -205,15 +211,17 @@ function createPlanRow(&$htmlString, $childHtmlString, $rowData)
 	$htmlString .="<td class=\"num\">".htmlspecialchars(number_format(($rowData['callcount']==0?0:$rowData['ttime']/$rowData['callcount']), 3, '.', ''), ENT_QUOTES)."</td>";
 	$htmlString .="<td class=\"num\">".htmlspecialchars(number_format($rowData['bread'], 3, '.', ''), ENT_QUOTES)."</td>";
 	$htmlString .="<td class=\"num\">".htmlspecialchars(number_format($rowData['bwrite'], 3, '.', ''), ENT_QUOTES)."</td>";
+	$htmlString .="<td class=\"num\">".htmlspecialchars(number_format($rowData['tbread'], 3, '.', ''), ENT_QUOTES)."</td>";
+	$htmlString .="<td class=\"num\">".htmlspecialchars(number_format($rowData['tbwrite'], 3, '.', ''), ENT_QUOTES)."</td>";
 
 	/* query (child row) */
-	$htmlString .= "</tr>\n<tr class=\"tablesorter-childRow\"><td colspan=\"8\" class=\"str\">";
+	$htmlString .= "</tr>\n<tr class=\"tablesorter-childRow\"><td colspan=\"10\" class=\"str\">";
 	$htmlString .= makeFullstringDialog("plans", $rowData['qstr'], true);
 	$htmlString .="</td></tr>\n";
 
 	/* plan data (child row) */
 	$htmlString .= "<tr class=\"tablesorter-childRow\">\n";
-	$htmlString .= "<td colspan=\"8\"><table style=\"table-layout:fixed\" class=\"tablesorter childRowTable\"><thead><tr><th rowspan=\"2\">Plan ID</th><th>Calls</th><th>Total time (s)</th><th>Time/call (s)</th><th>Block read time (ms)</th><th>Block write time (ms)</th><th>First call</th><th>Last call</th></tr><tr><th colspan=\"7\">Plan (child row)</th></tr></thead><tbody>\n";
+	$htmlString .= "<td colspan=\"10\"><table style=\"table-layout:fixed\" class=\"tablesorter childRowTable\"><thead><tr><th rowspan=\"2\">Plan ID</th><th>Calls</th><th>Total time (s)</th><th>Time/call (s)</th><th>Block read time (ms)</th><th>Block write time (ms)</th><th>Temp block read time (ms)</th><th>Temp block write time (ms)</th><th>First call</th><th>Last call</th></tr><tr><th colspan=\"9\">Plan (child row)</th></tr></thead><tbody>\n";
 	$htmlString .= $childHtmlString;
 	$htmlString .= "</tbody></table></td>\n";
 	$htmlString .= "</tr>\n\n";

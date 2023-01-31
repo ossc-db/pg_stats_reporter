@@ -40,7 +40,7 @@ user.
 This setting example is under following.
 
 $ su
-# tar xvfz pg_stats_reporter-14.0.tar.gz
+# tar xvfz pg_stats_reporter-15.0.tar.gz
 # cp -R pg_stats_reporter/html/pg_stats_reporter /var/www/html
 # cp -R pg_stats_reporter/pg_stats_reporter_lib /var/www
 # cp pg_stats_reporter/bin/pg_stats_reporter /usr/local/bin
