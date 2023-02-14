@@ -16,20 +16,20 @@
 6.  [設定ファイル](#設定ファイル)
 7.  [使用上の注意と制約](#使用上の注意と制約)
 8.  [よくあるQ\&A](#よくあるqa)
-9.  [pg_stats_reporter13からの変更点](#pg_stats_reporter13からの変更点)
+9.  [pg_stats_reporter14からの変更点](#pg_stats_reporter14からの変更点)
 10. [関連項目](#関連項目)
 11. [謝辞](#謝辞)
 
 </div>
 
-# pg_stats_reporter 14
+# pg_stats_reporter 15
 
 ## pg_stats_reporterとは
 
-[pg_statsinfo 14](https://github.com/ossc-db/pg_statsinfo/)が収集した統計情報を元に、PostgreSQL
+[pg_statsinfo 15](https://github.com/ossc-db/pg_statsinfo/)が収集した統計情報を元に、PostgreSQL
 サーバの利用統計情報をHTML形式のグラフィカルなレポートで出力します。
 
-当ツールで作成したレポートの例は[こちら](http://pgstatsinfo.sourceforge.net/documents/reporter14/doc/files/report_sample.html)をご覧ください。
+当ツールで作成したレポートの例は[こちら](http://pgstatsinfo.sourceforge.net/documents/reporter15/doc/files/report_sample.html)をご覧ください。
 
 pg_statsinfo 14 および pg_stats_reporter 14 以降は GitHub にて公開しています。pg_stats_reporter 13 以前の情報については、[SourceForge](http://pgstatsinfo.sourceforge.net/index_ja.html)をご覧ください。
 
@@ -67,63 +67,53 @@ pg_stats_reporter
 ### 動作確認環境
 
   - pg_statsinfo
-    バージョン 14
+    バージョン 15
 
   - 動作確認済みPHP  
-    バージョン 5.4.16 (RHEL 7.9 同梱のもの)、7.2.24 (RHEL 8.5 同梱のもの)
+    7.2.24 (RHEL 8.6 同梱のもの)
 
   - 動作確認済みOS  
-    RHEL 7.9、8.5
+    RHEL 8.6
 
   - 動作確認済みブラウザ  
-    Firefox : 91.4.0esr、96.0
+    Firefox : 102.4.0esr、109.0
     
-    Microsoft Edge : 97.0.1072.55
+    Microsoft Edge : 109.0.1518.55
 
   - 動作確認済みHTTP Server  
     Apache HTTP Server : 2.4
 
   - 利用ライブラリ (pg_stats_reporter のインストールパッケージに同梱)
     
-      - jQuery : 3.6.0
-      - jQuery UI : 1.13.0
+      - jQuery : 3.6.3
+      - jQuery UI : 1.13.2
       - jquery-ui-timepicker-addon : 1.6.3
-      - dygraphs JavaScript Visualization Library : 2.1.0
+      - dygraphs JavaScript Visualization Library : 2.1.2
       - jqPlot : 1.0.9 d96a669
       - tablesorter : 2.31.3
       - Superfish : 1.7.10
-      - Smarty : 3.1.43
+      - Smarty : 4.3.0
 
 ### パッケージのインストール
 
 全ての機能を使用する場合は「フルインストール」の手順を、コマンドライン機能のみを使用する場合は「コマンドライン機能のみ」の手順を、ルートユーザで実行してください。  
 php-intl が未インストールの状態でも動作しますが、表示言語の自動設定が機能しなくなります。  
 ※ソースセットからインストールする場合の手順は、ソースセットに同梱されている INSTALL.ja ファイルを参照してください。
-※RHEL 7でのphp-intl のRPMパッケージの入手は、Red Hatカスタマーポータルのサブスクリプション管理サービスを用いる必要があります。
 
 #### フルインストール
 
-##### RHEL 7
-
-    # yum install pg_stats_reporter-14.0-1.el7.noarch.rpm php-intl
-
 ##### RHEL 8
 
-    # dnf install pg_stats_reporter-14.0-1.el8.noarch.rpm php-intl
+    # dnf install pg_stats_reporter-15.0-1.el8.noarch.rpm php-intl
 
 #### コマンドライン機能のみ
 
 pg_stats_reporterのrpmは、依存関係にhttpdが含まれています。そのためインストールする際は、--nodepsを指定してrpmコマンドを実行します。
 
-##### RHEL 7
-
-    # yum install php-pgsql php-intl php-cli
-    # rpm -ivh --nodeps pg_stats_reporter-14.0-1.el7.noarch.rpm
-
 ##### RHEL 8
 
     # dnf install php-pgsql php-intl php-cli php-xml
-    # rpm -ivh --nodeps pg_stats_reporter-14.0-1.el8.noarch.rpm
+    # rpm -ivh --nodeps pg_stats_reporter-15.0-1.el8.noarch.rpm
 
 ### 初期設定
 
@@ -223,7 +213,7 @@ URLのホスト名は pg_stats_reporter の実行環境にあわせて変更し�
       - USERNAME: DBユーザ名
       - DATABASE: データベース名
       - MESSAGE: メッセージ本文
-        ([PostgreSQLの正規表現](http://www.postgresql.jp/document/14/html/functions-matching.html#FUNCTIONS-POSIX-REGEXP)で指定してください)
+        ([PostgreSQLの正規表現](http://www.postgresql.jp/document/15/html/functions-matching.html#FUNCTIONS-POSIX-REGEXP)で指定してください)
   - ③ : 検索ボタン  
     ②に入力されている条件で検索を実行します。
   - ④ : 検索条件のリセットボタン  
@@ -363,13 +353,9 @@ URLのホスト名は pg_stats_reporter の実行環境にあわせて変更し�
 
 ※ソースセットからインストールした場合のアンインストール手順は、ソースセットに同梱されている INSTALL.ja ファイルを参照してください。
 
-### RHEL 7
-
-    # yum remove pg_stats_reporter-14.0-1.el7.noarch
-
 ### RHEL 8
 
-    # dnf remove pg_stats_reporter-14.0-1.el8.noarch
+    # dnf remove pg_stats_reporter-15.0-1.el8.noarch
 
 ## 設定ファイル
 
@@ -471,7 +457,7 @@ URLのホスト名は pg_stats_reporter の実行環境にあわせて変更し�
 </table>
 
 1.  項目または設定値を省略した場合の挙動は、libpqの接続文字列のパラメータと同じです。詳しくは
-    [こちら](http://www.postgresql.jp/document/14/html/libpq-connect.html#LIBPQ-PARAMKEYWORDS)
+    [こちら](http://www.postgresql.jp/document/15/html/libpq-connect.html#LIBPQ-PARAMKEYWORDS)
     を参照してください。
 2.  ディストリビューションによっては、HTTP Server
     のドキュメントルートのデフォルトが実行ユーザのホームディレクトリになっている場合があります。そのため、PostgreSQL
@@ -528,42 +514,36 @@ A2. 以下の2点を確認してください。
   - pg_stats_reporter.ini に記述されている「database connection」の情報
   - 接続先の PostgreSQL の設定 (postgresql.conf, pg_hba.conf)
 
-#### Q3. ブラウザに Internet Explorer を使用してレポートを表示したところ、正しく表示されません。
+#### Q3. Apache HTTP Server の worker モードには対応していますか？
 
-A3. ブラウザに Internet Explorer を使用してレポートを作成した場合、Internet Explorer
-のバージョンによって正しく表示されない場合があります。ブラウザは Firefox
-を使用することを推奨します。
-
-#### Q4. Apache HTTP Server の worker モードには対応していますか？
-
-A4. PHP の仕様のため、worker モードでの使用は推奨されません。prefork
+A3. PHP の仕様のため、worker モードでの使用は推奨されません。prefork
 モードで使用するか、コマンドライン機能を使用してください。
 
-#### Q5. リポジトリDB選択メニューに現在未使用の監視対象DBが表示されます。
+#### Q4. リポジトリDB選択メニューに現在未使用の監視対象DBが表示されます。
 
-A5. リポジトリDBから現在未使用の監視対象DBのインスタンス情報を削除してください。
+A4. リポジトリDBから現在未使用の監視対象DBのインスタンス情報を削除してください。
 インスタンス情報の削除方法は、pg_statsinfoマニュアルの「[運用上必要となる作業](https://github.com/ossc-db/pg_statsinfo/)」を参照してください。
 
-#### Q6. レポートの表が正しく表示されません。
+#### Q5. レポートの表が正しく表示されません。
 
-A6.
+A5.
 ブラウザ内にJavaScriptのキャッシュが残っているために、正しく表示されていない可能性があります。ブラウザのキャッシュの削除を試してみてください。
 
-## pg_stats_reporter13からの変更点
+## pg_stats_reporter14からの変更点
 
-pg_stats_reporter 13 からの変更点は以下の通りです。
+pg_stats_reporter 14 からの変更点は以下の通りです。
 
-  - pg_statsinfo 14に対応 (pg_stats_reporter 14は pg_statsinfo
-    14のみをサポートします)
+  - pg_statsinfo 15に対応 (pg_stats_reporter 15は pg_statsinfo
+    15のみをサポートします)
+  - Smartyのバージョンアップに伴い、PHPのバージョンは7.1以降に対応
   - レポートする性能情報が増えました。
-    - pg_stat_walのレポートを追加しました。WALの読み書きの量、読み書きに要した時間などをレポートします。
-	- VACUUM時に書き込まれたWALの量やインデックスのVACUUM時にスキャンしたページ数や削除・回収したページ数のレポートを追加しました。
-	- pg_stat_replication_slotsのレポートを追加しました。ロジカルレプリケーションを利用している場合に伝搬されたデータ量やwal_senderが一時的に消費したディスクI/O量をレポートします。
+    - クエリ実行時のリソース情報(データベース単位およびクエリ単位)のレポートを追加しました。
+    - PlansおよびAutovacuums Overviewのレポートに項目を追加しました。
   
 
 ## 関連項目
 
-[pg_statsinfo 14](https://github.com/ossc-db/pg_statsinfo/)
+[pg_statsinfo 15](https://github.com/ossc-db/pg_statsinfo/)
   
 
 ## 謝辞
@@ -592,4 +572,4 @@ pg_stats_reporter では、以下のライブラリを活用させていただ�
 
 </div>
 
-Copyright (c) 2012-2022, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
+Copyright (c) 2012-2023, NIPPON TELEGRAPH AND TELEPHONE CORPORATION

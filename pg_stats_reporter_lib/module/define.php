@@ -2,24 +2,24 @@
 /*
  * define
  *
- * Copyright (c) 2012-2022, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
+ * Copyright (c) 2012-2023, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
  */
 
 // pg_stats_reporter's version
-define("PROGRAM_VERSION", "14.0");
+define("PROGRAM_VERSION", "15.0");
 
 // Image File
 define("IMAGE_FILE", "pgsql_banner01.png");
 
 // Library path
-define("SMARTY_PATH", "package/smarty-3.1.43/libs/");
-define("JQUERY_PATH", "package/jquery-3.6.0.min.js");
-define("JQUERYUI_PATH", "package/jquery-ui-1.13.0.custom/");
+define("SMARTY_PATH", "package/smarty-4.3.0/libs/");
+define("JQUERY_PATH", "package/jquery-3.6.3.min.js");
+define("JQUERYUI_PATH", "package/jquery-ui-1.13.2.custom/");
 define("TIMEPICKER_PATH", "package/jquery-ui-timepicker-addon-1.6.3/");
 define("TABLESORTER_PATH", "package/tablesorter-2.31.3/");
 define("SUPERFISH_PATH", "package/superfish-1.7.10/dist/");
 define("JQPLOT_PATH", "package/jqPlot-1.0.9.d96a669/");
-define("DYGRAPHS_PATH", "package/dygraphs-2.1.0/");
+define("DYGRAPHS_PATH", "package/dygraphs-2.1.2/");
 
 // pg_statsinfo's version
 define("V23", 20300);
@@ -75,12 +75,15 @@ $report_default = array(
   'databases_statistics'      => true,
   'transactions'              => true,
   'database_size'             => true,
+  'database_rusage'           => true,
   'recovery_conflicts'        => true,
+  'wait_sampling_by_dbid'     => true,
   'write_ahead_logs'          => true,
   'wal_statistics'            => true,
   'backend_states_overview'   => true,
   'backend_states'            => true,
   'bgwriter_statistics'       => true,
+  'wait_sampling_by_instid'   => true,
   'cpu_usage'                 => true,
   'load_average'              => true,
   'memory_usage'              => true,
@@ -93,7 +96,9 @@ $report_default = array(
   'correlation'               => true,
   'functions'                 => true,
   'statements'                => true,
+  'statements_rusage'         => true,
   'plans'					  => true,
+  'wait_sampling'			  => true,
   'long_transactions'         => true,
   'lock_conflicts'            => true,
   'checkpoints'               => true,
@@ -111,6 +116,8 @@ $report_default = array(
   'tables'                    => true,
   'indexes'                   => true,
   'runtime_params'            => true,
+  'cpu_information'           => true,
+  'memory_information'        => true,
   'alerts'                    => true,
   'profiles'                  => false
 );
@@ -121,12 +128,15 @@ $help_list = array(
   'databases_statistics'      => 'databases_statistics_dialog',
   'transactions'              => 'transactions_dialog',
   'database_size'             => 'database_size_dialog',
+  'database_rusage'           => 'database_rusage_dialog',
   'recovery_conflicts'        => 'recovery_conflicts_dialog',
+  'wait_sampling_by_dbid'     => 'wait_sampling_by_dbid_dialog',
   'write_ahead_logs'          => 'write_ahead_logs_dialog',
   'wal_statistics'            => 'wal_statistics_dialog',
   'backend_states_overview'   => 'backend_states_overview_dialog',
   'backend_states'            => 'backend_states_dialog',
   'bgwriter_statistics'       => 'bgwriter_statistics_dialog',
+  'wait_sampling_by_instid'   => 'wait_sampling_by_instid_dialog',
   'cpu_usage'                 => 'cpu_usage_dialog',
   'load_average'              => 'load_average_dialog',
   'memory_usage'              => 'memory_usage_dialog',
@@ -139,7 +149,9 @@ $help_list = array(
   'correlation         '      => 'correlation_dialog',
   'functions'                 => 'functions_dialog',
   'statements'                => 'statements_dialog',
+  'statements_rusage'         => 'statements_rusage_dialog',
   'plans'                     => 'plans_dialog',
+  'wait_sampling'             => 'wait_sampling_dialog',
   'long_transactions'         => 'long_transactions_dialog',
   'lock_conflicts'            => 'lock_conflicts_dialog',
   'checkpoints'               => 'checkpoints_dialog',
@@ -157,6 +169,8 @@ $help_list = array(
   'tables'                    => 'tables_dialog',
   'indexes'                   => 'indexes_dialog',
   'runtime_params'            => 'runtime_params_dialog',
+  'cpu_information'           => 'cpu_information_dialog',
+  'memory_information'        => 'memory_information_dialog',
   'alerts'                    => 'alerts_dialog',
   'profiles'                  => 'profiles_dialog',
   'log_viewer'                => 'log_viewer_dialog'
@@ -175,7 +189,7 @@ $query_string = array(
   /* Statistics */
   // Databases Statistics
   "databases_statistics" =>
-  "SELECT datname AS \"Database\", size AS \"MiB\", size_incr AS \"+MiB\", xact_commit_tps AS \"Commit/s\", xact_rollback_tps AS \"Rollback/s\", blks_hit_rate AS \"Hit%\", blks_hit_tps AS \"Gets/s\", blks_read_tps AS \"Reads/s\", tup_fetch_tps AS \"Rows/s\" FROM statsrepo.get_dbstats($1, $2)",
+  "SELECT datname AS \"Database\", size AS \"MiB\", size_incr AS \"+MiB\", xact_commit_tps AS \"Commit/s\", xact_rollback_tps AS \"Rollback/s\", blks_hit_rate AS \"Hit%\", blks_hit_tps AS \"Gets/s\", blks_read_tps AS \"Reads/s\", tup_fetch_tps AS \"Rows/s\", temp_files AS \"Temporary files\", temp_bytes AS \"Temporary bytes (MiB)\",  deadlocks AS \"Deadlocks\", blk_read_time AS \"Read time (ms)\", blk_write_time AS \"Write time (ms)\" FROM statsrepo.get_dbstats($1, $2)",
 
   "transactions" =>
   "SELECT replace(\"timestamp\", '-', '/') AS \"timestamp\", datname, avg(commit_tps) AS commit_tps, avg(rollback_tps) AS rollback_tps FROM statsrepo.get_xact_tendency_report($1, $2) GROUP BY 1,2 ORDER BY 1,2",
@@ -183,8 +197,14 @@ $query_string = array(
   "database_size" =>
   "SELECT replace(\"timestamp\", '-', '/') AS \"timestamp\", datname, avg(size*1024*1024) AS size FROM statsrepo.get_dbsize_tendency_report($1, $2) GROUP BY 1,2 ORDER BY 1,2",
 
+  "database_rusage" =>
+  "SELECT datname AS \"Database\", plan_reads AS \"Plan reads (Bytes)\", plan_writes AS \"Plan writes (Bytes)\", plan_utime AS \"Plan user time (ms)\", plan_stime AS \"Plan system time (ms)\", exec_reads AS \"Execute reads (Bytes)\", exec_writes AS \"Execute writes (Bytes)\", exec_utime AS \"Execute user time (ms)\", exec_stime AS \"Execute system time (ms)\" FROM statsrepo.get_db_rusage_report($1, $2)",
+
   "recovery_conflicts" =>
   "SELECT datname AS \"Database\", confl_tablespace AS \"On tablespaces\", confl_lock AS \"On locks\", confl_snapshot AS \"On snapshots\", confl_bufferpin AS \"On bufferpins\", confl_deadlock AS \"On deadlocks\" FROM statsrepo.get_recovery_conflicts($1, $2)",
+
+  "wait_sampling_by_dbid" =>
+  "SELECT \"database\" AS \"Database\", event_type AS \"Event type\", event AS \"Event\", \"count\" AS \"Count\", ratio AS \"Ratio\", row_number AS \"Row number\" FROM statsrepo.get_wait_sampling_by_dbid($1, $2)",
 
   // Instance Statistics
   "write_ahead_logs" =>
@@ -207,6 +227,9 @@ $query_string = array(
 
   "bgwriter_statistics" =>
   "SELECT replace(\"timestamp\", '-', '/'), bgwriter_write_tps AS \"Written buffers by bgwriter(L)\", backend_write_tps AS \"Written buffers by backends(L)\", buffer_alloc_tps AS \"Allocated buffers(L)\", bgwriter_stopscan_tps AS \"Bgwriter scans quitted earlier(R)\", backend_fsync_tps AS \"Fsyncs executed on backends(R)\" FROM statsrepo.get_bgwriter_tendency($1, $2)",
+
+  "wait_sampling_by_instid" =>
+  "SELECT event_type AS \"Event type\", event AS \"Event\", \"count\" AS \"Count\", ratio AS \"Ratio\", row_number AS \"Row number\" FROM statsrepo.get_wait_sampling_by_instid($1, $2)",
 
   /* OS Resources */
   // CPU and Memory
@@ -265,6 +288,9 @@ $query_string = array(
   "statements" =>
   "SELECT rolname AS \"User\", datname AS \"Database\", query AS \"Query\", calls AS \"Calls\", total_exec_time AS \"Total execution time (s)\", time_per_call AS \"Average execution time (s)\", plans AS \"Plans\", total_plan_time AS \"Total planning time (s)\",  time_per_plan AS \"Average planning time (s)\" FROM statsrepo.get_query_activity_statements($1, $2)",
 
+  "statements_rusage" =>
+  "SELECT rolname AS \"User\", datname AS \"Database\", plan_reads AS \"Plan reads (Bytes)\", plan_writes AS \"Plan writes (Bytes)\", plan_user_times AS \"Plan user time (ms)\", plan_sys_times AS \"Plan system time (ms)\", exec_reads AS \"Execute reads (Bytes)\", exec_writes AS \"Execute writes (Bytes)\", exec_user_times AS \"Execute user time (ms)\", exec_sys_times AS \"Execute system time (ms)\", query AS \"Query\" FROM statsrepo.get_query_activity_statements_rusage($1, $2)",
+
   "plans" =>
   "SELECT * FROM statsrepo.get_query_activity_plans_report($1,$2) ORDER BY queryid, rolname, datname",
 
@@ -277,6 +303,8 @@ $query_string = array(
   "plans_get_plan_does_not_exist" =>
   "SELECT plan FROM statsrepo.plan WHERE snapid=$1 AND dbid=$2 AND userid=$3 AND planid=$4",
 
+  "wait_sampling" =>
+  "SELECT queryid AS \"Queryid\", \"database\" \"Database\", role AS \"Role\", backend_type AS \"Backend type\", event_type AS \"Event type\", event AS \"Event\", \"count\" AS \"Count\", ratio AS \"Ratio\", query AS \"Query\", row_number AS \"Row number\" FROM statsrepo.get_wait_sampling($1, $2)",
   // Long Transaction
   "long_transactions" =>
   "SELECT pid AS \"PID\", client AS \"Client address\", start AS \"Xact Start\", duration AS \"Duration (s)\", query AS \"Last query\" FROM statsrepo.get_long_transactions($1, $2)",
@@ -292,7 +320,7 @@ $query_string = array(
 
   // Autovacuums
   "autovacuum_overview" =>
-  "SELECT datname AS \"Database\", nspname AS \"Schema\", relname AS \"Table\", \"count\" AS \"Count\", index_scanned AS \"Index scanned\", index_skipped AS \"Index skipped\", avg_tup_removed AS \"Avg removed rows\", avg_tup_remain AS \"Avg remain rows\", avg_tup_dead AS \"Avg remain dead\", scan_pages AS \"Scan pages\", scan_pages_ratio AS \"Scan pages ratio\", removed_lp AS \"Removed line pointer\", dead_lp AS \"Dead line pointer\", avg_duration AS \"Avg duration (s)\", max_duration AS \"Max duration (s)\", cancel AS \"Cancels\" FROM statsrepo.get_autovacuum_activity($1, $2)", 
+  "SELECT datname AS \"Database\", nspname AS \"Schema\", relname AS \"Table\", \"count\" AS \"Count\", sum_index_scans AS \"Index scans\", cancel AS \"Cancels\", tbl_scan_pages AS \"Table scan pages\", tbl_scan_pages_ratio AS \"Table scan pages ratio\", max_duration AS \"Max duration (s)\", avg_duration AS \"Avg duration (s)\", avg_tup_removed AS \"Avg removed rows\", avg_tup_remain AS \"Avg remain rows\", avg_tup_dead AS \"Avg remain dead\", index_scanned AS \"Count of \"\"Index scan needed\"\"\", index_skipped AS \"Count of \"\"Index scan bypassed by failsafe\"\"\", dead_lp_pages AS \"Avg dead tuple pages\", dead_lp_pages_ratio AS \"Avg dead tuple pages ratio\", dead_lp AS \"Avg dead line pointer\", max_cutoff_xid AS \"Max removable cutoff xid\", max_frozen_xid AS \"Max new relation frozen xid\", max_relmin_mxid AS \"Max new relation min mxid\", avg_tup_miss_dead AS \"Missed dead rows\", avg_tup_miss_dead_pages AS \"Pages left unclean\" FROM statsrepo.get_autovacuum_activity($1, $2)", 
 
   "cancellations" =>
   "SELECT timestamp::timestamp(0) AS \"Time\", database AS \"Database\", schema AS \"Schema\", \"table\" AS \"Table\", 'VACUUM' AS \"Activity\", query AS \"Causal query\" FROM statsrepo.autovacuum_cancel v WHERE timestamp BETWEEN (SELECT min(time) AS time FROM statsrepo.snapshot WHERE snapid >= $1) AND (SELECT max(time) AS time FROM statsrepo.snapshot WHERE snapid <= $2) AND instid = (SELECT instid FROM statsrepo.snapshot WHERE snapid = $2) UNION ALL SELECT timestamp::timestamp(0) AS \"Time\", database AS \"Database\", schema AS \"Schema\", \"table\" AS \"Table\", 'ANALYZE' AS \"Activity\", query AS \"Causal query\" FROM statsrepo.autoanalyze_cancel v WHERE timestamp BETWEEN (SELECT min(time) AS time FROM statsrepo.snapshot WHERE snapid >= $1) AND (SELECT max(time) AS time FROM statsrepo.snapshot WHERE snapid <= $2) AND instid = (SELECT instid FROM statsrepo.snapshot WHERE snapid = $2) ORDER By \"Time\"",
@@ -337,6 +365,15 @@ $query_string = array(
   "runtime_params" =>
   "SELECT name AS \"Name\", setting AS \"Setting\", unit AS \"Unit\", source AS \"Source\" FROM statsrepo.get_setting_parameters($1, $2)",
 
+  // Hardware Information
+  // CPU Information
+  "cpu_information" =>
+  "SELECT replace( \"timestamp\", '-', '/') AS \"Date time\", vendor_id AS \"Vendor\", model_name AS \"Model name\", cpu_mhz AS \"CPU MHz\", processors AS \"CPU\", threads_per_core AS \"Threads/core\", cores_per_socket AS \"Cores/socket\", sockets AS \"Socket\" FROM statsrepo.get_cpuinfo($1, $2)",
+  
+  // Memory Information
+  "memory_information" =>
+  "SELECT replace( \"timestamp\", '-', '/') AS \"Date time\", mem_total AS \"System memory\" FROM statsrepo.get_meminfo($1, $2)",
+  
   // Alerts
   "alerts" =>
   "SELECT \"timestamp\" AS \"Time\", message AS \"Message\" FROM statsrepo.get_alert($1, $2)",
