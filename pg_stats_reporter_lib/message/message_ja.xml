@@ -1,5 +1,5 @@
 <document>
-<!-- Copyright (c) 2012-2022, NIPPON TELEGRAPH AND TELEPHONE CORPORATION -->
+<!-- Copyright (c) 2012-2023, NIPPON TELEGRAPH AND TELEPHONE CORPORATION -->
 
 <help>
 <div id="overview_dialog" class="help_dialog"
@@ -32,6 +32,11 @@
 <li><em>Gets/s</em>: ブロック要求頻度のレポート期間中の平均値 (ブロック/秒)</li>
 <li><em>Reads/s</em>: ディスクからのブロック読み込み頻度のレポート期間中の平均値 (ブロック/秒)</li>
 <li><em>Rows/s</em>: テーブルおよびインデックスからの行取得の頻度のレポート期間中の平均値 (行/秒)</li>
+<li><em>Temporary files</em>: レポート期間中にデータベース内の問い合わせによって書き出された一時ファイルの個数</li>
+<li><em>Temporary bytes (MiB)</em>: レポート期間中にデータベース内の問い合わせによって一時ファイルに書き出されたデータ量 (MiB)</li>
+<li><em>Deadlocks</em>: レポート期間中にデータベース内で検知されたデッドロック数</li>
+<li><em>Read time (ms)</em>: データベース内でバックエンドによりデータファイルブロックの読み取りに費やされた時間 (ms)</li>
+<li><em>Write time (ms)</em>: データベース内でバックエンドによりデータファイルブロックの書き出しに費やされた時間 (ms)</li>
 </ul>
 ※小さな値は切り捨てにより0と表示される場合があります
 </div>
@@ -65,6 +70,27 @@
 </ul>
 </div>
 
+<div id="database_rusage_dialog" class="help_dialog"
+	 title="The Database Resource Usage Table">
+<h4>この表ではクエリの実行計画作成時、およびクエリ実行時のリソース情報のデータベース毎の概要を示します。</h4>
+<ul>
+<li><em>Database</em>: データベース名</li>
+<li><em>Plan</em>: 実行計画作成時のリソース情報<ul>
+<li><em>reads (Bytes)</em>: クエリの実行計画作成時に発生したディスクリード量 (Bytes)</li>
+<li><em>writes (Bytes)</em>: クエリの実行計画作成時に発生したディスクライト量 (Bytes)</li>
+<li><em>user time (ms)</em>: クエリの実行計画作成に要したCPU(user)時間 (ミリ秒)</li>
+<li><em>system time (ms)</em>: クエリの実行計画作成に要したCPU(system)時間 (ミリ秒)</li>
+</ul></li>
+<li><em>Execute</em>: クエリ実行時のリソース情報<ul>
+<li><em>reads (Bytes)</em>: クエリの実行時に発生したディスクリード量 (Bytes)</li>
+<li><em>writes (Bytes)</em>: クエリの実行時に発生したディスクライト量 (Bytes)</li>
+<li><em>user time (ms)</em>: クエリの実行に要したCPU(user)時間 (ミリ秒)</li>
+<li><em>system time (ms)</em>: クエリの実行に要したCPU(system)時間 (ミリ秒)</li>
+</ul></li>
+</ul>
+
+</div>
+
 <div id="recovery_conflicts_dialog" class="help_dialog"
   title="The Recovery Conflicts Table">
 <h4>この表はこのレポート期間中にレプリケーションマスタの動作が原因でキャンセルされた問い合わせの数をデータベースごとに示します。この表にはこのインスタンスがスタンバイサーバである場合にだけ情報が表示されます。</h4>
@@ -75,6 +101,18 @@
 <li><em>On snapshots</em>: 古いスナップショットが原因でキャンセルされたクエリの数</li>
 <li><em>On bufferpin</em>: バッファピンが原因でキャンセルされたクエリの数</li>
 <li><em>On deadlocks</em>: デッドロックによりキャンセルされたクエリの数 </li>
+</ul>
+</div>
+
+<div id="wait_sampling_by_instid_dialog" class="help_dialog"
+  title="How to see a Wait Sampling (Instance) table">
+<h4>この表はインスタンス毎の待機イベントを示します。</h4>
+<ul>
+<li>Event type : バックエンドが待つイベントのタイプ</li>
+<li>Event : バックエンドが待つイベント名</li>
+<li>Count : サンプル数</li>
+<li>Ratio : インスタンス内の比率</li>
+<li>Row number : インスタンス内の行番号（上位10件）</li>
 </ul>
 </div>
 
@@ -204,6 +242,19 @@
 <li><em>Allocated buffers(L)</em>: 割当られたバッファ数の一秒あたりの平均値</li>
 <li><em>bgwriter scans quitted earlier(R)</em>: 書き出したバッファ数が多過ぎたために、バックグラウンドライタによるバッファ回収のスキャンを途中で終了した回数の一秒あたりの平均値</li>
 <li><em>fsyncs executed on backends(R)</em>: チェックポインタでの処理が間に合わずバックエンドが自身で実行することになった fsync 呼び出しの回数の一秒あたりの平均値</li>
+</ul>
+</div>
+
+<div id="wait_sampling_by_dbid_dialog" class="help_dialog"
+  title="How to see a Wait Sampling per Database table">
+<h4>この表はデータベース毎の待機イベントを示します。</h4>
+<ul>
+<li>Database : 当該バックエンドが接続するデータベース名</li>
+<li>Event type : バックエンドが待つイベントのタイプ</li>
+<li>Event : バックエンドが待つイベント名</li>
+<li>Count : サンプル数</li>
+<li>Ratio : データベース内の比率</li>
+<li>Row number : データベース内の行番号（上位10件）</li>
 </ul>
 </div>
 
@@ -431,6 +482,30 @@
 </ul>
 </div>
 
+<div id="statements_rusage_dialog" class="help_dialog"
+	 title="The Statements Resource Usage Table">
+<h4>この表ではクエリの実行計画作成時、およびクエリ実行時のリソース情報のクエリ毎の概要を示します。</h4>
+<ul>
+<li><em>User</em>: ユーザ名</li>
+<li><em>Database</em>: データベース名</li>
+<li><em>Plan</em>:実行計画作成時のリソース情報<ul>
+<li><em>reads (Bytes)</em>: クエリの実行計画作成時に発生したディスクリード量 (Bytes)</li>
+<li><em>writes (Bytes)</em>: クエリの実行計画作成時に発生したディスクライト量 (Bytes)</li>
+<li><em>user time (ms)</em>: クエリの実行計画作成に要したCPU(user)時間 (ミリ秒)</li>
+<li><em>system time (ms)</em>: クエリの実行計画作成に要したCPU(system)時間 (ミリ秒)</li>
+</ul></li>
+<li><em>Execute</em>:クエリ実行時のリソース情報<ul>
+<li><em>reads (Bytes)</em>: クエリの実行時に発生したディスクリード量 (Bytes)</li>
+<li><em>writes (Bytes)</em>: クエリの実行時に発生したディスクライト量 (Bytes)</li>
+<li><em>user time (ms)</em>: クエリの実行に要したCPU(user)時間 (ミリ秒)</li>
+<li><em>system time (ms)</em>: クエリの実行に要したCPU(system)時間 (ミリ秒)</li>
+</ul></li>
+<li><em>Query</em>: クエリ</li>
+</ul>
+
+
+</div>
+
 <div id="plans_dialog" class="help_dialog"
   title="The Plans Table">
 <h4>この表の各行は実行計画毎の実行統計を示します。"QueryID"の値をクリックすると実行計画毎の統計が表示されます。この機能を利用するには pg_stat_statements と pg_store_plans をインストールする必要があります。</h4>
@@ -442,20 +517,41 @@
 <li><em>Calls</em>: この問い合わせのレポート期間中の実行回数</li>
 <li><em>Total time (s)</em>: この問い合わせの実行に要した時間のレポート期間中の合計 (秒)</li>
 <li><em>Time/call (s)</em>: この問い合わせの実行1回あたりに要した時間のレポート期間中の平均値 (秒)</li>
-<li><em>Block read time (ms)</em>: この問い合わせの実行に際してブロック読み込みに要した時間のレポート期間中の合計 (ミリ秒)。この項目と次の項目の取得には track_io_timing を有効にしておく必要があります。</li>
-<li><em>Block write time (ms)</em>: この問い合わせの実行に際してブロック書き込みに要した時間のレポート期間中の合計 (ミリ秒)</li>
+<li><em>Block read time (ms)</em>: この問い合わせの実行に際してブロック読み込みに要した時間のレポート期間中の合計 (ミリ秒)。この項目の取得には track_io_timing を有効にしておく必要があります。</li>
+<li><em>Block write time (ms)</em>: この問い合わせの実行に際してブロック書き込みに要した時間のレポート期間中の合計 (ミリ秒)。この項目の取得には track_io_timing を有効にしておく必要があります。</li>
+<li><em>Temp block read time (ms)</em>: この問い合わせの実行に際してテンポラリファイルのブロック読み込みに要した時間のレポート期間中の合計 (ミリ秒)。この項目の取得には track_io_timing を有効にしておく必要があります。</li>
+<li><em>Temp block write time (ms)</em>: この問い合わせの実行に際してテンポラリファイルのブロック書き込みに要した時間のレポート期間中の合計 (ミリ秒)。この項目の取得には track_io_timing を有効にしておく必要があります。</li>
 <li><em>Query</em>: 実行計画の一覧に対応する問い合わせ文 Query ID をクリックすると現れます</li>
 <li><em>Plan details</em>: 実行計画毎の実行統計。 Query ID をクリックすると現れます<ul>
   <li><em>Plan ID</em>: この実行計画のハッシュ値</li>
   <li><em>Calls</em>: この実行計画がレポート期間中に実行された回数</li>
   <li><em>Total time (s)</em>: この実行計画の実行に要した時間のレポート期間中の合計 (秒)</li>
   <li><em>Time/call (s)</em>: この実行計画の実行1回あたりに要した時間のレポート期間中の平均値 (秒)</li>
-  <li><em>Block read time (ms)</em>: この実行計画の実行に際してブロック読み込みに要した時間のレポート期間中の合計 (ミリ秒)。この項目と次の項目の取得には track_io_timing を有効にしておく必要があります。</li>
-  <li><em>Block write time (ms)</em>: この実行計画の実行に際してブロック書き込みに要した時間のレポート期間中の合計 (ミリ秒)</li>
+  <li><em>Block read time (ms)</em>: この実行計画の実行に際してブロック読み込みに要した時間のレポート期間中の合計 (ミリ秒)。この項目の取得には track_io_timing を有効にしておく必要があります。</li>
+  <li><em>Block write time (ms)</em>: この実行計画の実行に際してブロック書き込みに要した時間のレポート期間中の合計 (ミリ秒)。この項目の取得には track_io_timing を有効にしておく必要があります。</li>
+  <li><em>Temp block read time (ms)</em>: この実行計画の実行に際してテンポラリファイルのブロック読み込みに要した時間のレポート期間中の合計 (ミリ秒)。この項目の取得には track_io_timing を有効にしておく必要があります。</li>
+  <li><em>Temp block write time (ms)</em>: この実行計画の実行に際してテンポラリファイルのブロック書き込みに要した時間のレポート期間中の合計 (ミリ秒)。この項目の取得には track_io_timing を有効にしておく必要があります。</li>
   <li><em>First call</em>: この実行計画が最初に実行された時刻</li>
   <li><em>Last call</em>: この実行計画が最後に実行された時刻</li>
   <li><em>Plan</em>: 実行計画。実行計画中の値は最後に実行された際のものが表示されます。</li>
 </ul></li>
+</ul>
+</div>
+
+<div id="wait_sampling_dialog" class="help_dialog"
+  title="How to see a Wait Sampling table">
+<h4>この表は待機イベントを示します。</h4>
+<ul>
+<li>Queryid : 正規化されたクエリ文字列を特定するハッシュ</li>
+<li>Database : 当該バックエンドが接続するデータベース名</li>
+<li>Role : 当該バックエンドにログインしているユーザ名</li>
+<li>Backend type : 現在のバックエンドのタイプ。可能なタイプは、autovacuum launcher, autovacuum worker, logical replication launcher, logical replication worker, parallel worker, background writer, client backend, checkpointer, archiver, startup, walreceiver, walsender, walwriter. 加えて、拡張により登録されたバックグラウンドワーカが付加的なタイプとなることがあります。</li>
+<li>Event type : バックエンドが待つイベントのタイプ </li>
+<li>Event : バックエンドが待つイベント名</li>
+<li>Count : サンプル数</li>
+<li>Ratio : クエリ内の比率</li>
+<li>Query : クエリ文字列</li>
+<li>Row number : クエリ内の行番号（上位10件）</li>
 </ul>
 </div>
 
@@ -505,23 +601,29 @@
   title="The Autovacuum Overview Table">
 <h4>この表は自動Vacuum の活動を示します。各行は自動Vacuumが行われたことがログに出力されているテーブルひとつに対応しています。</h4>
 <ul>
- <li><em>Database</em>: このテーブルがあるデータベースの名前</li>
+<li><em>Database</em>: このテーブルがあるデータベースの名前</li>
 <li><em>Schema</em>: このテーブルが属するスキーマの名前</li>
 <li><em>Table</em>: このテーブルの名前</li>
 <li><em>Count</em>: このテーブルに対して自動Vacuumが実行された回数</li>
-<li><em>Index scanned</em>: このテーブルに対する自動Vacuumでインデックススキャンが実行された回数</li>
-<li><em>Index skipped</em>: このテーブルに対する自動Vacuumでインデックススキャンがスキップされた回数</li>
-<li><em>Avg index scans</em>: 1つのテーブルに付随してスキャンしたインデックスの平均の数</li>
+<li><em>Index scans</em>: このテーブルに付随してインデックススキャンされた回数</li>
+<li><em>Cancels</em>: レポート期間中にキャンセルされた自動Vacuumの回数</li>
+<li><em>Table scan pages</em>: 1回の自動Vacuumの実行時にテーブルをスキャンされたページ数のレポート期間を通した平均値</li>
+<li><em>Table scan pages ratio</em>: 1回の自動Vacuumの実行時にテーブルをスキャンされたページ割合のレポート期間を通した平均値</li>
+<li><em>Max duration (s)</em>: 自動Vacuumの所要時間のレポート期間中の最大値 (秒)</li>
+<li><em>Avg duration (s)</em>: 自動Vacuumの1回あたりの所要時間のレポート期間を通した平均値 (秒)</li>
 <li><em>Avg removed rows</em>: 1回の自動Vacuumで削除された行のレポート期間を通した平均値</li>
 <li><em>Avg remain rows</em>: 1回の自動Vacuumの実行後に残った行のレポート期間を通じた平均値。この値は削除されなかったデットタプルの数を含みます</li>
 <li><em>Avg remain dead</em>: 1回の自動Vacuumの実行時に削除できなったデッドタプルの数のレポート期間を通じた平均値</li>
-<li><em>Scan pages</em>: 1回の自動Vacuumの実行時にスキャンしたページのレポート期間を通した平均値</li>
-<li><em>Scan pages ratio</em>: 1回の自動Vacuumの実行時にスキャンしたページ割合のレポート期間を通した平均値</li>
-<li><em>Removed line pointer</em>: このテーブルに対する自動Vacuumでインデックススキャンが実行された場合の不要ラインポインタ数のレポート期間を通した平均値</li>
-<li><em>Dead line pointer</em>: このテーブルに対する自動Vacuumでインデックススキャンがスキップされた場合の不要ラインポインタ数のレポート期間を通した平均値</li>
-<li><em>Avg duration (s)</em>: 自動Vacuumの1回あたりの所要時間のレポート期間を通した平均値 (秒)</li>
-<li><em>Max duration (s)</em>: 自動Vacuumの所要時間のレポート期間中の最大値 (秒)</li>
-<li><em>Cancels</em>: レポート期間中にキャンセルされた自動Vacuumの回数</li>
+<li><em>Count of "Index scan needed"</em>: このテーブルに対する自動Vacuumでインデックススキャンが実行された回数</li>
+<li><em>Count of "Index scan bypassed by failsafe"</em>: このテーブルに対する自動Vacuumでインデックススキャンがバイパスされた回数</li>
+<li><em>Avg dead tuple pages</em>: このテーブルで不要ラインポインタが検出されたページ数に関して、自動VACUUM1回あたりのこのレポート期間での平均値</li>
+<li><em>Avg dead tuple pages ratio</em>: このテーブルで不要ラインポインタが検出されたページの割合に関して、自動VACUUM1回あたりのこのレポート期間での平均値</li>
+<li><em>Avg dead line pointer</em>: このテーブルに対する自動Vacuumでインデックススキャンがスキップされた場合の不要ラインポインタ数のレポート期間を通した平均値</li>
+<li><em>Max removable cutoff xid</em>: このテーブルに対する自動Vacuumで使用するトランザクションIDベースのカットオフのレポート期間における最大値</li>
+<li><em>Max new relation frozen xid</em>: このテーブルの凍結されたトランザクションIDのレポート期間における最大値</li>
+<li><em>Max new relation min mxid</em>: このテーブルの最小マルチトランザクションIDのレポート期間における最大値</li>
+<li><em>Missed dead rows</em>: このテーブルにおいてレポート期間内にクリーンアップロック失敗でスキップしたページに含まれるデッドタプルの数</li>
+<li><em>Pages left unclean</em>: このテーブルにおいてクリーンアップロック失敗でスキップしたページ数</li>
 </ul>
 <div>この機能は自動Vacuumのログが必要です。log_autovacuum_min_duration を 0 に設定することで完全な情報を得られ、ログ出力を減らすと完全度は下がっていきます。</div></div>
 
@@ -747,6 +849,30 @@
 <li><em>Setting</em>: パラメータの値。レポート期間の最初と最後で違いがあった場合はその変化を示します</li>
 <li><em>Unit</em>: パラメータの単位</li>
 <li><em>Source</em>: 現在のパラメータ値のソース(設定方法)</li>
+</ul>
+</div>
+
+<div id="cpu_information_dialog" class="help_dialog"
+  title="The CPU Information Table">
+<h4>この表はCPUのハードウェア情報です。</h4>
+<ul>
+<li><em>Date time</em>: CPU情報取得日時</li>
+<li><em>Vendor</em>: CPUのベンダー名</li>
+<li><em>Model name</em>: CPUのモデル名</li>
+<li><em>CPU MHz</em>: CPUの駆動周波数</li>
+<li><em>CPU</em>: CPU(論理プロセッサ)の数</li>
+<li><em>Threads/core</em>: 1コアあたりのスレッド数</li>
+<li><em>Cores/socket</em>: 1ソケットあたりのコア数</li>
+<li><em>Socket</em>: ソケット(物理CPU)数</li>
+</ul>
+</div>
+
+<div id="memory_information_dialog" class="help_dialog"
+  title="The Memory Information Table">
+<h4>この表はメモリのハードウェア情報です。</h4>
+<ul>
+<li><em>Date time</em>: メモリ情報取得日時</li>
+<li><em>System memory</em>: システムで利用可能なメモリサイズ</li>
 </ul>
 </div>
 

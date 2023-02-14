@@ -2,7 +2,7 @@
 /*
  * make_report
  *
- * Copyright (c) 2012-2022, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
+ * Copyright (c) 2012-2023, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
  */
 
 /* make error tag */
@@ -174,12 +174,15 @@ EOD;
 	if ($targetList['databases_statistics']
 		|| $targetList['transactions']
 		|| $targetList['database_size']
+		|| $targetList['database_rusage']
 		|| $targetList['recovery_conflicts']
+		|| $targetList['wait_sampling_by_dbid']
 		|| $targetList['write_ahead_logs']
 		|| $targetList['wal_statistics']
 		|| $targetList['backend_states_overview']
 		|| $targetList['backend_states']
-    	|| $targetList['bgwriter_statistics']) {
+    	|| $targetList['bgwriter_statistics']
+    	|| $targetList['wait_sampling_by_instid']) {
 
 		$html_string .= "<li><a href=\"#statistics\">Statistics</a><ul>\n";
 
@@ -187,7 +190,9 @@ EOD;
 		if ($targetList['databases_statistics']
 			|| $targetList['transactions']
 			|| $targetList['database_size']
-			|| $targetList['recovery_conflicts']) {
+			|| $targetList['database_rusage']
+			|| $targetList['recovery_conflicts']
+			|| $targetList['wait_sampling_by_dbid']) {
 
 			$html_string .= "<li><a href=\"#databases_statistics\">Databases Statistics</a><ul>\n";
 
@@ -195,8 +200,12 @@ EOD;
 				$html_string .= "<li><a href=\"#transactions\">Transactions</a></li>\n";
 			if ($targetList['database_size'])
 				$html_string .= "<li><a href=\"#database_size\">Database Size</a></li>\n";
+			if ($targetList['database_rusage'])
+				$html_string .= "<li><a href=\"#database_rusage\">Database Resource Usage</a></li>\n";
 			if ($targetList['recovery_conflicts'])
 				$html_string .= "<li><a href=\"#recovery_conflicts\">Recovery Conflicts</a></li>\n";
+			if ($targetList['wait_sampling_by_dbid'])
+				$html_string .= "<li><a href=\"#wait_sampling_by_dbid\">Wait Sampling per Database</a></li>\n";
 
 			$html_string .= "</ul></li>\n";
 		}
@@ -206,7 +215,8 @@ EOD;
 		    || $targetList['wal_statistics']
 			|| $targetList['backend_states_overview']
 			|| $targetList['backend_states']
-        	|| $targetList['bgwriter_statistics']) {
+        	|| $targetList['bgwriter_statistics']
+        	|| $targetList['wait_sampling_by_instid']) {
 
 			$html_string .= "<li><a href=\"#instance_activity\">Instance Statistics</a><ul>\n";
 
@@ -220,6 +230,8 @@ EOD;
 				$html_string .= "<li><a href=\"#backend_states\">Backend States</a></li>\n";
             if ($targetList['bgwriter_statistics'])
                 $html_string .= "<li><a href=\"#bgwriter_statistics\">Background Writer Statistics</a></li>\n";
+            if ($targetList['wait_sampling_by_instid'])
+                $html_string .= "<li><a href=\"#wait_sampling_by_instid\">Wait Sampling (Instance)</a></li>\n";
 
 			$html_string .= "</ul></li>\n";
 		}
@@ -281,6 +293,8 @@ EOD;
 		|| $targetList['correlation']
 		|| $targetList['functions']
 		|| $targetList['statements']
+		|| $targetList['statements_rusage']
+		|| $targetList['wait_sampling']
 		|| $targetList['long_transactions']
 		|| $targetList['lock_conflicts']) {
 
@@ -309,15 +323,21 @@ EOD;
 		/* Query Activity */
 		if ($targetList['functions']
 			|| $targetList['statements']
-			|| $targetList['plans']) {
+			|| $targetList['statements_rusage']
+			|| $targetList['plans']
+			|| $targetList['wait_sampling']) {
 			$html_string .= "<li><a href=\"#query_activity\">Query Activity</a><ul>\n";
 
 			if ($targetList['functions'])
 				$html_string .= "<li><a href=\"#qa_functions\">Functions</a></li>\n";
 			if ($targetList['statements'])
 				$html_string .= "<li><a href=\"#qa_statements\">Statements</a></li>\n";
+			if ($targetList['statements_rusage'])
+				$html_string .= "<li><a href=\"#qa_statements_rusage\">Statements Resource Usage</a></li>\n";
 			if ($targetList['plans'])
 				$html_string .= "<li><a href=\"#qa_plans\">Plans</a></li>\n";
+			if ($targetList['wait_sampling'])
+				$html_string .= "<li><a href=\"#qa_wait_sampling\">Wait Sampling</a></li>\n";
 
 			$html_string .= "</ul></li>\n";
 		}
@@ -409,6 +429,8 @@ EOD;
 	if ($targetList['tables']
 		|| $targetList['indexes']
 		|| $targetList['runtime_params']
+		|| $targetList['cpu_information']
+		|| $targetList['memory_information']
 		|| $targetList['profiles']) {
 
 		$html_string .= "<li><a href=\"#information\">Misc</a><ul>\n";
@@ -437,6 +459,17 @@ EOD;
 			$html_string .= "</ul></li>\n";
 		}
 
+		/* Hardware Information */
+		if ($targetList['cpu_information']
+		   || $targetList['memory_information']) {
+			$html_string .= "<li><a href=\"#hardware_information\">Hardware Information</a><ul>\n";
+		   if ($targetList['cpu_information'])
+				$html_string .= "<li><a href=\"#cpu_information\">CPU Information</a></li>\n";
+		   if ($targetList['memory_information'])
+				$html_string .= "<li><a href=\"#memory_inforamtion\">Memory Information</a></li>\n";
+			$html_string .= "</ul></li>\n";
+        }
+		
 		/* Profiles */
 		if ($targetList['profiles'])
 			$html_string .= "<li><a href=\"#profiles\">Profiles</a></li>\n";
@@ -496,7 +529,9 @@ function makePlainHeaderMenu()
   <li><a>Databases Statistics</a><ul>
     <li><a>Transactions</a></li>
     <li><a>Database Size</a></li>
+    <li><a>Database Resource Usage</a></li>
     <li><a>Recovery Conflicts</a></li>
+    <li><a>Wait Sampling per Database</a></li>
   </ul></li>
   <li><a>Instance Statistics</a><ul>
     <li><a>Write Ahead Logs</a></li>
@@ -504,6 +539,7 @@ function makePlainHeaderMenu()
     <li><a>Backend States Overview</a></li>
     <li><a>Backend States</a></li>
     <li><a>Background Writer Statistics</a></li>
+    <li><a>Wait Sampling (Instance)</a></li>
   </ul></li>
 </ul></li>
 <li><a>OS</a><ul>
@@ -528,7 +564,9 @@ function makePlainHeaderMenu()
   <li><a>Query Activity</a><ul>
     <li><a>Functions</a></li>
     <li><a>Statements</a></li>
+    <li><a>Statements Resource Usage</a></li>
     <li><a>Plans</a></li>
+    <li><a>Wait Sampling</a></li>
   </ul></li>
   <li><a>Long Transactions</a></li>
   <li><a>Lock Conflicts</a></li>
@@ -558,6 +596,10 @@ function makePlainHeaderMenu()
   </ul></li>
   <li><a>Settings</a><ul>
     <li><a>Run-time Parameters</a></li>
+  </ul></li>
+  <li><a>Hardware Information</a><ul>
+    <li><a>CPU Information</a></li>
+    <li><a>Memory Information</a></li>
   </ul></li>
   <li><a>Profiles</a></li>
 </ul></li>
@@ -828,6 +870,7 @@ function makeDatabaseSystemReport($conn, $target, $snapids, $errorMsg)
 	if (!$target['databases_statistics']
 		&& !$target['transactions']
 		&& !$target['database_size']
+		&& !$target['database_rusage']
 		&& !$target['recovery_conflicts']
 		&& !$target['write_ahead_logs']
 		&& !$target['wal_statistics']
@@ -848,7 +891,9 @@ EOD;
 	if ($target['databases_statistics']
 		|| $target['transactions']
 		|| $target['database_size']
-		|| $target['recovery_conflicts']) {
+		|| $target['database_rusage']
+		|| $target['recovery_conflicts']
+		|| $target['wait_sampling_by_dbid']) {
 
 		$htmlString .=
 <<< EOD
@@ -939,6 +984,30 @@ EOD;
 
 		}
 
+		if ($target['database_rusage']) {
+			$htmlString .=
+<<< EOD
+<div id="database_rusage" class="jump_margin"></div>
+<h3>Database Resource Usage</h3>
+<div align="right" class="jquery_ui_button_info_h3">
+  <div><button class="help_button" dialog="#database_rusage_dialog"></button></div>
+</div>
+EOD;
+
+			$result = pg_query_params($conn, $query_string['database_rusage'], $snapids);
+			if (!$result) {
+				return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
+			}
+
+			if (pg_num_rows($result) == 0) {
+				$htmlString .= makeErrorTag($errorMsg['no_result']);
+			} else {
+				$htmlString .= makeDBRUsageTablePagerHTML($result, "databases_rusage", 5, true);
+			}
+			pg_free_result($result);
+
+		}
+
 		if ($target['recovery_conflicts']) {
 			$htmlString .=
 <<< EOD
@@ -961,6 +1030,28 @@ EOD;
 			}
 			pg_free_result($result);
 		}
+
+		if ($target['wait_sampling_by_dbid']) {
+			$htmlString .=
+<<< EOD
+<div id="wait_sampling_by_dbid" class="jump_margin"></div>
+<h3>Wait Sampling per Database</h3>
+<div align="right" class="jquery_ui_button_info_h3">
+  <div><button class="help_button" dialog="#wait_sampling_by_dbid_dialog"></button></div>
+</div>
+
+EOD;
+			$result = pg_query_params($conn, $query_string['wait_sampling_by_dbid'], $snapids);
+			if (!$result) {
+				return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
+			}
+			if (pg_num_rows($result) == 0) {
+				$htmlString .= makeErrorTag($errorMsg['no_result']);
+			} else {
+				$htmlString .= makeTablePagerHTML($result, "wait_sampling_by_dbid", 10, true);
+			}
+			pg_free_result($result);
+		}
 	}
 
 	/* Instance Statistics */
@@ -968,7 +1059,8 @@ EOD;
 		|| $target['wal_statistics']
 		|| $target['backend_states_overview']
 		|| $target['backend_states']
-    	|| $target['bgwriter_statistics']) {
+    	|| $target['bgwriter_statistics']
+    	|| $target['wait_sampling_by_instid']) {
 		$htmlString .=
 <<< EOD
 <div id="instance_activity" class="jump_margin"></div>
@@ -1112,6 +1204,29 @@ EOD;
                 $htmlString .= makeErrorTag($errorMsg['no_result']);
             } else {
                 $htmlString .= makebgwriterStatisticsGraphHTML($result);
+            }
+            pg_free_result($result);
+        }
+
+        if ($target['wait_sampling_by_instid']) {
+            $htmlString .=
+<<< EOD
+<div id="wait_sampling_by_instid" class="jump_margin"></div>
+<h3>Wait Sampling (Instance)</h3>
+<div align="right" class="jquery_ui_button_info_h3">
+  <div><button class="help_button" dialog="#wait_sampling_by_instid_dialog"></button></div>
+</div>
+
+
+EOD;
+            $result = pg_query_params($conn, $query_string['wait_sampling_by_instid'], $snapids);
+            if (!$result) {
+                return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
+            }
+            if (pg_num_rows($result) == 0) {
+                $htmlString .= makeErrorTag($errorMsg['no_result']);
+            } else {
+                $htmlString .= makeTablePagerHTML($result, "wait_sampling_by_instid", 10, true);
             }
             pg_free_result($result);
         }
@@ -1434,6 +1549,7 @@ function makeSQLReport($conn, $target, $snapids, $errorMsg)
 		&& !$target['correlation']
 		&& !$target['functions']
 		&& !$target['statements']
+		&& !$target['statements_rusage']
 		&& !$target['plans']
 		&& !$target['long_transactions']
 		&& !$target['lock_conflicts'])
@@ -1560,7 +1676,9 @@ EOD;
 	/* Query Activity */
 	if ($target['functions']
 		|| $target['statements']
-		|| $target['plans']) {
+		|| $target['statements_rusage']
+		|| $target['plans']
+		|| $target['wait_sampling']) {
 
 		$htmlString .=
 <<< EOD
@@ -1620,6 +1738,32 @@ EOD;
 			pg_free_result($result);
 		}
 
+		if ($target['statements_rusage']) {
+			$htmlString .=
+<<< EOD
+<div id="qa_statements_rusage" class="jump_margin"></div>
+<h3>Statements Resource Usage</h3>
+<div align="right" class="jquery_ui_button_info_h3">
+  <div><button class="help_button" dialog="#statements_rusage_dialog"></button></div>
+</div>
+
+EOD;
+
+			$result = pg_query_params($conn, $query_string['statements_rusage'], $snapids);
+			if (!$result) {
+				return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
+			}
+
+			if (pg_num_rows($result) == 0) {
+				$htmlString .= makeErrorTag($errorMsg['no_result']);
+			} else {
+				$qarray = array_fill(0, pg_num_fields($result), false);
+				$qarray[10] = true;
+				$htmlString .= makeStatementsRUsageTablePagerHTML($result, "statements_rusage", 10, true, $qarray);
+			}
+			pg_free_result($result);
+		}
+
 		if ($target['plans']) {
 
 			$htmlString .=
@@ -1634,6 +1778,31 @@ EOD;
 
 			$htmlString .= makePlansString($conn, $query_string, $snapids, $errorMsg);
 		}
+
+        if ($target['wait_sampling']) {
+            $htmlString .=
+<<< EOD
+<div id="qa_wait_sampling" class="jump_margin"></div>
+<h3>Wait Sampling</h3>
+<div align="right" class="jquery_ui_button_info_h3">
+  <div><button class="help_button" dialog="#wait_sampling_dialog"></button></div>
+</div>
+
+
+EOD;
+            $result = pg_query_params($conn, $query_string['wait_sampling'], $snapids);
+            if (!$result) {
+                return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
+            }
+            if (pg_num_rows($result) == 0) {
+                $htmlString .= makeErrorTag($errorMsg['no_result']);
+            } else {
+				$qarray = array_fill(0, pg_num_fields($result), false);
+				$qarray[8] = true;
+                $htmlString .= makeTablePagerHTML_impl($result, "wait_sampling", 10, true, $qarray);
+            }
+            pg_free_result($result);
+        }
 	}
 
 	/* Long Transactions */
@@ -2083,6 +2252,8 @@ function makeInformationReport($conn, $target, $ids, $errorMsg)
 	if (!$target['tables']
 		&& !$target['indexes']
 		&& !$target['runtime_params']
+		&& !$target['cpu_information']
+		&& !$target['memory_information']
 		&& !$target['profiles'])
 		return "";
 
@@ -2178,6 +2349,65 @@ EOD;
 		pg_free_result($result);
 	}
 
+	/* Hardware Information */
+	if ($target['cpu_information']
+	   || $target['memory_information']) {
+
+		$htmlString .=
+<<< EOD
+<div id="hardware_information" class="jump_margin"></div>
+<h2>Hardware Information</h2>
+
+EOD;
+
+		if ($target['cpu_information']) {
+			$htmlString .=
+<<< EOD
+<div id="cpu_information" class="jump_margin"></div>
+<h3>CPU Information</h3>
+<div align="right" class="jquery_ui_button_info_h3">
+  <div><button class="help_button" dialog="#cpu_information_dialog"></button></div>
+</div>
+
+EOD;
+		    $result = pg_query_params($conn, $query_string['cpu_information'], $ids);
+			if (!$result) {
+			    return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
+		    }
+	
+			if (pg_num_rows($result) == 0) {
+			    $htmlString .= makeErrorTag($errorMsg['no_result']);
+		    } else {
+			    $htmlString .= makeTableHTML($result, "cpu_information");
+		    }
+		    pg_free_result($result);
+        }
+
+		if ($target['memory_information']) {
+			$htmlString .=
+<<< EOD
+<div id="memory_information" class="jump_margin"></div>
+<h3>Memory Information</h3>
+<div align="right" class="jquery_ui_button_info_h3">
+  <div><button class="help_button" dialog="#memory_information_dialog"></button></div>
+</div>
+
+EOD;
+		    $result = pg_query_params($conn, $query_string['memory_information'], $ids);
+			if (!$result) {
+			    return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
+		    }
+	
+			if (pg_num_rows($result) == 0) {
+			    $htmlString .= makeErrorTag($errorMsg['no_result']);
+		    } else {
+			    $htmlString .= makeTableHTML($result, "memory_information");
+		    }
+		    pg_free_result($result);
+        }
+
+	}
+	
 	/* Profiles */
 	if ($target['profiles']) {
 		$htmlString .=
@@ -2299,6 +2529,94 @@ function makeTablePagerHTML_impl($result, $id, $default, $pagerOn, $qarray)
 
 	$htmlString .= "\n</tr></thead>\n<tbody>\n";
 
+
+	for($i = 0 ; $i < pg_num_rows($result) ; $i++ ) {
+		$htmlString .= "<tr>";
+
+		for($j = 0 ; $j < pg_num_fields($result) ; $j++ ) {
+			$htmlString .= "<td class=\"".getDataTypeClass(pg_field_type($result, $j))."\">";
+			if ($qarray[$j] == true) {
+				$htmlString .= makeFullstringDialog($id, pg_fetch_result($result, $i, $j), true);
+			} else {
+				$htmlString .= htmlspecialchars(pg_fetch_result($result, $i, $j), ENT_QUOTES);
+			}
+			$htmlString .= "</td>";
+		}
+
+		$htmlString .= "</tr>\n";
+	}
+
+	$htmlString .= "</tbody>\n</table>\n";
+
+	if ($pagerOn)
+		$htmlString .= makePagerHTML($id, $default);
+
+	return $htmlString."</div>\n";
+
+}
+
+// Database Resource Usage table pager HTML
+function makeDBRUsageTablePagerHTML($result, $id, $default, $pagerOn)
+{
+	$htmlString = "<div><table id=\"".$id."_table\" class=\"tablesorter\">\n<thead><tr>\n";
+
+	// Be careful if you add more the number of display items
+	$htmlString .= "<th rowspan=\"2\">".htmlspecialchars(pg_field_name($result, 0), ENT_QUOTES)."</th>";
+	$htmlString .= "<th colspan=\"4\" align=\"center\">Plan</th>";
+    $htmlString .= "<th colspan=\"4\" align=\"center\">Execute</th>";
+    $htmlString .= "\n</tr><tr>\n";
+    $htmlString .= "<th>reads (Bytes)</th>";
+    $htmlString .= "<th>writes (Bytes)</th>";
+    $htmlString .= "<th>user time (ms)</th>";
+    $htmlString .= "<th>system time (ms)</th>";
+    $htmlString .= "<th>reads (Bytes)</th>";
+    $htmlString .= "<th>writes (Bytes)</th>";
+    $htmlString .= "<th>user time (ms)</th>";
+    $htmlString .= "<th>system time (ms)</th>";
+	$htmlString .= "\n</tr></thead>\n<tbody>\n";
+
+	for($i = 0 ; $i < pg_num_rows($result) ; $i++ ) {
+		$htmlString .= "<tr>";
+
+		for($j = 0 ; $j < pg_num_fields($result) ; $j++ ) {
+			$htmlString .= "<td class=\"".getDataTypeClass(pg_field_type($result, $j))."\">";
+			$htmlString .= htmlspecialchars(pg_fetch_result($result, $i, $j), ENT_QUOTES);
+			$htmlString .= "</td>";
+		}
+
+		$htmlString .= "</tr>\n";
+	}
+
+	$htmlString .= "</tbody>\n</table>\n";
+
+	if ($pagerOn)
+		$htmlString .= makePagerHTML($id, $default);
+
+	return $htmlString."</div>\n";
+
+}
+
+// Statements Resource Usage table pager HTML
+function makeStatementsRUsageTablePagerHTML($result, $id, $default, $pagerOn, $qarray)
+{
+	$htmlString = "<div><table id=\"".$id."_table\" class=\"tablesorter\">\n<thead><tr>\n";
+
+	// Be careful if you add more the number of display items
+	$htmlString .= "<th rowspan=\"2\">".htmlspecialchars(pg_field_name($result, 0), ENT_QUOTES)."</th>";
+	$htmlString .= "<th rowspan=\"2\">".htmlspecialchars(pg_field_name($result, 1), ENT_QUOTES)."</th>";
+	$htmlString .= "<th colspan=\"4\" align=\"center\">Plan</th>";
+    $htmlString .= "<th colspan=\"4\" align=\"center\">Execute</th>";
+	$htmlString .= "<th rowspan=\"2\">".htmlspecialchars(pg_field_name($result, 10), ENT_QUOTES)."</th>";
+    $htmlString .= "\n</tr><tr>\n";
+    $htmlString .= "<th>reads (Bytes)</th>";
+    $htmlString .= "<th>writes (Bytes)</th>";
+    $htmlString .= "<th>user time (ms)</th>";
+    $htmlString .= "<th>system time (ms)</th>";
+    $htmlString .= "<th>reads (Bytes)</th>";
+    $htmlString .= "<th>writes (Bytes)</th>";
+    $htmlString .= "<th>user time (ms)</th>";
+    $htmlString .= "<th>system time (ms)</th>";
+	$htmlString .= "\n</tr></thead>\n<tbody>\n";
 
 	for($i = 0 ; $i < pg_num_rows($result) ; $i++ ) {
 		$htmlString .= "<tr>";

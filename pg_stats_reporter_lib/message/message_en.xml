@@ -1,5 +1,5 @@
 <document>
-<!-- Copyright (c) 2012-2022, NIPPON TELEGRAPH AND TELEPHONE CORPORATION -->
+<!-- Copyright (c) 2012-2023, NIPPON TELEGRAPH AND TELEPHONE CORPORATION -->
 
 <help>
 <div id="overview_dialog" class="help_dialog"
@@ -32,6 +32,11 @@
 <li><em>Gets/s</em>: Average number of blocks per second requested during this report period. </li>
 <li><em>Reads/s</em>: Average number of blocks per second read from disks during this report period.</li>
 <li><em>Rows/s</em>: Average number of rows per second fetched from tables and indexes during thie report period.</li>
+<li><em>Temporary files</em>: Number of temporary files created by queries in this database.</li>
+<li><em>Temporary bytes (MiB)</em>: Total amount of data written to temporary files by queries in this database.</li>
+<li><em>Deadlocks</em>: Number of deadlocks detected in this database.</li>
+<li><em>Read time (ms)</em>: Time spent reading data file blocks by backends in this database, in milliseconds.</li>
+<li><em>Write time (ms)</em>: Time spent writing data file blocks by backends in this database, in milliseconds.</li>
 </ul>
 * Small values may be shown as zero by round off.
 </div>
@@ -65,6 +70,27 @@
 </ul>
 </div>
 
+<div id="database_rusage_dialog" class="help_dialog"
+	 title="The Database Resource Usage Table">
+<h4>This table provides summarized information about resource consumption during query-planning and execution in per-database basis.</h4>
+<ul>
+<li><em>Database</em>: Database name</li>
+<li><em>Plan</em>: Planning-time resource usage<ul>
+<li><em>reads (Bytes)</em>: Amount of data read from disk during query planning. (Bytes)</li>
+<li><em>writes (Bytes)</em>: Amount of data written to disk during query planning. (Bytes)</li>
+<li><em>user time (ms)</em>: User CPU time spent on query planning. (ms)</li>
+<li><em>system time (ms)</em>: System CPU time spent on query planning. (ms)</li>
+</ul></li>
+<li><em>Execute</em>: Execution-time resource usage<ul>
+<li><em>reads (Bytes)</em>: Amount of data read from disk during query execution. (Bytes)</li>
+<li><em>writes (Bytes)</em>: Amount of data written to disk during query execution. (Bytes)</li>
+<li><em>user time (ms)</em>: User CPU time spent on query exeuction. (ms)</li>
+<li><em>system time (ms)</em>: System CPU time spent on query execution. (ms)</li>
+</ul></li>
+</ul>
+
+</div>
+
 <div id="recovery_conflicts_dialog" class="help_dialog"
   title="The Recovery Conflicts Table">
 <h4>This table shows the number of canceled queries for every database due to conflict with some activities on master during this report period. This table have values only when the instance is a standby server.</h4>
@@ -75,6 +101,19 @@
 <li><em>On snapshots</em>: Number of queries that have been canceled due to old snapshots.</li>
 <li><em>On bufferpins</em>: Number of queries that have been canceled due to pinned buffers.</li>
 <li><em>On deadlocks</em>: Number of queries that have been canceled due to deadlocks.</li>
+</ul>
+</div>
+
+<div id="wait_sampling_by_dbid_dialog" class="help_dialog"
+  title="How to see a Wait Sampling per Database table">
+<h4>How to see a Wait Sampling per Database table.</h4>
+<ul>
+<li>Database : Name of the database this backend is connected to.</li>
+<li>Event type : The type of event for which the backend is waiting.</li>
+<li>Event : Wait event name if backend is currently waiting.</li>
+<li>Count : The number of samples.</li>
+<li>Ratio : Ratio within each database.</li>
+<li>Row number : Row number within each database.(Top 10)</li>
 </ul>
 </div>
 
@@ -209,6 +248,18 @@ the another shows the amount divided by the snapshot interval.</h4>
 <li><em>Allocated buffers(L)</em>: Average number of buffers allocated per second.</li>
 <li><em>bgwriter scans quitted earlier(R)</em>: Average number of times per second the background writer stopped a cleaning scan because it had written too many buffers.</li>
 <li><em>fsyncs executed on backends(R)</em>: Average number of times per second a backend had to execute its own fsync call because the checkpointer could not keep room for the fsync request.</li>
+</ul>
+</div>
+
+<div id="wait_sampling_by_instid_dialog" class="help_dialog"
+  title="How to see a Wait Sampling (Instance) table">
+<h4>How to see a Wait Sampling (Instance) table.</h4>
+<ul>
+<li>Event type : The type of event for which the backend is waiting. </li>
+<li>Event : Wait event name if backend is currently waiting.</li>
+<li>Count : The number of samples.</li>
+<li>Ratio : Ratio within each instance.</li>
+<li>Row number : Row number within each instance.(Top 10)</li>
 </ul>
 </div>
 
@@ -452,6 +503,28 @@ pg_stat_statsments to be installed.</h4>
 </ul>
 </div>
 
+<div id="statements_rusage_dialog" class="help_dialog"
+	 title="The Statements Resource Usage Table">
+<h4>This table provides a query-by-query summary of resource information at the time of query execution planning and at the time of query execution. of resource information at the time the query is planned and at the time the query is executed.</h4>
+<ul>
+<li><em>Database</em>: Database name</li>
+<li><em>User</em>: User name</li>
+<li><em>Plan</em>: Planning-time resource usage<ul>
+<li><em>reads (Bytes)</em>: Amount of data read from disk during query planning. (Bytes)</li>
+<li><em>writes (Bytes)</em>: Amount of data written to disk during query planning. (Bytes)</li>
+<li><em>user time (ms)</em>: User CPU time spent on query planning. (ms)</li>
+<li><em>system time (ms)</em>: System CPU time spent on query planning. (ms)</li>
+</ul></li>
+<li><em>Execute</em>: Execution-time resource usage<ul>
+<li><em>reads (Bytes)</em>: Amount of data read from disk during query execution. (Bytes)</li>
+<li><em>writes (Bytes)</em>: Amount of data written to disk during query execution. (Bytes)</li>
+<li><em>user time (ms)</em>: User CPU time spent on query exeuction. (ms)</li>
+<li><em>system time (ms)</em>: System CPU time spent on query execution. (ms)</li>
+</ul></li>
+<li><em>Query</em>: Query string.</li>
+</ul>
+</div>
+
 <div id="plans_dialog" class="help_dialog"
   title="The Plans Table">
 <h4>Each row in this table shows execution statistics itemized by execution plan. Clicking Query ID opens the itemized execution plan statistics. This feature requires pg_stat_statements and pg_store_plans to be installed. </h4>
@@ -463,20 +536,41 @@ pg_stat_statsments to be installed.</h4>
 <li><em>Calls</em>: Number of times this statement executed</li>
 <li><em>Total time (s)</em>: Total time spent in this statment during this report period in seconds</li>
 <li><em>Time/call (s)</em>: Average time per execution of this query throughout thie report period in seconds</li>
-<li><em>Block read time (ms)</em>: Total time this query spent to read blocks during this report time in milliseconds. This and the next field requires track_io_timing to be enabled.</li>
-<li><em>Block write time (ms)</em>: Total time this query spent to write blocks during this report time in milliseconds.</li>
+<li><em>Block read time (ms)</em>: Total time this query spent reading blocks throughout this report period in milliseconds. This requires track_io_timing to be enabled.</li>
+<li><em>Block write time (ms)</em>: Total time this query spent to write blocks during this report time in milliseconds. This requires track_io_timing to be enabled.</li>
+<li><em>Temp block read time (ms)</em>: Total time this query spent to read temporary file blocks during this report time in milliseconds. This requires track_io_timing to be enabled.</li>
+<li><em>Temp block write time (ms)</em>: Total time this query spent to write temporary file blocks during this report time in milliseconds. This requires track_io_timing to be enabled.</li>
 <li><em>Query</em>: Query string corresponding the plans listed. Shown by clicking Query ID</li>
 <li><em>Plan details</em>: Execution summaries of individual plans. Shown by clicking Query ID<ul>
   <li><em>Plan ID</em>: Hash code which identifies plans. </li>
   <li><em>Calls</em>: Number of times this plan exected during this report period</li>
   <li><em>Total time (s)</em>: Total time spent in single execution throughout this report period in seconds</li>
   <li><em>Time/call (s)</em>: Average time per execution of this plan throughout this report period in seconds</li>
-  <li><em>Block read time (ms)</em>: Total time this plan spent to read blocks during this report period in milliseconds. This field and the next field requires track_io_timing to be enabled.</li>
-  <li><em>Block write time (ms)</em>: Total time this plan spent to write blocks during this report period in millisecond</li>
+  <li><em>Block read time (ms)</em>: Total time this plan spent to read blocks during this report period in milliseconds. This requires track_io_timing to be enabled.</li>
+  <li><em>Block write time (ms)</em>: Total time this plan spent to write blocks during this report period in millisecond. This requires track_io_timing to be enabled.</li>
+  <li><em>Temp block read time (ms)</em>: Total time this plan spent to read temporary file blocks during this report period in milliseconds. This requires track_io_timing to be enabled.</li>
+  <li><em>Temp block write time (ms)</em>: Total time this plan spent to write temporary file blocks during this report period in milliseconds. This requires track_io_timing to be enabled.</li>
   <li><em>First call</em>: Time when this plan first executed</li>
   <li><em>Last call</em>: Time when this plan last executed</li>
   <li><em>Plan</em>: Plan string. This string holds numbers in last execution, which are omitted in calculating plan IDs.</li>
 </ul></li>
+</ul>
+</div>
+
+<div id="wait_sampling_dialog" class="help_dialog"
+  title="How to see a Wait Sampling table">
+<h4>How to see a Wait Sampling table.</h4>
+<ul>
+<li>Queryid : Hash code to identify identical normalized queries.</li>
+<li>Database : Name of the database this backend is connected to.</li>
+<li>Role : Name of the user logged into this backend.</li>
+<li>Backend type : Type of current backend. Possible types are autovacuum launcher, autovacuum worker, logical replication launcher, logical replication worker, parallel worker, background writer, client backend, checkpointer, archiver, startup, walreceiver, walsender and walwriter. In addition, background workers registered by extensions may have additional types.</li>
+<li>Event type : The type of event for which the backend is waiting. </li>
+<li>Event : Wait event name if backend is currently waiting.</li>
+<li>Count : The number of samples.</li>
+<li>Ratio : Ratio within each query.</li>
+<li>Query : Query string.</li>
+<li>Row number : Row number within each query.(Top 10)</li>
 </ul>
 </div>
 
@@ -541,23 +635,27 @@ period.</h4>
 <li><em>Schema</em>: Name of the schema this table belongs to</li>
 <li><em>Table</em>: Name of this table</li>
 <li><em>Count</em>: Number of autovacuum executed on this table</li>
-<li><em>Index scanned</em>: Number of times index scans by autovacuum on this table</li>
-<li><em>Index skipped</em>: Number of times index scans were skipped by autovacuum on this table</li>
-<li><em>Avg index scans</em>: Average number of indexes involved in  each vacuum on table</li>
+<li><em>Index Scans</em>: Number of index scans involved in each vacuum on table</li>
+<li><em>Cancels</em>: Number of cancelled autovacuum trial during this report period</li>
+<li><em>Table scan pages</em>: Average number of table pages scanned throughout this report period</li>
+<li><em>Table scan pages ratio</em>: Average ratio of table pages scanned throughout this report period</li>
+<li><em>Max duration (s)</em>: Maximum duration among all autovacuums executed during this report period, in secods</li>
+<li><em>Avg duration (s)</em>: Average time each autovacuum during this report period took, in seconds</li>
 <li><em>Avg removed rows</em>: Avarage number of rows that each autovacuum removed throughout this report period</li>
 <li><em>Avg remain rows</em>: Average number of rows that each autovacuum had not removed throughout this report period. This includes "Avg remain dead".</li>
 <li><em>Avg remain dead</em>: Average number of dead rows that each autovacuum cannot be removed</li>
-<li><em>Scan pages</em>: Average number of pages scanned throughout this report period</li>
-<li><em>Scan pages ratio</em>: Average ratio of pages scanned throughout this report period</li>
-<li><em>Removed line pointer</em>: Average number of dead line pointer throughout this report period when index scans by autovacuum on this table</li>
+<li><em>Count of "Index scan needed"</em>: Number of times index scans by autovacuum on this table</li>
+<li><em>Count of "Index scan bypassed by failsafe"</em>: Number of times index scans bypassed by autovacuum on this table</li>
+<li><em>Avg dead tuple pages</em>: Average number of pages in which an autovacuum run found dead line pointers in this table throughout this report repiod.</li>
+<li><em>Avg dead tuple pages ratio</em>: Average ratio of pages in which an autovacuum run found dead line pointers in this table throughout this report repiod.</li>
 <li><em>Dead line pointer</em>: Average number of dead line pointer throughout this report period when index scans were skipped by autovacuum on this table</li>
-<li><em>Avg duration (s)</em>: Average time each autovacuum during this report period took, in seconds</li>
-<li><em>Max duration (s)</em>: Maximum duration among all autovacuums executed during this report period, in secods</li>
-<li><em>Cancels</em>: Number of cancelled autovacuum trial during this report period</li>
-o</ul>
-<div>This feature reuiqres autovacuum logs so set
-log_autovacuum_min_duration to 0 to make this feature fully
-available. Less logging reduces the completeness this table.</div>
+<li><em>Max removable cutoff xid</em>: Maximum removable cutoff xid used by this autovacuum run in this table throughout this report repiod.</li>
+<li><em>Max new relation frozen xid</em>: Maximum newly frozen xid in this table throughout this report period.</li>
+<li><em>Max new relation min mxid</em>: Maximum of minimum mxids of this table throughout this report period.</li>
+<li><em>Missed dead rows</em>: Number of dead tuples in bypassed pages in this table caused by clean up lock failure throughout this report period.</li>
+<li><em>Pages left unclean</em>: Number of uncleaned pages in this table caused by clean up lock failure throughout this report period.</li>
+</ul>
+<div>This feature reuiqres log_autovacuum_min_duration set to 0,or this table may be incomplete.</div>
 </div>
 
 <div id="cancellations_dialog" class="help_dialog"
@@ -790,6 +888,30 @@ session.</h4>
 <li><em>Setting</em>: Current value of the parameter if it is not changed though this report period. Shows the transition elsewise.</li>
 <li><em>Unit</em>: Implicit unit of this parameter</li>
 <li><em>Source</em>: Source of the value at the end of this report period</li>
+</ul>
+</div>
+
+<div id="cpu_information_dialog" class="help_dialog"
+  title="The CPU Information Table">
+<h4>This table is CPU information.</h4>
+<ul>
+<li><em>Date time</em>: CPU information acquisition date and time.</li>
+<li><em>Vendor</em>: Vendor name of CPU.</li>
+<li><em>Model name</em>: CPU model name.</li>
+<li><em>CPU MHz</em>: CPU drive frequency.</li>
+<li><em>CPU</em>: Number of CPUs (logical processors).</li>
+<li><em>Threads/core</em>: Number of threads per core.</li>
+<li><em>Cores/socket</em>: Number of cores per socket.</li>
+<li><em>Socket</em>: Number of sockets (physical CPUs)</li>
+</ul>
+</div>
+
+<div id="memory_information_dialog" class="help_dialog"
+  title="The Memory Information Table">
+<h4>This table is memory information.</h4>
+<ul>
+<li><em>Date time</em>: Memory information acquisition date and time.</li>
+<li><em>System memory</em>: Size of memory available to the system.</li>
 </ul>
 </div>
 

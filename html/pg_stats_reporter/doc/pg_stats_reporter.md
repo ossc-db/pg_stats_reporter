@@ -14,22 +14,22 @@
 6.  [Configuration File](#Configuration-File)
 7.  [Cautions and Restrictions](#Cautions-and-Restrictions)
 8.  [FAQ](#FAQ)
-9.  [Changes from pg_stats_reporter13](#Changes-from-pg_stats_reporter13)
+9.  [Changes from pg_stats_reporter14](#Changes-from-pg_stats_reporter14)
 10. [See also](#See-also)
 11. [Acknowledgments](#Acknowledgments)
 
 </div>
 
-# pg_stats_reporter 14
+# pg_stats_reporter 15
 
 ## What is pg_stats_reporter
 
 pg_stats_reporter is a graphical report generator for
 [pg_statsinfo](https://github.com/ossc-db/pg_statsinfo/).
 It offers you various statistical information collected by pg_statsinfo
-in a graphical and interactive representation. pg_stats_reporter 14 is
-compatible only with pg_statsinfo 14. You can see an example report
-[here](http://pgstatsinfo.sourceforge.net/documents/reporter14/doc/files/report_sample.html).
+in a graphical and interactive representation. pg_stats_reporter 15 is
+compatible only with pg_statsinfo 15. You can see an example report
+[here](http://pgstatsinfo.sourceforge.net/documents/reporter15/doc/files/report_sample.html).
 
 pg_stats_reporter 14 and later are available on GitHub. pg_stats_reporter 13 and earlier can be found at [SourceForge](http://pgstatsinfo.sourceforge.net/index.html).
 
@@ -52,18 +52,18 @@ INSTALL.en file in the top of source tree.
 pg_stats_reporter is tested on the following environment.
 
   - pg_statsinfo
-    version 14
+    version 15
 
   - PHP  
-    version 5.4.16 (bundled with RHEL7), 7.2.24 (bundoled with RHEL8)
+    7.2.24 (bundoled with RHEL8)
 
   - OS  
-    RHEL 7.9, 8.5
+    RHEL 8.6
 
   - Web browser  
-    Firefox : 91.4.0esr, 96.0
+    Firefox : 102.4.0esr, 109.0
     
-    Microsoft Edge : 97.0.1072.55
+    Microsoft Edge : 109.0.1518.55
 
   - HTTP Server  
     Apache HTTP Server : 2.4
@@ -71,14 +71,14 @@ pg_stats_reporter is tested on the following environment.
   - libraries (These packages are included in the package of
     pg_stats_reporter)
     
-      - jQuery : 3.6.0
-      - jQuery UI : 1.13.0
+      - jQuery : 3.6.3
+      - jQuery UI : 1.13.2
       - jquery-ui-timepicker-addon : 1.6.3
-      - dygraphs JavaScript Visualization Library : 2.1.0
+      - dygraphs JavaScript Visualization Library : 2.1.2
       - jqPlot : 1.0.9 d96a669
       - tablesorter : 2.31.3
       - Superfish : 1.7.10
-      - Smarty : 3.1.43
+      - Smarty : 4.3.0
 
 ### Installing pg_stats_reporter
 
@@ -93,15 +93,10 @@ packages can be installed using yum.
 The required packages are are installed by the steps like following
 using yum.
 
-##### RHEL7
-
-    $ su
-    # yum install pg_stats_reporter-14.0-1.el7.noarch.rpm php-intl
-
 ##### RHEL8
 
     $ su
-    # dnf install pg_stats_reporter-14.0-1.el8.noarch.rpm php-intl
+    # dnf install pg_stats_reporter-15.0-1.el8.noarch.rpm php-intl
 
 #### Installing for offline reports only
 
@@ -115,17 +110,11 @@ via the subscription management services provided at Red Hat customer
 portal. It is required to activate automatic language selection (only
 instant help messages between ja/en) of an online graphical report.
 
-##### RHEL7
-
-    $ su
-    # yum install php-pgsql php-intl php-cli
-    # rpm -ivh --nodeps pg_stats_reporter-14.0.el7.noarch.rpm
-
 ##### RHEL8
 
     $ su
     # dnf install php-pgsql php-intl php-cli php-xml
-    # rpm -ivh --nodeps pg_stats_reporter-14.0.el8.noarch.rpm
+    # rpm -ivh --nodeps pg_stats_reporter-15.0.el8.noarch.rpm
 
 ### Initial Setup
 
@@ -255,7 +244,7 @@ these fields and click the "Search" button below.
   - USERNAME: User name
   - DATABASE: Database name
   - MESSAGE: Regular expression that [PostgreSQL defines for SIMILAR
-    TO](http://www.postgresql.org/docs/14/static/functions-matching.html).
+    TO](http://www.postgresql.org/docs/15/static/functions-matching.html).
 
 ③ : Search button
 
@@ -281,7 +270,7 @@ Moves to the next or previous page.
 
 Quick filter for each column. Text fields accepts the [regular
 expressions for
-tablesorter](http://mottie.github.io/tablesorter/docs/example-widget-filter.html).
+tablesorter](http://mottie.github.io/tablesorter/docs/example-widget-filter.html)
 
 ⑨ : Help button
 
@@ -426,15 +415,10 @@ not necessary.
 \* You will see the instructions to uninstall manually in INSTALL.en in
 the top source directory.
 
-### RHEL7
-
-    $ su
-    # yum remove pg_stats_reporter-14.0-1.el7.noarch
-
 ### RHEL8
 
     $ su
-    # yum remove pg_stats_reporter-14.0-1.el8.noarch
+    # yum remove pg_stats_reporter-15.0-1.el8.noarch
 
 ## Configuration File
 
@@ -479,7 +463,7 @@ below.
   
 
 1.  These settings follow [PostgreSQL
-    settings](http://www.postgresql.org/docs/14/static/libpq-connect.html#LIBPQ-PARAMKEYWORDS)
+    settings](http://www.postgresql.org/docs/15/static/libpq-connect.html#LIBPQ-PARAMKEYWORDS)
     as default.
 
 ## Cautions and Restrictions
@@ -537,47 +521,38 @@ A2. Repository connection settings in pg_stats_reporter.ini or access
 control setting of the repository database might be wrong. Make sure
 that they are correct.
 
-#### Q3. My Internext Explorer displays the report but it looks broken.
+#### Q3. Can I run pg_stats_reporter on worker mode of Apache?
 
-A3. Use Firefox or Chrome instead. Internet Explorer is not recommended.
-
-#### Q4. Can I run pg_stats_reporter on worker mode of Apache?
-
-A4. Unfortunately, PHP is not recommended to be used on multithreaded
+A3. Unfortunately, PHP is not recommended to be used on multithreaded
 MPM and we tested pg_stats_reporter only on prefork
 mode.
 
-#### Q5. I see the name of a no-longer-monitored database in the repository bar.
+#### Q4. I see the name of a no-longer-monitored database in the repository bar.
 
-A5. It is brought about by the data for such instances left in the
+A4. It is brought about by the data for such instances left in the
 repository. You can remove such items by manually deleting the
 corresponding data in repository. See details
 [here](https://github.com/ossc-db/pg_statsinfo/).
 
-#### Q6. Report seems displayed in somewhat broken format.
+#### Q5. Report seems displayed in somewhat broken format.
 
-A6. Your browser may hold old JavaScript libraries in cache. Try
+A5. Your browser may hold old JavaScript libraries in cache. Try
 clearing them.
 
-## Changes from pg_stats_reporter13
+## Changes from pg_stats_reporter14
 
-Changes from pg_stats_reporter 13 are shown below.
+Changes from pg_stats_reporter 14 are shown below.
 
-  - Supports pg_statsinfo 14 (pg_stats_repoter 14 supports only
-    pg_statsinfo
-14).
+  - Supports pg_statsinfo 15 (pg_stats_repoter 15 supports only
+    pg_statsinfo 15).
+  - With the version upgrade of Smarty, PHP version 7.1 or later is supported.
   - There is now more performance informatin to report.
-    - Added report of pg_stat_wal. Report the amount of WAL read/write,
-	  required time to read/write, and so on.
-	- Added report the amount of WAL write while vacuuming, the number of
-	  scanned, removed, and recycled pages while vacuuming on indexes.
-    - Added report of pg_stat_replication_slots.
-      Report the amount of transfered data when logical replication is used
-      and disk I/O which wal_sender consume temporalily.
+    - Added reporting of resource information (per database and per query) during query execution.
+	- Added items to the Plans and Autovacuums Overview reports.
 
 ## See also
 
-[pg_statsinfo 14](https://github.com/ossc-db/pg_statsinfo/)
+[pg_statsinfo 15](https://github.com/ossc-db/pg_statsinfo/)
   
 
 ## Acknowledgments
@@ -607,4 +582,4 @@ developers of these libraries.
 
 </div>
 
-Copyright (c) 2012-2022, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
+Copyright (c) 2012-2023, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
