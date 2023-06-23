@@ -55,7 +55,7 @@ pg_stats_reporter is tested on the following environment.
     version 15
 
   - PHP  
-    7.2.24 (bundoled with RHEL 8)
+    7.2.24 (bundoled with RHEL 8)  
     8.0.27 (bundoled with Rocky 9)
 
   - OS  
