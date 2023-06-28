@@ -56,10 +56,10 @@ pg_stats_reporter is tested on the following environment.
 
   - PHP  
     7.2.24 (bundoled with RHEL 8)  
-    8.0.27 (bundoled with Rocky 9)
+    8.0.27 (bundoled with Rocky Linux 9)
 
   - OS  
-    RHEL 8.6, Rocky 9.1
+    RHEL 8.6, Rocky Linux 9.1
 
   - Web browser  
     Firefox  

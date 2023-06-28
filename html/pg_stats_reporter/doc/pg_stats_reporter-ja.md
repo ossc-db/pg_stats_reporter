@@ -71,10 +71,10 @@ pg_stats_reporter
 
   - 動作確認済みPHP  
     7.2.24 (RHEL 8.6 同梱のもの)  
-    8.0.27 (Rocky 9.1 同梱のもの)
+    8.0.27 (Rocky Linux 9.1 同梱のもの)
 
   - 動作確認済みOS  
-    RHEL 8.6, Rocky 9.1
+    RHEL 8.6, Rocky Linux 9.1
 
   - 動作確認済みブラウザ  
     Firefox  
