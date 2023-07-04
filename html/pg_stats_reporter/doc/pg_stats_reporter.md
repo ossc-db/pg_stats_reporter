@@ -55,15 +55,15 @@ pg_stats_reporter is tested on the following environment.
     version 15
 
   - PHP  
-    7.2.24 (bundoled with RHEL8)
+    7.2.24 (bundled with RHEL 8)  
+    8.0.27 (bundled with Rocky Linux 9)
 
   - OS  
-    RHEL 8.6
+    RHEL 8.6, Rocky Linux 9.1
 
   - Web browser  
-    Firefox : 102.4.0esr, 109.0
-    
-    Microsoft Edge : 109.0.1518.55
+    Firefox  
+    Microsoft Edge
 
   - HTTP Server  
     Apache HTTP Server : 2.4
@@ -93,8 +93,6 @@ packages can be installed using yum.
 The required packages are are installed by the steps like following
 using yum.
 
-##### RHEL8
-
     $ su
     # dnf install pg_stats_reporter-15.0-1.el8.noarch.rpm php-intl
 
@@ -109,8 +107,6 @@ for this case.
 via the subscription management services provided at Red Hat customer
 portal. It is required to activate automatic language selection (only
 instant help messages between ja/en) of an online graphical report.
-
-##### RHEL8
 
     $ su
     # dnf install php-pgsql php-intl php-cli php-xml
@@ -414,8 +410,6 @@ is left alone by the steps, so you should delete it manually if it is
 not necessary.  
 \* You will see the instructions to uninstall manually in INSTALL.en in
 the top source directory.
-
-### RHEL8
 
     $ su
     # yum remove pg_stats_reporter-15.0-1.el8.noarch
