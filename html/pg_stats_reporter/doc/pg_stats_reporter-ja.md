@@ -70,15 +70,15 @@ pg_stats_reporter
     バージョン 15
 
   - 動作確認済みPHP  
-    7.2.24 (RHEL 8.6 同梱のもの)
+    7.2.24 (RHEL 8.6 同梱のもの)  
+    8.0.27 (Rocky Linux 9.1 同梱のもの)
 
   - 動作確認済みOS  
-    RHEL 8.6
+    RHEL 8.6, Rocky Linux 9.1
 
   - 動作確認済みブラウザ  
-    Firefox : 102.4.0esr、109.0
-    
-    Microsoft Edge : 109.0.1518.55
+    Firefox  
+    Microsoft Edge
 
   - 動作確認済みHTTP Server  
     Apache HTTP Server : 2.4
@@ -102,15 +102,11 @@ php-intl が未インストールの状態でも動作しますが、表示言�
 
 #### フルインストール
 
-##### RHEL 8
-
     # dnf install pg_stats_reporter-15.0-1.el8.noarch.rpm php-intl
 
 #### コマンドライン機能のみ
 
 pg_stats_reporterのrpmは、依存関係にhttpdが含まれています。そのためインストールする際は、--nodepsを指定してrpmコマンドを実行します。
-
-##### RHEL 8
 
     # dnf install php-pgsql php-intl php-cli php-xml
     # rpm -ivh --nodeps pg_stats_reporter-15.0-1.el8.noarch.rpm
@@ -352,8 +348,6 @@ URLのホスト名は pg_stats_reporter の実行環境にあわせて変更し�
 なお、アンインストールにより設定ファイル(/etc/pg_stats_reporter.ini)は削除されません。設定ファイルを削除したい場合は手動で削除してください。
 
 ※ソースセットからインストールした場合のアンインストール手順は、ソースセットに同梱されている INSTALL.ja ファイルを参照してください。
-
-### RHEL 8
 
     # dnf remove pg_stats_reporter-15.0-1.el8.noarch
 
