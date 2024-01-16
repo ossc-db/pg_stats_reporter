@@ -1,5 +1,5 @@
 Name:			pg_stats_reporter
-Version:		15.1
+Version:		16.0
 Release:		1%{?dist}
 Summary:		Graphical viewer for pg_statsinfo
 Summary(ja):	pg_statsinfo 用グラフィカルビューア

@@ -6,7 +6,7 @@
  */
 
 // pg_stats_reporter's version
-define("PROGRAM_VERSION", "15.1");
+define("PROGRAM_VERSION", "16.0");
 
 // Image File
 define("IMAGE_FILE", "pgsql_banner01.png");
