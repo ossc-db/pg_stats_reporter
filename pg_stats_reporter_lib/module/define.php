@@ -90,6 +90,7 @@ $report_default = array(
   'disk_usage_per_tablespace' => true,
   'disk_usage_per_table'      => true,
   'io_usage'                  => true,
+  'io_statistics'             => true,
   'heavily_updated_tables'    => true,
   'heavily_accessed_tables'   => true,
   'low_density_tables'        => true,
@@ -143,6 +144,7 @@ $help_list = array(
   'disk_usage_per_tablespace' => 'disk_usage_per_tablespace_dialog',
   'disk_usage_per_table'      => 'disk_usage_per_table_dialog',
   'io_usage'                  => 'io_usage_dialog',
+  'io_statistics'             => 'io_statistics_dialog',
   'heavily_updated_tables'    => 'heavily_updated_tables_dialog',
   'heavily_accessed_tables'   => 'heavily_accessed_tables_dialog',
   'low_density_tables'        => 'low_density_tables_dialog',
@@ -267,6 +269,12 @@ $query_string = array(
 
   "io_time" =>
   "SELECT replace(\"timestamp\", '-', '/'), device_name, avg(read_time_rate) AS \"avg read time\", avg(write_time_rate) AS \"avg write time\" FROM statsrepo.get_io_usage_tendency_report($1, $2) GROUP BY 1,2 ORDER BY 1,2",
+
+  "io_statistics1" =>
+  "SELECT replace(\"time\", '-', '/') AS \"Time\", backend_type AS \"backend type\", object, context, reads, read_time AS \"read time(ms)\", writes, write_time AS \"write time(ms)\", writebacks, writeback_time AS \"writeback time(ms)\", extends, extend_time AS \"extend time(ms)\", hits, evictions, reuses, fsyncs, fsync_time AS \"fsync time(ms)\" FROM statsrepo.get_stat_io($1, $2) ORDER BY 1, 2, 3, 4",
+
+  "io_statistics2" =>
+  "SELECT DISTINCT stats_reset AS \"last reset time\" FROM statsrepo.stat_io WHERE snapid = $1",
 
   // Notable Tables
   "heavily_updated_tables" =>

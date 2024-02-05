@@ -358,6 +358,38 @@ running so they may go above 100 % for certain load.</h4>
 </ul>
 </div>
 
+<div id="io_statistics_dialog" class="help_dialog"
+	 title="The I/O Statistics Section">
+  <h4>「This table shows I/O statistics (pg_stat_io) for the entire database cluster.</h4>
+  <ul>
+	<li><em>Time</em>：Time collected.</li>
+	<li><em>backend type</em>：Type of backend.</li>
+	<li><em>object</em>：Target object of an I/O operation.(relation, temp replation)</li>
+	<li><em>context</em>：The context of an I/O operation.(normal, vacuum, bulkread, bulkwrite)</li>
+	<li><em>reads</em>：Number of read operations, each of the size specified in op_bytes.</li>
+	<li><em>read time(ms)</em>：Time spent in read operations in milliseconds.</li>
+	<li><em>writes</em>：Number of write operations, each of the size specified in op_bytes.</li>
+	<li><em>write time(ms)</em>：Time spent in write operations in milliseconds.</li>
+	<li><em>writebacks</em>：Number of units of size op_bytes which the process requested the kernel write out to permanent storage.</li>
+	<li><em>writeback time(ms)</em>：Time spent in writeback operations in milliseconds.</li>
+	<li><em>extends</em>：Number of relation extend operations, each of the size specified in op_bytes.</li>
+	<li><em>extend time(ms)</em>：Time spent in extend operations in milliseconds.</li>
+	<li><em>hits</em>：The number of times a desired block was found in a shared buffer.</li>
+	<li><em>evictions</em>：Number of times a block has been written out from a shared or local buffer in order to make it available for another use.</li>
+	<li><em>reuses</em>：The number of times an existing buffer in a size-limited ring buffer outside of shared buffers was reused as part of an I/O operation in the bulkread, bulkwrite, or vacuum contexts.</li>
+	<li><em>fsyncs</em>：Number of fsync calls. These are only tracked in context normal.</li>
+	<li><em>fsync time(ms)</em>：Time spent in fsync operations in milliseconds .</li>
+  </ul>
+  <pre>
+* Small values may be shown as zero by round off.
+  Data for each I/O operation is obtained when track_io_timing is enabled.
+  Also, the unit is block_size(default 8KiB).</pre>
+  <br/>The following items give the final values of the snapshot period.<br/>
+  <ul>
+	<li><em>last reset time</em>：Time at which these statistics were last reset.</li>
+  </ul>
+</div>
+
 <div id="memory_usage_dialog" class="help_dialog"
   title="The Memory Usage Graph">
 <h4>This graph shows itemized memory usage over time. The values are read from /proc/meminfo.</h4>
