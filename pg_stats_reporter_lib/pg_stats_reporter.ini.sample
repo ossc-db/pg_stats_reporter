@@ -73,6 +73,7 @@ memory_usage = true                 ; Memory Usage
 disk_usage_per_tablespace = true    ; Disk Usage per Tablespace
 disk_usage_per_table = true         ; Disk Usage per Table
 io_usage = true                     ; I/O Usage
+io_statistics = true                ; I/O Statistics
 
 ; --- Activities ---
 
@@ -189,6 +190,7 @@ memory_information = true           ; Memory Information
 ;disk_usage_per_tablespace = true    ; Disk Usage per Tablespace
 ;disk_usage_per_table = true         ; Disk Usage per Table
 ;io_usage = true                     ; I/O Usage
+;io_statistics = true                ; I/O Statistics
 ;
 ;; --- Activities ---
 ;

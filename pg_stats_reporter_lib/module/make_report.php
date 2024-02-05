@@ -243,6 +243,7 @@ EOD;
 	if ($targetList['cpu_usage']
 		|| $targetList['load_average']
 		|| $targetList['io_usage']
+		|| $targetList['io_statistics']
 		|| $targetList['memory_usage']
 		|| $targetList['disk_usage_per_tablespace']
 		|| $targetList['disk_usage_per_table']) {
@@ -279,6 +280,8 @@ EOD;
 				$html_string .= "<li><a href=\"#disk_usage_per_table\">Disk Usage per Table</a></li>\n";
 			if ($targetList['io_usage'])
 				$html_string .= "<li><a href=\"#io_usage\">I/O Usage</a></li>\n";
+			if ($targetList['io_statistics'])
+				$html_string .= "<li><a href=\"#io_statistics\">I/O Statistics</a></li>\n";
 
 			$html_string .= "</ul></li>\n";
 		}
@@ -552,6 +555,7 @@ function makePlainHeaderMenu()
     <li><a>Disk Usage per Tablespace</a></li>
     <li><a>Disk Usage per Table</a></li>
     <li><a>I/O Usage</a></li>
+    <li><a>I/O Statistics</a></li>
   </ul></li>
 </ul></li>
 <li><a>Activities</a><ul>
@@ -1245,7 +1249,8 @@ function makeOperatingSystemReport($conn, $target, $snapids, $errorMsg)
 		&& !$target['memory_usage']
 		&& !$target['disk_usage_per_tablespace']
 		&& !$target['disk_usage_per_table']
-		&& !$target['io_usage'])
+		&& !$target['io_usage']
+		&& !$target['io_statistics'])
 		return "";
 
 	$htmlString =
@@ -1351,7 +1356,8 @@ EOD;
 	/* Disks */
 	if ($target['disk_usage_per_tablespace']
 		|| $target['disk_usage_per_table']
-		|| $target['io_usage']) {
+		|| $target['io_usage']
+		|| $target['io_statistics']) {
 
 	$htmlString .=
 <<< EOD
@@ -1532,6 +1538,52 @@ EOD;
 			}
 			pg_free_result($result);
 		}
+
+		// I/O Statistics(pg_stat_io)
+		if ($target['io_statistics']) {
+		   $htmlString .=
+<<< EOD
+<div id="io_statistics" class="jump_margin"></div>
+<h3>I/O Statistics</h3>
+<div align="right" class="jquery_ui_button_info_h3">
+  <div><button class="help_button" dialog="#io_statistics_dialog"></button></div>
+</div>
+
+EOD;
+
+			$qstr = "";
+			$qstr = $query_string['io_statistics1'];
+
+			$result = pg_query_params($conn, $qstr, $snapids);
+			if (!$result) {
+				return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
+			}
+
+			if (pg_num_rows($result) == 0) {
+				$htmlString .= makeErrorTag($errorMsg['no_result']);
+			} else {
+				$htmlString .= makeTablePagerHTML($result, "io_statistics1", 10, true);
+			}
+			pg_free_result($result);
+
+			$htmlString .= "<br/>\n";
+
+			$qstr = "";
+			$qstr = $query_string['io_statistics2'];
+
+			$result = pg_query_params($conn, $qstr, array($snapids[1]));
+			if (!$result) {
+				return $htmlString.makeErrorTag($errorMsg['query_error'], pg_last_error($conn));
+			}
+
+			if (pg_num_rows($result) == 0) {
+				$htmlString .= makeErrorTag($errorMsg['no_result']);
+			} else {
+				$htmlString .= makeTableHTML($result, "io_statistics2");
+			}
+			pg_free_result($result);
+
+	    }
 
 	}
 

@@ -182,6 +182,38 @@ $(function(){
     })
   );
 
+  // IO Statistics
+  $("#io_statistics1_table").tablesorter(
+    $.extend({}, tablesorterDefaultOptions, {
+      headers: {
+        4: { sorter: "digit" },
+        5: { sorter: "digit" },
+        6: { sorter: "digit" },
+        7: { sorter: "digit" },
+        8: { sorter: "digit" },
+        9: { sorter: "digit" },
+        10: { sorter: "digit" },
+        11: { sorter: "digit" },
+        12: { sorter: "digit" },
+        13: { sorter: "digit" },
+        14: { sorter: "digit" },
+        15: { sorter: "digit" },
+        16: { sorter: "digit" }
+      }
+    })
+  )
+  .tablesorterPager(
+    $.extend({}, pagerDefaultOptions, {
+      container: $('#pager_io_statistics1'),
+      size: 5
+    })
+  );
+  $("#io_statistics2_table").tablesorter(
+    $.extend({}, tablesorterDefaultOptions, {
+      widgets: [ ]
+    })
+  );
+
   // Wait Sampling (Instance)
   $("#wait_sampling_by_instid_table").tablesorter(
     $.extend({}, tablesorterDefaultOptions, {

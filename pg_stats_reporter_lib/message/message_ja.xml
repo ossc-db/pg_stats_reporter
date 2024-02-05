@@ -348,6 +348,38 @@
 </ul>
 </div>
 
+<div id="io_statistics_dialog" class="help_dialog"
+	 title="The I/O Statistics Section">
+  <h4>この表はデータベースクラスタ全体のI/O統計情報(pg_stat_io)を示します。</h4>
+  <ul>
+	<li><em>Time</em>：収集した時刻</li>
+	<li><em>backend type</em>：バックエンドの種別</li>
+	<li><em>object</em>：I/O操作のターゲットオブジェクト(relation、temp relation)</li>
+	<li><em>context</em>：I/O操作のコンテキスト(normal、vacuum、bulkread、bulkwrite)</li>
+	<li><em>reads</em>：読み取り操作の数</li>
+	<li><em>read time(ms)</em>：読み取り操作に費やされた時間(ミリ秒)</li>
+	<li><em>writes</em>：書き込み操作の数</li>
+	<li><em>write time(ms)</em>：書き込み操作に費やされた時間(ミリ秒)</li>
+	<li><em>writebacks</em>：永続ストレージへの書き込み操作の数</li>
+	<li><em>writeback time(ms)</em>：ライトバック操作に費やされた時間(ミリ秒)</li>
+	<li><em>extends</em>：リレーション拡張操作の数</li>
+	<li><em>extend time(ms)</em>：拡張操作に費やした時間(ミリ秒)</li>
+	<li><em>hits</em>：共有バッファー内で目的のブロックが見つかった回数</li>
+	<li><em>evictions</em>：共有バッファまたはローカル バッファからブロックが書き出された回数</li>
+	<li><em>reuses</em>：共有バッファ外のサイズ制限されたリング バッファ内の既存のバッファが、I/O 操作の一部として再利用された回数</li>
+	<li><em>fsyncs</em>：fsync 呼び出しの数(ただし normal contextに限る)</li>
+	<li><em>fsync time(ms)</em>：fsync 操作に費やした時間(ミリ秒)</li>
+  </ul>
+  <pre>
+※小さな値は切り捨てにより0と表示される場合があります
+  各I/O操作のデータは track_io_timing が有効の時に取得します
+  また、block_size(デフォルト 8KiB) を単位とします</pre>
+  <br/>以下の項目はスナップショット期間の最後の値を出しています<br/>
+  <ul>
+	<li><em>last reset time</em>：I/O統計が最後にリセットされた時刻</li>
+  </ul>
+</div>
+
 <div id="memory_usage_dialog" class="help_dialog"
   title="The Memory Usage Graph">
 <h4>このグラフは項目別のメモリ使用量の推移を示します。値は /proc/meminfo から読み取っています。</h4>
