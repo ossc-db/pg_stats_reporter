@@ -3,7 +3,7 @@
  * pg_stats_reporter commandline mode
  * make_report_list
  *
- * Copyright (c) 2012-2023, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
+ * Copyright (c) 2012-2024, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
  */
 
 function makeReportList($dirString)

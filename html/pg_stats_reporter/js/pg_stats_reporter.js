@@ -1,7 +1,7 @@
 /*
  * pg_stats_reporter: Javascript
  *
- * Copyright (c) 2012-2023, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
+ * Copyright (c) 2012-2024, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
  */
 
 $(function(){
