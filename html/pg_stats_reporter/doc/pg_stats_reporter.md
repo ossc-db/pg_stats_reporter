@@ -14,22 +14,22 @@
 6.  [Configuration File](#Configuration-File)
 7.  [Cautions and Restrictions](#Cautions-and-Restrictions)
 8.  [FAQ](#FAQ)
-9.  [Changes from pg_stats_reporter14](#Changes-from-pg_stats_reporter14)
+9.  [Changes from pg_stats_reporter15](#Changes-from-pg_stats_reporter15)
 10. [See also](#See-also)
 11. [Acknowledgments](#Acknowledgments)
 
 </div>
 
-# pg_stats_reporter 15
+# pg_stats_reporter 16
 
 ## What is pg_stats_reporter
 
 pg_stats_reporter is a graphical report generator for
 [pg_statsinfo](https://github.com/ossc-db/pg_statsinfo/).
 It offers you various statistical information collected by pg_statsinfo
-in a graphical and interactive representation. pg_stats_reporter 15 is
-compatible only with pg_statsinfo 15. You can see an example report
-[here](http://pgstatsinfo.sourceforge.net/documents/reporter15/doc/files/report_sample.html).
+in a graphical and interactive representation. pg_stats_reporter 16 is
+compatible only with pg_statsinfo 16. You can see an example report
+[here](http://pgstatsinfo.sourceforge.net/documents/reporter16/doc/files/report_sample.html).
 
 pg_stats_reporter 14 and later are available on GitHub. pg_stats_reporter 13 and earlier can be found at [SourceForge](http://pgstatsinfo.sourceforge.net/index.html).
 
@@ -52,14 +52,14 @@ INSTALL.en file in the top of source tree.
 pg_stats_reporter is tested on the following environment.
 
   - pg_statsinfo
-    version 15
+    version 16
 
   - PHP  
     7.2.24 (bundled with RHEL 8)  
     8.0.27 (bundled with Rocky Linux 9)
 
   - OS  
-    RHEL 8.6, Rocky Linux 9.1
+    RHEL 8.8, Rocky Linux 9.2
 
   - Web browser  
     Firefox  
@@ -71,14 +71,14 @@ pg_stats_reporter is tested on the following environment.
   - libraries (These packages are included in the package of
     pg_stats_reporter)
     
-      - jQuery : 3.6.3
+      - jQuery : 3.7.1
       - jQuery UI : 1.13.2
       - jquery-ui-timepicker-addon : 1.6.3
-      - dygraphs JavaScript Visualization Library : 2.1.2
+      - dygraphs JavaScript Visualization Library : 2.2.1
       - jqPlot : 1.0.9 d96a669
       - tablesorter : 2.31.3
       - Superfish : 1.7.10
-      - Smarty : 4.3.0
+      - Smarty : 4.3.4
 
 ### Installing pg_stats_reporter
 
@@ -94,7 +94,7 @@ The required packages are are installed by the steps like following
 using yum.
 
     $ su
-    # dnf install pg_stats_reporter-15.0-1.el8.noarch.rpm php-intl
+    # dnf install pg_stats_reporter-16.0-1.el8.noarch.rpm php-intl
 
 #### Installing for offline reports only
 
@@ -110,7 +110,7 @@ instant help messages between ja/en) of an online graphical report.
 
     $ su
     # dnf install php-pgsql php-intl php-cli php-xml
-    # rpm -ivh --nodeps pg_stats_reporter-15.0.el8.noarch.rpm
+    # rpm -ivh --nodeps pg_stats_reporter-16.0-1.el8.noarch.rpm
 
 ### Initial Setup
 
@@ -412,7 +412,7 @@ not necessary.
 the top source directory.
 
     $ su
-    # yum remove pg_stats_reporter-15.0-1.el8.noarch
+    # dnf remove pg_stats_reporter-16.0-1.el8.noarch
 
 ## Configuration File
 
@@ -457,7 +457,7 @@ below.
   
 
 1.  These settings follow [PostgreSQL
-    settings](http://www.postgresql.org/docs/15/static/libpq-connect.html#LIBPQ-PARAMKEYWORDS)
+    settings](http://www.postgresql.org/docs/16/static/libpq-connect.html#LIBPQ-PARAMKEYWORDS)
     as default.
 
 ## Cautions and Restrictions
@@ -533,20 +533,18 @@ corresponding data in repository. See details
 A5. Your browser may hold old JavaScript libraries in cache. Try
 clearing them.
 
-## Changes from pg_stats_reporter14
+## Changes from pg_stats_reporter15
 
-Changes from pg_stats_reporter 14 are shown below.
+Changes from pg_stats_reporter 15 are shown below.
 
-  - Supports pg_statsinfo 15 (pg_stats_repoter 15 supports only
-    pg_statsinfo 15).
-  - With the version upgrade of Smarty, PHP version 7.1 or later is supported.
+  - Supports pg_statsinfo 16 (pg_stats_repoter 16 supports only
+    pg_statsinfo 16).
   - There is now more performance informatin to report.
-    - Added reporting of resource information (per database and per query) during query execution.
-	- Added items to the Plans and Autovacuums Overview reports.
+    - Added cluster-wide I/O statistics report.
 
 ## See also
 
-[pg_statsinfo 15](https://github.com/ossc-db/pg_statsinfo/)
+[pg_statsinfo 16](https://github.com/ossc-db/pg_statsinfo/)
   
 
 ## Acknowledgments
