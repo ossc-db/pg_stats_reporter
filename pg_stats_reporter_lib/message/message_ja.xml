@@ -648,8 +648,8 @@
 <li><em>Avg remain dead</em>: 1回の自動Vacuumの実行時に削除できなったデッドタプルの数のレポート期間を通じた平均値</li>
 <li><em>Count of "Index scan needed"</em>: このテーブルに対する自動Vacuumでインデックススキャンが実行された回数</li>
 <li><em>Count of "Index scan bypassed by failsafe"</em>: このテーブルに対する自動Vacuumでインデックススキャンがバイパスされた回数</li>
-<li><em>Avg dead tuple pages</em>: このテーブルで不要ラインポインタが検出されたページ数に関して、自動VACUUM1回あたりのこのレポート期間での平均値</li>
-<li><em>Avg dead tuple pages ratio</em>: このテーブルで不要ラインポインタが検出されたページの割合に関して、自動VACUUM1回あたりのこのレポート期間での平均値</li>
+<li><em>Avg dead tuple pages</em>: レポート期間内の自動VAUUMについて、このテーブルで不要ラインポインタが検出されたページ数の平均値</li>
+<li><em>Avg dead tuple pages ratio</em>: レポート期間内の自動VAUUMについて、このテーブルで不要ラインポインタが検出されたページの割合の平均値</li>
 <li><em>Avg dead line pointer</em>: このテーブルに対する自動Vacuumでインデックススキャンがスキップされた場合の不要ラインポインタ数のレポート期間を通した平均値</li>
 <li><em>Max removable cutoff xid</em>: このテーブルに対する自動Vacuumで使用するトランザクションIDベースのカットオフのレポート期間における最大値</li>
 <li><em>Max new relation frozen xid</em>: このテーブルの凍結されたトランザクションIDのレポート期間における最大値</li>
