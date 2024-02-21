@@ -16,20 +16,20 @@
 6.  [設定ファイル](#設定ファイル)
 7.  [使用上の注意と制約](#使用上の注意と制約)
 8.  [よくあるQ\&A](#よくあるqa)
-9.  [pg_stats_reporter14からの変更点](#pg_stats_reporter14からの変更点)
+9.  [pg_stats_reporter15からの変更点](#pg_stats_reporter15からの変更点)
 10. [関連項目](#関連項目)
 11. [謝辞](#謝辞)
 
 </div>
 
-# pg_stats_reporter 15
+# pg_stats_reporter 16
 
 ## pg_stats_reporterとは
 
-[pg_statsinfo 15](https://github.com/ossc-db/pg_statsinfo/)が収集した統計情報を元に、PostgreSQL
+[pg_statsinfo 16](https://github.com/ossc-db/pg_statsinfo/)が収集した統計情報を元に、PostgreSQL
 サーバの利用統計情報をHTML形式のグラフィカルなレポートで出力します。
 
-当ツールで作成したレポートの例は[こちら](http://pgstatsinfo.sourceforge.net/documents/reporter15/doc/files/report_sample.html)をご覧ください。
+当ツールで作成したレポートの例は[こちら](http://pgstatsinfo.sourceforge.net/documents/reporter16/doc/files/report_sample.html)をご覧ください。
 
 pg_statsinfo 14 および pg_stats_reporter 14 以降は GitHub にて公開しています。pg_stats_reporter 13 以前の情報については、[SourceForge](http://pgstatsinfo.sourceforge.net/index_ja.html)をご覧ください。
 
@@ -67,32 +67,32 @@ pg_stats_reporter
 ### 動作確認環境
 
   - pg_statsinfo
-    バージョン 15
+    バージョン 16
 
   - 動作確認済みPHP  
-    7.2.24 (RHEL 8.6 同梱のもの)  
-    8.0.27 (Rocky Linux 9.1 同梱のもの)
+    7.2.24 (RHEL 8.8 同梱のもの)
+    8.0.27 (Rocky Linux 9.2 同梱のもの)
 
   - 動作確認済みOS  
-    RHEL 8.6, Rocky Linux 9.1
+    RHEL 8.8, Rocky Linux 9.2
 
   - 動作確認済みブラウザ  
     Firefox  
     Microsoft Edge
 
-  - 動作確認済みHTTP Server  
+  - 動作確認済みHTTP Server
     Apache HTTP Server : 2.4
 
   - 利用ライブラリ (pg_stats_reporter のインストールパッケージに同梱)
     
-      - jQuery : 3.6.3
+      - jQuery : 3.7.1
       - jQuery UI : 1.13.2
       - jquery-ui-timepicker-addon : 1.6.3
-      - dygraphs JavaScript Visualization Library : 2.1.2
+      - dygraphs JavaScript Visualization Library : 2.2.1
       - jqPlot : 1.0.9 d96a669
       - tablesorter : 2.31.3
       - Superfish : 1.7.10
-      - Smarty : 4.3.0
+      - Smarty : 4.3.4
 
 ### パッケージのインストール
 
@@ -102,14 +102,14 @@ php-intl が未インストールの状態でも動作しますが、表示言�
 
 #### フルインストール
 
-    # dnf install pg_stats_reporter-15.0-1.el8.noarch.rpm php-intl
+    # dnf install pg_stats_reporter-16.0-1.el8.noarch.rpm php-intl
 
 #### コマンドライン機能のみ
 
 pg_stats_reporterのrpmは、依存関係にhttpdが含まれています。そのためインストールする際は、--nodepsを指定してrpmコマンドを実行します。
 
     # dnf install php-pgsql php-intl php-cli php-xml
-    # rpm -ivh --nodeps pg_stats_reporter-15.0-1.el8.noarch.rpm
+    # rpm -ivh --nodeps pg_stats_reporter-16.0-1.el8.noarch.rpm
 
 ### 初期設定
 
@@ -349,7 +349,7 @@ URLのホスト名は pg_stats_reporter の実行環境にあわせて変更し�
 
 ※ソースセットからインストールした場合のアンインストール手順は、ソースセットに同梱されている INSTALL.ja ファイルを参照してください。
 
-    # dnf remove pg_stats_reporter-15.0-1.el8.noarch
+    # dnf remove pg_stats_reporter-16.0-1.el8.noarch
 
 ## 設定ファイル
 
@@ -451,7 +451,7 @@ URLのホスト名は pg_stats_reporter の実行環境にあわせて変更し�
 </table>
 
 1.  項目または設定値を省略した場合の挙動は、libpqの接続文字列のパラメータと同じです。詳しくは
-    [こちら](http://www.postgresql.jp/document/15/html/libpq-connect.html#LIBPQ-PARAMKEYWORDS)
+    [こちら](http://www.postgresql.jp/document/16/html/libpq-connect.html#LIBPQ-PARAMKEYWORDS)
     を参照してください。
 2.  ディストリビューションによっては、HTTP Server
     のドキュメントルートのデフォルトが実行ユーザのホームディレクトリになっている場合があります。そのため、PostgreSQL
@@ -523,21 +523,19 @@ A4. リポジトリDBから現在未使用の監視対象DBのインスタンス
 A5.
 ブラウザ内にJavaScriptのキャッシュが残っているために、正しく表示されていない可能性があります。ブラウザのキャッシュの削除を試してみてください。
 
-## pg_stats_reporter14からの変更点
+## pg_stats_reporter15からの変更点
 
-pg_stats_reporter 14 からの変更点は以下の通りです。
+pg_stats_reporter 15 からの変更点は以下の通りです。
 
-  - pg_statsinfo 15に対応 (pg_stats_reporter 15は pg_statsinfo
-    15のみをサポートします)
-  - Smartyのバージョンアップに伴い、PHPのバージョンは7.1以降に対応
+  - pg_statsinfo 16に対応 (pg_stats_reporter 16は pg_statsinfo
+    16のみをサポートします)
   - レポートする性能情報が増えました。
-    - クエリ実行時のリソース情報(データベース単位およびクエリ単位)のレポートを追加しました。
-    - PlansおよびAutovacuums Overviewのレポートに項目を追加しました。
+    - クラスタ全体のI/O統計情報のレポートを追加しました。
   
 
 ## 関連項目
 
-[pg_statsinfo 15](https://github.com/ossc-db/pg_statsinfo/)
+[pg_statsinfo 16](https://github.com/ossc-db/pg_statsinfo/)
   
 
 ## 謝辞

@@ -50,6 +50,7 @@ alerts = true                       ; Alerts
 databases_statistics = true         ; Databases Statistics
 transactions = true                 ; Transactions
 database_size = true                ; Database Size
+database_rusage = true              ; Database Resource Usage
 recovery_conflicts = true           ; Recovery Conflicts
 wait_sampling_by_dbid = true        ; Wait Sampling per Database
 
@@ -72,6 +73,7 @@ memory_usage = true                 ; Memory Usage
 disk_usage_per_tablespace = true    ; Disk Usage per Tablespace
 disk_usage_per_table = true         ; Disk Usage per Table
 io_usage = true                     ; I/O Usage
+io_statistics = true                ; I/O Statistics
 
 ; --- Activities ---
 
@@ -84,6 +86,7 @@ correlation = true                  ; Correlation
 ; -- Query Activity --
 functions = true                    ; Functions
 statements = true                   ; Statements
+statements_rusage = true            ; Statements Resource Usage
 plans = true                        ; Plans
 wait_sampling = true                ; Wait Sampling
 
@@ -164,6 +167,7 @@ memory_information = true           ; Memory Information
 ;databases_statistics = true         ; Databases Statistics
 ;transactions = true                 ; Transactions
 ;database_size = true                ; Database Size
+;database_rusage = true              ; Database Resource Usage
 ;recovery_conflicts = true           ; Recovery Conflicts
 ;wait_sampling_by_dbid = true        ; Wait Sampling per Database
 ;
@@ -186,6 +190,7 @@ memory_information = true           ; Memory Information
 ;disk_usage_per_tablespace = true    ; Disk Usage per Tablespace
 ;disk_usage_per_table = true         ; Disk Usage per Table
 ;io_usage = true                     ; I/O Usage
+;io_statistics = true                ; I/O Statistics
 ;
 ;; --- Activities ---
 ;
@@ -198,6 +203,7 @@ memory_information = true           ; Memory Information
 ;; -- Query Activity --
 ;functions = true                    ; Functions
 ;statements = true                   ; Statements
+;statements_rusage = true            ; Statements Resource Usage
 ;plans = true                        ; Plans
 ;wait_sampling = true                ; Wait Sampling
 ;
