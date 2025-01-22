@@ -416,8 +416,8 @@ $(function(){
 		6: { sorter: "digit" },
 		7: { sorter: "digit" },
 		8: { sorter: "digit" },
-		9: { sorter: false },
-		10: { sorter: false }
+		13: {sorter: false },
+		14: {sorter: false }
       }
     })
   )
@@ -439,7 +439,9 @@ $(function(){
         3: { sorter: "digit" },
         4: { sorter: "digit" },
 		5: { sorter: "digit" },
-		8: { sorter: false }
+		10: {sorter: false },
+		11: {sorter: false },
+		12: {sorter: false }
       }
 	})
   );

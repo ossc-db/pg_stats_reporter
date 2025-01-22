@@ -545,8 +545,10 @@
 <li><em>Calls</em>: この問い合わせのレポート期間中の実行回数</li>
 <li><em>Total time (s)</em>: この問い合わせの実行に要した時間のレポート期間中の合計 (秒)</li>
 <li><em>Time/call (s)</em>: この問い合わせの実行1回あたりに要した時間のレポート期間中の平均値 (秒)</li>
-<li><em>Block read time (ms)</em>: この問い合わせの実行に際してブロック読み込みに要した時間のレポート期間中の合計 (ミリ秒)。この項目の取得には track_io_timing を有効にしておく必要があります。</li>
-<li><em>Block write time (ms)</em>: この問い合わせの実行に際してブロック書き込みに要した時間のレポート期間中の合計 (ミリ秒)。この項目の取得には track_io_timing を有効にしておく必要があります。</li>
+<li><em>Shared block read time (ms)</em>: この問い合わせの実行に際して共有ブロック読み込みに要した時間のレポート期間中の合計 (ミリ秒)。この項目の取得には track_io_timing を有効にしておく必要があります。</li>
+<li><em>Shared block write time (ms)</em>: この問い合わせの実行に際して共有ブロック書き込みに要した時間のレポート期間中の合計 (ミリ秒)。この項目の取得には track_io_timing を有効にしておく必要があります。</li>
+<li><em>Local block read time (ms)</em>: この問い合わせの実行に際してローカルブロック読み込みに要した時間のレポート期間中の合計 (ミリ秒)。この項目の取得には track_io_timing を有効にしておく必要があります。</li>
+<li><em>Local block write time (ms)</em>: この問い合わせの実行に際してローカルブロック書き込みに要した時間のレポート期間中の合計 (ミリ秒)。この項目の取得には track_io_timing を有効にしておく必要があります。</li>
 <li><em>Temp block read time (ms)</em>: この問い合わせの実行に際してテンポラリファイルのブロック読み込みに要した時間のレポート期間中の合計 (ミリ秒)。この項目の取得には track_io_timing を有効にしておく必要があります。</li>
 <li><em>Temp block write time (ms)</em>: この問い合わせの実行に際してテンポラリファイルのブロック書き込みに要した時間のレポート期間中の合計 (ミリ秒)。この項目の取得には track_io_timing を有効にしておく必要があります。</li>
 <li><em>Query</em>: 実行計画の一覧に対応する問い合わせ文 Query ID をクリックすると現れます</li>
@@ -555,8 +557,10 @@
   <li><em>Calls</em>: この実行計画がレポート期間中に実行された回数</li>
   <li><em>Total time (s)</em>: この実行計画の実行に要した時間のレポート期間中の合計 (秒)</li>
   <li><em>Time/call (s)</em>: この実行計画の実行1回あたりに要した時間のレポート期間中の平均値 (秒)</li>
-  <li><em>Block read time (ms)</em>: この実行計画の実行に際してブロック読み込みに要した時間のレポート期間中の合計 (ミリ秒)。この項目の取得には track_io_timing を有効にしておく必要があります。</li>
-  <li><em>Block write time (ms)</em>: この実行計画の実行に際してブロック書き込みに要した時間のレポート期間中の合計 (ミリ秒)。この項目の取得には track_io_timing を有効にしておく必要があります。</li>
+  <li><em>Shared block read time (ms)</em>: この実行計画の実行に際して共有ブロック読み込みに要した時間のレポート期間中の合計 (ミリ秒)。この項目の取得には track_io_timing を有効にしておく必要があります。</li>
+  <li><em>Shared block write time (ms)</em>: この実行計画の実行に際して共有ブロック書き込みに要した時間のレポート期間中の合計 (ミリ秒)。この項目の取得には track_io_timing を有効にしておく必要があります。</li>
+  <li><em>Local block read time (ms)</em>: この実行計画の実行に際してローカルブロック読み込みに要した時間のレポート期間中の合計 (ミリ秒)。この項目の取得には track_io_timing を有効にしておく必要があります。</li>
+  <li><em>local block write time (ms)</em>: この実行計画の実行に際してローカルブロック書き込みに要した時間のレポート期間中の合計 (ミリ秒)。この項目の取得には track_io_timing を有効にしておく必要があります。</li>
   <li><em>Temp block read time (ms)</em>: この実行計画の実行に際してテンポラリファイルのブロック読み込みに要した時間のレポート期間中の合計 (ミリ秒)。この項目の取得には track_io_timing を有効にしておく必要があります。</li>
   <li><em>Temp block write time (ms)</em>: この実行計画の実行に際してテンポラリファイルのブロック書き込みに要した時間のレポート期間中の合計 (ミリ秒)。この項目の取得には track_io_timing を有効にしておく必要があります。</li>
   <li><em>First call</em>: この実行計画が最初に実行された時刻</li>

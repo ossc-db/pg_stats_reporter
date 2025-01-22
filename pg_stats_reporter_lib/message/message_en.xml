@@ -564,8 +564,10 @@ pg_stat_statsments to be installed.</h4>
 <li><em>Calls</em>: Number of times this statement executed</li>
 <li><em>Total time (s)</em>: Total time spent in this statment during this report period in seconds</li>
 <li><em>Time/call (s)</em>: Average time per execution of this query throughout thie report period in seconds</li>
-<li><em>Block read time (ms)</em>: Total time this query spent reading blocks throughout this report period in milliseconds. This requires track_io_timing to be enabled.</li>
-<li><em>Block write time (ms)</em>: Total time this query spent to write blocks during this report time in milliseconds. This requires track_io_timing to be enabled.</li>
+<li><em>Shared block read time (ms)</em>: Total time this query spent reading shared blocks throughout this report period in milliseconds. This requires track_io_timing to be enabled.</li>
+<li><em>Shared block write time (ms)</em>: Total time this query spent to write shared blocks during this report time in milliseconds. This requires track_io_timing to be enabled.</li>
+<li><em>Local block read time (ms)</em>: Total time this query spent reading local blocks throughout this report period in milliseconds. This requires track_io_timing to be enabled.</li>
+<li><em>Local block write time (ms)</em>: Total time this query spent to write local blocks during this report time in milliseconds. This requires track_io_timing to be enabled.</li>
 <li><em>Temp block read time (ms)</em>: Total time this query spent to read temporary file blocks during this report time in milliseconds. This requires track_io_timing to be enabled.</li>
 <li><em>Temp block write time (ms)</em>: Total time this query spent to write temporary file blocks during this report time in milliseconds. This requires track_io_timing to be enabled.</li>
 <li><em>Query</em>: Query string corresponding the plans listed. Shown by clicking Query ID</li>
@@ -574,8 +576,10 @@ pg_stat_statsments to be installed.</h4>
   <li><em>Calls</em>: Number of times this plan exected during this report period</li>
   <li><em>Total time (s)</em>: Total time spent in single execution throughout this report period in seconds</li>
   <li><em>Time/call (s)</em>: Average time per execution of this plan throughout this report period in seconds</li>
-  <li><em>Block read time (ms)</em>: Total time this plan spent to read blocks during this report period in milliseconds. This requires track_io_timing to be enabled.</li>
-  <li><em>Block write time (ms)</em>: Total time this plan spent to write blocks during this report period in millisecond. This requires track_io_timing to be enabled.</li>
+  <li><em>Shared block read time (ms)</em>: Total time this plan spent to read shared blocks during this report period in milliseconds. This requires track_io_timing to be enabled.</li>
+  <li><em>Shared block write time (ms)</em>: Total time this plan spent to write shared blocks during this report period in millisecond. This requires track_io_timing to be enabled.</li>
+  <li><em>Local block read time (ms)</em>: Total time this plan spent to read local blocks during this report period in milliseconds. This requires track_io_timing to be enabled.</li>
+  <li><em>Local block write time (ms)</em>: Total time this plan spent to write local blocks during this report period in millisecond. This requires track_io_timing to be enabled.</li>
   <li><em>Temp block read time (ms)</em>: Total time this plan spent to read temporary file blocks during this report period in milliseconds. This requires track_io_timing to be enabled.</li>
   <li><em>Temp block write time (ms)</em>: Total time this plan spent to write temporary file blocks during this report period in milliseconds. This requires track_io_timing to be enabled.</li>
   <li><em>First call</em>: Time when this plan first executed</li>
