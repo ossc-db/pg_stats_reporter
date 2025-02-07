@@ -12,11 +12,11 @@ define("PROGRAM_VERSION", "17.0");
 define("IMAGE_FILE", "pgsql_banner01.png");
 
 // Library path
-define("SMARTY_PATH", "package/smarty-4.3.4/libs/");
+define("SMARTY_PATH", "package/smarty-4.5.5/libs/");
 define("JQUERY_PATH", "package/jquery-3.7.1.min.js");
-define("JQUERYUI_PATH", "package/jquery-ui-1.13.2.custom/");
+define("JQUERYUI_PATH", "package/jquery-ui-1.14.1.custom/");
 define("TIMEPICKER_PATH", "package/jquery-ui-timepicker-addon-1.6.3/");
-define("TABLESORTER_PATH", "package/tablesorter-2.31.3/");
+define("TABLESORTER_PATH", "package/tablesorter-2.32.0/dist/");
 define("SUPERFISH_PATH", "package/superfish-1.7.10/dist/");
 define("JQPLOT_PATH", "package/jqPlot-1.0.9.d96a669/");
 define("DYGRAPHS_PATH", "package/dygraph-2.2.1/");

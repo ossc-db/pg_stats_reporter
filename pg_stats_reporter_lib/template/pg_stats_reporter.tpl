@@ -14,7 +14,7 @@
 <script type="text/javascript" src="{$superfish_path}js/supersubs.js"></script>
 <script type="text/javascript" src="{$tablesorter_path}js/jquery.tablesorter.js"></script>
 <script type="text/javascript" src="{$tablesorter_path}js/jquery.tablesorter.widgets.js"></script>
-<script type="text/javascript" src="{$tablesorter_path}addons/pager/jquery.tablesorter.pager.js"></script>
+<script type="text/javascript" src="{$tablesorter_path}js/extras/jquery.tablesorter.pager.min.js"></script>
 <script type="text/javascript" src="{$jqplot_path}jquery.jqplot.min.js"></script>
 <script type="text/javascript" src="{$jqplot_path}plugins/jqplot.pieRenderer.js"></script>
 <script type="text/javascript" src="{$jqplot_path}plugins/jqplot.barRenderer.js"></script>

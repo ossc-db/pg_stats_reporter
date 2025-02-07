@@ -8,10 +8,8 @@ $(function(){
 	/*** header menu ***/
 	// maximum window button
 	$("#jquery_ui_button_arrowthick").button({
-		icons: {
-			primary: 'ui-icon-arrowthick-2-ne-sw',
-		},
-		text: false
+		icon: 'ui-icon-arrowthick-2-ne-sw',
+		showLabel: false
 	})
 	.click(function(){
 		// close or open left sidebar 
@@ -19,10 +17,8 @@ $(function(){
 	});
 
 	$("#jquery_ui_button_top").button({
-		icons: {
-			primary: 'ui-icon-arrowthickstop-1-n',
-		},
-		text: false
+		icon: 'ui-icon-arrowthickstop-1-n',
+		showLabel: false
 	})
 	.click(function(){
 		$("body, html").animate({ scrollTop: 0 }, 300);
@@ -241,10 +237,8 @@ $(function(){
 	});
 	$(".help_button").each(function(){
 		$(this).button({
-			icons: {
-				primary: 'ui-icon-info'
-			},
-			text: false
+			icon: 'ui-icon-info',
+			showLabel: false
 		}).click(function() {
 			$($(this).attr("dialog")).dialog("open");
 		});
