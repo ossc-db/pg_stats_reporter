@@ -223,9 +223,7 @@
 <h4>この表は、バックグラウンドライタプロセスの活動状況に関する統計情報の概要を示します。</h4>
 <ul>
 <li><em>Written buffers by bgwriter</em>: バックグラウンドライタにより書き出されたバッファ数の一秒あたりの平均値</li>
-<li><em>Written buffers by backends</em>: バックエンドにより直接書き出されたバッファ数の一秒あたりの平均値</li>
 <li><em>Bgwriter scans quitted earlier</em>: 書き出したバッファ数が多過ぎたために、バックグラウンドライタによるバッファ回収のスキャンを途中で終了した回数の一秒あたりの平均値</li>
-<li><em>Fsyncs executed on backends</em>: チェックポインタでの処理が間に合わずバックエンドが自身で実行することになった fsync 呼び出しの回数の一秒あたりの平均値</li>
 <li><em>Allocated buffers</em>: 割当られたバッファ数の一秒あたりの平均値</li>
 </ul>
 <h4>このグラフは、バックグラウンドライタプロセスの活動状況の推移を示します。</h4>
@@ -238,10 +236,8 @@
 <h4>凡例</h4>
 <ul>
 <li><em>Written buffers by bgwriter(L)</em>: バックグラウンドライタにより書き出されたバッファ数</li>
-<li><em>Written buffers by backends(L)</em>: バックエンドにより直接書き出されたバッファ数</li>
 <li><em>Allocated buffers(L)</em>: 割当られたバッファ数の一秒あたりの平均値</li>
 <li><em>bgwriter scans quitted earlier(R)</em>: 書き出したバッファ数が多過ぎたために、バックグラウンドライタによるバッファ回収のスキャンを途中で終了した回数の一秒あたりの平均値</li>
-<li><em>fsyncs executed on backends(R)</em>: チェックポインタでの処理が間に合わずバックエンドが自身で実行することになった fsync 呼び出しの回数の一秒あたりの平均値</li>
 </ul>
 </div>
 

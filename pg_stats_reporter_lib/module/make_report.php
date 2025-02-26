@@ -3262,8 +3262,7 @@ EOD;
 EOD;
 
     $htmlString .= "    series : {\n";
-	$htmlString .= "      '".pg_field_name($results, 4)."': {axis: 'y2' },\n";
-	$htmlString .= "      '".pg_field_name($results, 5)."': {axis: 'y2' },\n";
+	$htmlString .= "      '".pg_field_name($results, 3)."': {axis: 'y2' },\n";
     $htmlString .= "    },\n";
 	$htmlString .= "    labels: [ ";
 	for($i = 0 ; $i < pg_num_fields($results) ; $i++)

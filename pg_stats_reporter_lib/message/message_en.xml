@@ -228,9 +228,7 @@ the another shows the amount divided by the snapshot interval.</h4>
 <h4>This table shows the overview of the background writer process's activity.</h4>
 <ul>
 <li><em>Written buffers by bgwriter</em>: Average number of buffers per second written by the background writer.</li>
-<li><em>Written buffers by backends</em>: Average number of buffers per second written directly by backends.</li>
 <li><em>Bgwriter scans quitted earlier</em>: Average number of times per second the background writer stopped a cleaning scan because it had written too many buffers.</li>
-<li><em>Fsyncs executed on backends</em>: Average number of times per second a backend had to execute its own fsync call because the checkpointer could not keep room for the fsync request.</li>
 <li><em>Allocated buffers</em>: Average number of buffers allocated per second.</li>
 </ul>
 <h4>This graph shows the trend of the background writer process's activity.</h4>
@@ -244,10 +242,8 @@ the another shows the amount divided by the snapshot interval.</h4>
 <ul>
 
 <li><em>Written buffers by bgwriter(L)</em>: Average number of buffers per second written by the background writer.</li>
-<li><em>Written buffers by backends(L)</em>: Average number of buffers per second written directly by a backend.</li>
 <li><em>Allocated buffers(L)</em>: Average number of buffers allocated per second.</li>
 <li><em>bgwriter scans quitted earlier(R)</em>: Average number of times per second the background writer stopped a cleaning scan because it had written too many buffers.</li>
-<li><em>fsyncs executed on backends(R)</em>: Average number of times per second a backend had to execute its own fsync call because the checkpointer could not keep room for the fsync request.</li>
 </ul>
 </div>
 
