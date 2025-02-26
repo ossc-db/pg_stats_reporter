@@ -564,4 +564,4 @@ pg_stats_reporter では、以下のライブラリを活用させていただ�
 
 </div>
 
-Copyright (c) 2012-2024, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
+Copyright (c) 2012-2025, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
