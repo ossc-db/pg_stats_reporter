@@ -2,7 +2,7 @@
 /*
  * make "Plans" report
  *
- * Copyright (c) 2012-2024, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
+ * Copyright (c) 2012-2025, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
  */
 
 function makePlansString($conn, $query_string, $snapids, $errorMsg) {
