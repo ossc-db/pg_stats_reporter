@@ -78,14 +78,14 @@
 <li><em>Plan</em>: 実行計画作成時のリソース情報<ul>
 <li><em>reads (Bytes)</em>: クエリの実行計画作成時に発生したディスクリード量 (Bytes)</li>
 <li><em>writes (Bytes)</em>: クエリの実行計画作成時に発生したディスクライト量 (Bytes)</li>
-<li><em>user time (ms)</em>: クエリの実行計画作成に要したCPU(user)時間 (ミリ秒)</li>
-<li><em>system time (ms)</em>: クエリの実行計画作成に要したCPU(system)時間 (ミリ秒)</li>
+<li><em>user time (s)</em>: クエリの実行計画作成に要したCPU(user)時間 (秒)</li>
+<li><em>system time (s)</em>: クエリの実行計画作成に要したCPU(system)時間 (秒)</li>
 </ul></li>
 <li><em>Execute</em>: クエリ実行時のリソース情報<ul>
 <li><em>reads (Bytes)</em>: クエリの実行時に発生したディスクリード量 (Bytes)</li>
 <li><em>writes (Bytes)</em>: クエリの実行時に発生したディスクライト量 (Bytes)</li>
-<li><em>user time (ms)</em>: クエリの実行に要したCPU(user)時間 (ミリ秒)</li>
-<li><em>system time (ms)</em>: クエリの実行に要したCPU(system)時間 (ミリ秒)</li>
+<li><em>user time (s)</em>: クエリの実行に要したCPU(user)時間 (秒)</li>
+<li><em>system time (s)</em>: クエリの実行に要したCPU(system)時間 (秒)</li>
 </ul></li>
 </ul>
 
@@ -523,14 +523,14 @@
 <li><em>Plan</em>:実行計画作成時のリソース情報<ul>
 <li><em>reads (Bytes)</em>: クエリの実行計画作成時に発生したディスクリード量 (Bytes)</li>
 <li><em>writes (Bytes)</em>: クエリの実行計画作成時に発生したディスクライト量 (Bytes)</li>
-<li><em>user time (ms)</em>: クエリの実行計画作成に要したCPU(user)時間 (ミリ秒)</li>
-<li><em>system time (ms)</em>: クエリの実行計画作成に要したCPU(system)時間 (ミリ秒)</li>
+<li><em>user time (s)</em>: クエリの実行計画作成に要したCPU(user)時間 (秒)</li>
+<li><em>system time (s)</em>: クエリの実行計画作成に要したCPU(system)時間 (秒)</li>
 </ul></li>
 <li><em>Execute</em>:クエリ実行時のリソース情報<ul>
 <li><em>reads (Bytes)</em>: クエリの実行時に発生したディスクリード量 (Bytes)</li>
 <li><em>writes (Bytes)</em>: クエリの実行時に発生したディスクライト量 (Bytes)</li>
-<li><em>user time (ms)</em>: クエリの実行に要したCPU(user)時間 (ミリ秒)</li>
-<li><em>system time (ms)</em>: クエリの実行に要したCPU(system)時間 (ミリ秒)</li>
+<li><em>user time (s)</em>: クエリの実行に要したCPU(user)時間 (秒)</li>
+<li><em>system time (s)</em>: クエリの実行に要したCPU(system)時間 (秒)</li>
 </ul></li>
 <li><em>Query</em>: クエリ</li>
 </ul>

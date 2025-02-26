@@ -78,14 +78,14 @@
 <li><em>Plan</em>: Planning-time resource usage<ul>
 <li><em>reads (Bytes)</em>: Amount of data read from disk during query planning. (Bytes)</li>
 <li><em>writes (Bytes)</em>: Amount of data written to disk during query planning. (Bytes)</li>
-<li><em>user time (ms)</em>: User CPU time spent on query planning. (ms)</li>
-<li><em>system time (ms)</em>: System CPU time spent on query planning. (ms)</li>
+<li><em>user time (s)</em>: User CPU time spent on query planning. (s)</li>
+<li><em>system time (s)</em>: System CPU time spent on query planning. (s)</li>
 </ul></li>
 <li><em>Execute</em>: Execution-time resource usage<ul>
 <li><em>reads (Bytes)</em>: Amount of data read from disk during query execution. (Bytes)</li>
 <li><em>writes (Bytes)</em>: Amount of data written to disk during query execution. (Bytes)</li>
-<li><em>user time (ms)</em>: User CPU time spent on query exeuction. (ms)</li>
-<li><em>system time (ms)</em>: System CPU time spent on query execution. (ms)</li>
+<li><em>user time (s)</em>: User CPU time spent on query exeuction. (s)</li>
+<li><em>system time (s)</em>: System CPU time spent on query execution. (s)</li>
 </ul></li>
 </ul>
 
@@ -544,14 +544,14 @@ pg_stat_statsments to be installed.</h4>
 <li><em>Plan</em>: Planning-time resource usage<ul>
 <li><em>reads (Bytes)</em>: Amount of data read from disk during query planning. (Bytes)</li>
 <li><em>writes (Bytes)</em>: Amount of data written to disk during query planning. (Bytes)</li>
-<li><em>user time (ms)</em>: User CPU time spent on query planning. (ms)</li>
-<li><em>system time (ms)</em>: System CPU time spent on query planning. (ms)</li>
+<li><em>user time (s)</em>: User CPU time spent on query planning. (s)</li>
+<li><em>system time (s)</em>: System CPU time spent on query planning. (s)</li>
 </ul></li>
 <li><em>Execute</em>: Execution-time resource usage<ul>
 <li><em>reads (Bytes)</em>: Amount of data read from disk during query execution. (Bytes)</li>
 <li><em>writes (Bytes)</em>: Amount of data written to disk during query execution. (Bytes)</li>
-<li><em>user time (ms)</em>: User CPU time spent on query exeuction. (ms)</li>
-<li><em>system time (ms)</em>: System CPU time spent on query execution. (ms)</li>
+<li><em>user time (s)</em>: User CPU time spent on query exeuction. (s)</li>
+<li><em>system time (s)</em>: System CPU time spent on query execution. (s)</li>
 </ul></li>
 <li><em>Query</em>: Query string.</li>
 </ul>
