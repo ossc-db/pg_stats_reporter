@@ -56,10 +56,10 @@ pg_stats_reporter is tested on the following environment.
 
   - PHP  
     7.2.24 (bundled with RHEL 8)  
-    8.0.27 (bundled with Rocky Linux 9)
+    8.0.30 (bundled with Rocky Linux 9)
 
   - OS  
-    RHEL 8.8, Rocky Linux 9.2
+    RHEL, Rocky Linux : 8.10, 9.5
 
   - Web browser  
     Firefox  
@@ -72,13 +72,13 @@ pg_stats_reporter is tested on the following environment.
     pg_stats_reporter)
     
       - jQuery : 3.7.1
-      - jQuery UI : 1.13.2
+      - jQuery UI : 1.14.1
       - jquery-ui-timepicker-addon : 1.6.3
       - dygraphs JavaScript Visualization Library : 2.2.1
       - jqPlot : 1.0.9 d96a669
-      - tablesorter : 2.31.3
+      - tablesorter : 2.32.0
       - Superfish : 1.7.10
-      - Smarty : 4.3.4
+      - Smarty : 4.5.5
 
 ### Installing pg_stats_reporter
 
@@ -539,8 +539,10 @@ Changes from pg_stats_reporter 16 are shown below.
 
   - Supports pg_statsinfo 17 (pg_stats_repoter 17 supports only
     pg_statsinfo 17).
-  - There is now more performance informatin to report.
-    - Added cluster-wide I/O statistics report.
+  - The items reported have been corrected.
+    - Deleted items from the Backend Writer Statistics display items that were deleted by pg_stat_bgwriter.
+    - Modified the Plans display items to match the changes in pg_store_plans (pg_stat_statements).
+    - Fixed the incorrect units displayed for user time and system time in Database Resource Usage and Statements Resource Usage.
 
 ## See also
 

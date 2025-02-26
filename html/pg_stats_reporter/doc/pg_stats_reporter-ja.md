@@ -70,29 +70,29 @@ pg_stats_reporter
     バージョン 17
 
   - 動作確認済みPHP  
-    7.2.24 (RHEL 8.8 同梱のもの)
-    8.0.27 (Rocky Linux 9.2 同梱のもの)
+    7.2.24 (RHEL 8.10 同梱のもの)
+    8.0.30 (Rocky Linux 9.5 同梱のもの)
 
   - 動作確認済みOS  
-    RHEL 8.8, Rocky Linux 9.2
+    RHEL, Rocky Linux : 8.10, 9.5
 
   - 動作確認済みブラウザ  
     Firefox  
     Microsoft Edge
 
-  - 動作確認済みHTTP Server
+  - 動作確認済みHTTP Server  
     Apache HTTP Server : 2.4
 
   - 利用ライブラリ (pg_stats_reporter のインストールパッケージに同梱)
     
       - jQuery : 3.7.1
-      - jQuery UI : 1.13.2
+      - jQuery UI : 1.14.1
       - jquery-ui-timepicker-addon : 1.6.3
       - dygraphs JavaScript Visualization Library : 2.2.1
       - jqPlot : 1.0.9 d96a669
-      - tablesorter : 2.31.3
+      - tablesorter : 2.32.0
       - Superfish : 1.7.10
-      - Smarty : 4.3.4
+      - Smarty : 4.5.5
 
 ### パッケージのインストール
 
@@ -530,9 +530,9 @@ pg_stats_reporter 16 からの変更点は以下の通りです。
   - pg_statsinfo 17に対応 (pg_stats_reporter 17は pg_statsinfo
     17のみをサポートします)
   - 一部レポートする項目を修正しました。
-    - Backend Writer Statisticsの表示項目から、pg_stat_bgwriterで削除にな他項目を削除
+    - Backend Writer Statisticsの表示項目から、pg_stat_bgwriterで削除になった項目を削除
 	- Plansの表示項目をpg_store_plans(pg_stat_statements)の変更にあわせて修正
-  
+    - Database Resource UsageおよびStatements Resource Usageのuser timeおよびsystem timeに表記されている単位が誤っていたのを修正
 
 ## 関連項目
 
