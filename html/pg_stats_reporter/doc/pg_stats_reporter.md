@@ -14,22 +14,22 @@
 6.  [Configuration File](#Configuration-File)
 7.  [Cautions and Restrictions](#Cautions-and-Restrictions)
 8.  [FAQ](#FAQ)
-9.  [Changes from pg_stats_reporter15](#Changes-from-pg_stats_reporter15)
+9.  [Changes from pg_stats_reporter16](#Changes-from-pg_stats_reporter16)
 10. [See also](#See-also)
 11. [Acknowledgments](#Acknowledgments)
 
 </div>
 
-# pg_stats_reporter 16
+# pg_stats_reporter 17
 
 ## What is pg_stats_reporter
 
 pg_stats_reporter is a graphical report generator for
 [pg_statsinfo](https://github.com/ossc-db/pg_statsinfo/).
 It offers you various statistical information collected by pg_statsinfo
-in a graphical and interactive representation. pg_stats_reporter 16 is
-compatible only with pg_statsinfo 16. You can see an example report
-[here](http://pgstatsinfo.sourceforge.net/documents/reporter16/doc/files/report_sample.html).
+in a graphical and interactive representation. pg_stats_reporter 17 is
+compatible only with pg_statsinfo 17. You can see an example report
+[here](http://pgstatsinfo.sourceforge.net/documents/reporter17/doc/files/report_sample.html).
 
 pg_stats_reporter 14 and later are available on GitHub. pg_stats_reporter 13 and earlier can be found at [SourceForge](http://pgstatsinfo.sourceforge.net/index.html).
 
@@ -52,7 +52,7 @@ INSTALL.en file in the top of source tree.
 pg_stats_reporter is tested on the following environment.
 
   - pg_statsinfo
-    version 16
+    version 17
 
   - PHP  
     7.2.24 (bundled with RHEL 8)  
@@ -94,7 +94,7 @@ The required packages are are installed by the steps like following
 using yum.
 
     $ su
-    # dnf install pg_stats_reporter-16.0-1.el8.noarch.rpm php-intl
+    # dnf install pg_stats_reporter-17.0-1.el8.noarch.rpm php-intl
 
 #### Installing for offline reports only
 
@@ -110,7 +110,7 @@ instant help messages between ja/en) of an online graphical report.
 
     $ su
     # dnf install php-pgsql php-intl php-cli php-xml
-    # rpm -ivh --nodeps pg_stats_reporter-16.0-1.el8.noarch.rpm
+    # rpm -ivh --nodeps pg_stats_reporter-17.0-1.el8.noarch.rpm
 
 ### Initial Setup
 
@@ -240,7 +240,7 @@ these fields and click the "Search" button below.
   - USERNAME: User name
   - DATABASE: Database name
   - MESSAGE: Regular expression that [PostgreSQL defines for SIMILAR
-    TO](http://www.postgresql.org/docs/15/static/functions-matching.html).
+    TO](http://www.postgresql.org/docs/17/static/functions-matching.html).
 
 ③ : Search button
 
@@ -412,7 +412,7 @@ not necessary.
 the top source directory.
 
     $ su
-    # dnf remove pg_stats_reporter-16.0-1.el8.noarch
+    # dnf remove pg_stats_reporter-17.0-1.el8.noarch
 
 ## Configuration File
 
@@ -457,7 +457,7 @@ below.
   
 
 1.  These settings follow [PostgreSQL
-    settings](http://www.postgresql.org/docs/16/static/libpq-connect.html#LIBPQ-PARAMKEYWORDS)
+    settings](http://www.postgresql.org/docs/17/static/libpq-connect.html#LIBPQ-PARAMKEYWORDS)
     as default.
 
 ## Cautions and Restrictions
@@ -533,18 +533,18 @@ corresponding data in repository. See details
 A5. Your browser may hold old JavaScript libraries in cache. Try
 clearing them.
 
-## Changes from pg_stats_reporter15
+## Changes from pg_stats_reporter16
 
-Changes from pg_stats_reporter 15 are shown below.
+Changes from pg_stats_reporter 16 are shown below.
 
-  - Supports pg_statsinfo 16 (pg_stats_repoter 16 supports only
-    pg_statsinfo 16).
+  - Supports pg_statsinfo 17 (pg_stats_repoter 17 supports only
+    pg_statsinfo 17).
   - There is now more performance informatin to report.
     - Added cluster-wide I/O statistics report.
 
 ## See also
 
-[pg_statsinfo 16](https://github.com/ossc-db/pg_statsinfo/)
+[pg_statsinfo 17](https://github.com/ossc-db/pg_statsinfo/)
   
 
 ## Acknowledgments
