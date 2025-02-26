@@ -225,10 +225,10 @@ $query_string = array(
   "SELECT replace(\"timestamp\", '-', '/'), avg(idle) AS idle, avg(idle_in_xact) AS \"idle in xact\", avg(waiting) AS waiting, avg(running) AS running FROM statsrepo.get_proc_tendency_report($1, $2) GROUP BY 1 ORDER BY 1",
 
   "bgwriter_statistics_overview" =>
-  "SELECT bgwriter_write_avg AS \"Written buffers by bgwriter\", backend_write_avg AS \"Written buffers by backends\", bgwriter_stopscan_avg AS \"Bgwriter scans quitted earlier\", backend_fsync_avg AS \"Fsyncs executed on backends\", buffer_alloc_avg AS \"Allocated buffers\" FROM statsrepo.get_bgwriter_stats($1, $2)",
+  "SELECT bgwriter_write_avg AS \"Written buffers by bgwriter\", bgwriter_stopscan_avg AS \"Bgwriter scans quitted earlier\", buffer_alloc_avg AS \"Allocated buffers\" FROM statsrepo.get_bgwriter_stats($1, $2)",
 
   "bgwriter_statistics" =>
-  "SELECT replace(\"timestamp\", '-', '/'), bgwriter_write_tps AS \"Written buffers by bgwriter(L)\", backend_write_tps AS \"Written buffers by backends(L)\", buffer_alloc_tps AS \"Allocated buffers(L)\", bgwriter_stopscan_tps AS \"Bgwriter scans quitted earlier(R)\", backend_fsync_tps AS \"Fsyncs executed on backends(R)\" FROM statsrepo.get_bgwriter_tendency($1, $2)",
+  "SELECT replace(\"timestamp\", '-', '/'), bgwriter_write_tps AS \"Written buffers by bgwriter(L)\", buffer_alloc_tps AS \"Allocated buffers(L)\", bgwriter_stopscan_tps AS \"Bgwriter scans quitted earlier(R)\" FROM statsrepo.get_bgwriter_tendency($1, $2)",
 
   "wait_sampling_by_instid" =>
   "SELECT event_type AS \"Event type\", event AS \"Event\", \"count\" AS \"Count\", ratio AS \"Ratio\", row_number AS \"Row number\" FROM statsrepo.get_wait_sampling_by_instid($1, $2)",
