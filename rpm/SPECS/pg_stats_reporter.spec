@@ -1,5 +1,5 @@
 Name:			pg_stats_reporter
-Version:		16.0
+Version:		17.0
 Release:		1%{?dist}
 Summary:		Graphical viewer for pg_statsinfo
 Summary(ja):	pg_statsinfo 用グラフィカルビューア
@@ -10,8 +10,8 @@ Packager:		NIPPON TELEGRAPH AND TELEPHONE CORPORATION
 Source0:		%{name}-%{version}.tar.gz
 BuildRoot:		%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:		noarch
-Requires:		php >= 7.2.11, php-pgsql >= 7.2.11
-Requires:		php-common >= 7.2.11, php-xml >= 7.2.11
+Requires:		php >= 7.2.24, php-pgsql >= 7.2.24
+Requires:		php-common >= 7.2.24, php-xml >= 7.2.24
 Requires:		httpd >= 2.4
 AutoReqProv: 0
 
@@ -64,6 +64,8 @@ if [ $1 = 1 ] ; then
 fi
 
 %changelog
+* Wed Feb  19 2025 - NTT OSS Center 17.0-1
+- pg_stats_reporter 17.0 released
 * Thu Feb  29 2024 - NTT OSS Center 16.0-1
 - pg_stats_reporter 16.0 released
 * Fri Jun  30 2023 - NTT OSS Center 15.1-1
