@@ -742,6 +742,10 @@ function initInformationFileForCommandline($infoData, &$err_msg, $config_cache_f
 					}
 				}
 			}
+		} else {
+		    foreach ($setting as $key => $val) {
+			    $setting[$key] = true;
+			}
 		}
 		foreach (array_keys($setting) as $key) {
 			$cache_contents[] = $key." = ".$setting[$key]."\n";
