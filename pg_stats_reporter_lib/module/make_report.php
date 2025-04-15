@@ -2619,12 +2619,12 @@ function makeDBRUsageTablePagerHTML($result, $id, $default, $pagerOn)
     $htmlString .= "\n</tr><tr>\n";
     $htmlString .= "<th>reads (Bytes)</th>";
     $htmlString .= "<th>writes (Bytes)</th>";
-    $htmlString .= "<th>user time (ms)</th>";
-    $htmlString .= "<th>system time (ms)</th>";
+    $htmlString .= "<th>user time (s)</th>";
+    $htmlString .= "<th>system time (s)</th>";
     $htmlString .= "<th>reads (Bytes)</th>";
     $htmlString .= "<th>writes (Bytes)</th>";
-    $htmlString .= "<th>user time (ms)</th>";
-    $htmlString .= "<th>system time (ms)</th>";
+    $htmlString .= "<th>user time (s)</th>";
+    $htmlString .= "<th>system time (s)</th>";
 	$htmlString .= "\n</tr></thead>\n<tbody>\n";
 
 	for($i = 0 ; $i < pg_num_rows($result) ; $i++ ) {
@@ -2662,12 +2662,12 @@ function makeStatementsRUsageTablePagerHTML($result, $id, $default, $pagerOn, $q
     $htmlString .= "\n</tr><tr>\n";
     $htmlString .= "<th>reads (Bytes)</th>";
     $htmlString .= "<th>writes (Bytes)</th>";
-    $htmlString .= "<th>user time (ms)</th>";
-    $htmlString .= "<th>system time (ms)</th>";
+    $htmlString .= "<th>user time (s)</th>";
+    $htmlString .= "<th>system time (s)</th>";
     $htmlString .= "<th>reads (Bytes)</th>";
     $htmlString .= "<th>writes (Bytes)</th>";
-    $htmlString .= "<th>user time (ms)</th>";
-    $htmlString .= "<th>system time (ms)</th>";
+    $htmlString .= "<th>user time (s)</th>";
+    $htmlString .= "<th>system time (s)</th>";
 	$htmlString .= "\n</tr></thead>\n<tbody>\n";
 
 	for($i = 0 ; $i < pg_num_rows($result) ; $i++ ) {
