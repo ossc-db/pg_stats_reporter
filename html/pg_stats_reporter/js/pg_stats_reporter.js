@@ -198,7 +198,10 @@ $(function(){
         13: { sorter: "digit" },
         14: { sorter: "digit" },
         15: { sorter: "digit" },
-        16: { sorter: "digit" }
+        16: { sorter: "digit" },
+        17: { sorter: "digit" },
+        18: { sorter: "digit" },
+        19: { sorter: "digit" }
       }
     })
   )
@@ -370,7 +373,12 @@ $(function(){
       headers: {
         3: { sorter: "digit" },
         4: { sorter: "digit" },
-        5: { sorter: "digit" }
+        5: { sorter: "digit" },
+        6: { sorter: "digit" },
+        7: { sorter: "digit" },
+        8: { sorter: "digit" },
+        9: { sorter: "digit" },
+        10: { sorter: "digit" }
       }
     })
   )

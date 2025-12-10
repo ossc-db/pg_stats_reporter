@@ -6,7 +6,7 @@
  */
 
 // pg_stats_reporter's version
-define("PROGRAM_VERSION", "17.0");
+define("PROGRAM_VERSION", "18.0");
 
 // Image File
 define("IMAGE_FILE", "pgsql_banner01.png");
@@ -271,7 +271,7 @@ $query_string = array(
   "SELECT replace(\"timestamp\", '-', '/'), device_name, avg(read_time_rate) AS \"avg read time\", avg(write_time_rate) AS \"avg write time\" FROM statsrepo.get_io_usage_tendency_report($1, $2) GROUP BY 1,2 ORDER BY 1,2",
 
   "io_statistics1" =>
-  "SELECT replace(\"time\", '-', '/') AS \"Time\", backend_type AS \"backend type\", object, context, reads, read_time AS \"read time(ms)\", writes, write_time AS \"write time(ms)\", writebacks, writeback_time AS \"writeback time(ms)\", extends, extend_time AS \"extend time(ms)\", hits, evictions, reuses, fsyncs, fsync_time AS \"fsync time(ms)\" FROM statsrepo.get_stat_io($1, $2) ORDER BY 1, 2, 3, 4",
+  "SELECT replace(\"time\", '-', '/') AS \"Time\", backend_type AS \"backend type\", object, context, reads, read_bytes AS \"read bytes\", read_time AS \"read time(ms)\", writes, write_bytes AS \"write bytes\", write_time AS \"write time(ms)\", writebacks, writeback_time AS \"writeback time(ms)\", extends, extend_bytes AS \"extend bytes\", extend_time AS \"extend time(ms)\", hits, evictions, reuses, fsyncs, fsync_time AS \"fsync time(ms)\" FROM statsrepo.get_stat_io($1, $2) ORDER BY 1, 2, 3, 4",
 
   "io_statistics2" =>
   "SELECT DISTINCT stats_reset AS \"last reset time\" FROM statsrepo.stat_io WHERE snapid = $1",
@@ -294,7 +294,7 @@ $query_string = array(
   "SELECT datname AS \"Database\", nspname AS \"Schema\", proname AS \"Function\", calls AS \"Calls\", total_time AS \"Total time (ms)\", self_time AS \"Self time (ms)\", time_per_call AS \"Time/call (ms)\" FROM statsrepo.get_query_activity_functions($1, $2)",
 
   "statements" =>
-  "SELECT rolname AS \"User\", datname AS \"Database\", query AS \"Query\", calls AS \"Calls\", total_exec_time AS \"Total execution time (s)\", time_per_call AS \"Average execution time (s)\", plans AS \"Plans\", total_plan_time AS \"Total planning time (s)\",  time_per_plan AS \"Average planning time (s)\" FROM statsrepo.get_query_activity_statements($1, $2)",
+  "SELECT rolname AS \"User\", datname AS \"Database\", query AS \"Query\", calls AS \"Calls\", total_exec_time AS \"Total execution time (s)\", time_per_call AS \"Average execution time (s)\", plans AS \"Plans\", total_plan_time AS \"Total planning time (s)\",  time_per_plan AS \"Average planning time (s)\", parallel_workers_to_launch AS \"parallel workers to launch\", parallel_workers_launched AS \"parallel workers lauched\" FROM statsrepo.get_query_activity_statements($1, $2)",
 
   "statements_rusage" =>
   "SELECT rolname AS \"User\", datname AS \"Database\", plan_reads AS \"Plan reads (Bytes)\", plan_writes AS \"Plan writes (Bytes)\", plan_user_times AS \"Plan user time (s)\", plan_sys_times AS \"Plan system time (s)\", exec_reads AS \"Execute reads (Bytes)\", exec_writes AS \"Execute writes (Bytes)\", exec_user_times AS \"Execute user time (s)\", exec_sys_times AS \"Execute system time (s)\", query AS \"Query\" FROM statsrepo.get_query_activity_statements_rusage($1, $2)",
@@ -334,7 +334,7 @@ $query_string = array(
   "SELECT timestamp::timestamp(0) AS \"Time\", database AS \"Database\", schema AS \"Schema\", \"table\" AS \"Table\", 'VACUUM' AS \"Activity\", query AS \"Causal query\" FROM statsrepo.autovacuum_cancel v WHERE timestamp BETWEEN (SELECT min(time) AS time FROM statsrepo.snapshot WHERE snapid >= $1) AND (SELECT max(time) AS time FROM statsrepo.snapshot WHERE snapid <= $2) AND instid = (SELECT instid FROM statsrepo.snapshot WHERE snapid = $2) UNION ALL SELECT timestamp::timestamp(0) AS \"Time\", database AS \"Database\", schema AS \"Schema\", \"table\" AS \"Table\", 'ANALYZE' AS \"Activity\", query AS \"Causal query\" FROM statsrepo.autoanalyze_cancel v WHERE timestamp BETWEEN (SELECT min(time) AS time FROM statsrepo.snapshot WHERE snapid >= $1) AND (SELECT max(time) AS time FROM statsrepo.snapshot WHERE snapid <= $2) AND instid = (SELECT instid FROM statsrepo.snapshot WHERE snapid = $2) ORDER By \"Time\"",
 
   "autovacuum_io_summary" =>
-  "SELECT datname AS \"Database\", nspname AS \"Schema\", relname AS \"Table\", avg_page_hit AS \"Page hit\", avg_page_miss AS \"Page miss\", avg_page_dirty AS \"Page dirtied\", avg_read_rate AS \"Read rate (MiB/s)\", avg_write_rate AS \"Write rate (MiB/s)\", avg_read_duration AS \"Read duration (ms)\", avg_write_duration AS \"Write duration (ms)\" FROM statsrepo.get_autovacuum_activity2($1, $2)", 
+  "SELECT datname AS \"Database\", nspname AS \"Schema\", relname AS \"Table\", avg_page_hit AS \"Page hit\", avg_page_read AS \"Page read\", avg_page_dirty AS \"Page dirtied\", avg_read_rate AS \"Read rate (MiB/s)\", avg_write_rate AS \"Write rate (MiB/s)\", avg_read_duration AS \"Read duration (ms)\", avg_write_duration AS \"Write duration (ms)\" FROM statsrepo.get_autovacuum_activity2($1, $2)", 
 
   "vacuum_wal_statistics" =>
   "SELECT replace(\"timestamp\", '-', '/') AS timestamp, wal_fpi AS \"WAL full page image\", wal_bytes AS \"WAL bytes\" FROM statsrepo.get_autovacuum_wal_activity_tendency($1, $2)",
@@ -346,7 +346,7 @@ $query_string = array(
   "SELECT datname AS \"Database\", nspname AS \"Schema\", relname AS \"Table\", \"count\" AS \"Count\", total_duration AS \"Total duration (s)\", avg_duration AS \"Avg duration (s)\", max_duration AS \"Max duration (s)\", last_analyze AS \"Last analyzed\", cancels AS \"Cancels\", mod_rows_max AS \"Max modified rows\" FROM statsrepo.get_autoanalyze_stats($1, $2)", 
 
   "analyze_io_summary" =>
-  "SELECT datname AS \"Database\", nspname AS \"Schema\", relname AS \"Table\", avg_page_hit AS \"Page hit\", avg_page_miss AS \"Page miss\", avg_page_dirty AS \"Page dirtied\", avg_read_rate AS \"Read rate (MiB/s)\", avg_write_rate AS \"Write rate (MiB/s)\", avg_read_duration AS \"Read duration (ms)\", avg_write_duration AS \"Write duration (ms)\" FROM statsrepo.get_autoanalyze_activity2($1, $2)",
+  "SELECT datname AS \"Database\", nspname AS \"Schema\", relname AS \"Table\", avg_page_hit AS \"Page hit\", avg_page_read AS \"Page read\", avg_page_dirty AS \"Page dirtied\", avg_read_rate AS \"Read rate (MiB/s)\", avg_write_rate AS \"Write rate (MiB/s)\", avg_read_duration AS \"Read duration (ms)\", avg_write_duration AS \"Write duration (ms)\" FROM statsrepo.get_autoanalyze_activity2($1, $2)",
 
   "modified_rows" =>
   "SELECT replace(\"timestamp\", '-', '/') AS timestamp, datname||'.'||nspname||'.'||relname, ratio FROM statsrepo.get_modified_row_ratio($1, $2, $3)",

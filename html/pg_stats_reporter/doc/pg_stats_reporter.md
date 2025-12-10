@@ -14,22 +14,22 @@
 6.  [Configuration File](#Configuration-File)
 7.  [Cautions and Restrictions](#Cautions-and-Restrictions)
 8.  [FAQ](#FAQ)
-9.  [Changes from pg_stats_reporter16](#Changes-from-pg_stats_reporter16)
+9.  [Changes from pg_stats_reporter17](#Changes-from-pg_stats_reporter17)
 10. [See also](#See-also)
 11. [Acknowledgments](#Acknowledgments)
 
 </div>
 
-# pg_stats_reporter 17
+# pg_stats_reporter 18
 
 ## What is pg_stats_reporter
 
 pg_stats_reporter is a graphical report generator for
 [pg_statsinfo](https://github.com/ossc-db/pg_statsinfo/).
 It offers you various statistical information collected by pg_statsinfo
-in a graphical and interactive representation. pg_stats_reporter 17 is
-compatible only with pg_statsinfo 17. You can see an example report
-[here](http://pgstatsinfo.sourceforge.net/documents/reporter17/doc/files/report_sample.html).
+in a graphical and interactive representation. pg_stats_reporter 18 is
+compatible only with pg_statsinfo 18. You can see an example report
+[here](http://pgstatsinfo.sourceforge.net/documents/reporter18/doc/files/report_sample.html).
 
 pg_stats_reporter 14 and later are available on GitHub. pg_stats_reporter 13 and earlier can be found at [SourceForge](http://pgstatsinfo.sourceforge.net/index.html).
 
@@ -52,14 +52,15 @@ INSTALL.en file in the top of source tree.
 pg_stats_reporter is tested on the following environment.
 
   - pg_statsinfo
-    version 17
+    version 18
 
   - PHP  
     7.2.24 (bundled with RHEL 8)  
     8.0.30 (bundled with Rocky Linux 9)
+	8.3.19 (bundled with Rocky Linux 10)
 
   - OS  
-    RHEL, Rocky Linux : 8.10, 9.5
+    RHEL, Rocky Linux : 8, 9, 10
 
   - Web browser  
     Firefox  
@@ -78,7 +79,7 @@ pg_stats_reporter is tested on the following environment.
       - jqPlot : 1.0.9 d96a669
       - tablesorter : 2.32.0
       - Superfish : 1.7.10
-      - Smarty : 4.5.5
+      - Smarty : 5.7.0
 
 ### Installing pg_stats_reporter
 
@@ -94,7 +95,7 @@ The required packages are are installed by the steps like following
 using yum.
 
     $ su
-    # dnf install pg_stats_reporter-17.0-1.el8.noarch.rpm php-intl
+    # dnf install pg_stats_reporter-18.0-1.el9.noarch.rpm php-intl
 
 #### Installing for offline reports only
 
@@ -110,7 +111,7 @@ instant help messages between ja/en) of an online graphical report.
 
     $ su
     # dnf install php-pgsql php-intl php-cli php-xml
-    # rpm -ivh --nodeps pg_stats_reporter-17.0-1.el8.noarch.rpm
+    # rpm -ivh --nodeps pg_stats_reporter-18.0-1.el9.noarch.rpm
 
 ### Initial Setup
 
@@ -240,7 +241,7 @@ these fields and click the "Search" button below.
   - USERNAME: User name
   - DATABASE: Database name
   - MESSAGE: Regular expression that [PostgreSQL defines for SIMILAR
-    TO](http://www.postgresql.org/docs/17/static/functions-matching.html).
+    TO](http://www.postgresql.org/docs/18/static/functions-matching.html).
 
 ③ : Search button
 
@@ -412,7 +413,7 @@ not necessary.
 the top source directory.
 
     $ su
-    # dnf remove pg_stats_reporter-17.0-1.el8.noarch
+    # dnf remove pg_stats_reporter-18.0-1.el9.noarch
 
 ## Configuration File
 
@@ -457,7 +458,7 @@ below.
   
 
 1.  These settings follow [PostgreSQL
-    settings](http://www.postgresql.org/docs/17/static/libpq-connect.html#LIBPQ-PARAMKEYWORDS)
+    settings](http://www.postgresql.org/docs/18/static/libpq-connect.html#LIBPQ-PARAMKEYWORDS)
     as default.
 
 ## Cautions and Restrictions
@@ -533,20 +534,16 @@ corresponding data in repository. See details
 A5. Your browser may hold old JavaScript libraries in cache. Try
 clearing them.
 
-## Changes from pg_stats_reporter16
+## Changes from pg_stats_reporter17
 
-Changes from pg_stats_reporter 16 are shown below.
+Changes from pg_stats_reporter 17 are shown below.
 
-  - Supports pg_statsinfo 17 (pg_stats_repoter 17 supports only
-    pg_statsinfo 17).
-  - The items reported have been corrected.
-    - Deleted items from the Backend Writer Statistics display items that were deleted by pg_stat_bgwriter.
-    - Modified the Plans display items to match the changes in pg_store_plans (pg_stat_statements).
-    - Fixed the incorrect units displayed for user time and system time in Database Resource Usage and Statements Resource Usage.
+  - Supports pg_statsinfo 18 (pg_stats_repoter 18 supports only
+    pg_statsinfo 18).
 
 ## See also
 
-[pg_statsinfo 17](https://github.com/ossc-db/pg_statsinfo/)
+[pg_statsinfo 18](https://github.com/ossc-db/pg_statsinfo/)
   
 
 ## Acknowledgments

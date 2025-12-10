@@ -353,12 +353,15 @@
 	<li><em>object</em>：I/O操作のターゲットオブジェクト(relation、temp relation)</li>
 	<li><em>context</em>：I/O操作のコンテキスト(normal、vacuum、bulkread、bulkwrite)</li>
 	<li><em>reads</em>：読み取り操作の数</li>
+	<li><em>read bytes</em>：読み取り操作の合計サイズ(バイト)</li>
 	<li><em>read time(ms)</em>：読み取り操作に費やされた時間(ミリ秒)</li>
 	<li><em>writes</em>：書き込み操作の数</li>
+	<li><em>write bytes</em>：書き込み操作の合計サイズ(バイト)</li>
 	<li><em>write time(ms)</em>：書き込み操作に費やされた時間(ミリ秒)</li>
 	<li><em>writebacks</em>：永続ストレージへの書き込み操作の数</li>
 	<li><em>writeback time(ms)</em>：ライトバック操作に費やされた時間(ミリ秒)</li>
 	<li><em>extends</em>：リレーション拡張操作の数</li>
+	<li><em>extend bytes</em>：リレーション拡張操作の合計サイズ(バイト)</li>
 	<li><em>extend time(ms)</em>：拡張操作に費やした時間(ミリ秒)</li>
 	<li><em>hits</em>：共有バッファー内で目的のブロックが見つかった回数</li>
 	<li><em>evictions</em>：共有バッファまたはローカル バッファからブロックが書き出された回数</li>
@@ -368,8 +371,7 @@
   </ul>
   <pre>
 ※小さな値は切り捨てにより0と表示される場合があります
-  各I/O操作のデータは track_io_timing が有効の時に取得します
-  また、block_size(デフォルト 8KiB) を単位とします</pre>
+  各I/O操作のデータは track_io_timing が有効の時に取得します</pre>
   <br/>以下の項目はスナップショット期間の最後の値を出しています<br/>
   <ul>
 	<li><em>last reset time</em>：I/O統計が最後にリセットされた時刻</li>
@@ -507,6 +509,8 @@
 <li><em>Plans</em>: この問い合わせの実行計画が作成された回数</li>
 <li><em>Total planning time (s)</em>: この問い合わせで実行計画の作成に要した時間の合計 (秒)</li>
 <li><em>Average planning time (s)</em>:この問い合わせで実行計画の作成に要した時間の平均 (秒)</li>
+<li><em>parallel workers to launch</em>:起動予定のパラレルワーカーの数</li>
+<li><em>parallel workers launched</em>:実際に起動されたパラレルワーカーの数</li>
 </ul>
 </div>
 
@@ -680,7 +684,7 @@
 <li><em>Schema</em>: このテーブルが属するスキーマの名前</li>
 <li><em>Table</em>: このテーブルの名前</li>
 <li><em>Page hit</em>: 1回の自動Vacuum毎に共有バッファから読み込んだページ数のレポート期間中の平均値</li>
-<li><em>Page miss</em>: 1回の自動Vacuum毎にディスクから読み込んだページ数のレポート期間中の平均値</li>
+<li><em>Page read</em>: 1回の自動Vacuum毎にディスクから読み込んだページ数のレポート期間中の平均値</li>
 <li><em>Page dirtied</em>: 1回の自動Vacuum毎に内容を変更したページ数のレポート期間中の平均値</li>
 <li><em>Read rate (MiB/s)</em>: 自動Vacuum中のディスク読み込み速度のレポート期間中の平均値 (MiB/s)</li>
 <li><em>Write rate (MiB/s)</em>: 自動Vacuum中のディスク書き込み速度のレポート期間中の平均値 (MiB/s)</li>
@@ -753,7 +757,7 @@
 <li><em>Schema</em>: このテーブルが属するスキーマの名前</li>
 <li><em>Table</em>: このテーブルの名前</li>
 <li><em>Page hit</em>: 1回の自動Analyze毎に共有バッファから読み込んだページ数のレポート期間中の平均値</li>
-<li><em>Page miss</em>: 1回の自動Analyze毎にディスクから読み込んだページ数のレポート期間中の平均値</li>
+<li><em>Page read</em>: 1回の自動Analyze毎にディスクから読み込んだページ数のレポート期間中の平均値</li>
 <li><em>Page dirtied</em>: 1回の自動Analyze毎に内容を変更したページ数のレポート期間中の平均値</li>
 <li><em>Read rate (MiB/s)</em>: 自動Analyze中のディスク読み込み速度のレポート期間中の平均値 (MiB/s)</li>
 <li><em>Write rate (MiB/s)</em>: 自動Analyze中のディスク書き込み速度のレポート期間中の平均値 (MiB/s)</li>

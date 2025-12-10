@@ -16,20 +16,20 @@
 6.  [設定ファイル](#設定ファイル)
 7.  [使用上の注意と制約](#使用上の注意と制約)
 8.  [よくあるQ\&A](#よくあるqa)
-9.  [pg_stats_reporter16からの変更点](#pg_stats_reporter16からの変更点)
+9.  [pg_stats_reporter17からの変更点](#pg_stats_reporter17からの変更点)
 10. [関連項目](#関連項目)
 11. [謝辞](#謝辞)
 
 </div>
 
-# pg_stats_reporter 17
+# pg_stats_reporter 18
 
 ## pg_stats_reporterとは
 
-[pg_statsinfo 17](https://github.com/ossc-db/pg_statsinfo/)が収集した統計情報を元に、PostgreSQL
+[pg_statsinfo 18](https://github.com/ossc-db/pg_statsinfo/)が収集した統計情報を元に、PostgreSQL
 サーバの利用統計情報をHTML形式のグラフィカルなレポートで出力します。
 
-当ツールで作成したレポートの例は[こちら](http://pgstatsinfo.sourceforge.net/documents/reporter17/doc/files/report_sample.html)をご覧ください。
+当ツールで作成したレポートの例は[こちら](http://pgstatsinfo.sourceforge.net/documents/reporter18/doc/files/report_sample.html)をご覧ください。
 
 pg_statsinfo 14 および pg_stats_reporter 14 以降は GitHub にて公開しています。pg_stats_reporter 13 以前の情報については、[SourceForge](http://pgstatsinfo.sourceforge.net/index_ja.html)をご覧ください。
 
@@ -67,14 +67,15 @@ pg_stats_reporter
 ### 動作確認環境
 
   - pg_statsinfo
-    バージョン 17
+    バージョン 18
 
   - 動作確認済みPHP  
-    7.2.24 (RHEL 8.10 同梱のもの)
-    8.0.30 (Rocky Linux 9.5 同梱のもの)
+    7.2.24 (RHEL 8 同梱のもの)
+    8.0.30 (Rocky Linux 9 同梱のもの)
+	8.3.19 (Rocky Linux 10 同梱のもの)
 
   - 動作確認済みOS  
-    RHEL, Rocky Linux : 8.10, 9.5
+    RHEL, Rocky Linux : 8, 9, 10
 
   - 動作確認済みブラウザ  
     Firefox  
@@ -92,7 +93,7 @@ pg_stats_reporter
       - jqPlot : 1.0.9 d96a669
       - tablesorter : 2.32.0
       - Superfish : 1.7.10
-      - Smarty : 4.5.5
+      - Smarty : 5.7.0
 
 ### パッケージのインストール
 
@@ -102,14 +103,14 @@ php-intl が未インストールの状態でも動作しますが、表示言�
 
 #### フルインストール
 
-    # dnf install pg_stats_reporter-17.0-1.el8.noarch.rpm php-intl
+    # dnf install pg_stats_reporter-18.0-1.el9.noarch.rpm php-intl
 
 #### コマンドライン機能のみ
 
 pg_stats_reporterのrpmは、依存関係にhttpdが含まれています。そのためインストールする際は、--nodepsを指定してrpmコマンドを実行します。
 
     # dnf install php-pgsql php-intl php-cli php-xml
-    # rpm -ivh --nodeps pg_stats_reporter-17.0-1.el8.noarch.rpm
+    # rpm -ivh --nodeps pg_stats_reporter-18.0-1.el9.noarch.rpm
 
 ### 初期設定
 
@@ -209,7 +210,7 @@ URLのホスト名は pg_stats_reporter の実行環境にあわせて変更し�
       - USERNAME: DBユーザ名
       - DATABASE: データベース名
       - MESSAGE: メッセージ本文
-        ([PostgreSQLの正規表現](http://www.postgresql.jp/document/17/html/functions-matching.html#FUNCTIONS-POSIX-REGEXP)で指定してください)
+        ([PostgreSQLの正規表現](http://www.postgresql.jp/document/18/html/functions-matching.html#FUNCTIONS-POSIX-REGEXP)で指定してください)
   - ③ : 検索ボタン  
     ②に入力されている条件で検索を実行します。
   - ④ : 検索条件のリセットボタン  
@@ -349,7 +350,7 @@ URLのホスト名は pg_stats_reporter の実行環境にあわせて変更し�
 
 ※ソースセットからインストールした場合のアンインストール手順は、ソースセットに同梱されている INSTALL.ja ファイルを参照してください。
 
-    # dnf remove pg_stats_reporter-17.0-1.el8.noarch
+    # dnf remove pg_stats_reporter-18.0-1.el9.noarch
 
 ## 設定ファイル
 
@@ -451,7 +452,7 @@ URLのホスト名は pg_stats_reporter の実行環境にあわせて変更し�
 </table>
 
 1.  項目または設定値を省略した場合の挙動は、libpqの接続文字列のパラメータと同じです。詳しくは
-    [こちら](http://www.postgresql.jp/document/17/html/libpq-connect.html#LIBPQ-PARAMKEYWORDS)
+    [こちら](http://www.postgresql.jp/document/18/html/libpq-connect.html#LIBPQ-PARAMKEYWORDS)
     を参照してください。
 2.  ディストリビューションによっては、HTTP Server
     のドキュメントルートのデフォルトが実行ユーザのホームディレクトリになっている場合があります。そのため、PostgreSQL
@@ -523,20 +524,16 @@ A4. リポジトリDBから現在未使用の監視対象DBのインスタンス
 A5.
 ブラウザ内にJavaScriptのキャッシュが残っているために、正しく表示されていない可能性があります。ブラウザのキャッシュの削除を試してみてください。
 
-## pg_stats_reporter16からの変更点
+## pg_stats_reporter17からの変更点
 
-pg_stats_reporter 16 からの変更点は以下の通りです。
+pg_stats_reporter 17 からの変更点は以下の通りです。
 
-  - pg_statsinfo 17に対応 (pg_stats_reporter 17は pg_statsinfo
-    17のみをサポートします)
-  - 一部レポートする項目を修正しました。
-    - Backend Writer Statisticsの表示項目から、pg_stat_bgwriterで削除になった項目を削除
-	- Plansの表示項目をpg_store_plans(pg_stat_statements)の変更にあわせて修正
-    - Database Resource UsageおよびStatements Resource Usageのuser timeおよびsystem timeに表記されている単位が誤っていたのを修正
+  - pg_statsinfo 18に対応 (pg_stats_reporter 18は pg_statsinfo
+    18のみをサポートします)
 
 ## 関連項目
 
-[pg_statsinfo 17](https://github.com/ossc-db/pg_statsinfo/)
+[pg_statsinfo 18](https://github.com/ossc-db/pg_statsinfo/)
   
 
 ## 謝辞
