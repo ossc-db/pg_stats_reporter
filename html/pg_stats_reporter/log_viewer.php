@@ -11,6 +11,8 @@ require_once "../../pg_stats_reporter_lib/module/common.php";
 require_once "../../pg_stats_reporter_lib/module/make_report.php";
 require_once SMARTY_PATH . "Smarty.class.php";
 
+use Smarty\Smarty;
+
 /* global variable */
 $help_message = array();
 $error_message = array();
@@ -24,9 +26,9 @@ $smarty = new Smarty();
 $smarty->caching        = Smarty::CACHING_OFF;
 $smarty->compile_check  = true;
 $smarty->cache_lifetime = CACHE_LIFETIME;
-$smarty->cache_dir      = CACHE_DIR;
-$smarty->template_dir   = TEMPLATE_DIR;
-$smarty->compile_dir    = COMPILE_DIR;
+$smarty->setCacheDir(CACHE_DIR);
+$smarty->setTemplateDir(TEMPLATE_DIR);
+$smarty->setCompileDir(COMPILE_DIR);
 
 /* テンプレートに渡す各ライブラリのパスを設定 */
 $smarty->assign("jquery_path", JQUERY_PATH);
