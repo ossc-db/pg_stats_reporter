@@ -1,4 +1,5 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Copyright (c) 2012-2025, NTT, Inc. -->
 
 <html>
 <head>

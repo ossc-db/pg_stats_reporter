@@ -573,4 +573,4 @@ developers of these libraries.
 
 </div>
 
-Copyright (c) 2012-2025, NIPPON TELEGRAPH AND TELEPHONE CORPORATION
+Copyright (c) 2012-2025, NTT, Inc.
