@@ -7,4 +7,4 @@
 [English version here](/html/pg_stats_reporter/doc/pg_stats_reporter.md)
 
 -----
-Copyright (c) 2009-2025, NTT, Inc.
+Copyright (c) 2009-2026, NTT, Inc.

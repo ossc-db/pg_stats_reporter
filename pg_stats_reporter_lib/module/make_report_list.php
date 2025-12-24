@@ -3,7 +3,7 @@
  * pg_stats_reporter commandline mode
  * make_report_list
  *
- * Copyright (c) 2012-2025, NTT, Inc.
+ * Copyright (c) 2012-2026, NTT, Inc.
  */
 
 function makeReportList($dirString)

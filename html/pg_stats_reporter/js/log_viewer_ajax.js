@@ -1,7 +1,7 @@
 /*
  * log_viewer_ajax: Javascript
  *
- * Copyright (c) 2012-2025, NTT, Inc.
+ * Copyright (c) 2012-2026, NTT, Inc.
  */
 
 $(function(){

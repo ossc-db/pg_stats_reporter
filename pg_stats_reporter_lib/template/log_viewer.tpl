@@ -1,5 +1,6 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
-<!-- Copyright (c) 2012-2025, NTT, Inc.  -->
+<!-- Copyright (c) 2012-2026, NTT, Inc.  -->
+<!-- Portions Copyright (c) 1999 Japan PostgreSQL User Group.(PostgreSQL Turtle Logo) -->
 
 <html>
 <head>

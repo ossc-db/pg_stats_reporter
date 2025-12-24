@@ -63,7 +63,7 @@ if [ $1 = 1 ] ; then
 fi
 
 %changelog
-* Fri Dec  26 2025 - NTT OSS Center 18.0-1
+* Wed Jan   1 2026 - NTT OSS Center 18.0-1
 - pg_stats_reporter 18.0 released
 * Wed Feb  19 2025 - NTT OSS Center 17.0-1
 - pg_stats_reporter 17.0 released

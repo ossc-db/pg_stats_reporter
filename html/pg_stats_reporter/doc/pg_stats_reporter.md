@@ -573,4 +573,5 @@ developers of these libraries.
 
 </div>
 
-Copyright (c) 2012-2025, NTT, Inc.
+Copyright (c) 2012-2026, NTT, Inc.
+Portions Copyright (c) 1999 Japan PostgreSQL User Group.(PostgreSQL Turtle Logo)
